@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 상세 보기</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Header and Footer */
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Navigation */
+nav {
+    background-color: #555;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+/* Main Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    gap: 20px; /* Space between sidebar and content */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+.sidebar h3 {
+    margin-top: 0;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    margin: 10px 0;
+}
+.sidebar ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Content Section */
+.content {
+    flex: 1; /* Content expands to take up remaining space */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Post Table Sections */
+.post-header, .post-meta, .post-images, .post-content, .post-buttons {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+/* Post Header (Title Section) */
+.post-header td {
+    padding: 15px;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Post Meta Data Section */
+.post-meta td {
+    padding: 10px;
+    font-size: 1em;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+.post-meta td:last-child {
+    border-right: none;
+}
+
+/* Post Images Section */
+/* Post Images Section */
+.post-images {
+    width: 100%;
+    border-collapse: collapse;
+}
+.post-images td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Centered VS Divider */
+.vs-divider {
+    font-size: 2em;
+    color: #555;
+    font-weight: bold;
+    width: 60px; /* Fixed width to center the VS text */
+}
+
+
+/* Caption and Details */
+.caption, .details {
+    font-size: 1em;
+    color: #333;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Post Content Section */
+.post-content td {
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* Post Buttons Section */
+.post-buttons td {
+    padding: 15px;
+    text-align: center;
+}
+
+.button-container {
+    position: relative;
+}
+
+.button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.click-count {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Profile Picture Thumbnail */
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    float: left;
+}
+
+/* Comment Content Wrapper */
+.comment-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px; /* Aligns content after profile pic */
+}
+
+/* Comment Header (Author and Side) */
+.comment-header {
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-side {
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* Comment Section Container */
+.comment-section {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+}
+
+/* Comment Input Section */
+.comment-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.comment-box {
+    width: 80%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.comment-submit {
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comment-submit:hover {
+    background-color: #388E3C;
+}
+
+/* Display of Other Comments */
+.other-comments {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1em;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.comment {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-content {
+    margin-top: 5px;
+    color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>게시물 상세 보기</h1>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#">홈</a>
+        <a href="#">업체 리스트</a>
+        <a href="#">마이페이지</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <aside class="sidebar">
+            <h3>메뉴</h3>
+            <ul>
+                <li><a href="#">자유 게시판</a></li>
+                <li><a href="#">도안 게시판</a></li>
+                <li><a href="#">토론 게시판</a></li>
+            </ul>
+        </aside>
+
+        <!-- Content Section -->
+        <div class="content">
+            <!-- Title Section -->
+            <table class="post-header">
+                <tr>
+                    <td colspan="2">제목: 게시물 제목 예시</td>
+                </tr>
+            </table>
+
+            <!-- Meta Data Section with Divider Lines -->
+            <table class="post-meta">
+                <tr>
+                    <td>등록자: 작성자A</td>
+                    <td>등록일: 2024-11-01</td>
+                    <td>조회수: 120</td>
+                    <td>투표수: 25</td>
+                </tr>
+            </table>
+
+            <!-- Images Section with VS Divider -->
+            <!-- Images Section with VS Divider -->
+            <table class="post-images">
+                <tr>
+                    <td>
+                        <img src="https://via.placeholder.com/400" alt="Cake Image A">
+                        <div class="caption">케이크 사진 A</div>
+                    </td>
+                    <td class="vs-divider">VS</td>
+                    <td>
+                        <img src="https://via.placeholder.com/400" alt="Cake Image B">
+                        <div class="caption">케이크 사진 B</div>
+                    </td>
+                </tr>
+            </table>
+
+
+            <!-- Post Content Section -->
+            <table class="post-content">
+                <tr>
+                    <td colspan="2">10년지기 친구한테 줄 케이크를 사주려고 합니다. 스폰지밥을 좋아 하는거 같은데 둘중 어떤 디자인이 더 좋을까요?</td>
+                </tr>
+            </table>
+
+            <!-- Buttons Section with Click Counts -->
+            <table class="post-buttons">
+                <tr>
+                    <td class="button-container">
+                        <button class="button">케이크 A 버튼</button>
+                        <div class="click-count">Clicked: 10</div>
+                    </td>
+                    <td class="button-container">
+                        <button class="button">케이크 B 버튼</button>
+                        <div class="click-count">Clicked: 15</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="comment-section">
+                <!-- Comment Input Section -->
+                <div class="comment-input">
+                    <textarea class="comment-box" placeholder="댓글 쓰는 섹션"></textarea>
+                    <button class="comment-submit">등록</button>
+                </div>
+            
+                <!-- Display of Other Comments -->
+                <div class="other-comments">
+                    <div class="comment">
+                        <img src="https://via.placeholder.com/40" alt="User Profile" class="profile-pic">
+                        <div class="comment-content-wrapper">
+                            <div class="comment-header">
+                                <span class="comment-author">작성자B</span>
+                                <span class="user-side">(소비자 편)</span>
+                            </div>
+                            <div class="comment-content">좋은 정보 감사합니다!</div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                        <img src="https://via.placeholder.com/40" alt="User Profile" class="profile-pic">
+                        <div class="comment-content-wrapper">
+                            <div class="comment-header">
+                                <span class="comment-author">작성자C</span>
+                                <span class="user-side">(업자 편)</span>
+                            </div>
+                            <div class="comment-content">케이크 B가 정말 맛있어 보여요.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <!-- Footer Section -->
+</body>
+<footer>
+    <p>케이크 사이트 © 2024. 모든 권리 보유.</p>
+</footer>
+</html>
