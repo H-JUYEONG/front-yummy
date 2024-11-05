@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import Main from './pages/main/main';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <Routes>
 
           
-          <Route path='/' element={<AdminDashboard/>} />
+          <Route path='/' element={<Main/>} />
 
 
         </Routes>
