@@ -25,19 +25,4 @@ npm install react-icons
 - 관리자 관련 파일: `Admin` 접두사를 붙입니다.
   - 예: `AdminPanel.jsx`, `AdminSettings.jsx`
 
-##CSS 예시
-src/
-├── assets/
-│  ├── css/
-│     ├── user/
-│     │   ├── UserProfile.jsx
-│     │   └── UserSettings.jsx
-│     ├── vendor/
-│     │   ├── VendorList.jsx
-│     │   └── VendorDashboard.jsx
-│     └── admin/
-│         ├── AdminPanel.jsx
-│         └── AdminSettings.jsx
-
-
 
