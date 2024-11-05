@@ -6,11 +6,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-
-          
           <Route path='/' element={<Main/>} />
-
-
+          
         </Routes>
       </BrowserRouter>
     </div>
