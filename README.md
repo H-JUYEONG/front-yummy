@@ -27,7 +27,6 @@ npm install react-icons
 
 ##CSS 예시
 src/
-├── components/
 │   ├── user/
 │   │   ├── UserProfile.jsx
 │   │   └── UserSettings.jsx
