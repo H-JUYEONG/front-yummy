@@ -27,14 +27,17 @@ npm install react-icons
 
 ##CSS 예시
 src/
-│   ├── user/
-│   │   ├── UserProfile.jsx
-│   │   └── UserSettings.jsx
-│   ├── vendor/
-│   │   ├── VendorList.jsx
-│   │   └── VendorDashboard.jsx
-│   └── admin/
-│       ├── AdminPanel.jsx
-│       └── AdminSettings.jsx
+├── assets/
+│  ├── css/
+│     ├── user/
+│     │   ├── UserProfile.jsx
+│     │   └── UserSettings.jsx
+│     ├── vendor/
+│     │   ├── VendorList.jsx
+│     │   └── VendorDashboard.jsx
+│     └── admin/
+│         ├── AdminPanel.jsx
+│         └── AdminSettings.jsx
+
 
 
