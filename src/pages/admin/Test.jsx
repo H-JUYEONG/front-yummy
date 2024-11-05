@@ -8,9 +8,14 @@ import React from 'react';
 
 //import css  
 
-const AdminDashboard = () => {
+
+
+
+
+const Test = () => {
 
     /* ---라우터 관련 ------ */
+
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
 
@@ -42,4 +47,4 @@ const AdminDashboard = () => {
     );
 }
 
-export default AdminDashboard;
+export default Test;
