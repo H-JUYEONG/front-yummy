@@ -1,0 +1,68 @@
+@charset "utf-8"; 
+/*all.css*/
+/* 여백 초기화 */
+body, div, ul, li, dl, dt, ol, h1, h2, h3, h4, h5, h6, 
+input, fieldset, legend, p, select, table, th, td, tr,
+textarea, button, form {margin: 0; padding: 0;}
+
+body	{font-size:10; color: #333; cursor: url(../images/iconImg/cursor-pointer.png), auto;}
+
+ul, ol	{list-style-type: none; }
+a:link {text-decoration: none; color: #000000; }
+a:visited {text-decoration: none; color: #000000; }
+a:active {text-decoration: none; color: #000000; }
+a:hover {text-decoration: none; color: #000000; }
+
+
+/* .clearfix{*zoom:1;} */
+.clearfix::before, .clearfix::after {
+    display: block; 
+    content: ""; 
+    line-height: 0;
+}
+.clearfix::after {clear: both;}
+
+
+
+/*************************************************************/
+/* @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+* {
+    font-family: "Pretendard Variable", Pretendard, sans-serif;
+} */
+
+
+
+
+body{
+    /* display: flex;  Flexbox 사용 / */
+    /* justify-content: center; 수평 가운데 정렬 */
+    /*align-items: center; /* 수직 가운데 정렬 */
+    height: 100vh;  /*화면 높이의 100%*/
+}
+#wrap{
+    width: 1000px;
+}
+
+/*헤더부분*/
+#wrap #wrap-head{
+    width: 100%;
+    height: 300px; /*임시규격*/
+}
+/*메인컨텐츠(사이드+메인)*/
+#wrap #wrap-body {
+    width: 100%;
+}
+
+#wrap #wrap-side{
+    width: 40%; /*임시*/
+
+}
+#wrap #wrap-main{
+    width: 60%; /*임시*/
+}
+
+
+
+
+
+
