@@ -6,7 +6,7 @@ on:
       - 'sso'    # 'sso' 브랜치에 커밋이 발생할 때만 실행
 
 jobs:
-  create-pull-request:
+  create-pull-request:   
     runs-on: ubuntu-latest
 
     steps:
