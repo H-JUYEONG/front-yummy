@@ -12,7 +12,7 @@ import React from 'react';
 
 
 
-const AdminDashboard = () => {
+const Test = () => {
 
     /* ---라우터 관련 ------ */
 
@@ -47,4 +47,4 @@ const AdminDashboard = () => {
     );
 }
 
-export default AdminDashboard;
+export default Test;
