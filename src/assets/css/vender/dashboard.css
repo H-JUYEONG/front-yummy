@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+
+/* 메인 콘텐츠 영역 */
+.vender-content {
+    background: #f5f6fa;
+    min-height: 100vh;
+    max-width: 1500px; 
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+/* 통계 요약 섹션 */
+.dashboard-summary {
+    margin-bottom: 30px;
+}
+
+.dashboard-summary h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 1400px;  /* 가로폭 최대 1200px로 설정 */
+    margin: 0 auto;      /* 가운데 정렬을 위한 margin 설정 */
+}
+
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #27ae60; /* 강조를 위해 녹색으로 설정 */
+}
+
+/* 예약 스케쥴러 섹션 스타일 */
+.scheduler-section {
+    max-width: 1400px;  /* 예약 스케줄러의 최대 가로폭 설정 */
+    margin: 0 auto;    /* 가운데 정렬을 위한 margin 설정 */
+}
+
+.scheduler-section #calendar {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
