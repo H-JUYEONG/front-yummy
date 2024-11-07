@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< Updated upstream
 import '../../assets/css/all.css'; // 공통 초기화 스타일
-=======
-import '../assets/css/all.css';
->>>>>>> Stashed changes
 
 const VenderProductList = () => {
     const styles = {
