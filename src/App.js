@@ -7,6 +7,8 @@ import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
 import AdminTest from './pages/admin/AdminTest';
 import VenderTest from './pages/vender/VenderTest';
 
+import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+
 
 function App() {
   return (
@@ -21,6 +23,11 @@ function App() {
 
           <Route path='/admintest' element={<AdminTest/>} />
           <Route path='/vendertest' element={<VenderTest/>} />
+
+          {/*User*/}
+          <Route path='/user/userPersonalInfoEdit' element={<UserPersonalInfoEdit/>} />
+
+
         </Routes>
       </BrowserRouter>
     </div>

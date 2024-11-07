@@ -1,0 +1,133 @@
+/* Container */
+.j-container {
+    display: flex;
+    font-family: 'Pretendard', Arial, sans-serif;
+  }
+  
+  /* Sidebar */
+  .j-sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .j-sidebar-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  .j-menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .j-menu li {
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .j-menu .j-active {
+    font-weight: bold;
+    color: #f8b6c1;
+  }
+  
+  /* Main content */
+  .j-main {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .j-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+  
+  /* Form styling */
+  .j-form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .j-form input[type="text"],
+  .j-form input[type="password"],
+  .j-form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Address search button */
+  .j-address {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .j-address-search {
+    padding: 8px 12px;
+    background-color: #f8b6c1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Anniversary section */
+  .j-anniversary {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .j-add-anniversary {
+    padding: 8px 12px;
+    background-color: #f8b6c1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Buttons */
+  .j-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  
+  .j-cancel {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .j-save {
+    padding: 10px 20px;
+    background-color: #f8b6c1;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
