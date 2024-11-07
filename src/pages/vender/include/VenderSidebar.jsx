@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // react-router-dom에서 Link 가져오기
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
@@ -12,12 +13,12 @@ const VenderSidebar = () => {
                 <p><FaClipboardList /> 업체사이트 관리</p>
             </div>
             <ul className="vender-menu">
-                <li><FaHome /> 메인페이지 바로가기</li>
-                <li><FaChartBar /> 대시보드</li>
-                <li><FaChartBar /> 통계보기</li>
-                <li><FaShoppingCart /> 상품관리</li>
-                <li><FaClipboardList /> 주문관리</li>
-                <li><FaGavel /> 경매관리</li>
+                <li><Link to="/"><FaHome /> 메인페이지 바로가기</Link></li>
+                <li><Link to="/vender/dashboard"><FaChartBar /> 대시보드</Link></li>
+                <li><Link to="/vender/statistics"><FaChartBar /> 통계보기</Link></li>
+                <li><Link to="/vender/productlist"><FaShoppingCart /> 상품관리</Link></li>
+                <li><Link to="/order-management"><FaClipboardList /> 주문관리</Link></li>
+                <li><Link to="/auction-management"><FaGavel /> 경매관리</Link></li>
             </ul>
             <button className="exit-button"><FaSignOutAlt /> 로그아웃</button>
         </aside>
