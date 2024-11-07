@@ -29,6 +29,8 @@ const UserSignUpSuccess = () => {
                 value=""
                 placeholder="이메일 주소를 입력해주세요."
               />
+              <p className="user-id-ok">사용가능</p>
+              <p className="user-id-ok">중복된 이메일 입니다.</p>
             </div>
 
             <div className="input-group">
@@ -39,6 +41,7 @@ const UserSignUpSuccess = () => {
                 value=""
                 placeholder="비밀번호를 입력해주세요."
               />
+              <p className="user-pw-ok">※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.</p>
             </div>
 
             <div className="input-group">
@@ -49,6 +52,7 @@ const UserSignUpSuccess = () => {
                 value=""
                 placeholder="비밀번호 재입력"
               />
+              <p className="user-pw-ok">※ 비밀번호가 일치하지 않습니다.</p>
             </div>
 
             <div className="input-group">

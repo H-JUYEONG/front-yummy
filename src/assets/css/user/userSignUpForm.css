@@ -47,6 +47,13 @@
     margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
+.user-id-ok, .user-pw-ok {
+    padding-top: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: red;
+}
+
 .signup-area label {
     font-size: 14px;
     font-weight: bold;
