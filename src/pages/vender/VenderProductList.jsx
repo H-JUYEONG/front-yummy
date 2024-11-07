@@ -21,12 +21,26 @@ const VenderProductList = () => {
                         <section className="product-list">
                             <header className="product-list-header">
                                 <h2 className="product-list-title">상품 리스트</h2>
-                                <button
-                                    className="add-button"
-                                    onClick={() => navigate('/register_product')}
-                                >
-                                    등록하기
-                                </button>
+                                <div className="button-group">
+                                    <button
+                                        className="add-button"
+                                        onClick={() => navigate('/vender/option')}
+                                    >
+                                        옵션등록하기
+                                    </button>
+                                    <button
+                                        className="add-button"
+                                        onClick={() => navigate('/vender/designregistration')}
+                                    >
+                                        도안등록하기
+                                    </button>
+                                    <button
+                                        className="add-button"
+                                        onClick={() => navigate('/vender/registrationform')}
+                                    >
+                                        상품등록하기
+                                    </button>
+                                </div>
                             </header>
                             <table className="product-table">
                                 <thead>

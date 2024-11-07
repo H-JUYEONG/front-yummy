@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* 화면 전체 사이즈 */
+#createPage-wrap {
+    margin: 0 auto;                     /* 화면 크기에 맞게 중앙 정렬 */
+    /* background-color: blue; */
+}
+
+#createPage-wrap #createPage-nav {
+    width: 100%;                        /* 부모 너비상속 */
+    display: flex;
+    flex-direction: row;               
+    align-items: center;                
+    justify-content: space-between;     /* 항목들을 양 끝에 배치 */
+}
+
+/* 첫 번째 항목 */
+#createPage-wrap #createPage-nav li:nth-child(1) {
+    text-align: center;                 /* 첫 번째 항목을 중앙 정렬 */
+    flex: 1;                            /* 첫 번째 항목이 공간을 차지하도록 설정 */
+}
+
+/* 미리보기 */
+#createPage-wrap #createPage-nav li:last-child {
+    margin-left: auto;
+
+    border: 1px solid #000000;
+}
