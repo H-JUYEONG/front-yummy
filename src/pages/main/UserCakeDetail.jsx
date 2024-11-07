@@ -76,7 +76,7 @@ const UserCakeDetail = () => {
         { id: 'size2', name: '2호', image: '/images/size-2.jpg' },
         { id: 'size3', name: '3호', image: '/images/size-3.jpg' }
     ];
-
+    
     /* ===== 이벤트 핸들러 영역 시작 ===== */
 
     // 썸네일 이미지 클릭 시 메인 이미지 변경하는 핸들러
@@ -136,7 +136,7 @@ const UserCakeDetail = () => {
     const renderTabContent = () => {
         switch (selectedTab) {
             case '상품 상세정보':
-                return <div className="tab-placeholder">상품 상세정보 영역</div>;
+                return <div className="tab-placeholder">상품 상세정보</div>;
             case '배송/교환/환불':
                 return <div className="tab-placeholder">배송/교환/환불 영역</div>;
             case '상품후기':
@@ -357,7 +357,7 @@ const UserCakeDetail = () => {
                     <div className="right-section">
                         {/* 상품 기본 정보 */}
                         <div className="product-info">
-                            <h2>Lettering 데이시_레터크림 (1호,2호)</h2>
+                            <h2>Lettering 맛있는 레터링 크림케이크 (1호,2호)</h2>
                             <p className="price">46,000 won</p>
                         </div>
 
