@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
+import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
 
-import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
 import VenderDashboard from './pages/vender/venderDashboard';
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
@@ -22,6 +22,8 @@ import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 //board
 import DebateInsert from './pages/board/DebateInsert'
 import DebateList from './pages/board/DebateList'
+import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProductsDetail';
+
 
 
 function App() {
@@ -34,8 +36,8 @@ function App() {
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-          <Route path='/ProductDescriptionEditor' element={<ProductDescriptionEditor />} />
-
+          <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
+          <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
 
           <Route path='/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
