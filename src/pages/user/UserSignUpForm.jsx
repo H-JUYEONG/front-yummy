@@ -16,39 +16,70 @@ const UserSignUpSuccess = () => {
 
       <div className="user-signup">
         <img src="https://via.placeholder.com/100" alt="회사 로고" />
-        <h2>필수사항</h2>
+        <h1>회원가입</h1>
 
+        <h2>필수사항</h2>
         <div className="signup-area">
           <form>
-            <label htmlFor="user-id">아이디(이메일)</label>
-            <input
-              id="user-id"
-              type="text"
-              value=""
-              placeholder="이메일 주소를 입력해주세요."
-            />
-            <label htmlFor="user-pw">비밀번호</label>
-            <input
-              id="user-pw"
-              type="password"
-              value=""
-              placeholder="비밀번호를 입력해주세요."
-            />
-            <label htmlFor="user-pw-check">비밀번호 확인</label>
-            <input
-              id="user-pw-check"
-              type="password"
-              value=""
-              placeholder="비밀번호 재입력"
-            />
+            <div className="input-group">
+              <label htmlFor="user-id">아이디(이메일)</label>
+              <input
+                id="user-id"
+                type="text"
+                value=""
+                placeholder="이메일 주소를 입력해주세요."
+              />
+            </div>
 
-            <label htmlFor="user-name">이름</label>
-            <input id="user-name" type="text" value="" placeholder="이름을 입력해주세요" />
+            <div className="input-group">
+              <label htmlFor="user-pw">비밀번호</label>
+              <input
+                id="user-pw"
+                type="password"
+                value=""
+                placeholder="비밀번호를 입력해주세요."
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="user-pw-check">비밀번호 확인</label>
+              <input
+                id="user-pw-check"
+                type="password"
+                value=""
+                placeholder="비밀번호 재입력"
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="user-name">이름</label>
+              <input
+                id="user-name"
+                type="text"
+                value=""
+                placeholder="이름을 입력해주세요."
+              />
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="user-phone">휴대폰번호</label>
+              <div className="phone-input-wrapper">
+                <input
+                  id="user-phone"
+                  type="text"
+                  value=""
+                  placeholder="'-'제외하고 숫자만 입력해주세요."
+                />
+                <button type="button" className="request-code-btn">
+                  인증번호 요청
+                </button>
+              </div>
+            </div>
 
             <div className="user-signup-btn">
               <button type="submit">회원가입</button>
             </div>
-          </form>  
+          </form>
         </div>
       </div>
 
