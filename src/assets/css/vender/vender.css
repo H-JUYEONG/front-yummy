@@ -1,42 +1,42 @@
-/* 공통 초기화는 all.css에 있음 */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-/* 업체 페이지 사이드바 */
+
+/* 사이드바 스타일 수정 */
 .vender-sidebar {
     width: 250px;
-    background-color: #ffffff;
-    color: #2c3e50;
-    height: 100vh;
+    background-color: #181414;
+    color: #ffffff;
+    height: calc(100vh - 40px);
+    /* 위아래 여백 고려 */
     padding: 20px;
     position: fixed;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    left: 20px;
+    /* 왼쪽 여백 추가 */
+    top: 20px;
+    /* 위쪽 여백 추가 */
+    box-shadow: 2px 0 5px rgba(141, 138, 123, 0.1);
+    overflow-y: auto;
+    border-radius: 16px;
+    /* 둥근 모서리 */
+    z-index: 10;
+    /* 다른 콘텐츠 위에 나오도록 설정 */
+    font-family: 'IBM Plex Sans KR', sans-serif;
+   
 }
 
-.vender-logo img {
-    max-width: 100%;
-    margin-bottom: 20px;
-}
-
+/* 프로필 영역 */
 .vender-profile {
     text-align: center;
     margin-bottom: 30px;
 }
 
-.profile-img {
+.vender-profile img {
     border-radius: 50%;
     width: 80px;
     height: 80px;
 }
 
-.vender-profile h3 {
-    margin-top: 10px;
-    font-size: 1.2rem;
-}
-
-.vender-profile p {
-    font-size: 0.9rem;
-    color: #7f8c8d;
-}
-
+/* 사이드바 메뉴 */
 .vender-menu {
     list-style: none;
     padding: 0;
@@ -47,119 +47,45 @@
     cursor: pointer;
     transition: background 0.3s;
     font-weight: 500;
-    color: #333;
-}
-
-.vender-menu li.active, .vender-menu li:hover {
-    background-color: #f0f0f0;
+    color: #ffffff;
     border-radius: 8px;
+    /* 메뉴 항목의 둥근 모서리 */
 }
 
+.vender-menu li.active,
+.vender-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+/* 로그아웃 버튼 */
 .exit-button {
     margin-top: 30px;
-    background: #d63031;
+    background: #ff7777;
     color: #ffffff;
     padding: 10px 15px;
     border: none;
     cursor: pointer;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 8px;
+    /* 둥근 모서리 */
+    transition: background 0.3s;
 }
 
-/* 업체 메인 콘텐츠 */
-.vender-main-content {
-    margin-left: 270px;
-    padding: 30px;
-    background: #f5f6fa;
-    min-height: 100vh;
-}
-
-.dashboard-content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    grid-auto-rows: minmax(200px, auto);
-}
-
-.performance-card, .activity-card, .engagement-card {
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
-    background-color: #ffffff;
-}
-
-.performance-card {
-    background-color: #2c3e50;
-    color: #ffffff;
-}
-
-.performance-metrics {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-}
-
-.performance-details {
-    list-style: none;
-    padding: 0;
-}
-
-.performance-details li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.status-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.red {
+.exit-button:hover {
     background: #e74c3c;
+    /* 호버 시 약간 밝게 변경 */
 }
 
-.blue {
-    background: #3498db;
-}
-
-.beige {
-    background: #f39c12;
-}
-
-.activity-card {
-    background: #eaf7fb;
-}
-
-.engagement-section {
-    display: flex;
-    gap: 20px;
-}
-
-.engagement-card {
-    background: #fff3e0;
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.engagement-value {
-    font-size: 2rem;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.change {
-    font-size: 1.2rem;
-    margin-left: 5px;
-}
-
-.up {
-    color: #27ae60;
-}
-
-.down {
-    color: #c0392b;
+/* 오른쪽 메인 콘텐츠 스타일 수정 */
+.vender-content {
+    /* 사이드바 너비 + 왼쪽 여백 */
+    margin-top: 20px;
+    /* 위쪽 마진 */
+    margin-left: 330px;
+    padding: 20px;
+    width: calc(100% - 310px);
+    /* 사이드바와 좌우 여백 고려 */
+    box-sizing: border-box;
+    /* 패딩과 너비를 포함하도록 박스 크기 설정 */
+    border-radius: 16px; /* 콘텐츠 섹션의 모서리를 둥글게 */
 }
