@@ -14,9 +14,10 @@ const UserDebateView = () => {
 
             {/* Navigation */}
             <nav className="j-nav">
-                <a href="#">홈</a>
-                <a href="#">업체 리스트</a>
-                <a href="#">마이페이지</a>
+                {/* href="#" 대신 button 요소로 대체 */}
+                <button onClick={() => alert("홈으로 이동")}>홈</button>
+                <button onClick={() => alert("업체 리스트로 이동")}>업체 리스트</button>
+                <button onClick={() => alert("마이페이지로 이동")}>마이페이지</button>
             </nav>
 
             {/* Main Content */}
@@ -37,19 +38,19 @@ const UserDebateView = () => {
                 {/* Images Section */}
                 <div className="j-images-section">
                     <div className="j-image-container">
-                        <img src="https://via.placeholder.com/300" alt="Cake Image A" />
+                        <img src="https://via.placeholder.com/300" alt="케이크 A" />
                         <div className="j-caption">케이크 사진 A</div>
                     </div>
                     <div className="j-vs-divider">VS</div>
                     <div className="j-image-container">
-                        <img src="https://via.placeholder.com/300" alt="Cake Image B" />
+                        <img src="https://via.placeholder.com/300" alt="케이크 B" />
                         <div className="j-caption">케이크 사진 B</div>
                     </div>
                 </div>
 
                 {/* Post Content Section */}
                 <div className="j-post-content">
-                    <p>10년지기 친구한테 줄 케이크를 사주려고 합니다. 스폰지밥을 좋아 하는 거 같은데 둘 중 어떤 디자인이 더 좋을까요?</p>
+                    <p>10년지기 친구한테 줄 케이크를 사주려고 합니다. 스폰지밥을 좋아하는 것 같은데 둘 중 어떤 디자인이 더 좋을까요?</p>
                 </div>
 
                 {/* Voting Buttons Section */}
@@ -68,7 +69,7 @@ const UserDebateView = () => {
                     {/* Display of Other Comments */}
                     <div className="j-other-comments">
                         <div className="j-comment">
-                            <img src="https://via.placeholder.com/40" alt="User Profile" className="j-profile-pic" />
+                            <img src="https://via.placeholder.com/40" alt="작성자B의 프로필" className="j-profile-pic" />
                             <div className="j-comment-content">
                                 <span className="j-comment-author">작성자B</span>
                                 <span className="j-user-side">(소비자 편)</span>
@@ -76,7 +77,7 @@ const UserDebateView = () => {
                             </div>
                         </div>
                         <div className="j-comment">
-                            <img src="https://via.placeholder.com/40" alt="User Profile" className="j-profile-pic" />
+                            <img src="https://via.placeholder.com/40" alt="작성자C의 프로필" className="j-profile-pic" />
                             <div className="j-comment-content">
                                 <span className="j-comment-author">작성자C</span>
                                 <span className="j-user-side">(업자 편)</span>
