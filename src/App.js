@@ -16,6 +16,13 @@ import UserLoginForm from './pages/user/userLoginForm';
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+// user jeff userPersonalInfoEdit
+import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+
+//board
+import DebateInsert from './pages/board/DebateInsert'
+import DebateList from './pages/board/DebateList'
+
 
 function App() {
   return (
@@ -40,6 +47,13 @@ function App() {
           <Route path='/admintest' element={<AdminTest/>} />
           <Route path='/vender/statistics' element={<VenderStatistics/>} />
           <Route path='/user/login' element={<UserLoginForm/>} />
+
+          {/* user - jeff */}
+          <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit/>} />
+
+          {/*board*/}
+          <Route path='/board' element={<DebateList/>} />
+          Route path='/debateinsert' element={<DebateInsert/>} 
 
         </Routes>
       </BrowserRouter>
