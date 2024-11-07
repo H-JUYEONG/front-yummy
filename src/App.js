@@ -8,6 +8,8 @@ import VenderTest from './pages/vender/VenderTest';
 
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 
+import DebateList from './pages/board/DebateList';
+
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           {/*User*/}
           <Route path='/user/userPersonalInfoEdit' element={<UserPersonalInfoEdit/>} />
 
+          {/*Board */}
+          <Route path='/board' element={<DebateList/>} />
 
         </Routes>
       </BrowserRouter>
