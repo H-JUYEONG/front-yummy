@@ -4,22 +4,21 @@ import VenderProductList from './pages/vender/VenderProductList';
 import VenderProduct from './pages/vender/VenderProduct';
 import VenderStatistics from './pages/vender/VenderStatistics';
 import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
-import AdminTest from './pages/admin/AdminTest';
-import VenderDashboard from './pages/vender/VenderDashboard';
+import userMyPageEdit_jeff from './pages/user/userMyPageEdit_jeff';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/vender/dashboard' element={<VenderDashboard />} />
-          <Route path='/vender/statistics' element={<VenderStatistics />} />
-          <Route path='/vender/productlist' element={<VenderProductList />} />
-          <Route path='/vender/product' element={<VenderProduct />} />
-          <Route path='/ProductDescriptionEditor' element={<ProductDescriptionEditor />} />
+          <Route path='/' element={<Main/>} />
+          <Route path='/vender/dashboard' element={<VenderDashboard/>} />
+          <Route path='/vender/productlist' element={<VenderProductList/>} />
+          <Route path='/vender/product' element={<VenderProduct/>} />
+          <Route path='/ProductDescriptionEditor' element={<ProductDescriptionEditor/>} />
 
-          <Route path='/admintest' element={<AdminTest />} />
+          <Route path='/userMyPageEdit_jeff' element={<userMyPageEdit_jeff/>} />
+
         </Routes>
       </BrowserRouter>
     </div>
