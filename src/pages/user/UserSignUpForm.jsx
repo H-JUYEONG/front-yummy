@@ -48,7 +48,7 @@ const UserSignUpSuccess = () => {
             <div className="user-signup-btn">
               <button type="submit">회원가입</button>
             </div>
-          </form>
+          </form>  
         </div>
       </div>
 
