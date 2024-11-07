@@ -1,6 +1,6 @@
 // Import libraries
 import React from 'react';
-import '../../assets/css/board/debateList.css';
+import '../../assets/css/user/debateList.css';
 import '../../assets/css/all.css';
 // Import components (if any additional components are needed)
 
