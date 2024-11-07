@@ -1,121 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-.vender-container{
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
 
-/* 대시보드 메인 콘텐츠 */
-.vender-main-content {
-    padding: 30px;
+/* 메인 콘텐츠 영역 */
+.vender-content {
     background: #f5f6fa;
     min-height: 100vh;
-}
-
-.dashboard-content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    grid-auto-rows: minmax(200px, auto);
+    max-width: 1500px; 
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
-
-/* 통계 요약 카드 섹션 */
-.summary-card-section {
-    display: flex;
-    gap: 20px;
+/* 통계 요약 섹션 */
+.dashboard-summary {
     margin-bottom: 30px;
 }
 
-.summary-card {
-    background: #ffffff;
+.dashboard-summary h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 1400px;  /* 가로폭 최대 1200px로 설정 */
+    margin: 0 auto;      /* 가운데 정렬을 위한 margin 설정 */
+}
+
+
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    flex: 1;
     text-align: center;
 }
 
-.summary-card h3 {
+.card h3 {
+    font-size: 1.2em;
     margin-bottom: 10px;
-    font-size: 1.2rem;
+    color: #333;
 }
 
-.summary-card p {
-    font-size: 1.5rem;
+.card p {
+    font-size: 1.5em;
     font-weight: bold;
+    color: #27ae60; /* 강조를 위해 녹색으로 설정 */
 }
 
-/* 차트 섹션 스타일 */
-.chart-section {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+/* 예약 스케쥴러 섹션 스타일 */
+.scheduler-section {
+    max-width: 1400px;  /* 예약 스케줄러의 최대 가로폭 설정 */
+    margin: 0 auto;    /* 가운데 정렬을 위한 margin 설정 */
 }
 
-.filter-section {
-    margin-bottom: 20px;
-}
-
-.select-filter {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 1rem;
-}
-
-/* 리뷰 분석 섹션 */
-.review-analysis-section {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.review-chart-section {
-    display: flex;
-    justify-content: space-around;
+.scheduler-section #calendar {
     margin-top: 20px;
-}
-
-.doughnut-chart {
-    width: 150px;
-    height: 150px;
-}
-
-.word-cloud-placeholder {
-    width: 100%;
-    height: 200px;
-    background-color: #eee;
-    margin-top: 20px;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.word-cloud-word {
-    font-size: 1rem;
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-/* 차트 섹션 */
-.chart-section {
-    background: #ffffff;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.filter-section {
-    margin-bottom: 20px;
-}
-
-.select-filter {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 1rem;
 }
