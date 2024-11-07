@@ -20,9 +20,9 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 
 //board
-import DebateInsert from './pages/board/DebateInsert'
-import DebateList from './pages/board/DebateList'
-
+import UserDebateInsert from './pages/user/UserDebateInsert';
+import UserDebateList from './pages/user/UserDebateList';
+import UserDebateView from './pages/user/UserDebateView';
 
 function App() {
   return (
@@ -50,10 +50,9 @@ function App() {
 
           {/* user - jeff */}
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit/>} />
-
-          {/*board*/}
-          <Route path='/board' element={<DebateList/>} />
-          <Route path='/debateinsert' element={<DebateInsert/>}/> 
+          <Route path='/board' element={<UserDebateList/>} />
+          <Route path='/board/debateinsert' element={<UserDebateInsert/>}/> 
+          <Route path='/board/boardview' element={<UserDebateView/>}/>
 
         </Routes>
       </BrowserRouter>
