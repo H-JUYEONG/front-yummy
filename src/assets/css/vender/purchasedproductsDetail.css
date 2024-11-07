@@ -1,37 +1,70 @@
-
 /* 주문 정보 섹션 */
-.purchasedproductsDetail-info h1 {
+.purchasedproductsDetail-info {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.purchasedproductsDetail-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* 텍스트 섹션 */
+.purchasedproductsDetail-text {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.purchasedproductsDetail-text h1 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
 }
 
-.purchasedproductsDetail-info h2 {
-    font-size: 20px;
-    color: #444;
+.purchasedproductsDetail-text h2 {
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
 .purchasedproductsDetail-basic-info p {
     font-size: 16px;
+    color: #333;
     margin: 5px 0;
 }
 
+/* 이미지 섹션 */
 .purchasedproductsDetail-images {
     display: flex;
+    flex-direction: row;
     gap: 20px;
-    margin-top: 20px;
 }
 
 .purchasedproductsDetail-image-box {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 150px;
 }
 
 .purchasedproductsDetail-image-box img {
-    width: 100px;
-    height: 100px;
-    border: 1px solid #ddd;
+    width: 100%;
+    height: auto;
     border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-image-box p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
 }
 
 /* 사진 및 영상 전달 섹션 */
@@ -42,11 +75,67 @@
     border: 1px solid #ddd;
     border-radius: 8px;
 }
-
 .purchasedproductsDetail-media-delivery h2 {
     font-size: 18px;
     color: #444;
     margin-bottom: 15px;
+}
+.purchasedproductsDetail-media-box {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+.purchasedproductsDetail-media-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    background-color: #f9f9f9;
+    text-align: center;
+    position: relative;
+}
+
+
+.purchasedproductsDetail-media-item h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.purchasedproductsDetail-media-item p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-media-item button {
+    padding: 8px 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.purchasedproductsDetail-media-item button:hover {
+    background-color: #555;
+}
+
+.purchasedproductsDetail-media-item .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+}
+
+.purchasedproductsDetail-media-item .close-icon:hover {
+    color: #666;
 }
 
 .purchasedproductsDetail-media-buttons button {
@@ -67,40 +156,61 @@
 .purchasedproductsDetail-live-broadcast {
     margin-top: 30px;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #333;
+    color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
+    text-align: center;
 }
 
 .purchasedproductsDetail-live-broadcast h2 {
     font-size: 18px;
-    color: #444;
+    color: white;
     margin-bottom: 15px;
 }
 
-.purchasedproductsDetail-live-video {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.purchasedproductsDetail-live-item {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #222;
+    text-align: center;
+    color: white;
+    position: relative;
+    width: 250px;
+    margin: 0 auto;
 }
 
-.purchasedproductsDetail-live-info p {
+.purchasedproductsDetail-live-item p {
     font-size: 14px;
-    color: #555;
     margin-bottom: 10px;
 }
 
-.purchasedproductsDetail-live-info button {
-    padding: 10px 15px;
-    background-color: #ff4d4d;
+.purchasedproductsDetail-live-item button {
+    padding: 8px 12px;
+    background-color: #444;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
 }
 
-.purchasedproductsDetail-live-info button:hover {
-    background-color: #cc0000;
+.purchasedproductsDetail-live-item button:hover {
+    background-color: #666;
+}
+
+.purchasedproductsDetail-live-item .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.purchasedproductsDetail-live-item .close-icon:hover {
+    color: #888;
 }
 
 /* 주문 상태 변경 섹션 */
