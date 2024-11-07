@@ -1,6 +1,5 @@
 .user-login-box {
-    width: 500px;
-    border: 1px solid green;
+    width: 400px;
     margin: 0 auto;
     padding: 20px 0;
     text-align: center;
@@ -17,14 +16,25 @@
     align-items: center;
     gap: 10px;
     width: 100%;
-    border: 1px solid red;
 }
 
 .login-type-item {
     flex: 1;
-    padding: 30px 0;
-    border: 1px solid blue;
+    min-height: 80px; /* 버튼 높이를 일정하게 유지 */
+    /* padding: 10px 0; */
+    border: 1px solid rgb(210, 182, 255);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color:#686868;
+}
+
+.login-type-item p {
+    font-size: 11px;
+    margin: 0; /* 기본 여백 제거 */
 }
 
 .user-loginform {
@@ -62,7 +72,7 @@
 }
 
 .user-login-btn {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .user-login-btn button {
@@ -71,4 +81,59 @@
     border: none;
     color: #ffffff;
     background-color: rgb(210, 182, 255);
+}
+
+.user-login-id-save {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-input-chk-left {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #686868;
+    line-height: 1.5;
+}
+
+.user-input-chk-left input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    transform-origin: left;
+    accent-color: #d2b6ff;
+}
+
+.user-txt-chk-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-txt-chk-right a {
+    font-size: 13px;
+    font-weight: bold;
+    color: #686868;
+    margin-left: 10px;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+.user-txt-chk-right a:first-child::after {
+    content: " | ";
+    color: #686868;
+    font-weight: normal;
+    margin-left: 10px;
+    line-height: 1;
+}
+
+#user-login-list button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    color: #ffffff;
+    background-color: rgb(148, 175, 255);
 }

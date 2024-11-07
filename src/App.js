@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
-import VenderDashboard from './pages/vender/VenderDashboard';
+import VenderDashboard from './pages/vender/venderDashboard';
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderProduct from './pages/vender/VenderProduct';
 import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';

@@ -28,6 +28,7 @@ const UserLoginForm = () => {
             <div className="login-type-item">
               <Link to="#" rel="noreferrer noopener">
                 업체 회원가입
+                <p>(개인, 법인사업자)</p>
               </Link>
             </div>
           </div>
@@ -63,11 +64,28 @@ const UserLoginForm = () => {
             <span>아이디 저장</span>
           </div>
           <div className="user-txt-chk-right">
-dsd
+            <Link to="#" rel="noreferrer noopener">
+              아이디찾기
+            </Link>
+            <Link to="#" rel="noreferrer noopener">
+              비밀번호찾기
+            </Link>
           </div>
         </div>
 
-
+        {/* 로그인 종류 리스트 */}
+        <div id="user-login-list">
+          {/* <div id="googleIdLogin">
+            <button>구글 로그인</button>
+          </div>
+          <div id="naverIdLogin">
+            <button>네이버 로그인</button>
+          </div> */}
+          <div id="kakaoIdLogin">
+            <button>카카오 로그인</button>
+          </div>
+        </div>
+        {/* //로그인 종류 리스트 */}
       </div>
       {/* //로그인 최상위 박스 */}
 
