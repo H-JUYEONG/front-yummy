@@ -53,7 +53,7 @@ function App() {
 
           {/*board*/}
           <Route path='/board' element={<DebateList/>} />
-          Route path='/debateinsert' element={<DebateInsert/>} 
+          <Route path='/debateinsert' element={<DebateInsert/>}/> 
 
         </Routes>
       </BrowserRouter>
