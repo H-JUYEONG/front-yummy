@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+/* 전체 컨테이너 스타일 */
+.vender-content {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
+    padding: 24px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); /* 더 부드러운 그림자 */
+    transition: transform 0.3s;
+}
+
+/* 상품 리스트 제목 및 등록하기 버튼을 포함하는 헤더 */
+.product-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* 상품 리스트 제목 스타일 */
+.product-list-title {
+    font-size: 2em; /* 크고 굵은 글씨로 제목 강조 */
+    font-weight: 600;
+    color: #222; /* 더 진한 색상으로 강조 */
+}
+
+/* 등록하기 버튼 스타일 */
+.add-button {
+    background-color: #4f46e5; /* 세련된 보라색 계열 */
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.add-button:hover {
+    background-color: #4338ca; /* 호버 시 더 어두운 보라색 */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transform: translateY(-3px);
+}
+
+/* 상품 테이블 스타일 */
+.product-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px; /* 행 간 간격 추가하여 현대적인 느낌 */
+    margin-top: 20px;
+}
+
+.product-table th,
+.product-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e6e8ec;
+}
+
+/* 테이블 헤더 스타일 */
+.product-table th {
+    background-color: #f3f4f6; /* 더 밝은 배경색 */
+    font-weight: 600;
+    color: #333; /* 진한 색상 */
+    border-radius: 8px 8px 0 0; /* 테이블 헤더 모서리 둥글게 */
+}
+
+/* 짝수 행과 홀수 행 배경색 변경 (가독성 향상) */
+.product-table tbody tr {
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.product-table tbody tr:nth-child(odd) {
+    background-color: #f9fafb; /* 좀 더 세련된 회색 */
+}
+
+/* 마우스를 올렸을 때 강조 효과 */
+.product-table tbody tr:hover {
+    background-color: #eef2ff; /* 아주 연한 파란색으로 강조 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 버튼 스타일 */
+.edit-button,
+.delete-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* 수정 버튼 스타일 */
+.edit-button {
+    background-color: #34d399; /* 세련된 민트색 */
+    color: #ffffff;
+}
+
+.edit-button:hover {
+    background-color: #059669; /* 더 어두운 민트색 */
+    transform: translateY(-2px);
+}
+
+/* 삭제 버튼 스타일 */
+.delete-button {
+    background-color: #f87171; /* 밝은 빨간색 */
+    color: #ffffff;
+}
+
+.delete-button:hover {
+    background-color: #e11d48; /* 더 진한 빨간색 */
+    transform: translateY(-2px);
+}
+
+/* 반응형 처리 */
+@media (max-width: 768px) {
+    .product-list-header {
+        flex-direction: column; /* 좁은 화면에서는 제목과 버튼이 수직으로 배치되도록 설정 */
+        align-items: flex-start;
+    }
+
+    .add-button {
+        margin-top: 10px;
+    }
+
+    .product-table th,
+    .product-table td {
+        padding: 12px; /* 좁은 화면에서는 패딩을 줄여 공간 절약 */
+    }
+}
