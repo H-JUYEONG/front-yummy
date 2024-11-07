@@ -6,6 +6,11 @@
     text-align: center;
 }
 
+.user-login-box h1 {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
 .user-login-type {
     display: flex;
     justify-content: center;
@@ -54,4 +59,16 @@
 
 .user-loginform label {
     display: none;
+}
+
+.user-login-btn {
+    margin-top: 10px;
+}
+
+.user-login-btn button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    color: #ffffff;
+    background-color: rgb(210, 182, 255);
 }

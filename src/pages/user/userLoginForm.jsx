@@ -33,6 +33,7 @@ const UserLoginForm = () => {
           </div>
         </div>
 
+        {/* 로그인폼 */}
         <div className="user-loginform">
           <form>
             <label htmlFor="user-id"></label>
@@ -48,9 +49,27 @@ const UserLoginForm = () => {
               value=""
               placeholder="비밀번호를 입력해주세요."
             />
+            <div className="user-login-btn">
+              <button type="submit">로그인</button>
+            </div>
           </form>
         </div>
+        {/* //로그인폼 */}
+
+        <div className="user-login-id-save">
+          <div className="user-input-chk-left">
+            <label htmlFor="user-id-save"></label>
+            <input type="checkbox" id="user-id-save" name="" value="" />
+            <span>아이디 저장</span>
+          </div>
+          <div className="user-txt-chk-right">
+dsd
+          </div>
+        </div>
+
+
       </div>
+      {/* //로그인 최상위 박스 */}
 
       {/* Footer */}
       <footer className="full-width">
