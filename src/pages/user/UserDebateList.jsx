@@ -4,7 +4,7 @@ import '../../assets/css/board/debateList.css';
 import '../../assets/css/all.css';
 // Import components (if any additional components are needed)
 
-const DiscussionBoard = () => {
+const UserDebateList = () => {
     return (
         <div id="wrap" className="text-center">
             {/* Header */}
@@ -102,4 +102,4 @@ const DiscussionBoard = () => {
     );
 };
 
-export default DiscussionBoard;
+export default UserDebateList;

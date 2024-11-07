@@ -18,10 +18,8 @@ import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 // user jeff userPersonalInfoEdit
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
-
-//board
-import DebateInsert from './pages/board/DebateInsert'
-import DebateList from './pages/board/DebateList'
+import UserDebateInsert from './pages/user/UserDebateInsert'
+import UserDebateList from './pages/user/UserDebateList'
 
 
 function App() {
@@ -52,8 +50,8 @@ function App() {
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit/>} />
 
           {/*board*/}
-          <Route path='/board' element={<DebateList/>} />
-          Route path='/debateinsert' element={<DebateInsert/>} 
+          <Route path='/board' element={<UserDebateList/>} />
+          Route path='/debateinsert' element={<UserDebateInsert/>} 
 
         </Routes>
       </BrowserRouter>
