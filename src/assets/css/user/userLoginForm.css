@@ -21,7 +21,6 @@
 .login-type-item {
     flex: 1;
     min-height: 80px; /* 버튼 높이를 일정하게 유지 */
-    /* padding: 10px 0; */
     border: 1px solid rgb(210, 182, 255);
     text-align: center;
     display: flex;
@@ -57,6 +56,12 @@
     border: 1px solid #ccc;
     box-sizing: border-box;
     font-size: 16px;
+     margin-top: -1px;
+}
+
+/* 첫 번째 input에는 margin-top을 주지 않습니다 */
+.user-loginform input:first-of-type {
+    margin-top: 0;
 }
 
 .user-loginform input:focus {
