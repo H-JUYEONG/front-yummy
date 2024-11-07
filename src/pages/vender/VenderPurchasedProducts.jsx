@@ -68,7 +68,7 @@ const VenderPurchasedProducts = () => {
                                     <td>{order.receiveMethod}</td>
                                     <td>{order.status}</td>
                                     <td>
-                                        <button onClick={() => navigate(`/order-detail/${order.id}`)}>보기</button>
+                                        <button onClick={() => navigate(`/vender/purchasedproductsdetail`)}>보기</button>
                                     </td>
                                 </tr>
                             ))}

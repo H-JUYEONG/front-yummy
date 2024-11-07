@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../../assets/css/all.css'; // 공통 초기화 및 전역 css
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/purchasedproductsDetail.css'; // 주문 상세 페이지 전용 스타일
 import VenderSidebar from './include/VenderSidebar';
+
 const PurchasedProductsDetail = () => {
     const [status, setStatus] = useState("제작 중");
     const [isRecording, setIsRecording] = useState(false);
@@ -11,68 +12,134 @@ const PurchasedProductsDetail = () => {
     const videoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const chunks = useRef([]);
+    const [isLive, setIsLive] = useState(false);
+    const [notificationTimeout, setNotificationTimeout] = useState(null);
+    const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
 
-    const handleStatusChange = (e) => {
-        setStatus(e.target.value);
+    const handleStatusChange = (newStatus) => {
+        setStatus(newStatus);
+        alert(`상태가 '${newStatus}'로 변경되었습니다.`);
     };
-    // 웹캠 사진 촬영
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setSidebarOpen(true);
+            } else {
+                setSidebarOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!isSidebarOpen);
+    };
+ // 웹캠 사진 촬영 (모바일 지원)
     const takePhoto = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = videoRef.current;
-        video.srcObject = stream;
-        video.play();
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const video = videoRef.current;
+            video.srcObject = stream;
+            video.play();
 
-        setTimeout(() => {
-            const canvas = document.createElement("canvas");
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const context = canvas.getContext("2d");
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL("image/png");
-            setImageUrl(dataUrl);
+            setTimeout(() => {
+                const canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const context = canvas.getContext("2d");
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL("image/png");
+                setImageUrl(dataUrl);
 
-            // 여기에서 서버에 이미지 업로드 요청 수행 가능
-            stream.getTracks().forEach(track => track.stop()); // 스트림 종료
-
-            alert("사진이 촬영되어 고객에게 전송되었습니다.");
-        }, 1000); // 1초 후에 촬영
+                stream.getTracks().forEach(track => track.stop());
+                alert("사진이 촬영되어 저장되었습니다.");
+            }, 1000);
+        } catch (error) {
+            alert("카메라 접근 권한이 필요합니다.");
+        }
     };
 
-    // 웹캠 영상 촬영 시작
+    // 웹캠 영상 촬영 시작 (모바일 지원)
     const startRecording = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "video/webm" });
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "video/webm" });
 
-        mediaRecorderRef.current.ondataavailable = (event) => {
-            chunks.current.push(event.data);
-        };
+            mediaRecorderRef.current.ondataavailable = (event) => {
+                chunks.current.push(event.data);
+            };
 
-        mediaRecorderRef.current.onstop = () => {
-            const blob = new Blob(chunks.current, { type: "video/webm" });
-            const videoUrl = URL.createObjectURL(blob);
-            setVideoUrl(videoUrl);
+            mediaRecorderRef.current.onstop = () => {
+                const blob = new Blob(chunks.current, { type: "video/webm" });
+                const videoUrl = URL.createObjectURL(blob);
+                setVideoUrl(videoUrl);
+                chunks.current = [];
+                alert("영상이 촬영되어 저장되었습니다.");
+            };
 
-            // 여기에서 서버에 비디오 업로드 요청 수행 가능
-            alert("영상이 촬영되어 고객에게 전송되었습니다.");
-            chunks.current = [];
-        };
-
-        mediaRecorderRef.current.start();
-        setIsRecording(true);
-        videoRef.current.srcObject = stream;
+            mediaRecorderRef.current.start();
+            videoRef.current.srcObject = stream;
+        } catch (error) {
+            alert("카메라 접근 권한이 필요합니다.");
+        }
     };
 
     // 웹캠 영상 촬영 종료
     const stopRecording = () => {
         mediaRecorderRef.current.stop();
         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
-        setIsRecording(false);
     };
+
+    // 알람 발송 함수
+    const sendNotification = (message) => {
+        alert(message); // 알람 발송 예시 (서버 API 호출로 대체 가능)
+        console.log("알람 발송:", message);
+    };
+
+    // 실시간 촬영 시작 함수
+    const startLiveBroadcast = async () => {
+        const timeout = setTimeout(() => {
+            sendNotification("실시간 촬영이 10분 후에 시작됩니다.");
+        }, 10 * 60 * 1000);
+
+        setNotificationTimeout(timeout);
+        setIsLive(true);
+        sendNotification("실시간 촬영이 시작되었습니다. 고객에게 알림이 발송되었습니다.");
+
+        videoRef.current.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
+    };
+
+    // 실시간 촬영 종료 함수
+    const stopLiveBroadcast = () => {
+        clearTimeout(notificationTimeout);
+        setNotificationTimeout(null);
+
+        if (videoRef.current.srcObject) {
+            videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
+            videoRef.current.srcObject = null;
+        }
+
+        setIsLive(false);
+        sendNotification("실시간 촬영이 종료되었습니다.");
+    };
+
+    // 컴포넌트가 언마운트 될 때 타이머 정리
+  useEffect(() => {
+        return () => {
+            if (notificationTimeout) clearTimeout(notificationTimeout);
+        };
+    }, [notificationTimeout]);
 
     return (
         <div className="vender-container">
-            {/* 사이드바 */}
-            <VenderSidebar />
+            <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
+            <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar} />
+            <button className="hamburger-menu" onClick={toggleSidebar}>
+                ☰
+            </button>
             <div className="vender-content">
                 <section className="purchasedproductsDetail-info">
                     <div className="purchasedproductsDetail-content-box">
@@ -107,45 +174,59 @@ const PurchasedProductsDetail = () => {
                 </section>
 
 
-                <section className="purchasedproductsDetail-media-delivery">
-                    <h2>중간 과정 또는 마지막 영상(사진)을 촬영하여 전송해주세요~</h2>
+                <section className="purchasedproductsDetail-media-delivery centered-section">
+                    <h2 className="media-delivery-heading">중간 과정 또는 마지막 영상(사진)을 촬영하여 전송해주세요~</h2>
                     <div className="purchasedproductsDetail-media-box">
                         <div className="purchasedproductsDetail-media-item">
-
-                            <h3><span role="img" aria-label="camera">📷</span> 사진 촬영하기</h3>
+                            <h3>📷 사진 촬영하기</h3>
                             <p>고객에게 사진을 전송해주세요.</p>
-                            <button onClick={takePhoto}>촬영하기</button>
+                            <button className="centered-button" onClick={takePhoto}>촬영하기</button>
                         </div>
                         <div className="purchasedproductsDetail-media-item">
-                            <h3><span role="img" aria-label="video camera">🎥</span> 영상 촬영하기</h3>
+                            <h3>🎥 영상 촬영하기</h3>
                             <p>고객에게 영상을 촬영해주세요.</p>
-                            <button onClick={isRecording ? stopRecording : startRecording}>
+                            <button className="centered-button" onClick={isRecording ? stopRecording : startRecording}>
                                 {isRecording ? "촬영 중지" : "촬영하기"}
                             </button>
                         </div>
                     </div>
                 </section>
 
+                <section className="purchasedproductsDetail-preview">
+                    <h2>촬영된 사진 및 영상 미리보기</h2>
+                    <div className="purchasedproductsDetail-preview-content">
+                        {imageUrl && (
+                            <div className="purchasedproductsDetail-preview-item">
+                                <img src={imageUrl} alt="촬영된 사진 미리보기" />
+                            </div>
+                        )}
+                        {videoUrl && (
+                            <div className="purchasedproductsDetail-preview-item">
+                                <video src={videoUrl} controls />
+                            </div>
+                        )}
+                    </div>
+                </section>
+
                 {/* 실시간 제작 과정 전송 섹션 */}
-                <section className="purchasedproductsDetail-live-broadcast">
+                <section className="purchasedproductsDetail-live-broadcast centered-section">
                     <h2>제조 과정을 실시간으로 고객에게 전송해주세요~</h2>
                     <div className="purchasedproductsDetail-live-item">
-                        <p>현재 제조 과정을 고객에게 전송해 주세요.</p>
-                        <button>실시간 촬영하기</button>
+                        <p>현재 제조 과정을 고객에게 전송 중입니다.</p>
+                        <button className="centered-button" onClick={isLive ? stopLiveBroadcast : startLiveBroadcast}>
+                            {isLive ? "실시간 촬영 중지" : "실시간 촬영 시작"}
+                        </button>
                     </div>
                 </section>
 
                 {/* 4. 주문 상태 변경 섹션 */}
-                <section className="purchasedproductsDetail-status">
-                    <h2>제작 상태</h2>
-                    <div className="purchasedproductsDetail-status-control">
-                        <label htmlFor="status">배송 상태: </label>
-                        <select id="status" value={status} onChange={handleStatusChange}>
-                            <option value="제작 중">제작 중</option>
-                            <option value="배송 중">배송 중</option>
-                            <option value="픽업 완료">픽업 완료</option>
-                        </select>
-                        <button className="purchasedproductsDetail-update-button">상태 업데이트</button>
+                <section className="purchasedproductsDetail-status centered-section">
+                    <div className="purchasedproductsDetail-status-card">
+                        <h3>📦 {status}</h3>
+                        <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
+                        <button className="centered-button" onClick={() => handleStatusChange("제작 중")}>제작 중</button>
+                        <button className="centered-button" onClick={() => handleStatusChange("배송 중")}>배송 중</button>
+                        <button className="centered-button" onClick={() => handleStatusChange("픽업 완료")}>픽업 완료</button>
                     </div>
                 </section>
             </div>
