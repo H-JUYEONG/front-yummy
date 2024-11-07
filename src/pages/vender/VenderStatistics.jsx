@@ -19,7 +19,7 @@ ChartJS.register(
     ArcElement
 );
 
-const VenderDashboard = () => {
+const VenderStatistics = () => {
     
     // 그래프 데이터 설정
     const salesData = {
@@ -160,4 +160,4 @@ const VenderDashboard = () => {
     );
 }
 
-export default VenderDashboard;
+export default VenderStatistics;
