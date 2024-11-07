@@ -1,0 +1,155 @@
+/* Container */
+.j-discussion-container {
+  width: 100%;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Header */
+.j-discussion-header {
+  background-color: #ffe600;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Menu */
+.j-discussion-menu {
+  width: 150px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin-right: 20px;
+  float: left;
+}
+
+.j-discussion-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.j-discussion-menu li {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #333;
+}
+
+.j-discussion-menu .j-active {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Content Wrapper */
+.j-discussion-content {
+  display: flex;
+  gap: 20px;
+}
+
+.j-discussion-table {
+  flex-grow: 1;
+}
+
+/* Toolbar */
+.j-discussion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.j-category-select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+.j-search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.j-search-bar input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+.j-search-btn {
+  padding: 8px 12px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+/* Table */
+.j-discussion-list {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.j-discussion-list th,
+.j-discussion-list td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.j-discussion-list th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.j-discussion-list tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Bottom Toolbar */
+.j-bottom-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.j-pagination {
+  display: flex;
+  gap: 5px;
+}
+
+.j-page-btn,
+.j-next-btn {
+  padding: 5px 10px;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.j-page-btn:hover,
+.j-next-btn:hover {
+  background-color: #ddd;
+}
+
+.j-write-btn {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
