@@ -9,23 +9,22 @@ const DiscussionBoard = () => {
         <div id="wrap" className="text-center">
             {/* Header */}
             <header id="wrap-head">
-                <h1>Header 영역</h1>
+                <h1>어떤 도안이 이쁜지 모르겠나요? 한번 올려보세요! 🧁</h1>
             </header>
+
+            {/* Navigation Bar */}
+            <nav id="wrap-nav" className="clearfix">
+                <ul className="j-nav-menu">
+                    <li>자유 게시판</li>
+                    <li>도안 게시판</li>
+                    <li className="j-active">토론 게시판</li>
+                </ul>
+            </nav>
 
             {/* Main Content */}
             <main id="wrap-body" className="clearfix">
-                {/* Sidebar */}
-                <aside id="wrap-side" className="float-left">
-                    <h2>게시판 메뉴</h2>
-                    <ul className="j-menu">
-                        <li>자유 게시판</li>
-                        <li>도안 게시판</li>
-                        <li className="j-active">토론 게시판</li>
-                    </ul>
-                </aside>
-
                 {/* Main Section */}
-                <section id="wrap-main" className="float-right">
+                <section id="wrap-main">
                     <h2>토론 게시판</h2>
                     <p>원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</p>
 

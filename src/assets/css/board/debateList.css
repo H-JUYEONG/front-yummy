@@ -20,45 +20,52 @@
   font-size: 1.5rem;
 }
 
-/* Content Layout */
-#wrap-body {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-}
-
-/* Sidebar */
-#wrap-side {
-  width: 200px;
+/* Navigation Bar */
+#wrap-nav {
   background-color: #f0f0f0;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 10px 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.j-menu {
+.j-nav-menu {
   list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
   padding: 0;
   margin: 0;
 }
 
-.j-menu li {
-  padding: 8px 0;
+.j-nav-menu li {
   cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1rem;
   color: #333;
 }
 
-.j-menu .j-active {
+.j-nav-menu .j-active {
   font-weight: bold;
   color: #4CAF50;
 }
 
+/* Main Content */
+#wrap-body {
+  padding: 20px;
+}
+
 /* Main Section */
 #wrap-main {
-  flex-grow: 1;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#wrap-main h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 /* Toolbar */
