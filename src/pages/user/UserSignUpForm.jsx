@@ -15,7 +15,8 @@ const UserSignUpSuccess = () => {
       </header>
 
       <div className="user-signup">
-        <img src="https://via.placeholder.com/100" alt="회사 로고" />
+        {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+        <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
         <h1>회원가입</h1>
 
         <h2>필수사항</h2>
@@ -72,7 +73,7 @@ const UserSignUpSuccess = () => {
                   id="user-phone"
                   type="text"
                   value=""
-                  placeholder="'-'제외하고 숫자만 입력해주세요."
+                  placeholder="'-' 제외하고 숫자만 입력해주세요."
                 />
                 <button type="button" className="request-code-btn">
                   인증번호 요청
