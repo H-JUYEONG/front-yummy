@@ -20,8 +20,8 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 
 //board
-import DebateInsert from './pages/board/DebateInsert'
-import DebateList from './pages/board/DebateList'
+import UserDebateInsert from './pages/user/UserDebateInsertDebateInsert'
+import UserDebateList from './pages/user/UserDebateListDebateList'
 
 
 function App() {
@@ -52,8 +52,8 @@ function App() {
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit/>} />
 
           {/*board*/}
-          <Route path='/board' element={<DebateList/>} />
-          <Route path='/debateinsert' element={<DebateInsert/>}/> 
+          <Route path='/board' element={<UserDebateListDebateList/>} />
+          <Route path='/user/debateinsert' element={<UserDebateInsert/>}/> 
 
         </Routes>
       </BrowserRouter>
