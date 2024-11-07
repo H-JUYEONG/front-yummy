@@ -9,6 +9,7 @@ import VenderTest from './pages/vender/VenderTest';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 
 import DebateList from './pages/board/DebateList';
+import DebateInsert from './pages/board/DebateInsert';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
 
           {/*Board */}
           <Route path='/board' element={<DebateList/>} />
+          <Route path='/board/insert' element={<DebateInsert/>} />
 
         </Routes>
       </BrowserRouter>
