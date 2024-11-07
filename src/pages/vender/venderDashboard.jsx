@@ -2,7 +2,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import '../../assets/css/all.css'; // 전역 css
+import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
+import '../../assets/css/vender/dashboard.css'; // 대시보드 전용 스타일
 
+import VenderSidebar from '././include/VenderSidevar';
 
 ChartJS.register(
     CategoryScale,
@@ -16,68 +20,8 @@ ChartJS.register(
 );
 
 const VenderDashboard = () => {
-    // 스타일 객체
-    const styles = {
-        container: {
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '20px',
-            display: 'flex',
-        },
-        sidebar: {
-            width: '200px',
-            backgroundColor: '#fff',
-            padding: '20px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            borderRadius: '10px',
-            marginRight: '20px',
-        },
-        content: {
-            flex: 1,
-        },
-        summaryCard: {
-            display: 'flex',
-            gap: '20px',
-            marginBottom: '30px',
-        },
-        card: {
-            backgroundColor: '#fff',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            padding: '20px',
-            borderRadius: '10px',
-            textAlign: 'center',
-            flex: 1,
-        },
-        chartSection: {
-            backgroundColor: '#fff',
-            padding: '20px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            borderRadius: '10px',
-            marginBottom: '30px',
-        },
-        reviewAnalysis: {
-            backgroundColor: '#fff',
-            padding: '20px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            borderRadius: '10px',
-            marginBottom: '30px',
-        },
-        filterSection: {
-            marginBottom: '20px',
-            textAlign: 'center',
-        },
-        select: {
-            padding: '10px',
-            margin: '10px',
-            fontSize: '1em',
-        },
-        header: {
-            color: '#fff',
-            textAlign: 'center',
-            padding: '20px',
-        },
-    };
-
+    
+    // 그래프 데이터 설정
     const salesData = {
         labels: ['1주', '2주', '3주', '4주'],
         datasets: [
@@ -145,40 +89,34 @@ const VenderDashboard = () => {
                 <title>업체 통계 페이지</title>
             </Helmet>
 
-            {/* 헤더 영역 */}
-            <header style={styles.header}>
-            </header>
-
             {/* 컨테이너 영역 */}
-            <div style={styles.container}>
+            <div className="vender-container">
                 {/* 사이드바 */}
-                
-
+                <VenderSidebar />
                 {/* 콘텐츠 영역 */}
-                <div style={styles.content}>
+                <div className="vender-content">
                     {/* 통계 요약 카드 섹션 */}
-                    <div style={styles.summaryCard}>
-                        <div style={styles.card}>
+                    <div className="summary-card-section">
+                        <div className="summary-card">
                             <h3>주문 건수 (11월)</h3>
                             <p>120건</p>
                         </div>
-                        <div style={styles.card}>
+                        <div className="summary-card">
                             <h3>매출 (11월)</h3>
                             <p>3,200,000원</p>
                         </div>
-                        <div style={styles.card}>
+                        <div className="summary-card">
                             <h3>새로운 리뷰</h3>
                             <p>8건</p>
                         </div>
                     </div>
 
                     {/* 매출 및 주문 그래프 섹션 */}
-                    <div style={styles.chartSection}>
+                    <div className="chart-section">
                         <h3>매출 및 주문 변화 추이</h3>
-                        {/* 매출 데이터 필터링 옵션 */}
-                        <div style={styles.filterSection}>
+                        <div className="filter-section">
                             <label htmlFor="sales-filter">매출 및 주문 데이터 필터링:</label>
-                            <select id="sales-filter" style={styles.select}>
+                            <select id="sales-filter" className="select-filter">
                                 <option value="daily">일일</option>
                                 <option value="weekly">일주일</option>
                                 <option value="monthly">월별</option>
@@ -189,29 +127,28 @@ const VenderDashboard = () => {
                     </div>
 
                     {/* 리뷰 분석 섹션 */}
-                    <div style={styles.reviewAnalysis}>
+                    <div className="review-analysis-section">
                         <h3>고객 리뷰 분석</h3>
-                        {/* 리뷰 데이터 필터링 옵션 */}
-                        <div style={styles.filterSection}>
+                        <div className="filter-section">
                             <label htmlFor="review-filter">리뷰 데이터 필터링:</label>
-                            <select id="review-filter" style={styles.select}>
+                            <select id="review-filter" className="select-filter">
                                 <option value="daily">일일</option>
                                 <option value="weekly">일주일</option>
                                 <option value="monthly">월별</option>
                                 <option value="yearly">년별</option>
                             </select>
                         </div>
-                        <div className="review-chart" style={{ display: 'flex', justifyContent: 'space-around', marginTop: '20px' }}>
-                            <div style={{ width: '150px', height: '150px' }}>
+                        <div className="review-chart-section">
+                            <div className="doughnut-chart">
                                 <Doughnut data={reviewData} />
                             </div>
-                            <div style={{ width: '150px', height: '150px' }}>
+                            <div className="doughnut-chart">
                                 <Doughnut data={ratingData} />
                             </div>
                         </div>
-                        <div className="word-cloud-placeholder" style={{ width: '100%', height: '200px', backgroundColor: '#eee', marginTop: '20px', borderRadius: '10px', padding: '10px' }}>
+                        <div className="word-cloud-placeholder">
                             {wordCloudData.map((word, index) => (
-                                <span key={index} style={{ fontSize: `${Math.random() * 20 + 10}px`, marginRight: '10px' }}>
+                                <span key={index} className="word-cloud-word">
                                     {word}
                                 </span>
                             ))}
