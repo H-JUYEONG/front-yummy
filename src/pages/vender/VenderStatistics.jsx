@@ -4,7 +4,7 @@ import { Line, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
-import '../../assets/css/vender/dashboard.css'; // 대시보드 전용 스타일
+import '../../assets/css/vender/statistics.css'; // 대시보드 전용 스타일
 
 import VenderSidebar from './include/VenderSidebar';
 

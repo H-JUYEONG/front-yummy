@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
-import '../../assets/css/vender/dashboard.css'; // 대시보드 전용 스타일
+import '../../assets/css/vender/dashboard.css'; // 업체 페이지 전용 스타일
 import FullCalendar from '@fullcalendar/react'; // FullCalendar 컴포넌트 가져오기
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -54,7 +54,6 @@ const VenderDashboard = () => {
                 <div className="vender-content">
                     <main className="main-content">
                         <section className="dashboard-summary">
-                            <h2>통계 요약</h2>
                             <div className="summary-cards">
                                 <div className="card">
                                     <h3>총 주문 건수</h3>
@@ -76,7 +75,6 @@ const VenderDashboard = () => {
                         </section>
                         <section className="scheduler-section">
                             <h2>예약 스케쥴러</h2>
-                            {/* FullCalendar 컴포넌트 사용 */}
                             <FullCalendar {...calendarOptions} />
                         </section>
                     </main>
