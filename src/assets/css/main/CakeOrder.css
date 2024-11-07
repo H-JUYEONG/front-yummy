@@ -231,10 +231,9 @@
 
 /* 맛과 사이즈 옵션 그리드 */
 .option-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 10px;
-    margin-top: 10px;
+    padding: 10px 0;
 }
 
 .option-item {
@@ -692,4 +691,43 @@
         width: 100%;
         height: 200px;
     }
+    /* CakeOrder.css에 추가/수정 */
+.option-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    margin: 0 -10px;  /* 옆쪽 여백 보정 */
+    padding: 0 10px;
+}
+
+/* 스크롤바 숨기기 */
+.option-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.option-grid {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    /* 기존 grid 스타일 대신 flex로 변경 */
+}
+
+.option-item {
+    flex: 0 0 auto;  /* flex-shrink를 0으로 설정하여 크기 고정 */
+    width: 120px;    /* 각 아이템의 고정 너비 */
+    /* 나머지 스타일은 유지 */
+}
+
+/* 터치 디바이스를 위한 스크롤 스냅 */
+@media (hover: none) {
+    .option-scroll-container {
+        scroll-snap-type: x mandatory;
+    }
+
+    .option-item {
+        scroll-snap-align: start;
+    }
+}
 }
