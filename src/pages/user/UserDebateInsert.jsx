@@ -1,10 +1,10 @@
 // Import libraries
 import React, { useState } from 'react';
-import '../../assets/css/board/debateInsert.css';
+import '../../assets/css/user/debateInsert.css';
 import '../../assets/css/all.css';
 // Import components (if any additional components are needed)
 
-const DebateInsert = () => {
+const UserDebateInsert = () => {
   const [leftImage, setLeftImage] = useState(null);
   const [rightImage, setRightImage] = useState(null);
 
@@ -125,4 +125,4 @@ const DebateInsert = () => {
   );
 };
 
-export default DebateInsert;
+export default UserDebateInsert;
