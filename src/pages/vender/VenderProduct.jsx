@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../assets/css/vender/styles.css';
+import '../../assets/css/vender/vender.css';
 
 function VenderProduct() {
     const [options, setOptions] = useState([

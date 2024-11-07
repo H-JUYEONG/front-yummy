@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import Sidebar from '../include/sideBar';
+
 
 ChartJS.register(
     CategoryScale,
@@ -152,7 +152,7 @@ const VenderDashboard = () => {
             {/* 컨테이너 영역 */}
             <div style={styles.container}>
                 {/* 사이드바 */}
-                <Sidebar style={styles.sidebar} />
+                
 
                 {/* 콘텐츠 영역 */}
                 <div style={styles.content}>

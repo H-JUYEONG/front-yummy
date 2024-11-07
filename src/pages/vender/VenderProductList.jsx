@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from '../include/sideBar';
+import '../../assets/css/all.css'; // 공통 초기화 스타일
 
 const VenderProductList = () => {
     const styles = {
@@ -80,7 +80,7 @@ const VenderProductList = () => {
 
             <div style={styles.container}>
                 {/* 사이드바 영역 */}
-                <Sidebar />
+
 
                 {/* 메인 콘텐츠 영역 */}
                 <main style={styles.mainContent}>

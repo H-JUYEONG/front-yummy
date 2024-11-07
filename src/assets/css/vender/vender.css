@@ -1,0 +1,165 @@
+/* 공통 초기화는 all.css에 있음 */
+
+/* 업체 페이지 사이드바 */
+.vender-sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    color: #2c3e50;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.vender-logo img {
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.vender-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.vender-profile h3 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+.vender-profile p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.vender-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.vender-menu li {
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: 500;
+    color: #333;
+}
+
+.vender-menu li.active, .vender-menu li:hover {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.exit-button {
+    margin-top: 30px;
+    background: #d63031;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* 업체 메인 콘텐츠 */
+.vender-main-content {
+    margin-left: 270px;
+    padding: 30px;
+    background: #f5f6fa;
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    grid-auto-rows: minmax(200px, auto);
+}
+
+.performance-card, .activity-card, .engagement-card {
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+}
+
+.performance-card {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+.performance-metrics {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.performance-details {
+    list-style: none;
+    padding: 0;
+}
+
+.performance-details li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.red {
+    background: #e74c3c;
+}
+
+.blue {
+    background: #3498db;
+}
+
+.beige {
+    background: #f39c12;
+}
+
+.activity-card {
+    background: #eaf7fb;
+}
+
+.engagement-section {
+    display: flex;
+    gap: 20px;
+}
+
+.engagement-card {
+    background: #fff3e0;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.engagement-value {
+    font-size: 2rem;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.change {
+    font-size: 1.2rem;
+    margin-left: 5px;
+}
+
+.up {
+    color: #27ae60;
+}
+
+.down {
+    color: #c0392b;
+}
