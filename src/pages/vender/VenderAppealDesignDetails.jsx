@@ -11,7 +11,7 @@ import '../../assets/css/vender/syModal.css';
 
 
 
-const AppealDesignDetails = ({ isOpen, onClose, children }) => {
+const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null; // isOpen이 false일 경우 모달을 렌더링하지 않음
     return (
         <div className="vender-sso-modal-overlay">
@@ -25,4 +25,4 @@ const AppealDesignDetails = ({ isOpen, onClose, children }) => {
 };
 
 
-export default AppealDesignDetails;
+export default VenderAppealDesignDetails;
