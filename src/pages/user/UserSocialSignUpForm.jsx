@@ -5,7 +5,7 @@ import React from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/user/userSocialSignUpForm.css";
 
-const UserSignUpSuccess = () => {
+const UserSocialSignUpForm = () => {
   return (
     <div id="wrap" className="text-center">
       {/* Header */}
@@ -23,9 +23,12 @@ const UserSignUpSuccess = () => {
           <form>
             <div className="input-group">
               <div className="social-guide">
-              <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
-              <p>추후 로그인 시 Kakao 아이디를 이용하여 간편로그인이 가능합니다.</p>
-              </div>    
+                <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
+                <p>
+                  추후 로그인 시 Kakao 아이디를 이용하여 간편로그인이
+                  가능합니다.
+                </p>
+              </div>
               <label htmlFor="user-id">아이디(이메일)</label>
               <input
                 id="user-id"
@@ -45,7 +48,10 @@ const UserSignUpSuccess = () => {
                 value=""
                 placeholder="비밀번호를 입력해주세요."
               /> */}
-              <p className="user-social-pw-ok">※ SNS(네이버,카카오)를 통한 회원가입시 비밀번호를 입력 할 필요가 없습니다.</p>
+              <p className="user-social-pw-ok">
+                ※ SNS(네이버,카카오)를 통한 회원가입시 비밀번호를 입력 할 필요가
+                없습니다.
+              </p>
             </div>
 
             <div className="input-group">
@@ -87,4 +93,4 @@ const UserSignUpSuccess = () => {
     </div>
   );
 };
-export default UserSignUpSuccess;
+export default UserSocialSignUpForm;

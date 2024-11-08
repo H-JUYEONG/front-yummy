@@ -40,7 +40,7 @@ const VenderSignUpForm = () => {
   // 회원가입
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
   return (
     <div id="wrap" className="text-center">
       {/* Header */}
@@ -101,7 +101,7 @@ const VenderSignUpForm = () => {
                 id="vender-owner"
                 type="text"
                 value={venderOwner}
-                placeholder="대표자명을 입력해주세요." 
+                placeholder="대표자명을 입력해주세요."
                 onChange={handlVenderOwner}
               />
             </div>
@@ -110,9 +110,9 @@ const VenderSignUpForm = () => {
               <label htmlFor="vender-businessReg">사업자등록증</label>
               <input
                 id="vender-businessReg"
-                type="file" 
+                type="file"
                 name="file"
-                placeholder="사업자등록증을 첨부해주세요." 
+                placeholder="사업자등록증을 첨부해주세요."
                 onChange={handlVenderImg}
               />
             </div>
@@ -123,7 +123,7 @@ const VenderSignUpForm = () => {
                 id="vender-businessName"
                 type="text"
                 value={venderBusinessName}
-                placeholder="상호명을 입력해주세요." 
+                placeholder="상호명을 입력해주세요."
                 onChange={handlVenderBusinessName}
               />
             </div>
