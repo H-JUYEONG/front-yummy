@@ -1,19 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-/* 전체 폼의 스타일 */
-.vender-container {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
-
-.main-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
 /* 타이틀 스타일 */
-.product-list-title {
+.product-registration .product-list-title {
     font-size: 1.8em;
     font-weight: bold;
     color: #333;
@@ -21,11 +10,11 @@
 }
 
 /* 폼 그룹 스타일 */
-.form-group {
+.product-registration .form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
+.product-registration .form-group label {
     display: block;
     font-size: 1.1em;
     margin-bottom: 10px;
@@ -34,8 +23,9 @@
 }
 
 /* 입력 필드 공통 스타일 */
-.input-text,
-.input-select {
+.product-registration .input-text,
+.product-registration .input-select,
+.product-registration .option-item input[type="checkbox"] {
     width: 100%;
     padding: 12px;
     font-size: 1em;
@@ -45,26 +35,27 @@
     margin-top: 5px;
 }
 
-.input-text:focus,
-.input-select:focus {
+.product-registration .input-text:focus,
+.product-registration .input-select:focus,
+.product-registration .option-item input[type="checkbox"]:focus {
     border-color: #4f46e5;
     outline: none;
     box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
 }
 
 /* 이미지 업로드 스타일 */
-.image-upload-container {
+.product-registration .image-upload-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
 }
 
-.image-upload input[type="file"] {
+.product-registration .image-upload input[type="file"] {
     display: none;
 }
 
-.image-placeholder {
+.product-registration .image-placeholder {
     width: 150px;
     height: 150px;
     border: 2px dashed #ccc;
@@ -78,75 +69,122 @@
     transition: border-color 0.3s, background-color 0.3s;
 }
 
-.image-placeholder:hover {
+.product-registration .image-placeholder:hover {
     border-color: #4f46e5;
     background-color: #f0f4ff;
 }
 
-.image-placeholder img {
+.product-registration .image-placeholder img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
 
-
-/* 가격 입력란 스타일 */
-.input-text {
-    width: 100%;
-    padding: 12px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-
 /* 리치 텍스트 에디터를 감싸는 컨테이너 스타일 */
-.textarea-editor {
+.product-registration .textarea-editor {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
     margin-top: 10px;
 }
 
-.ql-container {
-    min-height: 150px; /* 최소 높이 설정 */
+.product-registration .ql-container {
+    min-height: 150px;
     font-size: 1em;
-}
-
-.textarea-editor:focus {
-    border-color: #4f46e5;
-    outline: none;
-    box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
 }
 
 /* 옵션 설정 섹션 */
-.options-container {
+.product-registration .options-section {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.product-registration .options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.product-registration .add-options-button {
+    padding: 0.5rem 1rem;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 옵션 선택 컴포넌트 스타일 */
+.product-registration .option-selector {
+    margin-bottom: 1.5rem;
+}
+
+.product-registration .option-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.product-registration .option-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    width: 100px;
 }
 
-.option-item {
+.product-registration .option-item.selected {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.product-registration .option-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.product-registration .option-item input[type="checkbox"] + label {
     display: flex;
     flex-direction: column;
-}
-
-.option-item label {
-    font-size: 1em;
-    margin-bottom: 5px;
-}
-
-.option-item input {
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    border: 1px solid #ddd;
+}
+.product-registration .option-item input[type="checkbox"]:checked + label {
+    background-color: #f0f0f0;
+    border-color: #007bff;
+}
+
+.product-registration .option-item input[type="checkbox"]:focus + label {
+    outline: none;
+}
+.product-registration .option-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.product-registration .option-name {
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 /* 등록 버튼 스타일 */
-.add-button {
+.product-registration .add-button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 15px 20px;
@@ -159,18 +197,18 @@
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
-.add-button:hover {
+.product-registration .add-button:hover {
     background-color: #3b37c1;
     box-shadow: 0 4px 12px rgba(59, 55, 193, 0.4);
     transform: translateY(-3px);
 }
 
 /* 떠다니는 미리보기 버튼 스타일 */
-.floating-preview-button {
+.product-registration .floating-preview-button {
     position: fixed;
-    bottom: 40px; /* 페이지 하단에서 40px 위에 위치 */
-    right: 40px; /* 페이지 오른쪽에서 40px 안쪽에 위치 */
-    background-color: #4f46e5; /* 메인 버튼 색상 */
+    bottom: 40px;
+    right: 40px;
+    background-color: #4f46e5;
     color: #ffffff;
     padding: 15px 20px;
     font-size: 1.2em;
@@ -179,12 +217,11 @@
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    z-index: 1000; /* 다른 요소보다 위에 보이도록 설정 */
+    z-index: 1000;
 }
 
-.floating-preview-button:hover {
-    background-color: #3b37c1; /* 호버 시 더 진한 파란색 */
+.product-registration .floating-preview-button:hover {
+    background-color: #3b37c1;
     box-shadow: 0 6px 15px rgba(59, 55, 193, 0.4);
     transform: translateY(-5px);
 }
-

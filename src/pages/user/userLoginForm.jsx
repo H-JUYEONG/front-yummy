@@ -16,6 +16,7 @@ const UserLoginForm = () => {
 
       <div className="user-login-box">
         <div>
+          <img src="https://via.placeholder.com/100" alt="회사 로고" />
           <h1>로그인</h1>
         </div>
         <div>

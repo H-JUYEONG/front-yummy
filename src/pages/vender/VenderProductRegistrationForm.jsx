@@ -1,15 +1,46 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../../assets/css/all.css'; // 공통 초기화 및 전역 css
-import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
-import '../../assets/css/vender/product.css'; // 상품 등록 페이지 전용 스타일
+import '../../assets/css/all.css';
+import '../../assets/css/vender/vender.css';
+import '../../assets/css/vender/product.css';
 import VenderSidebar from './include/VenderSidebar';
 
+// 옵션 선택 컴포넌트 (체크 박스 버전)
+const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
+    return (
+        <div className="option-selector">
+            <label>{optionName}</label>
+            <div className="option-items">
+                {options.map((option, index) => (
+                    <div key={index} className="option-item">
+                        <input
+                            type="checkbox"
+                            id={`${optionName}-${index}`}
+                            checked={selectedOptions.includes(option.name)}
+                            onChange={() => onSelect(option.name)}
+                        />
+                        <label htmlFor={`${optionName}-${index}`}>
+                            <img
+                                src={option.imageUrl}
+                                alt={option.name}
+                                className="option-image"
+                            />
+                            <span className="option-name">{option.name}</span>
+                        </label>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+// ProductEditor 컴포넌트
 const ProductEditor = ({ description, setDescription }) => {
     const quillRef = useRef(null);
 
-    const imageHandler = () => {
+    const imageHandler = useCallback(() => {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
@@ -23,7 +54,7 @@ const ProductEditor = ({ description, setDescription }) => {
                 reader.onload = () => {
                     if (quillRef.current) {
                         const quill = quillRef.current.getEditor();
-                        const range = quill.getSelection();
+                        const range = quill.getSelection(true);
                         if (range) {
                             quill.insertEmbed(range.index, 'image', reader.result);
                         }
@@ -31,7 +62,7 @@ const ProductEditor = ({ description, setDescription }) => {
                 };
             }
         };
-    };
+    }, []);
 
     const modules = {
         toolbar: {
@@ -47,8 +78,20 @@ const ProductEditor = ({ description, setDescription }) => {
             handlers: {
                 image: imageHandler
             }
+        },
+        clipboard: {
+            matchVisual: false
         }
     };
+
+    const formats = [
+        'header', 'font', 'list', 'bold', 'italic', 'underline', 'strike',
+        'blockquote', 'color', 'background', 'align', 'link', 'image', 'video'
+    ];
+
+    const handleChange = useCallback((content) => {
+        setDescription(content);
+    }, [setDescription]);
 
     return (
         <div className="form-group">
@@ -57,16 +100,19 @@ const ProductEditor = ({ description, setDescription }) => {
                 ref={quillRef}
                 id="description"
                 value={description}
-                onChange={setDescription}
+                onChange={handleChange}
                 placeholder="상품 설명을 작성해주세요..."
                 className="textarea-editor"
                 theme="snow"
                 modules={modules}
+                formats={formats}
+                preserveWhitespace
             />
         </div>
     );
 };
 
+// ProductImages 컴포넌트
 const ProductImages = ({ images, handleImageChange }) => {
     return (
         <div className="form-group">
@@ -111,22 +157,76 @@ const ProductImages = ({ images, handleImageChange }) => {
 };
 
 function ProductRegistrationForm() {
+    const navigate = useNavigate();
     const [productName, setProductName] = useState('');
     const [productType, setProductType] = useState('');
     const [images, setImages] = useState({ main: null, subs: [null, null, null] });
     const [description, setDescription] = useState('');
-    const [options, setOptions] = useState({
-        cakeSize: '',
-        sheetFlavor: '',
-        creamFlavor: '',
-        backgroundColor: '',
-        creamPlacement: '',
-        creamColor: '',
-        decorationType: '',
-        decorationColor: ''
-    });
+    const [price, setPrice] = useState('');
 
-    const handleImageChange = (e, index) => {
+    // 옵션 상태 관리
+    const [availableOptions, setAvailableOptions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState({});
+
+    // 옵션 데이터 불러오기
+    useEffect(() => {
+        // 실제 구현시에는 API 호출로 대체
+        const fetchOptions = async () => {
+            try {
+                // 임시 데이터
+                const mockOptions = [
+                    {
+                        id: 1,
+                        name: '크기',
+                        subOptions: [
+                            { name: '소형', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '중형', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '대형', imageUrl: 'https://via.placeholder.com/150' }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: '시트 맛',
+                        subOptions: [
+                            { name: '초코', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '바닐라', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '레드벨벳', imageUrl: 'https://via.placeholder.com/150' }
+                        ]
+                    }
+                ];
+                setAvailableOptions(mockOptions);
+            } catch (error) {
+                console.error('옵션 로드 중 에러:', error);
+            }
+        };
+
+        fetchOptions();
+    }, []);
+
+    // 옵션 선택 핸들러
+    const handleOptionSelect = (optionType, value) => {
+        setSelectedOptions(prev => {
+            const currentOptions = prev[optionType] ? [...prev[optionType]] : [];
+            if (currentOptions.includes(value)) {
+                return {
+                    ...prev,
+                    [optionType]: currentOptions.filter(opt => opt !== value)
+                };
+            } else {
+                return {
+                    ...prev,
+                    [optionType]: [...currentOptions, value]
+                };
+            }
+        });
+    };
+
+    // 옵션 페이지로 이동
+    const handleAddOptions = () => {
+        navigate('/vender/option');  // VenderOption 페이지 경로
+    };
+
+    const handleImageChange = useCallback((e, index) => {
         const file = e.target.files[0];
         if (file) {
             const newImages = { ...images };
@@ -137,20 +237,28 @@ function ProductRegistrationForm() {
             }
             setImages(newImages);
         }
-    };
+    }, [images]);
 
-    const handlePreview = () => {
-        alert('미리보기 버튼 클릭됨! 여기서 미리보기 기능을 구현할 수 있습니다.');
-    };
+    const handleSubmit = useCallback((e) => {
+        e.preventDefault();
+        // 제출 로직에 선택된 옵션 포함
+        console.log({
+            productName,
+            productType,
+            images,
+            description,
+            price,
+            selectedOptions
+        });
+    }, [productName, productType, images, description, price, selectedOptions]);
 
     return (
-        <div className="vender-container">
+        <div className="vender-container product-registration">
             <VenderSidebar />
             <div className="vender-content">
-                <div className="main-content">
+                <form className="main-content" onSubmit={handleSubmit}>
                     <h1 className="product-list-title">상품 등록</h1>
 
-                    {/* 상품명 입력란 */}
                     <div className="form-group">
                         <label htmlFor="productName">상품명</label>
                         <input
@@ -163,7 +271,6 @@ function ProductRegistrationForm() {
                         />
                     </div>
 
-                    {/* 상품 종류 선택 */}
                     <div className="form-group">
                         <label htmlFor="productType">상품 종류 선택</label>
                         <select
@@ -178,55 +285,58 @@ function ProductRegistrationForm() {
                         </select>
                     </div>
 
-                    {/* 상품 이미지 등록 */}
                     <ProductImages images={images} handleImageChange={handleImageChange} />
 
-                    {/* 가격 입력란 */}
                     <div className="form-group">
                         <label htmlFor="price">가격</label>
                         <input
                             type="text"
                             id="price"
                             placeholder="가격을 입력해주세요"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
                             className="input-text"
                         />
                     </div>
 
-                    {/* 상품 설명 에디터 */}
                     <ProductEditor
                         description={description}
                         setDescription={setDescription}
                     />
 
-                    {/* 상품 옵션 설정 */}
-                    <div className="form-group">
-                        <label>상품 옵션 설정</label>
-                        <div className="options-container">
-                            {Object.keys(options).map((key) => (
-                                <div key={key} className="option-item">
-                                    <label htmlFor={key}>{key}</label>
-                                    <input
-                                        type="text"
-                                        id={key}
-                                        value={options[key]}
-                                        onChange={(e) => setOptions({ ...options, [key]: e.target.value })}
-                                        className="input-text"
-                                    />
-                                </div>
-                            ))}
+                    {/* 옵션 선택 섹션 */}
+                    <div className="options-section">
+                        <div className="options-header">
+                            <h2>상품 옵션 선택</h2>
+                            <button
+                                type="button"
+                                className="add-options-button"
+                                onClick={handleAddOptions}
+                            >
+                                옵션 추가하기
+                            </button>
                         </div>
+
+                        {availableOptions.map(option => (
+                            <OptionSelector
+                                key={option.id}
+                                optionName={option.name}
+                                options={option.subOptions}
+                                selectedOptions={selectedOptions[option.name.toLowerCase().replace(/\s+/g, '')] || []}
+                                onSelect={(value) => handleOptionSelect(
+                                    option.name.toLowerCase().replace(/\s+/g, ''),
+                                    value
+                                )}
+                            />
+                        ))}
                     </div>
 
-                    {/* 등록 버튼 */}
                     <div className="form-group">
                         <button type="submit" className="add-button">상품 등록하기</button>
                     </div>
-                </div>
+                </form>
+                <button className="floating-preview-button">미리보기</button>
             </div>
-            {/* 떠다니는 미리보기 버튼 */}
-            <button className="floating-preview-button" onClick={handlePreview}>
-                미리보기
-            </button>
         </div>
     );
 }
