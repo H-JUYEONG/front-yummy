@@ -38,6 +38,8 @@ import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
+import VenderProductPreview from './pages/vender/VenderProductPreview';
+
 function App() {
   return (
     <div>
@@ -48,6 +50,7 @@ function App() {
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
+          <Route path='/vender/productpreview' element={<VenderProductPreview/>} />
           <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
           <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
           <Route path='/vender/statistics' element={<VenderStatistics />} />
@@ -74,9 +77,6 @@ function App() {
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           {/* Main and Admin */}
-
-          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
-
           <Route path='/admintest' element={<AdminTest />} />
 
           {/* Board Routes */}

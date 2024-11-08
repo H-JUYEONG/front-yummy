@@ -60,72 +60,74 @@ const VenderPurchasedProducts = () => {
 
     return (
         <div className="vender-container">
-            <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
-            <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar} />
-            <button className="hamburger-menu" onClick={toggleSidebar}>
-                ☰
-            </button>
-            <div className="vender-content">
-                <main className="vender-order-list-container">
-                    <section className="vender-order-list">
-                        <h2>주문 리스트</h2>
-                        <div className="vender-filter-section">
-                            <label htmlFor="order-status-filter">상태별 보기:</label>
-                            <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
-                                <option value="all">전체</option>
-                                <option value="주문 완료">주문 완료</option>
-                                <option value="제작 중">제작 중</option>
-                                <option value="결제 완료">결제 완료</option>
-                                <option value="배송 완료">배송 완료</option>
-                                <option value="픽업 완료">픽업 완료</option>
-                            </select>
-                        </div>
-                        <table className="vender-order-table">
-                            <thead>
-                                <tr>
-                                    <th>주문 번호</th>
-                                    <th>고객명</th>
-                                    <th>고객 아이디</th>
-                                    <th>상품명</th>
-                                    <th>주문 날짜</th>
-                                    <th>수령 요청일자</th>
-                                    <th>수령 방법</th>
-                                    <th>상태</th>
-                                    <th>상세 보기</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {currentOrders.map(order => (
-                                    <tr key={order.id} data-status={order.status}>
-                                        <td>{order.id}</td>
-                                        <td>{order.customerName}</td>
-                                        <td>{order.customerId}</td>
-                                        <td>{order.productName}</td>
-                                        <td>{order.orderDate}</td>
-                                        <td>{order.requestDate}</td>
-                                        <td>{order.receiveMethod}</td>
-                                        <td>{order.status}</td>
-                                        <td>
-                                            <button onClick={() => navigate(`/vender/purchasedproductsdetail`)}>보기</button>
-                                        </td>
+            <div class="vender-content-wrapper">
+                <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
+                <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar} />
+                <button className="hamburger-menu" onClick={toggleSidebar}>
+                    ☰
+                </button>
+                <div className="vender-content">
+                    <main className="vender-order-list-container">
+                        <section className="vender-order-list">
+                            <h2>주문 리스트</h2>
+                            <div className="vender-filter-section">
+                                <label htmlFor="order-status-filter">상태별 보기:</label>
+                                <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
+                                    <option value="all">전체</option>
+                                    <option value="주문 완료">주문 완료</option>
+                                    <option value="제작 중">제작 중</option>
+                                    <option value="결제 완료">결제 완료</option>
+                                    <option value="배송 완료">배송 완료</option>
+                                    <option value="픽업 완료">픽업 완료</option>
+                                </select>
+                            </div>
+                            <table className="vender-order-table">
+                                <thead>
+                                    <tr>
+                                        <th>주문 번호</th>
+                                        <th>고객명</th>
+                                        <th>고객 아이디</th>
+                                        <th>상품명</th>
+                                        <th>주문 날짜</th>
+                                        <th>수령 요청일자</th>
+                                        <th>수령 방법</th>
+                                        <th>상태</th>
+                                        <th>상세 보기</th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    {currentOrders.map(order => (
+                                        <tr key={order.id} data-status={order.status}>
+                                            <td>{order.id}</td>
+                                            <td>{order.customerName}</td>
+                                            <td>{order.customerId}</td>
+                                            <td>{order.productName}</td>
+                                            <td>{order.orderDate}</td>
+                                            <td>{order.requestDate}</td>
+                                            <td>{order.receiveMethod}</td>
+                                            <td>{order.status}</td>
+                                            <td>
+                                                <button onClick={() => navigate(`/vender/purchasedproductsdetail`)}>보기</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            {/* 페이지네이션 영역 */}
+                            <div className="pagination">
+                                {[...Array(totalPages)].map((_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </button>
                                 ))}
-                            </tbody>
-                        </table>
-                        {/* 페이지네이션 영역 */}
-                        <div className="pagination">
-                            {[...Array(totalPages)].map((_, index) => (
-                                <button
-                                    key={index + 1}
-                                    className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-                                    onClick={() => handlePageChange(index + 1)}
-                                >
-                                    {index + 1}
-                                </button>
-                            ))}
-                        </div>
-                    </section>
-                </main>
+                            </div>
+                        </section>
+                    </main>
+                </div>
             </div>
         </div>
     );
