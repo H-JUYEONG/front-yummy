@@ -7,8 +7,7 @@ import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProduct
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
-
-import UserCakeDetail from './pages/main/UserCakeDetail';
+import UserCakeDetail from './pages/user/UserCakeDetail';
 
 import AdminTest from './pages/admin/AdminTest';
 
@@ -47,15 +46,14 @@ function App() {
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />
-          <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-          <Route path='/user/main' element={<UserMain/>}/>
-
+          <Route path='/user/test' element={<UserMain/>}/>
+          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           {/* Main and Admin */}
-          <Route path='/main/cakedetail' element={<UserCakeDetail />} />
+          
           <Route path='/admintest' element={<AdminTest />} />
 
           {/* Board Routes */}
