@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.vender-sso-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color:blue;*/
+    z-index: 1000;
+}
+
+.vender-sso-modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+    background: white;
+    background-color: blueviolet;
+    padding: 20px;
+    border-radius: 5px;
+    width: 1000px; /* 원하는 너비로 설정 */
+    height: 600px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 모달에 그림자 추가 */
+}
+
+.vender-sso-modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
