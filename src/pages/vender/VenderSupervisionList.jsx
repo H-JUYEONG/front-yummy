@@ -67,7 +67,7 @@ const VenderSupervisionList = () => {
 
                 {/* 메인 콘텐츠 영역 */}
                 <div className="vender-content">
-                    <main className="main-content">
+                    <main className="product-list-main-content ">
                         <section className="product-list">
                             <header className="product-list-header">
                                 <h2 className="product-list-title">MY오디션 관리</h2>
