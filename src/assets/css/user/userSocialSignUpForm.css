@@ -1,27 +1,24 @@
 /* 전체 레이아웃 설정 */
-.user-signup {
+.user-social-signup {
     width: 450px;
     margin: 0 auto;
     padding: 20px 0;
     text-align: left;
 }
 
-.user-signup img {
-    width: 200px;
-}
-
-.user-signup img {
+.user-social-signup img {
     display: block;
+    width: 200px;
     margin: 0 auto 10px auto;
 }
 
-.user-signup h1 {
+.user-social-signup h1 {
     font-size: 27px;
     font-weight: bold;
     text-align: center;
 }
 
-.user-signup h2 {
+.user-social-signup h2 {
     font-size: 18px;
     font-weight: bold;
     color: #333;
@@ -29,7 +26,7 @@
     position: relative;
 }
 
-.user-signup h2::after {
+.user-social-signup h2::after {
     content: "";
     display: block;
     width: 100%;
@@ -40,8 +37,13 @@
     left: 0;
 }
 
+.social-guide {
+    font-size: 12px;
+    margin-bottom: 17px;
+}
+
 /* 입력 필드 스타일 */
-.user-signup-area {
+.social-signup-area {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -51,14 +53,14 @@
     margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
-.user-id-ok, .user-pw-ok {
+.user-social-id-ok, .user-social-pw-ok {
     padding-top: 6px;
     font-size: 12px;
     /* font-weight: bold; */
     color: red;
 }
 
-.user-signup-area label {
+.social-signup-area label {
     font-size: 14px;
     font-weight: bold;
     color: #333;
@@ -66,8 +68,8 @@
     display: block;
 }
 
-.user-signup-area input[type="text"],
-.user-signup-area input[type="password"] {
+.social-signup-area input[type="text"],
+.social-signup-area input[type="password"] {
     width: 100%;
     padding: 12px;
     font-size: 14px;
@@ -104,23 +106,23 @@
 }
 
 /* Placeholder 스타일 */
-.user-signup-area input::placeholder {
+.social-signup-area input::placeholder {
     color: #aaa;
 }
 
 /* 포커스 스타일 */
-.user-signup-area input:focus {
+.social-signup-area input:focus {
     outline: none;
     border-color: #d2b6ff;
 }
 
 /* 회원가입 버튼 스타일 */
-.user-signup-btn {
+.user-social-signup-btn {
     text-align: center;
     margin-top: 40px;
 }
 
-.user-signup-btn button {
+.user-social-signup-btn button {
     width: 35%;
     padding: 12px 0;
     font-size: 16px;
@@ -131,6 +133,6 @@
     transition: background-color 0.3s ease;
 }
 
-.user-signup-btn button:hover {
+.user-social-signup-btn button:hover {
     background-color: #9673b9;
 }
