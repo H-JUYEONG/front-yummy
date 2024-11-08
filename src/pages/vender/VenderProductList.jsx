@@ -54,7 +54,7 @@ const VenderProductList = () => {
                                         <button className="add-button" onClick={() => navigate('/vender/option')}>
                                             옵션등록하기
                                         </button>
-                                        <button className="add-button" onClick={() => navigate('/vender/designregistration')}>
+                                        <button className="add-button" onClick={() => navigate('/vender/cakeDesign/list')}>
                                             도안등록하기
                                         </button>
                                         <button className="add-button" onClick={() => navigate('/vender/registrationform')}>
