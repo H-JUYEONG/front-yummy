@@ -9,16 +9,17 @@ import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrat
 import VenderStatistics from './pages/vender/VenderStatistics';
 import UserCakeDetail from './pages/main/UserCakeDetail';
 import AdminTest from './pages/admin/AdminTest';
+import CreatePage from './pages/vender/CreatePage';
+import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 
 // user
 import UserLoginForm from './pages/user/userLoginForm';
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
-// user jeff userPersonalInfoEdit
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 
-//board
+// board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
@@ -35,27 +36,29 @@ function App() {
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
           <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
           <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
+          <Route path='/vender/statistics' element={<VenderStatistics />} />
+          <Route path='/vender/createPage' element={<CreatePage />} />
+          <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
 
-          <Route path='/login' element={<UserLoginForm />} />
+          {/* User Routes */}
+          <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
+          <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
 
-
+          {/* Main and Admin */}
           <Route path='/main/cakedetail' element={<UserCakeDetail />} />
           <Route path='/admintest' element={<AdminTest />} />
-          <Route path='/vender/statistics' element={<VenderStatistics />} />
-          <Route path='/user/login' element={<UserLoginForm />} />
 
-          {/* user - jeff */}
-          <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit/>} />
-          <Route path='/board' element={<UserDebateList/>} />
-          <Route path='/board/debateinsert' element={<UserDebateInsert/>}/> 
-          <Route path='/board/boardview' element={<UserDebateView/>}/>
-
+          {/* Board Routes */}
+          <Route path='/board' element={<UserDebateList />} />
+          <Route path='/board/debateinsert' element={<UserDebateInsert />} />
+          <Route path='/board/boardview' element={<UserDebateView />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
+
 export default App;
