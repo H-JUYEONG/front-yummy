@@ -37,7 +37,7 @@ const PurchasedProductsDetail = () => {
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
- // 웹캠 사진 촬영 (모바일 지원)
+    // 웹캠 사진 촬영 (모바일 지원)
     const takePhoto = async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -127,7 +127,7 @@ const PurchasedProductsDetail = () => {
     };
 
     // 컴포넌트가 언마운트 될 때 타이머 정리
-  useEffect(() => {
+    useEffect(() => {
         return () => {
             if (notificationTimeout) clearTimeout(notificationTimeout);
         };
