@@ -9,6 +9,7 @@ import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrat
 import VenderStatistics from './pages/vender/VenderStatistics';
 import UserCakeDetail from './pages/main/UserCakeDetail';
 import AdminTest from './pages/admin/AdminTest';
+
 import CreatePage from './pages/vender/CreatePage';
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 
@@ -35,6 +36,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+
           <Route path='/' element={<Main />} />
           <Route path='/vender/dashboard' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
@@ -78,6 +80,7 @@ function App() {
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
           <Route path='/board/boardview' element={<UserDebateView />} />
+
         </Routes>
       </BrowserRouter>
     </div>

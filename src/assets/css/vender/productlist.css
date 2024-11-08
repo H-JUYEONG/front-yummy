@@ -1,12 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-/* 전체 컨테이너 스타일 */
-.vender-content {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
 
 /* 메인 콘텐츠 영역 */
-.main-content {
+.product-list-main-content {
     flex-grow: 1;
     background-color: #ffffff;
     border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
@@ -31,7 +27,7 @@
 }
 
 /* 등록하기 버튼 스타일 */
-.add-button {
+.product-list-main-content .add-button {
     background-color: #4f46e5; /* 세련된 보라색 계열 */
     color: #ffffff;
     padding: 12px 24px;
@@ -43,29 +39,29 @@
     margin-left: 10px;
 }
 
-.add-button:hover {
+.product-list-main-content .add-button:hover {
     background-color: #4338ca; /* 호버 시 더 어두운 보라색 */
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
 
 /* 상품 테이블 스타일 */
-.product-table {
+.product-list-main-content .product-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 12px; /* 행 간 간격 추가하여 현대적인 느낌 */
     margin-top: 20px;
 }
 
-.product-table th,
-.product-table td {
+.product-list-main-content .product-table th,
+.product-list-main-content .product-table td {
     padding: 16px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #e6e8ec;
 }
 
 /* 테이블 헤더 스타일 */
-.product-table th {
+.product-list-main-content .product-table th {
     background-color: #f3f4f6; /* 더 밝은 배경색 */
     font-weight: 600;
     color: #333; /* 진한 색상 */
@@ -73,27 +69,27 @@
 }
 
 /* 짝수 행과 홀수 행 배경색 변경 (가독성 향상) */
-.product-table tbody tr {
+.product-list-main-content .product-table tbody tr {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.product-table tbody tr:nth-child(even) {
+.product-list-main-content .product-table tbody tr:nth-child(even) {
     background-color: #ffffff;
 }
 
-.product-table tbody tr:nth-child(odd) {
+.product-list-main-content .product-table tbody tr:nth-child(odd) {
     background-color: #f9fafb; /* 좀 더 세련된 회색 */
 }
 
 /* 마우스를 올렸을 때 강조 효과 */
-.product-table tbody tr:hover {
+.product-list-main-content .product-table tbody tr:hover {
     background-color: #eef2ff; /* 아주 연한 파란색으로 강조 */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* 버튼 스타일 */
-.edit-button,
-.delete-button {
+.product-list-main-content .edit-button,
+.product-list-main-content .delete-button {
     padding: 8px 16px;
     border: none;
     border-radius: 8px;
@@ -104,23 +100,23 @@
 }
 
 /* 수정 버튼 스타일 */
-.edit-button {
+.product-list-main-content .edit-button {
     background-color: #34d399; /* 세련된 민트색 */
     color: #ffffff;
 }
 
-.edit-button:hover {
+.product-list-main-content .edit-button:hover {
     background-color: #059669; /* 더 어두운 민트색 */
     transform: translateY(-2px);
 }
 
 /* 삭제 버튼 스타일 */
-.delete-button {
+.product-list-main-content .delete-button {
     background-color: #f87171; /* 밝은 빨간색 */
     color: #ffffff;
 }
 
-.delete-button:hover {
+.product-list-main-content .delete-button:hover {
     background-color: #e11d48; /* 더 진한 빨간색 */
     transform: translateY(-2px);
 }

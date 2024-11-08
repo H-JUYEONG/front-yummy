@@ -1,77 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+/* vender.css */
 
 
 
-/* 주문 목록 섹션 */
 .vender-order-list-container {
-    background-color: #ffffff;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .vender-order-list h2 {
-    font-size: 20px;
-    color: #444;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-/* 필터 섹션 */
-.vender-filter-section {
-    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: 600;
+    color: #222;
+}
+
+
+.vender-filter-section {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .vender-filter-section label {
-    margin-right: 8px;
+    margin-right: 10px;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .vender-filter-section select {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
 }
 
-/* 주문 테이블 스타일 */
 .vender-order-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    margin-top: 20px;
+}
+
+.vender-order-table thead {
+    background-color: #f3f4f6;
+    font-weight: 600;
+    color: #333;
+    border-radius: 8px 8px 0 0;
 }
 
 .vender-order-table th,
 .vender-order-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e6e8ec;
+}
+
+.vender-order-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.vender-order-table tbody tr td:last-child {
     text-align: center;
 }
 
-.vender-order-table th {
-    background-color: #0073e6;
-    color: white;
-    font-weight: bold;
+.vender-order-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
 }
 
-.vender-order-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+.vender-order-table tbody tr:nth-child(odd) {
+    background-color: #f9fafb;
 }
 
-.vender-order-table tr:hover {
-    background-color: #e9f7ff;
+.vender-order-table tbody tr:hover {
+    background-color: #eef2ff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .vender-order-table button {
-    padding: 5px 10px;
-    background-color: #0073e6;
-    color: white;
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    margin-left: 10px;
 }
 
 .vender-order-table button:hover {
-    background-color: #005bb5;
+    background-color: #4338ca;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transform: translateY(-3px);
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-button {
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-button.active {
+    background-color: #4338ca;
+    font-weight: bold;
+}
+
+.page-button:hover {
+    background-color: #4338ca;
+}
+
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .vender-container {
+        flex-direction: column;
+    }
+    .vender-filter-section {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0; /* 모바일에서는 필터를 다시 왼쪽 정렬 */
+    }
+    .vender-order-table th, .vender-order-table td {
+        padding: 8px;
+    }
 }

@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
-import '../../assets/css/vender/product.css';
+import '../../assets/css/vender/productregistrationform.css';
 import VenderSidebar from './include/VenderSidebar';
 
 // 옵션 선택 컴포넌트 (체크 박스 버전)
@@ -331,7 +331,7 @@ function ProductRegistrationForm() {
                         ))}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group centered-button-group">
                         <button type="submit" className="add-button">상품 등록하기</button>
                     </div>
                 </form>
