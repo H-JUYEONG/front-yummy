@@ -11,6 +11,7 @@ import VenderStatistics from './pages/vender/VenderStatistics';
 import VenderCreatePage from './pages/vender/VenderCreatePage';
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
+import VenderCakeDesignLikeList from './pages/vender/VenderCakeDesignLikeList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
@@ -30,6 +31,8 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
 import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
+import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
+import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
 
 
 // board
@@ -62,6 +65,7 @@ function App() {
           <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
           <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
+          <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList/>} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
@@ -85,8 +89,14 @@ function App() {
           {/* Main and Admin */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
+
+          <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
+          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/admintest' element={<AdminTest />} />
+
           <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
+
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />

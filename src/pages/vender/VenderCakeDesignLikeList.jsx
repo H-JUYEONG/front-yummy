@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { FaSearch, FaAngleLeft, FaAngleRight } from "react-icons/fa"; // 아이콘 추가
 import "../../assets/css/all.css";
 import "../../assets/css/vender/vender.css";
-import "../../assets/css/vender/venderCakeDesignList.css";
+import "../../assets/css/vender/venderCakeDesignLikeList.css";
 
 import VenderSidebar from "./include/VenderSidebar";
 
-const VenderCakeDesignList = () => {
+const VenderCakeDesignLikeList = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5; // 총 페이지 수 예시
@@ -34,7 +34,7 @@ const VenderCakeDesignList = () => {
             <main className="cake-design-main-content">
               <section className="cake-design-list-section">
                 <header className="cake-design-list-header">
-                  <h2 className="cake-design-list-title">나의 도안 리스트</h2>
+                  <h2 className="cake-design-list-title">찜한 도안 리스트</h2>
 
                   {/* 검색과 버튼 그룹을 한 줄로 배치 */}
                   <div className="cake-design-header-right">
@@ -139,4 +139,4 @@ const VenderCakeDesignList = () => {
   );
 };
 
-export default VenderCakeDesignList;
+export default VenderCakeDesignLikeList;
