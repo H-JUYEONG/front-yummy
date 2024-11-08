@@ -1,6 +1,6 @@
 // 필요한 리액트 훅과 스타일시트 import
 import React, { useState } from 'react';
-import "../../assets/css/main/CakeOrder.css"
+import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/all.css';
 
 const UserCakeDetail = () => {
@@ -93,6 +93,18 @@ const UserCakeDetail = () => {
     // 썸네일 이미지 클릭 시 메인 이미지 변경하는 핸들러
     const handleThumbnailClick = (imagePath) => {
         setMainImage(imagePath);
+
+    };
+
+    // 기존 코드의 handleThumbnailClick 함수 아래에 새로운 이벤트 핸들러 추가
+    const handleWheel = (e) => {
+        const container = e.currentTarget;
+
+        // preventDefault를 호출하여 기본 수직 스크롤을 방지
+        e.preventDefault();
+
+        // deltaY 값을 사용하여 가로 스크롤 구현
+        container.scrollLeft += e.deltaY;
     };
 
     // 케이크 옵션 선택 핸들러들
@@ -161,11 +173,11 @@ const UserCakeDetail = () => {
                                 <div className="rating-select">
                                     <p>별점을 선택해주세요</p>
                                     <div className="stars-input">
-                                        {[5, 4, 3, 2, 1].map((star) => (
+                                        {[1, 2, 3, 4, 5].map((star) => ( // 순서를 1부터 5로 변경
                                             <button
                                                 key={star}
                                                 type="button"
-                                                className={`star-button ${newReview.rating >= star ? 'filled' : ''}`}
+                                                className={`star-button ${newReview.rating <= star ? 'filled' : ''}`} // 비교 연산자 변경
                                                 onClick={() => handleRatingChange(star)}
                                             >
                                                 ★
@@ -173,7 +185,6 @@ const UserCakeDetail = () => {
                                         ))}
                                     </div>
                                 </div>
-
                                 {/* 리뷰 텍스트 입력 영역 */}
                                 <div className="review-text-input">
                                     <textarea
@@ -387,7 +398,11 @@ const UserCakeDetail = () => {
                             {/* 맛 선택 */}
                             <div className="option-group">
                                 <h3>맛</h3>
-                                <div className="option-scroll-container" style={optionGridStyle}>
+                                <div
+                                    className="option-scroll-container"
+                                    style={optionGridStyle}
+                                    onWheel={handleWheel}
+                                >
                                     <div className="option-grid">
                                         {flavorOptions.map((flavor) => (
                                             <button
@@ -462,6 +477,19 @@ const UserCakeDetail = () => {
                                         <option value="13:00">13:00</option>
                                         <option value="14:00">14:00</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div className="option-group">
+                                <h3>요청사항</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        placeholder="예) 레터링 문구를 '생일 축하해 뽀미야~♡' 로 해주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                    <p className="request-notice">
+                                     
+                                    </p>
                                 </div>
                             </div>
                         </div>
