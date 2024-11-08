@@ -220,45 +220,45 @@
 }
 
 /* 맛과 사이즈 옵션 스타일 */
+/* 스크롤 컨테이너 수정 */
 .cake-order-container .option-scroll-container {
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     margin: 0 -10px;
-    padding: 0 10px 15px; /* 아래 패딩 추가 - 스크롤바 공간 확보 */
+    padding: 0 10px 15px;
     cursor: grab;
     user-select: none;
     scroll-behavior: smooth;
     position: relative;
-    /* scrollbar-width: none 제거 */
-    /* -ms-overflow-style: none 제거 */
+    scrollbar-width: none; /* Firefox에서 기본적으로 스크롤바 숨김 */
 }
 
-/* 커스텀 스크롤바 스타일 */
+/* 기본적으로 스크롤바 숨김 */
 .cake-order-container .option-scroll-container::-webkit-scrollbar {
-    height: 6px; /* 스크롤바 높이 */
+    height: 6px;
+    display: none; /* 기본적으로 숨김 */
 }
+
+/* 드래그 중일 때만 스크롤바 표시 */
+.cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
+    display: block;
+}
+
 .cake-order-container .option-scroll-container::-webkit-scrollbar-track {
-    background: #f1f1f1; /* 스크롤바 트랙 배경 */
+    background: #f1f1f1;
     border-radius: 4px;
 }
 
 .cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
-    background: #8B5CF6; /* 보라색 스크롤바 */
+    background: #8B5CF6;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .cake-order-container .option-scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #7C3AED; /* 호버 시 더 진한 보라색 */
+    background: #7C3AED;
 }
-
-/* 드래그 중인 상태 스타일 */
-.cake-order-container .option-scroll-container:active {
-    cursor: grabbing;
-    scroll-behavior: auto; /* 드래그 중에는 부드러운 스크롤 비활성화 */
-}
-
 /* 스크롤 가능함을 나타내는 그라데이션 효과 */
 .cake-order-container .option-scroll-container::after {
     content: '';

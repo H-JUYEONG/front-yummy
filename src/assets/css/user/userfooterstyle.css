@@ -1,0 +1,124 @@
+/* userfooterstyle.css */
+.footer-container {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    border-top: 1px solid #e5e7eb;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.footer-logo {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.footer-logo h2 {
+    font-family: 'SF함박눈', serif;
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.company-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.company-info p {
+    margin: 0;
+    margin-bottom: 12px;
+    font-family: 'NanumSquare', sans-serif;
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #374151;
+    min-width: 80px;
+}
+
+.info-value {
+    color: #6b7280;
+}
+
+.footer-links {
+    flex: 1;
+    min-width: 280px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    font-family: 'GmarketSans', sans-serif;
+    text-decoration: none;
+    color: #4b5563 !important;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    background-color: rgba(153, 153, 255, 0.2);
+    color: #4b5563 !important;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 0.9em;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .footer-info {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .footer-links ul {
+        justify-content: center;
+    }
+
+    .company-info {
+        text-align: center;
+    }
+
+    .company-info p {
+        justify-content: center;
+    }
+}
