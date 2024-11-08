@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
-import VenderDashboard from './pages/vender/VenderDashboard';
+import VenderDashboard from './pages/vender/venderDashboard';
 import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
 import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProductsDetail';
 import VenderOption from './pages/vender/VenderOption';
@@ -13,21 +13,27 @@ import AdminTest from './pages/admin/AdminTest';
 import CreatePage from './pages/vender/CreatePage';
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 
+import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
+import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
+import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
+
+
 // user
 import UserMain from './pages/user/include/UserMain';
-import UserLoginForm from './pages/user/userLoginForm';
 import UserSidebar from './pages/user/include/UserSidebar';
-import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
-import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+import UserLoginForm from './pages/user/userLoginForm';
+import UserSignUpForm from './pages/user/UserSignUpForm';
+import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
+import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
+import VenderSignUpForm from './pages/user/VenderSignUpForm';
+import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 import UserCakeDetail from './pages/user/UserCakeDetail';
-import UserSignUpForm from './pages/user/UserSignUpForm';
-
 
 function App() {
   return (
@@ -44,11 +50,16 @@ function App() {
           <Route path='/vender/statistics' element={<VenderStatistics />} />
           <Route path='/vender/createPage' element={<CreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
+          <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
+          <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
+          <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
+          <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
+          <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>

@@ -3,9 +3,9 @@ import React from "react";
 
 //css
 import "../../assets/css/all.css";
-import "../../assets/css/user/userSignUpForm.css";
+import "../../assets/css/user/userSocialSignUpForm.css";
 
-const UserSignUpForm = () => {
+const UserSocialSignUpForm = () => {
   return (
     <div id="wrap" className="text-center">
       {/* Header */}
@@ -13,15 +13,22 @@ const UserSignUpForm = () => {
         <h1>Header 영역</h1>
       </header>
 
-      <div className="user-signup">
+      <div className="user-social-signup">
         {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
         <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
         <h1>회원가입</h1>
 
         <h2>필수사항</h2>
-        <div className="user-signup-area">
+        <div className="social-signup-area">
           <form>
             <div className="input-group">
+              <div className="social-guide">
+                <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
+                <p>
+                  추후 로그인 시 Kakao 아이디를 이용하여 간편로그인이
+                  가능합니다.
+                </p>
+              </div>
               <label htmlFor="user-id">아이디(이메일)</label>
               <input
                 id="user-id"
@@ -29,30 +36,22 @@ const UserSignUpForm = () => {
                 value=""
                 placeholder="이메일 주소를 입력해주세요."
               />
-              <p className="user-id-ok">사용가능</p>
-              <p className="user-id-ok">중복된 이메일 입니다.</p>
+              <p className="user-social-id-ok">사용가능</p>
+              <p className="user-social-id-ok">중복된 이메일 입니다.</p>
             </div>
 
             <div className="input-group">
               <label htmlFor="user-pw">비밀번호</label>
-              <input
+              {/* <input
                 id="user-pw"
                 type="password"
                 value=""
                 placeholder="비밀번호를 입력해주세요."
-              />
-              <p className="user-pw-ok">※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.</p>
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="user-pw-check">비밀번호 확인</label>
-              <input
-                id="user-pw-check"
-                type="password"
-                value=""
-                placeholder="비밀번호 재입력"
-              />
-              <p className="user-pw-ok">※ 비밀번호가 일치하지 않습니다.</p>
+              /> */}
+              <p className="user-social-pw-ok">
+                ※ SNS(네이버,카카오)를 통한 회원가입시 비밀번호를 입력 할 필요가
+                없습니다.
+              </p>
             </div>
 
             <div className="input-group">
@@ -94,4 +93,4 @@ const UserSignUpForm = () => {
     </div>
   );
 };
-export default UserSignUpForm;
+export default UserSocialSignUpForm;

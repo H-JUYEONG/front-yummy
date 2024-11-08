@@ -1,27 +1,27 @@
 /* 전체 레이아웃 설정 */
-.user-signup {
+.vender-signup {
     width: 450px;
     margin: 0 auto;
     padding: 20px 0;
     text-align: left;
 }
 
-.user-signup img {
+.vender-signup img {
     width: 200px;
 }
 
-.user-signup img {
+.vender-signup img {
     display: block;
     margin: 0 auto 10px auto;
 }
 
-.user-signup h1 {
+.vender-signup h1 {
     font-size: 27px;
     font-weight: bold;
     text-align: center;
 }
 
-.user-signup h2 {
+.vender-signup h2 {
     font-size: 18px;
     font-weight: bold;
     color: #333;
@@ -29,7 +29,7 @@
     position: relative;
 }
 
-.user-signup h2::after {
+.vender-signup h2::after {
     content: "";
     display: block;
     width: 100%;
@@ -41,24 +41,24 @@
 }
 
 /* 입력 필드 스타일 */
-.user-signup-area {
+.vender-signup-area {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.input-group {
+.vender-input-group {
     margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
-.user-id-ok, .user-pw-ok {
+.vender-id-ok, .vender-pw-ok {
     padding-top: 6px;
     font-size: 12px;
     /* font-weight: bold; */
     color: red;
 }
 
-.user-signup-area label {
+.vender-signup-area label {
     font-size: 14px;
     font-weight: bold;
     color: #333;
@@ -66,8 +66,8 @@
     display: block;
 }
 
-.user-signup-area input[type="text"],
-.user-signup-area input[type="password"] {
+.vender-signup-area input[type="text"],
+.vender-signup-area input[type="password"] {
     width: 100%;
     padding: 12px;
     font-size: 14px;
@@ -75,52 +75,24 @@
     box-sizing: border-box;
 }
 
-.phone-input-wrapper {
-    display: flex;
-    gap: 5px;
-}
-
-.phone-input-wrapper input {
-    flex: 1;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    box-sizing: border-box;
-}
-
-.request-code-btn {
-    padding: 12px;
-    font-size: 14px;
-    color: white;
-    background-color: #b08fd9;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.request-code-btn:hover {
-    background-color: #9673b9;
-}
-
 /* Placeholder 스타일 */
-.user-signup-area input::placeholder {
+.vender-signup-area input::placeholder {
     color: #aaa;
 }
 
 /* 포커스 스타일 */
-.user-signup-area input:focus {
+.vender-signup-area input:focus {
     outline: none;
     border-color: #d2b6ff;
 }
 
 /* 회원가입 버튼 스타일 */
-.user-signup-btn {
+.vender-signup-btn {
     text-align: center;
     margin-top: 40px;
 }
 
-.user-signup-btn button {
+.vender-signup-btn button {
     width: 35%;
     padding: 12px 0;
     font-size: 16px;
@@ -131,6 +103,34 @@
     transition: background-color 0.3s ease;
 }
 
-.user-signup-btn button:hover {
+.vender-signup-btn button:hover {
     background-color: #9673b9;
+}
+
+.vender-signup-area input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* 파일 선택 버튼 스타일 */
+.vender-signup-area input[type="file"]::file-selector-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    background-color: #b08fd9;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.vender-signup-area input[type="file"]::file-selector-button:hover {
+    background-color: #9673b9; /* 호버 시 색상 */
 }
