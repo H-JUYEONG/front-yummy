@@ -262,28 +262,9 @@
 }
 
 #user-wrap a:hover {
-    color: #7C3AED;
+    color: #ffffff;
 }
 
-#user-wrap button {
-    padding: 8px 16px;
-    background: #7C3AED;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#user-wrap button:hover {
-    background: #6D28D9;
-}
-
-#user-wrap img {
-    max-width: 100%;
-    height: auto;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
 
 /* 반응형 디자인 */
 @media (max-width: 480px) {

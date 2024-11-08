@@ -6,7 +6,7 @@ const UserMain= () => {
         <div id="user-wrap" className="text-center">
             {/* Header */}
             <header id="user-wrap-head">
-                <h1>로고는 이 폰트에요</h1>
+                <h1>Soyoung</h1>
             </header>
 
             {/* Main Content */}
