@@ -137,10 +137,7 @@ const PurchasedProductsDetail = () => {
         <div className="vender-container">
             <div class="vender-content-wrapper">
                 <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
-                <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar} />
-                <button className="hamburger-menu" onClick={toggleSidebar}>
-                    ☰
-                </button>
+                <VenderSidebar />
                 <div className="vender-content">
                     <section className="purchasedproductsDetail-info">
                         <div className="purchasedproductsDetail-content-box">

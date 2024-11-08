@@ -60,14 +60,10 @@ const VenderPurchasedProducts = () => {
 
     return (
         <div className="vender-container">
-            <div class="vender-content-wrapper">
-                <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
-                <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleSidebar} />
-                <button className="hamburger-menu" onClick={toggleSidebar}>
-                    ☰
-                </button>
+            <div className="vender-content-wrapper">
+            <VenderSidebar />
                 <div className="vender-content">
-                    <main className="vender-order-list-container">
+                    <main className="product-list-main-content">
                         <section className="vender-order-list">
                             <h2>주문 리스트</h2>
                             <div className="vender-filter-section">

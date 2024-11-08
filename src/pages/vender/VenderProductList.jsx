@@ -32,7 +32,6 @@ const VenderProductList = () => {
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
-
                     <div className="vender-content">
                         <main className="product-list-main-content">
                             <section className="product-list">
