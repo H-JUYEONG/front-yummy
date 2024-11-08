@@ -16,9 +16,10 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                 <li><Link to="/" onClick={toggleMenu}><FaHome /> 메인페이지 바로가기</Link></li>
                 <li><Link to="/vender/dashboard" onClick={toggleMenu}><FaChartBar /> 대시보드</Link></li>
                 <li><Link to="/vender/statistics" onClick={toggleMenu}><FaChartBar /> 통계보기</Link></li>
+                <li><Link to="" onClick={toggleMenu}><FaShoppingCart /> 도안관리</Link></li>
                 <li><Link to="/vender/productlist" onClick={toggleMenu}><FaShoppingCart /> 상품관리</Link></li>
                 <li><Link to="/vender/purchasedproducts" onClick={toggleMenu}><FaClipboardList /> 주문관리</Link></li>
-                <li><Link to="/auction-management" onClick={toggleMenu}><FaGavel /> 경매관리</Link></li>
+                <li><Link to="/vender/supervisionList" onClick={toggleMenu}><FaGavel /> 오디션관리</Link></li>
             </ul>
             <button className="exit-button"><FaSignOutAlt /> 로그아웃</button>
         </aside>
