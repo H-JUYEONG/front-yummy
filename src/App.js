@@ -11,8 +11,8 @@ import UserCakeDetail from './pages/main/UserCakeDetail';
 import AdminTest from './pages/admin/AdminTest';
 
 import CreatePage from './pages/vender/CreatePage';
-import VenderSupervisionList from './pages/vender/VenderSupervisionList';
-
+import VenderSupervisionList from './pages/vender/VenderSupervisionList';  
+import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
 // user
 import UserLoginForm from './pages/user/userLoginForm';
 import UserSignUpForm from './pages/user/UserSignUpForm';
@@ -41,6 +41,7 @@ function App() {
           <Route path='/vender/statistics' element={<VenderStatistics />} />
           <Route path='/vender/createPage' element={<CreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
+          <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />
