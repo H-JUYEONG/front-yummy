@@ -1,27 +1,90 @@
-@charset "UTF-8";
-/* 화면 전체 사이즈 */
 #createPage-wrap {
-    margin: 0 auto;                     /* 화면 크기에 맞게 중앙 정렬 */
-    /* background-color: blue; */
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fcecec;
+    border: 2px solid #fcbdbd;
+    border-radius: 10px;
 }
 
-#createPage-wrap #createPage-nav {
-    width: 100%;                        /* 부모 너비상속 */
+h1 {
+    text-align: center;
+    color: #333;
+    padding: 10px 0;
+}
+
+#createPage-nav {
     display: flex;
-    flex-direction: row;               
-    align-items: center;                
-    justify-content: space-between;     /* 항목들을 양 끝에 배치 */
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
 
-/* 첫 번째 항목 */
-#createPage-wrap #createPage-nav li:nth-child(1) {
-    text-align: center;                 /* 첫 번째 항목을 중앙 정렬 */
-    flex: 1;                            /* 첫 번째 항목이 공간을 차지하도록 설정 */
+#createPage-nav a {
+    background-color: #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
 }
 
-/* 미리보기 */
-#createPage-wrap #createPage-nav li:last-child {
-    margin-left: auto;
+.section {
+    margin-bottom: 20px;
+}
 
-    border: 1px solid #000000;
+.section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.section input[type="text"],
+.section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.section textarea {
+    height: 80px;
+    resize: none;
+}
+
+.preview {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    object-fit: cover;
+    display: block;
+    margin: 10px 0;
+}
+
+.category-upload {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.add-category {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.apply-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
 }
