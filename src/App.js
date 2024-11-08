@@ -18,6 +18,7 @@ import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
+import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess/>} />
 
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
+          <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
 
 
           <Route path='/main/cakedetail' element={<UserCakeDetail/>}/>

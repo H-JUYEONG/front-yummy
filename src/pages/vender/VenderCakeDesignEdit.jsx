@@ -5,13 +5,11 @@ import "../../assets/css/all.css";
 import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignAdd.css";
 
-function VenderCakeDesignAdd() {
+function VenderCakeDesignEdit() {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
-  const [files, setFiles] = useState([
-    { id: Date.now(), file: null, preview: null },
-  ]);
+  const [files, setFiles] = useState([{ id: Date.now(), file: null }]);
 
   const handleCakeDesignName = (e) => {
     setCakeDesignName(e.target.value);
@@ -26,28 +24,11 @@ function VenderCakeDesignAdd() {
   };
 
   const addFileInput = () => {
-    setFiles([...files, { id: Date.now(), file: null, preview: null }]);
+    setFiles([...files, { id: Date.now(), file: null }]);
   };
 
   const removeFileInput = (id) => {
     setFiles(files.filter((file) => file.id !== id));
-  };
-
-  const handleFileChange = (e, id) => {
-    const file = e.target.files[0];
-    if (file) {
-      const updatedFiles = files.map((fileInput) => {
-        if (fileInput.id === id) {
-          return {
-            ...fileInput,
-            file,
-            preview: URL.createObjectURL(file),
-          };
-        }
-        return fileInput;
-      });
-      setFiles(updatedFiles);
-    }
   };
 
   return (
@@ -55,30 +36,22 @@ function VenderCakeDesignAdd() {
       <VenderSidebar />
       <div className="vender-content">
         <form className="cake-design-main">
-          <h1 className="cake-design-title">도안 등록</h1>
+          <h1 className="cake-design-title">도안 수정</h1>
 
           <div className="cake-design-imgs">
-            {files.map(
-              (fileInput) =>
-                fileInput.preview && (
-                  <img
-                    key={fileInput.id}
-                    src={fileInput.preview}
-                    alt="미리보기 이미지"
-                  />
-                )
-            )}
+            {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+            <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+            <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+            <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+            <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+            <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
           </div>
 
           <div className="cake-design-form-group">
             <label>도안 이미지</label>
             {files.map((fileInput) => (
               <div key={fileInput.id} className="file-input-wrapper">
-                <input
-                  type="file"
-                  id={`file-${fileInput.id}`}
-                  onChange={(e) => handleFileChange(e, fileInput.id)}
-                />
+                <input type="file" id={`file-${fileInput.id}`} />
                 <button
                   type="button"
                   className="remove-button"
@@ -102,7 +75,7 @@ function VenderCakeDesignAdd() {
             <input
               type="text"
               id="cake-design-name"
-              placeholder="예: 몽환의 숲"
+              placeholder="몽환의 숲"
               value={cakeDesignName}
               onChange={handleCakeDesignName}
               className="input-text"
@@ -113,7 +86,7 @@ function VenderCakeDesignAdd() {
             <label htmlFor="cake-design-description">설명</label>
             <textarea
               id="cake-design-description"
-              placeholder="도안의 주요 특징과 콘셉트를 설명해주세요."
+              placeholder="꽃과 풀이 가득한 초원 위에서 밤하늘을 바라보는 디자인입니다."
               value={cakeDesignDescription}
               onChange={handleCakeDesignDescription}
               className="input-text"
@@ -126,7 +99,7 @@ function VenderCakeDesignAdd() {
             <input
               type="text"
               id="cake-design-event"
-              placeholder="예: 생일, 기념일"
+              placeholder="생일, 기념일"
               value={cakeDesignEvent}
               onChange={handleCakeDesignEvent}
               className="input-text"
@@ -135,7 +108,7 @@ function VenderCakeDesignAdd() {
 
           <div className="form-group">
             <button type="submit" className="cake-design-add-button">
-              상품 등록하기
+              수정하기
             </button>
           </div>
         </form>
@@ -144,4 +117,4 @@ function VenderCakeDesignAdd() {
   );
 }
 
-export default VenderCakeDesignAdd;
+export default VenderCakeDesignEdit;
