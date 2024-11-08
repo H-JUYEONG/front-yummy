@@ -92,7 +92,7 @@ function App() {
 
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
-          <Route path='/admintest' element={<AdminTest />} />
+        
 
           <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
