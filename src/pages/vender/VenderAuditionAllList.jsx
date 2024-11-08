@@ -4,10 +4,10 @@ import React, {useState} from 'react';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
-
+import AppealDesignDetails from './AppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
-import auditionAllList from '../../assets/css/vender/auditionAllList.css'
+import  '../../assets/css/vender/auditionAllList.css';
 
 
 
@@ -39,11 +39,21 @@ const VenderAudirionAllList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
+    // 모달 열기
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
+    // 모달 닫기
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
 
@@ -94,7 +104,7 @@ const VenderAudirionAllList = () => {
                                         <td>3번도안</td>
                                         <td>보유중</td>
                                         <td>
-                                            <button className="supervision-read-button">참여하러가기</button>
+                                            <button className="supervision-read-button" onClick={openModal}>참여하러가기</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -127,6 +137,10 @@ const VenderAudirionAllList = () => {
                     </main>
                 </div>
             </div>
+            {/* 모달 컴포넌트 */}
+            <AppealDesignDetails isOpen={isModalOpen} onClose={closeModal}>
+                
+            </AppealDesignDetails>
         </>
     );
 }

@@ -20,6 +20,7 @@ import VenderAuditionAllList from './pages/vender/VenderAuditionAllList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
+import AppealDesignDetails from './pages/vender/AppealDesignDetails';
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -36,7 +37,6 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
-
 
 function App() {
   return (
@@ -57,6 +57,7 @@ function App() {
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+          <Route path='/vender/AppealDesignDetails' element={<AppealDesignDetails/>} />
 
 
           {/* User Routes */}
