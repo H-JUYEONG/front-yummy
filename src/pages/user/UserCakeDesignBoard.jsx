@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaSearch, FaHeart } from "react-icons/fa";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignBoard.css";
@@ -22,35 +23,35 @@ const UserCakeDesignBoard = () => {
       likes: 1,
     },
     {
-      id: 1,
+      id: 2,
       title: "dud9902",
       subtitle: "아버지 테마의 도안이에요",
       views: 30,
       likes: 1,
     },
     {
-      id: 1,
+      id: 3,
       title: "dud9902",
       subtitle: "아버지 테마의 도안이에요",
       views: 30,
       likes: 1,
     },
     {
-      id: 1,
+      id: 4,
       title: "dud9902",
       subtitle: "아버지 테마의 도안이에요",
       views: 30,
       likes: 1,
     },
     {
-      id: 1,
+      id: 5,
       title: "dud9902",
       subtitle: "아버지 테마의 도안이에요",
       views: 30,
       likes: 1,
     },
     {
-      id: 1,
+      id: 6,
       title: "dud9902",
       subtitle: "아버지 테마의 도안이에요",
       views: 30,
@@ -69,12 +70,31 @@ const UserCakeDesignBoard = () => {
       {/* Main Content */}
       <main>
         <div className="user-cake-design-board-list">
+          <div id="user-cake-design-select-option-list">
+            <div className="user-cake-design-select-option">
+              <button>최신순</button>
+              <button>좋아요순</button>
+              <button>조회수순</button>
+            </div>
+            <div className="user-cake-design-search">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="도안 검색" />
+            </div>
+          </div>
+          <div id="user-cake-design-add" className="clearfix">
+            <div className="user-cake-design-add-btn">
+              <button>도안 등록하기</button>
+            </div>
+          </div>
           <div className="user-cake-design-list-grid">
             {cardData.map((card) => (
               <div key={card.id} className="user-cake-design-card">
                 <div className="user-cake-design-card-image">
                   <img src="/images/2호_일반케이크.jpg" alt="케이크 도안" />
-                  <div className="user-cake-design-card-likes">❤️ 10</div>
+                  <div className="user-cake-design-card-likes">
+                    <FaHeart className="heart-icon" />
+                    <span>10</span>
+                  </div>
                 </div>
                 <div className="user-cake-design-card-info">
                   <h3 className="user-cake-design-card-title">

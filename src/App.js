@@ -17,6 +17,7 @@ import VenderCreatePage from './pages/vender/VenderCreatePage';
 
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
+import VenderCakeDesignLikeList from './pages/vender/VenderCakeDesignLikeList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
@@ -63,6 +64,7 @@ function App() {
           <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
           <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
+          <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList/>} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />

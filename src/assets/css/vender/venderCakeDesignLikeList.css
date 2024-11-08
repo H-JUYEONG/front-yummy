@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+/* 반응형 처리 */
+@media (max-width: 768px) {
+    .cake-design-list-header {
+        flex-direction: column; /* 좁은 화면에서는 제목과 버튼이 수직으로 배치되도록 설정 */
+        align-items: flex-start;
+    }
+
+    .cake-design-add-button {
+        margin-top: 10px;
+    }
+}
+
+/* 전체 컨테이너 스타일 */
+.cake-design-list-content {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/* 메인 콘텐츠 영역 */
+.cake-design-main-content {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
+    padding: 24px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); /* 더 부드러운 그림자 */
+    transition: transform 0.3s;
+}
+
+/* 도안 리스트 제목 및 등록하기 버튼을 포함하는 헤더 */
+.cake-design-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* 도안 리스트 제목 스타일 */
+.cake-design-list-title {
+    font-size: 2em; /* 크고 굵은 글씨로 제목 강조 */
+    font-weight: 600;
+    color: #222; /* 더 진한 색상으로 강조 */
+}
+
+/* 버튼 그룹 스타일 */
+.cake-design-button-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* 등록하기 버튼 스타일 */
+.cake-design-add-button {
+    background-color: #4f46e5; /* 세련된 보라색 계열 */
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.cake-design-add-button:hover {
+    background-color: #4338ca; /* 호버 시 더 어두운 보라색 */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transform: translateY(-3px);
+}
+
+/* 상단 우측 컨텐츠 정렬 */
+.cake-design-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 버튼 그룹 스타일 */
+.cake-design-button-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* 상단 우측 검색창 및 버튼 그룹 컨테이너 */
+.cake-design-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 버튼 그룹 스타일 */
+.cake-design-button-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* 검색 입력 필드 스타일 */
+.cake-design-search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #fff;
+}
+
+.cake-design-search-icon {
+    color: #4f46e5;
+    margin-right: 8px;
+}
+
+.cake-design-search-input {
+    border: none;
+    outline: none;
+    font-size: 1em;
+    width: 300px;
+}
+
+.cake-design-list-imgs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 설정 */
+    justify-items: center; /* 각 셀이 가운데 정렬되도록 설정 */
+    gap: 30px; /* 이미지 간격 */
+    cursor: pointer;
+}
+
+.cake-design-list-imgs img {
+    width: 100%;
+    max-width: 400px; 
+    height: auto;
+    display: block;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+/* 페이지 버튼 컨테이너 */
+.cake-design-list-pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 8px;
+}
+
+/* 페이지 버튼 스타일 */
+.page-button, .page-icon {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    padding: 8px 14px;
+    margin: 0px 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-button:hover, .page-icon:hover {
+    background-color: #cbd5e0;
+    color: #2d3748;
+}
+
+/* 활성 페이지 버튼 스타일 */
+.page-button.active {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+
+/* 비활성화된 버튼 스타일 */
+.page-icon:disabled {
+    background-color: #f1f5f9;
+    color: #cbd5e0;
+    cursor: not-allowed;
+}
