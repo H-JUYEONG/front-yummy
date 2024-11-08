@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-
+.product-registration{
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
+}
 /* 타이틀 스타일 */
 .product-registration .product-list-title {
     font-size: 1.8em;

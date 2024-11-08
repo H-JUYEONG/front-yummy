@@ -259,7 +259,7 @@ function ProductRegistrationForm() {
             <div class="vender-content-wrapper">
                 <VenderSidebar />
                 <div className="vender-content">
-                    <div className='product-registration'>
+                    <div className="product-registration">
                         <form className="main-content" onSubmit={handleSubmit}>
                             <h1 className="product-list-title">상품 등록</h1>
 

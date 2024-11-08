@@ -10,6 +10,7 @@ const VenderProductList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
 
     // 상품 리스트 데이터 예시
     const products = [
@@ -19,13 +20,18 @@ const VenderProductList = () => {
         // ... 더 많은 상품 데이터 추가 가능
     ];
 
+    // 검색어에 따라 필터링된 상품 리스트
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     // 현재 페이지에 맞는 데이터 가져오기
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+    const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
     // 페이지 수 계산
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
     return (
         <>
@@ -38,6 +44,13 @@ const VenderProductList = () => {
                                 <header className="product-list-header">
                                     <h2 className="product-list-title">상품 리스트</h2>
                                     <div className="button-group">
+                                        <input
+                                            type="text"
+                                            className="search-input"
+                                            placeholder="상품명 검색하기"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
                                         <button className="add-button" onClick={() => navigate('/vender/option')}>
                                             옵션등록하기
                                         </button>
