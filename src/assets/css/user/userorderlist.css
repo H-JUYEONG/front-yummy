@@ -1,0 +1,168 @@
+/* 주문 상태 설명 */
+.status-description {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.description-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.description-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.description-table td:first-child {
+    width: 150px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 주문 상태 컨테이너 */
+.order-status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+}
+
+.status-count {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 8px;
+}
+
+.status-label {
+    color: #666;
+    font-size: 13px;
+}
+
+.status-arrow {
+    color: #ccc;
+    margin: 0 10px;
+}
+
+/* 날짜 필터 */
+.order-search {
+    margin-bottom: 20px;
+}
+
+.date-filter {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.date-filter input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.period-btn {
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #333;
+}
+
+.period-btn:hover {
+    background: #e9ecef;
+}
+
+/* 알림 */
+.notice {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.notice p {
+    color: #666;
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+/* 주문 테이블 관련 스타일 수정 */
+.order-table {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    border-collapse: collapse;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-top: 20px; /* 위 간격 추가 */
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle; /* 셀 내용 수직 가운데 정렬 */
+}
+
+.order-table th {
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 버튼 컨테이너 추가 */
+.order-table td:last-child {
+    text-align: right; /* 오른쪽 정렬 */
+    white-space: nowrap; /* 버튼이 줄바꿈되지 않도록 */
+}
+
+.action-btn {
+    display: inline-block; /* 인라인 블록으로 변경 */
+    padding: 6px 12px;
+    margin: 0 2px; /* 버튼 사이 간격 조정 */
+    background: #7C3AED;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.action-btn:hover {
+    background: #6D28D9;
+}
+
+/* 테이블 내 텍스트 정렬 조정 */
+.order-table td:first-child, /* 날짜 */
+.order-table td:nth-child(2) /* 제품명 */ {
+    text-align: left;
+}
+
+.order-table td:nth-child(3), /* 주문상태 */
+.order-table td:nth-child(4) /* 영수증/사진 */ {
+    text-align: center;
+}
