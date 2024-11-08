@@ -1,5 +1,5 @@
 // 필요한 리액트 훅과 스타일시트 import
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
 
@@ -13,6 +13,12 @@ const UserCakeDetail = () => {
     const [mainImage, setMainImage] = useState('/images/2호_일반케이크.jpg');  // 현재 표시되는 메인 이미지
     const [selectedFlavor, setSelectedFlavor] = useState('');          // 선택된 맛 옵션
     const [selectedSize, setSelectedSize] = useState('');              // 선택된 사이즈 옵션
+    const [selectedColor, setSelectedColor] = useState(''); // 색상 선택을 위한 state 추가
+
+    const [isDragging, setIsDragging] = useState(false); //옵션 스크롤 효과
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const containerRef = useRef(null);
 
     // 리뷰 작성을 위한 상태
     const [newReview, setNewReview] = useState({
@@ -72,14 +78,15 @@ const UserCakeDetail = () => {
         { id: 'cheese', name: '치즈', image: '/images/flavor-cheese.jpg' },
         { id: 'redvelvet', name: '레드벨벳', image: '/images/flavor-redvelvet.jpg' }
     ];
+    // 색깔 옵션 추가
+    const colorOptions = [
+        { id: 'pink', name: '핑크', className: 'pink' },
+        { id: 'yellow', name: '노랑', className: 'yellow' },
+        { id: 'orange', name: '오렌지', className: 'orange' }
+    ];
 
-    const optionGridStyle = {
-        overflowX: 'auto',
-        scrollBehavior: 'smooth',
-        WebkitOverflowScrolling: 'touch',  // iOS 스크롤 부드럽게
-        msOverflowStyle: 'none',  // IE/Edge 스크롤바 숨기기
-        scrollbarWidth: 'none',   // Firefox 스크롤바 숨기기
-    };
+
+
 
     // 케이크 사이즈 옵션 데이터
     const sizeOptions = [
@@ -96,20 +103,37 @@ const UserCakeDetail = () => {
 
     };
 
-    // 기존 코드의 handleThumbnailClick 함수 아래에 새로운 이벤트 핸들러 추가
-    const handleWheel = (e) => {
-        const container = e.currentTarget;
-
-        // preventDefault를 호출하여 기본 수직 스크롤을 방지
-        e.preventDefault();
-
-        // deltaY 값을 사용하여 가로 스크롤 구현
-        container.scrollLeft += e.deltaY;
+    //부드럽게 옵션 넘기는 핸들러
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        const container = containerRef.current;
+        setStartX(e.pageX - container.offsetLeft);
+        setScrollLeft(container.scrollLeft);
     };
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const container = containerRef.current;
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2; // 스크롤 속도 조절
+        container.scrollLeft = scrollLeft - walk;
+    };
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
+
+
 
     // 케이크 옵션 선택 핸들러들
     const handleFlavorSelect = (flavorId) => setSelectedFlavor(flavorId);    // 맛 선택
     const handleSizeSelect = (sizeId) => setSelectedSize(sizeId);            // 사이즈 선택
+    const handleColorSelect = (colorId) => { //색깔 선택
+        setSelectedColor(colorId);
+    };
 
     /* ===== 리뷰 관련 핸들러 영역 시작 ===== */
 
@@ -166,13 +190,13 @@ const UserCakeDetail = () => {
                         {/* 필요한 만큼 이미지 추가 */}
                     </div>
                 );
-                case '배송/교환/환불':
-                    return (
-                        <div className="delivery-content">
-                            <img src="/images/제품 설명 1.png" alt="배송 정보" className="info-image" />
-                            {/* 배송/교환/환불 관련 이미지들 */}
-                        </div>
-                    );
+            case '배송/교환/환불':
+                return (
+                    <div className="delivery-content">
+                        <img src="/images/제품 설명 1.png" alt="배송 정보" className="info-image" />
+                        {/* 배송/교환/환불 관련 이미지들 */}
+                    </div>
+                );
             case '상품후기':
                 return (
                     <div className="reviews-container">
@@ -320,17 +344,17 @@ const UserCakeDetail = () => {
                         </div>
                     </div>
                 );
-                case '상품문의':
-                    return (
-                        <div className="inquiry-content">
-                            <img src="/images/제품 설명 1.png" alt="문의 가이드" className="inquiry-image" />
-                            {/* 상품문의 관련 이미지들 */}
-                        </div>
-                    );
-                default:
-                    return null;
-            }
-        };
+            case '상품문의':
+                return (
+                    <div className="inquiry-content">
+                        <img src="/images/제품 설명 1.png" alt="문의 가이드" className="inquiry-image" />
+                        {/* 상품문의 관련 이미지들 */}
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
     return (
         // 전체 페이지 래퍼
         <div id="user-wrap" className="text-center">
@@ -403,9 +427,15 @@ const UserCakeDetail = () => {
                             <div className="option-group">
                                 <h3>크림 색상</h3>
                                 <div className="color-options">
-                                    <button className="color-option pink"></button>
-                                    <button className="color-option yellow"></button>
-                                    <button className="color-option orange"></button>
+                                    {colorOptions.map((color) => (
+                                        <button
+                                            key={color.id}
+                                            className={`color-option ${color.className} ${selectedColor === color.id ? 'active' : ''}`}
+                                            onClick={() => handleColorSelect(color.id)}
+                                            aria-label={`${color.name} 색상 선택`}
+                                            title={color.name}
+                                        />
+                                    ))}
                                 </div>
                             </div>
 
@@ -413,9 +443,12 @@ const UserCakeDetail = () => {
                             <div className="option-group">
                                 <h3>맛</h3>
                                 <div
+                                    ref={containerRef}
                                     className="option-scroll-container"
-                                    style={optionGridStyle}
-                                    onWheel={handleWheel}
+                                    onMouseDown={handleMouseDown}
+                                    onMouseMove={handleMouseMove}
+                                    onMouseUp={handleMouseUp}
+                                    onMouseLeave={handleMouseLeave}
                                 >
                                     <div className="option-grid">
                                         {flavorOptions.map((flavor) => (
@@ -502,7 +535,7 @@ const UserCakeDetail = () => {
                                         className="request-textarea"
                                     />
                                     <p className="request-notice">
-                                     
+
                                     </p>
                                 </div>
                             </div>
