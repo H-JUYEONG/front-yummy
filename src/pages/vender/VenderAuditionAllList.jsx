@@ -4,16 +4,16 @@ import React, { useState } from 'react';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
-
+import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
-import supervisionList from '../../assets/css/vender/supervisionList.css'
+import '../../assets/css/vender/auditionAllList.css';
 
 
 
 
 
-const VenderSupervisionList = () => {
+const VenderAudirionAllList = () => {
 
     /* ---라우터 관련 ------ */
 
@@ -39,11 +39,21 @@ const VenderSupervisionList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
+    // 모달 열기
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
+    // 모달 닫기
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
 
@@ -61,50 +71,52 @@ const VenderSupervisionList = () => {
 
     return (
         <>
-            <div className="vender-container">
-                <div class="vender-content-wrapper">
+            <div className="container">
+                <div className="vender-content-wrapper">
                     {/* 사이드바 영역 */}
                     <VenderSidebar />
+
                     {/* 메인 콘텐츠 영역 */}
                     <div className="vender-content">
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">
-                                    <h2 className="product-list-title">MY오디션 관리</h2>
-
+                                    <h2 className="product-list-title">실시간 오디션 현황</h2>
                                 </header>
+                                <p id="search-now-area"><img src="../assets/images/짱구얼굴.jifif" alt='' />현위치 : 강남구</p>
                                 <table className="product-table">
                                     <thead>
                                         <tr>
-                                            <th>예약번호</th>
+                                            <th>오디션번호</th>
                                             <th>예약자명</th>
-                                            <th>제시금액</th>
-                                            <th>수령방식</th>
                                             <th>수령일자</th>
-                                            <th>진행현황</th>
+                                            <th>픽업방식</th>
+                                            <th>요청도안</th>
+                                            <th>상품보유여부</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
                                             <td>진소영</td>
-                                            <td>30,000원</td>
+                                            <td>2024-11-15</td>
                                             <td>픽업</td>
-                                            <td>2024-11-30</td>
+                                            <td>3번도안</td>
+                                            <td>보유중</td>
                                             <td>
-                                                <button className="supervision-read-button">내역 상세보기</button>
-                                                <button className="supervision-delete-button">취소하기</button>
+                                                <button className="supervision-read-button" onClick={openModal}>참여하러가기</button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>진소영</td>
-                                            <td>30,000원</td>
+                                            <td>2024-11-15</td>
                                             <td>픽업</td>
-                                            <td>2024-11-30</td>
+                                            <td>3번도안</td>
+                                            <td>보유중</td>
                                             <td>
-                                                <button className="supervision-read-button">내역 상세보기</button>
-                                                <button className="supervision-delete-button">취소하기</button>
+                                                <button className="supervision-read-button">도안 추가하러가기</button>
                                             </td>
                                         </tr>
 
@@ -127,8 +139,12 @@ const VenderSupervisionList = () => {
                     </div>
                 </div>
             </div>
+            {/* 모달 컴포넌트 */}
+            <AppealDesignDetails isOpen={isModalOpen} onClose={closeModal}>
+
+            </AppealDesignDetails>
         </>
     );
 }
 
-export default VenderSupervisionList;
+export default VenderAudirionAllList;

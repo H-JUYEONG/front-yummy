@@ -6,7 +6,7 @@ import "../../assets/css/vender/createPage.css"
 
 
 
-const CreatePage = () => {
+const VenderCreatePage = () => {
 
     const [logoPreview, setLogoPreview] = useState(null);
     const [bannerPreview, setBannerPreview] = useState(null);
@@ -100,4 +100,4 @@ const CreatePage = () => {
     );
 }
 
-export default CreatePage;
+export default VenderCreatePage;
