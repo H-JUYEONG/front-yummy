@@ -1,0 +1,27 @@
+.user-cake-design-list-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 열로 고정 */
+  gap: 16px;
+  padding: 20px;
+  max-width: 100%; /* 부모 컨테이너 내에서 최대 너비 제한 */
+  box-sizing: border-box; /* 패딩과 너비가 겹치지 않도록 */
+  margin: 0 auto; /* 그리드를 중앙 정렬 */
+}
+
+.user-cake-design-card {
+  background: #fff;
+  border: 1px solid #333;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 250px; /* 카드의 최대 너비 설정 */
+}
+
+.user-cake-design-card-image img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}

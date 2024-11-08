@@ -20,7 +20,9 @@ import VenderAuditionAllList from './pages/vender/VenderAuditionAllList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
+import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
+
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -32,6 +34,7 @@ import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -60,6 +63,7 @@ function App() {
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+          <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
 
@@ -74,6 +78,11 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
+          <Route path='/user/main' element={<UserMain/>}/>
+          <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
+
+          {/* Main and Admin */}
+
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           {/* Main and Admin */}

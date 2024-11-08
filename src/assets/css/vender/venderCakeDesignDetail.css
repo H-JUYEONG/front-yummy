@@ -1,0 +1,106 @@
+/* 전체 컨테이너 스타일 */
+.vender-content {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/* 메인 콘텐츠 영역 */
+.cake-design-detail-main {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s;
+}
+
+/* 타이틀 스타일 */
+.cake-design-detail .cake-design-detail-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 이미지 및 설명 텍스트를 포함하는 그리드 컨테이너 */
+.cake-design-detail-content {
+    display: flex;
+    gap: 50px; /* 이미지와 텍스트 사이의 간격 */
+    align-items: flex-start;
+    margin-left: 30px;
+}
+
+/* 이미지 스타일 */
+.cake-design-detail-imgs img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-top: 14px; /* 이미지랑 제목 시작 위치 조정 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 서브 이미지 */
+.cake-design-detail-sub-imgs {
+    display: flex;
+    flex-wrap: wrap; /* 이미지가 넘어가면 아래로 배치 */
+    justify-content: flex-start; /* 가운데 정렬 */
+    max-width: 600px;
+}
+
+.cake-design-detail-sub-imgs img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin-top: 14px; /* 이미지랑 제목 시작 위치 조정 */
+    margin-right: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 설명 텍스트 스타일 */
+.cake-design-detail-txt {
+    max-width: 600px;
+    color: #555;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cake-design-detail-txt h2 {
+    padding-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.cake-design-detail-txt h3 {
+    font-size: 21px;
+    padding-bottom: 3px;
+}
+
+.cake-design-detail-txt p {
+    font-size: 20px;
+    padding-bottom: 20px;
+    word-wrap: break-word;
+}
+
+.cake-design-detail-buttons {
+    margin-top: auto; /* 버튼을 텍스트 아래로 밀어내기 */
+    display: flex;
+    gap: 10px; /* 버튼 간 간격 */
+}
+
+.cake-design-detail-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cake-design-detail-buttons button:hover {
+    background-color: #3b37c1;
+}
