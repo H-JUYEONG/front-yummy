@@ -19,6 +19,9 @@ const UserCakeDetail = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const containerRef = useRef(null);
+    const flavorContainerRef = useRef(null);
+    const sizeContainerRef = useRef(null);
+
 
     // 리뷰 작성을 위한 상태
     const [newReview, setNewReview] = useState({
@@ -104,26 +107,31 @@ const UserCakeDetail = () => {
     };
 
     //부드럽게 옵션 넘기는 핸들러
-    const handleMouseDown = (e) => {
+    const handleMouseDown = (e, ref) => {
         setIsDragging(true);
-        const container = containerRef.current;
+        const container = ref.current;
+        container.classList.add('dragging');
         setStartX(e.pageX - container.offsetLeft);
         setScrollLeft(container.scrollLeft);
     };
-    const handleMouseMove = (e) => {
+    
+    const handleMouseMove = (e, ref) => {
         if (!isDragging) return;
         e.preventDefault();
-        const container = containerRef.current;
+        const container = ref.current;
         const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2; // 스크롤 속도 조절
+        const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
     };
-    const handleMouseUp = () => {
+    
+    const handleMouseUp = (ref) => {
         setIsDragging(false);
+        ref.current.classList.remove('dragging');
     };
-
-    const handleMouseLeave = () => {
+    
+    const handleMouseLeave = (ref) => {
         setIsDragging(false);
+        ref.current.classList.remove('dragging');
     };
 
 
@@ -443,12 +451,12 @@ const UserCakeDetail = () => {
                             <div className="option-group">
                                 <h3>맛</h3>
                                 <div
-                                    ref={containerRef}
+                                    ref={flavorContainerRef}
                                     className="option-scroll-container"
-                                    onMouseDown={handleMouseDown}
-                                    onMouseMove={handleMouseMove}
-                                    onMouseUp={handleMouseUp}
-                                    onMouseLeave={handleMouseLeave}
+                                    onMouseDown={(e) => handleMouseDown(e, flavorContainerRef)}
+                                    onMouseMove={(e) => handleMouseMove(e, flavorContainerRef)}
+                                    onMouseUp={() => handleMouseUp(flavorContainerRef)}
+                                    onMouseLeave={() => handleMouseLeave(flavorContainerRef)}
                                 >
                                     <div className="option-grid">
                                         {flavorOptions.map((flavor) => (
@@ -467,23 +475,31 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
 
-                            {/* 사이즈 선택 */}
+                            {/* 사이즈 선택도 동일한 방식으로 수정,ref를 따로주기 */}
                             <div className="option-group">
                                 <h3>사이즈</h3>
-                                <div className="option-grid">
-                                    {sizeOptions.map((size) => (
-                                        <button
-                                            key={size.id}
-                                            // 선택된 사이즈에 active 클래스 추가
-                                            className={`option-item ${selectedSize === size.id ? 'active' : ''}`}
-                                            onClick={() => handleSizeSelect(size.id)}
-                                        >
-                                            <div className="option-image">
-                                                <img src={size.image} alt={size.name} />
-                                            </div>
-                                            <span>{size.name}</span>
-                                        </button>
-                                    ))}
+                                <div
+                                   ref={sizeContainerRef}
+                                   className="option-scroll-container"
+                                   onMouseDown={(e) => handleMouseDown(e, sizeContainerRef)}
+                                   onMouseMove={(e) => handleMouseMove(e, sizeContainerRef)}
+                                   onMouseUp={() => handleMouseUp(sizeContainerRef)}
+                                   onMouseLeave={() => handleMouseLeave(sizeContainerRef)}
+                                >
+                                    <div className="option-grid">
+                                        {sizeOptions.map((size) => (
+                                            <button
+                                                key={size.id}
+                                                className={`option-item ${selectedSize === size.id ? 'active' : ''}`}
+                                                onClick={() => handleSizeSelect(size.id)}
+                                            >
+                                                <div className="option-image">
+                                                    <img src={size.image} alt={size.name} />
+                                                </div>
+                                                <span>{size.name}</span>
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
