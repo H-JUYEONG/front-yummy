@@ -12,8 +12,12 @@ import AdminTest from './pages/admin/AdminTest';
 // user
 import UserLoginForm from './pages/user/userLoginForm';
 import UserSignUpForm from './pages/user/UserSignUpForm';
+import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
+import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+
+import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 
 function App() {
   return (
@@ -30,8 +34,12 @@ function App() {
 
           <Route path='/login' element={<UserLoginForm/>} />
           <Route path='/user/signup' element={<UserSignUpForm/>} />
+          <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess/>} />
+          <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess/>} />
+
+          <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
 
 
           <Route path='/main/cakedetail' element={<UserCakeDetail/>}/>

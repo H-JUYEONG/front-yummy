@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.user-login-box img {
+    width: 200px;
+}
+
 .user-login-box h1 {
     font-size: 28px;
     margin-bottom: 30px;

@@ -1,0 +1,88 @@
+/* 전체 컨테이너 스타일 */
+.vender-content {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/* 메인 콘텐츠 영역 */
+.cake-design-main {
+    flex-grow: 1;
+    background-color: #ffffff;
+    border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
+    padding: 24px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); /* 더 부드러운 그림자 */
+    transition: transform 0.3s;
+}
+
+/* 타이틀 스타일 */
+.cake-design-add .cake-design-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.cake-design-imgs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 설정 */
+    gap: 20px; /* 이미지 간격 */
+    margin-bottom: 20px;
+    padding-left: 35px; /* 양쪽 패딩 추가 */
+    margin-bottom: 30px;
+}
+
+.cake-design-imgs img {
+    width: 100%; /* 이미지가 그리드 셀을 채우도록 설정 */
+    max-width: 400px; /* 최대 너비 설정 */
+    height: auto;
+    display: block;
+}
+
+/* 폼 그룹 스타일 */
+.cake-design-add .cake-design-form-group {
+    margin-bottom: 20px;
+}
+
+.cake-design-add .cake-design-form-group label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 입력 필드 공통 스타일 */
+.cake-design-add .input-text {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.cake-design-add .input-text:focus {
+    border-color: #4f46e5;
+    outline: none;
+    box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
+}
+
+/* 등록 버튼 스타일 */
+.cake-design-main .cake-design-add-button {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.cake-design-main .cake-design-add-button:hover {
+    background-color: #3b37c1;
+    box-shadow: 0 4px 12px rgba(59, 55, 193, 0.4);
+    transform: translateY(-3px);
+}
