@@ -42,7 +42,7 @@ function VenderOption() {
             {/* 사이드바 영역 */}
             <VenderSidebar />
             <div className="vender-content">
-                <div className="main-content">
+                <div className="option-main-content">
                     <ul className="option-list">
                         {options.map(option => (
                             <Option

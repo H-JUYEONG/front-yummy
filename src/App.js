@@ -7,30 +7,42 @@ import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProduct
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
-import UserCakeDetail from './pages/main/UserCakeDetail';
+
+import UserCakeDetail from './pages/user/UserCakeDetail';
+
+
 import AdminTest from './pages/admin/AdminTest';
 
 import CreatePage from './pages/vender/CreatePage';
-import VenderSupervisionList from './pages/vender/VenderSupervisionList';  
+
+import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
+import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
+import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
+import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
+
 // user
-import UserLoginForm from './pages/user/userLoginForm';
-import UserSignUpForm from './pages/user/UserSignUpForm';
-import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
-import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+import UserMain from './pages/user/include/UserMain';
+import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+import UserLoginForm from './pages/user/userLoginForm';
+import UserSignUpForm from './pages/user/UserSignupForm';
+import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
+import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
+import VenderSignUpForm from './pages/user/VenderSignUpForm';
+import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
+
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-
           <Route path='/' element={<Main />} />
           <Route path='/vender/dashboard' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
@@ -42,16 +54,28 @@ function App() {
           <Route path='/vender/createPage' element={<CreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
           <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
+          <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
+          <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
+          <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />
+
           <Route path='/user/signup' element={<UserSignUpForm />} />
+          <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
+
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
+          <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
-
+          <Route path='/user/sidebar' element={<UserSidebar/>}/>
+          <Route path='/user/test' element={<UserMain/>}/>
+          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           {/* Main and Admin */}
-          <Route path='/main/cakedetail' element={<UserCakeDetail />} />
+
+          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
+
           <Route path='/admintest' element={<AdminTest />} />
 
           {/* Board Routes */}

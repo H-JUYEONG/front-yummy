@@ -6,6 +6,10 @@
     border: 1px solid #333;
 }
 
+.vender-signup-succ img {
+    width: 200px;
+}
+
 .vender-signup-succ h2 {
     font-size: 20px;
     font-weight: bold;
