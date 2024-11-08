@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-
-/* 메인 콘텐츠 영역 */
-.vender-content {
-    background: #f5f6fa;
-    min-height: 100vh;
-    max-width: 1500px; 
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
 /* 통계 요약 섹션 */
 .dashboard-summary {
     margin-bottom: 30px;

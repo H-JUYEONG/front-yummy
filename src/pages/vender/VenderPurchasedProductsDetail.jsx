@@ -145,7 +145,6 @@ const PurchasedProductsDetail = () => {
                     <div className="purchasedproductsDetail-content-box">
                         <div className="purchasedproductsDetail-content">
                             <div className="purchasedproductsDetail-text">
-                                <h1>주문 상세 내역</h1>
                                 <h2>special 꽃감사패 (1호,2호)</h2>
                                 <div className="purchasedproductsDetail-basic-info">
                                     <p><strong>배송방법:</strong> 픽업</p>

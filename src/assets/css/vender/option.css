@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-.vender-content {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
 /* 메인 콘텐츠의 컨테이너 */
 .main-content {
     flex-grow: 1;

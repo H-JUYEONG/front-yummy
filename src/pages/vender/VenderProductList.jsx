@@ -33,7 +33,7 @@ const VenderProductList = () => {
                 <VenderSidebar />
 
                 <div className="vender-content">
-                    <main className="main-content">
+                    <main className="product-list-main-content">
                         <section className="product-list">
                             <header className="product-list-header">
                                 <h2 className="product-list-title">상품 리스트</h2>

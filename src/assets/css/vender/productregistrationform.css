@@ -152,7 +152,8 @@
     width: 0;
     height: 0;
 }
-.product-registration .option-item input[type="checkbox"] + label {
+
+.product-registration .option-item input[type="checkbox"]+label {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -162,14 +163,16 @@
     border-radius: 8px;
     border: 1px solid #ddd;
 }
-.product-registration .option-item input[type="checkbox"]:checked + label {
+
+.product-registration .option-item input[type="checkbox"]:checked+label {
     background-color: #f0f0f0;
     border-color: #007bff;
 }
 
-.product-registration .option-item input[type="checkbox"]:focus + label {
+.product-registration .option-item input[type="checkbox"]:focus+label {
     outline: none;
 }
+
 .product-registration .option-image {
     width: 80px;
     height: 80px;
@@ -183,7 +186,14 @@
     text-align: center;
 }
 
+
 /* 등록 버튼 스타일 */
+.product-registration .centered-button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .product-registration .add-button {
     background-color: #4f46e5;
     color: #ffffff;
@@ -192,7 +202,7 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    width: 100%;
+    width: 20%;
     font-weight: bold;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
