@@ -8,7 +8,7 @@ import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
 
-import UserCakeDetail from './pages/user/UserCakeDetail';
+
 
 
 import AdminTest from './pages/admin/AdminTest';
@@ -31,6 +31,9 @@ import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+import UserCakeDetail from './pages/user/UserCakeDetail';
+import UserOrderList from './pages/user/UserOrderList';
+
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -56,10 +59,10 @@ function App() {
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+          
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />
-
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
 
@@ -70,9 +73,10 @@ function App() {
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
+          <Route path='/user/orderlist' element={<UserOrderList/>}/>
+       
           {/* Main and Admin */}
 
-          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
 
           <Route path='/admintest' element={<AdminTest />} />
 

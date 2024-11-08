@@ -59,8 +59,8 @@ const UserCakeDetail = () => {
     const images = [
         '/images/2호_일반케이크.jpg',
         '/images/3호_특별한케이크(달력).jpg',
-        '/images/2호_일반케이크.jpg',
-        '/images/3호_특별한케이크(달력).jpg'
+        '/images/1호_일반케이크 1.jpg',
+        '/images/4호_달걀 한판 케이크.png'
     ];
 
     // 케이크 맛 옵션 데이터
@@ -159,9 +159,20 @@ const UserCakeDetail = () => {
     const renderTabContent = () => {
         switch (selectedTab) {
             case '상품 상세정보':
-                return <div className="tab-placeholder">상품 상세정보</div>;
-            case '배송/교환/환불':
-                return <div className="tab-placeholder">배송/교환/환불 영역</div>;
+                return (
+                    <div className="detail-content">
+                        <img src="/images/제품 설명 1.png" alt="상품 상세 이미지" className="detail-image" />
+                        <img src="/images/제품 설명 1.png" alt="상품 상세 이미지" className="detail-image" />
+                        {/* 필요한 만큼 이미지 추가 */}
+                    </div>
+                );
+                case '배송/교환/환불':
+                    return (
+                        <div className="delivery-content">
+                            <img src="/images/제품 설명 1.png" alt="배송 정보" className="info-image" />
+                            {/* 배송/교환/환불 관련 이미지들 */}
+                        </div>
+                    );
             case '상품후기':
                 return (
                     <div className="reviews-container">
@@ -309,14 +320,17 @@ const UserCakeDetail = () => {
                         </div>
                     </div>
                 );
-            case '상품문의':
-                return <div className="tab-placeholder">상품문의 영역</div>;
-            default:
-                return null;
-        }
-    };
-
-
+                case '상품문의':
+                    return (
+                        <div className="inquiry-content">
+                            <img src="/images/제품 설명 1.png" alt="문의 가이드" className="inquiry-image" />
+                            {/* 상품문의 관련 이미지들 */}
+                        </div>
+                    );
+                default:
+                    return null;
+            }
+        };
     return (
         // 전체 페이지 래퍼
         <div id="user-wrap" className="text-center">
@@ -503,7 +517,7 @@ const UserCakeDetail = () => {
             </main>
 
             {/* 푸터 영역 */}
-            <footer className="full-width">
+            <footer className="user-full-width">
                 <p>Footer 영역</p>
             </footer>
         </div>
