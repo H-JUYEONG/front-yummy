@@ -29,6 +29,7 @@ import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
+import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -66,6 +67,7 @@ function App() {
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
           <Route path='/user/main' element={<UserMain/>}/>
+          <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
 
           {/* Main and Admin */}
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
