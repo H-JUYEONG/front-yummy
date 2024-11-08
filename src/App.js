@@ -13,14 +13,14 @@ import UserCakeDetail from './pages/user/UserCakeDetail';
 
 import AdminTest from './pages/admin/AdminTest';
 
-import CreatePage from './pages/vender/CreatePage';
+import VenderCreatePage from './pages/vender/VenderCreatePage';
 
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
-import AppealDesignDetails from './pages/vender/AppealDesignDetails';
+import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -51,13 +51,13 @@ function App() {
           <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
           <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
           <Route path='/vender/statistics' element={<VenderStatistics />} />
-          <Route path='/vender/createPage' element={<CreatePage />} />
+          <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
           <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
-          <Route path='/vender/AppealDesignDetails' element={<AppealDesignDetails/>} />
+          <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
 
           {/* User Routes */}

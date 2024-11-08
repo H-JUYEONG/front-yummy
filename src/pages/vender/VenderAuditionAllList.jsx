@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
-import AppealDesignDetails from './AppealDesignDetails'; // 생성한 Modal 컴포넌트 import
+import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
 import  '../../assets/css/vender/auditionAllList.css';
