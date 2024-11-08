@@ -50,13 +50,7 @@
 }
 
 /* 헤더 영역 */
-#user-wrap-head {
-    padding: 20px;
-    border: 2px dashed #FF9999;
-    margin-bottom: 20px;
-    position: relative;
-    background: rgba(255, 153, 153, 0.1);
-}
+
 
 #user-wrap-head h1 {
     font-family: 'SF함박눈', serif !important;
@@ -67,16 +61,7 @@
     letter-spacing: 0.05em;
 }
 
-#user-wrap-head::before {
-    content: 'USER HEADER 영역';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #FF9999;
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-}
+
 
 /* 메인 컨텐츠 영역 */
 #user-wrap-body {
@@ -205,25 +190,8 @@
 }
 
 /* 푸터 */
-.user-full-width {
-    width: 100%;
-    background: rgba(255, 153, 255, 0.1);
-    border: 2px dashed #FF99FF;
-    padding: 20px;
-    position: relative;
-    margin-top: auto;
-}
 
-.user-full-width::before {
-    content: 'USER FOOTER 영역';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #FF99FF;
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-}
+
 
 .user-full-width p {
     margin: 0;

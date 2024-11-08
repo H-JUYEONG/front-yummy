@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
+
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
 import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
@@ -46,6 +47,7 @@ import UserDebateView from './pages/user/UserDebateView';
 
 import VenderProductPreview from './pages/vender/VenderProductPreview';
 
+
 function App() {
   return (
     <div>
@@ -73,7 +75,6 @@ function App() {
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
-
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
