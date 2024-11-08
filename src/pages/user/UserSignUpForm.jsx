@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "../../assets/css/all.css";
 import "../../assets/css/user/userSignUpForm.css";
 
-const UserSignUpSuccess = () => {
+const UserSignUpForm = () => {
   return (
     <div id="wrap" className="text-center">
       {/* Header */}
@@ -59,4 +59,4 @@ const UserSignUpSuccess = () => {
     </div>
   );
 };
-export default UserSignUpSuccess;
+export default UserSignUpForm;

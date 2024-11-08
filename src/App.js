@@ -8,8 +8,6 @@ import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
 
-import UserCakeDetail from './pages/main/UserCakeDetail';
-
 import AdminTest from './pages/admin/AdminTest';
 
 import CreatePage from './pages/vender/CreatePage';
@@ -27,6 +25,8 @@ import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
+import UserCakeDetail from './pages/user/UserCakeDetail';
+import UserSignUpForm from './pages/user/UserSignUpForm';
 
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
           <Route path='/user/main' element={<UserMain/>}/>
 
           {/* Main and Admin */}
-          <Route path='/main/cakedetail' element={<UserCakeDetail />} />
+          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/admintest' element={<AdminTest />} />
 
           {/* Board Routes */}
