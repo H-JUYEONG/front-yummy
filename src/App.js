@@ -1,13 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
-import VenderProduct from './pages/vender/VenderProduct';
 import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
-import VenderDashboard from './pages/vender/venderDashboard';
+import VenderDashboard from './pages/vender/VenderDashboard';
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
-import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
 import UserCakeDetail from './pages/main/UserCakeDetail';
 import AdminTest from './pages/admin/AdminTest';
 
