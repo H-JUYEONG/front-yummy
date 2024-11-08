@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
-import VenderDashboard from './pages/vender/venderDashboard';
+import VenderDashboard from './pages/vender/VenderDashboard';
 import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
 import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProductsDetail';
 import VenderOption from './pages/vender/VenderOption';
@@ -34,6 +34,7 @@ import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 import UserCakeDetail from './pages/user/UserCakeDetail';
+import VenderProductPreview from './pages/vender/VenderProductPreview';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
+          <Route path='/vender/productpreview' element={<VenderProductPreview/>} />
           <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
           <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
           <Route path='/vender/statistics' element={<VenderStatistics />} />
