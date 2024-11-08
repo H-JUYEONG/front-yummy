@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
-
 import VenderDashboard from './pages/vender/VenderDashboard';
+import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
+import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProductsDetail';
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
