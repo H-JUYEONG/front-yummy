@@ -17,6 +17,7 @@ import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
+import VenderProductPreview from './pages/vender/VenderProductPreview';
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -40,9 +41,6 @@ import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
-import VenderProductPreview from './pages/vender/VenderProductPreview';
-
-
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMemberManagement from './pages/admin/AdminMemberManagement';
@@ -53,8 +51,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/vender/dashboard' element={<VenderDashboard />} />
+          <Route path='/vender/' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -73,6 +70,7 @@ function App() {
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
           {/* User Routes */}
+          <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
@@ -81,20 +79,18 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
-
-          {/* Main and Admin */}
-          <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
-
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
-        
 
-          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          {/* Main and Admin */}
+          <Route path='/' element={<Main />} />
+
+          {/*Admin Routes */}
+          <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
 
           {/* Board Routes */}
