@@ -1,6 +1,7 @@
 //import 라이브러리
 import React from 'react';
 import '../../assets/css/all.css';
+
 //import 컴포넌트
 
 const Main = () => {
@@ -10,6 +11,7 @@ const Main = () => {
             <header id="wrap-head">
                 <h1>Header 영역</h1>
             </header>
+
 
             {/* Main Content */}
             <main id="wrap-body" className="clearfix">
@@ -33,8 +35,8 @@ const Main = () => {
 
                     {/* Image */}
                     <div>
-                        <h3>반응형 이미지</h3>
-                        <img src="https://via.placeholder.com/300" alt="Placeholder" />
+                        <h3>이미지</h3>
+                        {/* <img src="https://via.placeholder.com/300" alt="Placeholder" /> */}
                     </div>
 
                     {/* Utility Classes */}
@@ -44,8 +46,11 @@ const Main = () => {
                     <div className="hidden">
                         <p>이 텍스트는 hidden 클래스가 적용되어 보이지 않습니다.</p>
                     </div>
+
                 </section>
             </main>
+
+
 
             {/* Footer */}
             <footer className="full-width">
