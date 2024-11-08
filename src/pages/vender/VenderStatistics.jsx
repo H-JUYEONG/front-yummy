@@ -20,7 +20,7 @@ ChartJS.register(
 );
 
 const VenderStatistics = () => {
-    
+
     // 그래프 데이터 설정
     const salesData = {
         labels: ['1주', '2주', '3주', '4주'],
@@ -80,7 +80,7 @@ const VenderStatistics = () => {
             },
         },
     };
-    
+
     return (
         <>
             <Helmet>
