@@ -38,6 +38,8 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
 import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
+import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
+import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
 
 
 // board
@@ -89,6 +91,8 @@ function App() {
           {/* Main and Admin */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
+          <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
+          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
           <Route path='/admintest' element={<AdminTest />} />
 
           {/* Board Routes */}
