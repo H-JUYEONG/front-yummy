@@ -25,7 +25,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 그리드 설정 */
     gap: 20px; /* 이미지 간격 */
-    margin-bottom: 20px;
     padding-left: 35px; /* 양쪽 패딩 추가 */
     margin-bottom: 30px;
 }
