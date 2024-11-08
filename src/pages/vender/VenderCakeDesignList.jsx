@@ -113,8 +113,9 @@ const VenderCakeDesignList = () => {
                   {[...Array(totalPages)].map((_, index) => (
                     <button
                       key={index + 1}
-                      className={`page-button ${currentPage === index + 1 ? "active" : ""
-                        }`}
+                      className={`page-button ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
                       onClick={() => handlePageChange(index + 1)}
                     >
                       {index + 1}
