@@ -1,6 +1,6 @@
 // 필요한 리액트 훅과 스타일시트 import
 import React, { useState } from 'react';
-import "../../assets/css/main/CakeOrder.css"
+import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/all.css';
 
 const UserCakeDetail = () => {
