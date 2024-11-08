@@ -14,12 +14,12 @@ import UserCakeDetail from './pages/user/UserCakeDetail';
 import AdminTest from './pages/admin/AdminTest';
 
 import CreatePage from './pages/vender/CreatePage';
-import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 
+import VenderSupervisionList from './pages/vender/VenderSupervisionList';
+import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
-
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -53,9 +53,11 @@ function App() {
           <Route path='/vender/statistics' element={<VenderStatistics />} />
           <Route path='/vender/createPage' element={<CreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
+          <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
+.vender-content .product-list-main-content .product-list .product-list-header{
+
+}
+#search-now-area{
+    font-size: 20px;
+    text-align: right;  /* 텍스트를 오른쪽으로 정렬 */
+    width: 100%;         /* 부모 요소 너비를 100%로 설정 */
+    
+}
