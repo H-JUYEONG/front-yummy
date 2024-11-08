@@ -93,6 +93,7 @@
     /* 패딩과 너비를 포함하도록 박스 크기 설정 */
     border-radius: 16px;
     /* 콘텐츠 섹션의 모서리를 둥글게 */
+    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .sidebar-open .vender-content {
     margin-left: 250px;

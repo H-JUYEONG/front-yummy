@@ -225,3 +225,27 @@
     box-shadow: 0 6px 15px rgba(59, 55, 193, 0.4);
     transform: translateY(-5px);
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.page-button:hover {
+    background-color: #ddd;
+}
+
+.page-button.active {
+    background-color: #007bff;
+    color: white;
+}
