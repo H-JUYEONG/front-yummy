@@ -1,32 +1,12 @@
-/* Container */
-#wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-}
-
-/* Header */
-#wrap-head {
-    background-color: #333;
-    color: #fff;
-    padding: 15px;
-    text-align: center;
-}
-#wrap-head h1 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
 /* Navigation Bar */
-#wrap-nav {
+#user-wrap-nav {
     background-color: #f0f0f0;
     padding: 10px 0;
     text-align: center;
     margin-bottom: 20px;
 }
-#wrap .j-nav-menu {
+
+#user-wrap .j-nav-menu {
     list-style: none;
     display: flex;
     justify-content: center;
@@ -34,76 +14,105 @@
     padding: 0;
     margin: 0;
 }
-#wrap .j-nav-menu li {
+
+#user-wrap .j-nav-menu li {
     cursor: pointer;
     padding: 8px 12px;
     font-size: 1rem;
     color: #333;
 }
 
-/* Main Content */
-#wrap-body {
-    padding: 20px;
-}
-
 /* Main Section */
-#wrap-main {
+#user-wrap-main {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Unified Title and Meta Section */
+.j-title-meta-wrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Title Section */
-#wrap .j-title-section {
-    text-align: center;
+.j-title-section {
     padding: 15px;
     font-size: 1.8em;
     font-weight: bold;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0; /* Remove bottom margin */
+    border-bottom: 1px solid #ddd; /* Separate title from metadata */
+    text-align: center;
 }
 
 /* Meta Data Section */
-#wrap .j-meta-data {
+.j-meta-data {
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    border: 1px solid #ddd;
     font-size: 0.9em;
     color: #666;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 0; /* Remove top margin */
+}
+
+.j-meta-data span {
+    border-right: 1px solid #ddd; /* Divider between each metadata item */
+    padding: 0 10px;
+}
+
+.j-meta-data span:last-child {
+    border-right: none; /* No divider on the last item */
 }
 
 /* Images Section */
-#wrap .j-images-section {
+#user-wrap .j-images-section {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
 }
-#wrap .j-image-container {
+
+#user-wrap .j-image-container {
     text-align: center;
     margin: 0 10px;
 }
-#wrap .j-image-container img {
+
+#user-wrap .j-image-container img {
     width: 300px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-#wrap .j-caption {
+
+#user-wrap .j-image-container {
+    text-align: center;
+    margin: 0 10px;
+}
+
+/* Adjust Vote Button under each image */
+#user-wrap .j-image-container .j-vote-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#user-wrap .j-image-container .j-vote-button:hover {
+    background-color: #0056b3;
+}
+
+#user-wrap .j-caption {
     margin-top: 10px;
     font-size: 0.9em;
     color: #333;
 }
-#wrap .j-vs-divider {
+
+#user-wrap .j-vs-divider {
     font-size: 2em;
     color: #555;
     font-weight: bold;
@@ -111,7 +120,7 @@
 }
 
 /* Post Content Section */
-#wrap .j-post-content {
+.j-post-content {
     padding: 15px;
     text-align: center;
     font-size: 1.2em;
@@ -123,7 +132,7 @@
 }
 
 /* Voting Buttons Section */
-#wrap .j-voting-buttons {
+#user-wrap .j-voting-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +140,8 @@
     padding: 15px;
     margin-top: 10px;
 }
-#wrap .j-vote-button {
+
+#user-wrap .j-vote-button {
     padding: 10px 20px;
     font-size: 1em;
     border: none;
@@ -141,16 +151,51 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
-#wrap .j-vote-button:hover {
+
+#user-wrap .j-vote-button:hover {
     background-color: #0056b3;
 }
-#wrap .j-click-count {
+
+#user-wrap .j-click-count {
     font-size: 0.9em;
     color: #555;
 }
+/* Combined Horizontal Progress Bar */
+.j-combined-progress-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.9em;
+    color: #fff;
+    position: relative;
+}
 
+/* Left Bar */
+.j-bar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    white-space: nowrap;
+    transition: width 0.3s;
+    font-weight: bold;
+}
+
+/* Right Bar */
+.j-bar-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff5733;
+    white-space: nowrap;
+    transition: width 0.3s;
+    font-weight: bold;
+}
 /* Comment Section */
-#wrap .j-comment-section {
+#user-wrap .j-comment-section {
     padding: 20px;
     border-top: 1px solid #ddd;
     background-color: #fff;
@@ -158,64 +203,80 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
 }
-#wrap .j-comment-box {
-    width: 100%;
+
+#user-wrap .j-comment-input-container { /* New Container for Text and Button */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#user-wrap .j-comment-box {
+    flex: 1; /* Make the text box take up available space */
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    margin-bottom: 10px;
 }
-#wrap .j-comment-submit {
+
+/* Comment Submit Button */
+#user-wrap .j-comment-submit {
     padding: 10px 15px;
     font-size: 1em;
     background-color: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
-#wrap .j-comment-submit:hover {
+
+#user-wrap .j-comment-submit:hover {
     background-color: #388E3C;
 }
 
 /* Display of Other Comments */
-#wrap .j-other-comments {
+#user-wrap .j-other-comments {
     margin-top: 20px;
 }
-#wrap .j-comment {
+
+#user-wrap .j-comment {
     display: flex;
     align-items: flex-start;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
-#wrap .j-profile-pic {
+
+#user-wrap .j-profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
-#wrap .j-comment-content {
+
+#user-wrap .j-comment-content {
     flex: 1;
+    text-align: left; /* Align content to the left */
 }
-#wrap .j-comment-author {
+
+#user-wrap .j-comment-author {
     font-weight: bold;
     color: #333;
     margin-right: 5px;
 }
-#wrap .j-user-side {
+
+#user-wrap .j-user-side {
     font-size: 0.9em;
     color: #888;
 }
-#wrap .j-comment p {
+
+#user-wrap .j-comment p {
     margin: 5px 0 0;
     color: #555;
 }
 
 /* Footer */
-.full-width {
+.user-full-width {
     width: 100%;
     background-color: #333;
     color: #fff;
