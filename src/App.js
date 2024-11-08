@@ -8,14 +8,7 @@ import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProduct
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
-
-
-
-
-import AdminTest from './pages/admin/AdminTest';
-
 import VenderCreatePage from './pages/vender/VenderCreatePage';
-
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
@@ -23,7 +16,6 @@ import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
-
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -46,6 +38,11 @@ import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
 import VenderProductPreview from './pages/vender/VenderProductPreview';
+
+
+// admin
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminMemberManagement from './pages/admin/AdminMemberManagement';
 
 
 function App() {
@@ -84,12 +81,12 @@ function App() {
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
-       
+
           {/* Main and Admin */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
-          <Route path='/admintest' element={<AdminTest />} />
-
+          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          <Route path='/admin/member' element={<AdminMemberManagement/>}/>
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
