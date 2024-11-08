@@ -52,11 +52,10 @@
 .cake-design-add-button {
     background-color: #4f46e5; /* 세련된 보라색 계열 */
     color: #ffffff;
-    padding: 8px 16px;
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
@@ -117,17 +116,18 @@
 .cake-design-list-imgs {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 그리드 설정 */
-    gap: 20px; /* 이미지 간격 */
-    padding-left: 35px; /* 양쪽 패딩 추가 */
-    margin-bottom: 30px;
+    justify-items: center; /* 각 셀이 가운데 정렬되도록 설정 */
+    gap: 30px; /* 이미지 간격 */
+    cursor: pointer;
 }
 
 .cake-design-list-imgs img {
-    width: 100%; /* 이미지가 그리드 셀을 채우도록 설정 */
-    max-width: 400px; /* 최대 너비 설정 */
+    width: 100%;
+    max-width: 400px; 
     height: auto;
     display: block;
-    margin-bottom: 30px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
 }
 
 /* 페이지 버튼 컨테이너 */
@@ -135,7 +135,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 50px;
     gap: 8px;
 }
 
