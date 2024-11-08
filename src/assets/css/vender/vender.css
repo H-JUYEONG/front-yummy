@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
 
-/* 사이드바 스타일 수정 */
+/* 기본 사이드바 스타일 */
 .vender-sidebar {
     width: 250px;
     background-color: #181414;
@@ -16,6 +16,11 @@
     border-radius: 16px;
     z-index: 10;
     font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/* 사이드바가 열렸을 때 */
+.vender-sidebar.open {
+    transform: translateX(0);
 }
 
 /* 사이드바 프로필 영역 */
@@ -47,9 +52,12 @@
 
 .vender-menu li.active,
 .vender-menu li:hover {
-    background-color: #444444; /* 사이드바 항목의 배경색을 어두운 회색으로 변경 */
-    color: #ffffff; /* 호버 시 글자색 유지 */
+    background-color: #444444;
+    /* 사이드바 항목의 배경색을 어두운 회색으로 변경 */
+    color: #ffffff;
+    /* 호버 시 글자색 유지 */
 }
+
 /* 로그아웃 버튼 */
 .exit-button {
     margin-top: 30px;
@@ -70,7 +78,10 @@
 }
 
 /* 오른쪽 메인 콘텐츠 스타일 수정 */
+
 .vender-content {
+    transition: margin-left 0.3s ease;
+     /* 기본값 */
     /* 사이드바 너비 + 왼쪽 여백 */
     margin-top: 20px;
     /* 위쪽 마진 */
@@ -80,5 +91,50 @@
     /* 사이드바와 좌우 여백 고려 */
     box-sizing: border-box;
     /* 패딩과 너비를 포함하도록 박스 크기 설정 */
-    border-radius: 16px; /* 콘텐츠 섹션의 모서리를 둥글게 */
+    border-radius: 16px;
+    /* 콘텐츠 섹션의 모서리를 둥글게 */
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.sidebar-open .vender-content {
+    margin-left: 250px;
+}
+
+
+/* 햄버거 메뉴 버튼 */
+.hamburger-menu {
+    display: none;
+    font-size: 24px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+    .vender-content {
+        margin-left: 0; /* 좌측 마진 제거 */
+        width: 100%; /* 너비를 100%로 설정하여 꽉 차게 */
+        border-radius: 0; /* 둥근 모서리 제거 */
+        padding: 15px; /* 모바일에서의 패딩 조정 (필요에 따라 변경 가능) */
+    }
+    .hamburger-menu {
+        display: block;
+    }
+
+    .vender-sidebar {
+        transform: translateX(-110%);
+    }
+
+    .vender-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-open .vender-content {
+        margin-left: 0;
+    }
 }

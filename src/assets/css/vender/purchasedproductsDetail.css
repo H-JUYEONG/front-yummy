@@ -1,0 +1,416 @@
+/* 주문 정보 섹션 */
+.purchasedproductsDetail-info {
+    padding: 50px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.purchasedproductsDetail-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* 텍스트 섹션 */
+.purchasedproductsDetail-text {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.purchasedproductsDetail-text h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-text h2 {
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.purchasedproductsDetail-basic-info p {
+    font-size: 16px;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* 이미지 섹션 */
+.purchasedproductsDetail-images {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.purchasedproductsDetail-image-box {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 150px;
+}
+
+.purchasedproductsDetail-image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-image-box p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* 사진 및 영상 전달 섹션 */
+.purchasedproductsDetail-media-delivery {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+.media-delivery-heading {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px; /* 텍스트와 버튼 사이 간격 */
+}
+.purchasedproductsDetail-media-delivery h2 {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 15px;
+}
+.purchasedproductsDetail-media-box {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.purchasedproductsDetail-media-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    background-color: #f9f9f9;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+}
+
+
+.purchasedproductsDetail-media-item h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.purchasedproductsDetail-media-item p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-media-item button {
+    padding: 8px 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.purchasedproductsDetail-media-item button:hover {
+    background-color: #555;
+}
+
+.purchasedproductsDetail-media-item .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+}
+
+.purchasedproductsDetail-media-item .close-icon:hover {
+    color: #666;
+}
+
+.purchasedproductsDetail-media-buttons button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.purchasedproductsDetail-media-buttons button:hover {
+    background-color: #005bb5;
+}
+
+/* 실시간 제작 과정 전송 섹션 */
+.purchasedproductsDetail-live-broadcast {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.purchasedproductsDetail-live-broadcast h2 {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.purchasedproductsDetail-live-item {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #222;
+    text-align: center;
+    color: white;
+    position: relative;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.purchasedproductsDetail-live-item p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.purchasedproductsDetail-live-item button {
+    padding: 8px 12px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.purchasedproductsDetail-live-item button:hover {
+    background-color: #666;
+}
+
+.purchasedproductsDetail-live-item .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.purchasedproductsDetail-live-item .close-icon:hover {
+    color: #888;
+}
+
+.purchasedproductsDetail-status {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.purchasedproductsDetail-status-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.purchasedproductsDetail-status-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.purchasedproductsDetail-status-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.purchasedproductsDetail-status-card button {
+    display: block;
+    margin: 5px auto;
+    padding: 8px 12px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.purchasedproductsDetail-status-card button:hover {
+    background-color: #555;
+}
+
+
+/* 미리보기 섹션 */
+.purchasedproductsDetail-preview {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.purchasedproductsDetail-preview h2 {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.purchasedproductsDetail-preview-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.purchasedproductsDetail-preview-item {
+    text-align: center;
+    width: 150px;
+    position: relative;
+}
+
+.purchasedproductsDetail-preview-item img,
+.purchasedproductsDetail-preview-item video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.purchasedproductsDetail-preview-item button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.purchasedproductsDetail-preview-item button:hover {
+    background-color: #c0392b;
+}
+
+/* 모든 섹션에 공통으로 가운데 정렬을 적용할 수 있는 클래스 */
+.centered-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: 10 auto; /* 여백 자동 설정으로 중앙 배치 */
+}
+
+/* 버튼이 가운데 정렬되도록 추가 스타일 조정 */
+.centered-button {
+    display: inline-block;
+    width: 80%; /* 필요에 따라 너비 조정 */
+    max-width: 200px;
+    margin: 10px 0;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    /* 주문 정보 섹션 */
+    .purchasedproductsDetail-info {
+        padding: 20px;
+    }
+
+    .purchasedproductsDetail-content {
+        flex-direction: column;
+    }
+
+    /* 텍스트 섹션 */
+    .purchasedproductsDetail-text {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    /* 이미지 섹션 */
+    .purchasedproductsDetail-images {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .purchasedproductsDetail-image-box {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    /* 사진 및 영상 전달 섹션 */
+    .purchasedproductsDetail-media-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .purchasedproductsDetail-media-item {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* 실시간 제작 과정 전송 섹션 */
+    .purchasedproductsDetail-live-broadcast {
+        padding: 15px;
+    }
+
+    .purchasedproductsDetail-live-item {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* 주문 상태 변경 섹션 */
+    .purchasedproductsDetail-status {
+        flex-direction: column;
+    }
+
+    .purchasedproductsDetail-status-card {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    /* 미리보기 섹션 */
+    .purchasedproductsDetail-preview {
+        padding: 15px;
+    }
+
+    .purchasedproductsDetail-preview-content {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .purchasedproductsDetail-preview-item {
+        width: 100%;
+        max-width: 300px;
+    }
+}
