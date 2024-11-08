@@ -1,0 +1,29 @@
+.vender-signup-succ {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.vender-signup-succ h2 {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 0px;
+}
+
+.vender-signup-succ p {
+    padding-bottom: 5px;
+}
+
+.user-goto-loginform {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.user-goto-loginform a {
+    padding: 10px 30px;
+    color: #ffffff;
+    background-color: rgb(210, 182, 255);;
+}
