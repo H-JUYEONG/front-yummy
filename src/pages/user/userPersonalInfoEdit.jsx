@@ -51,20 +51,8 @@ const UserPersonalInfoEdit = () => {
                         <label>비밀번호 확인</label>
                         <input type="password" placeholder="비밀번호 확인" />
 
-                        <label>배송지 정보</label>
-                        <div className="j-address">
-                            <input type="text" placeholder="우편번호" />
-                            <button type="button" className="j-address-search">주소 찾기</button>
-                        </div>
-                        <input type="text" placeholder="기본주소" />
-                        <input type="text" placeholder="상세 주소" />
-
-                        <label>기념일 관리</label>
-                        <div className="j-anniversary">
-                            <input type="text" placeholder="기념일 이름" />
-                            <input type="date" />
-                            <button type="button" className="j-add-anniversary">기념일 추가</button>
-                        </div>
+                        <label>휴대폰 번호</label>
+                        <input type="tel" placeholder="휴대폰 번호" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" />
 
                         <div className="j-buttons">
                             <button type="button" className="j-cancel">취소</button>

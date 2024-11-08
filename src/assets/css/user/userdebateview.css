@@ -1,78 +1,109 @@
-body {
+/* Container */
+#wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
+    background-color: #f8f9fa;
 }
 
 /* Header */
-.j-header {
+#wrap-head {
     background-color: #333;
     color: #fff;
+    padding: 15px;
     text-align: center;
+}
+#wrap-head h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Navigation Bar */
+#wrap-nav {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#wrap .j-nav-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+#wrap .j-nav-menu li {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Main Content */
+#wrap-body {
     padding: 20px;
 }
 
-/* Navigation */
-.j-nav {
-    background-color: #555;
-    text-align: center;
-    padding: 10px;
-}
-.j-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-}
-
-/* Main Container */
-.j-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
+/* Main Section */
+#wrap-main {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Title Section */
-.j-title-section {
+#wrap .j-title-section {
     text-align: center;
     padding: 15px;
     font-size: 1.8em;
     font-weight: bold;
     border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 /* Meta Data Section */
-.j-meta-data {
+#wrap .j-meta-data {
     display: flex;
     justify-content: space-around;
     padding: 10px;
     border: 1px solid #ddd;
     font-size: 0.9em;
     color: #666;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
 }
 
 /* Images Section */
-.j-images-section {
+#wrap .j-images-section {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
 }
-.j-image-container {
+#wrap .j-image-container {
     text-align: center;
     margin: 0 10px;
 }
-.j-image-container img {
+#wrap .j-image-container img {
     width: 300px;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-.j-caption {
+#wrap .j-caption {
     margin-top: 10px;
     font-size: 0.9em;
     color: #333;
 }
-.j-vs-divider {
+#wrap .j-vs-divider {
     font-size: 2em;
     color: #555;
     font-weight: bold;
@@ -80,16 +111,19 @@ body {
 }
 
 /* Post Content Section */
-.j-post-content {
+#wrap .j-post-content {
     padding: 15px;
     text-align: center;
     font-size: 1.2em;
     border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
 }
 
 /* Voting Buttons Section */
-.j-voting-buttons {
+#wrap .j-voting-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +131,7 @@ body {
     padding: 15px;
     margin-top: 10px;
 }
-.j-vote-button {
+#wrap .j-vote-button {
     padding: 10px 20px;
     font-size: 1em;
     border: none;
@@ -107,20 +141,24 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.j-vote-button:hover {
+#wrap .j-vote-button:hover {
     background-color: #0056b3;
 }
-.j-click-count {
+#wrap .j-click-count {
     font-size: 0.9em;
     color: #555;
 }
 
 /* Comment Section */
-.j-comment-section {
+#wrap .j-comment-section {
     padding: 20px;
     border-top: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
-.j-comment-box {
+#wrap .j-comment-box {
     width: 100%;
     padding: 10px;
     font-size: 1em;
@@ -129,7 +167,7 @@ body {
     resize: vertical;
     margin-bottom: 10px;
 }
-.j-comment-submit {
+#wrap .j-comment-submit {
     padding: 10px 15px;
     font-size: 1em;
     background-color: #4CAF50;
@@ -139,48 +177,50 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.j-comment-submit:hover {
+#wrap .j-comment-submit:hover {
     background-color: #388E3C;
 }
 
 /* Display of Other Comments */
-.j-other-comments {
+#wrap .j-other-comments {
     margin-top: 20px;
 }
-.j-comment {
+#wrap .j-comment {
     display: flex;
     align-items: flex-start;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
-.j-profile-pic {
+#wrap .j-profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
-.j-comment-content {
+#wrap .j-comment-content {
     flex: 1;
 }
-.j-comment-author {
+#wrap .j-comment-author {
     font-weight: bold;
     color: #333;
     margin-right: 5px;
 }
-.j-user-side {
+#wrap .j-user-side {
     font-size: 0.9em;
     color: #888;
 }
-.j-comment p {
+#wrap .j-comment p {
     margin: 5px 0 0;
     color: #555;
 }
 
 /* Footer */
-.j-footer {
+.full-width {
+    width: 100%;
     background-color: #333;
     color: #fff;
+    padding: 15px;
     text-align: center;
-    padding: 20px;
+    font-size: 0.9rem;
     margin-top: 20px;
 }

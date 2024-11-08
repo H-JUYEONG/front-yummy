@@ -89,7 +89,8 @@
 .j-form input[type="text"],
 .j-form input[type="password"],
 .j-form input[type="date"],
-.j-form input[type="email"] {
+.j-form input[type="email"],
+.j-form input[type="tel"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
