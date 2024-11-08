@@ -7,15 +7,18 @@ import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProduct
 import VenderOption from './pages/vender/VenderOption';
 import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrationForm';
 import VenderStatistics from './pages/vender/VenderStatistics';
+
 import UserCakeDetail from './pages/main/UserCakeDetail';
+
 import AdminTest from './pages/admin/AdminTest';
 
 import CreatePage from './pages/vender/CreatePage';
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 
 // user
+import UserMain from './pages/user/include/UserMain';
 import UserLoginForm from './pages/user/userLoginForm';
-import UserSignUpForm from './pages/user/UserSignUpForm';
+import UserSidebar from './pages/user/include/UserSidebar';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
@@ -25,12 +28,12 @@ import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
+
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-
           <Route path='/' element={<Main />} />
           <Route path='/vender/dashboard' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
@@ -48,6 +51,8 @@ function App() {
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
+          <Route path='/user/sidebar' element={<UserSidebar/>}/>
+          <Route path='/user/main' element={<UserMain/>}/>
 
           {/* Main and Admin */}
           <Route path='/main/cakedetail' element={<UserCakeDetail />} />
