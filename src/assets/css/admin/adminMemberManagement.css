@@ -1,0 +1,162 @@
+/* 전체 레이아웃 */
+.admin-member-management-container {
+    display: flex;
+    padding: 20px;
+}
+
+.admin-member-management-container .main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* 탭 메뉴 */
+.admin-member-management-container .tab-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-member-management-container .tab-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #f1f5f9;
+    color: #1e3a8a;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.admin-member-management-container .tab-button.active, .admin-member-management-container .tab-button:hover {
+    background-color: #e0f2fe;
+    color: #3b82f6;
+}
+
+/* 업체 리스트 스타일 */
+.admin-member-management-container .member-list {
+    width: 50%;
+    padding-right: 20px;
+}
+
+.admin-member-management-container .member-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.admin-member-management-container .member-item:hover {
+    background-color: #f7f7f7;
+}
+
+.admin-member-management-container .member-image-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-right: 16px;
+}
+
+.admin-member-management-container .member-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.admin-member-management-container .member-info p {
+    color: #666;
+    margin: 5px 0;
+}
+
+.member-status {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.admin-member-management-container .view-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    color: #1e3a8a;
+    background-color: #f1f5f9;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-member-management-container .view-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* 모달 오버레이 */
+.admin-member-management-container .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-member-management-container .modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-member-management-container .modal-image-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.admin-member-management-container .modal-info h2 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.admin-member-management-container .modal-info p {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+.admin-member-management-container .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.admin-member-management-container .approve-button, .reject-button {
+    padding: 8px 16px;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+.admin-member-management-container .approve-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.admin-member-management-container .reject-button {
+    background-color: #ef5350;
+    color: white;
+}

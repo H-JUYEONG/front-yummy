@@ -84,7 +84,7 @@
 }
 
 .period-btn {
-    padding: 8px 15px;
+    padding: 10px 2px;
     background: #f8f9fa;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -122,7 +122,7 @@
 
 .order-table th,
 .order-table td {
-    padding: 12px 12px;
+    padding: 12px 8px;
     text-align: center;
     border-bottom: 1px solid #eee;
     vertical-align: middle; /* 셀 내용 수직 가운데 정렬 */
@@ -132,7 +132,9 @@
     background: #f8f9fa;
     font-weight: bold;
     color: #333;
+    font-size: 15px;
 }
+
 
 /* 버튼 컨테이너 추가 */
 .order-table td:last-child {
@@ -142,7 +144,7 @@
 
 .action-btn {
     display: inline-block; /* 인라인 블록으로 변경 */
-    padding: 6px 12px;
+    padding: 12px 12px;
     margin: 0 2px; /* 버튼 사이 간격 조정 */
     background: #7C3AED;
     color: white;
