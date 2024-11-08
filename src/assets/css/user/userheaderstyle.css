@@ -7,85 +7,82 @@
     align-items: center;
     padding: 20px 24px;
     position: relative;
-  }
-  
-  .logo {
+}
+
+.logo {
     position: absolute;
     left: 24px;
     top: 20px;
-  }
-  
-  .logo h1 {
+}
+
+.logo h1 {
     font-family: 'SF함박눈', serif !important;
     font-size: 2.5em;
     margin: 0;
     color: #333;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     letter-spacing: 0.05em;
-  }
-  
-  .nav-menu {
+}
+
+.nav-menu {
     margin-bottom: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
-  }
-  
-  .nav-menu ul {
+}
+
+.nav-menu ul {
     display: flex;
     gap: 32px;
     list-style: none;
     padding: 10px;
-    margin-left: 290px;
     align-items: center;
-  }
-  
-  .nav-menu a {
+}
+
+.nav-menu a {
     font-family: 'GmarketSans', sans-serif;
     text-decoration: none;
-    color: #555;
+    color: #555 !important; /* !important 추가 */
     font-size: 1.1em;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     display: inline-block;
     padding: 8px 12px;
     border-radius: 6px;
     white-space: nowrap;
-  }
-  
-  .nav-menu a:hover {
-    color: #7C3AED;
-    background: rgba(153, 153, 255, 0.2);
-  }
-  
-  
-  
-  .user-actions {
+}
+
+.nav-menu a:hover {
+    background-color: rgba(153, 153, 255, 0.2);
+    color: #555 !important; /* hover 시에도 같은 색상 유지 */
+}
+
+.user-actions {
     position: absolute;
     right: 24px;
     top: 20px;
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-  
-  .icon-button {
+}
+
+.icon-button {
     background: none;
     border: none;
     padding: 8px;
     cursor: pointer;
-    color: #4b5563;
+    color: #555;
     transition: color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .icon-button:hover {
+}
+
+.icon-button:hover {
     color: #7C3AED;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .nav-menu {
-      display: flex;
+        display: flex;
     }
-  }
+}

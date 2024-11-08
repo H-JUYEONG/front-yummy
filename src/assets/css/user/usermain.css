@@ -39,14 +39,14 @@
 }
 
 #user-wrap::before {
-    content: 'USER WRAP 영역';
+   
     position: absolute;
     top: 0;
     right: 0;
-    background: rgba(0, 0, 255, 0.1);
+
     padding: 4px 8px;
     font-size: 12px;
-    color: #666;
+ 
 }
 
 /* 헤더 영역 */
@@ -75,11 +75,11 @@
 }
 
 #user-wrap-body::before {
-    content: 'USER MAIN 영역';
+    
     position: absolute;
     top: 0;
     right: 0;
-    background: #99FF99;
+   
     color: white;
     padding: 4px 8px;
     font-size: 12px;
@@ -132,7 +132,7 @@
 }
 
 #user-wrap-side::before {
-    content: 'USER SIDEBAR 영역';
+   
     position: absolute;
     top: 0;
     right: 0;
@@ -145,19 +145,17 @@
 #user-wrap-main {
     flex: 1;
     min-width: 0;
-    border: 2px dashed #FFFF99;
+    
     padding: 20px;
     position: relative;
-    background: rgba(255, 255, 153, 0.1);
+   
 }
 
 #user-wrap-main::before {
-    content: 'USER MAIN CONTENT 영역';
+    
     position: absolute;
     top: 0;
     right: 0;
-    background: #FFFF99;
-    color: #666;
     padding: 4px 8px;
     font-size: 12px;
 }

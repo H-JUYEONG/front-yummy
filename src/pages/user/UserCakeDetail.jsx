@@ -2,6 +2,8 @@
 import React, { useState, useRef } from 'react';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
+import Header from '../include/Header';
+import Footer from '../include/Footer';
 
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */
@@ -368,7 +370,7 @@ const UserCakeDetail = () => {
         <div id="user-wrap" className="text-center">
             {/* 헤더 영역 */}
             <header id="user-wrap-head">
-                <h1>Header 영역</h1>
+                <Header/>
             </header>
 
             {/* 메인 컨텐츠 영역 */}
@@ -567,7 +569,7 @@ const UserCakeDetail = () => {
 
             {/* 푸터 영역 */}
             <footer className="user-full-width">
-                <p>Footer 영역</p>
+               <Footer/>
             </footer>
         </div>
     );
