@@ -6,6 +6,7 @@ import VenderProductRegistrationForm from './pages/vender/VenderProductRegistrat
 import VenderStatistics from './pages/vender/VenderStatistics';
 import ProductDescriptionEditor from './pages/vender/ProductDescriptionEditor';
 import AdminTest from './pages/admin/AdminTest';
+import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 // user
 import UserLoginForm from './pages/user/userLoginForm';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -25,6 +26,7 @@ function App() {
           <Route path='/admintest' element={<AdminTest/>} />
           <Route path='/vender/statistics' element={<VenderStatistics/>} />
           <Route path='/user/login' element={<UserLoginForm/>} />
+          <Route path='/vender/supervisionList' element={<VenderSupervisionList/>} />
         </Routes>
       </BrowserRouter>
     </div>
