@@ -1,0 +1,77 @@
+
+
+
+/* 주문 목록 섹션 */
+.vender-order-list-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vender-order-list h2 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* 필터 섹션 */
+.vender-filter-section {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vender-filter-section label {
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+.vender-filter-section select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* 주문 테이블 스타일 */
+.vender-order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.vender-order-table th,
+.vender-order-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.vender-order-table th {
+    background-color: #0073e6;
+    color: white;
+    font-weight: bold;
+}
+
+.vender-order-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.vender-order-table tr:hover {
+    background-color: #e9f7ff;
+}
+
+.vender-order-table button {
+    padding: 5px 10px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.vender-order-table button:hover {
+    background-color: #005bb5;
+}

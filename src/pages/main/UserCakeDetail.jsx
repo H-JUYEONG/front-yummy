@@ -65,10 +65,21 @@ const UserCakeDetail = () => {
 
     // 케이크 맛 옵션 데이터
     const flavorOptions = [
-        { id: 'choco', name: '초코', image: '/images/기브미 쪼꼬레또.jpg' },
+        { id: 'choco', name: '초코', image: '/images/flavor-choco.jpg' },
         { id: 'vanilla', name: '바닐라', image: '/images/flavor-vanilla.jpg' },
-        { id: 'strawberry', name: '딸기', image: '/images/flavor-strawberry.jpg' }
+        { id: 'strawberry', name: '딸기', image: '/images/flavor-strawberry.jpg' },
+        { id: 'matcha', name: '말차', image: '/images/flavor-matcha.jpg' },
+        { id: 'cheese', name: '치즈', image: '/images/flavor-cheese.jpg' },
+        { id: 'redvelvet', name: '레드벨벳', image: '/images/flavor-redvelvet.jpg' }
     ];
+
+    const optionGridStyle = {
+        overflowX: 'auto',
+        scrollBehavior: 'smooth',
+        WebkitOverflowScrolling: 'touch',  // iOS 스크롤 부드럽게
+        msOverflowStyle: 'none',  // IE/Edge 스크롤바 숨기기
+        scrollbarWidth: 'none',   // Firefox 스크롤바 숨기기
+    };
 
     // 케이크 사이즈 옵션 데이터
     const sizeOptions = [
@@ -76,7 +87,7 @@ const UserCakeDetail = () => {
         { id: 'size2', name: '2호', image: '/images/size-2.jpg' },
         { id: 'size3', name: '3호', image: '/images/size-3.jpg' }
     ];
-    
+
     /* ===== 이벤트 핸들러 영역 시작 ===== */
 
     // 썸네일 이미지 클릭 시 메인 이미지 변경하는 핸들러
@@ -376,20 +387,21 @@ const UserCakeDetail = () => {
                             {/* 맛 선택 */}
                             <div className="option-group">
                                 <h3>맛</h3>
-                                <div className="option-grid">
-                                    {flavorOptions.map((flavor) => (
-                                        <button
-                                            key={flavor.id}
-                                            // 선택된 맛에 active 클래스 추가
-                                            className={`option-item ${selectedFlavor === flavor.id ? 'active' : ''}`}
-                                            onClick={() => handleFlavorSelect(flavor.id)}
-                                        >
-                                            <div className="option-image">
-                                                <img src={flavor.image} alt={flavor.name} />
-                                            </div>
-                                            <span>{flavor.name}</span>
-                                        </button>
-                                    ))}
+                                <div className="option-scroll-container" style={optionGridStyle}>
+                                    <div className="option-grid">
+                                        {flavorOptions.map((flavor) => (
+                                            <button
+                                                key={flavor.id}
+                                                className={`option-item ${selectedFlavor === flavor.id ? 'active' : ''}`}
+                                                onClick={() => handleFlavorSelect(flavor.id)}
+                                            >
+                                                <div className="option-image">
+                                                    <img src={flavor.image} alt={flavor.name} />
+                                                </div>
+                                                <span>{flavor.name}</span>
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
