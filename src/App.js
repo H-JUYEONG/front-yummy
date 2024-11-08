@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/main/main';
 import VenderProductList from './pages/vender/VenderProductList';
-import VenderDashboard from './pages/vender/venderDashboard';
+import VenderDashboard from './pages/vender/VenderDashboard';
 import VenderPurchasedProducts from './pages/vender/VenderPurchasedProducts';
 import VenderPurchasedProductsDetail from './pages/vender/VenderPurchasedProductsDetail';
 import VenderOption from './pages/vender/VenderOption';
@@ -16,6 +16,7 @@ import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
+import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 
 
 // user
@@ -53,6 +54,7 @@ function App() {
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+          <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
 
           {/* User Routes */}
           <Route path='/user/login' element={<UserLoginForm />} />

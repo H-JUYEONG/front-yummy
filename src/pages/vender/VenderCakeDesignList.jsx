@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  FaSearch,
-  FaAngleLeft,
-  FaAngleRight,
-} from "react-icons/fa"; // 아이콘 추가
+import { FaSearch, FaAngleLeft, FaAngleRight } from "react-icons/fa"; // 아이콘 추가
 import "../../assets/css/all.css";
 import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignList.css";
@@ -21,6 +17,11 @@ const VenderCakeDesignList = () => {
     setCurrentPage(pageNumber);
   };
 
+  // 이미지 클릭 시 상세 페이지로 이동하는 함수
+  const handleImageClick = () => {
+    navigate("/vender/cakeDesign/detail");
+  };
+
   return (
     <>
       <div className="vender-container">
@@ -34,6 +35,7 @@ const VenderCakeDesignList = () => {
               <header className="cake-design-list-header">
                 <h2 className="cake-design-list-title">도안 리스트</h2>
 
+                {/* 검색과 버튼 그룹을 한 줄로 배치 */}
                 <div className="cake-design-header-right">
                   <div className="cake-design-search">
                     <FaSearch className="cake-design-search-icon" />
@@ -67,12 +69,34 @@ const VenderCakeDesignList = () => {
                 </div>
               </header>
 
+              {/* 이미지 리스트 반복구간 */}
               <div className="cake-design-list-imgs">
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+                {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+                <img
+                  src="/images/2호_일반케이크.jpg"
+                  alt="회사 로고"
+                  onClick={handleImageClick} // 이미지 클릭 시 상세 페이지로 이동
+                />
+                <img
+                  src="/images/2호_일반케이크.jpg"
+                  alt="회사 로고"
+                  onClick={handleImageClick}
+                />
+                <img
+                  src="/images/2호_일반케이크.jpg"
+                  alt="회사 로고"
+                  onClick={handleImageClick}
+                />
+                <img
+                  src="/images/2호_일반케이크.jpg"
+                  alt="회사 로고"
+                  onClick={handleImageClick}
+                />
+                <img
+                  src="/images/2호_일반케이크.jpg"
+                  alt="회사 로고"
+                  onClick={handleImageClick}
+                />
               </div>
 
               {/* 페이지 번호 및 네비게이션 */}
