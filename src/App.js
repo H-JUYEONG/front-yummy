@@ -32,6 +32,9 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
 import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
+import UserOrderDetail from './pages/user/UserOrderDetail';
+import UserOrder from './pages/user/UserOrder';
+import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
@@ -85,6 +88,9 @@ function App() {
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
+          <Route path='/user/orderdetail' element={<UserOrderDetail/>}/>
+          <Route path='/user/order' element={<UserOrder/>}/>
+          <Route path='/user/wishlist' element={<UserWishList/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
