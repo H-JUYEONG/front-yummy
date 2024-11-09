@@ -3,7 +3,7 @@ import Header from "../include/Header";
 import Footer from "../include/Footer";
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/userorderlist.css";
+import "../../assets/css/user/userMyPageCakeDesign.css";
 
 const UserMyPageCakeDesign = () => {
   return (
