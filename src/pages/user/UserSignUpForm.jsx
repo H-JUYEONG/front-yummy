@@ -97,7 +97,7 @@ const UserSignUpForm = () => {
       </div>
 
       {/* Footer */}
-      <footer className="user-full-width">
+      <footer id="user-wrap-footer">
         <Footer />
       </footer>
     </div>
