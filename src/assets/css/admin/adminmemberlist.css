@@ -1,0 +1,91 @@
+.admin-memberlist-content {
+    padding: 20px;
+    background-color: #f9fafb;
+    width: 1300px;
+}
+
+.admin-memberlist-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.member-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.member-table th,
+.member-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.member-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.member-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.member-table .status-label {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.status-label.활성 {
+    color: #fff;
+    background-color: #4caf50;
+}
+
+.status-label.비활성 {
+    color: #fff;
+    background-color: #ff9800;
+}
+
+.status-label.정지 {
+    color: #fff;
+    background-color: #f44336;
+}
+
+.search-filter {
+    margin-bottom: 20px;
+}
+
+.search-filter input {
+    width: 20%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-button.active {
+    background-color: #4caf50;
+    color: #fff;
+    font-weight: bold;
+}
+
+.pagination-button:hover {
+    background-color: #d4d4d4;
+}

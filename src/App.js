@@ -45,6 +45,7 @@ import UserDebateView from './pages/user/UserDebateView';
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMemberManagement from './pages/admin/AdminMemberManagement';
+import AdminStatus from './pages/admin/AdminStatus';
 
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
+          <Route path='/admin/status' element={<AdminStatus/>}/>
 
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
