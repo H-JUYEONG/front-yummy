@@ -30,6 +30,8 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
 import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
+import UserOrderDetail from './pages/user/UserOrderDetail';
+import UserOrder from './pages/user/UserOrder';
 
 
 // board
@@ -77,11 +79,11 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
-
+          <Route path='/user/orderdetail' element={<UserOrderDetail/>}/>
+          <Route path='/user/order' element={<UserOrder/>}/>
           {/* Main and Admin */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>

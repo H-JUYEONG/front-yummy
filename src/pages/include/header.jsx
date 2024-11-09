@@ -1,14 +1,7 @@
-// Header.jsx
 import React from 'react';
-import { Search, Home, ShoppingBag } from 'lucide-react';
 import '../../assets/css/user/userheaderstyle.css';
 
 const Header = () => {
-  const handleSearch = () => {
-    // 검색 처리 로직
-    console.log('검색 실행');
-  };
-
   return (
     <div className="header-container">
       {/* Logo */}
@@ -26,15 +19,10 @@ const Header = () => {
         </ul>
       </nav>
 
-
       {/* User Actions */}
       <div className="user-actions">
-        <button className="icon-button">
-          <Home />
-        </button>
-        <button className="icon-button">
-          <ShoppingBag />
-        </button>
+        <a href="/login" className="header-link">로그인</a>
+        <a href="/mypage" className="header-link">마이페이지</a>
       </div>
     </div>
   );

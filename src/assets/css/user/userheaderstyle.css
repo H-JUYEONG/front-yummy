@@ -9,13 +9,13 @@
     position: relative;
 }
 
-.logo {
+.header-container .logo {
     position: absolute;
     left: 24px;
     top: 20px;
 }
 
-.logo h1 {
+.header-container .logo h1 {
     font-family: 'SF함박눈', serif !important;
     font-size: 2.5em;
     margin: 0;
@@ -24,25 +24,26 @@
     letter-spacing: 0.05em;
 }
 
-.nav-menu {
+.header-container .nav-menu {
     margin-bottom: 20px;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.nav-menu ul {
+.header-container .nav-menu ul {
     display: flex;
     gap: 32px;
     list-style: none;
     padding: 10px;
+    margin: 0;
     align-items: center;
 }
 
-.nav-menu a {
+.header-container .nav-menu a {
     font-family: 'GmarketSans', sans-serif;
     text-decoration: none;
-    color: #555 !important; /* !important 추가 */
+    color: #555 !important;
     font-size: 1.1em;
     transition: background-color 0.3s ease;
     display: inline-block;
@@ -51,38 +52,39 @@
     white-space: nowrap;
 }
 
-.nav-menu a:hover {
+.header-container .nav-menu a:hover {
     background-color: rgba(153, 153, 255, 0.2);
-    color: #555 !important; /* hover 시에도 같은 색상 유지 */
+    color: #555 !important;
 }
 
-.user-actions {
+.header-container .user-actions {
     position: absolute;
     right: 24px;
-    top: 20px;
+    top: 25px;
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.icon-button {
-    background: none;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-    color: #555;
-    transition: color 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.header-container .user-actions a.header-link {
+    font-family: 'GmarketSans', sans-serif;
+    text-decoration: none;
+    color: #555 !important;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    display: inline-block;
 }
 
-.icon-button:hover {
-    color: #7C3AED;
+.header-container .user-actions a.header-link:hover {
+    background-color: rgba(153, 153, 255, 0.2);
+    color: #555 !important;
 }
 
 @media (min-width: 768px) {
-    .nav-menu {
+    .header-container .nav-menu {
         display: flex;
     }
 }
