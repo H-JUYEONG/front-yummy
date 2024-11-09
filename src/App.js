@@ -20,11 +20,11 @@ import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails'
 import VenderProductPreview from './pages/vender/VenderProductPreview';
 
 // user
+import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 import UserLoginForm from './pages/user/userLoginForm';
-import UserSignUpForm from './pages/user/UserSignupForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';

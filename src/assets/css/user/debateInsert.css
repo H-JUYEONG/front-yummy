@@ -27,30 +27,37 @@
   padding: 20px;
 }
 
-/* Sidebar */
-#wrap-side {
-  width: 200px;
-  background-color: #f0f0f0;
+/* Header */
+#wrap-head {
+  background-color: #333;
+  color: #fff;
   padding: 15px;
-  border-radius: 8px;
+  text-align: center;
+}
+#wrap-head h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-#wrap-side h2 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+/* Navigation Bar */
+#wrap-nav {
+  background-color: #f0f0f0;
+  padding: 10px 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
-
-#wrap-side ul {
+.j-nav-menu {
   list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
   padding: 0;
   margin: 0;
 }
-
-#wrap-side ul li {
-  padding: 8px 0;
+.j-nav-menu li {
   cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1rem;
   color: #333;
 }
 
@@ -96,9 +103,11 @@
 /* Image Insert Section */
 .j-image-insert-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly; /* Spaces items evenly, including edges */
+  align-items: center; /* Center items vertically, if necessary */
   margin: 20px 0;
 }
+
 
 .j-image-option {
   display: flex;
