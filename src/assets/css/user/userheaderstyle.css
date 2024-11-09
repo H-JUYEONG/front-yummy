@@ -59,8 +59,8 @@
 
 .header-container .user-actions {
     position: absolute;
-    right: 7px;
-    top: 33px;
+    right: -24px;
+    top: 34px;
     display: flex;
     align-items: center;
   

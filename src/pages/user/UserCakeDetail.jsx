@@ -545,10 +545,11 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
                             <div className="option-group">
-                            <h3>케이크 위 레터링</h3>
+
+                            <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">
                                     <textarea
-                                        placeholder="예) 내가 너 좋아하면 안되냐? 라고 써주세요."
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
                                         rows="4"
                                         className="request-textarea"
                                     />
@@ -556,10 +557,10 @@ const UserCakeDetail = () => {
 
                                     </p>
                                 </div>
-                                <h3>요청사항</h3>
+                                <h3>기타 요청사항</h3>
                                 <div className="request-input">
                                     <textarea
-                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
                                         rows="4"
                                         className="request-textarea"
                                     />

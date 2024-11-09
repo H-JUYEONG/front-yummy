@@ -38,6 +38,10 @@ import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+import UserMyPageCakeDesign from './pages/user/UserMyPageCakeDesign';
+import UserPoint from './pages/user/UserPoint';
+import UserStoreDetail from './pages/user/UserStoreDetail';
+import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
 
@@ -94,13 +98,17 @@ function App() {
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
-          <Route path='/user/orderdetail' element={<UserOrderDetail/>}/>
-          <Route path='/user/order' element={<UserOrder/>}/>
-          <Route path='/user/wishlist' element={<UserWishList/>}/>
+          <Route path='/user/mypage/orderdetail' element={<UserOrderDetail/>}/>
+          <Route path='/user/mypage/order' element={<UserOrder/>}/>
+          <Route path='/user/mypage/wishlist' element={<UserWishList/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/mypage/cakeDesign' element={<UserMyPageCakeDesign/>}/>
+          <Route path='/user/mypage/point' element={<UserPoint/>}/>
+          <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
+          <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
 

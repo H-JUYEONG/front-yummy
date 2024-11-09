@@ -5,7 +5,7 @@ import '../../assets/css/user/userorderlist.css';
 import Header from '../include/Header';
 import Footer from '../include/Footer';
 
-
+//userorder에 결합되었습니다
 const UserOrderList = () => {
     const orderStatuses = [
         { label: '결제완료', count: 0 },
