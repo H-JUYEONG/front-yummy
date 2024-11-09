@@ -41,6 +41,7 @@ import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
 import UserMyPageCakeDesign from './pages/user/UserMyPageCakeDesign';
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
+import UserPaymentDetail from './pages/user/UserPaymentDetail';
 
 
 // board
@@ -100,6 +101,7 @@ function App() {
           <Route path='/user/mypage/cakeDesign' element={<UserMyPageCakeDesign/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
+          <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
