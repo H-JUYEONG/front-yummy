@@ -11,7 +11,8 @@ const AdminContent = () => {
             author: "사용자123",
             reason: "부적절한 내용",
             date: "2024-11-01",
-            status: "검토 중"
+            status: "검토 중",
+            link: "https://example.com/post/1" // 게시물 링크 추가
         }
     ]);
 
@@ -41,6 +42,7 @@ const AdminContent = () => {
                                 <th>신고 사유</th>
                                 <th>신고 일자</th>
                                 <th>상태</th>
+                                <th>게시물 링크</th> {/* 새 열 추가 */}
                                 <th>관리</th>
                             </tr>
                         </thead>
@@ -53,6 +55,16 @@ const AdminContent = () => {
                                     <td>{report.reason}</td>
                                     <td>{report.date}</td>
                                     <td>{report.status}</td>
+                                    <td>
+                                        <a
+                                            href={report.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="report-link"
+                                        >
+                                            게시물 보기
+                                        </a>
+                                    </td>
                                     <td>
                                         <button
                                             className="delete-button"
