@@ -1,0 +1,118 @@
+/* 전체 컨테이너 스타일 */
+
+/* 메인 콘텐츠 페이지 스타일 */
+.admin-shopproduct-page {
+    flex: 1;
+    padding: 40px;
+}
+
+/* 헤더 스타일 */
+.admin-shopproduct-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-shopproduct-header h1 {
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+/* "새 재료 등록하기" 버튼 스타일 */
+.admin-shopproduct-page .add-product-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.admin-shopproduct-page .add-product-button:hover {
+    background-color: #45a049;
+}
+
+/* 상품 테이블 스타일 */
+.admin-shopproduct-page .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-shopproduct-page .product-table th,
+.admin-shopproduct-page .product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.admin-shopproduct-page .product-table th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+}
+
+.admin-shopproduct-page .product-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.admin-shopproduct-page .product-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 수정 및 삭제 버튼 스타일 */
+.admin-shopproduct-page .edit-button,
+.admin-shopproduct-page .delete-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.admin-shopproduct-page .edit-button {
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.admin-shopproduct-page .edit-button:hover {
+    background-color: #0056b3;
+}
+
+.admin-shopproduct-page .delete-button {
+    background-color: #ff4d4f;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.admin-shopproduct-page .delete-button:hover {
+    background-color: #e04444;
+}
+
+
+
+/* 판매 버튼 스타일 */
+.admin-shopproduct-page .sell-button {
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.admin-shopproduct-page .sell-button:hover {
+    background-color: #e59400;
+}
+
+.admin-shopproduct-page .sell-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}

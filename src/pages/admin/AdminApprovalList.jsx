@@ -13,18 +13,18 @@ const AdminApprovalList = () => {
     const [approvalRequests, setApprovalRequests] = useState([
         {
             id: 1,
-            name: "처녀나라의 케이크",
+            name: "처쳐나라의 케이크",
             description: "마구마구 처져처 케이크",
             status: "신청중",
             email: "example1@example.com",
             password: "password1",
             representativeName: "대표자명1",
             businessRegistration: "사업자등록증1.pdf",
-            storeName: "처녀나라 케이크"
+            storeName: "처쳐나라 케이크"
         },
         {
             id: 2,
-            name: "케익왕자 주엽공주",
+            name: "케익왕자 주영공주",
             description: "이 나라의 케이크는 다 내꺼",
             status: "신청중",
             email: "example2@example.com",
@@ -47,7 +47,7 @@ const AdminApprovalList = () => {
         {
             id: 4,
             name: "헝그리 케이크",
-            description: "제프는 내 베프라요",
+            description: "제프는 배고파요",
             status: "신청중",
             email: "example4@example.com",
             password: "password4",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import VenderSidebar from "./include/VenderSidebar";
 
 import "../../assets/css/all.css";
@@ -51,14 +51,15 @@ function VenderCakeDesignAdd() {
   };
 
   return (
-    <div className="vender-container cake-design-add">
+    <div className="vender-container">
       <div className="vender-content-wrapper">
         <VenderSidebar />
         <div className="vender-content">
-          <form className="cake-design-main">
-            <h1 className="cake-design-title">도안 등록</h1>
+          <div className="product-registration">
+            <form className="main-content">
+              <h1 className="product-list-title">도안 등록</h1>
 
-            <div className="cake-design-imgs">
+              <div className="cake-design-imgs">
               {files.map(
                 (fileInput) =>
                   fileInput.preview && (
@@ -71,36 +72,37 @@ function VenderCakeDesignAdd() {
               )}
             </div>
 
-            <div className="cake-design-form-group">
-              <label>도안 이미지</label>
-              {files.map((fileInput) => (
-                <div key={fileInput.id} className="file-input-wrapper">
-                  <input
-                    type="file"
-                    id={`file-${fileInput.id}`}
-                    onChange={(e) => handleFileChange(e, fileInput.id)}
-                  />
-                  <button
-                    type="button"
-                    className="remove-button"
-                    onClick={() => removeFileInput(fileInput.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addFileInput}
-                className="add-image-button"
-              >
-                이미지 추가
-              </button>
-            </div>
+              {/* 이미지 등록 영역 */}
+              <div className="form-group">
+                <label>도안 이미지 등록</label>
+                  {files.map((fileInput) => (
+                  <div key={fileInput.id} className="file-input-wrapper">
+                    <input
+                      type="file"
+                      id={`file-${fileInput.id}`}
+                      onChange={(e) => handleFileChange(e, fileInput.id)}
+                    />
+                    <button
+                      type="button"
+                      className="remove-button"
+                      onClick={() => removeFileInput(fileInput.id)}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={addFileInput}
+                  className="add-image-button"
+                >
+                  이미지 추가
+                </button>
+              </div>
 
-            <div className="cake-design-form-group">
-              <label htmlFor="cake-design-name">제목</label>
-              <input
+              <div className="form-group">
+                <label htmlFor="cake-design-name">도안명</label>
+                <input
                 type="text"
                 id="cake-design-name"
                 placeholder="예: 몽환의 숲"
@@ -108,38 +110,40 @@ function VenderCakeDesignAdd() {
                 onChange={handleCakeDesignName}
                 className="input-text"
               />
-            </div>
+              </div>
 
-            <div className="cake-design-form-group">
-              <label htmlFor="cake-design-description">설명</label>
-              <textarea
-                id="cake-design-description"
-                placeholder="도안의 주요 특징과 콘셉트를 설명해주세요."
-                value={cakeDesignDescription}
-                onChange={handleCakeDesignDescription}
-                className="input-text"
-                rows="4"
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="cake-design-description">도안 설명</label>
+                <textarea
+                  id="cake-design-description"
+                  placeholder="도안의 주요 특징과 콘셉트를 설명해주세요."
+                  value={cakeDesignDescription}
+                  onChange={handleCakeDesignDescription}
+                  className="input-text"
+                  rows="4"
+                />
+              </div>
 
-            <div className="cake-design-form-group">
-              <label htmlFor="cake-design-event">적용 가능 이벤트</label>
-              <input
-                type="text"
-                id="cake-design-event"
-                placeholder="예: 생일, 기념일"
-                value={cakeDesignEvent}
-                onChange={handleCakeDesignEvent}
-                className="input-text"
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="cake-design-event">적용 가능 이벤트</label>
+                <input
+                  type="text"
+                  id="cake-design-event"
+                  placeholder="예: 생일, 기념일"
+                  value={cakeDesignEvent}
+                  onChange={handleCakeDesignEvent}
+                  className="input-text"
+                />
+              </div>
 
-            <div className="form-group">
-              <button type="submit" className="cake-design-add-button">
-                상품 등록하기
-              </button>
-            </div>
-          </form>
+              {/* 등록 버튼 */}
+              <div className="form-group centered-button-group">
+                <button type="submit" className="add-button">
+                  도안 등록하기
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

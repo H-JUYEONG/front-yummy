@@ -1,4 +1,9 @@
 /* Title and button alignment */
+.user-cake-designs-details {
+    width: 100%;
+    margin: 0 auto; /* 가로 가운데 정렬 */
+}
+
 .user-design-header {
     display: flex;
     justify-content: space-between;
@@ -37,7 +42,7 @@
 
 /* Audition Button */
 .user-audition-button {
-    background-color: #ff4081;
+    background-color: #ff4b87;
     color: #fff;
     border: none;
     padding: 8px 12px;

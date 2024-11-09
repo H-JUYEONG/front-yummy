@@ -89,48 +89,51 @@ const UserCakeDesignBoard = () => {
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
         {/* User Cake Design Board */}
-        <section id="user-wrap-main">
-          <div className="user-cake-design-board-list">
-            <div id="user-cake-design-select-option-list">
-              <div className="user-cake-design-select-option">
-                <button>최신순</button>
-                <button>좋아요순</button>
-                <button>조회수순</button>
-              </div>
-              <div className="user-cake-design-search">
-                <FaSearch className="search-icon" />
-                <input type="text" placeholder="도안 검색" />
-              </div>
+        <div className="user-cake-design-board-list">
+          <div id="user-cake-design-select-option-list">
+            <div className="user-cake-design-select-option">
+              <button>최신순</button>
+              <button>좋아요순</button>
+              <button>조회수순</button>
             </div>
-            <div id="user-cake-design-add" className="clearfix">
-              <div className="user-cake-design-add-btn">
-                <button onClick={() => navigate("/user/cakeDesign/add")}>
-                  도안 등록하기
-                </button>
-              </div>
+            <div className="user-cake-design-search">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="도안 검색" />
             </div>
-            <div className="user-cake-design-list-grid">
-              {cardData.map((card) => (
-                <div key={card.id} className="user-cake-design-card">
-                  <div className="user-cake-design-card-image">
-                    <img src="/images/2호_일반케이크.jpg" onClick={handleImageClick} alt="케이크 도안" />
-                    <div className="user-cake-design-card-likes">
-                      <FaHeart className="heart-icon" />
-                      <span>10</span>
-                    </div>
-                  </div>
-                  <div className="user-cake-design-card-info">
-                    <h3 className="user-cake-design-card-title">
-                      축하케이크 도안~
-                    </h3>
-                    <p className="user-cake-design-card-subtitle">dud9902</p>
-                    <div className="user-cake-design-card-stats">
-                      <span>조회수: {card.views}</span>
-                    </div>
+          </div>
+          <div id="user-cake-design-add" className="clearfix">
+            <div className="user-cake-design-all">ALL 7</div>
+            <div className="user-cake-design-add-btn">
+              <button onClick={() => navigate("/user/cakeDesign/add")}>
+                도안 등록하기
+              </button>
+            </div>
+          </div>
+          <div className="user-cake-design-list-grid">
+            {cardData.map((card) => (
+              <div key={card.id} className="user-cake-design-card">
+                <div className="user-cake-design-card-image">
+                  <img
+                    src="/images/2호_일반케이크.jpg"
+                    onClick={handleImageClick}
+                    alt="케이크 도안"
+                  />
+                  <div className="user-cake-design-card-likes">
+                    <FaHeart className="heart-icon" />
+                    <span>10</span>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="user-cake-design-card-info">
+                  <h3 className="user-cake-design-card-title">
+                    축하케이크 도안~
+                  </h3>
+                  <p className="user-cake-design-card-subtitle">dud9902</p>
+                  <div className="user-cake-design-card-stats">
+                    <span>조회수: {card.views}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Pagination */}
@@ -161,11 +164,11 @@ const UserCakeDesignBoard = () => {
               {">"}
             </button>
           </div>
-        </section>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="user-full-width">
+      <footer id="user-wrap-footer">
         <Footer />
       </footer>
     </div>

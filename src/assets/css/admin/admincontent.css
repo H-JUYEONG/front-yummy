@@ -1,0 +1,61 @@
+/* 스타일링을 위한 기본 설정 */
+
+.admin-content-page {
+    flex: 1;
+    padding: 40px;
+}
+
+.admin-content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-content-header h1{
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+/* 테이블 스타일 */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.report-table th, .report-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.report-table th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+}
+
+.report-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.report-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 삭제 버튼 스타일 */
+.delete-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #e04444;
+}

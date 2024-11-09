@@ -59,7 +59,7 @@ const UserSidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/my-reviews">
+                    <Link to="/user/mypage/cakeDesign/list">
                         <FaClipboardList className="icon" /> 내가 그린 도안
                     </Link>
                 </li>
@@ -73,7 +73,7 @@ const UserSidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/interest-design">
+                    <Link to="/user/mypage/cakeDesign/like/list">
                         <FaHeart className="icon" /> 찜한 도안
                     </Link>
                 </li>

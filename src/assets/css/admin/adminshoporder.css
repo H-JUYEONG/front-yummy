@@ -1,0 +1,98 @@
+/* 페이지 스타일 */
+.admin-shoporder-page {
+    flex: 1;
+    padding: 40px;
+}
+
+/* 헤더 스타일 */
+.admin-shoporder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-shoporder-header h1 {
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+/* 필터 컨테이너 스타일 */
+.admin-shoporder-page .filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.admin-shoporder-page .filter-container label {
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-shoporder-page .filter-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 테이블 스타일 */
+.admin-shoporder-page .order-table {
+    width: 100%;
+    table-layout: fixed; /* 테이블 레이아웃 고정 */
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-shoporder-page .order-table th, .admin-shoporder-page .order-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center; /* 모든 테이블 셀을 가운데 정렬 */
+    vertical-align: middle; /* 세로 가운데 정렬 */
+    word-wrap: break-word; /* 긴 텍스트가 잘리지 않고 줄바꿈되도록 설정 */
+}
+
+.admin-shoporder-page .order-table th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+    width: 12.5%; /* 각 열의 너비를 동일하게 설정 */
+}
+
+.admin-shoporder-page .order-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.admin-shoporder-page .order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 상태 업데이트 버튼을 가운데 정렬하기 위한 스타일 */
+.order-table td:last-child {
+    padding: 0; /* 셀의 여백을 제거 */
+}
+
+.admin-shoporder-page .update-status-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 12px; /* 버튼 주변에 여백을 추가하여 보기 좋게 만듦 */
+}
+
+/* 상태 업데이트 버튼 스타일 */
+.admin-shoporder-page .update-status-button {
+    background-color: #007bff; /* 파란색 */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-shoporder-page .update-status-button:hover {
+    background-color: #0056b3;
+}

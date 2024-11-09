@@ -1,4 +1,8 @@
+
 import React, { useState } from 'react';
+
+import { Link } from "react-router-dom";
+
 import '../../assets/css/user/userheaderstyle.css';
 
 const Header = () => {
@@ -23,13 +27,14 @@ const Header = () => {
         <ul>
           <li><a href="/audition">케이크 오디션</a></li>
           <li><a href="/partners">입점 업체</a></li>
-          <li><a href="/designs">도안게시판</a></li>
+          <Link to="/user/cakeDesign/board">도안게시판</Link>
           <li><a href="/discussion">토론게시판</a></li>
         </ul>
       </nav>
 
       {/* User Actions */}
       <div className="user-actions">
+
         {isLoggedIn ? (
           <>
             <a href="/mypage" className="header-link">마이페이지</a>
@@ -41,6 +46,7 @@ const Header = () => {
             <a href="/register" className="header-link">회원가입</a>
           </>
         )}
+
       </div>
     </div>
   );

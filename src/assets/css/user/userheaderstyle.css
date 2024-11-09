@@ -63,7 +63,7 @@
     top: 34px;
     display: flex;
     align-items: center;
-    gap: 16px;
+  
 }
 
 .header-container .user-actions a.header-link {
