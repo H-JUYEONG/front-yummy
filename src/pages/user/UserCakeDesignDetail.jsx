@@ -109,7 +109,7 @@ const UserCakeDesignDetail = () => {
       </main>
 
       {/* Footer */}
-      <footer className="user-full-width">
+      <footer id="user-wrap-footer">
         <Footer />
       </footer>
     </div>

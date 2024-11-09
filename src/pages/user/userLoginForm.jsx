@@ -1,17 +1,20 @@
 //import 라이브러리
 import React from "react";
+import Header from "../include/Header";
+import Footer from "../include/Footer";
 import { Link } from "react-router-dom";
 
 //css
 import "../../assets/css/all.css";
+import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
   return (
-    <div id="wrap" className="text-center">
+    <div id="user-wrap" className="user-text-center">
       {/* Header */}
-      <header id="wrap-head">
-        <h1>Header 영역</h1>
+      <header id="user-wrap-head">
+        <Header />
       </header>
 
       <div className="user-login-box">
@@ -92,8 +95,8 @@ const UserLoginForm = () => {
       {/* //로그인 최상위 박스 */}
 
       {/* Footer */}
-      <footer className="full-width">
-        <p>Footer 영역 - full-width 클래스가 적용되어 너비가 100%입니다.</p>
+      <footer className="user-full-width">
+        <Footer />
       </footer>
     </div>
   );
