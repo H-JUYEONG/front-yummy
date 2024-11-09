@@ -108,6 +108,7 @@
 /* 이미지 스타일 */
 .user-cake-design-card-image {
   position: relative;
+  cursor: pointer;
 }
 
 .user-cake-design-card-image img {

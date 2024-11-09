@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Header from "../include/Header";
+import Footer from "../include/Footer";
+
+// css
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignEdit.css";
@@ -52,11 +56,11 @@ const UserCakeDesignAdd = () => {
     <div id="user-wrap" className="text-center">
       {/* Header */}
       <header id="user-wrap-head">
-        <h1>로고는 이 폰트에요</h1>
+        <Header />
       </header>
 
       {/* Main Content */}
-      <main>
+      <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-design-board-list">
           <form className="user-cake-design-main">
             <h1 className="user-cake-design-title">도안 수정</h1>
@@ -162,7 +166,7 @@ const UserCakeDesignAdd = () => {
 
       {/* Footer */}
       <footer className="user-full-width">
-        <p>Footer 영역.</p>
+        <Footer />
       </footer>
     </div>
   );
