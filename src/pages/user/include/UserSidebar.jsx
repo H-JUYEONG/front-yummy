@@ -30,7 +30,7 @@ const UserSidebar = () => {
             <h3>나의 쇼핑내역</h3>
             <ul>
                 <li>
-                    <Link to="/user/order">
+                    <Link to="/user/mypage/order">
                         <MdGroup className="icon" /> 주문조회
                     </Link>
                 </li>
@@ -68,7 +68,7 @@ const UserSidebar = () => {
             <h3>찜 목록</h3>
             <ul>
                 <li>
-                    <Link to="/user/wishlist">
+                    <Link to="/user/mypage/wishlist">
                         <BiSolidStore className="icon" /> 찜한 상품
                     </Link>
                 </li>
@@ -82,7 +82,7 @@ const UserSidebar = () => {
             <h3>포인트</h3>
             <ul>
                 <li>
-                    <Link to="/user/point">
+                    <Link to="/user/mypage/point">
                         <FaComments className="icon" /> 포인트 내역
                     </Link>
                 </li>

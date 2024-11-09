@@ -1,0 +1,42 @@
+/* 포인트 조회 페이지 스타일 */
+
+
+.order-status-container .status-label {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 1.1em;
+    color: #666;
+}
+
+/* 기간 선택 버튼 스타일 조정 */
+
+
+
+/* 테이블 헤더 스타일 */
+.order-table th {
+    background: #f8f9fa;
+    padding: 12px;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .date-filter {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .date-filter input[type="date"] {
+        width: calc(50% - 10px);
+    }
+    
+    .period-btn {
+        width: calc(33.33% - 10px);
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    
+    .order-table {
+        display: block;
+        overflow-x: auto;
+    }
+}

@@ -218,7 +218,7 @@ const UserCakeDetail = () => {
                                 <div className="rating-select">
                                     <p>별점을 선택해주세요</p>
                                     <div className="stars-input">
-                                        {[1, 2, 3, 4, 5].map((star) => ( // 순서를 1부터 5로 변경
+                                        {[5,4,3,2,1].map((star) => ( // 순서를 1부터 5로 변경
                                             <button
                                                 key={star}
                                                 type="button"
@@ -545,10 +545,21 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
                             <div className="option-group">
-                                <h3>요청사항</h3>
+                            <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">
                                     <textarea
                                         placeholder="예) 레터링 문구를 '생일 축하해 뽀미야~♡' 로 해주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                    <p className="request-notice">
+
+                                    </p>
+                                </div>
+                                <h3>기타 요청사항</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
                                         rows="4"
                                         className="request-textarea"
                                     />
