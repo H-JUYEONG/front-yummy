@@ -1,0 +1,64 @@
+/* 타이틀 스타일 */
+.user-cake-designs-title {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 35px;
+    text-align: left;
+    border-bottom: 1px solid #000000; /* 타이틀 강조선 */
+    padding-bottom: 10px;
+}
+
+.user-cake-designs-details {
+    
+}
+
+.cake-designs-detail-imgs img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-top: 14px; /* 이미지랑 제목 시작 위치 조정 */
+}
+
+/* 서브 이미지 */
+.cake-designs-detail-sub-imgs {
+    display: flex;
+    flex-wrap: wrap; /* 이미지가 넘어가면 아래로 배치 */
+    justify-content: flex-start; /* 가운데 정렬 */
+    max-width: 600px;
+}
+
+.cake-designs-detail-sub-imgs img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin-top: 14px; /* 이미지랑 제목 시작 위치 조정 */
+    margin-right: 10px;
+}
+
+/* 설명 텍스트 스타일 */
+.cake-designs-detail-txt {
+    max-width: 600px;
+    color: #555;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cake-designs-detail-txt h2 {
+    padding-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.cake-designs-detail-txt h3 {
+    font-size: 21px;
+    padding-bottom: 3px;
+}
+
+.cake-designs-detail-txt p {
+    font-size: 20px;
+    padding-bottom: 20px;
+    word-wrap: break-word;
+}
