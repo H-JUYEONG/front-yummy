@@ -7,7 +7,7 @@ import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignEdit.css";
 
-const UserCakeDesignEdit = () => {
+const UserMyPageCakeDesign = () => {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
@@ -61,6 +61,14 @@ const UserCakeDesignEdit = () => {
 
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
+        <aside id="user-wrap-side" className="float-left">
+                    <h2>Sidebar</h2>
+                    <ul>
+                        <li><a href="#link1">링크 1</a></li>
+                        <li><a href="#link2">링크 2</a></li>
+                        <li><a href="#link3">링크 3</a></li>
+                    </ul>
+                </aside>
         <div className="user-cake-design-board-list">
           <form className="user-cake-design-main">
             <h1 className="user-cake-design-title">도안 수정</h1>
@@ -172,4 +180,4 @@ const UserCakeDesignEdit = () => {
   );
 };
 
-export default UserCakeDesignEdit;
+export default UserMyPageCakeDesign;

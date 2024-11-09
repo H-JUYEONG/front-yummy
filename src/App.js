@@ -35,6 +35,7 @@ import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+import UserMyPageCakeDesign from './pages/user/UserMyPageCakeDesign';
 
 
 // board
@@ -88,6 +89,7 @@ function App() {
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/mypage/cakeDesign' element={<UserMyPageCakeDesign/>}/>
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
