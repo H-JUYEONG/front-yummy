@@ -6,6 +6,7 @@ import '../../assets/css/user/userorder.css';
 import Header from '../include/Header';
 import Footer from '../include/Footer';
 
+//얘가 주문조회 둘다있는거에요 이거 쓸겁니다
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);

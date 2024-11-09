@@ -32,7 +32,7 @@ import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserOrderDetail from './pages/user/UserOrderDetail';
 import UserOrder from './pages/user/UserOrder';
-
+import UserWishList from './pages/user/UserWishList';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -84,6 +84,7 @@ function App() {
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
           <Route path='/user/orderdetail' element={<UserOrderDetail/>}/>
           <Route path='/user/order' element={<UserOrder/>}/>
+          <Route path='/user/wishlist' element={<UserWishList/>}/>
           {/* Main and Admin */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>

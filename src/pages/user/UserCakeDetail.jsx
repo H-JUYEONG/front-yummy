@@ -374,7 +374,7 @@ const UserCakeDetail = () => {
             </header>
 
             {/* 메인 컨텐츠 영역 */}
-            <main id="wrap-body" className="clearfix">
+            <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
                     {/* 왼쪽 섹션: 상품 이미지 및 상세 정보 */}
                     <div className="left-section">
