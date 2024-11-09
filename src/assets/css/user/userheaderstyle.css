@@ -59,11 +59,11 @@
 
 .header-container .user-actions {
     position: absolute;
-    right: 24px;
-    top: 25px;
+    right: 7px;
+    top: 33px;
     display: flex;
     align-items: center;
-    gap: 16px;
+  
 }
 
 .header-container .user-actions a.header-link {

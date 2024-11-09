@@ -22,7 +22,8 @@ const Header = () => {
       {/* User Actions */}
       <div className="user-actions">
         <a href="/login" className="header-link">로그인</a>
-        <a href="/mypage" className="header-link">마이페이지</a>
+        <a href="/" className="header-link">회원가입</a>
+        <a href="/user/order" className="header-link">마이페이지</a>
       </div>
     </div>
   );
