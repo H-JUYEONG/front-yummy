@@ -1,12 +1,6 @@
 /* adminDashboard.css */
-.admin-container {
-    display: flex;
-    min-height: 100vh;
-    font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif;
-    background-color: #f5f7fb;
-    /* 페이지 배경 */
-    color: #1e3a8a;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Orbit&display=swap');
+
 
 /* 메인 컨텐츠 */
 .admin-container .admin-dashboard-content {

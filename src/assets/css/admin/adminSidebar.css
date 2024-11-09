@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Orbit&display=swap');
+/*admin-container */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif;
+    background-color: #f5f7fb;
+    /* 페이지 배경 */
+    color: #1e3a8a;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 /* adminSidebar.css */
 
 .admin-sidebar {
@@ -11,6 +23,7 @@
     position: relative;
     border-right: 1px solid #e5e7eb;
     border-radius: 5px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .admin-sidebar .logo {
