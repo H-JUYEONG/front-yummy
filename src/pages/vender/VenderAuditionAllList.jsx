@@ -1,13 +1,13 @@
 //import 라이브러리
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
-
+import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
-import auditionAllList from '../../assets/css/vender/auditionAllList.css'
+import '../../assets/css/vender/auditionAllList.css';
 
 
 
@@ -39,11 +39,21 @@ const VenderAudirionAllList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
+    // 모달 열기
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
+    // 모달 닫기
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
 
@@ -62,71 +72,77 @@ const VenderAudirionAllList = () => {
     return (
         <>
             <div className="container">
-                {/* 사이드바 영역 */}
-                <VenderSidebar />
+                <div className="vender-content-wrapper">
+                    {/* 사이드바 영역 */}
+                    <VenderSidebar />
 
-                {/* 메인 콘텐츠 영역 */}
-                <div className="vender-content">
-                    <main className="product-list-main-content ">
-                        <section className="product-list">
-                            <header className="product-list-header">
-                                <h2 className="product-list-title">실시간 오디션 현황</h2>
-                            </header>
-                            <p id="search-now-area"><img src="../assets/images/짱구얼굴.jifif" alt=''/>현위치 : 강남구</p>
-                            <table className="product-table">
-                                <thead>
-                                    <tr>
-                                        <th>오디션번호</th>
-                                        <th>예약자명</th>
-                                        <th>수령일자</th>
-                                        <th>픽업방식</th>
-                                        <th>요청도안</th>
-                                        <th>상품보유여부</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>진소영</td>
-                                        <td>2024-11-15</td>
-                                        <td>픽업</td>
-                                        <td>3번도안</td>
-                                        <td>보유중</td>
-                                        <td>
-                                            <button className="supervision-read-button">참여하러가기</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>진소영</td>
-                                        <td>2024-11-15</td>
-                                        <td>픽업</td>
-                                        <td>3번도안</td>
-                                        <td>보유중</td>
-                                        <td>
-                                            <button className="supervision-read-button">도안 추가하러가기</button>
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                            {/* 페이징 네비게이션 */}
-                            <div className="pagination">
-                                {Array.from({ length: totalPages }, (_, index) => (
-                                    <button
-                                        key={index}
-                                        className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-                                        onClick={() => setCurrentPage(index + 1)}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                ))}
-                            </div>
-                        </section>
-                    </main>
+                    {/* 메인 콘텐츠 영역 */}
+                    <div className="vender-content">
+                        <main className="product-list-main-content ">
+                            <section className="product-list">
+                                <header className="product-list-header">
+                                    <h2 className="product-list-title">실시간 오디션 현황</h2>
+                                </header>
+                                <p id="search-now-area"><img src="../assets/images/짱구얼굴.jifif" alt='' />현위치 : 강남구</p>
+                                <table className="product-table">
+                                    <thead>
+                                        <tr>
+                                            <th>오디션번호</th>
+                                            <th>예약자명</th>
+                                            <th>수령일자</th>
+                                            <th>픽업방식</th>
+                                            <th>요청도안</th>
+                                            <th>상품보유여부</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>진소영</td>
+                                            <td>2024-11-15</td>
+                                            <td>픽업</td>
+                                            <td>3번도안</td>
+                                            <td>보유중</td>
+                                            <td>
+                                                <button className="supervision-read-button" onClick={openModal}>참여하러가기</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>진소영</td>
+                                            <td>2024-11-15</td>
+                                            <td>픽업</td>
+                                            <td>3번도안</td>
+                                            <td>보유중</td>
+                                            <td>
+                                                <button className="supervision-read-button">도안 추가하러가기</button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                {/* 페이징 네비게이션 */}
+                                <div className="pagination">
+                                    {Array.from({ length: totalPages }, (_, index) => (
+                                        <button
+                                            key={index}
+                                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                                            onClick={() => setCurrentPage(index + 1)}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    ))}
+                                </div>
+                            </section>
+                        </main>
+                    </div>
                 </div>
             </div>
+            {/* 모달 컴포넌트 */}
+            <AppealDesignDetails isOpen={isModalOpen} onClose={closeModal}>
+
+            </AppealDesignDetails>
         </>
     );
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from '../../include/Header';
+import Footer from '../../include/Footer';
 import '../../../assets/css/user/usermain.css'
 
 const UserMain= () => {
@@ -6,7 +8,7 @@ const UserMain= () => {
         <div id="user-wrap" className="text-center">
             {/* Header */}
             <header id="user-wrap-head">
-                <h1>로고는 이 폰트에요</h1>
+                <Header/>
             </header>
 
             {/* Main Content */}
@@ -56,7 +58,7 @@ const UserMain= () => {
 
             {/* Footer */}
             <footer className="user-full-width">
-                <p>Footer 영역.</p>
+                <Footer/>
             </footer>
         </div>
     );

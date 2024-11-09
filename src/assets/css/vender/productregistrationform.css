@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
+.product-registration {
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px;
+    /* 큰 라운드를 적용하여 부드러운 모서리 */
+}
 
 /* 타이틀 스타일 */
 .product-registration .product-list-title {
@@ -186,14 +192,16 @@
     text-align: center;
 }
 
-
-/* 등록 버튼 스타일 */
-.product-registration .centered-button-group {
+.product-list-header .button-group {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    gap: 10px;
+    /* 버튼 간격 */
+    margin-top: 20px;
+    /* 원하는 만큼 여백 추가 */
 }
 
+/* 등록 버튼 스타일 */
 .product-registration .add-button {
     background-color: #4f46e5;
     color: #ffffff;
@@ -236,13 +244,13 @@
     transform: translateY(-5px);
 }
 
-.pagination {
+.product-registration .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.page-button {
+.product-registration .page-button {
     margin: 0 5px;
     padding: 8px 16px;
     border: none;
@@ -251,11 +259,194 @@
     transition: background-color 0.3s;
 }
 
-.page-button:hover {
+.product-registration .page-button:hover {
     background-color: #ddd;
 }
 
-.page-button.active {
+.product-registration .page-button.active {
     background-color: #007bff;
     color: white;
+}
+
+
+.product-registration .centered-button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* 케이크 도안 선택 섹션 스타일 (상품 등록 폼 전용) */
+.vender-container .product-registration .cakeDesign-section {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+}
+
+.vender-container .product-registration .options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.vender-container .product-registration .options-header h2 {
+    font-size: 18px;
+    color: #333;
+}
+
+.vender-container .product-registration .selected-design {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.vender-container .product-registration .selected-design img {
+    width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.vender-container .product-registration .selected-design span {
+    font-size: 14px;
+    color: #444;
+}
+
+
+/* 모달 창 스타일 (상품 등록 폼 전용) */
+.venderregistrationform-design-modal-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.venderregistrationform-design-modal  {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    padding: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1010;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 모달 창 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 도안 검색 입력 필드 스타일 (모달 창 전용) */
+.venderregistrationform-design-modal .design-search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.venderregistrationform-design-modal .design-search-input:focus {
+    border-color: #4CAF50;
+}
+
+/* 도안 리스트 스타일 (모달 창 전용) */
+.venderregistrationform-design-modal  .design-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.venderregistrationform-design-modal .design-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.venderregistrationform-design-modal .design-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.venderregistrationform-design-modal .design-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.venderregistrationform-design-modal .design-name {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.venderregistrationform-design-modal .design-item button {
+    padding: 8px 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.venderregistrationform-design-modal .design-item button:hover {
+    background-color: #45a049;
+}
+
+/* 닫기 버튼 스타일 (모달 창 전용) */
+.venderregistrationform-design-modal  .close-modal-button {
+    background-color: #ff5e57;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.venderregistrationform-design-modal  .close-modal-button:hover {
+    background-color: #e0473d;
+}
+
+.venderregistrationform-design-modal  .close-modal-button::before {
+    margin-right: 5px;
+    font-size: 14px;
 }

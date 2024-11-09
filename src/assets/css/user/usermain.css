@@ -39,24 +39,18 @@
 }
 
 #user-wrap::before {
-    content: 'USER WRAP 영역';
+   
     position: absolute;
     top: 0;
     right: 0;
-    background: rgba(0, 0, 255, 0.1);
+
     padding: 4px 8px;
     font-size: 12px;
-    color: #666;
+ 
 }
 
 /* 헤더 영역 */
-#user-wrap-head {
-    padding: 20px;
-    border: 2px dashed #FF9999;
-    margin-bottom: 20px;
-    position: relative;
-    background: rgba(255, 153, 153, 0.1);
-}
+
 
 #user-wrap-head h1 {
     font-family: 'SF함박눈', serif !important;
@@ -67,21 +61,11 @@
     letter-spacing: 0.05em;
 }
 
-#user-wrap-head::before {
-    content: 'USER HEADER 영역';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #FF9999;
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-}
+
 
 /* 메인 컨텐츠 영역 */
 #user-wrap-body {
     flex: 1;
-    display: flex;
     gap: 40px;
     margin-bottom: 40px;
     border: 2px dashed #99FF99;
@@ -91,11 +75,11 @@
 }
 
 #user-wrap-body::before {
-    content: 'USER MAIN 영역';
+    
     position: absolute;
     top: 0;
     right: 0;
-    background: #99FF99;
+   
     color: white;
     padding: 4px 8px;
     font-size: 12px;
@@ -148,7 +132,7 @@
 }
 
 #user-wrap-side::before {
-    content: 'USER SIDEBAR 영역';
+   
     position: absolute;
     top: 0;
     right: 0;
@@ -161,19 +145,17 @@
 #user-wrap-main {
     flex: 1;
     min-width: 0;
-    border: 2px dashed #FFFF99;
+    
     padding: 20px;
     position: relative;
-    background: rgba(255, 255, 153, 0.1);
+   
 }
 
 #user-wrap-main::before {
-    content: 'USER MAIN CONTENT 영역';
+    
     position: absolute;
     top: 0;
     right: 0;
-    background: #FFFF99;
-    color: #666;
     padding: 4px 8px;
     font-size: 12px;
 }
@@ -206,25 +188,8 @@
 }
 
 /* 푸터 */
-.user-full-width {
-    width: 100%;
-    background: rgba(255, 153, 255, 0.1);
-    border: 2px dashed #FF99FF;
-    padding: 20px;
-    position: relative;
-    margin-top: auto;
-}
 
-.user-full-width::before {
-    content: 'USER FOOTER 영역';
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #FF99FF;
-    color: white;
-    padding: 4px 8px;
-    font-size: 12px;
-}
+
 
 .user-full-width p {
     margin: 0;
@@ -262,29 +227,9 @@
 }
 
 #user-wrap a:hover {
-    color: #7C3AED;
+    color: #ffffff;
 }
 
-#user-wrap button {
-    padding: 8px 16px;
-    background: #7C3AED;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#user-wrap button:hover {
-    background: #6D28D9;
-}
-
-#user-wrap img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
 
 /* 반응형 디자인 */
 @media (max-width: 480px) {

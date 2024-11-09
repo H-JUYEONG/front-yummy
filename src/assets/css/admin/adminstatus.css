@@ -1,0 +1,39 @@
+/* detailedStatsPage.css */
+
+.detailed-stats-page {
+    flex: 1;
+    padding: 40px;
+}
+
+.detailed-stats-page .stats-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.detailed-stats-page .stats-header h1 {
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+.detailed-stats-page .metric-selector {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #1e3a8a;
+}
+
+.detailed-stats-page .chart-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.detailed-stats-page .chart-container canvas {
+    max-height: 400px;
+}
