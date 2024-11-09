@@ -1,0 +1,103 @@
+/* 페이지 스타일 */
+.admin-venderorder-page {
+    flex: 1;
+    padding: 40px;
+}
+
+/* 헤더 스타일 */
+.admin-venderorder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-venderorder-header h1 {
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+/* 필터 컨테이너 스타일 */
+.filter-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-button:hover {
+    background-color: #0056b3;
+}
+
+/* 테이블 스타일 */
+.order-table {
+    width: 100%;
+    table-layout: fixed; /* 테이블 레이아웃 고정 */
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-table th,
+.order-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center; /* 모든 테이블 셀을 수평 가운데 정렬 */
+    vertical-align: middle; /* 모든 테이블 셀을 수직 가운데 정렬 */
+    word-wrap: break-word; /* 긴 텍스트가 잘리지 않고 줄바꿈되도록 설정 */
+}
+
+.order-table th {
+    background-color: #f8f8f8;
+    color: #333;
+    font-weight: bold;
+    height: 50px; /* 모든 헤더 셀 높이를 일정하게 유지 */
+}
+
+.order-table td {
+    height: 50px; /* 모든 데이터 셀 높이를 일정하게 유지 */
+}
+
+.order-table td.amount {
+    text-align: right; /* 총 금액 열은 오른쪽 정렬 */
+}
+
+.order-table td.date {
+    text-align: right; /* 주문 날짜 열은 오른쪽 정렬 */
+}
+
+/* 짝수 행 배경색 설정 */
+.order-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* 행에 마우스를 올릴 때 배경색 변경 */
+.order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 상태 열 가운데 정렬 */
+.order-table td.status {
+    text-align: center; /* 상태 열은 수평 가운데 정렬 */
+    vertical-align: middle; /* 수직 가운데 정렬 */
+}
