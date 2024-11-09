@@ -138,9 +138,16 @@
   margin-top: 15px;
 }
 
+.j-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
 .j-pagination {
   display: flex;
-  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .j-page-btn,

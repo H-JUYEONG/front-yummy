@@ -11,18 +11,20 @@ import VenderStatistics from './pages/vender/VenderStatistics';
 import VenderCreatePage from './pages/vender/VenderCreatePage';
 import VenderSupervisionList from './pages/vender/VenderSupervisionList';
 import VenderAuditionAllList from './pages/vender/VenderAuditionAllList'; 
+import VenderCakeDesignLikeList from './pages/vender/VenderCakeDesignLikeList';
 import VenderCakeDesignList from './pages/vender/VenderCakeDesignList';
 import VenderCakeDesignAdd from './pages/vender/VenderCakeDesignAdd';
 import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
+import VenderProductPreview from './pages/vender/VenderProductPreview';
 
 // user
+import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 import UserLoginForm from './pages/user/userLoginForm';
-import UserSignUpForm from './pages/user/UserSignupForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -33,18 +35,21 @@ import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserOrderDetail from './pages/user/UserOrderDetail';
 import UserOrder from './pages/user/UserOrder';
 import UserWishList from './pages/user/UserWishList';
+import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
+import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
+import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+import UserMyPageCakeDesign from './pages/user/UserMyPageCakeDesign';
+
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 
-import VenderProductPreview from './pages/vender/VenderProductPreview';
-
-
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMemberManagement from './pages/admin/AdminMemberManagement';
+import AdminStatus from './pages/admin/AdminStatus';
 
 
 function App() {
@@ -52,8 +57,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/vender/dashboard' element={<VenderDashboard />} />
+          <Route path='/vender/' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -64,6 +68,7 @@ function App() {
           <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
           <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
           <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
+          <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList/>} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
@@ -71,6 +76,7 @@ function App() {
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
           {/* User Routes */}
+          <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
@@ -85,11 +91,20 @@ function App() {
           <Route path='/user/orderdetail' element={<UserOrderDetail/>}/>
           <Route path='/user/order' element={<UserOrder/>}/>
           <Route path='/user/wishlist' element={<UserWishList/>}/>
-          {/* Main and Admin */}
-          <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
-          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+          <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
+          <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
+          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/mypage/cakeDesign' element={<UserMyPageCakeDesign/>}/>
+
+          {/* Main and Admin */}
+          <Route path='/' element={<Main />} />
+
+          {/*Admin Routes */}
+          <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
+          <Route path='/admin/status' element={<AdminStatus/>}/>
+
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />

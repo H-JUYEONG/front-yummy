@@ -4,11 +4,11 @@ import "../../assets/css/admin/adminDashboard.css";
 import AdminSidebar from './include/AdminSidebar';
 const AdminDashboard = () => {
     return (
-        <div className="admin-dashboard-container">
+        <div className="admin-container">
             {/* Sidebar */}
             <AdminSidebar />
             {/* Main Content */}
-            <main className="main-content">
+            <main className="admin-dashboard-content">
                 <header className="header">
                     <h1>대시보드</h1>
                 </header>
@@ -16,13 +16,13 @@ const AdminDashboard = () => {
                 <section className="overview-cards">
                     <div className="card">
                         <IoMdCash className="icon" />
-                        <h3>총 매출 (가맹점)</h3>
+                        <h3>총 매출 (업체)</h3>
                         <p>₩25,000,000</p>
                         <span className="comparison">지난 달 대비 +5%</span>
                     </div>
                     <div className="card">
                         <IoMdCart className="icon" />
-                        <h3>총 주문건수 (가맹점)</h3>
+                        <h3>총 주문건수 (업체)</h3>
                         <p>350 건</p>
                         <span className="comparison">지난 달 대비 +3%</span>
                     </div>

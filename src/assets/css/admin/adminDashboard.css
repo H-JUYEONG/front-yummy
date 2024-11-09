@@ -1,86 +1,89 @@
 /* adminDashboard.css */
-
-.admin-dashboard-container {
+.admin-container {
     display: flex;
     min-height: 100vh;
     font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif;
-    background-color: #f5f7fb; /* 페이지 배경 */
+    background-color: #f5f7fb;
+    /* 페이지 배경 */
     color: #1e3a8a;
 }
 
 /* 메인 컨텐츠 */
-.admin-dashboard-container .main-content {
+.admin-container .admin-dashboard-content {
     flex: 1;
     padding: 40px;
 }
 
-.admin-dashboard-container .header {
+.admin-container .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.admin-dashboard-container .header h1 {
+.admin-container .header h1 {
     font-size: 1.8em;
     color: #1e3a8a;
     font-weight: bold;
 }
 
 /* 개요 카드 */
-.admin-dashboard-container .overview-cards {
+.admin-container .overview-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
-.admin-dashboard-container .card {
-    background: #ffffff; /* 카드 배경색 */
+.admin-container .card {
+    background: #ffffff;
+    /* 카드 배경색 */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* 부드러운 그림자 */
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.admin-dashboard-container .card:hover {
+.admin-container .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.admin-dashboard-container .card .icon {
+.admin-container .card .icon {
     font-size: 2em;
-    color: #3b82f6; /* 파란색 아이콘 */
+    color: #3b82f6;
+    /* 파란색 아이콘 */
     margin-bottom: 10px;
 }
 
-.admin-dashboard-container .card h3 {
+.admin-container .card h3 {
     font-size: 1em;
     color: #1e3a8a;
     margin-bottom: 8px;
     font-weight: 600;
 }
 
-.admin-dashboard-container .card p {
+.admin-container .card p {
     font-size: 1.5em;
     color: #3b82f6;
     font-weight: bold;
     margin: 0;
 }
 
-.admin-dashboard-container .card .comparison {
+.admin-container .card .comparison {
     font-size: 0.85em;
     color: #9ca3af;
     margin-top: 5px;
 }
 
 /* 긍정, 부정 색상 */
-.admin-dashboard-container .positive {
+.admin-container .positive {
     color: #10b981;
     font-weight: bold;
 }
 
-.admin-dashboard-container .negative {
+.admin-container .negative {
     color: #ef4444;
     font-weight: bold;
 }

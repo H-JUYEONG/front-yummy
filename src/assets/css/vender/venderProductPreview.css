@@ -1,40 +1,103 @@
-/* 전체 컨테이너 */
-.product-preview-container .preview-image-section {
+/* 전체 컨테이너 가운데 정렬 */
+.preview-mode #vendor-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수평 중앙 정렬 */
+    width: 100%; /* 전체 화면 너비 차지 */
+    margin: 0 auto; /* 수평 중앙 정렬 */
+}
+
+/* 헤더 가운데 정렬 */
+.preview-mode #vendor-preview-wrap-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa; /* 가벼운 회색 배경 */
+    border-bottom: 1px solid #ddd; /* 약간의 경계선 추가 */
+    width: 100%; /* 헤더가 전체 화면 너비를 차지 */
+    max-width: 1200px; /* 최대 너비 제한 */
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+.preview-mode #vendor-preview-wrap-head h1 {
+    flex: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.preview-mode #vendor-preview-wrap-head button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* 호버 애니메이션 */
+}
+
+.preview-mode #vendor-preview-wrap-head button:hover {
+    background-color: #007bff; /* 버튼에 호버 시 배경색 */
+    color: #fff; /* 버튼 글자 색 */
+    transform: scale(1.05); /* 버튼이 약간 커지는 효과 */
+}
+
+.preview-mode #vendor-preview-wrap-head .back-button {
+    background-color: #6c757d; /* 뒤로가기 버튼 - 회색 */
+    color: #fff;
+}
+
+.preview-mode #vendor-preview-wrap-head .register-button {
+    background-color: #28a745; /* 등록하기 버튼 - 초록색 */
+    color: #fff;
+}
+
+/* 기본 레이아웃 */
+.preview-mode .cake-order-container {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    gap: 40px;
+    gap: 100px;
 }
 
-.product-preview-container .preview-info-section {
+.preview-mode .cake-order-container .left-section {
+    flex: 1;
+    min-width: 0;
+}
+
+.preview-mode .cake-order-container .right-section {
     width: 400px;
     flex-shrink: 0;
 }
 
 /* 이미지 갤러리 영역 */
-.product-preview-container .main-product-image {
+.preview-mode .cake-order-container .product-image {
     margin-bottom: 30px;
 }
 
-.product-preview-container .main-image {
+.preview-mode .cake-order-container .main-image {
     width: 100%;
     height: 500px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 20px;
+    background-color: #f8f8f8;
 }
 
-.product-preview-container .thumbnail-list {
+.preview-mode .cake-order-container .thumbnail-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
 }
 
-.product-preview-container .thumbnail-item {
+.preview-mode .cake-order-container .thumbnail-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* 1:1 비율 유지 */
+    padding-bottom: 100%;
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 8px;
@@ -42,111 +105,71 @@
     transition: all 0.3s ease;
 }
 
-.product-preview-container .thumbnail-item.active {
+.preview-mode .cake-order-container .thumbnail-wrapper.active {
     border-color: #8B5CF6;
 }
 
-.product-preview-container .thumbnail-item:hover {
+.preview-mode .cake-order-container .thumbnail-wrapper:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.product-preview-container .thumbnail-image {
+.preview-mode .cake-order-container .thumbnail-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #f8f8f8;
 }
 
-/* 탭 스타일 */
-.product-preview-container .product-tabs {
-    margin-top: 30px;
+/* 상품 설명 영역 */
+.preview-mode .product-description {
+    margin-top: 20px;
 }
 
-.product-preview-container .tabs-header {
-    display: flex;
-    width: 100%;
-    border-bottom: 2px solid #eee;
-    margin-bottom: 0;
-}
-
-.product-preview-container .tab-button {
-    flex: 1;
-    padding: 15px 0;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    background: none;
-    color: #666;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.product-preview-container .tab-button.active {
-    color: #8B5CF6;
-}
-
-.product-preview-container .tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #8B5CF6;
-}
-
-.product-preview-container .tab-content {
-    padding: 30px 20px;
-    background: #fff;
-    border-radius: 0 0 8px 8px;
-    min-height: 400px;
-    border: 1px solid #eee;
-    border-top: none;
-}
-
-/* 상품 정보 및 옵션 */
-.product-preview-container .product-details {
-    margin-bottom: 30px;
-}
-
-.product-preview-container .product-details h2 {
+.preview-mode .product-description h2 {
     font-size: 24px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.product-preview-container .price {
+.preview-mode .product-description .price {
     font-size: 20px;
-    font-weight: bold;
-    color: #333;
+    color: #FF3B85;
+    margin-bottom: 10px;
 }
 
-.product-preview-container .product-options {
+.preview-mode .product-description .description {
+    font-size: 16px;
+    color: #666;
+}
+
+/* 옵션 미리보기 영역 */
+.preview-mode .preview-options {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.product-preview-container .option-group {
+.preview-mode .option-group {
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
 }
 
-.product-preview-container .option-group h3 {
+.preview-mode .option-group h3 {
+    font-size: 18px;
     margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
 }
 
-/* 색상 옵션 */
-.product-preview-container .color-options {
+/* 크림 색상 미리보기 */
+.preview-mode .color-preview {
     display: flex;
-    gap: 45px;
+    gap: 15px;
 }
 
-.product-preview-container .color-option {
+.preview-mode .color-option {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -155,163 +178,79 @@
     transition: all 0.3s ease;
 }
 
-.product-preview-container .color-option:hover {
+.preview-mode .color-option.pink {
+    background-color: #FFB6C1;
+}
+
+.preview-mode .color-option.yellow {
+    background-color: #FFD700;
+}
+
+.preview-mode .color-option.orange {
+    background-color: #FFA500;
+}
+
+.preview-mode .color-option:hover {
     transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 
-.product-preview-container .color-option.active {
+.preview-mode .color-option.active {
     border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
 
-.product-preview-container .color-option.pink { background-color: #FFB6C1; }
-.product-preview-container .color-option.yellow { background-color: #FFD700; }
-.product-preview-container .color-option.orange { background-color: #FFA500; }
-
-/* 맛과 사이즈 옵션 스크롤 컨테이너 */
-.product-preview-container .option-scroll {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    margin: 0 -10px;
-    padding: 0 10px;
-    cursor: grab;
-    scroll-behavior: smooth;
-}
-
-.product-preview-container .option-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.product-preview-container .option-scroll:active {
-    cursor: grabbing;
-}
-
-/* 옵션 그리드 */
-.product-preview-container .option-grid {
+/* 맛과 사이즈 미리보기 */
+.preview-mode .flavor-preview, .preview-mode .size-preview {
     display: flex;
     gap: 10px;
-    padding: 10px 0;
-    width: max-content;
 }
 
-.product-preview-container .option-item {
-    flex: 0 0 auto;
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.product-preview-container .option-item:hover {
-    border-color: #8B5CF6;
-    transform: translateY(-2px);
-}
-
-.product-preview-container .option-item.active {
-    border-color: #8B5CF6;
-    background-color: #f9f7ff;
-}
-
-.product-preview-container .option-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.product-preview-container .option-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.product-preview-container .option-item span {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
-}
-
-/* 픽업 관련 스타일 */
-.product-preview-container .map-placeholder {
-    width: 100%;
-    height: 200px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-}
-
-.product-preview-container .date-input,
-.product-preview-container .time-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-/* 주문 버튼 */
-.product-preview-container .order-button {
-    width: 100%;
-    margin-top: 30px;
-    padding: 15px;
-    background-color: #8B5CF6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+.preview-mode .flavor, .preview-mode .size {
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: #f8f8f8;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.product-preview-container .order-button:hover {
-    background-color: #7C3AED;
+.preview-mode .flavor:hover, .preview-mode .size:hover {
+    background-color: #FF3B85;
+    color: #fff;
+}
+
+.preview-mode .flavor.active, .preview-mode .size.active {
+    background-color: #8B5CF6;
+    color: #fff;
 }
 
 /* 반응형 스타일 */
 @media (max-width: 1024px) {
-    .product-preview-container {
+    .preview-mode .cake-order-container {
         flex-direction: column;
     }
 
-    .product-preview-container .preview-info-section {
+    .preview-mode .cake-order-container .right-section {
         width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .product-preview-container .thumbnail-list {
+    .preview-mode .cake-order-container .thumbnail-container {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .product-preview-container .main-image {
+    .preview-mode .cake-order-container .main-image {
         height: 300px;
     }
 }
 
 @media (max-width: 480px) {
-    .product-preview-container .tabs-header {
+    .preview-mode .cake-order-container .tabs-header {
         flex-wrap: wrap;
     }
 
-    .product-preview-container .tab-button {
+    .preview-mode .cake-order-container .tab-button {
         flex: 0 0 50%;
-    }
-
-    .product-preview-container .option-image {
-        width: 50px;
-        height: 50px;
     }
 }
