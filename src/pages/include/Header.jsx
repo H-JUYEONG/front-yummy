@@ -9,7 +9,7 @@ const Header = () => {
         <h1>YUMMY</h1>
       </div>
 
-      {/* Navigation */}
+      {/* Navigation1 */}
       <nav className="nav-menu">
         <ul>
           <li><a href="/audition">케이크 오디션</a></li>
