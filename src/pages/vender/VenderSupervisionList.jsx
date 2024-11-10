@@ -7,7 +7,7 @@ import VenderSidebar from './include/VenderSidebar';
 import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
-
+import '../../assets/css/vender/supervisionList.css';
 
 
 
