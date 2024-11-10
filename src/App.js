@@ -23,7 +23,7 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
-import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/userLoginForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
