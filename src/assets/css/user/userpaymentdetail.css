@@ -105,8 +105,9 @@
     font-family: 'GmarketSans', sans-serif;
     font-size: 1.1em;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
+    
+
 
 #user-wrap .payment-container .payment-button:hover {
     background-color: #6D28D9;

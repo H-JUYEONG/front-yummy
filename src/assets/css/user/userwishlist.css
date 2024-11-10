@@ -89,13 +89,14 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
     display: flex;
     flex-direction: column;
+    border: 2px solid transparent; /* 투명한 테두리 추가 */
 }
 
+
 #user-wrap .wishlist-container .product-card:hover {
-    transform: translateY(-5px);
+    border-color: #7C3AED; /* hover 시 테두리 색상 변경 */
 }
 
 #user-wrap .wishlist-container .product-image {

@@ -128,20 +128,24 @@ const UserStoreDetail = () => {
 
                     <hr className="sd-divider" />
 
-                    {/* 상품 리스트 */}
-                    <div className="sd-products-container">
-                        {getProducts().map((product) => (
-                            <div key={product.id} className="sd-product-item">
-                                <div className="sd-product-image">
-                                    <img src={product.image} alt={product.name} />
-                                </div>
-                                <div className="sd-price-info">
-                                    <p className="sd-product-name">{product.name}</p>
-                                    <p className="sd-price">{product.price}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                   {/* 상품 리스트 */}
+<div className="sd-products-container">
+    {getProducts().map((product) => (
+        <Link 
+            to={`/user/cakedetail`}  // 상품 ID를 사용한 동적 라우팅
+            key={product.id} 
+            className="sd-product-item"
+        >
+            <div className="sd-product-image">
+                <img src={product.image} alt={product.name} />
+            </div>
+            <div className="sd-price-info">
+                <p className="sd-product-name">{product.name}</p>
+                <p className="sd-price">{product.price}</p>
+            </div>
+        </Link>
+    ))}
+</div>
                 </section>
             </main>
 
