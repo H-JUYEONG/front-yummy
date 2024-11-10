@@ -43,13 +43,13 @@
 }
 
 /* 입력 필드 스타일 */
-.social-signup-area {
+.userSocialSignUpForm-social-signup-area {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.input-group {
+.userSocialSignUpForm-input-group {
     margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
@@ -60,7 +60,7 @@
     color: red;
 }
 
-.social-signup-area label {
+.userSocialSignUpForm-social-signup-area label {
     font-size: 14px;
     font-weight: bold;
     color: #333;
@@ -68,8 +68,8 @@
     display: block;
 }
 
-.social-signup-area input[type="text"],
-.social-signup-area input[type="password"] {
+.userSocialSignUpForm-social-signup-area input[type="text"],
+.userSocialSignUpForm-social-signup-area input[type="password"] {
     width: 100%;
     padding: 12px;
     font-size: 14px;
@@ -77,12 +77,12 @@
     box-sizing: border-box;
 }
 
-.phone-input-wrapper {
+.user-phonenum-input-wrapper {
     display: flex;
     gap: 5px;
 }
 
-.phone-input-wrapper input {
+.user-phonenum-input-wrapper input {
     flex: 1;
     padding: 12px;
     font-size: 14px;
@@ -101,12 +101,12 @@
 }
 
 /* Placeholder 스타일 */
-.social-signup-area input::placeholder {
+.userSocialSignUpForm-social-signup-area input::placeholder {
     color: #aaa;
 }
 
 /* 포커스 스타일 */
-.social-signup-area input:focus {
+.userSocialSignUpForm-social-signup-area input:focus {
     outline: none;
     border-color: #aaa;
 }

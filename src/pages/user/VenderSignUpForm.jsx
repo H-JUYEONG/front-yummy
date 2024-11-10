@@ -61,7 +61,7 @@ const VenderSignUpForm = () => {
         <h2>필수사항</h2>
         <div className="vender-signup-area">
           <form onSubmit={handleSubmit}>
-            <div className="input-group">
+            <div className="vender-input-group">
               <label htmlFor="vender-id">아이디(이메일)</label>
               <input
                 id="vender-id"
@@ -88,7 +88,7 @@ const VenderSignUpForm = () => {
               </p>
             </div>
 
-            <div className="input-group">
+            <div className="vender-input-group">
               <label htmlFor="vender-pw-check">비밀번호 확인</label>
               <input
                 id="vender-pw-check"
@@ -100,7 +100,7 @@ const VenderSignUpForm = () => {
               <p className="user-pw-ok">※ 비밀번호가 일치하지 않습니다.</p>
             </div>
 
-            <div className="input-group">
+            <div className="vender-input-group">
               <label htmlFor="vender-owner">대표자명</label>
               <input
                 id="vender-owner"
@@ -111,7 +111,7 @@ const VenderSignUpForm = () => {
               />
             </div>
 
-            <div className="input-group">
+            <div className="vender-input-group">
               <label htmlFor="vender-businessReg">사업자등록증</label>
               <input
                 id="vender-businessReg"
@@ -122,7 +122,7 @@ const VenderSignUpForm = () => {
               />
             </div>
 
-            <div className="input-group">
+            <div className="vender-input-group">
               <label htmlFor="vender-businessName">상호 입력</label>
               <input
                 id="vender-businessName"
@@ -133,7 +133,12 @@ const VenderSignUpForm = () => {
               />
             </div>
             <div className="vender-signup-btn">
-              <button type="submit" onClick={() => navigate("/vender/signup/succ")}>회원가입</button>
+              <button
+                type="submit"
+                onClick={() => navigate("/vender/signup/succ")}
+              >
+                회원가입
+              </button>
             </div>
           </form>
         </div>

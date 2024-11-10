@@ -76,6 +76,7 @@
     height: auto;
     margin-top: 14px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 /* 설명 텍스트 스타일 */
