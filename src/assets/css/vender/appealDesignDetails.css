@@ -1,2 +1,33 @@
 @charset "UTF-8";
 
+/*예시글씨*/
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text{
+    padding: 10px;
+}
+/*요청사항*/
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm{
+    /* border: 1px solid #000000; */
+    border-radius: 4px;
+    background-color: #dedede;
+    margin-top: 5px;
+    padding: 5px;
+    height: 180px;
+    overflow-y: auto;
+}
+/*스크롤*/
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3); /* 트랙 색상: 옅은 회색, 반투명 */
+    
+}
+/* 스크롤바 위아래 화살표 숨기기 */
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm::-webkit-scrollbar-button {
+    display: none;
+}
+/*예시도안*/
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo{
+    height: 80%;
+    margin-top: auto;
+}
+.appeal-design-text li + li{
+    margin-top: 10px;
+}

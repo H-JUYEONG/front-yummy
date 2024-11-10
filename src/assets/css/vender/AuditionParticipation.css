@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.input-recept-box{
+    /* border: 1px solid #000; */
+    display: flex;
+    padding: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 1, 0.1); /* 수평, 수직, 흐림 정도, 색상 */
+    
+}
+.input-recept-box > div{
+    width: calc(100% / 3);
+    /* border: 1px solid #000; */
+}
+.sso-modal-body-content .input-recept-value{
+    padding: 5px;
+    
+}
+.input-recept-box .input-photo-value{
+    width: 80%;
+    height: 100px;
+    border: 1px solid #ddd;
+}
+.sso-modal-body-content .input-recept-value > input{
+    margin-top: 10px;
+
+}
+
+.sso-modal-body-content .input-recept-value .solid{
+    border: 1px solid #ddd;
+}
+.input-recept-box .input-recept-text-value{
+    width: 80%;
+    height: 100px;
+    overflow-y: auto; /* 세로 스크롤 */
+}

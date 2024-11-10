@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
-
+import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Modal 컴포넌트 import
 
 //import css
 import supervisionList from '../../assets/css/vender/supervisionList.css'
@@ -39,11 +39,20 @@ const VenderSupervisionList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
-
+    // 모달 열기
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+    // 모달 닫기
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
 
 
@@ -92,7 +101,7 @@ const VenderSupervisionList = () => {
                                             <td>픽업</td>
                                             <td>2024-11-30</td>
                                             <td>
-                                                <button className="supervision-read-button">내역 상세보기</button>
+                                                <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
                                                 <button className="supervision-delete-button">취소하기</button>
                                             </td>
                                         </tr>
@@ -103,7 +112,7 @@ const VenderSupervisionList = () => {
                                             <td>픽업</td>
                                             <td>2024-11-30</td>
                                             <td>
-                                                <button className="supervision-read-button">내역 상세보기</button>
+                                                <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
                                                 <button className="supervision-delete-button">취소하기</button>
                                             </td>
                                         </tr>
@@ -127,6 +136,10 @@ const VenderSupervisionList = () => {
                     </div>
                 </div>
             </div>
+            {/* 모달 컴포넌트 */}
+            <AppealDesignDetails isOpen={isModalOpen} onClose={closeModal}>
+
+            </AppealDesignDetails>
         </>
     );
 }

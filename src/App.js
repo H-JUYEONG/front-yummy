@@ -18,6 +18,7 @@ import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
 import VenderProductPreview from './pages/vender/VenderProductPreview';
+// import VenderAuditionParticipation from './pages/vender/VenderAuditionParticipation' 모달창임 ;
 
 // user
 import UserMain from './pages/user/include/UserMain';
@@ -35,6 +36,7 @@ import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+
 
 
 // board
@@ -70,6 +72,7 @@ function App() {
           <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
+          
           {/* User Routes */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
