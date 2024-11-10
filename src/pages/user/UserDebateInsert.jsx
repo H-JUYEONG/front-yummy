@@ -117,8 +117,8 @@ const UserDebateInsert = () => {
 
           {/* Footer Buttons */}
           <div className="j-debate-footer">
-            <button className="j-submit-btn">제출하기</button>
-            <button className="j-back-btn">뒤로 가기</button>
+            <Link to="/board" className="j-back-btn">취소</Link>
+            <Link to="/board" className="j-submit-btn">제출하기</Link>
           </div>
         </section>
       </main>

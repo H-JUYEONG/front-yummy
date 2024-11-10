@@ -77,7 +77,7 @@ const UserDebateList = () => {
 
           {/* Write Button */}
           <div className="j-toolbar">
-            <button className="j-write-btn">글쓰기</button>
+            <Link to="/board/debateinsert" className="j-write-btn">글쓰기</Link>
           </div>
 
           {/* Pagination */}

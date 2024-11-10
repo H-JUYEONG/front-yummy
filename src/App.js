@@ -43,6 +43,7 @@ import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
+import UserEventList from './pages/user/UserEventList';
 
 
 // board
@@ -110,6 +111,8 @@ function App() {
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
+
+          <Route path='/user/mypage/usereventlist' element={<UserEventList/>}/>
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
