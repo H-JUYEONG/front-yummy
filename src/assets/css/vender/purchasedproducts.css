@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-.vender-order-list-container{
+.vender-order-list-main-content {
     flex-grow: 1;
     background-color: #ffffff;
     border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
@@ -9,81 +9,83 @@
     transition: transform 0.3s;
 }
 
-
-.vender-order-list h2 {
+.vender-order-list-main-content  .order-list-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+}
+.vender-order-list-main-content  .order-list-header h2 {
     font-size: 2em;
+    /* 크고 굵은 글씨로 제목 강조 */
     font-weight: 600;
     color: #222;
+    /* 더 진한 색상으로 강조 */
 }
 
-
-.vender-filter-section {
+.vender-order-list-main-content  .vender-filter-section {
     margin-left: auto;
     display: flex;
     align-items: center;
     justify-content: right;
 }
 
-.vender-filter-section label {
+.vender-order-list-main-content  .vender-filter-section label {
     margin-right: 10px;
     font-weight: bold;
     font-size: 16px;
 }
 
-.vender-filter-section select {
+.vender-order-list-main-content  .vender-filter-section select {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
 }
 
-.vender-order-table {
+.vender-order-list-main-content  .vender-order-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 12px;
     margin-top: 20px;
 }
 
-.vender-order-table thead {
+.vender-order-list-main-content  .vender-order-table thead {
     background-color: #f3f4f6;
     font-weight: 600;
     color: #333;
     border-radius: 8px 8px 0 0;
 }
 
-.vender-order-table th,
-.vender-order-table td {
+.vender-order-list-main-content .vender-order-table th,
+.vender-order-list-main-content .vender-order-table td {
     padding: 16px;
     text-align: left;
     border-bottom: 1px solid #e6e8ec;
 }
 
-.vender-order-table tbody tr:hover {
+.vender-order-list-main-content .vender-order-table tbody tr:hover {
     background-color: #f9fafb;
 }
 
-.vender-order-table tbody tr td:last-child {
+.vender-order-list-main-content .vender-order-table tbody tr td:last-child {
     text-align: center;
 }
 
-.vender-order-table tbody tr:nth-child(even) {
+.vender-order-list-main-content .vender-order-table tbody tr:nth-child(even) {
     background-color: #ffffff;
 }
 
-.vender-order-table tbody tr:nth-child(odd) {
+.vender-order-list-main-content .vender-order-table tbody tr:nth-child(odd) {
     background-color: #f9fafb;
 }
 
-.vender-order-table tbody tr:hover {
+.vender-order-list-main-content .vender-order-table tbody tr:hover {
     background-color: #eef2ff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.vender-order-table button {
+.vender-order-list-main-content .vender-order-table button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 12px 24px;
@@ -95,19 +97,19 @@
     margin-left: 10px;
 }
 
-.vender-order-table button:hover {
+.vender-order-list-main-content .vender-order-table button:hover {
     background-color: #4338ca;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
 
-.pagination {
+.vender-order-list-main-content .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.page-button {
+.vender-order-list-main-content .page-button {
     background-color: #4f46e5;
     color: #ffffff;
     border: none;
@@ -118,12 +120,12 @@
     transition: background-color 0.3s;
 }
 
-.page-button.active {
+.vender-order-list-main-content .page-button.active {
     background-color: #4338ca;
     font-weight: bold;
 }
 
-.page-button:hover {
+.vender-order-list-main-content .page-button:hover {
     background-color: #4338ca;
 }
 
