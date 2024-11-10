@@ -557,6 +557,16 @@ const UserCakeDetail = () => {
                                     <p className="request-notice">
 
                                     </p>
+                                </div> <h3>케이크 판 레터링 요청</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                    <p className="request-notice">
+
+                                    </p>
                                 </div>
                                 <h3>기타 요청사항</h3>
                                 <div className="request-input">
