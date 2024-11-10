@@ -6,7 +6,7 @@ import Header from '../include/Header';
 import Footer from '../include/Footer';
 
 const UserOrderDetail = () => {
-    // 상품 이미지 URL - 실제로는 props나 API로 받아올 것 이거 안씁니다 userorder 쓸거에용 
+    // 상품 이미지ㅇㅇ URL - 실제로는 props나 API로 받아올 것 이거 안씁니다 userorder 쓸거에용 
     const productImage = "/images/2호_일반케이크.jpg"; // 예시 이미지 경로
 
     return (
