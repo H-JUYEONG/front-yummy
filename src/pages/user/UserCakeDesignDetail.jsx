@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
 import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // css
 import "../../assets/css/all.css";
@@ -9,6 +10,8 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignDetail.css";
 
 const UserCakeDesignDetail = () => {
+  const navigate = useNavigate();
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -53,10 +56,16 @@ const UserCakeDesignDetail = () => {
 
             {/* Edit and Delete Buttons */}
             <div className="user-cake-action-buttons">
-              <button className="user-cake-edit-button" onClick={() => alert("수정 기능")}>
+              <button
+                className="user-cake-edit-button"
+                onClick={() => navigate("/user/cakeDesign/edit")}
+              >
                 수정
               </button>
-              <button className="user-cake-delete-button" onClick={() => alert("삭제 기능")}>
+              <button
+                className="user-cake-delete-button"
+                onClick={() => alert("삭제 기능")}
+              >
                 삭제
               </button>
             </div>

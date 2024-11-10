@@ -98,12 +98,11 @@ const UserMyPageCakeDesignList = () => {
             <div className="products-grid">
               {products
                 .filter(
-                  (product) =>
-                    (!selectedStyle || product.style === selectedStyle)
+                  (product) => !selectedStyle || product.style === selectedStyle
                 )
                 .map((product) => (
                   <Link
-                    to={`/user/cakedetail`}
+                    to={`/user/cakeDesign/detail`}
                     key={product.id}
                     className="product-card"
                   >

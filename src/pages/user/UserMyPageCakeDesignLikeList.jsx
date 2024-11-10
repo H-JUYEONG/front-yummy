@@ -98,7 +98,7 @@ const UserMyPageCakeDesignLikeList = () => {
                 )
                 .map((product) => (
                   <Link
-                    to={`/user/cakedetail`}
+                    to={`/user/cakeDesign/detail`}
                     key={product.id}
                     className="product-card"
                   >
