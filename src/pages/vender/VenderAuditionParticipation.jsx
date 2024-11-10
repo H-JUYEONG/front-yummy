@@ -1,5 +1,5 @@
 //import 라이브러리
-import React from 'react';
+import React,{useState} from 'react';
 
 //import 컴포넌트
 
@@ -7,11 +7,14 @@ import React from 'react';
 //import css
 import  '../../assets/css/vender/appealDesignDetails.css';
 import '../../assets/css/vender/syModal.css';
+import '../../assets/css/vender/AuditionParticipation.css';
 
 
 
 
-const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
+const VenderAuditionParticipation = ({ isOpen, onClose, children }) => {
+    const [fileImg , setFileImg] = useState();
+
     if (!isOpen) return null; // isOpen이 false일 경우 모달을 렌더링하지 않음
     return (
         <div className="vender-sso-modal-overlay">
@@ -21,7 +24,33 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                     <h2 className='vender-appeal-title-name'>신청내역 상세</h2>
                 </div>
                 <div className='sso-modal-body'>
+                    
                     <div className='sso-modal-body-content'>
+                    <p className='sy-modal-sub-title'>신청하기</p>
+                    <form>  
+                        <div className='input-recept-box'>
+                            <div className='input-recept-value'>
+                                <input id="input-photo" type='file' name='' hidden />
+                                {!fileImg ? 
+                                <label  htmlFor='input-photo' name="" value="">상품사진을 첨부해주세요</label>
+                                :<div className='input-photo-value'>{fileImg}</div>}
+                                    
+                                
+                            </div>
+                            <div className="input-recept-box-right">
+                                <div className='input-recept-value'>
+                                    <label htmlFor="">신청 내용</label>
+                                    <textarea placeholder='신청멘트를 작성해주세요' id='input-txt' className='solid input-recept-text-value' name='' value=""></textarea>
+                                </div>
+                                <div className='input-recept-value'>
+                                    <label htmlFor='input-price'>제시 금액</label>
+                                    <input id="input-price" placeholder='제시금액을 입력해주세요' className='solid' type='text' name='price' value="" /> 원
+                                </div>
+                            </div>
+                        </div>
+                        <button>등록하기</button>
+                    </form>  
+                        <div className="sso-modal-body-flex">
                         <div className='modal-user-input-text'>
                             <p className='sy-modal-sub-title'>주문정보</p>
                             <div className='appeal-design-text'>
@@ -37,24 +66,6 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                                         <div className='appeal-design-text-RequestedTerm'>
                                             1.예쁘게 만들어주세요!<br />
                                             2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-                                            2.맛도있게요~~<br />
-
                                         </div>
                                     </li>
                                 </ul>
@@ -63,6 +74,7 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                         <div className='modal-user-input-img'>
                             <p className='sy-modal-sub-title'>예시도안</p>
                             <div className='appeal-design-photo'><img src='../../assts/images/짱구얼굴'/>도안사진</div>
+                        </div>
                         </div>
                     </div>
                     
@@ -74,4 +86,4 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
 };
 
 
-export default VenderAppealDesignDetails;
+export default VenderAuditionParticipation;

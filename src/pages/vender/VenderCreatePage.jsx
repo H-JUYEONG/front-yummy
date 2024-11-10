@@ -22,12 +22,12 @@ const VenderCreatePage = () => {
 
     return (
         <div id="createPage-wrap">
-            <p>나만의 사이트를 꾸며보세요!</p>
+            <p className='sy-create-title'>나만의 사이트를 꾸며보세요!</p>
             <ul id="createPage-nav">
                 <li><Link to="#">미리보기</Link></li>
             </ul>
 
-            <div className="section">
+            <div className="create-sy-section">
                 <label>로고 이미지</label>
                 <input 
                     type="file" 
@@ -37,7 +37,7 @@ const VenderCreatePage = () => {
                 {logoPreview && <img src={logoPreview} alt="로고 이미지 미리보기" className="preview" />}
             </div>
 
-            <div className="section">
+            <div className="create-sy-section">
                 <label>대문로고 이미지</label>
                 <input 
                     type="file" 
@@ -47,20 +47,21 @@ const VenderCreatePage = () => {
                 {bannerPreview && <img src={bannerPreview} alt="대문로고 이미지 미리보기" className="preview" />}
             </div>
 
-            <div className="section">
-                <label>업체명</label>
-                <input type="text" placeholder="업체명을 입력해주세요!" />
+            <div className="create-sy-section">
+                <label htmlFor='shop-name'>업체명</label>
+                <input id='shop-name' type="text" placeholder="업체명을 입력해주세요!" name='' value='' />
             </div>
 
-            <div className="section">
-                <label>업체 설명</label>
-                <textarea placeholder="자유롭게 작성해주세요"></textarea>
+            <div className="create-sy-section">
+                <label htmlFor='shop-txt'>업체 설명</label>
+                <textarea id='shop-txt' placeholder="자유롭게 작성해주세요" value=''></textarea>
             </div>
 
-            <div className="section">
+            <div className="create-sy-section section-flex">
                 <label>카테고리 등록</label>
                 {categoryPreviews.map((preview, index) => (
-                    <div key={index} className="category-upload">
+                    <div key={index} className="sy-category-upload">
+                        <input />
                         <input 
                             type="file" 
                             accept="image/*" 
@@ -82,20 +83,20 @@ const VenderCreatePage = () => {
                     )}
                     </div>
                 ))}
-                <button className="add-category">+ 추가</button>
+                <button className="sy-add-category">+ 추가</button>
             </div>
 
-            <div className="section">
-                <label>업체위치 [주소첨부]</label>
-                <input type="text" placeholder="예정 주소를 입력해주세요" />
+            <div className="create-sy-section">
+                <label htmlFor='shop-area'>업체위치 [주소첨부]</label>
+                <input id='shop-area' type="text" placeholder="업체주소를 입력해주세요" name='' value='' />
             </div>
 
-            <div className="section">
-                <label>카카오톡 채널 URL</label>
-                <input type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" />
+            <div className="create-sy-section">
+                <label htmlFor='shop-kakao'>카카오톡 채널 URL</label>
+                <input id='shop-kakao' type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" name='' value=''/>
             </div>
 
-            <button className="apply-button">적용하기</button>
+            <button className="sy-apply-button">적용하기</button>
         </div>
     );
 }

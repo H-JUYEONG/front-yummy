@@ -19,6 +19,7 @@ import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
 import VenderProductPreview from './pages/vender/VenderProductPreview';
 
+
 // user
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
@@ -38,11 +39,15 @@ import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+
+import UserMainForm from './pages/user/UserMainForm';
+
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
+
 
 
 // board
@@ -84,6 +89,7 @@ function App() {
           <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
 
+          
           {/* User Routes */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
@@ -104,6 +110,7 @@ function App() {
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/userMainForm' element={<UserMainForm/>}/>  {/*웹사이트 메인 화면*/ }
 
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
