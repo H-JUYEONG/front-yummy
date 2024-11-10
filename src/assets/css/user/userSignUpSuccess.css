@@ -1,9 +1,8 @@
 .user-signup-succ {
     width: 400px;
-    margin: 0 auto;
+    margin: auto auto;
     padding: 20px 0;
     text-align: center;
-    border: 1px solid #333;
 }
 
 .user-signup-succ img {
@@ -27,8 +26,8 @@
 
 }
 
-.user-goto-loginform a {
+#user-goto-loginform-btn .user-goto-loginform a {
     padding: 10px 30px;
     color: #ffffff;
-    background-color: rgb(210, 182, 255);;
+    background-color: black;
 }

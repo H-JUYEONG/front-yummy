@@ -12,8 +12,9 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import '../../assets/css/admin/adminstatus.css'
+import '../../assets/css/admin/adminstatus.css';
 import { IoMdCash, IoMdCart, IoMdAnalytics, IoMdPersonAdd, IoMdPeople } from 'react-icons/io';
+
 // Chart.js 모듈 등록
 ChartJS.register(
     CategoryScale,
@@ -25,6 +26,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
+
 const AdminStatus = () => {
     const [selectedMetric, setSelectedMetric] = useState("총 매출 (업체)");
 
@@ -57,12 +59,26 @@ const AdminStatus = () => {
             },
             chartType: "bar",
         },
-        "신규가입회원": {
+        "신규가입업체": {
             chartData: {
                 labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
                 datasets: [
                     {
-                        label: "신규 회원",
+                        label: "신규 가입 업체",
+                        data: [2, 3, 4, 3, 5, 6, 7, 8, 9, 10, 12, 14],
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                    },
+                ],
+            },
+            chartType: "bar",
+        },
+        "신규가입유저": {
+            chartData: {
+                labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                datasets: [
+                    {
+                        label: "신규 가입 유저",
                         data: [10, 20, 25, 30, 40, 50, 55, 60, 65, 70, 75, 80],
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderColor: 'rgba(153, 102, 255, 1)',

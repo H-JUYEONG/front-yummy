@@ -42,6 +42,8 @@ import UserMyPageCakeDesign from './pages/user/UserMyPageCakeDesign';
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
+import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
+import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
 
 
 // board
@@ -53,6 +55,11 @@ import UserDebateView from './pages/user/UserDebateView';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMemberManagement from './pages/admin/AdminMemberManagement';
 import AdminStatus from './pages/admin/AdminStatus';
+import AdminContent from './pages/admin/AdminContent';
+import AdminShopProduct from './pages/admin/AdminShopProduct';
+import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
+import AdminShopOrder from './pages/admin/AdminShopOrder';
+import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 
 
 function App() {
@@ -102,7 +109,9 @@ function App() {
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
-          
+          <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
+          <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
+
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
 
@@ -110,6 +119,11 @@ function App() {
           <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
           <Route path='/admin/status' element={<AdminStatus/>}/>
+          <Route path='/admin/content' element={<AdminContent/>}/>
+          <Route path='/admin/shopproducts' element={<AdminShopProduct/>}/>
+          <Route path='/admin/shopproductsdetail' element={<AdminShopProductDetail/>}/>
+          <Route path='/admin/shoporders' element={<AdminShopOrder/>}/>
+          <Route path='/admin/venderorder' element={<AdminVenderOrder/>}/>
 
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
