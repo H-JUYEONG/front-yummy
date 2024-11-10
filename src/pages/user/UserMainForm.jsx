@@ -4,7 +4,8 @@ import Header from '../include/Header';
 import Footer from '../include/Footer';
 
 
-import '../../assets/css/user/usermain.css';
+import '../../assets/css/user/userMainForm.css';
+
 
 const UserMainForm= () => {
     return (
@@ -14,50 +15,71 @@ const UserMainForm= () => {
                 <Header/>
             </header>
 
-            {/* Main Content */}
-            <main id="user-wrap-body" className="clearfix">
-                {/* Sidebar */}
-                <aside id="user-wrap-side" className="float-left">
-                    <h2>Sidebar</h2>
-                    <ul>
-                        <li><a href="#link1">링크 1</a></li>
-                        <li><a href="#link2">링크 2</a></li>
-                        <li><a href="#link3">링크 3</a></li>
-                    </ul>
-                </aside>
-
-                {/* Main Section */}
-                <section id="user-wrap-main" className="float-right">
-                    {/* 게시글 영역 추가 */}
-                    <div id="post-content" className="post-area">
-                        <h2>게시글 제목</h2>
-                        <div className="post-text">
-                            <p>이것은 게시글 내용입니다. 나눔스퀘어 폰트가 적용됩니다.</p>
-                            <p>여러 줄의 텍스트가 들어갈 수 있습니다.</p>
+            <div className='main-wrap'>
+                <div className='banner-box'>
+                    <div className='banner-img'>
+                        <img src='../../assets/images/cake-facebook-cover-design_220346-14126.avif' alt='베너이미지' />
+                    </div>
+                </div>
+                <div className='map-box'>
+                    <div className='map-title'>
+                        내위치찾기
+                    </div>
+                    <div className='map-img-box'>
+                        <div className='map-img'>
+                            좌측 맵 이미지
+                        </div>
+                        <div className='map-search'>
+                            <div className='map-choose-category'>
+                                <select id="category-select" name="category">
+                                    <option value="category1">지역</option>
+                                    <option value="category2">강남구</option>
+                                    <option value="category3">성동구</option>
+                                    <option value="category3">관악구</option>
+                                </select>
+                            </div>
+                            <div className='map-input-category'>
+                                <input type='text' placeholder='검색어를 입력해주세요!' />
+                            </div>
+                        </div>
+                        <div className='map-click'>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                    </tr>
+                                    <tr>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                        <td>전체</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+                <div className='category-box'>
+                    카테고리공간
+                </div>
+                <div className='sub-title-box'>
+                    <ul>
+                        <li>**구 베이커리 케이크</li>
+                        <li>총 상품 | 10개</li>
+                    </ul>
+                </div>
+                <div className='allList-box'>
+                    상품리스트공간 
+                </div>
 
-                    <h2>Main Content</h2>
-                    <p>이것은 본문 내용입니다. 나눔 고딕이 적용되었습니다.</p>
-
-                    {/* Button */}
-                    <button>테스트 버튼</button>
-
-                    {/* Image */}
-                    <div>
-                        <h3>반응형 이미지</h3>
-                        <img src="https://via.placeholder.com/300" alt="Placeholder" />
-                    </div>
-
-                    {/* Utility Classes */}
-                    <div className="user-text-center">
-                        <p>텍스트가 가운데 정렬되었습니다.</p>
-                    </div>
-                    <div className="user-hidden">
-                        <p>이 텍스트는 hidden 클래스가 적용되어 보이지 않습니다.</p>
-                    </div>
-                </section>
-            </main>
+            </div>
 
             {/* Footer */}
             <footer className="user-full-width">

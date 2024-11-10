@@ -69,6 +69,7 @@ import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 import UserWritingList from "./pages/user/UserWritingList";
 
+
 function App() {
   return (
     <div>
@@ -143,6 +144,8 @@ function App() {
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
           <Route path='/board/boardview' element={<UserDebateView />} />
           <Route path="/board/debateedit" element={<UserDebateEdit />} />
+
+          
 
 
         </Routes>
