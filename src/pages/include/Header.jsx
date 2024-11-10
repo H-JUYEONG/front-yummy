@@ -28,13 +28,10 @@ const Header = () => {
             <a href="/audition">케이크 오디션</a>
           </li>
           <li>
-            <a href="/partners">입점 업체</a>
-          </li>
-          <li>
             <Link to="/user/cakeDesign/board">도안 게시판</Link>
           </li>
           <li>
-            <a href="/discussion">토론게시판</a>
+            <a href="/board">토론게시판</a>
           </li>
         </ul>
       </nav>
@@ -54,9 +51,6 @@ const Header = () => {
           <>
             <Link to="/user/login" className="header-link">
               로그인
-            </Link>
-            <Link to="/user/signup" className="header-link">
-              회원가입
             </Link>
           </>
         )}

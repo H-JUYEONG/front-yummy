@@ -41,6 +41,7 @@ const UserSidebar = () => {
             </li>
           </ul>
 
+
           <h3>내 활동</h3>
           <ul>
             <li>
@@ -65,6 +66,7 @@ const UserSidebar = () => {
             </li>
           </ul>
 
+
           <h3>찜 목록</h3>
           <ul>
             <li>
@@ -78,6 +80,7 @@ const UserSidebar = () => {
               </Link>
             </li>
           </ul>
+
 
           <h3>포인트</h3>
           <ul>
@@ -95,6 +98,7 @@ const UserSidebar = () => {
               </Link>
             </li>
           </ul>
+
         </div>
       </aside>
     );
