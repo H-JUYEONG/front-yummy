@@ -50,6 +50,8 @@ import UserEventList from './pages/user/UserEventList';
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
+import UserDebateEdit from "./pages/user/UserDebateEdit";
+
 
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -133,6 +135,8 @@ function App() {
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
           <Route path='/board/boardview' element={<UserDebateView />} />
+          <Route path="/board/debateedit" element={<UserDebateEdit />} />
+
 
         </Routes>
       </BrowserRouter>

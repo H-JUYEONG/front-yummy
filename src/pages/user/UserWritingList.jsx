@@ -12,14 +12,14 @@ const UserOrderList = () => {
   const orderList = [
     {
       id: 13,
-      title: "기념일 이벤트 1",
+      title: "스폰지밥 케이크 골라주세요",
       likes: 5,
       date: "2024-11-01",
       actions: ["수정", "삭제"],
     },
     {
       id: 12,
-      title: "기념일 이벤트 2",
+      title: "둘중 어떤게 좋을까요?",
       likes: 2,
       date: "2024-10-25",
       actions: ["수정", "삭제"],
@@ -43,7 +43,7 @@ const UserOrderList = () => {
 
         {/* Main Section */}
         <section id="user-wrap-main">
-          <h2>기념일 조회</h2>
+          <h2>내가 쓴 글 조회</h2>
 
           {/* Order List Section */}
           <section className="order-list">
