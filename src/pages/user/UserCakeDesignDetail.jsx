@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
-import { FaHeart, FaEye } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 
 // css
 import "../../assets/css/all.css";
@@ -50,12 +50,22 @@ const UserCakeDesignDetail = () => {
               디자인입니다.
             </p>
             <p>추천 행사: 환갑 잔치</p>
+
+            {/* Edit and Delete Buttons */}
+            <div className="user-cake-action-buttons">
+              <button className="user-cake-edit-button" onClick={() => alert("수정 기능")}>
+                수정
+              </button>
+              <button className="user-cake-delete-button" onClick={() => alert("삭제 기능")}>
+                삭제
+              </button>
+            </div>
           </div>
 
           {/* Favorite Button */}
           <div className="user-favorite-section">
             <button className="user-favorite-button">
-              <FaHeart className="users-heart-icon" />
+              <FaRegHeart className="users-heart-icon" />
               <span className="users-favorite-count">10</span>
             </button>
           </div>
@@ -87,7 +97,6 @@ const UserCakeDesignDetail = () => {
             <h2>도안 사용 후기</h2>
             <div className="user-cake-designs-review-item">
               <div className="user-review-header">
-                {/* <span className="user-review-stars">★★★★★</span> */}
                 <span className="user-review-email-id">dud9902****</span>
                 <span className="user-review-date">2022.10.04</span>
               </div>
