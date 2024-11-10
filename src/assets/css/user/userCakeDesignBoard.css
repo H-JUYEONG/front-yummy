@@ -1,3 +1,17 @@
+#user-cake-design-tip {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#user-cake-design-tip h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#user-cake-design-tip p {
+  font-size: 20px;
+}
+
 .user-cake-design-board-list {
   width: 100%;
   margin: 0 auto; /* 가로 가운데 정렬 */
@@ -18,6 +32,7 @@
 .user-cake-design-add-btn {
     float: right;
     margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #user-cake-design-add button {
