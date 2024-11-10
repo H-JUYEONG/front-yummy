@@ -376,6 +376,10 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'GmarketSans', sans-serif;
 }
 
 .cake-order-container .submit-button:hover {

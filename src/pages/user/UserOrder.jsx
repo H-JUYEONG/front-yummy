@@ -26,7 +26,7 @@ const UserOrder = () => {
             productName: '조끼핏 케이크',
             orderStatus: '결제대기',
             statusMessage: '영업자 및 확인/사인이 없습니다',
-            actions: ['주문상세보기', '재결제하기'],
+            actions: ['주문상세보기'],
             images: [],
             video: null
         },
@@ -36,8 +36,8 @@ const UserOrder = () => {
             productName: '생크림 케이크',
             orderStatus: '픽업완료',
             statusMessage: '제작영상/사진 업로드 되었습니다',
-            actions: ['주문상세보기'],
-            images: ['/cake-image1.jpg', '/cake-image2.jpg'],
+            actions: ['주문상세보기','리뷰쓰기'],
+            images: ['/images/케이크 제작 1.jpg', '/images/케이크 제작 2.png'],
             video: '/cake-video.mp4'
         }
     ];
@@ -133,7 +133,7 @@ const UserOrder = () => {
         action === '주문상세보기' ? (
             <Link 
                 key={idx} 
-                to={`/user/orderdetail`} 
+                to={`/user/mypage/orderdetail`} 
                 className="action-btn"
             >
                 {action}
@@ -191,10 +191,10 @@ const UserOrder = () => {
                                 <img
                                     key={index}
                                     src={image}
-                                    alt={`케이크 제작 과정 ${index + 1}`}
+                                    alt={`케이크 제작 과정 ${index+1}`}
                                     className="cake-photo"
                                     onError={(e) => {
-                                        e.target.src = '/default-cake-image.jpg';
+                                        e.target.src = '/images/케이크 제작 1.jpg';
                                     }}
                                 />
                             ))}
