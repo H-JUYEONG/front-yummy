@@ -179,4 +179,5 @@
 
 a.action-btn {
     line-height: normal;  /* 버튼과 동일한 높이 유지 */
+    float: left;
 }

@@ -1,5 +1,6 @@
 // 필요한 리액트 훅과 스타일시트 import
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
 import Header from '../include/Header';
@@ -571,9 +572,9 @@ const UserCakeDetail = () => {
                         </div>
 
                         {/* 주문 버튼 */}
-                        <button className="submit-button">
+                        <Link to="/user/paymentdetail" className="submit-button">
                             요청사항 확인
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </main>
