@@ -33,27 +33,18 @@ const UserDebateInsert = () => {
         <Header />
       </header>
 
-      {/* Navigation Bar */}
-      <nav id="user-wrap-nav" className="clearfix">
-        <ul className="user-nav-menu">
-          <li>자유 게시판</li>
-          <li>도안 게시판</li>
-          <li className="user-active">토론 게시판</li>
-        </ul>
-      </nav>
-
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
         {/* Main Section */}
         <section id="user-wrap-main">
           {/* Title Section */}
-          <div className="user-debate-title-section">
+          <div className="j-debate-title-section">
             <input
               type="text"
               placeholder="제목을 입력하세요"
-              className="user-title-input"
+              className="j-title-input"
             />
-            <select className="user-category-select">
+            <select className="j-category-select">
               <option value="all">카테고리 선택</option>
               <option value="design">도안 토론</option>
               <option value="vendor">업체 토론</option>
@@ -61,49 +52,45 @@ const UserDebateInsert = () => {
           </div>
 
           {/* Image Insert Section */}
-          <div className="user-image-insert-section">
-            <div className="user-image-option">
-              <label className="user-upload-btn">
+          <div className="j-image-insert-section">
+            <div className="j-image-option">
+              <label className="j-upload-btn">
                 이미지 선택
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleLeftImageUpload}
-                  className="user-image-upload-input"
+                  className="j-image-upload-input"
                 />
               </label>
-              <button className="user-modal-btn">모달 창 이미지 선택</button>
+              <button className="j-modal-btn">모달 창 이미지 선택</button>
               {leftImage && (
                 <button
-                  className="user-delete-btn"
+                  className="j-delete-btn"
                   onClick={handleLeftImageDelete}
                 >
                   이미지 삭제
                 </button>
               )}
               {leftImage && (
-                <img
-                  src={leftImage}
-                  alt="Left"
-                  className="user-inserted-image"
-                />
+                <img src={leftImage} alt="Left" className="j-inserted-image" />
               )}
             </div>
 
-            <div className="user-image-option">
-              <label className="user-upload-btn">
+            <div className="j-image-option">
+              <label className="j-upload-btn">
                 이미지 선택
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleRightImageUpload}
-                  className="user-image-upload-input"
+                  className="j-image-upload-input"
                 />
               </label>
-              <button className="user-modal-btn">모달 창 이미지 선택</button>
+              <button className="j-modal-btn">모달 창 이미지 선택</button>
               {rightImage && (
                 <button
-                  className="user-delete-btn"
+                  className="j-delete-btn"
                   onClick={handleRightImageDelete}
                 >
                   이미지 삭제
@@ -113,31 +100,31 @@ const UserDebateInsert = () => {
                 <img
                   src={rightImage}
                   alt="Right"
-                  className="user-inserted-image"
+                  className="j-inserted-image"
                 />
               )}
             </div>
           </div>
 
           {/* Text Area Section */}
-          <div className="user-text-area-section">
+          <div className="j-text-area-section">
             <textarea
               placeholder="고민을 작성하세요"
-              className="user-text-area"
+              className="j-text-area"
               rows="5"
             ></textarea>
           </div>
 
           {/* Footer Buttons */}
-          <div className="user-debate-footer">
-            <button className="user-submit-btn">제출하기</button>
-            <button className="user-back-btn">뒤로 가기</button>
+          <div className="j-debate-footer">
+            <button className="j-submit-btn">제출하기</button>
+            <button className="j-back-btn">뒤로 가기</button>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer id="user-wrap-footer" className="user-full-width">
+      <footer id="user-wrap-footer">
         <Footer />
       </footer>
     </div>
