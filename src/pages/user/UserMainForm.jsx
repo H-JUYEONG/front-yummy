@@ -4,7 +4,7 @@ import Header from '../include/Header';
 import Footer from '../include/Footer';
 
 
-import '../../assets/css/user/userMi'
+import '../../assets/css/user/usermain.css';
 
 const UserMainForm= () => {
     return (

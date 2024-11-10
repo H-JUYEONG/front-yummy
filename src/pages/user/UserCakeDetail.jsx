@@ -1,5 +1,6 @@
 // 필요한 리액트 훅과 스타일시트 import
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
 import Header from '../include/Header';
@@ -218,7 +219,7 @@ const UserCakeDetail = () => {
                                 <div className="rating-select">
                                     <p>별점을 선택해주세요</p>
                                     <div className="stars-input">
-                                        {[1, 2, 3, 4, 5].map((star) => ( // 순서를 1부터 5로 변경
+                                        {[5,4,3,2,1].map((star) => ( // 순서를 1부터 5로 변경
                                             <button
                                                 key={star}
                                                 type="button"
@@ -374,7 +375,7 @@ const UserCakeDetail = () => {
             </header>
 
             {/* 메인 컨텐츠 영역 */}
-            <main id="wrap-body" className="clearfix">
+            <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
                     {/* 왼쪽 섹션: 상품 이미지 및 상세 정보 */}
                     <div className="left-section">
@@ -545,10 +546,22 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
                             <div className="option-group">
-                                <h3>요청사항</h3>
+
+                            <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">
                                     <textarea
-                                        placeholder="예) 레터링 문구를 '생일 축하해 뽀미야~♡' 로 해주세요."
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                    <p className="request-notice">
+
+                                    </p>
+                                </div>
+                                <h3>기타 요청사항</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
                                         rows="4"
                                         className="request-textarea"
                                     />
@@ -560,9 +573,9 @@ const UserCakeDetail = () => {
                         </div>
 
                         {/* 주문 버튼 */}
-                        <button className="submit-button">
+                        <Link to="/user/paymentdetail" className="submit-button">
                             요청사항 확인
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </main>

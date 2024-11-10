@@ -7,7 +7,7 @@ import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignEdit.css";
 
-const UserCakeDesignAdd = () => {
+const UserCakeDesignEdit = () => {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
@@ -165,11 +165,11 @@ const UserCakeDesignAdd = () => {
       </main>
 
       {/* Footer */}
-      <footer className="user-full-width">
+      <footer id="user-wrap-footer">
         <Footer />
       </footer>
     </div>
   );
 };
 
-export default UserCakeDesignAdd;
+export default UserCakeDesignEdit;

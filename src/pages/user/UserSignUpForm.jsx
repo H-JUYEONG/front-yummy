@@ -1,16 +1,21 @@
-//import 라이브러리
 import React from "react";
+import Header from "../include/Header";
+import Footer from "../include/Footer";
+import { useNavigate } from "react-router-dom";
 
-//css
+// css
 import "../../assets/css/all.css";
+import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userSignUpForm.css";
 
 const UserSignUpForm = () => {
+  const navigate = useNavigate();
+  
   return (
-    <div id="wrap" className="text-center">
+    <div id="user-wrap" className="user-text-center">
       {/* Header */}
-      <header id="wrap-head">
-        <h1>Header 영역</h1>
+      <header id="user-wrap-head">
+        <Header />
       </header>
 
       <div className="user-signup">
@@ -19,7 +24,7 @@ const UserSignUpForm = () => {
         <h1>회원가입</h1>
 
         <h2>필수사항</h2>
-        <div className="user-signup-area">
+        <div className="signup-area">
           <form>
             <div className="input-group">
               <label htmlFor="user-id">아이디(이메일)</label>
@@ -41,18 +46,22 @@ const UserSignUpForm = () => {
                 value=""
                 placeholder="비밀번호를 입력해주세요."
               />
-              <p className="user-pw-ok">※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.</p>
+              <p className="user-pw-ok">
+              ※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.
+              </p>
             </div>
 
             <div className="input-group">
               <label htmlFor="user-pw-check">비밀번호 확인</label>
               <input
-                id="user-pw-check"
+                id="user-pw"
                 type="password"
                 value=""
-                placeholder="비밀번호 재입력"
+                placeholder="비밀번호를 재입력"
               />
-              <p className="user-pw-ok">※ 비밀번호가 일치하지 않습니다.</p>
+              <p className="user-pw-ok">
+              ※ 비밀번호가 일치하지 않습니다.
+              </p>
             </div>
 
             <div className="input-group">
@@ -81,17 +90,18 @@ const UserSignUpForm = () => {
             </div>
 
             <div className="user-signup-btn">
-              <button type="submit">회원가입</button>
+              <button type="submit" onClick={() => navigate("/user/signup/succ")}>회원가입</button>
             </div>
           </form>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="full-width">
-        <p>Footer 영역 - full-width 클래스가 적용되어 너비가 100%입니다.</p>
+      <footer id="user-wrap-footer">
+        <Footer />
       </footer>
     </div>
   );
 };
+
 export default UserSignUpForm;

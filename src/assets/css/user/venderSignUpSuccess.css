@@ -1,9 +1,8 @@
 .vender-signup-succ {
     width: 400px;
-    margin: 0 auto;
+    margin: auto auto;
     padding: 20px 0;
     text-align: center;
-    border: 1px solid #333;
 }
 
 .vender-signup-succ img {
@@ -26,8 +25,8 @@
     margin-top: 20px;
 }
 
-.user-goto-loginform a {
+#user-goto-loginform-btn .user-goto-loginform a {
     padding: 10px 30px;
     color: #ffffff;
-    background-color: rgb(210, 182, 255);;
+    background-color: black;
 }

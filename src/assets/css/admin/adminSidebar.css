@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Orbit&display=swap');
+/*admin-container */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif;
+    background-color: #f5f7fb;
+    /* 페이지 배경 */
+    color: #1e3a8a;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 /* adminSidebar.css */
 
 .admin-sidebar {
@@ -10,24 +22,38 @@
     align-items: flex-start;
     position: relative;
     border-right: 1px solid #e5e7eb;
+    border-radius: 5px;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .admin-sidebar .logo {
     font-size: 1.5em;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #3b82f6;
+}
+
+/* 메뉴 구분선 스타일 */
+.admin-sidebar .menu-divider {
+    border: none;
+    /* 기본 테두리는 없앱니다 */
+    border-top: 1px solid #d1d5db;
+    /* 연한 회색으로 구분선 추가 */
+    margin: 1px 0;
+    /* 위아래 여백 */
+    width: 100%;
+    /* 구분선 너비를 전체로 설정 */
 }
 
 .admin-sidebar .menu {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 10px;
+    margin-top: 30px;
     width: 100%;
 }
 
 .admin-sidebar .menu li {
-    padding: 12px 0;
+    padding: 5px 0;
     border-radius: 8px;
     margin-bottom: 8px;
     font-size: 1em;
@@ -39,7 +65,7 @@
     color: #1e3a8a;
     text-decoration: none;
     display: block;
-    padding: 10px 15px;
+    padding: 5px 10px;
 }
 
 .admin-sidebar .menu li.active a {

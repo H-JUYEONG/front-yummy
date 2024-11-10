@@ -1,29 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
-
-
-/* 대시보드 메인 콘텐츠 */
-.vender-main-content {
-    padding: 30px;
-    background: #f5f6fa;
-    min-height: 100vh;
-}
-
-.dashboard-content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    grid-auto-rows: minmax(200px, auto);
-    font-family: 'IBM Plex Sans KR', sans-serif;
-}
-
 /* 통계 요약 카드 섹션 */
-.summary-card-section {
+.vender-content .summary-card-section {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
 }
 
-.summary-card {
+.vender-content .summary-card {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -32,18 +14,18 @@
     text-align: center;
 }
 
-.summary-card h3 {
+.vender-content .summary-card h3 {
     margin-bottom: 10px;
     font-size: 1.2rem;
 }
 
-.summary-card p {
+.vender-content .summary-card p {
     font-size: 1.5rem;
     font-weight: bold;
 }
 
 /* 차트 섹션 스타일 */
-.chart-section {
+.vender-content .chart-section {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -51,36 +33,36 @@
     margin-bottom: 30px;
 }
 
-.filter-section {
+.vender-content .filter-section {
     margin-bottom: 20px;
 }
 
-.select-filter {
+.vender-content .select-filter {
     margin-left: 10px;
     padding: 5px;
     font-size: 1rem;
 }
 
 /* 리뷰 분석 섹션 */
-.review-analysis-section {
+.vender-content .review-analysis-section {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.review-chart-section {
+.vender-content .review-chart-section {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
 
-.doughnut-chart {
+.vender-content .doughnut-chart {
     width: 150px;
     height: 150px;
 }
 
-.word-cloud-placeholder {
+.vender-content .word-cloud-placeholder {
     width: 100%;
     height: 200px;
     background-color: #eee;
@@ -92,14 +74,14 @@
     gap: 10px;
 }
 
-.word-cloud-word {
+.vender-content .word-cloud-word {
     font-size: 1rem;
     margin-right: 10px;
     font-weight: bold;
 }
 
 /* 차트 섹션 */
-.chart-section {
+.vender-content .chart-section {
     background: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -107,11 +89,11 @@
     margin-bottom: 30px;
 }
 
-.filter-section {
+.vender-content .filter-section {
     margin-bottom: 20px;
 }
 
-.select-filter {
+.vender-content .select-filter {
     margin-left: 10px;
     padding: 5px;
     font-size: 1rem;

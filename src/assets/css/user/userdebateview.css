@@ -1,44 +1,18 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-}
 
-/* Header */
-.j-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-}
-
-/* Navigation */
-.j-nav {
-    background-color: #555;
-    text-align: center;
-    padding: 10px;
-}
-.j-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-}
-
-/* Main Container */
-.j-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
+/* Unified Title and Meta Section */
+.j-title-meta-wrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Title Section */
 .j-title-section {
-    text-align: center;
     padding: 15px;
     font-size: 1.8em;
     font-weight: bold;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 /* Meta Data Section */
@@ -46,9 +20,17 @@ body {
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    border: 1px solid #ddd;
     font-size: 0.9em;
     color: #666;
+}
+
+.j-meta-data span {
+    border-right: 1px solid #ddd;
+    padding: 0 10px;
+}
+
+.j-meta-data span:last-child {
+    border-right: none;
 }
 
 /* Images Section */
@@ -58,20 +40,41 @@ body {
     justify-content: center;
     padding: 20px 0;
 }
+
 .j-image-container {
     text-align: center;
     margin: 0 10px;
 }
+
 .j-image-container img {
     width: 300px;
     height: auto;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
+
+.j-image-container .j-vote-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.j-image-container .j-vote-button:hover {
+    background-color: #0056b3;
+}
+
 .j-caption {
     margin-top: 10px;
     font-size: 0.9em;
     color: #333;
 }
+
 .j-vs-divider {
     font-size: 2em;
     color: #555;
@@ -85,6 +88,9 @@ body {
     text-align: center;
     font-size: 1.2em;
     border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
 }
 
@@ -97,90 +103,122 @@ body {
     padding: 15px;
     margin-top: 10px;
 }
-.j-vote-button {
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.j-vote-button:hover {
-    background-color: #0056b3;
-}
+
 .j-click-count {
     font-size: 0.9em;
     color: #555;
+}
+
+/* Combined Horizontal Progress Bar */
+.j-combined-progress-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.9em;
+    color: #fff;
+    position: relative;
+}
+
+/* Left Bar */
+.j-bar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    white-space: nowrap;
+    transition: width 0.3s;
+    font-weight: bold;
+}
+
+/* Right Bar */
+.j-bar-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff5733;
+    white-space: nowrap;
+    transition: width 0.3s;
+    font-weight: bold;
 }
 
 /* Comment Section */
 .j-comment-section {
     padding: 20px;
     border-top: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
+
+.j-comment-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .j-comment-box {
-    width: 100%;
+    flex: 1;
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    margin-bottom: 10px;
 }
+
 .j-comment-submit {
     padding: 10px 15px;
     font-size: 1em;
     background-color: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .j-comment-submit:hover {
     background-color: #388E3C;
 }
 
-/* Display of Other Comments */
 .j-other-comments {
     margin-top: 20px;
 }
+
 .j-comment {
     display: flex;
     align-items: flex-start;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
 }
+
 .j-profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
+
 .j-comment-content {
     flex: 1;
+    text-align: left;
 }
+
 .j-comment-author {
     font-weight: bold;
     color: #333;
     margin-right: 5px;
 }
+
 .j-user-side {
     font-size: 0.9em;
     color: #888;
 }
+
 .j-comment p {
     margin: 5px 0 0;
     color: #555;
-}
-
-/* Footer */
-.j-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    margin-top: 20px;
 }

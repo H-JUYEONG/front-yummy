@@ -1,7 +1,8 @@
 import React from 'react';
+import '../../../assets/css/user/usermain.css'
 import Header from '../../include/Header';
 import Footer from '../../include/Footer';
-import '../../../assets/css/user/usermain.css'
+import UserSidebar from './UserSidebar';
 
 const UserMain= () => {
     return (
@@ -13,14 +14,9 @@ const UserMain= () => {
 
             {/* Main Content */}
             <main id="user-wrap-body" className="clearfix">
-                {/* Sidebar */}
+               
                 <aside id="user-wrap-side" className="float-left">
-                    <h2>Sidebar</h2>
-                    <ul>
-                        <li><a href="#link1">링크 1</a></li>
-                        <li><a href="#link2">링크 2</a></li>
-                        <li><a href="#link3">링크 3</a></li>
-                    </ul>
+                    <UserSidebar/>
                 </aside>
 
                 {/* Main Section */}

@@ -61,22 +61,24 @@ const VenderPurchasedProducts = () => {
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">
-            <VenderSidebar />
+                <VenderSidebar />
                 <div className="vender-content">
-                    <main className="product-list-main-content">
+                    <main className="vender-order-list-main-content">
                         <section className="vender-order-list">
-                            <h2>주문 리스트</h2>
-                            <div className="vender-filter-section">
-                                <label htmlFor="order-status-filter">상태별 보기:</label>
-                                <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
-                                    <option value="all">전체</option>
-                                    <option value="주문 완료">주문 완료</option>
-                                    <option value="제작 중">제작 중</option>
-                                    <option value="결제 완료">결제 완료</option>
-                                    <option value="배송 완료">배송 완료</option>
-                                    <option value="픽업 완료">픽업 완료</option>
-                                </select>
-                            </div>
+                            <header className="order-list-header">
+                                <h2>주문 리스트</h2>
+                                <div className="vender-filter-section">
+                                    <label htmlFor="order-status-filter">상태별 보기:</label>
+                                    <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
+                                        <option value="all">전체</option>
+                                        <option value="주문 완료">주문 완료</option>
+                                        <option value="제작 중">제작 중</option>
+                                        <option value="결제 완료">결제 완료</option>
+                                        <option value="배송 완료">배송 완료</option>
+                                        <option value="픽업 완료">픽업 완료</option>
+                                    </select>
+                                </div>
+                            </header>
                             <table className="vender-order-table">
                                 <thead>
                                     <tr>

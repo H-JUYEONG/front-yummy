@@ -19,7 +19,7 @@
     flex-shrink: 0;
 }
 
-/* 이미지 갤러리 영역 */
+/* 이미지 갤러리 영역 임*/
 .cake-order-container .product-image {
     margin-bottom: 30px;
 }
@@ -376,6 +376,10 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'GmarketSans', sans-serif;
 }
 
 .cake-order-container .submit-button:hover {

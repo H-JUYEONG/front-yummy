@@ -5,14 +5,16 @@
 .product-list-main-content {
     flex-grow: 1;
     background-color: #ffffff;
-    border-radius: 16px; /* 큰 라운드를 적용하여 부드러운 모서리 */
+    border-radius: 16px;
+    /* 큰 라운드를 적용하여 부드러운 모서리 */
     padding: 24px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06); /* 더 부드러운 그림자 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    /* 더 부드러운 그림자 */
     transition: transform 0.3s;
 }
 
 /* 상품 리스트 제목 및 등록하기 버튼을 포함하는 헤더 */
-.product-list-header {
+.product-list-main-content .product-list-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,15 +22,18 @@
 }
 
 /* 상품 리스트 제목 스타일 */
-.product-list-title {
-    font-size: 2em; /* 크고 굵은 글씨로 제목 강조 */
+.product-list-main-content .product-list-title {
+    font-size: 2em;
+    /* 크고 굵은 글씨로 제목 강조 */
     font-weight: 600;
-    color: #222; /* 더 진한 색상으로 강조 */
+    color: #222;
+    /* 더 진한 색상으로 강조 */
 }
 
 /* 등록하기 버튼 스타일 */
 .product-list-main-content .add-button {
-    background-color: #4f46e5; /* 세련된 보라색 계열 */
+    background-color: #4f46e5;
+    /* 세련된 보라색 계열 */
     color: #ffffff;
     padding: 12px 24px;
     border: none;
@@ -40,7 +45,8 @@
 }
 
 .product-list-main-content .add-button:hover {
-    background-color: #4338ca; /* 호버 시 더 어두운 보라색 */
+    background-color: #4338ca;
+    /* 호버 시 더 어두운 보라색 */
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
@@ -49,7 +55,8 @@
 .product-list-main-content .product-table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0 12px; /* 행 간 간격 추가하여 현대적인 느낌 */
+    border-spacing: 0 12px;
+    /* 행 간 간격 추가하여 현대적인 느낌 */
     margin-top: 20px;
 }
 
@@ -62,10 +69,13 @@
 
 /* 테이블 헤더 스타일 */
 .product-list-main-content .product-table th {
-    background-color: #f3f4f6; /* 더 밝은 배경색 */
+    background-color: #f3f4f6;
+    /* 더 밝은 배경색 */
     font-weight: 600;
-    color: #333; /* 진한 색상 */
-    border-radius: 8px 8px 0 0; /* 테이블 헤더 모서리 둥글게 */
+    color: #333;
+    /* 진한 색상 */
+    border-radius: 8px 8px 0 0;
+    /* 테이블 헤더 모서리 둥글게 */
 }
 
 /* 짝수 행과 홀수 행 배경색 변경 (가독성 향상) */
@@ -78,12 +88,14 @@
 }
 
 .product-list-main-content .product-table tbody tr:nth-child(odd) {
-    background-color: #f9fafb; /* 좀 더 세련된 회색 */
+    background-color: #f9fafb;
+    /* 좀 더 세련된 회색 */
 }
 
 /* 마우스를 올렸을 때 강조 효과 */
 .product-list-main-content .product-table tbody tr:hover {
-    background-color: #eef2ff; /* 아주 연한 파란색으로 강조 */
+    background-color: #eef2ff;
+    /* 아주 연한 파란색으로 강조 */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -101,30 +113,61 @@
 
 /* 수정 버튼 스타일 */
 .product-list-main-content .edit-button {
-    background-color: #34d399; /* 세련된 민트색 */
+    background-color: #34d399;
+    /* 세련된 민트색 */
     color: #ffffff;
 }
 
 .product-list-main-content .edit-button:hover {
-    background-color: #059669; /* 더 어두운 민트색 */
+    background-color: #059669;
+    /* 더 어두운 민트색 */
     transform: translateY(-2px);
 }
 
 /* 삭제 버튼 스타일 */
 .product-list-main-content .delete-button {
-    background-color: #f87171; /* 밝은 빨간색 */
+    background-color: #f87171;
+    /* 밝은 빨간색 */
     color: #ffffff;
 }
 
 .product-list-main-content .delete-button:hover {
-    background-color: #e11d48; /* 더 진한 빨간색 */
+    background-color: #e11d48;
+    /* 더 진한 빨간색 */
     transform: translateY(-2px);
+}
+
+.product-list-main-content.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.product-list-main-content .page-button {
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-list-main-content .page-button.active {
+    background-color: #4338ca;
+    font-weight: bold;
+}
+
+.product-list-main-content.page-button:hover {
+    background-color: #4338ca;
 }
 
 /* 반응형 처리 */
 @media (max-width: 768px) {
     .product-list-header {
-        flex-direction: column; /* 좁은 화면에서는 제목과 버튼이 수직으로 배치되도록 설정 */
+        flex-direction: column;
+        /* 좁은 화면에서는 제목과 버튼이 수직으로 배치되도록 설정 */
         align-items: flex-start;
     }
 
@@ -134,6 +177,7 @@
 
     .product-table th,
     .product-table td {
-        padding: 12px; /* 좁은 화면에서는 패딩을 줄여 공간 절약 */
+        padding: 12px;
+        /* 좁은 화면에서는 패딩을 줄여 공간 절약 */
     }
 }

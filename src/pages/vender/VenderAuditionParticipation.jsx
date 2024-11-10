@@ -43,7 +43,7 @@ const VenderAuditionParticipation = ({ isOpen, onClose, children }) => {
                                     <textarea placeholder='신청멘트를 작성해주세요' id='input-txt' className='solid input-recept-text-value' name='' value=""></textarea>
                                 </div>
                                 <div className='input-recept-value'>
-                                    <label htmlFor='input-price'>제시</label>
+                                    <label htmlFor='input-price'>제시 금액</label>
                                     <input id="input-price" placeholder='제시금액을 입력해주세요' className='solid' type='text' name='price' value="" /> 원
                                 </div>
                             </div>
