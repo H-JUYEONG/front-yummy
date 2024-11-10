@@ -25,10 +25,10 @@ const Header = () => {
       {/* Navigation */}
       <nav className="nav-menu">
         <ul>
-          <li><a href="/audition">케이크 오디션</a></li>
-          <li><a href="/partners">입점 업체</a></li>
-          <li><a href="/designs">도안게시판</a></li>
-          <li><a href="/discussion">토론게시판</a></li>
+          <li><Link to="/audition">케이크 오디션</Link></li>
+          <li><Link to="/audition">입점 업체</Link></li>
+          <li><Link to="/audition">도안게시판</Link></li>
+          <li><Link to="/audition">토론게시판</Link></li>
         </ul>
       </nav>
 
@@ -37,13 +37,13 @@ const Header = () => {
 
         {isLoggedIn ? (
           <>
-            <a href="/mypage" className="header-link">마이페이지</a>
-            <a href="#" onClick={handleLogout} className="header-link">로그아웃</a>
+            <Link to="/mypage" className="header-link">마이페이지</Link>
+            <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
           </>
         ) : (
           <>
-            <a href="/login" className="header-link">로그인</a>
-            <a href="/register" className="header-link">회원가입</a>
+            <Link to="" className="header-link">로그인</Link>
+            <Link to="" className="header-link">회원가입</Link>
           </>
         )}
 

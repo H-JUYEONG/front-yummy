@@ -1,42 +1,42 @@
-/* 기존 orderlist 스타일 유지 */
-.order-list .order-table {
+/* User Order Table Styles */
+#user-wrap .order-list .order-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-.order-table th,
-.order-table td {
+#user-wrap .order-table th,
+#user-wrap .order-table td {
     padding: 12px;
     border: 1px solid #e5e7eb;
     text-align: center;
 }
 
-.order-table th {
+#user-wrap .order-table th {
     background: #f8f9fa;
     font-weight: bold;
 }
 
-.clickable-status {
+#user-wrap .order-table .clickable-status {
     color: #7C3AED;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.2s;
 }
 
-.clickable-status:hover {
+#user-wrap .order-table .clickable-status:hover {
     color: #6D28D9;
 }
 
-/* 주문 상세 스타일 */
-.order-detail-container {
+/* Order Detail Container Styles */
+#user-wrap .order-detail-container {
     padding: 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.header-actions {
+#user-wrap .order-detail-container .header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,7 +45,7 @@
     border-bottom: 2px solid #e5e7eb;
 }
 
-.back-to-list {
+#user-wrap .order-detail-container .back-to-list {
     padding: 8px 16px;
     background: #7C3AED;
     color: white;
@@ -55,27 +55,29 @@
     transition: background-color 0.2s;
 }
 
-.back-to-list:hover {
+#user-wrap .order-detail-container .back-to-list:hover {
     background: #6D28D9;
 }
 
-.order-info {
+#user-wrap .order-detail-container .order-info {
     background: #f8f9fa;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 30px;
 }
 
-.order-info p {
+#user-wrap .order-detail-container .order-info p {
     margin: 10px 0;
     color: #333;
 }
 
-.cake-media-section {
+/* Media Section Styles */
+#user-wrap .cake-media-section {
     margin-top: 30px;
 }
 
-.video-container, .photo-container {
+#user-wrap .cake-media-section .video-container,
+#user-wrap .cake-media-section .photo-container {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -83,16 +85,16 @@
     margin-bottom: 30px;
 }
 
-.video-wrapper {
+#user-wrap .cake-media-section .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 비율 */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     border-radius: 8px;
     margin-top: 20px;
 }
 
-.cake-video {
+#user-wrap .cake-media-section .cake-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -101,14 +103,14 @@
     object-fit: cover;
 }
 
-.photo-gallery {
+#user-wrap .cake-media-section .photo-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-top: 20px;
 }
 
-.cake-photo {
+#user-wrap .cake-media-section .cake-photo {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -116,47 +118,35 @@
     transition: transform 0.2s;
 }
 
-.cake-photo:hover {
+#user-wrap .cake-media-section .cake-photo:hover {
     transform: scale(1.05);
 }
 
-@media (max-width: 768px) {
-    .header-actions {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .photo-gallery {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    .cake-photo {
-        height: 150px;
-    }
-}
-
-/* 주문 상태 및 기타 스타일 유지 */
-.status-description, .order-status-container, .order-search {
+/* Order Status and Description Styles */
+#user-wrap .status-description,
+#user-wrap .order-status-container,
+#user-wrap .order-search {
     margin-bottom: 30px;
 }
 
-.description-table {
+#user-wrap .description-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.description-table td {
+#user-wrap .description-table td {
     padding: 12px;
     border: 1px solid #e5e7eb;
 }
 
-.description-table td:first-child {
+#user-wrap .description-table td:first-child {
     background: #f8f9fa;
     font-weight: bold;
     width: 150px;
 }
 
-.action-btn {
+/* Action Button Styles */
+#user-wrap .action-btn {
     padding: 6px 12px;
     margin: 2px;
     background: #fff;
@@ -165,19 +155,28 @@
     color: #7C3AED;
     cursor: pointer;
     transition: all 0.2s;
+    display: inline-block;
+    text-decoration: none;
+    line-height: normal;
 }
 
-.action-btn:hover {
+#user-wrap .action-btn:hover {
     background: #7C3AED;
     color: white;
 }
-.action-btn {
-    /* 기존 스타일 유지 */
-    display: inline-block;
-    text-decoration: none;
-}
 
-a.action-btn {
-    line-height: normal;  /* 버튼과 동일한 높이 유지 */
-    float: left;
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #user-wrap .order-detail-container .header-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #user-wrap .cake-media-section .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    #user-wrap .cake-media-section .cake-photo {
+        height: 150px;
+    }
 }
