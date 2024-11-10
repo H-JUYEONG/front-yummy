@@ -1,9 +1,10 @@
 // Import libraries
-import React, { useState } from 'react';
-import '../../assets/css/all.css';
-import '../../assets/css/user/debateInsert.css';
-
-// Import components (if any additional components are needed)
+import React, { useState } from "react";
+import "../../assets/css/all.css";
+import "../../assets/css/user/usermain.css";
+import "../../assets/css/user/debateInsert.css";
+import Header from "../include/Header";
+import Footer from "../include/Footer";
 
 const UserDebateInsert = () => {
   const [leftImage, setLeftImage] = useState(null);
@@ -26,27 +27,16 @@ const UserDebateInsert = () => {
   };
 
   return (
-    <div id="wrap" className="text-center">
+    <div id="user-wrap" className="user-text-center">
       {/* Header */}
-      <header id="wrap-head">
-        <h1>게시글 작성</h1>
+      <header id="user-wrap-head">
+        <Header />
       </header>
 
-          {/* Navigation Bar */}
-      <nav id="wrap-nav" className="clearfix">
-        <ul className="j-nav-menu">
-            <li>자유 게시판</li>
-            <li>도안 게시판</li>
-            <li className="j-active">토론 게시판</li>
-        </ul>
-      </nav>
-
       {/* Main Content */}
-      <main id="wrap-body" className="clearfix">
-        
-
+      <main id="user-wrap-body" className="clearfix">
         {/* Main Section */}
-        <section id="wrap-main" className="float-right">
+        <section id="user-wrap-main">
           {/* Title Section */}
           <div className="j-debate-title-section">
             <input
@@ -75,11 +65,16 @@ const UserDebateInsert = () => {
               </label>
               <button className="j-modal-btn">모달 창 이미지 선택</button>
               {leftImage && (
-                <button className="j-delete-btn" onClick={handleLeftImageDelete}>
+                <button
+                  className="j-delete-btn"
+                  onClick={handleLeftImageDelete}
+                >
                   이미지 삭제
                 </button>
               )}
-              {leftImage && <img src={leftImage} alt="Left" className="j-inserted-image" />}
+              {leftImage && (
+                <img src={leftImage} alt="Left" className="j-inserted-image" />
+              )}
             </div>
 
             <div className="j-image-option">
@@ -94,11 +89,20 @@ const UserDebateInsert = () => {
               </label>
               <button className="j-modal-btn">모달 창 이미지 선택</button>
               {rightImage && (
-                <button className="j-delete-btn" onClick={handleRightImageDelete}>
+                <button
+                  className="j-delete-btn"
+                  onClick={handleRightImageDelete}
+                >
                   이미지 삭제
                 </button>
               )}
-              {rightImage && <img src={rightImage} alt="Right" className="j-inserted-image" />}
+              {rightImage && (
+                <img
+                  src={rightImage}
+                  alt="Right"
+                  className="j-inserted-image"
+                />
+              )}
             </div>
           </div>
 
@@ -113,15 +117,15 @@ const UserDebateInsert = () => {
 
           {/* Footer Buttons */}
           <div className="j-debate-footer">
-            <button className="j-submit-btn">제출하기</button>
-            <button className="j-back-btn">뒤로 가기</button>
+            <Link to="/board" className="j-back-btn">취소</Link>
+            <Link to="/board" className="j-submit-btn">제출하기</Link>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="full-width">
-        <p>게시물에 대한 의견은 해당 사용자에게 있습니다.</p>
+      <footer id="user-wrap-footer">
+        <Footer />
       </footer>
     </div>
   );

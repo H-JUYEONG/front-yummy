@@ -1,79 +1,33 @@
-/* Container */
-#wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-}
-
-/* Header */
-#wrap-head {
-  background-color: #333;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-}
-
-#wrap-head h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-/* Content Layout */
-#wrap-body {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-}
-
-/* Header */
-#wrap-head {
-  background-color: #333;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-}
-#wrap-head h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
 /* Navigation Bar */
-#wrap-nav {
-  background-color: #f0f0f0;
-  padding: 10px 0;
-  text-align: center;
-  margin-bottom: 20px;
-}
 .j-nav-menu {
   list-style: none;
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ddd;
 }
+
 .j-nav-menu li {
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 8px 16px;
   font-size: 1rem;
   color: #333;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Main Section */
-#wrap-main {
-  flex-grow: 1;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.j-nav-menu li:hover {
+  background-color: #e8e8e8;
+  color: #555;
+  border-radius: 4px;
 }
 
-#wrap-main h2 {
-  font-size: 1.2rem;
+.j-nav-menu .j-active {
   font-weight: bold;
-  margin-bottom: 20px;
+  color: #4caf50;
+  border-bottom: 2px solid #4caf50;
 }
 
 /* Title Section */
@@ -103,11 +57,10 @@
 /* Image Insert Section */
 .j-image-insert-section {
   display: flex;
-  justify-content: space-evenly; /* Spaces items evenly, including edges */
-  align-items: center; /* Center items vertically, if necessary */
+  justify-content: space-evenly;
+  align-items: center;
   margin: 20px 0;
 }
-
 
 .j-image-option {
   display: flex;
@@ -202,7 +155,7 @@
 }
 
 /* Footer */
-.full-width {
+.debate-full-width {
   width: 100%;
   background-color: #333;
   color: #fff;
