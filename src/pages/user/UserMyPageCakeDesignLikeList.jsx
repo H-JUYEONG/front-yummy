@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
+// import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
 
