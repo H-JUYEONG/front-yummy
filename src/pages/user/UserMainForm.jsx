@@ -67,7 +67,13 @@ const UserMainForm= () => {
                     </div>
                 </div>
                 <div className='category-box'>
-                    카테고리공간
+                    <ul>
+                        <li>전체</li>
+                        <li>도시락 케이크</li>
+                        <li>일반 케이크</li>
+                        <li>떡 케이크</li>
+                        <li>반려동물 케이크</li>
+                    </ul>
                 </div>
                 <div className='sub-title-box'>
                     <ul>
