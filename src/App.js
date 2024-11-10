@@ -60,7 +60,7 @@ import AdminShopProduct from './pages/admin/AdminShopProduct';
 import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
-
+import UserWritingList from "./pages/user/UserWritingList";
 
 function App() {
   return (
@@ -113,6 +113,8 @@ function App() {
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
 
           <Route path='/user/mypage/usereventlist' element={<UserEventList/>}/>
+          <Route path="/user/mypage/userwritinglist" element={<UserWritingList />} />
+          
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
