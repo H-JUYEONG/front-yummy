@@ -2,8 +2,10 @@ import React from 'react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderlist.css';
+import Header from '../include/Header';
+import Footer from '../include/Footer';
 
-
+//userorder에 결합되었습니다
 const UserOrderList = () => {
     const orderStatuses = [
         { label: '결제완료', count: 0 },
@@ -32,18 +34,16 @@ const UserOrderList = () => {
 
     return (
         <div id="user-wrap">
-            {/* Header */}
-            <header id="user-wrap-head">
-                <h1>김덕성님 어서오세요!</h1>
-            </header>
+        <header id="user-wrap-head">
+           <Header/>
+        </header>
 
-            {/* Main Content */}
-            <main id="user-wrap-body" className="clearfix">
+        <main id="user-wrap-body">
                 {/* Sidebar */}
                 <UserSidebar />
 
                 {/* Main Section */}
-                <section id="user-wrap-main" className="float-right">
+                <section id="user-wrap-main">
                     <h2>주문조회</h2>
 
                     {/* Order Status Description */}
@@ -144,7 +144,7 @@ const UserOrderList = () => {
 
             {/* Footer */}
             <footer id="user-wrap-footer">
-                <p>© 2024 케이크 도안 마켓. All rights reserved.</p>
+               <Footer/>
             </footer>
         </div>
     );

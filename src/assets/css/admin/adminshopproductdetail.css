@@ -1,0 +1,155 @@
+/* 페이지 스타일 */
+.admin-shopproductdetail-page {
+    flex: 1;
+    padding: 40px;
+}
+
+/* 헤더 스타일 */
+.admin-shopproductdetail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-shopproductdetail-header h1 {
+    font-size: 1.8em;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+/* 폼 스타일 */
+.admin-shopproductdetail-page .product-form {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-shopproductdetail-page .form-group {
+    margin-bottom: 20px;
+}
+
+.admin-shopproductdetail-page .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.admin-shopproductdetail-page .form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.admin-shopproductdetail-page .form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+/* 액션 버튼 스타일 */
+.admin-shopproductdetail-page .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.admin-shopproductdetail-page .preview-button,
+.submit-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-shopproductdetail-page .preview-button {
+    background-color: #ff9800;
+    /* 밝은 주황색 */
+    color: white;
+}
+
+.admin-shopproductdetail-page .preview-button:hover {
+    background-color: #e68900;
+    transform: translateY(-2px);
+}
+
+.admin-shopproductdetail-page .submit-button {
+    background-color: #4CAF50;
+    /* 녹색 */
+    color: white;
+}
+
+.admin-shopproductdetail-page .submit-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* 반응형 폼 스타일 */
+@media screen and (max-width: 768px) {
+    .product-form {
+        padding: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .preview-button,
+    .submit-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* 미리 보기 섹션 스타일 */
+.admin-shopproductdetail-page .preview-section {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admin-shopproductdetail-page .preview-section h2 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #444;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.admin-shopproductdetail-page .preview-section p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.admin-shopproductdetail-page .preview-section .preview-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-shopproductdetail-page .preview-section .preview-item strong {
+    color: #555;
+}

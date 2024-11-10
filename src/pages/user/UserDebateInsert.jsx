@@ -1,7 +1,8 @@
 // Import libraries
 import React, { useState } from 'react';
-import '../../assets/css/user/debateInsert.css';
 import '../../assets/css/all.css';
+import '../../assets/css/user/debateInsert.css';
+
 // Import components (if any additional components are needed)
 
 const UserDebateInsert = () => {
@@ -31,17 +32,18 @@ const UserDebateInsert = () => {
         <h1>게시글 작성</h1>
       </header>
 
-      {/* Main Content */}
-      <main id="wrap-body" className="clearfix">
-        {/* Sidebar */}
-        <aside id="wrap-side" className="float-left">
-          <h2>게시판 메뉴</h2>
-          <ul>
+          {/* Navigation Bar */}
+      <nav id="wrap-nav" className="clearfix">
+        <ul className="j-nav-menu">
             <li>자유 게시판</li>
             <li>도안 게시판</li>
-            <li>토론 게시판</li>
-          </ul>
-        </aside>
+            <li className="j-active">토론 게시판</li>
+        </ul>
+      </nav>
+
+      {/* Main Content */}
+      <main id="wrap-body" className="clearfix">
+        
 
         {/* Main Section */}
         <section id="wrap-main" className="float-right">

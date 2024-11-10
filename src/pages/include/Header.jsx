@@ -1,12 +1,17 @@
-// Header.jsx
-import React from 'react';
-import { Search, Home, ShoppingBag } from 'lucide-react';
-import '../../assets/css/user/userheaderstyle.css';
+import React, { useState } from "react";
+
+import { Link } from "react-router-dom";
+
+import "../../assets/css/user/userheaderstyle.css";
 
 const Header = () => {
-  const handleSearch = () => {
-    // 검색 처리 로직
-    console.log('검색 실행');
+  // 실제 구현시에는 전역 상태 관리(Redux, Context API 등)나
+  // 세션/로컬 스토리지를 통해 로그인 상태를 관리하는 것이 좋습니다
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    // 로그아웃 처리 로직 추가
   };
 
   return (
@@ -19,22 +24,42 @@ const Header = () => {
       {/* Navigation */}
       <nav className="nav-menu">
         <ul>
-          <li><a href="/audition">케이크 오디션</a></li>
-          <li><a href="/partners">입점 업체</a></li>
-          <li><a href="/designs">도안게시판</a></li>
-          <li><a href="/discussion">토론게시판</a></li>
+          <li>
+            <a href="/audition">케이크 오디션</a>
+          </li>
+          <li>
+            <a href="/partners">입점 업체</a>
+          </li>
+          <li>
+            <Link to="/user/cakeDesign/board">도안 게시판</Link>
+          </li>
+          <li>
+            <a href="/discussion">토론게시판</a>
+          </li>
         </ul>
       </nav>
 
-
       {/* User Actions */}
       <div className="user-actions">
-        <button className="icon-button">
-          <Home />
-        </button>
-        <button className="icon-button">
-          <ShoppingBag />
-        </button>
+        {isLoggedIn ? (
+          <>
+            <a href="/mypage" className="header-link">
+              마이페이지
+            </a>
+            <a href="#" onClick={handleLogout} className="header-link">
+              로그아웃
+            </a>
+          </>
+        ) : (
+          <>
+            <Link to="/user/login" className="header-link">
+              로그인
+            </Link>
+            <Link to="/user/signup" className="header-link">
+              회원가입
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

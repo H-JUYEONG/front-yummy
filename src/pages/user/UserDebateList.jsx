@@ -1,8 +1,7 @@
 // Import libraries
 import React from 'react';
-import '../../assets/css/user/debateList.css';
 import '../../assets/css/all.css';
-// Import components (if any additional components are needed)
+import '../../assets/css/user/debateList.css';
 
 const UserDebateList = () => {
     return (
@@ -25,10 +24,8 @@ const UserDebateList = () => {
             <main id="wrap-body" className="clearfix">
                 {/* Main Section */}
                 <section id="wrap-main">
-                    <h2>토론 게시판</h2>
-                    <p>원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</p>
 
-                    {/* Toolbar */}
+                    {/* Search and Filter Toolbar */}
                     <div className="j-discussion-toolbar">
                         <select className="j-category-select">
                             <option value="all">전체</option>
@@ -40,6 +37,10 @@ const UserDebateList = () => {
                             <button className="j-search-btn">검색</button>
                         </div>
                     </div>
+
+                    {/* Section Title and Description */}
+                    <h2>토론 게시판</h2>
+                    <p>원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</p>
 
                     {/* Discussion Table */}
                     <table className="j-discussion-list">
@@ -81,15 +82,17 @@ const UserDebateList = () => {
                         </tbody>
                     </table>
 
-                    {/* Pagination and Write Button */}
-                    <div className="j-bottom-toolbar">
-                        <div className="j-pagination">
-                            <button className="j-page-btn">1</button>
-                            <button className="j-page-btn">2</button>
-                            <button className="j-page-btn">3</button>
-                            <button className="j-next-btn">다음 &gt;</button>
-                        </div>
+                    {/* Write Button */}
+                    <div className="j-toolbar">
                         <button className="j-write-btn">글쓰기</button>
+                    </div>
+
+                    {/* Pagination */}
+                    <div className="j-pagination">
+                        <button className="j-page-btn">1</button>
+                        <button className="j-page-btn">2</button>
+                        <button className="j-page-btn">3</button>
+                        <button className="j-next-btn">다음 &gt;</button>
                     </div>
                 </section>
             </main>

@@ -1,0 +1,183 @@
+/* 기존 orderlist 스타일 유지 */
+.order-list .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.order-table th {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+.clickable-status {
+    color: #7C3AED;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.clickable-status:hover {
+    color: #6D28D9;
+}
+
+/* 주문 상세 스타일 */
+.order-detail-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.back-to-list {
+    padding: 8px 16px;
+    background: #7C3AED;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-to-list:hover {
+    background: #6D28D9;
+}
+
+.order-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.order-info p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.cake-media-section {
+    margin-top: 30px;
+}
+
+.video-container, .photo-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 비율 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.cake-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.cake-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.cake-photo:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .header-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .cake-photo {
+        height: 150px;
+    }
+}
+
+/* 주문 상태 및 기타 스타일 유지 */
+.status-description, .order-status-container, .order-search {
+    margin-bottom: 30px;
+}
+
+.description-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.description-table td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.description-table td:first-child {
+    background: #f8f9fa;
+    font-weight: bold;
+    width: 150px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    margin: 2px;
+    background: #fff;
+    border: 1px solid #7C3AED;
+    border-radius: 4px;
+    color: #7C3AED;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background: #7C3AED;
+    color: white;
+}
+.action-btn {
+    /* 기존 스타일 유지 */
+    display: inline-block;
+    text-decoration: none;
+}
+
+a.action-btn {
+    line-height: normal;  /* 버튼과 동일한 높이 유지 */
+    float: left;
+}

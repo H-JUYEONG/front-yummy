@@ -21,11 +21,11 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 
 
 // user
+import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
 import UserLoginForm from './pages/user/userLoginForm';
-import UserSignUpForm from './pages/user/UserSignupForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -33,10 +33,20 @@ import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
 import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
+import UserOrderDetail from './pages/user/UserOrderDetail';
+import UserOrder from './pages/user/UserOrder';
+import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+
 import UserMainForm from './pages/user/UserMainForm';
+
+import UserPoint from './pages/user/UserPoint';
+import UserStoreDetail from './pages/user/UserStoreDetail';
+import UserPaymentDetail from './pages/user/UserPaymentDetail';
+import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
+import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
 
 
 
@@ -48,6 +58,12 @@ import UserDebateView from './pages/user/UserDebateView';
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminMemberManagement from './pages/admin/AdminMemberManagement';
+import AdminStatus from './pages/admin/AdminStatus';
+import AdminContent from './pages/admin/AdminContent';
+import AdminShopProduct from './pages/admin/AdminShopProduct';
+import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
+import AdminShopOrder from './pages/admin/AdminShopOrder';
+import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 
 
 function App() {
@@ -87,11 +103,20 @@ function App() {
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
+          <Route path='/user/mypage/orderdetail' element={<UserOrderDetail/>}/>
+          <Route path='/user/mypage/order' element={<UserOrder/>}/>
+          <Route path='/user/mypage/wishlist' element={<UserWishList/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/userMainForm' element={<UserMainForm/>}/>  {/*웹사이트 메인 화면*/ }
+
+          <Route path='/user/mypage/point' element={<UserPoint/>}/>
+          <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
+          <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
+          <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
+          <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
@@ -99,6 +124,12 @@ function App() {
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
+          <Route path='/admin/status' element={<AdminStatus/>}/>
+          <Route path='/admin/content' element={<AdminContent/>}/>
+          <Route path='/admin/shopproducts' element={<AdminShopProduct/>}/>
+          <Route path='/admin/shopproductsdetail' element={<AdminShopProductDetail/>}/>
+          <Route path='/admin/shoporders' element={<AdminShopOrder/>}/>
+          <Route path='/admin/venderorder' element={<AdminVenderOrder/>}/>
 
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
