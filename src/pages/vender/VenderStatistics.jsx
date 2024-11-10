@@ -20,7 +20,7 @@ ChartJS.register(
 );
 
 const VenderStatistics = () => {
-    
+
     // 그래프 데이터 설정
     const salesData = {
         labels: ['1주', '2주', '3주', '4주'],
@@ -80,7 +80,7 @@ const VenderStatistics = () => {
             },
         },
     };
-    
+
     return (
         <>
             <Helmet>
@@ -91,67 +91,69 @@ const VenderStatistics = () => {
 
             {/* 컨테이너 영역 */}
             <div className="vender-container">
-                {/* 사이드바 */}
-                <VenderSidebar />
-                {/* 콘텐츠 영역 */}
-                <div className="vender-content">
-                    {/* 통계 요약 카드 섹션 */}
-                    <div className="summary-card-section">
-                        <div className="summary-card">
-                            <h3>주문 건수 (11월)</h3>
-                            <p>120건</p>
-                        </div>
-                        <div className="summary-card">
-                            <h3>매출 (11월)</h3>
-                            <p>3,200,000원</p>
-                        </div>
-                        <div className="summary-card">
-                            <h3>새로운 리뷰</h3>
-                            <p>8건</p>
-                        </div>
-                    </div>
-
-                    {/* 매출 및 주문 그래프 섹션 */}
-                    <div className="chart-section">
-                        <h3>매출 및 주문 변화 추이</h3>
-                        <div className="filter-section">
-                            <label htmlFor="sales-filter">매출 및 주문 데이터 필터링:</label>
-                            <select id="sales-filter" className="select-filter">
-                                <option value="daily">일일</option>
-                                <option value="weekly">일주일</option>
-                                <option value="monthly">월별</option>
-                                <option value="yearly">년별</option>
-                            </select>
-                        </div>
-                        <Line data={salesData} options={options} />
-                    </div>
-
-                    {/* 리뷰 분석 섹션 */}
-                    <div className="review-analysis-section">
-                        <h3>고객 리뷰 분석</h3>
-                        <div className="filter-section">
-                            <label htmlFor="review-filter">리뷰 데이터 필터링:</label>
-                            <select id="review-filter" className="select-filter">
-                                <option value="daily">일일</option>
-                                <option value="weekly">일주일</option>
-                                <option value="monthly">월별</option>
-                                <option value="yearly">년별</option>
-                            </select>
-                        </div>
-                        <div className="review-chart-section">
-                            <div className="doughnut-chart">
-                                <Doughnut data={reviewData} />
+                <div class="vender-content-wrapper">
+                    {/* 사이드바 */}
+                    <VenderSidebar />
+                    {/* 콘텐츠 영역 */}
+                    <div className="vender-content">
+                        {/* 통계 요약 카드 섹션 */}
+                        <div className="summary-card-section">
+                            <div className="summary-card">
+                                <h3>주문 건수 (11월)</h3>
+                                <p>120건</p>
                             </div>
-                            <div className="doughnut-chart">
-                                <Doughnut data={ratingData} />
+                            <div className="summary-card">
+                                <h3>매출 (11월)</h3>
+                                <p>3,200,000원</p>
+                            </div>
+                            <div className="summary-card">
+                                <h3>새로운 리뷰</h3>
+                                <p>8건</p>
                             </div>
                         </div>
-                        <div className="word-cloud-placeholder">
-                            {wordCloudData.map((word, index) => (
-                                <span key={index} className="word-cloud-word">
-                                    {word}
-                                </span>
-                            ))}
+
+                        {/* 매출 및 주문 그래프 섹션 */}
+                        <div className="chart-section">
+                            <h3>매출 및 주문 변화 추이</h3>
+                            <div className="filter-section">
+                                <label htmlFor="sales-filter">매출 및 주문 데이터 필터링:</label>
+                                <select id="sales-filter" className="select-filter">
+                                    <option value="daily">일일</option>
+                                    <option value="weekly">일주일</option>
+                                    <option value="monthly">월별</option>
+                                    <option value="yearly">년별</option>
+                                </select>
+                            </div>
+                            <Line data={salesData} options={options} />
+                        </div>
+
+                        {/* 리뷰 분석 섹션 */}
+                        <div className="review-analysis-section">
+                            <h3>고객 리뷰 분석</h3>
+                            <div className="filter-section">
+                                <label htmlFor="review-filter">리뷰 데이터 필터링:</label>
+                                <select id="review-filter" className="select-filter">
+                                    <option value="daily">일일</option>
+                                    <option value="weekly">일주일</option>
+                                    <option value="monthly">월별</option>
+                                    <option value="yearly">년별</option>
+                                </select>
+                            </div>
+                            <div className="review-chart-section">
+                                <div className="doughnut-chart">
+                                    <Doughnut data={reviewData} />
+                                </div>
+                                <div className="doughnut-chart">
+                                    <Doughnut data={ratingData} />
+                                </div>
+                            </div>
+                            <div className="word-cloud-placeholder">
+                                {wordCloudData.map((word, index) => (
+                                    <span key={index} className="word-cloud-word">
+                                        {word}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

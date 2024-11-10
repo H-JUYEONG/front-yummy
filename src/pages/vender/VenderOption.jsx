@@ -22,6 +22,8 @@ function VenderOption() {
         { id: 9, name: '데코 색상', subOptions: [] },
     ]);
 
+    const [expandedOptions, setExpandedOptions] = useState({}); // 옵션별로 열림 상태를 관리
+
     const addSubOption = (optionId, subOption) => {
         setOptions(options.map(option =>
             option.id === optionId ? { ...option, subOptions: [...option.subOptions, subOption] } : option
@@ -37,30 +39,39 @@ function VenderOption() {
         ));
     };
 
+    const toggleOption = (optionId) => {
+        setExpandedOptions(prevState => ({
+            ...prevState,
+            [optionId]: !prevState[optionId]
+        }));
+    };
+
     return (
         <div className="vender-container">
-            {/* 사이드바 영역 */}
-            <VenderSidebar />
-            <div className="vender-content">
-                <div className="main-content">
-                    <ul className="option-list">
-                        {options.map(option => (
-                            <Option
-                                key={option.id}
-                                option={option}
-                                addSubOption={addSubOption}
-                                removeSubOption={removeSubOption}
-                            />
-                        ))}
-                    </ul>
+            <div class="vender-content-wrapper">
+                <VenderSidebar />
+                <div className="vender-content">
+                    <div className="option-main-content">
+                        <ul className="option-list">
+                            {options.map(option => (
+                                <Option
+                                    key={option.id}
+                                    option={option}
+                                    addSubOption={addSubOption}
+                                    removeSubOption={removeSubOption}
+                                    isExpanded={!!expandedOptions[option.id]}
+                                    toggleOption={() => toggleOption(option.id)}
+                                />
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-function Option({ option, addSubOption, removeSubOption }) {
-    const [isExpanded, setIsExpanded] = useState(false);
+function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOption }) {
     const [subOptionName, setSubOptionName] = useState("");
     const [subOptionFile, setSubOptionFile] = useState(null);
 
@@ -82,7 +93,7 @@ function Option({ option, addSubOption, removeSubOption }) {
 
     return (
         <li className="option-item">
-            <div className="option-header" onClick={() => setIsExpanded(!isExpanded)}>
+            <div className="option-header" onClick={toggleOption}>
                 <span className="option-name">{option.name}</span>
             </div>
             {isExpanded && (

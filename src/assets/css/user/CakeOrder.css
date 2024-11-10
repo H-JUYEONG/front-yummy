@@ -1,45 +1,48 @@
+/* CakeOrder.css */
+
 /* 기본 레이아웃 */
 .cake-order-container {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    gap: 40px;
+    gap: 100px;
 }
 
-.left-section {
+.cake-order-container .left-section {
     flex: 1;
     min-width: 0;
 }
 
-.right-section {
+.cake-order-container .right-section {
     width: 400px;
     flex-shrink: 0;
 }
 
 /* 이미지 갤러리 영역 */
-.product-image {
+.cake-order-container .product-image {
     margin-bottom: 30px;
 }
 
-.main-image {
+.cake-order-container .main-image {
     width: 100%;
     height: 500px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     margin-bottom: 20px;
+    background-color: #f8f8f8;
 }
 
-.thumbnail-container {
+.cake-order-container .thumbnail-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
 }
 
-.thumbnail-wrapper {
+.cake-order-container .thumbnail-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* 1:1 비율 유지 */
+    padding-bottom: 100%;
     cursor: pointer;
     border: 2px solid transparent;
     border-radius: 8px;
@@ -47,37 +50,38 @@
     transition: all 0.3s ease;
 }
 
-.thumbnail-wrapper.active {
+.cake-order-container .thumbnail-wrapper.active {
     border-color: #8B5CF6;
 }
 
-.thumbnail-wrapper:hover {
+.cake-order-container .thumbnail-wrapper:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.thumbnail-image {
+.cake-order-container .thumbnail-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #f8f8f8;
 }
 
 /* 탭 스타일 */
-.product-tabs {
+.cake-order-container .product-tabs {
     margin-top: 30px;
 }
 
-.tabs-header {
+.cake-order-container .tabs-header {
     display: flex;
     width: 100%;
     border-bottom: 2px solid #eee;
     margin-bottom: 0;
 }
 
-.tab-button {
+.cake-order-container .tab-button {
     flex: 1;
     padding: 15px 0;
     font-size: 16px;
@@ -89,12 +93,11 @@
     transition: all 0.3s ease;
 }
 
-.tab-button.active {
-    background: none;
+.cake-order-container .tab-button.active {
     color: #8B5CF6;
 }
 
-.tab-button.active::after {
+.cake-order-container .tab-button.active::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -104,139 +107,184 @@
     background: #8B5CF6;
 }
 
-.tab-content {
-    padding: 30px 20px;
-    background: #fff;
-    border-radius: 0 0 8px 8px;
-    min-height: 400px;
-    border: 1px solid #eee;
-    border-top: none;
+.cake-order-container .tab-content {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    min-height: 500px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* 리뷰 섹션 */
-.reviews {
+/* 탭 컨텐츠 이미지 스타일 */
+.cake-order-container .detail-content,
+.cake-order-container .delivery-content,
+.cake-order-container .inquiry-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.review-input {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.review-input textarea {
+.cake-order-container .detail-image,
+.cake-order-container .info-image,
+.cake-order-container .inquiry-image {
     width: 100%;
-    min-height: 100px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-.review-input button {
-    padding: 8px 16px;
-    background: #8B5CF6;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: flex-end;
-}
-
-.review-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.review-item {
-    padding: 15px;
-    background: #f8f8f8;
+    height: auto;
     border-radius: 8px;
 }
 
-.replies {
-    margin-left: 20px;
-    margin-top: 10px;
-}
-
-.reply-item {
-    padding: 10px;
-    background: #fff;
-    border-radius: 4px;
-    margin-top: 5px;
-}
-
 /* 상품 정보 및 옵션 */
-.product-info {
+.cake-order-container .product-info {
     margin-bottom: 30px;
 }
 
-.product-info h2 {
-    font-size: 24px;
+.cake-order-container .product-info h2 {
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
-.price {
+.cake-order-container .price {
     font-size: 20px;
     font-weight: bold;
     color: #333;
 }
 
-.options {
+/* 옵션 영역 */
+.cake-order-container .options {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.option-group {
+.cake-order-container .option-group {
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
 }
 
-.option-group h3 {
+.cake-order-container .option-group h3 {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
 }
 
 /* 색상 옵션 */
-.color-options {
+.cake-order-container .color-options {
     display: flex;
     gap: 45px;
 }
 
-.color-option {
+.cake-order-container .color-option {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative; /* 체크마크를 위한 position 설정 */
 }
 
-.color-option:hover {
+.cake-order-container .color-option:hover {
     transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 
-.color-option.active {
+.cake-order-container .color-option.active {
     border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); /* 보라색 글로우 효과 */
 }
 
-.color-option.pink { background-color: #FFB6C1; }
-.color-option.yellow { background-color: #FFD700; }
-.color-option.orange { background-color: #FFA500; }
+/* 체크마크 추가 */
+.cake-order-container .color-option.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
 
-/* 맛과 사이즈 옵션 그리드 */
-.option-grid {
+/* 색상별 스타일 */
+.cake-order-container .color-option.pink { 
+    background-color: #FFB6C1; 
+}
+
+.cake-order-container .color-option.yellow { 
+    background-color: #FFD700; 
+}
+
+.cake-order-container .color-option.orange { 
+    background-color: #FFA500; 
+}
+
+/* 맛과 사이즈 옵션 스타일 */
+/* 스크롤 컨테이너 수정 */
+.cake-order-container .option-scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -10px;
+    padding: 0 10px 15px;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    position: relative;
+    scrollbar-width: none; /* Firefox에서 기본적으로 스크롤바 숨김 */
+}
+
+/* 기본적으로 스크롤바 숨김 */
+.cake-order-container .option-scroll-container::-webkit-scrollbar {
+    height: 6px;
+    display: none; /* 기본적으로 숨김 */
+}
+
+/* 드래그 중일 때만 스크롤바 표시 */
+.cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
+    display: block;
+}
+
+.cake-order-container .option-scroll-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
+    background: #8B5CF6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cake-order-container .option-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
+}
+/* 스크롤 가능함을 나타내는 그라데이션 효과 */
+.cake-order-container .option-scroll-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
+    pointer-events: none; /* 그라데이션이 클릭을 방해하지 않도록 */
+}
+
+/* 옵션 그리드 수정 */
+.cake-order-container .option-grid {
     display: flex;
     gap: 10px;
     padding: 10px 0;
+    width: max-content;
+    touch-action: pan-x; /* 수평 스크롤만 허용 */
 }
 
-.option-item {
+
+
+.cake-order-container .option-item {
+    flex: 0 0 auto;
+    width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,37 +297,36 @@
     transition: all 0.3s ease;
 }
 
-.option-item:hover {
+.cake-order-container .option-item:hover {
     border-color: #8B5CF6;
     transform: translateY(-2px);
 }
 
-.option-item.active {
+.cake-order-container .option-item.active {
     border-color: #8B5CF6;
     background-color: #f9f7ff;
 }
 
-.option-image {
+.cake-order-container .option-image {
     width: 60px;
     height: 60px;
     border-radius: 4px;
     overflow: hidden;
 }
 
-.option-image img {
+.cake-order-container .option-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
-.option-item span {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+/* 활성화된 아이템의 텍스트 스타일 */
+.cake-order-container .option-item.active span {
+    color: #8B5CF6;
+    font-weight: bold;
 }
 
 /* 픽업 관련 스타일 */
-.map-placeholder {
+.cake-order-container .map-placeholder {
     width: 100%;
     height: 200px;
     background: #f0f0f0;
@@ -290,8 +337,8 @@
     color: #666;
 }
 
-.date-input,
-.time-input {
+.cake-order-container .date-input,
+.cake-order-container .time-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
@@ -299,8 +346,25 @@
     font-size: 14px;
 }
 
+/* 요청사항 스타일 */
+.cake-order-container .request-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 14px;
+    min-height: 100px;
+    margin-bottom: 10px;
+}
+
+.cake-order-container .request-textarea:focus {
+    border-color: #8B5CF6;
+    outline: none;
+}
+
 /* 주문 버튼 */
-.submit-button {
+.cake-order-container .submit-button {
     width: 100%;
     margin-top: 30px;
     padding: 15px;
@@ -314,7 +378,7 @@
     transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+.cake-order-container .submit-button:hover {
     background-color: #7C3AED;
 }
 
@@ -324,45 +388,39 @@
         flex-direction: column;
     }
 
-    .right-section {
+    .cake-order-container .right-section {
         width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .thumbnail-container {
+    .cake-order-container .thumbnail-container {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .option-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .main-image {
+    .cake-order-container .main-image {
         height: 300px;
     }
-}
 
-@media (max-width: 480px) {
-    .tabs-header {
-        flex-wrap: wrap;
-    }
-
-    .tab-button {
-        flex: 0 0 50%;
-    }
-
-    .option-image {
+    .cake-order-container .option-image {
         width: 50px;
         height: 50px;
     }
 }
 
+@media (max-width: 480px) {
+    .cake-order-container .tabs-header {
+        flex-wrap: wrap;
+    }
+
+    .cake-order-container .tab-button {
+        flex: 0 0 50%;
+    }
+}/* 리뷰 관련 스타일 */
 .reviews-container {
     padding: 20px 0;
 }
 
-/* 별점 통계 섹션 */
 .rating-stats {
     display: flex;
     padding: 20px;
@@ -407,7 +465,6 @@
     margin-left: 4px;
 }
 
-/* 별점 막대 그래프 */
 .rating-bars {
     flex: 1;
 }
@@ -653,23 +710,31 @@
 }
 
 /* 반응형 스타일 */
-@media (max-width: 768px) {
-    .review-form-container {
-        padding: 15px;
+@media (max-width: 1024px) {
+    .cake-order-container {
+        flex-direction: column;
     }
 
-    .star-button {
-        font-size: 24px;
+    .right-section {
+        width: 100%;
+    }
+}
+/* 반응형 스타일 */
+@media (max-width: 1024px) {
+    .cake-order-container {
+        flex-direction: column;
     }
 
-    .image-preview img {
-        max-width: 150px;
-        max-height: 150px;
+    .right-section {
+        width: 100%;
     }
 }
 
-/* 반응형 조정 */
 @media (max-width: 768px) {
+    .thumbnail-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .rating-stats {
         flex-direction: column;
     }
@@ -691,43 +756,36 @@
         width: 100%;
         height: 200px;
     }
-    /* CakeOrder.css에 추가/수정 */
-.option-scroll-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;  /* Firefox */
-    -ms-overflow-style: none;  /* IE/Edge */
-    margin: 0 -10px;  /* 옆쪽 여백 보정 */
-    padding: 0 10px;
-}
 
-/* 스크롤바 숨기기 */
-.option-scroll-container::-webkit-scrollbar {
-    display: none;
-}
-
-.option-grid {
-    display: flex;
-    gap: 10px;
-    padding: 10px 0;
-    /* 기존 grid 스타일 대신 flex로 변경 */
-}
-
-.option-item {
-    flex: 0 0 auto;  /* flex-shrink를 0으로 설정하여 크기 고정 */
-    width: 120px;    /* 각 아이템의 고정 너비 */
-    /* 나머지 스타일은 유지 */
-}
-
-/* 터치 디바이스를 위한 스크롤 스냅 */
-@media (hover: none) {
-    .option-scroll-container {
-        scroll-snap-type: x mandatory;
+    .review-form-container {
+        padding: 15px;
     }
 
-    .option-item {
-        scroll-snap-align: start;
+    .star-button {
+        font-size: 24px;
+    }
+
+    .image-preview img {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .main-image {
+        height: 300px;
     }
 }
+
+@media (max-width: 480px) {
+    .tabs-header {
+        flex-wrap: wrap;
+    }
+
+    .tab-button {
+        flex: 0 0 50%;
+    }
+
+    .option-image {
+        width: 50px;
+        height: 50px;
+    }
 }

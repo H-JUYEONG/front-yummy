@@ -16,7 +16,8 @@ const UserLoginForm = () => {
 
       <div className="user-login-box">
         <div>
-          <img src="https://via.placeholder.com/100" alt="회사 로고" />
+          {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+          <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
           <h1>로그인</h1>
         </div>
         <div>

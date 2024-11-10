@@ -50,39 +50,38 @@ const VenderDashboard = () => {
     return (
         <>
             <div className="vender-container">
-                <VenderSidebar />
-                <div className="vender-content">
-                    <main className="main-content">
-                        <section className="dashboard-summary">
-                            <div className="summary-cards">
-                                <div className="card">
-                                    <h3>총 주문 건수</h3>
-                                    <p>120건</p>
+                <div class="vender-content-wrapper">
+                    <VenderSidebar />
+                    <div className="vender-content">
+                        <main className="main-content">
+                            <section className="dashboard-summary">
+                                <div className="summary-cards">
+                                    <div className="card">
+                                        <h3>총 주문 건수</h3>
+                                        <p>120건</p>
+                                    </div>
+                                    <div className="card">
+                                        <h3>총 매출</h3>
+                                        <p>3,200,000원</p>
+                                    </div>
+                                    <div className="card">
+                                        <h3>새로운 리뷰</h3>
+                                        <p>12건</p>
+                                    </div>
+                                    <div className="card">
+                                        <h3>포인트</h3>
+                                        <p>2,000</p>
+                                    </div>
                                 </div>
-                                <div className="card">
-                                    <h3>총 매출</h3>
-                                    <p>3,200,000원</p>
-                                </div>
-                                <div className="card">
-                                    <h3>새로운 리뷰</h3>
-                                    <p>12건</p>
-                                </div>
-                                <div className="card">
-                                    <h3>포인트</h3>
-                                    <p>2,000</p>
-                                </div>
-                            </div>
-                        </section>
-                        <section className="scheduler-section">
-                            <h2>예약 스케쥴러</h2>
-                            <FullCalendar {...calendarOptions} />
-                        </section>
-                    </main>
+                            </section>
+                            <section className="scheduler-section">
+                                <h2>예약 스케쥴러</h2>
+                                <FullCalendar {...calendarOptions} />
+                            </section>
+                        </main>
+                    </div>
                 </div>
             </div>
-            <footer>
-                <p>케이크 사이트 &copy; 2024. 모든 권리 보유.</p>
-            </footer>
         </>
     );
 };

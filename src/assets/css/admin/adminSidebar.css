@@ -1,0 +1,73 @@
+/* adminSidebar.css */
+
+.admin-sidebar {
+    width: 240px;
+    background-color: #ffffff;
+    color: #1e3a8a;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    border-right: 1px solid #e5e7eb;
+}
+
+.admin-sidebar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #3b82f6;
+}
+
+.admin-sidebar .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.admin-sidebar .menu li {
+    padding: 12px 0;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.admin-sidebar .menu li a {
+    color: #1e3a8a;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+}
+
+.admin-sidebar .menu li.active a {
+    background-color: #e0f2fe;
+    color: #3b82f6;
+    border-radius: 8px;
+}
+
+.admin-sidebar .menu li:hover a {
+    background-color: #e0f2fe;
+    color: #3b82f6;
+    border-radius: 8px;
+}
+
+.admin-sidebar .logout-button {
+    background-color: #ef4444;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: auto;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.admin-sidebar .logout-button:hover {
+    background-color: #dc2626;
+}

@@ -1,26 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
+/* 전체 컨테이너 */
+.vender-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    position: relative;
+    padding: 20px;
+}
 
-/* 기본 사이드바 스타일 */
+/* 내부 콘텐츠 래퍼 */
+.vender-content-wrapper {
+    display: flex;
+    max-width: 1500px;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* 사이드바 스타일 */
 .vender-sidebar {
     width: 250px;
     background-color: #181414;
     color: #ffffff;
     height: calc(100vh - 40px);
     padding: 20px;
-    position: fixed;
-    left: 20px;
+    position: sticky;
     top: 20px;
     box-shadow: 2px 0 5px rgba(141, 138, 123, 0.1);
     overflow-y: auto;
     border-radius: 16px;
     z-index: 10;
     font-family: 'IBM Plex Sans KR', sans-serif;
-}
-
-/* 사이드바가 열렸을 때 */
-.vender-sidebar.open {
-    transform: translateX(0);
 }
 
 /* 사이드바 프로필 영역 */
@@ -53,9 +67,7 @@
 .vender-menu li.active,
 .vender-menu li:hover {
     background-color: #444444;
-    /* 사이드바 항목의 배경색을 어두운 회색으로 변경 */
     color: #ffffff;
-    /* 호버 시 글자색 유지 */
 }
 
 /* 로그아웃 버튼 */
@@ -68,37 +80,21 @@
     cursor: pointer;
     width: 100%;
     border-radius: 8px;
-    /* 둥근 모서리 */
     transition: background 0.3s;
 }
 
 .exit-button:hover {
     background: #e74c3c;
-    /* 호버 시 약간 밝게 변경 */
 }
 
-/* 오른쪽 메인 콘텐츠 스타일 수정 */
-
+/* 메인 콘텐츠 영역 */
 .vender-content {
-    transition: margin-left 0.3s ease;
-     /* 기본값 */
-    /* 사이드바 너비 + 왼쪽 여백 */
-    margin-top: 20px;
-    /* 위쪽 마진 */
-    margin-left: 330px;
-    padding: 20px;
-    width: calc(100% - 310px);
-    /* 사이드바와 좌우 여백 고려 */
-    box-sizing: border-box;
-    /* 패딩과 너비를 포함하도록 박스 크기 설정 */
+    flex-grow: 1;
+    margin-left: 30px;
     border-radius: 16px;
-    /* 콘텐츠 섹션의 모서리를 둥글게 */
     font-family: 'IBM Plex Sans KR', sans-serif;
+    min-height: calc(100vh - 40px);
 }
-.sidebar-open .vender-content {
-    margin-left: 250px;
-}
-
 
 /* 햄버거 메뉴 버튼 */
 .hamburger-menu {
@@ -116,25 +112,29 @@
 
 /* 모바일 스타일 */
 @media (max-width: 768px) {
-    .vender-content {
-        margin-left: 0; /* 좌측 마진 제거 */
-        width: 100%; /* 너비를 100%로 설정하여 꽉 차게 */
-        border-radius: 0; /* 둥근 모서리 제거 */
-        padding: 15px; /* 모바일에서의 패딩 조정 (필요에 따라 변경 가능) */
+    .content-wrapper {
+        flex-direction: column;
     }
+
+    .vender-content {
+        margin-left: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 15px;
+        margin-top: 60px;
+    }
+
     .hamburger-menu {
         display: block;
     }
 
     .vender-sidebar {
-        transform: translateX(-110%);
+        position: fixed;
+        left: -250px;
+        transition: left 0.3s ease;
     }
 
     .vender-sidebar.open {
-        transform: translateX(0);
-    }
-
-    .sidebar-open .vender-content {
-        margin-left: 0;
+        left: 20px;
     }
 }

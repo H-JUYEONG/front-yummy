@@ -1,0 +1,242 @@
+/* 폰트 설정 */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* SF함박눈 폰트 - CDN 방식 */
+@font-face {
+    font-family: 'SF함박눈';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF함박눈.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 나눔스퀘어 폰트 */
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Gmarket Sans 폰트 */
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* USER 레이아웃 가이드를 위한 스타일 */
+#user-wrap {
+    font-family: 'Nanum Gothic', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 255, 0.1);
+    position: relative;
+}
+
+#user-wrap::before {
+   
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 4px 8px;
+    font-size: 12px;
+ 
+}
+
+/* 헤더 영역 */
+
+
+#user-wrap-head h1 {
+    font-family: 'SF함박눈', serif !important;
+    font-size: 2.5em;
+    margin: 0;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.05em;
+}
+
+
+
+/* 메인 컨텐츠 영역 */
+#user-wrap-body {
+    flex: 1;
+    gap: 40px;
+    margin-bottom: 40px;
+    border: 2px dashed #99FF99;
+    padding: 20px;
+    position: relative;
+    background: rgba(153, 255, 153, 0.1);
+}
+
+#user-wrap-body::before {
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+   
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* 사이드바 */
+/* 사이드바 */
+#user-wrap-side {
+    width: 250px;
+    flex-shrink: 0;
+    border: 2px dashed #9999FF;
+    padding: 20px;
+    position: relative;
+    background: rgba(153, 153, 255, 0.1);
+}
+
+#user-wrap-side h2 {
+    font-family: 'GmarketSans', sans-serif;
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #9999FF;
+}
+
+#user-wrap-side ul {
+    list-style: none;
+    padding: 0;
+}
+
+#user-wrap-side li {
+    margin-bottom: 12px;
+}
+
+#user-wrap-side a {
+    font-family: 'GmarketSans', sans-serif;
+    text-decoration: none;
+    color: #555;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+#user-wrap-side a:hover {
+    color: #7C3AED;
+    background: rgba(153, 153, 255, 0.2);
+    transform: translateX(5px);
+}
+
+#user-wrap-side::before {
+   
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #9999FF;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+/* 메인 섹션 */
+#user-wrap-main {
+    flex: 1;
+    min-width: 0;
+    
+    padding: 20px;
+    position: relative;
+   
+}
+
+#user-wrap-main::before {
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* 게시글 영역 스타일 */
+.post-area {
+    font-family: 'NanumSquare', sans-serif;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-area h2 {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.post-text {
+    font-family: 'NanumSquare', sans-serif;
+    line-height: 1.6;
+    color: #444;
+}
+
+.post-text p {
+    margin-bottom: 1em;
+}
+
+/* 푸터 */
+
+
+
+.user-full-width p {
+    margin: 0;
+}
+
+/* 유틸리티 클래스 */
+.clearfix::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.user-text-center {
+    text-align: center;
+}
+
+.user-hidden {
+    display: none;
+}
+
+/* 기본 스타일 */
+#user-wrap ul {
+    list-style: none;
+    padding: 0;
+}
+
+#user-wrap li {
+    margin-bottom: 10px;
+}
+
+#user-wrap a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+#user-wrap a:hover {
+    color: #ffffff;
+}
+
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+    #user-wrap-head,
+    #user-wrap-main,
+    #wrap-side,
+    .user-full-width {
+        padding: 15px;
+    }
+}

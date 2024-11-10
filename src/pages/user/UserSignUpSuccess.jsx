@@ -15,7 +15,8 @@ const UserSignUpSuccess = () => {
       </header>
 
       <div className="user-signup-succ">
-        <img src="https://via.placeholder.com/100" alt="회사 로고" />
+        {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+        <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
         <h2>회원가입 완료</h2>
         <p>회원가입이 완료되었습니다.</p>
         <p>Yummy의 다양한 케이크를 만나보세요.</p>

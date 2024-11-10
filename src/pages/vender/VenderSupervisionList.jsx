@@ -7,7 +7,7 @@ import VenderSidebar from './include/VenderSidebar';
 
 
 //import css
-import supervisionList from '../../assets/css/vender/supervisionList.css'
+
 
 
 
@@ -38,8 +38,10 @@ const VenderSupervisionList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
+
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
 
