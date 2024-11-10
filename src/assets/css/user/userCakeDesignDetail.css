@@ -117,7 +117,8 @@
     display: flex;
     align-items: center;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    /* border: 1px solid #cacaca; */
+    border: none;
     border-radius: 25px;
     padding: 5px 10px;
     cursor: pointer;
@@ -245,3 +246,28 @@
     color: #333;
     margin: 5px 0px;
 }
+
+/* 수정, 삭제 버튼 */
+.user-cake-action-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .user-cake-edit-button, .user-cake-delete-button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #cacaca;
+    background-color: #ffffff;
+  }
+  
+  .user-cake-edit-button {
+    background-color: #ffffff;
+    color: #333;
+  }
+  
+  .user-cake-delete-button {
+    background-color: #ffffff;
+    color: #333;
+  }
