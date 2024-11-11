@@ -1,120 +1,161 @@
 @charset "UTF-8";
-/*베너공간*/
-.banner-box{
-    /* background-color: aqua; */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+#user-wrap.userMainFformContainer {
+    font-family: "IBM Plex Sans KR", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
-.banner-box .banner-img{
-    height: 270px;
-    border: 1px solid #f6f6f6;
-    margin-bottom: 30px;
+button {
+    cursor: pointer;
 }
-.banner-box .banner-img > img{
-    width: 100%;
-    height: 100%;
+.sy-user-main-title {
+    margin-bottom: 20px;
+    font-size:24px;
+    font-weight: 600;
+} 
+.map-img-box {
+    display: flex;
+}
+.map-con {
+    flex-grow: 1;
+}
+.userMain-map-search {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+.userMain-map-search select ,
+.userMain-map-search input {
+    border:0;
+    width: calc(100% - 200px);
+} 
+.map-img {
+    padding-right: 50px;
+}
+.map-img img {
+    max-width: 400px;
+}
+.userMain-map-search select {
+    width: 150px;
+    margin-right: 50px;
+}
+.map-click {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+.map-click button{
+    width: calc((100% - 40px) / 5);
+    border: 1px solid #ddd;
+    padding: 20px;
+    font-size:16px;
+    background: #fff;
+}
+.map-click button:hover {
+    background-color: #000;
+    color: #fff;
 }
 
-/*지도공간*/
-.map-box{
-    border: 2px solid #f6f6f6;
-    height: 300px;
+.category-box {
+    padding: 50px 0;
 }
-.map-box .map-title{
-    height: 40px;
-    background-color: #f6f6f6;
-    padding: auto 0;
-}
-.map-box .map-img-box{
+.category-box ul {
     display: flex;
-    width: 100%;
-    
-}
-.map-box .map-img-box .map-img{
-    height: 260px;
-    border: 1px solid #f6f6f6;
-    /* background-color: bisque; */
-    width: 35%;
-}
-.map-box .map-img-box .map-img > img{
-    width: 100;
-    height: 100%;
-}
-.userMain-map-search{
-    text-align: right;
-}
-.map-click{
-    display: flex;
+    gap: 20px;
     justify-content: center;
-    align-items: center;
-    padding-left: auto;
 }
-.map-click table{
-    margin-left: 200px;
+.category-box ul button {
+    border: 0;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    flex:1;
+    position: relative;
+    padding: 20px 0;
+    width: 200px;
 }
-.map-click table td{
-    border: 1px solid #000;
-    padding: 5px 10px;
+.category-box ul button:hover {
+    background-color: #fff;
+    color: #000;
+    border:0;
 }
-.map-box .map-img-box .map-choose-category{
-    background-color: aqua;
-    margin-right: 15px;
+.category-box ul button:before {
+    content:"";
+    display: block;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000;
+    transition: 0.3s;
+    position: absolute;
+}
+.category-box ul button:after {
+    content:"";
+    display: block;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 1px;
+    background-color: #000;
+    transition: 0.3s;
+    position: absolute;
 }
 
-.map-box .map-img-box .map-input-category{
-    /* background-color: blue; */
+.category-box ul button:hover:before ,
+.category-box ul button:hover:after {
     width: 100%;
 }
-/*카테고리공간*/
-.category-box{
-    /* background-color: rgb(200, 237, 37); */
-    border: 3px solid #f6f6f6;
-    height: 80px;
-    padding: 15px;
+.allList-box {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.allList-box .all-product-item {
+    border:1px solid #ddd;
+    border-radius: 5px;
+    width: calc((100% - 60px)/4);
+    position: relative;
+}
+.allList-box  .allList-item {
+    
+    padding: 20px 20px 30px;
     
 }
-.category-box > ul > li > button{
-    all: unset;  /* 모든 기본 스타일을 제거 */
-    background: none;  /* 배경을 제거 */
-    border: none;  /* 테두리 제거 */
-    outline: none;  /* 포커스 시 외곽선 제거 */
-    box-shadow: none;  /* 그림자 제거 */
-    cursor: pointer;  /* 마우스를 올리면 손 모양으로 변경 */
+.allList-box img {
+    width: 70%;
+    margin-bottom: 20px;
 }
-.category-box > ul{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
+.allList-box b {
+    display: block;
+    font-size:18px;
+    position: relative;
+    z-index: 12;
+    cursor: pointer;
 }
-
-
-/*서브타이틀공간*/
-.sub-title-box{
-    /* background-color: aqua; */
-    height: 40px;
+.allList-box p {
+    margin-top: 10px;
+    font-size:13px;
+    position: relative;
+    z-index: 12;
+    cursor: pointer;
 }
-.sub-title-box > ul{
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: flex-start;
-}
-.sub-title-box > ul > li{
-    margin-left: 10px;
-}
-
-
-
-/*상품리스트공간*/
-.allList-box{
-    /* background-color: rgb(95, 26, 233); */
-    border: 3px solid #f6f6f6;
-}
-
-.allList-box .userMain-product-img{
-    width: 300px;
-    height: 300px;
-}
-.allList-box .userMain-product-img > img{
+.list_hover_img {
+    opacity: 0;
     width: 100%;
     height: 100%;
+    position: absolute;
+    transition:0.5s;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.allList-box .all-product-item:hover .list_hover_img {
+    opacity: 1;
+}
+.allList-box .all-product-item:hover .list_hover_img img {
+    max-width: inherit;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
 }

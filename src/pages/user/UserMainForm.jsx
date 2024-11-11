@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Header from './include/Header';
 import Footer from './include/Footer';
@@ -10,87 +10,85 @@ import cakeImg from '../../assets/images/download.jfif';
 
 
 import '../../assets/css/user/userMainForm.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
+const UserMainForm = () => {
+    const navigate = useNavigate();
+    const mapList = [
+        "강남구",
+        "강동구",
+        "강북구",
+        "강서구",
+        "관악구",
+        "광진구",
+        "구로구",
+        "금천구",
+        "노원구",
+        "도봉구",
+        "동대문구",
+        "동작구",
+        "마포구",
+        "서대문구",
+        "서초구",
+        "성동구",
+        "성북구",
+        "송파구",
+        "양천구",
+        "영등포구",
+        "용산구",
+        "은평구",
+        "종로구",
+        "중구",
+        "중랑구"
+    ];
 
-const UserMainForm= () => {
     return (
-        <div id="user-wrap" className="text-center">
+        <div id="user-wrap" className="text-center userMainFformContainer">
             {/* Header */}
             <header id="user-wrap-head">
-                <Header/>
+                <Header />
             </header>
 
             <div className='main-wrap'>
                 <div className='banner-box'>
+                    <div className="banner-txt">
+                    </div>
                     <div className='banner-img'>
                         <img src={bannerOne} alt='베너이미지' />
                     </div>
                 </div>
-                <div className='map-box'>
-                    <div className='map-title'>
-                        내위치찾기
-                        <div className='userMain-map-search'>
-                            <select id="category-select" name="category">
-                                <option value="category1">지역</option>
-                                <option value="category2">강남구</option>
-                                <option value="category3">성동구</option>
-                                <option value="category3">관악구</option>
-                            </select>
-                            <input type='text' placeholder='검색어를 입력해주세요!' />
-                        </div>
-                    </div>
+                <div className='map-box aos-init' data-aos="fade-up" data-aos-duration="1500">
+                    <h3 className="sy-user-main-title">내위치찾기</h3>
                     <div className='map-img-box'>
                         <div className='map-img'>
                             <img src={mapImg} />
                         </div>
-                        <div className='map-click'>
-                            <div>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                        </tr>
-                                        <tr>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                            <td>강남구</td>
-                                            <td>관악구</td>
-                                            <td>강서구</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div className="map-con">
+                            <div className='userMain-map-search'>
+                                <select id="category-select" name="category">
+                                    <option value="category1">지역</option>
+                                    <option value="category2">강남구</option>
+                                    <option value="category3">성동구</option>
+                                    <option value="category3">관악구</option>
+                                </select>
+                                <input type='text' placeholder='검색어를 입력해주세요!' />
                             </div>
+                            <div className='map-click'>
+                                {mapList.map((item, idx) => (
+                                    <button type="button">{item}</button>
+                                ))}
+                            </div>
+
+
                         </div>
-                        
-                        
-                        
+
+
                     </div>
                 </div>
                 <div className='category-box'>
                     <ul>
-                        <li><button>카테고리 | </button></li>
                         <li><button>전체</button></li>
                         <li><button>도시락 케이크</button></li>
                         <li><button>일반 케이크</button></li>
@@ -99,24 +97,33 @@ const UserMainForm= () => {
                     </ul>
                 </div>
                 <div className='sub-title-box'>
-                    <ul>
-                        <li>**구 베이커리 케이크</li>
-                        <li>총 상품 | 10개</li>
-                    </ul>
+                    <h3 className="sy-user-main-title">강남구 베이커리 케이크</h3>
+                    <span>총 상품 | 10개</span>
                 </div>
                 <div className='allList-box'>
-                    <div className='userMain-product-img'>
-                        <img src={cakeImg} />
-                    </div>
-                    <Link to="/user/cakedetail" >상품 1 *클릭해주세요*</Link> 
+                    {mapList.map((item, idx) => (
+                        <div className="all-product-item">
+                            <div className="list_hover_img">
+                                <img src={cakeImg} />
+                            </div>
+                            <div className="allList-item">
+
+                                <div className='userMain-product-img'>
+                                    <img src={cakeImg} />
+                                </div>
+                                <b onClick={() => navigate("/vender/venderMain")}>상품1</b>
+                                <p onClick={() => navigate("/user/cakedetail")}>상품 1 *클릭해주세요*</p>
+                            </div>
+                            </div>
+                    ))}
                 </div>
-                
+
 
             </div>
 
             {/* Footer */}
             <footer className="user-full-width">
-                <Footer/>
+                <Footer />
             </footer>
         </div>
     );
