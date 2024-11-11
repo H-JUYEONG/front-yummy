@@ -18,7 +18,6 @@ const UserSidebar = () => {
     return (
       <aside id="user-wrap-side" className="float-left">
         <div className="sidebar">
-
             <h2>김덕성님 어서오세요!</h2>
     <ul>
         <li>
@@ -27,8 +26,6 @@ const UserSidebar = () => {
         </Link>
         </li>
     </ul>
-
-
           <h3>나의 쇼핑내역</h3>
           <ul>
             <li>
@@ -42,8 +39,6 @@ const UserSidebar = () => {
               </Link>
             </li>
           </ul>
-
-
           <h3>내 활동</h3>
           <ul>
             <li>
@@ -57,8 +52,6 @@ const UserSidebar = () => {
               </Link>
             </li>
           </ul>
-
-
           <h3>찜 목록</h3>
           <ul>
             <li>
@@ -72,8 +65,6 @@ const UserSidebar = () => {
               </Link>
             </li>
           </ul>
-
-
           <h3>포인트</h3>
           <ul>
             <li>

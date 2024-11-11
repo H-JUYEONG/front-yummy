@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Line, Doughnut } from 'react-chartjs-2';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
@@ -20,6 +21,7 @@ ChartJS.register(
 );
 
 const VenderStatistics = () => {
+    const navigate = useNavigate(); // useNavigate 훅 선언
 
     // 그래프 데이터 설정
     const salesData = {
@@ -138,6 +140,9 @@ const VenderStatistics = () => {
                                     <option value="monthly">월별</option>
                                     <option value="yearly">년별</option>
                                 </select>
+                                <button onClick={() => navigate('/vender/review')}>
+                                    리뷰 관리
+                                </button>
                             </div>
                             <div className="review-chart-section">
                                 <div className="doughnut-chart">

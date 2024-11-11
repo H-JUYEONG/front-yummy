@@ -98,3 +98,27 @@
     padding: 5px;
     font-size: 1rem;
 }
+/* 리뷰 관리 버튼 스타일 */
+.review-analysis-section .filter-section button {
+    background-color: #36A2EB;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 20px; /* 드롭다운 메뉴와의 간격 */
+}
+
+.review-analysis-section .filter-section button:hover {
+    background-color: #1D88D3;
+}
+
+/* 반응형 스타일 조정 */
+@media (max-width: 768px) {
+    .review-analysis-section .filter-section button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}

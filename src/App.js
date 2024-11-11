@@ -68,6 +68,7 @@ import AdminShopProduct from './pages/admin/AdminShopProduct';
 import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
+import VenderReview from './pages/vender/VenderReview';
 
 
 function App() {
@@ -96,6 +97,7 @@ function App() {
           <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
           <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
+          <Route path="/vender/review" element={<VenderReview/>} />
           
           {/* User Routes */}
           <Route path='/user/test' element={<UserMain/>}/>
