@@ -8,6 +8,10 @@
     border: 1px solid #f6f6f6;
     margin-bottom: 30px;
 }
+.banner-box .banner-img > img{
+    width: 100%;
+    height: 100%;
+}
 
 /*지도공간*/
 .map-box{
@@ -29,6 +33,10 @@
     border: 1px solid #f6f6f6;
     /* background-color: bisque; */
     width: 35%;
+}
+.map-box .map-img-box .map-img > img{
+    width: 100;
+    height: 100%;
 }
 .map-box .map-img-box .map-search{
     display: flex;

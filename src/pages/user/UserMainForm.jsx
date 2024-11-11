@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import Header from './include/Header';
 import Footer from './include/Footer';
 
+import bannerOne from '../../assets/images/cake-facebook-cover-design_220346-14126.avif';
+import mapImg from '../../assets/images/map_0.png';
+
 
 import '../../assets/css/user/userMainForm.css';
 
@@ -19,7 +22,7 @@ const UserMainForm= () => {
             <div className='main-wrap'>
                 <div className='banner-box'>
                     <div className='banner-img'>
-                        <img src='../../assets/images/cake-facebook-cover-design_220346-14126.avif' alt='베너이미지' />
+                        <img src={bannerOne} alt='베너이미지' />
                     </div>
                 </div>
                 <div className='map-box'>
@@ -28,7 +31,7 @@ const UserMainForm= () => {
                     </div>
                     <div className='map-img-box'>
                         <div className='map-img'>
-                            좌측 맵 이미지
+                            <img src={mapImg} />
                         </div>
                         <div className='map-search'>
                             <div className='map-choose-category'>
