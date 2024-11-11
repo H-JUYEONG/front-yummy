@@ -72,44 +72,33 @@
     color: #333;
 }
 
-/* Add Event Section */
 .j-add-event-section {
     display: flex;
-    align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
-}
-
-.j-add-event-section input[type="text"],
-.j-add-event-section input[type="date"] {
-    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .j-add-event-section input[type="text"],
+  .j-add-event-section input[type="date"] {
+    flex: 1;
+    padding: 8px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 180px;
-}
-
-.j-add-event-section button {
-    padding: 10px 15px;
+  }
+  
+  .j-add-event-section button {
+    padding: 8px 12px;
     font-size: 1rem;
-    background-color: #4caf50;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.j-add-event-section button:hover {
-    background-color: #388e3c;
-}
-
-/* Event List Section */
-.j-event-list-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 
 .j-event-item {
     display: grid;

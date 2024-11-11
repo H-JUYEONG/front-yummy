@@ -76,6 +76,7 @@ const UserPersonalInfoEdit = () => {
         {/* Sidebar */}
         <UserSidebar />
 
+        {/* Main Content */}
         <div className="main-content">
           <h2>회원정보 수정</h2>
 
@@ -116,24 +117,26 @@ const UserPersonalInfoEdit = () => {
               placeholder="010-1234-5678"
               pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
             />
+
+                      {/* Event List Section */}
+            <label>기념일 조회</label>
+            <section className="j-add-event-section">
+              <input
+                type="text"
+                placeholder="기념일 이름"
+                value={eventName}
+                onChange={(e) => setEventName(e.target.value)}
+              />
+              <input
+                type="date"
+                value={eventDate}
+                onChange={(e) => setEventDate(e.target.value)}
+              />
+              <button onClick={handleAddEvent}>기념일 추가하기</button>
+            </section>
+
           </form>
 
-          {/* Event List Section */}
-          <h3>기념일 조회</h3>
-          <section className="j-add-event-section">
-            <input
-              type="text"
-              placeholder="기념일 이름"
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
-            />
-            <input
-              type="date"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-            />
-            <button onClick={handleAddEvent}>기념일 추가하기</button>
-          </section>
 
           {/* Display Event List */}
           <section className="j-event-list-section">
