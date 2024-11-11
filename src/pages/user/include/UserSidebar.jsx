@@ -22,7 +22,7 @@ const UserSidebar = () => {
             <h2>김덕성님 어서오세요!</h2>
     <ul>
         <li>
-        <Link to="/home">
+        <Link to="/user/">
             <FaHome className="icon" /> 메인 바로가기
         </Link>
         </li>
@@ -48,12 +48,7 @@ const UserSidebar = () => {
           <ul>
             <li>
               <Link to="/">
-                <FaComments className="icon" /> 내가 작성한 댓글
-              </Link>
-            </li>
-            <li>
-              <Link to="/my-reviews">
-                <FaClipboardList className="icon" /> 내가 작성한 리뷰
+                <FaComments className="icon" /> 내가 작성한 글
               </Link>
             </li>
             <li>

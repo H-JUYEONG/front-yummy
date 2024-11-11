@@ -1,6 +1,6 @@
 //import 라이브러리
 import React,{useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -102,7 +102,9 @@ const VenderSupervisionList = () => {
                                             <td>2024-11-30</td>
                                             <td>
                                                 <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
-                                                <button className="supervision-delete-button">취소하기</button>
+                                                <Link to='/vender/auditionAllList'>
+                                                    <button className="supervision-delete-button">전체리스트보기</button>
+                                                </Link>
                                             </td>
                                         </tr>
                                         <tr>

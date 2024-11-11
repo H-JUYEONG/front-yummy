@@ -21,6 +21,7 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 
 // user
+import UserSignupType from './pages/user/UserSignupType';
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
@@ -46,7 +47,11 @@ import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
+
+import UserOrderComplete from './pages/user/UserOrderComplete';
+
 import UserWritingList from "./pages/user/UserWritingList";
+
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -95,10 +100,11 @@ function App() {
           {/* User Routes */}
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
+          <Route path='/user/signup/type' element={<UserSignupType />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
-          <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
+          <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
@@ -114,7 +120,9 @@ function App() {
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
-          <Route path='/user/userMainForm' element={<UserMainForm/>}/>
+          <Route path='/user/ordercomplete' element={<UserOrderComplete/>}/>
+          <Route path='/user/' element={<UserMainForm/>}/>
+
 
           <Route path='/user/mypage/writinglist' element={<UserWritingList/>}/>
           {/* Main and Admin */}
