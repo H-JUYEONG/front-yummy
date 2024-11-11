@@ -1,5 +1,5 @@
 //import 라이브러리
-import React from "react";
+import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { Link } from "react-router-dom";
@@ -10,22 +10,34 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
-
+  
   // 앱 정보 넣어두기
-  const REST_API_KEY = "d6c4be35df7567537efa9346641d8e63";
-  const REDIRECT_URI = "http://localhost:3000/auth/login/kakao";
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+
+  // 카카오 동의 항목
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
   };
 
-  // 인가 코드 추출
+  // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
   const code = new URL(window.location.href).searchParams.get("code");
   console.log(code);
-  
+
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const handleUserEmail = (e) => {
+    setUserEmail(e.target.value);
+  };
+
+  const handleUserPassword = (e) => {
+    setUserPassword(e.target.value);
+  };
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -62,14 +74,16 @@ const UserLoginForm = () => {
             <input
               id="user-id"
               type="text"
-              value=""
-              placeholder="아이디를 입력해주세요."
+              value={userEmail}
+              placeholder="이메일을 입력해주세요."
+              onChange={handleUserEmail}
             />
             <label></label>
             <input
               type="password"
-              value=""
+              value={userPassword}
               placeholder="비밀번호를 입력해주세요."
+              onChange={handleUserPassword}
             />
             <div className="user-login-btn">
               <button type="submit">로그인</button>
