@@ -67,16 +67,14 @@ const UserStoreDetail = () => {
 
     return (
         <div id="user-wrap" className="text-center">
-            <header id="user-wrap-head">
-                <Header/>
-            </header>
+            
 
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">
                     {/* 프로필 영역 */}
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                            <Link to="/" className="sd-back-btn">
+                            <Link to="/user" className="sd-back-btn">
                                 <img src="/images/뒤로가기.png" alt="뒤로가기" />
                             </Link>
                             <h2 className="sd-store-name">cakefactory</h2>
