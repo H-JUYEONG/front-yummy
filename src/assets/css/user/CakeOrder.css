@@ -1,7 +1,5 @@
-/* CakeOrder.css */
-
 /* 기본 레이아웃 */
-.cake-order-container {
+#user-wrap .cake-order-container {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
@@ -9,22 +7,22 @@
     gap: 100px;
 }
 
-.cake-order-container .left-section {
+#user-wrap .cake-order-container .left-section {
     flex: 1;
     min-width: 0;
 }
 
-.cake-order-container .right-section {
+#user-wrap .cake-order-container .right-section {
     width: 400px;
     flex-shrink: 0;
 }
 
-/* 이미지 갤러리 영역 임*/
-.cake-order-container .product-image {
+/* 이미지 갤러리 영역 */
+#user-wrap .cake-order-container .product-image {
     margin-bottom: 30px;
 }
 
-.cake-order-container .main-image {
+#user-wrap .cake-order-container .main-image {
     width: 100%;
     height: 500px;
     object-fit: contain;
@@ -33,13 +31,13 @@
     background-color: #f8f8f8;
 }
 
-.cake-order-container .thumbnail-container {
+#user-wrap .cake-order-container .thumbnail-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
 }
 
-.cake-order-container .thumbnail-wrapper {
+#user-wrap .cake-order-container .thumbnail-wrapper {
     position: relative;
     width: 100%;
     padding-bottom: 100%;
@@ -50,16 +48,16 @@
     transition: all 0.3s ease;
 }
 
-.cake-order-container .thumbnail-wrapper.active {
+#user-wrap .cake-order-container .thumbnail-wrapper.active {
     border-color: #8B5CF6;
 }
 
-.cake-order-container .thumbnail-wrapper:hover {
+#user-wrap .cake-order-container .thumbnail-wrapper:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.cake-order-container .thumbnail-image {
+#user-wrap .cake-order-container .thumbnail-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -70,18 +68,18 @@
 }
 
 /* 탭 스타일 */
-.cake-order-container .product-tabs {
+#user-wrap .cake-order-container .product-tabs {
     margin-top: 30px;
 }
 
-.cake-order-container .tabs-header {
+#user-wrap .cake-order-container .tabs-header {
     display: flex;
     width: 100%;
     border-bottom: 2px solid #eee;
     margin-bottom: 0;
 }
 
-.cake-order-container .tab-button {
+#user-wrap .cake-order-container .tab-button {
     flex: 1;
     padding: 15px 0;
     font-size: 16px;
@@ -93,11 +91,11 @@
     transition: all 0.3s ease;
 }
 
-.cake-order-container .tab-button.active {
+#user-wrap .cake-order-container .tab-button.active {
     color: #8B5CF6;
 }
 
-.cake-order-container .tab-button.active::after {
+#user-wrap .cake-order-container .tab-button.active::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -107,7 +105,7 @@
     background: #8B5CF6;
 }
 
-.cake-order-container .tab-content {
+#user-wrap .cake-order-container .tab-content {
     background: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
@@ -117,85 +115,82 @@
     box-sizing: border-box;
 }
 
-/* 탭 컨텐츠 이미지 스타일 */
-.cake-order-container .detail-content,
-.cake-order-container .delivery-content,
-.cake-order-container .inquiry-content {
+#user-wrap .cake-order-container .detail-content,
+#user-wrap .cake-order-container .delivery-content,
+#user-wrap .cake-order-container .inquiry-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.cake-order-container .detail-image,
-.cake-order-container .info-image,
-.cake-order-container .inquiry-image {
+#user-wrap .cake-order-container .detail-image,
+#user-wrap .cake-order-container .info-image,
+#user-wrap .cake-order-container .inquiry-image {
     width: 100%;
     height: auto;
     border-radius: 8px;
 }
-
 /* 상품 정보 및 옵션 */
-.cake-order-container .product-info {
+#user-wrap .cake-order-container .product-info {
     margin-bottom: 30px;
 }
 
-.cake-order-container .product-info h2 {
+#user-wrap .cake-order-container .product-info h2 {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-.cake-order-container .price {
+#user-wrap .cake-order-container .price {
     font-size: 20px;
     font-weight: bold;
     color: #333;
 }
 
 /* 옵션 영역 */
-.cake-order-container .options {
+#user-wrap .cake-order-container .options {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.cake-order-container .option-group {
+#user-wrap .cake-order-container .option-group {
     border-bottom: 1px solid #eee;
     padding-bottom: 20px;
 }
 
-.cake-order-container .option-group h3 {
+#user-wrap .cake-order-container .option-group h3 {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
 }
 
 /* 색상 옵션 */
-.cake-order-container .color-options {
+#user-wrap .cake-order-container .color-options {
     display: flex;
     gap: 45px;
 }
 
-.cake-order-container .color-option {
+#user-wrap .cake-order-container .color-option {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     border: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative; /* 체크마크를 위한 position 설정 */
+    position: relative;
 }
 
-.cake-order-container .color-option:hover {
+#user-wrap .cake-order-container .color-option:hover {
     transform: scale(1.1);
     box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 
-.cake-order-container .color-option.active {
+#user-wrap .cake-order-container .color-option.active {
     border-color: #8B5CF6;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); /* 보라색 글로우 효과 */
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
 
-/* 체크마크 추가 */
-.cake-order-container .color-option.active::after {
+#user-wrap .cake-order-container .color-option.active::after {
     content: '✓';
     position: absolute;
     top: 50%;
@@ -206,22 +201,20 @@
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
-/* 색상별 스타일 */
-.cake-order-container .color-option.pink { 
+#user-wrap .cake-order-container .color-option.pink { 
     background-color: #FFB6C1; 
 }
 
-.cake-order-container .color-option.yellow { 
+#user-wrap .cake-order-container .color-option.yellow { 
     background-color: #FFD700; 
 }
 
-.cake-order-container .color-option.orange { 
+#user-wrap .cake-order-container .color-option.orange { 
     background-color: #FFA500; 
 }
 
 /* 맛과 사이즈 옵션 스타일 */
-/* 스크롤 컨테이너 수정 */
-.cake-order-container .option-scroll-container {
+#user-wrap .cake-order-container .option-scroll-container {
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -231,58 +224,36 @@
     user-select: none;
     scroll-behavior: smooth;
     position: relative;
-    scrollbar-width: none; /* Firefox에서 기본적으로 스크롤바 숨김 */
 }
 
-/* 기본적으로 스크롤바 숨김 */
-.cake-order-container .option-scroll-container::-webkit-scrollbar {
+#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar {
     height: 6px;
-    display: none; /* 기본적으로 숨김 */
+    display: none;
 }
 
-/* 드래그 중일 때만 스크롤바 표시 */
-.cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
+#user-wrap .cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
     display: block;
 }
 
-.cake-order-container .option-scroll-container::-webkit-scrollbar-track {
+#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-.cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
+#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
     background: #8B5CF6;
     border-radius: 4px;
-    cursor: pointer;
 }
 
-.cake-order-container .option-scroll-container::-webkit-scrollbar-thumb:hover {
-    background: #7C3AED;
-}
-/* 스크롤 가능함을 나타내는 그라데이션 효과 */
-.cake-order-container .option-scroll-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
-    pointer-events: none; /* 그라데이션이 클릭을 방해하지 않도록 */
-}
-
-/* 옵션 그리드 수정 */
-.cake-order-container .option-grid {
+#user-wrap .cake-order-container .option-grid {
     display: flex;
     gap: 10px;
     padding: 10px 0;
     width: max-content;
-    touch-action: pan-x; /* 수평 스크롤만 허용 */
+    touch-action: pan-x;
 }
 
-
-
-.cake-order-container .option-item {
+#user-wrap .cake-order-container .option-item {
     flex: 0 0 auto;
     width: 120px;
     display: flex;
@@ -297,36 +268,31 @@
     transition: all 0.3s ease;
 }
 
-.cake-order-container .option-item:hover {
+#user-wrap .cake-order-container .option-item:hover {
     border-color: #8B5CF6;
     transform: translateY(-2px);
 }
 
-.cake-order-container .option-item.active {
+#user-wrap .cake-order-container .option-item.active {
     border-color: #8B5CF6;
     background-color: #f9f7ff;
 }
 
-.cake-order-container .option-image {
+#user-wrap .cake-order-container .option-image {
     width: 60px;
     height: 60px;
     border-radius: 4px;
     overflow: hidden;
 }
 
-.cake-order-container .option-image img {
+#user-wrap .cake-order-container .option-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-/* 활성화된 아이템의 텍스트 스타일 */
-.cake-order-container .option-item.active span {
-    color: #8B5CF6;
-    font-weight: bold;
-}
 
 /* 픽업 관련 스타일 */
-.cake-order-container .map-placeholder {
+#user-wrap .cake-order-container .map-placeholder {
     width: 100%;
     height: 200px;
     background: #f0f0f0;
@@ -337,8 +303,8 @@
     color: #666;
 }
 
-.cake-order-container .date-input,
-.cake-order-container .time-input {
+#user-wrap .cake-order-container .date-input,
+#user-wrap .cake-order-container .time-input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
@@ -347,7 +313,7 @@
 }
 
 /* 요청사항 스타일 */
-.cake-order-container .request-textarea {
+#user-wrap .cake-order-container .request-textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
@@ -358,74 +324,16 @@
     margin-bottom: 10px;
 }
 
-.cake-order-container .request-textarea:focus {
+#user-wrap .cake-order-container .request-textarea:focus {
     border-color: #8B5CF6;
     outline: none;
 }
-
-/* 주문 버튼 */
-.cake-order-container .submit-button {
-    width: 100%;
-    margin-top: 30px;
-    padding: 15px;
-    background-color: #8B5CF6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    text-decoration: none;
-    text-align: center;
-    font-family: 'GmarketSans', sans-serif;
-}
-
-.cake-order-container .submit-button:hover {
-    background-color: #7C3AED;
-}
-
-/* 반응형 스타일 */
-@media (max-width: 1024px) {
-    .cake-order-container {
-        flex-direction: column;
-    }
-
-    .cake-order-container .right-section {
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .cake-order-container .thumbnail-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cake-order-container .main-image {
-        height: 300px;
-    }
-
-    .cake-order-container .option-image {
-        width: 50px;
-        height: 50px;
-    }
-}
-
-@media (max-width: 480px) {
-    .cake-order-container .tabs-header {
-        flex-wrap: wrap;
-    }
-
-    .cake-order-container .tab-button {
-        flex: 0 0 50%;
-    }
-}/* 리뷰 관련 스타일 */
-.reviews-container {
+/* 리뷰 관련 스타일 */
+#user-wrap .cake-order-container .reviews-container {
     padding: 20px 0;
 }
 
-.rating-stats {
+#user-wrap .cake-order-container .rating-stats {
     display: flex;
     padding: 20px;
     background: #f8f9fa;
@@ -433,7 +341,7 @@
     margin-bottom: 30px;
 }
 
-.rating-average {
+#user-wrap .cake-order-container .rating-average {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -442,44 +350,44 @@
     margin-right: 40px;
 }
 
-.stars {
+#user-wrap .cake-order-container .stars {
     font-size: 24px;
     color: #FFD700;
     margin-bottom: 10px;
 }
 
-.star-filled {
+#user-wrap .cake-order-container .star-filled {
     color: #FFD700;
 }
 
-.average-score {
+#user-wrap .cake-order-container .average-score {
     display: flex;
     align-items: baseline;
 }
 
-.current-score {
+#user-wrap .cake-order-container .current-score {
     font-size: 36px;
     font-weight: bold;
     color: #333;
 }
 
-.total-score {
+#user-wrap .cake-order-container .total-score {
     font-size: 20px;
     color: #666;
     margin-left: 4px;
 }
 
-.rating-bars {
+#user-wrap .cake-order-container .rating-bars {
     flex: 1;
 }
 
-.rating-bar-row {
+#user-wrap .cake-order-container .rating-bar-row {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
 }
 
-.score {
+#user-wrap .cake-order-container .score {
     width: 40px;
     text-align: right;
     margin-right: 10px;
@@ -487,7 +395,7 @@
     color: #666;
 }
 
-.bar-container {
+#user-wrap .cake-order-container .bar-container {
     flex: 1;
     height: 8px;
     background: #e0e0e0;
@@ -496,19 +404,19 @@
     overflow: hidden;
 }
 
-.bar-fill {
+#user-wrap .cake-order-container .bar-fill {
     height: 100%;
     transition: width 0.3s ease;
 }
 
-.count {
+#user-wrap .cake-order-container .count {
     width: 30px;
     font-size: 14px;
     color: #666;
 }
 
 /* 리뷰 필터 */
-.review-filters {
+#user-wrap .cake-order-container .review-filters {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
@@ -516,7 +424,7 @@
     border-bottom: 1px solid #eee;
 }
 
-.review-filters button {
+#user-wrap .cake-order-container .review-filters button {
     padding: 6px 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -525,13 +433,13 @@
     cursor: pointer;
 }
 
-.review-filters button.active {
+#user-wrap .cake-order-container .review-filters button.active {
     border-color: #FF3B85;
     color: #FF3B85;
     font-weight: 500;
 }
 
-.photo-only {
+#user-wrap .cake-order-container .photo-only {
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -541,44 +449,44 @@
 }
 
 /* 리뷰 아이템 */
-.review-item {
+#user-wrap .cake-order-container .review-item {
     padding: 20px 0;
     border-bottom: 1px solid #eee;
 }
 
-.review-header {
+#user-wrap .cake-order-container .review-header {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
 }
 
-.review-header .stars {
+#user-wrap .cake-order-container .review-header .stars {
     font-size: 16px;
 }
 
-.author {
+#user-wrap .cake-order-container .author {
     font-weight: 500;
     color: #333;
 }
 
-.date {
+#user-wrap .cake-order-container .date {
     color: #888;
     font-size: 14px;
 }
 
-.review-content {
+#user-wrap .cake-order-container .review-content {
     display: flex;
     gap: 20px;
 }
 
-.review-content p {
+#user-wrap .cake-order-container .review-content p {
     flex: 1;
     margin: 0;
     line-height: 1.6;
 }
 
-.review-image {
+#user-wrap .cake-order-container .review-image {
     width: 100px;
     height: 100px;
     border-radius: 4px;
@@ -586,48 +494,48 @@
     flex-shrink: 0;
 }
 
-.review-image img {
+#user-wrap .cake-order-container .review-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* 리뷰 폼 스타일 */
-.review-form-container {
+/* 리뷰 작성 폼 */
+#user-wrap .cake-order-container .review-form-container {
     background: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 30px;
 }
 
-.review-form-container h3 {
+#user-wrap .cake-order-container .review-form-container h3 {
     font-size: 18px;
     margin-bottom: 20px;
     color: #333;
 }
 
-.review-form {
+#user-wrap .cake-order-container .review-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.rating-select {
+#user-wrap .cake-order-container .rating-select {
     text-align: center;
 }
 
-.rating-select p {
+#user-wrap .cake-order-container .rating-select p {
     margin-bottom: 10px;
     color: #666;
 }
 
-.stars-input {
+#user-wrap .cake-order-container .stars-input {
     display: flex;
     justify-content: center;
     gap: 8px;
 }
 
-.star-button {
+#user-wrap .cake-order-container .star-button {
     background: none;
     border: none;
     font-size: 30px;
@@ -636,11 +544,11 @@
     transition: color 0.2s ease;
 }
 
-.star-button.filled {
+#user-wrap .cake-order-container .star-button.filled {
     color: #FFD700;
 }
 
-.review-text-input textarea {
+#user-wrap .cake-order-container .review-text-input textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
@@ -649,7 +557,7 @@
     font-size: 14px;
 }
 
-.image-upload-button {
+#user-wrap .cake-order-container .image-upload-button {
     display: inline-block;
     padding: 8px 16px;
     background-color: #fff;
@@ -660,23 +568,19 @@
     transition: all 0.2s ease;
 }
 
-.image-upload-button:hover {
-    background-color: #f0f0f0;
-}
-
-.image-preview {
+#user-wrap .cake-order-container .image-preview {
     position: relative;
     display: inline-block;
     margin-top: 10px;
 }
 
-.image-preview img {
+#user-wrap .cake-order-container .image-preview img {
     max-width: 200px;
     max-height: 200px;
     border-radius: 4px;
 }
 
-.remove-image {
+#user-wrap .cake-order-container .remove-image {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -693,7 +597,7 @@
     font-size: 16px;
 }
 
-.submit-review-button {
+#user-wrap .cake-order-container .submit-review-button {
     padding: 12px 24px;
     background-color: #8B5CF6;
     color: white;
@@ -704,46 +608,58 @@
     transition: background-color 0.2s ease;
 }
 
-.submit-review-button:disabled {
+#user-wrap .cake-order-container .submit-review-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
 
-.submit-review-button:not(:disabled):hover {
+#user-wrap .cake-order-container .submit-review-button:not(:disabled):hover {
+    background-color: #7C3AED;
+}
+
+/* 주문 버튼 */
+#user-wrap .cake-order-container .submit-button {
+    width: 200px;  /* 또는 원하는 너비 */
+    /* 또는 width: auto; */
+    margin: 30px auto 0;
+    padding: 15px;
+    background-color: #8B5CF6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;  /* block 레벨로 설정 */
+    text-align: center;
+}
+
+#user-wrap .cake-order-container .submit-button:hover {
     background-color: #7C3AED;
 }
 
 /* 반응형 스타일 */
 @media (max-width: 1024px) {
-    .cake-order-container {
+    #user-wrap .cake-order-container {
         flex-direction: column;
     }
 
-    .right-section {
-        width: 100%;
-    }
-}
-/* 반응형 스타일 */
-@media (max-width: 1024px) {
-    .cake-order-container {
-        flex-direction: column;
-    }
-
-    .right-section {
+    #user-wrap .cake-order-container .right-section {
         width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .thumbnail-container {
+    #user-wrap .cake-order-container .thumbnail-container {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .rating-stats {
+    #user-wrap .cake-order-container .rating-stats {
         flex-direction: column;
     }
 
-    .rating-average {
+    #user-wrap .cake-order-container .rating-average {
         padding-right: 0;
         border-right: none;
         border-bottom: 1px solid #e0e0e0;
@@ -752,44 +668,35 @@
         padding-bottom: 20px;
     }
 
-    .review-content {
+    #user-wrap .cake-order-container .review-content {
         flex-direction: column;
     }
 
-    .review-image {
+    #user-wrap .cake-order-container .review-image {
         width: 100%;
         height: 200px;
     }
 
-    .review-form-container {
-        padding: 15px;
-    }
-
-    .star-button {
-        font-size: 24px;
-    }
-
-    .image-preview img {
-        max-width: 150px;
-        max-height: 150px;
-    }
-
-    .main-image {
+    #user-wrap .cake-order-container .main-image {
         height: 300px;
+    }
+
+    #user-wrap .cake-order-container .option-item {
+        width: 100px;
+    }
+
+    #user-wrap .cake-order-container .option-image {
+        width: 50px;
+        height: 50px;
     }
 }
 
 @media (max-width: 480px) {
-    .tabs-header {
+    #user-wrap .cake-order-container .tabs-header {
         flex-wrap: wrap;
     }
 
-    .tab-button {
+    #user-wrap .cake-order-container .tab-button {
         flex: 0 0 50%;
-    }
-
-    .option-image {
-        width: 50px;
-        height: 50px;
     }
 }

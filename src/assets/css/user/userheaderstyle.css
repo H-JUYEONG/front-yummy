@@ -88,3 +88,32 @@
         display: flex;
     }
 }
+/* userheaderstyle.css에 추가 */
+.user-actions {
+    display: flex;
+    gap: 1rem; /* 버튼 사이의 간격 */
+    align-items: center;
+  }
+  
+  .header-link {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  .header-link:hover {
+    color: #7C3AED; 
+  }
+  
+ 
+  .header-link.primary {
+    background-color: #7C3AED;
+    color: white;
+    border-radius: 4px;
+  }
+  
+  .header-link.primary:hover {
+    background-color: #6D28D9;
+    color: white;
+  }

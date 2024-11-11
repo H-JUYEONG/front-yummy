@@ -18,14 +18,16 @@ const UserSidebar = () => {
     return (
       <aside id="user-wrap-side" className="float-left">
         <div className="sidebar">
-          <h2>김덕성님 어서오세요!</h2>
-          <ul>
-            <li>
-              <Link to="/home">
-                <FaHome className="icon" /> 메인 바로가기
-              </Link>
-            </li>
-          </ul>
+
+            <h2>김덕성님 어서오세요!</h2>
+    <ul>
+        <li>
+        <Link to="/home">
+            <FaHome className="icon" /> 메인 바로가기
+        </Link>
+        </li>
+    </ul>
+
 
           <h3>나의 쇼핑내역</h3>
           <ul>
@@ -44,11 +46,6 @@ const UserSidebar = () => {
 
           <h3>내 활동</h3>
           <ul>
-            <li>
-              <Link to="/my-posts">
-                <FaClipboardList className="icon" /> 나의 오디션후기
-              </Link>
-            </li>
             <li>
               <Link to="/">
                 <FaComments className="icon" /> 내가 작성한 댓글

@@ -1,12 +1,12 @@
 /* 주문 상세 페이지 스타일 */
-.order-detail-container {
+#user-wrap .order-detail-container {
     padding: 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.order-title {
+#user-wrap .order-detail-container .order-title {
     font-size: 1.8em;
     color: #333;
     margin-bottom: 20px;
@@ -14,22 +14,22 @@
     border-bottom: 2px solid #e5e7eb;
 }
 
-.order-basic-info {
+#user-wrap .order-detail-container .order-basic-info {
     margin-bottom: 30px;
     color: #666;
 }
 
-.order-date {
+#user-wrap .order-detail-container .order-date {
     font-size: 1.1em;
     margin-bottom: 5px;
 }
 
-.order-number {
+#user-wrap .order-detail-container .order-number {
     font-size: 0.9em;
     color: #888;
 }
 
-.order-product-info {
+#user-wrap .order-detail-container .order-product-info {
     display: flex;
     gap: 20px;
     padding: 20px;
@@ -39,7 +39,7 @@
     align-items: center;
 }
 
-.product-image-container {
+#user-wrap .order-detail-container .product-image-container {
     width: 200px;
     height: 200px;
     flex-shrink: 0;
@@ -48,7 +48,7 @@
     border: 1px solid #e5e7eb;
 }
 
-.order-product-info .product-image-container .product-image {
+#user-wrap .order-detail-container .product-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -58,46 +58,46 @@
     justify-content: center;
 }
 
-.product-image.no-image {
+#user-wrap .order-detail-container .product-image.no-image {
     background: #f8f9fa;
     color: #999;
     font-size: 0.9em;
     text-align: center;
 }
 
-.product-details {
+#user-wrap .order-detail-container .product-details {
     flex: 1;
 }
 
-.product-details h3 {
+#user-wrap .order-detail-container .product-details h3 {
     margin: 0 0 15px 0;
     font-size: 1.3em;
     color: #333;
 }
 
-.product-price {
+#user-wrap .order-detail-container .product-price {
     color: #666;
     font-size: 1.1em;
     margin-bottom: 10px;
 }
 
-.product-status {
+#user-wrap .order-detail-container .product-status {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px dashed #e5e7eb;
 }
 
-.status-label {
+#user-wrap .order-detail-container .status-label {
     color: #666;
     margin-right: 10px;
 }
 
-.status-value {
+#user-wrap .order-detail-container .status-value {
     color: #7C3AED;
     font-weight: bold;
 }
 
-.order-section {
+#user-wrap .order-detail-container .order-section {
     margin-bottom: 30px;
     background: #fff;
     border-radius: 8px;
@@ -105,7 +105,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.order-section h3 {
+#user-wrap .order-detail-container .order-section h3 {
     font-size: 1.2em;
     color: #333;
     margin-bottom: 15px;
@@ -113,48 +113,48 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.info-content {
+#user-wrap .order-detail-container .info-content {
     padding: 0 10px;
 }
 
-.info-content p {
+#user-wrap .order-detail-container .info-content p {
     margin: 10px 0;
     display: flex;
     align-items: flex-start;
     line-height: 1.6;
 }
 
-.label {
+#user-wrap .order-detail-container .label {
     min-width: 100px;
     color: #666;
     flex-shrink: 0;
 }
 
-.value {
+#user-wrap .order-detail-container .value {
     color: #333;
     flex: 1;
 }
 
-.delivery-note {
+#user-wrap .order-detail-container .delivery-note {
     color: #7C3AED;
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px dashed #e5e7eb;
 }
 
-.price-summary {
+#user-wrap .order-detail-container .price-summary {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px dashed #e5e7eb;
 }
 
-.price-summary p {
+#user-wrap .order-detail-container .price-summary p {
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
 }
 
-.price-summary .total {
+#user-wrap .order-detail-container .price-summary .total {
     font-weight: bold;
     color: #333;
     margin-top: 15px;
@@ -162,34 +162,34 @@
     border-top: 1px solid #e5e7eb;
 }
 
-.price {
+#user-wrap .order-detail-container .price {
     font-size: 1.1em;
     color: #7C3AED;
 }
 
 /* 반응형 스타일 */
 @media (max-width: 768px) {
-    .order-product-info {
+    #user-wrap .order-detail-container .order-product-info {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .product-image-container {
+    #user-wrap .order-detail-container .product-image-container {
         width: 100%;
         max-width: 300px;
         height: 300px;
     }
 
-    .info-content p {
+    #user-wrap .order-detail-container .info-content p {
         flex-direction: column;
     }
 
-    .label {
+    #user-wrap .order-detail-container .label {
         margin-bottom: 5px;
     }
 
-    .value {
+    #user-wrap .order-detail-container .value {
         padding-left: 0;
     }
 }

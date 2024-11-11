@@ -1,6 +1,7 @@
 // Footer.jsx
 import React from 'react';
-import '../../assets/css/user/userfooterstyle.css';
+import { Link } from 'react-router-dom';
+import '../../../assets/css/user/userfooterstyle.css';
 
 const Footer = () => {
   return (
@@ -24,9 +25,9 @@ const Footer = () => {
           
           <div className="footer-links">
             <ul>
-              <li><a href="/terms">이용약관</a></li>
-              <li><a href="/privacy">개인정보처리방침</a></li>
-              <li><a href="/contact">고객센터</a></li>
+              <li><Link to="/terms">이용약관</Link></li>
+              <li><Link to="/terms">개인정보처리방침</Link></li>
+              <li><Link to="/terms">고객센터</Link></li>
             </ul>
           </div>
         </div>
