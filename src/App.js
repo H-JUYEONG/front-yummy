@@ -21,6 +21,7 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 
 // user
+import UserSignupType from './pages/user/UserSignupType';
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
@@ -95,6 +96,7 @@ function App() {
           {/* User Routes */}
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
+          <Route path='/user/signup/type' element={<UserSignupType />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
