@@ -1,17 +1,13 @@
 // OrderComplete.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from './include/Header';
-import Footer from './include/Footer';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userordercomplete.css';
 
 const UserOrderComplete = () => {
     return (
         <div id="user-wrap">
-            <header id="user-wrap-head">
-                <Header/>
-            </header>
+           
 
             <main id="user-wrap-body">
                 <section id="user-wrap-main">
@@ -40,7 +36,7 @@ const UserOrderComplete = () => {
                             </div>
                         </div>
                         <div className="button-container">
-                            <Link to="/user/main" className="main-button">
+                            <Link to="/user/" className="main-button">
                                 메인으로 돌아가기
                             </Link>
                         </div>
@@ -49,8 +45,7 @@ const UserOrderComplete = () => {
             </main>
 
             
-                <Footer/>
-            
+              
         </div>
     );
 };

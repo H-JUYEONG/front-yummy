@@ -369,11 +369,7 @@ const UserCakeDetail = () => {
     return (
         // 전체 페이지 래퍼
         <div id="user-wrap" className="text-center">
-            {/* 헤더 영역 */}
-            <header id="user-wrap-head">
-                <Header/>
-            </header>
-
+            
             {/* 메인 컨텐츠 영역 */}
             <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
@@ -590,9 +586,7 @@ const UserCakeDetail = () => {
                 </div>
             </main>
 
-            {/* 푸터 영역 */}
             
-               <Footer/>
     
         </div>
     );

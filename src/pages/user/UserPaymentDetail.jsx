@@ -1,14 +1,10 @@
 import React from 'react';
-import Header from './include/Header';
-import Footer from './include/Footer';
 import '../../assets/css/user/userpaymentdetail.css';
 import { Link } from 'react-router-dom';
 const UserPaymentDetail = () => {
     return (
         <div id="user-wrap" className="text-center">
-            <header id="user-wrap-head">
-                <Header />
-            </header>
+        
 
             <main id="user-wrap-body">
                 <div className="payment-container">
@@ -75,7 +71,7 @@ const UserPaymentDetail = () => {
             </main>
 
             
-                <Footer />
+                
         </div>
     );
 };

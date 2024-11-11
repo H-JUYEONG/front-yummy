@@ -51,9 +51,8 @@ const UserMain= () => {
             </main>
 
             {/* Footer */}
-            <footer className="user-full-width">
+           
                 <Footer/>
-            </footer>
         </div>
     );
 };
