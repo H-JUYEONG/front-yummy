@@ -122,6 +122,7 @@ function App() {
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
 
+          <Route path='/user/mypage/writinglist' element={<UserWritingList/>}/>
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
 

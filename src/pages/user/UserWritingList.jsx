@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/userorderlist.css";
+import "../../assets/css/user/userwritinglist.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { useNavigate } from "react-router-dom";
 
-const UserOrderList = () => {
+const UserWritingList = () => {
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-  const orderList = [
+  const writingList = [
     {
       id: 13,
       title: "스폰지밥 케이크 골라주세요",
@@ -33,6 +33,21 @@ const UserOrderList = () => {
     navigate(`/board/boardview`);
   };
 
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handleEditClick = (event) => {
+    event.stopPropagation();
+    navigate("/board/debateedit");
+  };
+
+  const handleDeleteClick = (event) => {
+    event.stopPropagation();
+    // Implement delete functionality here
+    console.log("Delete clicked");
+  };
+
   return (
     <div id="user-wrap">
       <header id="user-wrap-head">
@@ -47,9 +62,24 @@ const UserOrderList = () => {
         <section id="user-wrap-main">
           <h2>내가 쓴 글 조회</h2>
 
-          {/* Order List Section */}
-          <section className="order-list">
-            <table className="order-table">
+          {/* Category Dropdown */}
+          <div className="category-dropdown">
+            <label htmlFor="category-select">카테고리 선택: </label>
+            <select
+              id="category-select"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+            >
+              <option value="">전체</option>
+              <option value="question">질문</option>
+              <option value="review">리뷰</option>
+              <option value="discussion">토론</option>
+            </select>
+          </div>
+
+          {/* Writing List Section */}
+          <section className="writing-list">
+            <table className="writing-table">
               <thead>
                 <tr>
                   <th>번호</th>
@@ -60,19 +90,29 @@ const UserOrderList = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderList.map((order) => (
+                {writingList.map((writing) => (
                   <tr
-                    key={order.id}
-                    onClick={() => handleRowClick(order.id)}
+                    key={writing.id}
+                    onClick={() => handleRowClick(writing.id)}
                     className="clickable-row"
                   >
-                    <td>{order.id}</td>
-                    <td>{order.title}</td>
-                    <td>{order.likes}</td>
-                    <td>{order.date}</td>
+                    <td>{writing.id}</td>
+                    <td>{writing.title}</td>
+                    <td>{writing.likes}</td>
+                    <td>{writing.date}</td>
                     <td>
-                      <Link to="/board" className="action-btn">수정</Link>
-                      <button className="action-btn delete-btn">삭제</button>
+                      <Link to="/board/debateedit"
+                        onClick={handleEditClick}
+                        className="action-btn"
+                      >
+                        수정
+                      </Link>
+                      <button
+                        onClick={handleDeleteClick}
+                        className="action-btn delete-btn"
+                      >
+                        삭제
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -90,4 +130,4 @@ const UserOrderList = () => {
   );
 };
 
-export default UserOrderList;
+export default UserWritingList;
