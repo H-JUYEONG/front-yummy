@@ -21,7 +21,7 @@
 .j-nav-menu li:hover {
   background-color: #e8e8e8;
   color: #555;
-  border-radius: 4px;
+  border-radius: 25px;
 }
 
 .j-nav-menu .j-active {
@@ -43,13 +43,13 @@
   padding: 8px;
   font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 25px;
 }
 
 .j-category-select {
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 25px;
   background-color: #fff;
   font-size: 1rem;
 }
@@ -161,7 +161,7 @@
   font-weight: bold;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
   cursor: pointer;
 }
 
