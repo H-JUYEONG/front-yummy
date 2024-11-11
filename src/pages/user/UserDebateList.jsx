@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateList.css";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 
 const UserDebateList = () => {
   return (

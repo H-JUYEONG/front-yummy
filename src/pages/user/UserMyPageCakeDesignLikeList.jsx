@@ -1,10 +1,12 @@
-import React from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import React ,{ useState } from 'react'; // useState 훅 import from "react";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import UserSidebar from "./include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
 import { FaHeart, FaSearch } from "react-icons/fa";
+import { Link } from 'react-router-dom'; // Link 컴포넌트 import
+import { Search } from 'lucide-react';
 
 const UserMyPageCakeDesignLikeList = () => {
   const [selectedStyle, setSelectedStyle] = useState("");
