@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from '../include/Header';
 import Footer from '../include/Footer';
@@ -82,7 +83,8 @@ const UserMainForm= () => {
                     </ul>
                 </div>
                 <div className='allList-box'>
-                    상품리스트공간 
+                    <p>상품리스트공간</p>
+                    <Link to="/user/cakedetail" >상품 1 *클릭해주세요*</Link> 
                 </div>
 
             </div>
