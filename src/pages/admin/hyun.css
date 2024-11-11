@@ -1,0 +1,303 @@
+.hyun-main-page .banner {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(to right, rgba(255, 105, 135, 0.8), rgba(255, 156, 167, 0.8)), url('../../assets/images/banner-image.jpg');
+    background-size: 200% 200%;
+    background-position: 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    animation: slideBackground 10s linear infinite;
+}
+
+@keyframes slideBackground {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+
+.hyun-main-page .banner h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hyun-main-page .banner p {
+    font-size: 20px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hyun-main-page .create-cake-btn {
+    padding: 12px 24px;
+    background-color: #ff6f61;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hyun-main-page .create-cake-btn:hover {
+    background-color: #e04e4e;
+    transform: scale(1.1);
+}
+
+/* 케이크 샵 카테고리 필터 */
+.hyun-main-page .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 40px 0;
+}
+
+.hyun-main-page .filter-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #f9f9f9;
+    color: #333;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hyun-main-page .filter-button:hover,
+.filter-button.active {
+    background-color: #ff6f61;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* 베이커리 카드 그리드 */
+.hyun-main-page .bakery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hyun-main-page .bakery-item {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hyun-main-page .bakery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hyun-main-page .bakery-image {
+    width: 100%;
+    height: 200px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-position: center;
+}
+
+.hyun-main-page .bakery-title {
+    font-size: 22px;
+    color: #333;
+    font-weight: bold;
+}
+
+.hyun-main-page .bakery-description {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* 베이커리 리스트 섹션 */
+.hyun-main-page .bakery-list-section {
+    margin-top: 40px;
+    padding: 0 20px;
+    background-color: #fff;
+}
+
+.hyun-main-page .bakery-list-section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.hyun-main-page .bakery-list-section p {
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 베이커리 그리드 레이아웃 */
+.hyun-main-page .bakery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hyun-main-page .bakery-item {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s ease;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+/* 이미지 스타일 */
+.hyun-main-page .bakery-image {
+    width: 100%;
+    height: 200px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+
+/* 이미지 호버 효과 */
+.hyun-main-page .bakery-item:hover .bakery-image {
+    transform: scale(1.05);
+    /* 이미지 확대 효과 */
+}
+
+/* 아이템 제목 스타일 */
+.hyun-main-page .bakery-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.hyun-main-page .bakery-title:hover {
+    color: #ff6f61;
+}
+
+/* 아이템 설명 스타일 */
+.hyun-main-page .bakery-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* 호버시 아이템 크기 확대 */
+.hyun-main-page .bakery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .bakery-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .bakery-item {
+        padding: 15px;
+    }
+}
+
+.hyun-main-page .banner h1, 
+.hyun-main-page .banner p, 
+.hyun-main-page .create-cake-btn {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                     0 0 20px rgba(255, 105, 135, 0.6), 
+                     0 0 30px rgba(255, 156, 167, 0.6);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1), 
+                     0 0 30px rgba(255, 105, 135, 0.8), 
+                     0 0 40px rgba(255, 156, 167, 1);
+    }
+}
+
+
+.hyun-main-page .create-cake-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+.hyun-main-page .bakery-item {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    z-index: 0;
+}
+
+.hyun-main-page .bakery-item::before,
+.hyun-main-page .bakery-item::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+    opacity: 0.6;
+    animation: slowPulse 6s infinite ease-in-out;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hyun-main-page .bakery-item::after {
+    background: radial-gradient(circle, rgba(255, 215, 135, 0.2), transparent 60%);
+    animation-delay: 3s;
+}
+
+@keyframes slowPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+}
+
+.hyun-main-page .bakery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(255, 215, 135, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}

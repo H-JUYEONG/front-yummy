@@ -72,6 +72,7 @@ import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 import AdminShopManage from './pages/admin/AdminShopManage';
 import AdminShopAdd from './pages/admin/AdminShopAdd';
+import Hyun from './pages/admin/Hyun';
 
 
 
@@ -136,7 +137,7 @@ function App() {
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
-
+          <Route path='/hyun' element={<Hyun />} />
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard/>}/>
           <Route path='/admin/member' element={<AdminMemberManagement/>}/>
