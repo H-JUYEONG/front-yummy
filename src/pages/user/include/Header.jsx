@@ -24,7 +24,7 @@ const Header = () => {
       </Link>
       </div>
 
-      {/* Navigation */}
+      {/* Navigationd */}
       <nav className="nav-menu">
         <ul>
           <li><Link to="/audition">케이크 오디션</Link></li>
