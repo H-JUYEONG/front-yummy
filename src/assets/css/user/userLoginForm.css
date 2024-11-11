@@ -149,3 +149,9 @@
     color: #ffffff;
     background-color: rgb(148, 175, 255);
 }
+
+#kakaoIdLogin img{
+    width: 100%;
+    height: 60px;
+    cursor: pointer;
+}
