@@ -58,8 +58,8 @@ const Header = () => {
           renderLoggedInMenu()
         ) : (
           <>
-            <Link to="/login" className="header-link">로그인</Link>
-            <Link to="/signup" className="header-link">회원가입</Link>
+            <Link to="/user/login" className="header-link">로그인</Link>
+            <Link to="/user/signup" className="header-link">회원가입</Link>
           </>
         )}
       </div>
