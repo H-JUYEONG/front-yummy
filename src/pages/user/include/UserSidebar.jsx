@@ -45,11 +45,6 @@ const UserSidebar = () => {
           <h3>내 활동</h3>
           <ul>
             <li>
-              <Link to="/my-posts">
-                <FaClipboardList className="icon" /> 나의 오디션후기
-              </Link>
-            </li>
-            <li>
               <Link to="/">
                 <FaComments className="icon" /> 내가 작성한 댓글
               </Link>
