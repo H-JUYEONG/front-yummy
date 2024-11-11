@@ -90,7 +90,7 @@ const UserSidebar = () => {
           <h3>회원정보</h3>
           <ul>
             <li>
-              <Link to="/member-modify">
+              <Link to="/user/mypage/userpersonalinfoedit">
                 <FaUserFriends className="icon" /> 회원정보 변경
               </Link>
             </li>

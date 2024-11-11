@@ -1,6 +1,6 @@
 // Import libraries
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateList.css";
@@ -8,6 +8,12 @@ import Header from "./include/Header";
 import Footer from "./include/Footer";
 
 const UserDebateList = () => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (id) => {
+    navigate(`/board/boardview`);
+  };
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -49,7 +55,7 @@ const UserDebateList = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr onClick={() => handleRowClick(1)} className="clickable-row">
                 <td>1</td>
                 <td>첫 번째 토론 주제</td>
                 <td>도안 토론</td>
@@ -57,7 +63,7 @@ const UserDebateList = () => {
                 <td>2024-11-01</td>
                 <td>120</td>
               </tr>
-              <tr>
+              <tr onClick={() => handleRowClick(2)} className="clickable-row">
                 <td>2</td>
                 <td>두 번째 토론 주제</td>
                 <td>업체 토론</td>
@@ -65,7 +71,7 @@ const UserDebateList = () => {
                 <td>2024-11-01</td>
                 <td>85</td>
               </tr>
-              <tr>
+              <tr onClick={() => handleRowClick(3)} className="clickable-row">
                 <td>3</td>
                 <td>세 번째 토론 주제</td>
                 <td>도안 토론</td>
