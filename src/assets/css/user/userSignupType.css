@@ -1,0 +1,83 @@
+.signup-box {
+    width: 1050px;
+    margin: auto;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.signup-box img {
+    width: 200px;
+}
+
+.signup-box h1 {
+    font-size: 28px;
+    margin: 10px 0px 30px 0px;
+    padding: 10px 0px;
+}
+
+.signup-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.signup-type-icon {
+    font-size: 70px;
+}
+
+.signup-type-item1 {
+    flex: 1;
+    padding: 30px 0px;
+    min-height: 80px; /* 버튼 높이를 일정하게 유지 */
+    border: 1px solid #cacaca;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 아이콘과 텍스트 중앙 정렬 */
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #686868;
+    cursor: pointer;
+}
+
+.signup-type-item1 a {
+    font-size: 20px;
+    color: #686868;
+    text-decoration: none;
+}
+
+.signup-type-item1 p {
+    font-size: 13px;
+    margin: 0; /* 기본 여백 제거 */
+}
+
+
+.signup-type-item2 {
+    flex: 1;
+    padding: 20px 0px;
+    min-height: 80px; /* 버튼 높이를 일정하게 유지 */
+    border: 1px solid #cacaca;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 아이콘과 텍스트 중앙 정렬 */
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #686868;
+    cursor: pointer;
+}
+
+.signup-type-item2 a {
+    padding-top: 10px;
+    font-size: 20px;
+    color: #686868;
+    text-decoration: none;
+}
+
+.signup-type-item2 p {
+    font-size: 13px;
+    margin: 0; /* 기본 여백 제거 */
+}

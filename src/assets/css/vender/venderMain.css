@@ -1,1 +1,19 @@
 @charset "UTF-8";
+/*전체규격*/
+.venderMain-wrap{
+    width: 1200px;
+    background-color: #f6f6f6;
+    height: 100hv;
+    margin:10px auto;
+}
+.venderMain-wrap .venderMain-head{
+    width: 100%;
+    background-color: antiquewhite;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.venderMain-wrap .venderMain-content{
+    
+}
