@@ -1,5 +1,7 @@
 // Import libraries
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
@@ -133,8 +135,8 @@ const UserDebateEdit = () => {
 
           {/* Footer Buttons */}
           <div className="j-debate-footer">
-            <button className="j-submit-btn">수정하기</button>
-            <button className="j-back-btn">뒤로 가기</button>
+          <Link to="/board"className="j-back-btn">취소</Link>
+          <Link to="/board" className="j-submit-btn">수정</Link>
           </div>
         </section>
       </main>
