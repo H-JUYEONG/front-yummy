@@ -38,5 +38,7 @@
 }
 
 .admin-container .detailed-stats-page .chart-container canvas {
-    max-height: 400px;
+    max-height: 600px;
 }
+
+

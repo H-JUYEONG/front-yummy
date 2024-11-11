@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import AdminSidebar from './include/AdminSidebar';
 import {
@@ -89,6 +89,32 @@ const AdminStatus = () => {
         },
     };
 
+    // 마우스 스크롤 이벤트 핸들러
+    const handleScroll = (event) => {
+        event.preventDefault();
+        const metricKeys = Object.keys(metrics);
+        const currentIndex = metricKeys.indexOf(selectedMetric);
+        if (event.deltaY > 0) {
+            // 스크롤 다운: 다음 메트릭 선택
+            const nextIndex = (currentIndex + 1) % metricKeys.length;
+            setSelectedMetric(metricKeys[nextIndex]);
+        } else {
+            // 스크롤 업: 이전 메트릭 선택
+            const prevIndex = (currentIndex - 1 + metricKeys.length) % metricKeys.length;
+            setSelectedMetric(metricKeys[prevIndex]);
+        }
+    };
+
+    // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 등록
+    useEffect(() => {
+        window.addEventListener("wheel", handleScroll, { passive: false });
+
+        // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+        return () => {
+            window.removeEventListener("wheel", handleScroll);
+        };
+    }, [selectedMetric]);
+
     return (
         <div className="admin-container">
             {/* 사이드바 */}
@@ -96,17 +122,9 @@ const AdminStatus = () => {
             <div className="detailed-stats-page">
                 <header className="stats-header">
                     <h1>상세 통계 페이지</h1>
-                    <select
-                        value={selectedMetric}
-                        onChange={(e) => setSelectedMetric(e.target.value)}
-                        className="metric-selector"
-                    >
-                        {Object.keys(metrics).map((metric) => (
-                            <option key={metric} value={metric}>
-                                {metric}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="metric-display">
+                        현재 선택된 메트릭: {selectedMetric}
+                    </div>
                 </header>
 
                 <section className="chart-container">
@@ -115,6 +133,10 @@ const AdminStatus = () => {
                             data={metrics[selectedMetric].chartData}
                             options={{
                                 responsive: true,
+                                animation: {
+                                    duration: 1500,
+                                    easing: 'easeOutQuart',
+                                },
                                 plugins: {
                                     legend: {
                                         display: true,
@@ -128,6 +150,10 @@ const AdminStatus = () => {
                             data={metrics[selectedMetric].chartData}
                             options={{
                                 responsive: true,
+                                animation: {
+                                    duration: 1500,
+                                    easing: 'easeOutQuart',
+                                },
                                 plugins: {
                                     legend: {
                                         display: true,
