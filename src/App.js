@@ -49,7 +49,7 @@ import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
-
+import UserOrderComplete from './pages/user/UserOrderComplete';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -103,7 +103,7 @@ function App() {
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/vender/signup' element={<VenderSignUpForm/>} />
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
-          <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
+          <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
           <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
@@ -121,6 +121,7 @@ function App() {
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
+          <Route path='/user/ordercomplete' element={<UserOrderComplete/>}/>
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
