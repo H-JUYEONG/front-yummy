@@ -12,11 +12,11 @@ import "../../assets/css/user/userLoginForm.css";
 const UserLoginForm = () => {
   
   // 앱 정보 넣어두기
-  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   // 카카오 동의 항목
   const handleKakaoLogin = () => {
