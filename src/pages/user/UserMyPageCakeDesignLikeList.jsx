@@ -1,72 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Search } from "lucide-react";
+import UserSidebar from "../../pages/user/include/UserSidebar";
+import "../../assets/css/user/usermain.css";
+// import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
-import UserSidebar from "./include/UserSidebar";
-import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
-import { FaHeart, FaSearch } from "react-icons/fa";
 
 const UserMyPageCakeDesignLikeList = () => {
-  // Sample data for designs
-  const designs = [
+  const [selectedStyle, setSelectedStyle] = useState("");
+
+  // 카테고리 옵션
+  const styleOptions = ["최신순", "조회수순", "찜순"];
+
+  // 샘플 상품 데이터
+  const products = [
     {
       id: 1,
-      title: "축하케이크 도안~",
-      creator: "dud9902",
-      views: 30,
-      likes: 10,
       image: "/images/2호_일반케이크.jpg",
+      name: "초코 도안",
+      id: "dud9902",
     },
     {
       id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
+      image: "/images/4호_골프장 케이크.png",
+      name: "초코 도안",
+      id: "sso",
     },
     {
-      id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
+      id: 3,
+      image: "/images/4호_달걀 한판 케이크.png",
+      name: "초코 도안",
+      id: "ddr",
     },
     {
-      id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
+      id: 4,
+      image: "/images/3호_특별한케이크(달력).jpg",
+      name: "초코 케이크",
+      id: "jeff",
     },
-    {
-      id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
-    },
-    {
-      id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
-    },
-    {
-      id: 2,
-      title: "생일케이크 도안~",
-      creator: "dud9902",
-      views: 45,
-      likes: 15,
-      image: "/images/2호_일반케이크.jpg",
-    },
-    // Add more designs as needed
+    // ... 더 많은 상품 데이터
   ];
+
+  // 스타일 카테고리 선택/해제 핸들러
+  const handleStyleSelect = (style) => {
+    setSelectedStyle((prevStyle) => (prevStyle === style ? "" : style));
+  };
 
   return (
     <div id="user-wrap">
@@ -75,68 +54,84 @@ const UserMyPageCakeDesignLikeList = () => {
       </header>
 
       <main id="user-wrap-body">
-        {/* Sidebar */}
         <UserSidebar />
-
-        {/* Main Section */}
         <section id="user-wrap-main">
-          <div className="user-mypage-cake-design-header">
-            <h2 className="user-mypage-cake-design-title">찜한 도안</h2>
-
-            {/* Search Bar with Icon */}
-            <div className="user-mypage-cake-design-search">
-              <FaSearch className="user-mypage-search-icon" />
+          <h2>찜한 도안</h2>
+          <div className="wishlist-container">
+            {/* 검색 바 */}
+            <div className="search-bar">
               <input
                 type="text"
                 placeholder="도안 검색"
-                className="user-mypage-design-search-input"
+                className="search-input"
               />
-            </div>
-          </div>
-
-          {/* Filter and Search Section */}
-            <div className="user-mypage-cake-design-filter">
-              <div className="user-mypage-all">ALL 2</div>
-              <div className="user-mypage-filter-options">
-                <button className="user-mypage-filter-btn">최신순</button>
-                <button className="user-mypage-filter-btn">좋아요순</button>
-                <button className="user-mypage-filter-btn">조회수순</button>
-              </div>
+              <button className="search-button">
+                <Search size={20} />
+              </button>
             </div>
 
-          {/* Design List */}
-          <div className="user-mypage-cake-design-list">
-            {designs.map((design) => (
-              <div key={design.id} className="user-mypage-design-card">
-                <div className="user-mypage-design-image-wrapper">
-                  <img src={design.image} alt={design.title} />
-                  <div className="user-mypage-design-likes">
-                    <FaHeart color="red" /> {design.likes}
-                  </div>
-                </div>
-                <div className="user-mypage-design-info">
-                  <h3 className="user-mypage-design-title">{design.title}</h3>
-                  <p className="user-mypage-design-creator">{design.creator}</p>
-                  <p className="user-mypage-design-views">조회수: {design.views}</p>
+            {/* 카테고리 필터 */}
+            <div className="category-filters">
+              <div className="filter-group">
+                <h3>정렬 옵션</h3>
+                <div className="filter-options">
+                  {styleOptions.map((style) => (
+                    <button
+                      key={style}
+                      className={`filter-btn ${
+                        selectedStyle === style ? "active" : ""
+                      }`}
+                      onClick={() => handleStyleSelect(style)}
+                    >
+                      {style}
+                    </button>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {/* Pagination */}
-          <div className="user-mypage-cake-design-pagination">
-            <button>&lt;</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>&gt;</button>
+            {/* 상품 그리드 - 필터링 적용 */}
+            <div className="products-grid">
+              {products
+                .filter(
+                  (product) => !selectedStyle || product.style === selectedStyle
+                )
+                .map((product) => (
+                  <Link
+                    to={`/user/cakeDesign/detail`}
+                    key={product.id}
+                    className="product-card"
+                  >
+                    <div className="product-image">
+                      <img src={product.image} alt={product.name} />
+                    </div>
+                    <div className="product-info">
+                      <h3>{product.name}</h3>
+                      <p>{product.id}</p>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+
+            {/* 페이지네이션 */}
+            <div className="pagination">
+              <button className="prev-page">{"<"}</button>
+              <div className="page-numbers">
+                {[1, 2, 3, "...", 67, 68].map((page, index) => (
+                  <button
+                    key={index}
+                    className={`page-number ${page === 1 ? "active" : ""}`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+              <button className="next-page">{">"}</button>
+            </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>

@@ -41,13 +41,13 @@
 }
 
 /* 입력 필드 스타일 */
-.signup-area {
+.user-signup-intput-area {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.input-group {
+.user-input-group-txt {
     margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
@@ -57,7 +57,7 @@
     color: red;
 }
 
-.signup-area label {
+.user-signup-intput-area label {
     font-size: 14px;
     font-weight: bold;
     color: #333;
@@ -65,8 +65,8 @@
     display: block;
 }
 
-.signup-area input[type="text"],
-.signup-area input[type="password"] {
+.user-signup-intput-area input[type="text"],
+.user-signup-intput-area input[type="password"] {
     width: 100%;
     padding: 12px;
     font-size: 14px;
@@ -74,12 +74,12 @@
     box-sizing: border-box;
 }
 
-.phone-input-wrapper {
+.user-phonenum-input-wrapper {
     display: flex;
     gap: 5px;
 }
 
-.phone-input-wrapper input {
+.user-phonenum-input-wrapper input {
     flex: 1;
     padding: 12px;
     font-size: 14px;
@@ -88,23 +88,23 @@
 }
 
 /* Placeholder 스타일 */
-.signup-area input::placeholder {
+.user-signup-intput-area input::placeholder {
     color: #aaa;
 }
 
 /* 포커스 스타일 */
-.signup-area input:focus {
+.user-signup-intput-area input:focus {
     outline: none;
     border-color: #aaa;
 }
 
 /* 회원가입 버튼 스타일 */
-.user-signup-btn {
+.user-signup-btns {
     text-align: center;
     margin-top: 40px;
 }
 
-.user-signup-btn button {
+.user-signup-btns button {
     width: 35%;
     padding: 12px 0;
     font-size: 16px;

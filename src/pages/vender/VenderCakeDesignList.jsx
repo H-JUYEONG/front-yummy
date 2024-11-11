@@ -99,31 +99,41 @@ const VenderCakeDesignList = () => {
                 </header>
 
                 <div className="cake-design-list-imgs">
-                  <img
-                    src="/images/2호_일반케이크.jpg"
-                    alt="케이크 이미지"
-                    onClick={handleImageClick}
-                  />
-                  <img
-                    src="/images/2호_일반케이크.jpg"
-                    alt="케이크 이미지"
-                    onClick={handleImageClick}
-                  />
-                  <img
-                    src="/images/2호_일반케이크.jpg"
-                    alt="케이크 이미지"
-                    onClick={handleImageClick}
-                  />
-                  <img
-                    src="/images/2호_일반케이크.jpg"
-                    alt="케이크 이미지"
-                    onClick={handleImageClick}
-                  />
-                  <img
-                    src="/images/2호_일반케이크.jpg"
-                    alt="케이크 이미지"
-                    onClick={handleImageClick}
-                  />
+                  <div className="vender-cake-design-list-box">
+                    <img
+                      src="/images/2호_일반케이크.jpg"
+                      alt="케이크 이미지"
+                      onClick={handleImageClick}
+                    />
+                    <p>몽환의 숲</p>
+                  </div>
+
+                  <div className="vender-cake-design-list-box">
+                    <img
+                      src="/images/2호_일반케이크.jpg"
+                      alt="케이크 이미지"
+                      onClick={handleImageClick}
+                    />
+                    <p>몽환의 숲</p>
+                  </div>
+
+                  <div className="vender-cake-design-list-box">
+                    <img
+                      src="/images/2호_일반케이크.jpg"
+                      alt="케이크 이미지"
+                      onClick={handleImageClick}
+                    />
+                    <p>몽환의 숲</p>
+                  </div>
+
+                  <div className="vender-cake-design-list-box">
+                    <img
+                      src="/images/2호_일반케이크.jpg"
+                      alt="케이크 이미지"
+                      onClick={handleImageClick}
+                    />
+                    <p>몽환의 숲</p>
+                  </div>
                   
                 </div>
 

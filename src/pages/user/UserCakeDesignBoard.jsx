@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaHeart } from "react-icons/fa";
+import { Search } from "lucide-react";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
 
@@ -90,6 +91,13 @@ const UserCakeDesignBoard = () => {
       <main id="user-wrap-body" className="clearfix">
         {/* User Cake Design Board */}
         <div className="user-cake-design-board-list">
+          <div id="user-cake-design-tip">
+            <h2>케이크 디자인을 공유하는 공간입니다.</h2>
+            <p>
+              마음에 드는 디자인을 발견하면 <strong>'케이크 오디션'</strong>을
+              통해 제작 요청을 남겨보세요!
+            </p>
+          </div>
           <div id="user-cake-design-select-option-list">
             <div className="user-cake-design-select-option">
               <button>최신순</button>

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userorderlist.css";
@@ -28,7 +30,7 @@ const UserOrderList = () => {
   ];
 
   const handleRowClick = (id) => {
-    navigate(`/event/${id}`);
+    navigate(`/board/boardview`);
   };
 
   return (
@@ -69,7 +71,7 @@ const UserOrderList = () => {
                     <td>{order.likes}</td>
                     <td>{order.date}</td>
                     <td>
-                      <button className="action-btn">수정</button>
+                      <Link to="/board" className="action-btn">수정</Link>
                       <button className="action-btn delete-btn">삭제</button>
                     </td>
                   </tr>
