@@ -87,7 +87,7 @@ const UserLoginForm = () => {
             <button>네이버 로그인</button>
           </div> */}
           <div id="kakaoIdLogin">
-            <button>카카오 로그인</button>
+            <img src="/images/kakao_login_large_wide.png" alt="카카오 로그인 버튼" />
           </div>
         </div>
         {/* //로그인 종류 리스트 */}
