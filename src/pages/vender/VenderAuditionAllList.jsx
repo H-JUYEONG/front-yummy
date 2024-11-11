@@ -71,7 +71,7 @@ const VenderAudirionAllList = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="vender-container">
                 <div className="vender-content-wrapper">
                     {/* 사이드바 영역 */}
                     <VenderSidebar />

@@ -5,7 +5,7 @@ import React from 'react';
 
 
 //import css
-import '../../assets/css/vender/venderMain.css'
+import '../../assets/css/vender/venderMain.css';
 
 
 
@@ -42,14 +42,17 @@ const VenderMain = () => {
         <>
             <div className="venderMain-wrap">
                 <div className='venderMain-head'>
-
+                    <img src='../../assets/images/cake-facebook-cover-design_220346-14126' />
+                    업체 대문로고
                 </div>
                 <div className='venderMain-content'>
                     <div className='venderMain-content-img'>
-
+                        <div className='sub-logo-img'>
+                            업체 로고이미지 들어오는 칸
+                        </div>
                     </div>
                     <div className='venderMain-content-maintext'>
-
+                        업체 상세설명 들어오는 칸
                     </div>
                 </div>
                 <div className='venderMain-category-box'>
