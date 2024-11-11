@@ -13,7 +13,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .venderMain-wrap .venderMain-content{
+    display: flex;
+    justify-content: space-evenly;
     
+    padding: 20px 20px;
+}
+.venderMain-wrap .venderMain-content .venderMain-content-img{
+    
+    width: 40%;
+}
+.venderMain-wrap .venderMain-content .venderMain-content-img .sub-logo-img{
+    border: 3px solid #cccccc;
+    width: 80%;
+    margin: 0 auto;
+    height: 260px;
+    
+}
+.venderMain-wrap .venderMain-content .venderMain-content-maintext{
+    width: 60%;
+    border: 3px solid #cccccc;
+    
+    padding: 10px 20px;
 }
