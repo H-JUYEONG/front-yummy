@@ -39,6 +39,7 @@ import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+
 import UserMainForm from './pages/user/UserMainForm';
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
@@ -113,6 +114,7 @@ function App() {
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
+          <Route path='/user/userMainForm' element={<UserMainForm/>}/>
 
           <Route path='/user/mypage/writinglist' element={<UserWritingList/>}/>
           {/* Main and Admin */}
