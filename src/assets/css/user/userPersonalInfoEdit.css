@@ -87,14 +87,16 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
+
+
   .j-add-event-section button {
     padding: 8px 12px;
     font-size: 1rem;
-    background-color: #007bff;
+    font-weight: bold;
+    background-color: #7C3AED;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
@@ -110,6 +112,7 @@
     border-radius: 8px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+
 }
 
 .j-event-item:hover {
@@ -133,14 +136,17 @@
     font-size: 0.95rem;
 }
 
+
+
 /* Delete Button */
 .j-event-delete {
     padding: 8px 12px;
     font-size: 0.9rem;
-    background-color: #dc3545;
-    color: white;
+    font-weight: bold;
+    background-color: #ff4b87;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -149,14 +155,16 @@
     background-color: #c82333;
 }
 
-/* Button Group */
+/* Container for the buttons */
 .user-edit-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px; /* Space between buttons */
     justify-content: center;
-    margin-top: 20px;
+    width: 100%;
+    padding-top: 20px;
 }
 
+/* Button styling with equal width */
 .user-cancel-button,
 .user-save-button {
     padding: 10px 20px;
@@ -164,17 +172,20 @@
     font-weight: bold;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
+    flex: 1; /* Makes both buttons take equal space */
+    max-width: 200px; /* Optional: limits button width if desired */
 }
 
 .user-cancel-button {
-    background-color: #6c757d;
+    background-color: #ff4b87;
 }
 
 .user-save-button {
-    background-color: #28a745;
+    background-color: #00A884  ;
 }
+
 
 .j-user-withdrawal-section {
     display: flex;
@@ -189,7 +200,7 @@
     color: #fff;
     background-color: #000;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
