@@ -1,7 +1,7 @@
 //import 라이브러리
 import React from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import { Link } from "react-router-dom";
 
 //css

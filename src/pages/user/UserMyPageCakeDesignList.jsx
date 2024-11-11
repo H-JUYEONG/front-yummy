@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import UserSidebar from "./include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userMyPageCakeDesignList.css";

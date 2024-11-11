@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../assets/css/user/usermain.css'
-import Header from '../../include/Header';
-import Footer from '../../include/Footer';
+import Header from './Header';
+import Footer from './Footer';
 import UserSidebar from './UserSidebar';
 
 const UserMain= () => {

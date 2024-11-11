@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */

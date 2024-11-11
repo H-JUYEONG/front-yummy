@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorder.css';
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 //얘가 주문조회 둘다있는거에요 이거 쓸겁니다
     const UserOrder = () => {

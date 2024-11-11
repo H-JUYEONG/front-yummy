@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 
 // css

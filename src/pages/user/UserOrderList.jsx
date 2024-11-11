@@ -2,8 +2,8 @@ import React from 'react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderlist.css';
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 //userorder에 결합되었습니다
 const UserOrderList = () => {

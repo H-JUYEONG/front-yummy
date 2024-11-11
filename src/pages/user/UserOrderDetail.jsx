@@ -2,8 +2,8 @@ import React from 'react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderdetail.css'
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 const UserOrderDetail = () => {
     // 상품 이미지ㅇㅇ URL - 실제로는 props나 API로 받아올 것 이거 안씁니다 userorder 쓸거에용 
