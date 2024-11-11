@@ -14,7 +14,6 @@ const UserMain= () => {
 
             {/* Main Content */}
             <main id="user-wrap-body" className="clearfix">
-               
                 <aside id="user-wrap-side" className="float-left">
                     <UserSidebar/>
                 </aside>
