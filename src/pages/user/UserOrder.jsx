@@ -223,9 +223,9 @@ import Footer from './include/Footer';
 
             <main id="user-wrap-body">
                 <UserSidebar />
-                <section id="user-wrap-main">
+                
                     {showDetail ? <OrderDetail /> : <OrderList />}
-                </section>
+                
             </main>
 
             <footer id="user-wrap-footer">

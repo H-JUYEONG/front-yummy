@@ -5,7 +5,7 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import UserDebateModal from "./include/UserDebateModal"; // Import the modal component
+import UserDebateModal from "./include/UserDebateModal"; 
 
 const UserDebateInsert = () => {
   const [leftImage, setLeftImage] = useState(null);
@@ -40,21 +40,17 @@ const UserDebateInsert = () => {
     } else if (selectedImageSide === "right") {
       setRightImage(imageUrl);
     }
-    setIsModalOpen(false); // Close the modal after selecting the image
+    setIsModalOpen(false); 
   };
 
   return (
     <div id="user-wrap" className="user-text-center">
-      {/* Header */}
       <header id="user-wrap-head">
         <Header />
       </header>
 
-      {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
-        {/* Main Section */}
         <section id="user-wrap-main">
-          {/* Title Section */}
           <div className="j-debate-title-section">
             <input
               type="text"
@@ -68,72 +64,74 @@ const UserDebateInsert = () => {
             </select>
           </div>
 
-          {/* Image Insert Section */}
           <div className="j-image-insert-section">
             <div className="j-image-option">
-              <label className="j-upload-btn">
-                이미지 선택
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleLeftImageUpload}
-                  className="j-image-upload-input"
-                />
-              </label>
-              <button 
-                className="j-modal-btn" 
-                onClick={() => openModal("left")}
-              >
-                모달 창 이미지 선택
-              </button>
-              {leftImage && (
-                <button
-                  className="j-delete-btn"
-                  onClick={handleLeftImageDelete}
-                >
-                  이미지 삭제
-                </button>
+              {!leftImage && (
+                <>
+                  <label className="j-upload-btn">
+                    이미지 선택
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleLeftImageUpload}
+                      className="j-image-upload-input"
+                    />
+                  </label>
+                  <button 
+                    className="j-modal-btn" 
+                    onClick={() => openModal("left")}
+                  >
+                    모달 창 이미지 선택
+                  </button>
+                </>
               )}
               {leftImage && (
-                <img src={leftImage} alt="Left" className="j-inserted-image" />
+                <div className="j-image-container">
+                  <img src={leftImage} alt="Left" className="j-inserted-image" />
+                  <button
+                    className="j-delete-btn"
+                    onClick={handleLeftImageDelete}
+                  >
+                    이미지 삭제
+                  </button>
+                </div>
               )}
             </div>
 
             <div className="j-image-option">
-              <label className="j-upload-btn">
-                이미지 선택
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleRightImageUpload}
-                  className="j-image-upload-input"
-                />
-              </label>
-              <button 
-                className="j-modal-btn" 
-                onClick={() => openModal("right")}
-              >
-                모달 창 이미지 선택
-              </button>
-              {rightImage && (
-                <button
-                  className="j-delete-btn"
-                  onClick={handleRightImageDelete}
-                >
-                  이미지 삭제
-                </button>
+              {!rightImage && (
+                <>
+                  <label className="j-upload-btn">
+                    이미지 선택
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleRightImageUpload}
+                      className="j-image-upload-input"
+                    />
+                  </label>
+                  <button 
+                    className="j-modal-btn" 
+                    onClick={() => openModal("right")}
+                  >
+                    모달 창 이미지 선택
+                  </button>
+                </>
               )}
               {rightImage && (
-                <img
-                  src={rightImage}
-                  alt="Right"
-                  className="j-inserted-image"
-                />
+                <div className="j-image-container">
+                  <img src={rightImage} alt="Right" className="j-inserted-image" />
+                  <button
+                    className="j-delete-btn"
+                    onClick={handleRightImageDelete}
+                  >
+                    이미지 삭제
+                  </button>
+                </div>
               )}
             </div>
           </div>
 
-          {/* Text Area Section */}
           <div className="j-text-area-section">
             <textarea
               placeholder="고민을 작성하세요"
@@ -142,7 +140,6 @@ const UserDebateInsert = () => {
             ></textarea>
           </div>
 
-          {/* Footer Buttons */}
           <div className="j-debate-footer">
             <Link to="/board" className="j-back-btn">취소</Link>
             <Link to="/board" className="j-submit-btn">제출하기</Link>
@@ -150,12 +147,10 @@ const UserDebateInsert = () => {
         </section>
       </main>
 
-      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
 
-      {/* Modal for Image Selection */}
       {isModalOpen && (
         <UserDebateModal
           onSelectImage={handleModalImageSelect}

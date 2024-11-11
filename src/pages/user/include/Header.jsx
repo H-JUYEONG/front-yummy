@@ -81,7 +81,7 @@ const Header = () => {
     <div className="header-container">
       {/* Logo */}
       <div className="logo">
-        <Link to={`/user/userMainForm`}>
+        <Link to={`/user/`}>
           <h1>YUMMY</h1>
         </Link>
       </div>

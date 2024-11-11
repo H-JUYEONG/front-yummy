@@ -74,9 +74,8 @@ const UserPaymentDetail = () => {
                 </div>
             </main>
 
-            <footer className="user-full-width">
+            
                 <Footer />
-            </footer>
         </div>
     );
 };

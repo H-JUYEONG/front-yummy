@@ -1,11 +1,3 @@
-/* Main Section Styling */
-#user-wrap-main {
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
 
 /* Category Dropdown Styling */
 .category-dropdown {
@@ -88,4 +80,26 @@
 
 .action-btn.delete-btn:hover {
   background: #c82333;
+}
+.j-tab-container {
+  display: flex;
+  justify-content: flex-start; /* Aligns tabs to the left */
+  gap: 10px; /* Adds space between tabs */
+  margin-bottom: 20px; /* Adds some space below the tabs */
+}
+
+.j-tab {
+  font-size: 16px;
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: normal;
+  color: #333;
+  transition: font-weight 0.2s;
+}
+
+.j-tab.active {
+  font-weight: bold;
+  color: #7C3AED;
 }

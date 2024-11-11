@@ -41,19 +41,19 @@
     padding: 20px 0;
 }
 
-.j-image-container {
+.j-image-view-container {
     text-align: center;
     margin: 0 10px;
 }
 
-.j-image-container img {
+.j-image-view-container img {
     width: 300px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.j-image-container .j-vote-button {
+.j-image-view-container .j-vote-button {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 1em;
@@ -65,7 +65,7 @@
     transition: background-color 0.3s;
 }
 
-.j-image-container .j-vote-button:hover {
+.j-image-view-container .j-vote-button:hover {
     background-color: #0056b3;
 }
 

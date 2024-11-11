@@ -15,7 +15,8 @@ const UserPoint = () => {
 
             <main id="user-wrap-body">
                 <UserSidebar />
-                <section id="user-wrap-main">
+                
+
                     <div className="main-content">
                         <h2>포인트 내역</h2>
 
@@ -64,7 +65,7 @@ const UserPoint = () => {
                             </table>
                         </section>
                     </div>
-                </section>
+                
             </main>
 
             <footer id="user-wrap-footer">
