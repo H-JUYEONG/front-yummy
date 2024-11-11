@@ -116,9 +116,9 @@ const UserOrderDetail = () => {
                 </section>
             </main>
 
-            <footer id="user-wrap-footer">
+            
                <Footer/>
-            </footer>
+        
         </div>
     );
 };
