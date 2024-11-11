@@ -1,0 +1,180 @@
+/* Modal Container */
+.j-modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.j-modal-content {
+    background: #fff;
+    padding: 30px;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button */
+.j-modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Tab Container */
+.j-tab-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Tabs */
+.j-tab {
+    font-size: 16px;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: normal;
+    color: #333;
+    transition: font-weight 0.2s;
+}
+
+.j-tab.active {
+    font-weight: bold;
+    color: #7C3AED;
+}
+
+/* Category Dropdown */
+.j-category-select {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+/* Search and Dropdown Container */
+.j-search-category-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Search Bar */
+.j-search-bar {
+    display: flex;
+    flex: 1; /* Allow search bar to take remaining space */
+}
+
+.j-search-input {
+    flex: 1;
+    padding: 10px 15px;
+    height: 40px;
+    border: 1px solid #e5e7eb;
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.j-search-button {
+    padding: 0 15px;
+    height: 40px;
+    background: #7C3AED;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.j-search-button:hover {
+    background: #6D28D9;
+}
+
+/* Product Grid */
+.j-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.j-product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.j-product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Fixed Image Size */
+.j-product-image {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.j-product-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Product Info */
+.j-product-info h3 {
+    padding: 10px;
+    font-size: 1em;
+    color: #333;
+}
+
+/* Pagination */
+.j-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.j-page-number {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.j-page-number:hover {
+    background: #F3F4F6;
+}
+
+.j-page-number.active {
+    background: #7C3AED;
+    color: white;
+    border-color: #7C3AED;
+}

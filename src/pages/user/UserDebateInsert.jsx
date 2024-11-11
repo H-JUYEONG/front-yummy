@@ -1,4 +1,3 @@
-// Import libraries
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import "../../assets/css/all.css";
@@ -6,10 +5,13 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import UserDebateModal from "./include/UserDebateModal"; // Import the modal component
 
 const UserDebateInsert = () => {
   const [leftImage, setLeftImage] = useState(null);
   const [rightImage, setRightImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImageSide, setSelectedImageSide] = useState("");
 
   const handleLeftImageUpload = (event) => {
     setLeftImage(URL.createObjectURL(event.target.files[0]));
@@ -25,6 +27,20 @@ const UserDebateInsert = () => {
 
   const handleRightImageDelete = () => {
     setRightImage(null);
+  };
+
+  const openModal = (side) => {
+    setSelectedImageSide(side);
+    setIsModalOpen(true);
+  };
+
+  const handleModalImageSelect = (imageUrl) => {
+    if (selectedImageSide === "left") {
+      setLeftImage(imageUrl);
+    } else if (selectedImageSide === "right") {
+      setRightImage(imageUrl);
+    }
+    setIsModalOpen(false); // Close the modal after selecting the image
   };
 
   return (
@@ -64,7 +80,12 @@ const UserDebateInsert = () => {
                   className="j-image-upload-input"
                 />
               </label>
-              <button className="j-modal-btn">모달 창 이미지 선택</button>
+              <button 
+                className="j-modal-btn" 
+                onClick={() => openModal("left")}
+              >
+                모달 창 이미지 선택
+              </button>
               {leftImage && (
                 <button
                   className="j-delete-btn"
@@ -88,7 +109,12 @@ const UserDebateInsert = () => {
                   className="j-image-upload-input"
                 />
               </label>
-              <button className="j-modal-btn">모달 창 이미지 선택</button>
+              <button 
+                className="j-modal-btn" 
+                onClick={() => openModal("right")}
+              >
+                모달 창 이미지 선택
+              </button>
               {rightImage && (
                 <button
                   className="j-delete-btn"
@@ -128,6 +154,14 @@ const UserDebateInsert = () => {
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
+
+      {/* Modal for Image Selection */}
+      {isModalOpen && (
+        <UserDebateModal
+          onSelectImage={handleModalImageSelect}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
