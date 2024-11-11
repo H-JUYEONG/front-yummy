@@ -47,7 +47,7 @@ const UserSidebar = () => {
           <h3>내 활동</h3>
           <ul>
             <li>
-              <Link to="/">
+              <Link to="/user/mypage/writinglist">
                 <FaComments className="icon" /> 내가 작성한 글
               </Link>
             </li>
