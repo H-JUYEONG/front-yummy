@@ -20,8 +20,6 @@ import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails'
 import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 
-
-
 // user
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
@@ -42,22 +40,19 @@ import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
 
-
 import UserMainForm from './pages/user/UserMainForm';
-
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
-
+import UserWritingList from "./pages/user/UserWritingList";
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
 import UserDebateEdit from "./pages/user/UserDebateEdit";
-
 
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -68,7 +63,6 @@ import AdminShopProduct from './pages/admin/AdminShopProduct';
 import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
-import UserWritingList from "./pages/user/UserWritingList";
 
 
 function App() {
@@ -95,18 +89,17 @@ function App() {
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
           <Route path='/vender/venderMain' element={<VenderMain />} />
           <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
+          <Route path='/vender/signup' element={<VenderSignUpForm/>} />
+          <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           
           {/* User Routes */}
-          <Route path='/user/main' element={<UserMain/>}/>
+          <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm/>} />
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
-          <Route path='/vender/signup' element={<VenderSignUpForm/>} />
-          <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path='/user/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-          <Route path='/user/test' element={<UserMain/>}/>
           <Route path='/user/cakedetail' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
           <Route path='/user/mypage/orderdetail' element={<UserOrderDetail/>}/>
@@ -116,7 +109,6 @@ function App() {
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
-
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
@@ -142,10 +134,6 @@ function App() {
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
           <Route path='/board/boardview' element={<UserDebateView />} />
           <Route path="/board/debateedit" element={<UserDebateEdit />} />
-
-          
-
-
         </Routes>
       </BrowserRouter>
     </div>
