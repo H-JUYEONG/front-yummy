@@ -18,14 +18,16 @@ const UserSidebar = () => {
     return (
       <aside id="user-wrap-side" className="float-left">
         <div className="sidebar">
-          <h2>김덕성님 어서오세요!</h2>
-          <ul>
-            <li>
-              <Link to="/home">
-                <FaHome className="icon" /> 메인 바로가기
-              </Link>
-            </li>
-          </ul>
+
+            <h2>김덕성님 어서오세요!</h2>
+    <ul>
+        <li>
+        <Link to="/home">
+            <FaHome className="icon" /> 메인 바로가기
+        </Link>
+        </li>
+    </ul>
+
 
           <h3>나의 쇼핑내역</h3>
           <ul>

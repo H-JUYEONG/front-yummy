@@ -21,6 +21,7 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 
 
+
 // user
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
@@ -94,6 +95,7 @@ function App() {
           <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
           <Route path='/vender/venderMain' element={<VenderMain />} />
+          <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
           
           {/* User Routes */}
           <Route path='/user/main' element={<UserMain/>}/>
