@@ -50,8 +50,8 @@
 }
 
 .profile-picture-preview {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,9 +68,27 @@
 }
 
 .profile-picture-input {
-    font-size: 0.9rem;
-    color: #333;
+    display: none; /* Hide the file input */
 }
+
+.profile-picture-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #fff;
+    background-color: #00A884; /* Choose a green color */
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.profile-picture-button:hover {
+    background-color: #388E3C; /* Darker shade for hover effect */
+}
+
 
 .j-add-event-section {
     display: flex;
