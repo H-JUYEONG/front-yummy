@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userwritinglist.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import { Search } from 'lucide-react';
 
 const UserWritingList = () => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedTab, setSelectedTab] = useState("찜한 상품");
+  const [searchText, setSearchText] = useState(''); // State for search input
+  const [selectedStyle, setSelectedStyle] = useState('리뷰'); // Default to "리뷰"
+  const [selectedTab, setSelectedTab] = useState("글"); // Default to "글" on load
 
   const writingList = [
     {
@@ -38,26 +40,24 @@ const UserWritingList = () => {
     { id: 4, title: "도안 2", likes: 9, date: "2024-11-05" },
   ];
 
+  const writingTypeOption = ["리뷰", "게시글", "뎃글"]; // Options for 글 종류 filter
+
   const handleRowClick = (id) => {
     navigate(`/board/boardview`);
   };
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+  const handleStyleSelect = (style) => {
+    setSelectedStyle(prevStyle => prevStyle === style ? '' : style);
   };
 
-  const handleEditClick = (event) => {
-    event.stopPropagation();
-    navigate("/board/debateedit");
-  };
-
-  const handleDeleteClick = (event) => {
-    event.stopPropagation();
-    console.log("Delete clicked");
+  const handleSearchTextChange = (e) => setSearchText(e.target.value);
+  const handleSearchClick = () => {
+    console.log("Searching for:", searchText);
+    // Implement search functionality here
   };
 
   // Display the list based on the selected tab
-  const displayList = selectedTab === "찜한 상품" ? likedProducts : likedDesigns;
+  const displayList = selectedTab === "글" ? likedProducts : likedDesigns;
 
   return (
     <div id="user-wrap">
@@ -71,35 +71,36 @@ const UserWritingList = () => {
         <section id="user-wrap-main">
           <h2>내가 쓴 글 조회</h2>
 
-          {/* Tab Selection */}
-          <div className="j-tab-container">
-            <button
-              className={`j-tab ${selectedTab === "글" ? "active" : ""}`}
-              onClick={() => setSelectedTab("글")}
-            >
-              글
-            </button>
-            <button
-              className={`j-tab ${selectedTab === "댓글" ? "active" : ""}`}
-              onClick={() => setSelectedTab("댓글")}
-            >
-              댓글
+          {/* Search Bar */}
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="검색어를 입력하세요"
+              value={searchText}
+              onChange={handleSearchTextChange}
+              className="search-input"
+            />
+            <button className="search-button" onClick={handleSearchClick}>
+              <Search size={20} />
             </button>
           </div>
 
-          {/* Category Dropdown */}
-          <div className="category-dropdown">
-            <label htmlFor="category-select">카테고리 선택: </label>
-            <select
-              id="category-select"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value="">전체</option>
-              <option value="question">질문</option>
-              <option value="review">리뷰</option>
-              <option value="discussion">토론</option>
-            </select>
+          {/* Category Filters */}
+          <div className="category-filters">
+            <div className="filter-group">
+              <h3>글 종류</h3>
+              <div className="filter-options">
+                {writingTypeOption.map((style) => (
+                  <button
+                    key={style}
+                    className={`filter-btn ${selectedStyle === style ? 'active' : ''}`}
+                    onClick={() => handleStyleSelect(style)}
+                  >
+                    {style}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Writing List Section */}
@@ -126,18 +127,8 @@ const UserWritingList = () => {
                     <td>{item.likes}</td>
                     <td>{item.date}</td>
                     <td>
-                      <button
-                        onClick={(e) => handleEditClick(e)}
-                        className="action-btn"
-                      >
-                        수정
-                      </button>
-                      <button
-                        onClick={(e) => handleDeleteClick(e)}
-                        className="action-btn delete-btn"
-                      >
-                        삭제
-                      </button>
+                      <button className="action-btn">수정</button>
+                      <button className="action-btn delete-btn">삭제</button>
                     </td>
                   </tr>
                 ))}

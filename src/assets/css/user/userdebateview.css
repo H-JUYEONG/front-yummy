@@ -2,7 +2,7 @@
 /* Unified Title and Meta Section */
 .j-title-meta-wrapper {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -49,25 +49,31 @@
 .j-image-view-container img {
     width: 300px;
     height: 300px;
-    border-radius: 8px;
+    border-radius: 25px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .j-image-view-container .j-vote-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.j-image-view-container .j-vote-button:hover {
-    background-color: #0056b3;
+/* Left Vote Button - Blue */
+.j-vote-button-left {
+  background-color: #6D28D9; /* Blue for the left button */
 }
+
+/* Right Vote Button - Green */
+.j-vote-button-right {
+  background-color: #ff4b87; /* Green for the right button */
+}
+
 
 .j-caption {
     margin-top: 10px;
@@ -115,7 +121,7 @@
     width: 100%;
     height: 30px;
     background-color: #e0e0e0;
-    border-radius: 8px;
+    border-radius: 25px;
     overflow: hidden;
     font-size: 0.9em;
     color: #fff;
@@ -127,7 +133,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #007bff;
+    background-color: #6D28D9;
     white-space: nowrap;
     transition: width 0.3s;
     font-weight: bold;
@@ -138,7 +144,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ff5733;
+    background-color: #ff4b87;
     white-space: nowrap;
     transition: width 0.3s;
     font-weight: bold;
@@ -175,13 +181,13 @@
     background-color: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .j-comment-submit:hover {
-    background-color: #388E3C;
+    background-color: #00A884;
 }
 
 .j-other-comments {
@@ -198,7 +204,7 @@
 .j-profile-pic {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 25px;
     margin-right: 10px;
 }
 

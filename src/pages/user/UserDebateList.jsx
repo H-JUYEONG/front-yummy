@@ -25,6 +25,14 @@ const UserDebateList = () => {
       <main id="user-wrap-body" className="clearfix">
         {/* Main Section */}
         <section id="user-wrap-main">
+          
+
+          {/* Section Title and Description */}
+          <div className="j-board-header">
+              <div className="j-board-title">토론 게시판</div>
+              <div className="j-board-description">원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</div>
+          </div>
+          
           {/* Search and Filter Toolbar */}
           <div className="j-discussion-toolbar">
             <select className="j-category-select">
@@ -37,10 +45,6 @@ const UserDebateList = () => {
               <button className="j-search-btn">검색</button>
             </div>
           </div>
-
-          {/* Section Title and Description */}
-          <h2>토론 게시판</h2>
-          <p>원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</p>
 
           {/* Discussion Table */}
           <table className="j-discussion-list">

@@ -48,7 +48,7 @@ const UserDebateView = () => {
             <div className="j-image-view-container">
               <img src="https://via.placeholder.com/300" alt="케이크 A" />
               <div className="j-caption">케이크 사진 A</div>
-              <button className="j-vote-button" onClick={handleLeftVote}>
+              <button className="j-vote-button j-vote-button-left" onClick={handleLeftVote}>
                 케이크 A 버튼
               </button>
             </div>
@@ -56,7 +56,7 @@ const UserDebateView = () => {
             <div className="j-image-view-container">
               <img src="https://via.placeholder.com/300" alt="케이크 B" />
               <div className="j-caption">케이크 사진 B</div>
-              <button className="j-vote-button" onClick={handleRightVote}>
+              <button className="j-vote-button j-vote-button-right" onClick={handleRightVote}>
                 케이크 B 버튼
               </button>
             </div>

@@ -1,56 +1,31 @@
+/* Board Header Container Styling */
+.j-board-header {
+  margin-bottom: 20px;
+  text-align: center; /* Centers the title and description */
+}
+
+/* Board Title Styling */
+.j-board-header .j-board-title {
+  font-family: 'GmarketSans', sans-serif; /* Use GmarketSans for a bold and readable title */
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Board Description Styling */
+.j-board-header .j-board-description {
+  font-family: 'NanumSquare', sans-serif; /* Use NanumSquare for the description */
+  font-size: 1.2rem;
+  color: #666;
+}
+
 /* Container */
 #debate-wrap {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f8f9fa;
-}
-
-/* Header */
-#debate-wrap-head {
-  background-color: #333;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-}
-
-#debate-wrap-head h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-/* Navigation Bar */
-#debate-wrap-nav {
-  background-color: #f0f0f0;
-  padding: 10px 0;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.j-nav-menu {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 0;
-  margin: 0;
-}
-
-.j-nav-menu li {
-  cursor: pointer;
-  padding: 8px 12px;
-  font-size: 1rem;
-  color: #333;
-}
-
-.j-nav-menu .j-active {
-  font-weight: bold;
-  color: #4caf50;
-}
-
-/* Main Content */
-#debate-wrap-body {
-  padding: 20px;
 }
 
 /* Main Section */
@@ -62,6 +37,7 @@
 }
 
 #debate-wrap-main h2 {
+  font-family: 'NanumSquare', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 20px;
@@ -83,26 +59,26 @@
   font-size: 1rem;
 }
 
-.j-search-bar {
-  display: flex;
-  align-items: center;
-}
-
 .j-search-bar input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px 0 0 4px;
-  outline: none;
 }
 
 .j-search-btn {
-  padding: 8px 12px;
-  background-color: #333;
-  color: #fff;
+  padding: 10px 20px; /* Matches the padding of .search-button */
+  background: #7C3AED; /* Matches the background color */
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 20px 20px 0; /* Matches the rounded corners */
+  color: white;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
+
+.j-search-btn:hover {
+  background: #6D28D9; /* Hover color matches .search-button */
+}
+
 
 /* Table */
 .j-discussion-list {
@@ -110,11 +86,11 @@
   border-collapse: collapse;
   background-color: #fff;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .j-discussion-list th,
 .j-discussion-list td {
+  font-family: 'Nanum Gothic', sans-serif;
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid #ddd;
@@ -130,13 +106,6 @@
 }
 
 /* Bottom Toolbar */
-.j-bottom-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-}
-
 .j-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -151,6 +120,7 @@
 
 .j-page-btn,
 .j-next-btn {
+  font-family: 'NanumSquare', sans-serif;
   padding: 5px 10px;
   background-color: #eee;
   border: 1px solid #ddd;
@@ -164,13 +134,12 @@
 }
 
 .j-write-btn {
-  background-color: #4caf50;
+  background-color: #27AE60  ;
   color: #fff;
+  font-weight: bold;
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
 }
-
-
