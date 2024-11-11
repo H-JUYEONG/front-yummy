@@ -591,9 +591,9 @@ const UserCakeDetail = () => {
             </main>
 
             {/* 푸터 영역 */}
-            <footer className="user-full-width">
+            
                <Footer/>
-            </footer>
+    
         </div>
     );
 };
