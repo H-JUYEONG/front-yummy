@@ -1,0 +1,438 @@
+/* 폰트 설정 */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* SF함박눈 폰트 - CDN 방식 */
+@font-face {
+    font-family: 'SF함박눈';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF함박눈.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 나눔스퀘어 폰트 */
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Gmarket Sans 폰트 */
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#adminShopManage-wrap {
+    flex: 1;
+    padding: 40px;
+}
+
+#adminShopManage-wrap .admin-shop-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+#adminShopManage-wrap #adminShopManage-nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap #adminShopManage-nav li {
+    list-style: none;
+}
+
+#adminShopManage-wrap #adminShopManage-nav a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+#adminShopManage-wrap .admin-shop-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .admin-shop-profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+#adminShopManage-wrap .admin-shop-profile-details h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+#adminShopManage-wrap .admin-shop-profile-details p {
+    margin: 5px 0;
+    color: #666;
+}
+
+#adminShopManage-wrap .admin-shop-section {
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .admin-shop-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#adminShopManage-wrap .admin-shop-section input[type="text"],
+#adminShopManage-wrap .admin-shop-section textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f4f4f4;
+    transition: border-color 0.3s ease;
+}
+
+#adminShopManage-wrap .admin-shop-section textarea {
+    height: 100px;
+    resize: vertical;
+}
+.admin-shop-section input[type="text"]:focus,
+.admin-shop-section textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+#adminShopManage-wrap .admin-shop-section .preview {
+    margin-top: 10px;
+    width: 200px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#adminShopManage-wrap .section-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#adminShopManage-wrap .admin-category-upload {
+    flex: 1;
+    min-width: 200px;
+}
+
+#adminShopManage-wrap .admin-category-upload .file-input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#adminShopManage-wrap .preview-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#adminShopManage-wrap .admin-add-category {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#adminShopManage-wrap .admin-add-category:hover {
+    background-color: #0056b3;
+}
+#adminShopManage-wrap .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* 위 여백 */
+}
+#adminShopManage-wrap .admin-apply-button {
+    display: block;
+    width: 20%;
+    text-align: center;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#adminShopManage-wrap .admin-apply-button a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#adminShopManage-wrap .admin-apply-button:hover {
+    background-color: #218838;
+}
+
+#adminShopManage-wrap #shop-description {
+    resize: vertical;
+}
+
+#adminShopManage-wrap .file-input {
+    margin-bottom: 10px;
+}
+
+/* UserStoreDetail 스타일 */
+#adminShopManage-wrap #user-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+#adminShopManage-wrap .text-center {
+    text-align: center;
+}
+
+#adminShopManage-wrap #user-wrap-body {
+    padding: 20px;
+}
+
+#adminShopManage-wrap .sd-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .sd-profile-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .sd-back-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+#adminShopManage-wrap .sd-store-name {
+    font-family: 'GmarketSans', sans-serif;
+    font-size: 1.5em;
+}
+
+#adminShopManage-wrap .sd-profile-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#adminShopManage-wrap .sd-profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+#adminShopManage-wrap .sd-profile-text {
+    max-width: 500px;
+    color: #666;
+}
+
+#adminShopManage-wrap .sd-profile-stats span {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#adminShopManage-wrap .sd-divider {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+#adminShopManage-wrap .sd-category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .sd-category-item {
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+#adminShopManage-wrap .sd-category-item.active {
+    transform: scale(1.1);
+    border: 2px solid #007bff;
+    border-radius: 8px;
+}
+
+#adminShopManage-wrap .sd-category-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#adminShopManage-wrap .sd-products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#adminShopManage-wrap .sd-product-item {
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    transition: box-shadow 0.3s ease;
+}
+
+#adminShopManage-wrap .sd-product-item:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+#adminShopManage-wrap .sd-product-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+#adminShopManage-wrap .sd-price-info {
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 0 0 8px 8px;
+}
+
+#adminShopManage-wrap .sd-product-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#adminShopManage-wrap .sd-price {
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Modal 스타일 추가 */
+#adminShopManage-wrap .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+#adminShopManage-wrap .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fefefe;
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+}
+.preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+#adminShopManage-wrap .modal-content .preview-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+#adminShopManage-wrap .modal-content p {
+    text-align: center;
+    color: #666;
+    margin-top: 10px;
+}
+#adminShopManage-wrap .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+#adminShopManage-wrap .close:hover,
+#adminShopManage-wrap .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#adminShopManage-wrap .preview-info {
+    font-size: 15px;
+    color: #333;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+
+#adminShopManage-wrap .back-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+#adminShopManage-wrap .back-button:hover {
+    background-color: #0056b3;
+}
+
+
+#adminShopManage-wrap .preview-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+#adminShopManage-wrap .preview-button:hover {
+    background-color: #0056b3;
+}

@@ -19,7 +19,8 @@ const AdminSidebar = () => {
             <hr className="menu-divider" />
 
             <ul className="menu">
-                <li><Link to="/admin/shoppage">쇼핑몰-페이지 관리</Link></li>
+                <li><Link to="/admin/shopadd">쇼핑몰-페이지 등록</Link></li>
+                <li><Link to="/admin/shopmanage">쇼핑몰-페이지 수정</Link></li>
                 <li><Link to="/admin/shopproducts">쇼핑몰-상품 관리</Link></li>
                 <li><Link to="/admin/shoporders">쇼핑몰-주문 관리</Link></li>
             </ul>

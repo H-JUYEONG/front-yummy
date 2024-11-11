@@ -19,6 +19,8 @@ import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
 import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
+import VenderReview from './pages/vender/VenderReview';
+
 
 // user
 import UserSignupType from './pages/user/UserSignupType';
@@ -48,7 +50,10 @@ import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
 import UserOrderComplete from './pages/user/UserOrderComplete';
 import UserWritingList from "./pages/user/UserWritingList";
-
+import UserAuditionBoard from './pages/user/UserAuditionBoard';
+import UserAuditionAdd from './pages/user/UserAuditionAdd';
+import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
+import UserMyAudtion from './pages/user/UserMyAudtion';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -65,11 +70,9 @@ import AdminShopProduct from './pages/admin/AdminShopProduct';
 import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
-import VenderReview from './pages/vender/VenderReview';
-import UserAuditionBoard from './pages/user/UserAuditionBoard';
-import UserAuditionAdd from './pages/user/UserAuditionAdd';
-import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
-import UserMyAudtion from './pages/user/UserMyAudtion';
+import AdminShopManage from './pages/admin/AdminShopManage';
+import AdminShopAdd from './pages/admin/AdminShopAdd';
+
 
 
 function App() {
@@ -143,7 +146,8 @@ function App() {
           <Route path='/admin/shopproductsdetail' element={<AdminShopProductDetail/>}/>
           <Route path='/admin/shoporders' element={<AdminShopOrder/>}/>
           <Route path='/admin/venderorder' element={<AdminVenderOrder/>}/>
-
+          <Route path='/admin/shopmanage' element={<AdminShopManage/>}/>
+          <Route path='/admin/shopadd' element={<AdminShopAdd/>}/>
           {/* Board Routes */}
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
