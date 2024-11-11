@@ -3,8 +3,10 @@
 
 .order-status-container .status-label {
     font-family: 'NanumSquare', sans-serif;
+    margin-bottom: 5px;
     font-size: 16px;
     color: #666;
+    margin-right: 10px;
 }
 
 /* 기간 선택 버튼 스타일 조정 */
