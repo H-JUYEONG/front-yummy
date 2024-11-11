@@ -70,7 +70,8 @@
 }
 
 .user-loginform input:focus {
-    color: #aaa;
+    outline: none;
+    border-color: #aaa;
 }
 
 .user-loginform input::placeholder {
