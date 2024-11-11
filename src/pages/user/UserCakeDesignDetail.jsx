@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";

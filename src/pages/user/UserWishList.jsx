@@ -4,8 +4,8 @@ import { Search } from 'lucide-react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userwishlist.css';
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 const UserWishList = () => {
     const [selectedStyle, setSelectedStyle] = useState('');

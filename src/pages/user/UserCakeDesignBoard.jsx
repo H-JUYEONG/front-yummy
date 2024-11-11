@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaHeart } from "react-icons/fa";
-import { Search } from "lucide-react";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
 

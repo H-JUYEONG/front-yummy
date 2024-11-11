@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
-import UserSidebar from "../../pages/user/include/UserSidebar";
-import "../../assets/css/user/usermain.css";
-// import "../../assets/css/user/userMyPageCakeDesignList.css";
+import React from "react";
 import Header from "../include/Header";
 import Footer from "../include/Footer";
+import UserSidebar from "./include/UserSidebar";
+import "../../assets/css/user/usermain.css";
+import "../../assets/css/user/userMyPageCakeDesignList.css";
+import { FaHeart, FaSearch } from "react-icons/fa";
 
 const UserMyPageCakeDesignList = () => {
   const [selectedStyle, setSelectedStyle] = useState("");
