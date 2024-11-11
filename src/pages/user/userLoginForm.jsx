@@ -11,13 +11,20 @@ import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
 
+  // 앱 정보 넣어두기
   const REST_API_KEY = "d6c4be35df7567537efa9346641d8e63";
   const REDIRECT_URI = "http://localhost:3000/auth/login/kakao";
+
   // oauth 요청 URL
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
   };
+
+  // 인가 코드 추출
+  const code = new URL(window.location.href).searchParams.get("code");
+  console.log(code);
   
   return (
     <div id="user-wrap" className="user-text-center">
