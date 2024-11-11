@@ -21,14 +21,14 @@ const Header = () => {
       return (
         <>
           <Link to="/company-dashboard" className="header-link">내 업체 바로가기</Link>
-          <Link to="/company-mypage" className="header-link">마이페이지</Link>
+          <Link to="/user/mypage/order" className="header-link">마이페이지</Link>
           <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
         </>
       );
     } else {
       return (
         <>
-          <Link to="/mypage" className="header-link">마이페이지</Link>
+          <Link to="/user/mypage/order" className="header-link">마이페이지</Link>
           <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
         </>
       );
