@@ -26,7 +26,7 @@
 .login-type-item {
     flex: 1;
     min-height: 80px; /* 버튼 높이를 일정하게 유지 */
-    border: 1px solid #000000;
+    border: 1px solid #cacaca;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -70,7 +70,8 @@
 }
 
 .user-loginform input:focus {
-    color: #aaa;
+    outline: none;
+    border-color: #aaa;
 }
 
 .user-loginform input::placeholder {

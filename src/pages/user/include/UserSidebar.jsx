@@ -47,7 +47,7 @@ const UserSidebar = () => {
           <h3>내 활동</h3>
           <ul>
             <li>
-              <Link to="/">
+              <Link to="/user/mypage/writinglist">
                 <FaComments className="icon" /> 내가 작성한 글
               </Link>
             </li>
@@ -85,7 +85,7 @@ const UserSidebar = () => {
           <h3>회원정보</h3>
           <ul>
             <li>
-              <Link to="/user/mypage/userpersonalinfoedit">
+              <Link to="/user/userpersonalinfoedit">
                 <FaUserFriends className="icon" /> 회원정보 변경
               </Link>
             </li>
