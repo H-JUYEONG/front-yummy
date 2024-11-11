@@ -6,6 +6,7 @@ import Footer from './include/Footer';
 
 import bannerOne from '../../assets/images/cake-facebook-cover-design_220346-14126.avif';
 import mapImg from '../../assets/images/map_0.png';
+import cakeImg from '../../assets/images/download.jfif';
 
 
 import '../../assets/css/user/userMainForm.css';
@@ -28,55 +29,73 @@ const UserMainForm= () => {
                 <div className='map-box'>
                     <div className='map-title'>
                         내위치찾기
+                        <div className='userMain-map-search'>
+                            <select id="category-select" name="category">
+                                <option value="category1">지역</option>
+                                <option value="category2">강남구</option>
+                                <option value="category3">성동구</option>
+                                <option value="category3">관악구</option>
+                            </select>
+                            <input type='text' placeholder='검색어를 입력해주세요!' />
+                        </div>
                     </div>
                     <div className='map-img-box'>
                         <div className='map-img'>
                             <img src={mapImg} />
                         </div>
-                        <div className='map-search'>
-                            <div className='map-choose-category'>
-                                <select id="category-select" name="category">
-                                    <option value="category1">지역</option>
-                                    <option value="category2">강남구</option>
-                                    <option value="category3">성동구</option>
-                                    <option value="category3">관악구</option>
-                                </select>
-                            </div>
-                            <div className='map-input-category'>
-                                <input type='text' placeholder='검색어를 입력해주세요!' />
-                            </div>
-                        </div>
                         <div className='map-click'>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                    </tr>
-                                    <tr>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                        <td>전체</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                        </tr>
+                                        <tr>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                        </tr>
+                                        <tr>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                        </tr>
+                                        <tr>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                            <td>강남구</td>
+                                            <td>관악구</td>
+                                            <td>강서구</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        
+                        
+                        
                     </div>
                 </div>
                 <div className='category-box'>
                     <ul>
-                        <li>전체</li>
-                        <li>도시락 케이크</li>
-                        <li>일반 케이크</li>
-                        <li>떡 케이크</li>
-                        <li>반려동물 케이크</li>
+                        <li><button>카테고리 | </button></li>
+                        <li><button>전체</button></li>
+                        <li><button>도시락 케이크</button></li>
+                        <li><button>일반 케이크</button></li>
+                        <li><button>떡 케이크</button></li>
+                        <li><button>반려동물 케이크</button></li>
                     </ul>
                 </div>
                 <div className='sub-title-box'>
@@ -86,9 +105,12 @@ const UserMainForm= () => {
                     </ul>
                 </div>
                 <div className='allList-box'>
-                    <p>상품리스트공간</p>
+                    <div className='userMain-product-img'>
+                        <img src={cakeImg} />
+                    </div>
                     <Link to="/user/cakedetail" >상품 1 *클릭해주세요*</Link> 
                 </div>
+                
 
             </div>
 
