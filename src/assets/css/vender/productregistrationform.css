@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-.product-registration {
-    background-color: white;
-    padding: 20px;
-    border-radius: 16px;
-    /* 큰 라운드를 적용하여 부드러운 모서리 */
-}
+
 
 /* 타이틀 스타일 */
 .product-registration .product-list-title {
@@ -135,17 +130,6 @@
     margin-top: 0.5rem;
 }
 
-.product-registration .option-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100px;
-}
 
 .product-registration .option-item.selected {
     border-color: #007bff;
@@ -430,14 +414,14 @@
 .venderregistrationform-design-modal  .close-modal-button {
     background-color: #ff5e57;
     color: #fff;
-    padding: 10px 15px;
+    padding: 5px 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 20px;
     display: flex;
     align-items: center;
 }
