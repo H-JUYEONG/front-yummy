@@ -18,12 +18,15 @@ import VenderCakeDesignEdit from './pages/vender/VenderCakeDesignEdit';
 import VenderCakeDesignDetail from './pages/vender/VenderCakeDesignDetail';
 import VenderAppealDesignDetails from './pages/vender/VenderAppealDesignDetails';
 import VenderProductPreview from './pages/vender/VenderProductPreview';
+import VenderMain from './pages/vender/VenderMain';
+
+
 
 // user
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
-import UserPersonalInfoEdit from './pages/user/userPersonalInfoEdit';
+import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/userLoginForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
@@ -38,18 +41,22 @@ import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
+
+import UserMainForm from './pages/user/UserMainForm';
+
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
-import UserOrderComplete from './pages/user/UserOrderComplete';
 
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
 import UserDebateList from './pages/user/UserDebateList';
 import UserDebateView from './pages/user/UserDebateView';
+import UserDebateEdit from "./pages/user/UserDebateEdit";
+
 
 // admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -60,6 +67,7 @@ import AdminShopProduct from './pages/admin/AdminShopProduct';
 import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
+import UserWritingList from "./pages/user/UserWritingList";
 
 
 function App() {
@@ -84,7 +92,9 @@ function App() {
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
           <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
-
+          <Route path='/vender/venderMain' element={<VenderMain />} />
+          <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
+          
           {/* User Routes */}
           <Route path='/user/main' element={<UserMain/>}/>
           <Route path='/user/login' element={<UserLoginForm />} />
@@ -105,12 +115,13 @@ function App() {
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
-          <Route path='/user/ordercomplete' element={<UserOrderComplete/>}/>
+
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
 
@@ -128,6 +139,10 @@ function App() {
           <Route path='/board' element={<UserDebateList />} />
           <Route path='/board/debateinsert' element={<UserDebateInsert />} />
           <Route path='/board/boardview' element={<UserDebateView />} />
+          <Route path="/board/debateedit" element={<UserDebateEdit />} />
+
+          
+
 
         </Routes>
       </BrowserRouter>

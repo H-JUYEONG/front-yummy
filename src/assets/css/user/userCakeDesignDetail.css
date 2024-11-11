@@ -1,273 +1,282 @@
 /* Title and button alignment */
 .user-cake-designs-details {
-    width: 100%;
-    margin: 0 auto; /* 가로 가운데 정렬 */
+  width: 100%;
+  margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
 .user-design-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #000000; /* 타이틀 강조선 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #000000; /* 타이틀 강조선 */
 }
 
 /* 타이틀 스타일 */
 .user-cake-designs-title {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* 조회수와 제목 간격 조정 */
-    font-size: 2.2em;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 조회수와 제목 간격 조정 */
+  font-size: 2.2em;
+  color: #333;
+  margin: 0;
 }
 
 .user-cake-designs-title span {
-    font-size: 30px;
+  font-size: 30px;
+    font-weight: bold;
 }
 
 .user-view-section {
-    display: flex;
-    align-items: center;
-    font-size: 15px; /* 조회수 크기 조정 */
-    color: #666;
-  }
-  
-  .users-view-icon {
-    color: gray;
-    margin-right: 5px;
-  }
+  display: flex;
+  align-items: center;
+  font-size: 15px; /* 조회수 크기 조정 */
+  color: #666;
+}
+
+.users-view-icon {
+  color: gray;
+  margin-right: 5px;
+}
 
 /* Audition Button */
 .user-audition-button {
-    background-color: #ff4b87;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
+  background-color: #ff4b87;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 /* 메인 이미지 스타일 */
 .user-cake-designs-detail-imgs img {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    margin-top: 14px; /* 이미지와 제목 시작 위치 조정 */
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-top: 14px; /* 이미지와 제목 시작 위치 조정 */
 }
 
 /* 서브 이미지 */
 .user-cake-designs-detail-sub-imgs {
-    display: flex;
-    flex-wrap: wrap; /* 이미지가 넘어가면 아래로 배치 */
-    justify-content: center; /* 서브 이미지를 가로 중심 정렬 */
-    max-width: 600px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  flex-wrap: wrap; /* 이미지가 넘어가면 아래로 배치 */
+  justify-content: center; /* 서브 이미지를 가로 중심 정렬 */
+  max-width: 600px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .user-cake-designs-detail-sub-imgs img {
-    width: 100%;
-    max-width: 100px;
-    height: auto;
-    margin-top: 14px;
-    margin-right: 10px;
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  margin-top: 14px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 /* 설명 텍스트 스타일 */
 .user-cake-designs-detail-txt {
-    max-width: 1000px;
-    color: #555;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 설명 텍스트를 중심 정렬 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 1000px;
+  color: #555;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 설명 텍스트를 중심 정렬 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .user-cake-designs-detail-txt h2 {
-    padding-bottom: 10px;
-    font-size: 35px;
-    font-weight: bold;
+  padding-bottom: 10px;
+  font-size: 35px;
+  font-weight: bold;
 }
 
 .user-cake-designs-detail-txt p {
-    font-size: 20px;
-    padding-bottom: 20px;
-    word-wrap: break-word;
+  font-size: 20px;
+  padding-bottom: 20px;
+  word-wrap: break-word;
 }
 
 /* 찜 버튼 스타일 */
 .user-favorite-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #000000;
 }
 
 .user-favorite-button {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    /* border: 1px solid #cacaca; */
-    border: none;
-    border-radius: 25px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  /* border: 1px solid #cacaca; */
+  border: none;
+  border-radius: 25px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .users-heart-icon {
-    color: red;
-    margin-right: 5px;
+  color: red;
+  margin-right: 5px;
 }
 
 .users-favorite-count {
-    font-size: 16px;
-    color: #333;
+  font-size: 16px;
+  color: #333;
 }
 
 /* 업체 섹션 스타일 */
 .user-business-section {
-    text-align: left;
-    padding: 25px 0px;
-    border-bottom: 1px solid #000000;
+  text-align: left;
+  padding: 25px 0px;
+  border-bottom: 1px solid #000000;
 }
 
 .user-business-section h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 16px;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 .user-business-list {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-start;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
 }
 
 .user-business-item {
-    background-color: #f7f7f7;
-    padding: 15px 25px;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 14px;
+  background-color: #f7f7f7;
+  padding: 15px 25px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .vender-use-name {
-    margin-bottom: 7px;
-    font-weight: bold;
-    font-size: 17px;
+  margin-bottom: 7px;
+  font-weight: bold;
+  font-size: 17px;
 }
 
 .vender-sub-txt {
-    margin-top: 5px;
-    color: #777777;
+  margin-top: 5px;
+  color: #777777;
 }
 
 /* 리뷰 섹션 스타일 */
 .user-review-section {
-    margin-top: 25px;
-    text-align: left;
+  margin-top: 25px;
+  text-align: left;
 }
 
 .user-review-section h2 {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 16px;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 /* 리뷰 아이템 */
 .user-cake-designs-review-item {
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid #e8e8e8;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* 리뷰 헤더 */
 .user-review-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #666;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .user-review-stars {
-    color: #fbc02d; /* 별 색상 */
-    font-size: 16px;
+  color: #fbc02d; /* 별 색상 */
+  font-size: 16px;
 }
 
 .user-review-email-id {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .user-review-date {
-    font-size: 12px;
-    color: #666;
+  font-size: 12px;
+  color: #666;
 }
 
 /* 리뷰 본문 */
 .user-review-body {
-    display: flex;
-    align-items: flex-center;
-    /* align-items: center; */
-    gap: 15px;
+  display: flex;
+  align-items: flex-center;
+  /* align-items: center; */
+  gap: 15px;
 }
 
 .user-cake-designs-review-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin: 5px 0px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 5px 0px;
 }
 
 .user-review-text {
-    flex: 1;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #333;
-    margin: 5px 0px;
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  margin: 5px 0px;
 }
 
 /* 수정, 삭제 버튼 */
 .user-cake-action-buttons {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .user-cake-edit-button, .user-cake-delete-button {
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border: 1px solid #cacaca;
-    background-color: #ffffff;
-  }
-  
-  .user-cake-edit-button {
-    background-color: #ffffff;
-    color: #333;
-  }
-  
-  .user-cake-delete-button {
-    background-color: #ffffff;
-    color: #333;
-  }
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.user-cake-edit-button,
+.user-cake-delete-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #cacaca;
+  background-color: #ffffff;
+}
+
+.user-cake-edit-button {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.user-cake-delete-button {
+  background-color: #ffffff;
+  color: #333;
+}
+
+
+.user-cake-design-write-date p {
+  font-size: 13px;
+  text-align: left;
+  color: #666;
+}

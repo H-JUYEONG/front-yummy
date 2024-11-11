@@ -26,12 +26,12 @@ const UserLoginForm = () => {
         <div>
           <div className="user-login-type">
             <div className="login-type-item">
-              <Link to="#" rel="noreferrer noopener">
+              <Link to="/user/signup" rel="noreferrer noopener">
                 개인 회원가입
               </Link>
             </div>
             <div className="login-type-item">
-              <Link to="#" rel="noreferrer noopener">
+              <Link to="/vender/signup" rel="noreferrer noopener">
                 업체 회원가입
                 <p>(개인, 법인사업자)</p>
               </Link>

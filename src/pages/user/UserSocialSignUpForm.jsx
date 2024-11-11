@@ -25,9 +25,9 @@ const UserSocialSignUpForm = () => {
         <h1>회원가입</h1>
 
         <h2>필수사항</h2>
-        <div className="social-signup-area">
+        <div className="userSocialSignUpForm-social-signup-area">
           <form>
-            <div className="input-group">
+            <div className="userSocialSignUpForm-input-group">
               <div className="social-guide">
                 <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
                 <p>
@@ -46,7 +46,7 @@ const UserSocialSignUpForm = () => {
               <p className="user-social-id-ok">중복된 이메일 입니다.</p>
             </div>
 
-            <div className="input-group">
+            <div className="userSocialSignUpForm-input-group">
               <label htmlFor="user-pw">비밀번호</label>
               {/* <input
                 id="user-pw"
@@ -60,7 +60,7 @@ const UserSocialSignUpForm = () => {
               </p>
             </div>
 
-            <div className="input-group">
+            <div className="userSocialSignUpForm-input-group">
               <label htmlFor="user-name">이름</label>
               <input
                 id="user-name"
@@ -70,9 +70,9 @@ const UserSocialSignUpForm = () => {
               />
             </div>
 
-            <div className="input-group">
+            <div className="userSocialSignUpForm-input-group">
               <label htmlFor="user-phone">휴대폰번호</label>
-              <div className="phone-input-wrapper">
+              <div className="user-phonenum-input-wrapper">
                 <input
                   id="user-phone"
                   type="text"
@@ -85,8 +85,13 @@ const UserSocialSignUpForm = () => {
               </div>
             </div>
 
-            <div className="user-signup-btn">
-              <button type="submit" onClick={() => navigate("/user/signup/succ")}>회원가입</button>
+            <div className="user-social-signup-btn">
+              <button
+                type="submit"
+                onClick={() => navigate("/user/signup/succ")}
+              >
+                회원가입
+              </button>
             </div>
           </form>
         </div>

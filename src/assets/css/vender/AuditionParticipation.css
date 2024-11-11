@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+.sso-modal-body-content form{
+    padding: 5px;
+    box-shadow: 1px 4px 6px  rgba(0, 0, 1, 0.1); /* 수평, 수직, 흐림 정도, 색상 */  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sso-modal-body-content form button {
+    margin: 10px auto 20px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.input-recept-box{
+    /* border: 1px solid #000; */
+    display: flex;
+    width: 100%;
+   
+}
+.input-recept-box > div{
+    width: calc(100% / 2);
+    /* border: 1px solid #000; */
+}
+.sso-modal-body-content .input-recept-value{
+    padding: 5px;
+    
+}
+.input-recept-box .input-photo-value{
+    width: 80%;
+    height: 100px;
+    border: 1px solid #ddd;
+    
+}
+.sso-modal-body-content .input-recept-value > input{
+    padding: 5px 10px;
+    width: calc(100% - 50px);
+}
+
+.sso-modal-body-content .input-recept-value .solid{
+    border: 1px solid #ddd;
+}
+.input-recept-box .input-recept-text-value{
+    width: 100%;
+    height: 100px;
+    overflow-y: auto; /* 세로 스크롤 */
+}
+#input-photo + label {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    display: block;
+    padding: 5px 10px; 
+}
+.input-recept-value label {
+    display: block;
+    margin-bottom: 5px
+}
+textarea {
+    resize: none;
+    padding: 5px 10px;
+}
+
+.input-photo-value img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

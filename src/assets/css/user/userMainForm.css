@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/*베너공간*/
+.banner-box{
+    /* background-color: aqua; */
+}
+.banner-box .banner-img{
+    height: 270px;
+    border: 1px solid #f6f6f6;
+    margin-bottom: 30px;
+}
+
+/*지도공간*/
+.map-box{
+    border: 2px solid #f6f6f6;
+    height: 300px;
+}
+.map-box .map-title{
+    height: 40px;
+    background-color: #f6f6f6;
+    padding: auto 0;
+}
+.map-box .map-img-box{
+    display: flex;
+    width: 100%;
+    
+}
+.map-box .map-img-box .map-img{
+    height: 260px;
+    border: 1px solid #f6f6f6;
+    /* background-color: bisque; */
+    width: 35%;
+}
+.map-box .map-img-box .map-search{
+    display: flex;
+    height: 100px;
+    /* background-color: aquamarine; */
+    width: 100%;
+}
+.map-box .map-img-box .map-choose-category{
+    /* background-color: aqua; */
+    margin-right: 15px;
+}
+
+.map-box .map-img-box .map-input-category{
+    /* background-color: blue; */
+}
+/*카테고리공간*/
+.category-box{
+    /* background-color: rgb(200, 237, 37); */
+    border: 3px solid #f6f6f6;
+    height: 80px;
+    padding: 15px;
+    
+}
+.category-box > ul{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+
+/*서브타이틀공간*/
+.sub-title-box{
+    /* background-color: aqua; */
+    height: 40px;
+}
+.sub-title-box > ul{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+}
+.sub-title-box > ul > li{
+    margin-left: 10px;
+}
+
+
+
+/*상품리스트공간*/
+.allList-box{
+    /* background-color: rgb(95, 26, 233); */
+    border: 3px solid #f6f6f6;
+}
+

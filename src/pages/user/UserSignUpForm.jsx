@@ -24,9 +24,9 @@ const UserSignUpForm = () => {
         <h1>회원가입</h1>
 
         <h2>필수사항</h2>
-        <div className="signup-area">
+        <div className="user-signup-intput-area">
           <form>
-            <div className="input-group">
+            <div className="user-input-group-txt">
               <label htmlFor="user-id">아이디(이메일)</label>
               <input
                 id="user-id"
@@ -38,7 +38,7 @@ const UserSignUpForm = () => {
               <p className="user-id-ok">중복된 이메일 입니다.</p>
             </div>
 
-            <div className="input-group">
+            <div className="user-input-group-txt">
               <label htmlFor="user-pw">비밀번호</label>
               <input
                 id="user-pw"
@@ -47,11 +47,11 @@ const UserSignUpForm = () => {
                 placeholder="비밀번호를 입력해주세요."
               />
               <p className="user-pw-ok">
-              ※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.
+                ※ 영문,숫자,특수문자 조합하여 6~16자로 입력해주세요.
               </p>
             </div>
 
-            <div className="input-group">
+            <div className="user-input-group-txt">
               <label htmlFor="user-pw-check">비밀번호 확인</label>
               <input
                 id="user-pw"
@@ -59,12 +59,10 @@ const UserSignUpForm = () => {
                 value=""
                 placeholder="비밀번호를 재입력"
               />
-              <p className="user-pw-ok">
-              ※ 비밀번호가 일치하지 않습니다.
-              </p>
+              <p className="user-pw-ok">※ 비밀번호가 일치하지 않습니다.</p>
             </div>
 
-            <div className="input-group">
+            <div className="user-input-group-txt">
               <label htmlFor="user-name">이름</label>
               <input
                 id="user-name"
@@ -74,9 +72,9 @@ const UserSignUpForm = () => {
               />
             </div>
 
-            <div className="input-group">
+            <div className="user-input-group-txt">
               <label htmlFor="user-phone">휴대폰번호</label>
-              <div className="phone-input-wrapper">
+              <div className="user-phonenum-input-wrapper">
                 <input
                   id="user-phone"
                   type="text"
@@ -89,8 +87,13 @@ const UserSignUpForm = () => {
               </div>
             </div>
 
-            <div className="user-signup-btn">
-              <button type="submit" onClick={() => navigate("/user/signup/succ")}>회원가입</button>
+            <div className="user-signup-btns">
+              <button
+                type="submit"
+                onClick={() => navigate("/user/signup/succ")}
+              >
+                회원가입
+              </button>
             </div>
           </form>
         </div>
