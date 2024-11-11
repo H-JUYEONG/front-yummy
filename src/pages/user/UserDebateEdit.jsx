@@ -1,12 +1,12 @@
 // Import libraries
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import UserDebateModal from "./include/UserDebateModal"; // Import the modal component
 
 const UserDebateEdit = () => {
   // Initial state with preloaded images and text
@@ -15,7 +15,10 @@ const UserDebateEdit = () => {
   const [title, setTitle] = useState("기존 제목을 입력하세요");
   const [content, setContent] = useState("기존 글 내용을 작성하세요");
 
-  // Handle image deletion and uploading
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImageSide, setSelectedImageSide] = useState("");
+
+  // Handle image upload and delete
   const handleLeftImageUpload = (event) => {
     setLeftImage(URL.createObjectURL(event.target.files[0]));
   };
@@ -30,6 +33,20 @@ const UserDebateEdit = () => {
 
   const handleRightImageDelete = () => {
     setRightImage(null);
+  };
+
+  const openModal = (side) => {
+    setSelectedImageSide(side);
+    setIsModalOpen(true);
+  };
+
+  const handleModalImageSelect = (imageUrl) => {
+    if (selectedImageSide === "left") {
+      setLeftImage(imageUrl);
+    } else if (selectedImageSide === "right") {
+      setRightImage(imageUrl);
+    }
+    setIsModalOpen(false); // Close the modal after selecting the image
   };
 
   return (
@@ -63,15 +80,8 @@ const UserDebateEdit = () => {
             <div className="j-image-option">
               {leftImage ? (
                 <>
-                  <img
-                    src={leftImage}
-                    alt="Left"
-                    className="j-inserted-image"
-                  />
-                  <button
-                    className="j-delete-btn"
-                    onClick={handleLeftImageDelete}
-                  >
+                  <img src={leftImage} alt="Left" className="j-inserted-image" />
+                  <button className="j-delete-btn" onClick={handleLeftImageDelete}>
                     이미지 삭제
                   </button>
                 </>
@@ -86,7 +96,9 @@ const UserDebateEdit = () => {
                       className="j-image-upload-input"
                     />
                   </label>
-                  <button className="j-modal-btn">모달 창 이미지 선택</button>
+                  <button className="j-modal-btn" onClick={() => openModal("left")}>
+                    모달 창 이미지 선택
+                  </button>
                 </>
               )}
             </div>
@@ -94,15 +106,8 @@ const UserDebateEdit = () => {
             <div className="j-image-option">
               {rightImage ? (
                 <>
-                  <img
-                    src={rightImage}
-                    alt="Right"
-                    className="j-inserted-image"
-                  />
-                  <button
-                    className="j-delete-btn"
-                    onClick={handleRightImageDelete}
-                  >
+                  <img src={rightImage} alt="Right" className="j-inserted-image" />
+                  <button className="j-delete-btn" onClick={handleRightImageDelete}>
                     이미지 삭제
                   </button>
                 </>
@@ -117,7 +122,9 @@ const UserDebateEdit = () => {
                       className="j-image-upload-input"
                     />
                   </label>
-                  <button className="j-modal-btn">모달 창 이미지 선택</button>
+                  <button className="j-modal-btn" onClick={() => openModal("right")}>
+                    모달 창 이미지 선택
+                  </button>
                 </>
               )}
             </div>
@@ -135,8 +142,8 @@ const UserDebateEdit = () => {
 
           {/* Footer Buttons */}
           <div className="j-debate-footer">
-          <Link to="/board"className="j-back-btn">취소</Link>
-          <Link to="/board" className="j-submit-btn">수정</Link>
+            <Link to="/board" className="j-back-btn">취소</Link>
+            <Link to="/board" className="j-submit-btn">수정</Link>
           </div>
         </section>
       </main>
@@ -145,6 +152,14 @@ const UserDebateEdit = () => {
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
+
+      {/* Modal for Image Selection */}
+      {isModalOpen && (
+        <UserDebateModal
+          onSelectImage={handleModalImageSelect}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
