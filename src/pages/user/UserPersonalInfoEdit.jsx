@@ -82,23 +82,23 @@ const UserPersonalInfoEdit = () => {
 
           {/* Profile Picture Edit Section */}
           <div className="profile-picture-section">
-  <div className="profile-picture-preview">
-    {profilePicture ? (
-      <img src={profilePicture} alt="Profile Preview" />
-    ) : (
-      <span>프로필 사진 없음</span>
-    )}
-  </div>
-  <label className="profile-picture-button">
-    프로필 사진 업로드
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleProfilePictureChange}
-      className="profile-picture-input"
-    />
-  </label>
-</div>
+            <div className="profile-picture-preview">
+              {profilePicture ? (
+                <img src={profilePicture} alt="Profile Preview" />
+              ) : (
+                <span>프로필 사진 없음</span>
+              )}
+            </div>
+            <label className="profile-picture-button">
+              프로필 사진 업로드
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePictureChange}
+                className="profile-picture-input"
+              />
+            </label>
+          </div>
 
           {/* User Information Form */}
           <form className="user-edit-form">
