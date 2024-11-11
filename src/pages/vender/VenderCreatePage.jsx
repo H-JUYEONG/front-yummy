@@ -96,7 +96,7 @@ const VenderCreatePage = () => {
                 <input id='shop-kakao' type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" name='' value=''/>
             </div>
 
-            <button className="sy-apply-button">적용하기</button>
+            <button className="sy-apply-button"><Link to='/user/storedetail'>적용하기</Link></button>
         </div>
     );
 }
