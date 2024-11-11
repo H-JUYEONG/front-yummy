@@ -122,7 +122,7 @@ function App() {
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
           <Route path='/user/ordercomplete' element={<UserOrderComplete/>}/>
-          <Route path='/user/userMainForm' element={<UserMainForm/>}/>
+          <Route path='/user/' element={<UserMainForm/>}/>
 
 
           {/* Main and Admin */}
