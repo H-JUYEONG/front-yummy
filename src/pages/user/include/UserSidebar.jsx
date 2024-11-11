@@ -34,7 +34,7 @@ const UserSidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/my-qna">
+              <Link to="/user/mypage/audition">
                 <FaComments className="icon" /> 오디션 내역 관리
               </Link>
             </li>

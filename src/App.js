@@ -69,6 +69,7 @@ import VenderReview from './pages/vender/VenderReview';
 import UserAuditionBoard from './pages/user/UserAuditionBoard';
 import UserAuditionAdd from './pages/user/UserAuditionAdd';
 import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
+import UserMyAudtion from './pages/user/UserMyAudtion';
 
 
 function App() {
@@ -127,6 +128,7 @@ function App() {
           <Route path='/user/audition' element={<UserAuditionBoard/>}/>
           <Route path='/user/audition/add' element={<UserAuditionAdd/>}/>
           <Route path='/user/audition/ongoing' element={<UserAuditionOngoing/>}/>
+          <Route path='/user/mypage/audition' element={<UserMyAudtion/>}/>
           <Route path='/user/mypage/writinglist' element={<UserWritingList/>}/>
 
           {/* Main and Admin */}
