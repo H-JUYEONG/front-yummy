@@ -45,6 +45,9 @@ const VenderMain = () => {
                     <img src='../../assets/images/cake-facebook-cover-design_220346-14126' />
                     업체 대문로고
                 </div>
+                <div className='venderMain-title-name'>
+                    cake shop
+                </div>
                 <div className='venderMain-content'>
                     <div className='venderMain-content-img'>
                         <div className='sub-logo-img'>
@@ -52,7 +55,12 @@ const VenderMain = () => {
                         </div>
                     </div>
                     <div className='venderMain-content-maintext'>
-                        업체 상세설명 들어오는 칸
+                        <ul>
+                            <li>게시물 84개</li>
+                            <li>전체리뷰 100개</li>
+                            <li>카카오톡 문의</li>
+                        </ul>
+                        *업체 상세설명 들어오는 칸*
                     </div>
                 </div>
                 <div className='venderMain-category-box'>
