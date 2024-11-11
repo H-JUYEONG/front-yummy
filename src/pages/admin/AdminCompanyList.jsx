@@ -112,7 +112,7 @@ const AdminCompanyList = () => {
                     ))}
                 </tbody>
             </table>
-            
+
             {/* 페이징 */}
             <div className="pagination">
                 {Array.from({ length: totalPages }, (_, index) => (

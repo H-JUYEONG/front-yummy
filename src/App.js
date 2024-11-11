@@ -40,16 +40,13 @@ import UserWishList from './pages/user/UserWishList';
 import UserCakeDesignDetail from './pages/user/UserCakeDesignDetail';
 import UserCakeDesignAdd from './pages/user/UserCakeDesignAdd';
 import UserCakeDesignEdit from './pages/user/UserCakeDesignEdit';
-
 import UserMainForm from './pages/user/UserMainForm';
 import UserPoint from './pages/user/UserPoint';
 import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
-
 import UserOrderComplete from './pages/user/UserOrderComplete';
-
 import UserWritingList from "./pages/user/UserWritingList";
 
 
@@ -69,6 +66,9 @@ import AdminShopProductDetail from './pages/admin/AdminShopProductDetail';
 import AdminShopOrder from './pages/admin/AdminShopOrder';
 import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 import VenderReview from './pages/vender/VenderReview';
+import UserAuditionBoard from './pages/user/UserAuditionBoard';
+import UserAuditionAdd from './pages/user/UserAuditionAdd';
+import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
 
 
 function App() {
@@ -124,9 +124,11 @@ function App() {
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
           <Route path='/user/ordercomplete' element={<UserOrderComplete/>}/>
           <Route path='/user/' element={<UserMainForm/>}/>
-
-
+          <Route path='/user/audition' element={<UserAuditionBoard/>}/>
+          <Route path='/user/audition/add' element={<UserAuditionAdd/>}/>
+          <Route path='/user/audition/ongoing' element={<UserAuditionOngoing/>}/>
           <Route path='/user/mypage/writinglist' element={<UserWritingList/>}/>
+
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
 

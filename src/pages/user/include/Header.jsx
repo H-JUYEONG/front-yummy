@@ -17,7 +17,7 @@ const Header = () => {
       case 'vender': //업체
         return (
           <ul>
-            <li><Link to="/audition">케이크 오디션</Link></li>
+            <li><Link to="/user/audition">케이크 오디션</Link></li>
             <li><Link to="/user/cakeDesign/board">도안게시판</Link></li>
             <li><Link to="/board">토론게시판</Link></li>
           </ul>
@@ -25,7 +25,7 @@ const Header = () => {
       case 'admin': //관리자
         return (
           <ul>
-            <li><Link to="/audition">케이크 오디션</Link></li>
+            <li><Link to="/user/audition">케이크 오디션</Link></li>
             <li><Link to="/user/cakeDesign/board">도안게시판</Link></li>
             <li><Link to="/board">토론게시판</Link></li>
           </ul>
@@ -33,7 +33,7 @@ const Header = () => {
       default: // 일반 사용자
         return (
           <ul>
-            <li><Link to="/audition">케이크 오디션</Link></li>
+            <li><Link to="/user/audition">케이크 오디션</Link></li>
             <li><Link to="/user/cakeDesign/board">도안게시판</Link></li>
             <li><Link to="/board">토론게시판</Link></li>
           </ul>
