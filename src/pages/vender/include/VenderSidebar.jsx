@@ -8,7 +8,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
     return (
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
-                <Link to='/vender/venderMain'>
+                <Link to='/user/storedetail'>
                     <img className="profile-img" src="https://via.placeholder.com/80" alt="프로필 이미지" />
                 </Link>
                 <h3>업체 이름</h3>
