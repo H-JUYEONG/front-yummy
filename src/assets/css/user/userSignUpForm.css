@@ -114,3 +114,22 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+.terms-agreement {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.terms-agreement div {
+    display: flex;
+    align-items: center;
+}
+
+.terms-agreement input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    transform-origin: left;
+    accent-color: #e4e4e4;
+}

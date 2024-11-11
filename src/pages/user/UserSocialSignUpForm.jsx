@@ -1,5 +1,5 @@
 //import 라이브러리
-import React from "react";
+import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,21 @@ import "../../assets/css/user/userSocialSignUpForm.css";
 
 const UserSocialSignUpForm = () => {
   const navigate = useNavigate();
+  
+  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [isRequiredChecked, setIsRequiredChecked] = useState(false);
+
+  const handleAllCheck = (e) => {
+    const checked = e.target.checked;
+    setIsAllChecked(checked);
+    setIsRequiredChecked(checked);
+  };
+
+  const handleRequiredCheck = (e) => {
+    const checked = e.target.checked;
+    setIsRequiredChecked(checked);
+    setIsAllChecked(checked); // 모든 필수 약관에 동의하면 전체 동의로 설정
+  };
 
   return (
     <div id="user-wrap" className="user-text-center">
@@ -82,6 +97,39 @@ const UserSocialSignUpForm = () => {
                 <button type="button" className="request-code-btn">
                   인증번호 요청
                 </button>
+              </div>
+            </div>
+
+            {/* 약관 동의 */}
+            <div className="terms-agreement">
+              <div>
+                <input
+                  type="checkbox"
+                  id="all-agree"
+                  checked={isAllChecked}
+                  onChange={handleAllCheck}
+                />
+                <label htmlFor="all-agree">전체 동의</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="terms-agree"
+                  checked={isRequiredChecked}
+                  onChange={handleRequiredCheck}
+                />
+                <label htmlFor="terms-agree">(필수) 서비스 이용약관 동의</label>
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  id="privacy-agree"
+                  checked={isRequiredChecked}
+                  onChange={handleRequiredCheck}
+                />
+                <label htmlFor="privacy-agree">
+                  (필수) 개인정보 처리방침 동의
+                </label>
               </div>
             </div>
 
