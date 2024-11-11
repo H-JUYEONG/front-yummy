@@ -11,19 +11,28 @@ import "../../assets/css/user/userSignUpForm.css";
 const UserSignUpForm = () => {
   const navigate = useNavigate();
 
+  // 개별 체크박스 상태
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [isRequiredChecked, setIsRequiredChecked] = useState(false);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
   const handleAllCheck = (e) => {
     const checked = e.target.checked;
     setIsAllChecked(checked);
-    setIsRequiredChecked(checked);
+    setIsTermsChecked(checked);
+    setIsPrivacyChecked(checked);
   };
 
-  const handleRequiredCheck = (e) => {
+  const handleIndividualCheck = (e, setFunction) => {
     const checked = e.target.checked;
-    setIsRequiredChecked(checked);
-    setIsAllChecked(checked); // 모든 필수 약관에 동의하면 전체 동의로 설정
+    setFunction(checked);
+
+    // 필수 항목이 모두 체크되었는지 확인하여 전체 동의 상태 업데이트
+    if (checked && isTermsChecked && isPrivacyChecked) {
+      setIsAllChecked(true);
+    } else {
+      setIsAllChecked(false);
+    }
   };
 
   return (
@@ -117,8 +126,8 @@ const UserSignUpForm = () => {
                 <input
                   type="checkbox"
                   id="terms-agree"
-                  checked={isRequiredChecked}
-                  onChange={handleRequiredCheck}
+                  checked={isTermsChecked}
+                  onChange={(e) => handleIndividualCheck(e, setIsTermsChecked)}
                 />
                 <label htmlFor="terms-agree">(필수) 서비스 이용약관 동의</label>
               </div>
@@ -126,8 +135,10 @@ const UserSignUpForm = () => {
                 <input
                   type="checkbox"
                   id="privacy-agree"
-                  checked={isRequiredChecked}
-                  onChange={handleRequiredCheck}
+                  checked={isPrivacyChecked}
+                  onChange={(e) =>
+                    handleIndividualCheck(e, setIsPrivacyChecked)
+                  }
                 />
                 <label htmlFor="privacy-agree">
                   (필수) 개인정보 처리방침 동의
@@ -140,7 +151,7 @@ const UserSignUpForm = () => {
               <button
                 type="submit"
                 onClick={() => navigate("/user/signup/succ")}
-                disabled={!isRequiredChecked} // 필수 약관 미동의 시 버튼 비활성화
+                disabled={!(isTermsChecked && isPrivacyChecked)} // 필수 약관 미동의 시 버튼 비활성화
               >
                 회원가입
               </button>

@@ -1,4 +1,3 @@
-//import 라이브러리
 import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
@@ -11,25 +10,34 @@ import "../../assets/css/user/venderSignUpForm.css";
 
 const VenderSignUpForm = () => {
   const navigate = useNavigate();
-  const [venderId, setVenderId] = useState(""); // 아이디
-  const [venderPassword, setVenderPassword] = useState(""); // 비밀번호
-  const [venderPasswordCheck, setVenderPasswordCheck] = useState(""); // 비밀번호 확인
-  const [venderOwner, setVenderOwner] = useState(""); // 대표자명
+
+  const [venderId, setVenderId] = useState("");
+  const [venderPassword, setVenderPassword] = useState("");
+  const [venderPasswordCheck, setVenderPasswordCheck] = useState("");
+  const [venderOwner, setVenderOwner] = useState("");
   const [venderImg, setVenderImg] = useState();
-  const [venderBusinessName, setVenderBusinessName] = useState(""); // 상호명
+  const [venderBusinessName, setVenderBusinessName] = useState("");
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [isRequiredChecked, setIsRequiredChecked] = useState(false);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
   const handleAllCheck = (e) => {
     const checked = e.target.checked;
     setIsAllChecked(checked);
-    setIsRequiredChecked(checked);
+    setIsTermsChecked(checked);
+    setIsPrivacyChecked(checked);
   };
 
-  const handleRequiredCheck = (e) => {
+  const handleIndividualCheck = (e, setFunction) => {
     const checked = e.target.checked;
-    setIsRequiredChecked(checked);
-    setIsAllChecked(checked); // 모든 필수 약관에 동의하면 전체 동의로 설정
+    setFunction(checked);
+
+    // 필수 약관이 모두 체크되었을 경우에만 전체 동의 체크박스도 체크
+    if (checked && isTermsChecked && isPrivacyChecked) {
+      setIsAllChecked(true);
+    } else {
+      setIsAllChecked(false);
+    }
   };
 
   const handlVenderId = (e) => {
@@ -60,6 +68,7 @@ const VenderSignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -68,7 +77,6 @@ const VenderSignUpForm = () => {
       </header>
 
       <div className="vender-signup">
-        {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
         <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
         <h1>회원가입</h1>
 
@@ -146,7 +154,7 @@ const VenderSignUpForm = () => {
                 onChange={handlVenderBusinessName}
               />
             </div>
-            
+
             {/* 약관 동의 */}
             <div className="terms-agreement">
               <div>
@@ -162,8 +170,8 @@ const VenderSignUpForm = () => {
                 <input
                   type="checkbox"
                   id="terms-agree"
-                  checked={isRequiredChecked}
-                  onChange={handleRequiredCheck}
+                  checked={isTermsChecked}
+                  onChange={(e) => handleIndividualCheck(e, setIsTermsChecked)}
                 />
                 <label htmlFor="terms-agree">(필수) 서비스 이용약관 동의</label>
               </div>
@@ -171,8 +179,10 @@ const VenderSignUpForm = () => {
                 <input
                   type="checkbox"
                   id="privacy-agree"
-                  checked={isRequiredChecked}
-                  onChange={handleRequiredCheck}
+                  checked={isPrivacyChecked}
+                  onChange={(e) =>
+                    handleIndividualCheck(e, setIsPrivacyChecked)
+                  }
                 />
                 <label htmlFor="privacy-agree">
                   (필수) 개인정보 처리방침 동의
@@ -184,6 +194,7 @@ const VenderSignUpForm = () => {
               <button
                 type="submit"
                 onClick={() => navigate("/vender/signup/succ")}
+                disabled={!(isTermsChecked && isPrivacyChecked)} // 필수 약관 미동의 시 버튼 비활성화
               >
                 회원가입
               </button>
@@ -199,4 +210,5 @@ const VenderSignUpForm = () => {
     </div>
   );
 };
+
 export default VenderSignUpForm;
