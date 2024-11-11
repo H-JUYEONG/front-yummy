@@ -24,7 +24,7 @@ const VenderCreatePage = () => {
         <div id="createPage-wrap">
             <p className='sy-create-title'>나만의 사이트를 꾸며보세요!</p>
             <ul id="createPage-nav">
-                <li><Link to="#">미리보기</Link></li>
+                <li><Link to="/vender/venderMain">미리보기</Link></li>
             </ul>
 
             <div className="create-sy-section">

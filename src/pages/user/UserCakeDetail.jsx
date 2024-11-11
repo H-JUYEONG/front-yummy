@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
-import Header from '../include/Header';
-import Footer from '../include/Footer';
+import Header from './include/Header';
+import Footer from './include/Footer';
 
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */
@@ -548,6 +548,16 @@ const UserCakeDetail = () => {
                             <div className="option-group">
 
                             <h3>케이크 위 레터링 요청</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                    <p className="request-notice">
+
+                                    </p>
+                                </div> <h3>케이크 판 레터링 요청</h3>
                                 <div className="request-input">
                                     <textarea
                                         placeholder="예) 생크림을 좀만 넣어주세요."

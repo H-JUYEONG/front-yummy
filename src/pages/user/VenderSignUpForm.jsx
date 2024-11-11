@@ -1,7 +1,7 @@
 //import 라이브러리
 import React, { useState } from "react";
-import Header from "../include/Header";
-import Footer from "../include/Footer";
+import Header from "./include/Header";
+import Footer from "./include/Footer";
 import { useNavigate } from "react-router-dom";
 
 //css

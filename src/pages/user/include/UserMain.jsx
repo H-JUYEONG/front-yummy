@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../assets/css/user/usermain.css'
-import Header from '../../include/Header';
-import Footer from '../../include/Footer';
+import Header from './Header';
+import Footer from './Footer';
 import UserSidebar from './UserSidebar';
 
 const UserMain= () => {
@@ -14,9 +14,8 @@ const UserMain= () => {
 
             {/* Main Content */}
             <main id="user-wrap-body" className="clearfix">
-                <aside id="user-wrap-side" className="float-left">
+            
                     <UserSidebar/>
-                </aside>
 
                 {/* Main Section */}
                 <section id="user-wrap-main" className="float-right">

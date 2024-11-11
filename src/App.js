@@ -21,12 +21,13 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 
 
+
 // user
 import UserSignUpForm from './pages/user/UserSignUpForm';
 import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
-import UserLoginForm from './pages/user/userLoginForm';
+import UserLoginForm from './pages/user/UserLoginForm';
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -48,8 +49,6 @@ import UserStoreDetail from './pages/user/UserStoreDetail';
 import UserPaymentDetail from './pages/user/UserPaymentDetail';
 import UserMyPageCakeDesignList from './pages/user/UserMyPageCakeDesignList';
 import UserMyPageCakeDesignLikeList from './pages/user/UserMyPageCakeDesignLikeList';
-import UserEventList from './pages/user/UserEventList';
-
 
 
 // board
@@ -94,6 +93,7 @@ function App() {
           <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
           <Route path='/vender/venderMain' element={<VenderMain />} />
+          <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
           
           {/* User Routes */}
           <Route path='/user/main' element={<UserMain/>}/>
@@ -115,17 +115,12 @@ function App() {
           <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
-          <Route path='/user/userMainForm' element={<UserMainForm/>}/>  {/*웹사이트 메인 화면*/ }
 
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
-
-          <Route path='/user/mypage/usereventlist' element={<UserEventList/>}/>
-          <Route path="/user/mypage/userwritinglist" element={<UserWritingList />} />
-          
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
