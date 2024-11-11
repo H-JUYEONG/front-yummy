@@ -69,6 +69,23 @@
   gap: 10px;
 }
 
+.j-image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Fixed Size for Inserted Image */
+.j-inserted-image {
+  width: 200px;  /* Fixed width */
+  height: 200px; /* Fixed height */
+  object-fit: cover; /* Crop the image to fill the fixed size */
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+
 /* Image Selection and Modal Button */
 .j-upload-btn {
   padding: 8px 12px;
@@ -96,6 +113,7 @@
 }
 
 .j-delete-btn {
+  margin-top: 10px;
   padding: 8px 12px;
   font-size: 0.9rem;
   color: #fff;
@@ -106,8 +124,9 @@
 }
 
 .j-inserted-image {
-  width: 150px;
-  height: auto;
+  width: 300px;
+  height: 300px;
+  object-fit: cover; /* or 'contain' if you want to maintain aspect ratio with possible empty space */
   border-radius: 4px;
   margin-top: 10px;
   border: 1px solid #ddd;

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userwritinglist.css";
@@ -10,6 +9,7 @@ import Footer from "./include/Footer";
 const UserWritingList = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedTab, setSelectedTab] = useState("찜한 상품");
 
   const writingList = [
     {
@@ -26,7 +26,16 @@ const UserWritingList = () => {
       date: "2024-10-25",
       actions: ["수정", "삭제"],
     },
-    // Add more list items as necessary
+  ];
+
+  const likedProducts = [
+    { id: 1, title: "상품 1", likes: 10, date: "2024-11-02" },
+    { id: 2, title: "상품 2", likes: 7, date: "2024-11-03" },
+  ];
+
+  const likedDesigns = [
+    { id: 3, title: "도안 1", likes: 12, date: "2024-11-04" },
+    { id: 4, title: "도안 2", likes: 9, date: "2024-11-05" },
   ];
 
   const handleRowClick = (id) => {
@@ -44,9 +53,11 @@ const UserWritingList = () => {
 
   const handleDeleteClick = (event) => {
     event.stopPropagation();
-    // Implement delete functionality here
     console.log("Delete clicked");
   };
+
+  // Display the list based on the selected tab
+  const displayList = selectedTab === "찜한 상품" ? likedProducts : likedDesigns;
 
   return (
     <div id="user-wrap">
@@ -55,12 +66,26 @@ const UserWritingList = () => {
       </header>
 
       <main id="user-wrap-body">
-        {/* Sidebar */}
         <UserSidebar />
 
-        {/* Main Section */}
         <section id="user-wrap-main">
           <h2>내가 쓴 글 조회</h2>
+
+          {/* Tab Selection */}
+          <div className="j-tab-container">
+            <button
+              className={`j-tab ${selectedTab === "글" ? "active" : ""}`}
+              onClick={() => setSelectedTab("글")}
+            >
+              글
+            </button>
+            <button
+              className={`j-tab ${selectedTab === "댓글" ? "active" : ""}`}
+              onClick={() => setSelectedTab("댓글")}
+            >
+              댓글
+            </button>
+          </div>
 
           {/* Category Dropdown */}
           <div className="category-dropdown">
@@ -90,25 +115,25 @@ const UserWritingList = () => {
                 </tr>
               </thead>
               <tbody>
-                {writingList.map((writing) => (
+                {displayList.map((item) => (
                   <tr
-                    key={writing.id}
-                    onClick={() => handleRowClick(writing.id)}
+                    key={item.id}
+                    onClick={() => handleRowClick(item.id)}
                     className="clickable-row"
                   >
-                    <td>{writing.id}</td>
-                    <td>{writing.title}</td>
-                    <td>{writing.likes}</td>
-                    <td>{writing.date}</td>
+                    <td>{item.id}</td>
+                    <td>{item.title}</td>
+                    <td>{item.likes}</td>
+                    <td>{item.date}</td>
                     <td>
-                      <Link to="/board/debateedit"
-                        onClick={handleEditClick}
+                      <button
+                        onClick={(e) => handleEditClick(e)}
                         className="action-btn"
                       >
                         수정
-                      </Link>
+                      </button>
                       <button
-                        onClick={handleDeleteClick}
+                        onClick={(e) => handleDeleteClick(e)}
                         className="action-btn delete-btn"
                       >
                         삭제
@@ -122,7 +147,6 @@ const UserWritingList = () => {
         </section>
       </main>
 
-      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
