@@ -3,8 +3,8 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
-import Header from './include/Header';
-import Footer from './include/Footer';
+
+
 
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */
@@ -188,7 +188,7 @@ const UserCakeDetail = () => {
     /* ===== 탭 관련 로직 영역 시작 ===== */
 
     // 탭 메뉴 항목 정의
-    const tabs = ['상품 상세정보', '배송/교환/환불', '상품후기', '상품문의'];
+    const tabs = ['상품 상세정보', '픽업방법 및 일정', '상품후기', '환불/교환'];
 
     // 선택된 탭에 따른 컨텐츠 렌더링 함수
     const renderTabContent = () => {
@@ -201,10 +201,10 @@ const UserCakeDetail = () => {
                         {/* 필요한 만큼 이미지 추가 */}
                     </div>
                 );
-            case '배송/교환/환불':
+            case '픽업방법 및 일정':
                 return (
                     <div className="delivery-content">
-                        <img src="/images/제품 설명 1.png" alt="배송 정보" className="info-image" />
+                        <img src="/images/픽업 방법.png" alt="배송 정보" className="info-image" />
                         {/* 배송/교환/환불 관련 이미지들 */}
                     </div>
                 );
@@ -355,10 +355,10 @@ const UserCakeDetail = () => {
                         </div>
                     </div>
                 );
-            case '상품문의':
+            case '환불/교환':
                 return (
                     <div className="inquiry-content">
-                        <img src="/images/제품 설명 1.png" alt="문의 가이드" className="inquiry-image" />
+                        <img src="/images/상품문의.png" alt="문의 가이드" className="inquiry-image" />
                         {/* 상품문의 관련 이미지들 */}
                     </div>
                 );
