@@ -42,12 +42,12 @@ const UserDebateView = () => {
           <div className="debate-images-progress-container">
             <div className="debate-image-section">
               <div className="debate-image-container">
-                <img src="https://via.placeholder.com/300" alt="케이크 A" />
+                <img src="/images/peach-cat-goma.gif" alt="케이크 A" />
                 <button className="vote-button vote-button-a" onClick={handleLeftVote}>케이크 A 버튼</button>
               </div>
               <div className="vs-text">VS</div>
               <div className="debate-image-container">
-                <img src="https://via.placeholder.com/300" alt="케이크 B" />
+                <img src="/images/doconghoa.gif" alt="케이크 B" />
                 <button className="vote-button vote-button-b" onClick={handleRightVote}>케이크 B 버튼</button>
               </div>
             </div>
