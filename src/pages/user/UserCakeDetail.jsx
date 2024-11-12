@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
 import "../../assets/css/user/CakeOrder.css"
@@ -23,7 +23,9 @@ const UserCakeDetail = () => {
     const flavorContainerRef = useRef(null);
     const sizeContainerRef = useRef(null);
     const tabContentRef = useRef(null);
-
+    useEffect(() => {
+        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+      }, []);
     // 리뷰 작성을 위한 상태
     const [newReview, setNewReview] = useState({
         rating: 5,        // 기본 별점은 5점으로 설정

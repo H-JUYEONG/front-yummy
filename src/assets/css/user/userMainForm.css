@@ -19,6 +19,7 @@
 
 .userMainFormContainer .map-img-box {
     display: flex;
+    margin-bottom: 40px;
 }
 
 .userMainFormContainer .map-con {
@@ -76,11 +77,12 @@
     width: 100%; /* 가로 전체 너비 */
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .userMainFormContainer .category-box ul {
     display: flex;
-    gap: 20px;
+    gap: 40px;
     justify-content: center;
 }
 
