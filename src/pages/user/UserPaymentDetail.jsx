@@ -1,12 +1,14 @@
 import React from 'react';
+import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userpaymentdetail.css';
 import { Link } from 'react-router-dom';
 const UserPaymentDetail = () => {
     return (
         <div id="user-wrap" className="text-center">
         
-
+        <VenderHeader/>
             <main id="user-wrap-body">
+
                 <div className="payment-container">
                     <div className="payment-content">
                         <div className="product-info">
