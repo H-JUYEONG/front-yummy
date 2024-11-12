@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Header from './include/Header';
@@ -22,119 +22,104 @@ const Banner = () => (
 
 const UserMainForm = () => {
     const navigate = useNavigate();
-    const [isScrolled, setIsScrolled] = useState(false);
+    const [selectedRegion, setSelectedRegion] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+
     const mapList = [
-        "강남구",
-        "강동구",
-        "강북구",
-        "강서구",
-        "관악구",
-        "광진구",
-        "구로구",
-        "금천구",
-        "노원구",
-        "도봉구",
-        "동대문구",
-        "동작구",
-        "마포구",
-        "서대문구",
-        "서초구",
-        "성동구",
-        "성북구",
-        "송파구",
-        "양천구",
-        "영등포구",
-        "용산구",
-        "은평구",
-        "종로구",
-        "중구",
-        "중랑구"
+        "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구",
+        "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구",
+        "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구",
+        "은평구", "종로구", "중구", "중랑구"
     ];
-    // 스크롤 이벤트 핸들러
-    const handleScroll = () => {
-        setIsScrolled(true);
-    };
+
     const productList = [
-        { id: 1, store: "Sweet Delight", product: "초코 케이크", price: 15000, rating: 4.5 },
-        { id: 2, store: "케이크하우스", product: "레드벨벳 케이크", price: 20000, rating: 4.8 },
-        { id: 3, store: "Bake & Bite", product: "블루베리 치즈 케이크", price: 18000, rating: 4.2 },
-        { id: 4, store: "Dreamy Dessert", product: "초콜릿 무스 케이크", price: 22000, rating: 4.7 },
-        { id: 5, store: "Sugar Rush", product: "티라미수", price: 16000, rating: 4.6 },
-        { id: 6, store: "Lovely Layers", product: "스트로베리 케이크", price: 25000, rating: 4.9 },
-        { id: 7, store: "베이크헤븐", product: "카라멜 프라푸치노 케이크", price: 21000, rating: 4.3 },
-        { id: 8, store: "Cake Magic", product: "라즈베리 케이크", price: 19000, rating: 4.4 },
-        { id: 9, store: "Sugar Bliss", product: "레몬 치즈 케이크", price: 17000, rating: 4.1 },
-        { id: 10, store: "Dessert Palace", product: "화이트 초콜릿 케이크", price: 23000, rating: 4.5 }
+        { id: 1, store: "Sweet Delight", product: "초코 케이크", price: 15000, rating: 4.5, region: "강남구", category: "일반 케이크" },
+        { id: 2, store: "Cake House", product: "레드벨벳 케이크", price: 20000, rating: 4.8, region: "관악구", category: "도시락 케이크" },
+        { id: 3, store: "Bake & Bite", product: "블루베리 치즈 케이크", price: 18000, rating: 4.2, region: "강서구", category: "일반 케이크" },
+        { id: 4, store: "Dreamy Dessert", product: "초콜릿 무스 케이크", price: 22000, rating: 4.7, region: "동작구", category: "떡 케이크" },
+        { id: 5, store: "Sugar Rush", product: "티라미수", price: 16000, rating: 4.6, region: "마포구", category: "일반 케이크" },
+        { id: 6, store: "Lovely Layers", product: "스트로베리 케이크", price: 25000, rating: 4.9, region: "성동구", category: "반려동물 케이크" },
+        { id: 7, store: "Bake Heaven", product: "카라멜 프라푸치노 케이크", price: 21000, rating: 4.3, region: "광진구", category: "도시락 케이크" },
+        { id: 8, store: "Cake Magic", product: "라즈베리 케이크", price: 19000, rating: 4.4, region: "강남구", category: "일반 케이크" },
+        { id: 9, store: "Sugar Bliss", product: "레몬 치즈 케이크", price: 17000, rating: 4.1, region: "강남구", category: "일반 케이크" },
+        { id: 10, store: "Dessert Palace", product: "화이트 초콜릿 케이크", price: 23000, rating: 4.5, region: "서초구", category: "떡 케이크" }
     ];
 
+    // 별점 렌더링 함수
     const renderStars = (rating) => {
-        const fullStars = Math.floor(rating); // 가득 찬 별의 개수
-        const emptyStars = 5 - fullStars; // 빈 별의 개수
-
+        const fullStars = Math.floor(rating);
+        const emptyStars = 5 - fullStars;
         return (
             <>
                 {Array(fullStars).fill('★').map((star, index) => (
-                    <span key={`full-${index}`} style={{ color: '#FFD700' }}>{star}</span> // 가득 찬 별
+                    <span key={`full-${index}`} style={{ color: '#FFD700' }}>{star}</span>
                 ))}
                 {Array(emptyStars).fill('☆').map((star, index) => (
-                    <span key={`empty-${index}`} style={{ color: '#FFD700' }}>{star}</span> // 빈 별
+                    <span key={`empty-${index}`} style={{ color: '#FFD700' }}>{star}</span>
                 ))}
             </>
         );
     };
+
+    // 선택된 필터에 따라 제품 리스트 필터링
+    const filteredProducts = productList.filter((product) => {
+        return (
+            (selectedRegion ? product.region === selectedRegion : true) &&
+            (selectedCategory ? product.category === selectedCategory : true)
+        );
+    });
+
     return (
         <div id="user-wrap" className="text-center userMainFormContainer">
             {/* Header */}
             <header id="user-wrap-head">
                 <Header />
             </header>
-            <div className={`banner ${isScrolled ? "hidden" : ""}`}>
-                <Banner onScroll={handleScroll} />
+            <div className="banner">
+                <Banner />
             </div>
             <div className='main-wrap'>
                 <div className='map-box aos-init' data-aos="fade-up" data-aos-duration="1500">
-                    <h3 className="sy-user-main-title">내위치찾기</h3>
+                    <h3 className="sy-user-main-title">내 위치 찾기</h3>
                     <div className='map-img-box'>
                         <div className='map-img'>
-                            <img src={mapImg} />
+                            <img src={mapImg} alt="지도" />
                         </div>
-                        <div className="map-con">
-                            <div className='userMain-map-search'>
-                                <select id="category-select" name="category">
-                                    <option value="category1">지역</option>
-                                    <option value="category2">강남구</option>
-                                    <option value="category3">성동구</option>
-                                    <option value="category3">관악구</option>
-                                </select>
-                                <input type='text' placeholder='검색어를 입력해주세요!' />
-                            </div>
-                            <div className='map-click'>
-                                {mapList.map((item, idx) => (
-                                    <button type="button">{item}</button>
-                                ))}
-                            </div>
-
-
+                        <div className="map-click">
+                            {/* 전체 버튼 추가 */}
+                            <button
+                                className={!selectedRegion ? "active" : ""}
+                                onClick={() => setSelectedRegion("")}
+                            >
+                                전체
+                            </button>
+                            {mapList.map((region) => (
+                                <button
+                                    key={region}
+                                    className={selectedRegion === region ? "active" : ""}
+                                    onClick={() => setSelectedRegion(region)}
+                                >
+                                    {region}
+                                </button>
+                            ))}
                         </div>
-
-
                     </div>
                 </div>
                 <div className='category-box'>
                     <ul>
-                        <li><button>전체</button></li>
-                        <li><button>도시락 케이크</button></li>
-                        <li><button>일반 케이크</button></li>
-                        <li><button>떡 케이크</button></li>
-                        <li><button>반려동물 케이크</button></li>
+                        <li><button onClick={() => setSelectedCategory("")}>전체</button></li>
+                        <li><button onClick={() => setSelectedCategory("도시락 케이크")}>도시락 케이크</button></li>
+                        <li><button onClick={() => setSelectedCategory("일반 케이크")}>일반 케이크</button></li>
+                        <li><button onClick={() => setSelectedCategory("떡 케이크")}>떡 케이크</button></li>
+                        <li><button onClick={() => setSelectedCategory("반려동물 케이크")}>반려동물 케이크</button></li>
                     </ul>
                 </div>
                 <div className='sub-title-box'>
-                    <h3 className="sy-user-main-title">강남구 베이커리 케이크</h3>
-                    <span>총 상품 | 10개</span>
+                    <h3 className="sy-user-main-title">{selectedRegion || "전체 지역"} {selectedCategory || "모든 카테고리"} 케이크</h3>
+                    <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
                 <div className='allList-box'>
-                    {productList.map((item) => (
+                    {filteredProducts.map((item) => (
                         <div className="all-product-item" key={item.id}>
                             <div className="list_hover_img">
                                 <img src={cakeImg} alt={item.product} />
@@ -151,15 +136,13 @@ const UserMainForm = () => {
                         </div>
                     ))}
                 </div>
-
-
             </div>
-
-            {/* Footer */}
-            <footer className="user-full-width">
+            <footer>
                 <Footer />
             </footer>
         </div>
+        
     );
 };
+
 export default UserMainForm;

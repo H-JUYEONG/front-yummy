@@ -1,13 +1,11 @@
 /* userfooterstyle.css */
 .footer-container {
-    background-color: #f8f9fa;
     padding: 40px 0;
-    border-top: 1px solid #e5e7eb;
+    border-top: 2px solid #ddd;
     width: 100%;
 }
 
 .footer-content {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -94,7 +92,6 @@
     text-align: center;
     margin-top: 32px;
     padding-top: 24px;
-    border-top: 1px solid #e5e7eb;
 }
 
 .footer-bottom p {
@@ -104,21 +101,3 @@
     font-family: 'NanumSquare', sans-serif;
 }
 
-@media (max-width: 768px) {
-    .footer-info {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .footer-links ul {
-        justify-content: center;
-    }
-
-    .company-info {
-        text-align: center;
-    }
-
-    .company-info p {
-        justify-content: center;
-    }
-}

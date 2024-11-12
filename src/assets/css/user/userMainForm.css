@@ -63,8 +63,9 @@ button {
     width: calc((100% - 40px) / 5);
     border: 2px solid #ddd;
     padding: 20px;
-    font-size: 16px;
+    font-size: 14px;
     background: #fff;
+    
 }
 
 .map-click button:hover {
@@ -73,7 +74,7 @@ button {
 }
 
 .category-box {
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 .category-box ul {
@@ -133,6 +134,7 @@ button {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 60px;
 }
 
 .all-product-item {
