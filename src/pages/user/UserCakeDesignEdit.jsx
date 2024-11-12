@@ -193,7 +193,7 @@ const UserCakeDesignEdit = () => {
             {/* 등록 버튼 */}
             <div className="user-form-group">
               <button type="submit" className="user-cake-design-add-button">
-                도안 수정하기
+                수정하기
               </button>
             </div>
           </form>

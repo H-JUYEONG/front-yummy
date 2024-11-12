@@ -121,13 +121,3 @@
     margin: 0 auto; /* Centers the button */
     display: block;
 }
-
-/* Footer 스타일 */
-.user-full-width {
-    text-align: center;
-    padding: 30px;
-    font-size: 0.9em;
-    color: #666;
-    background-color: #f0f2f5;
-    border-top: 1px solid #e0e0e0;
-}
