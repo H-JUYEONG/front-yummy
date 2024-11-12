@@ -24,6 +24,8 @@ const UserMainForm = () => {
     const navigate = useNavigate();
     const [selectedRegion, setSelectedRegion] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [sortOrder, setSortOrder] = useState("rating"); // 기본 정렬 기준은 별점순
+    const [sortDirection, setSortDirection] = useState("desc"); // 기본 정렬 방향은 내림차순
 
     const mapList = [
         "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구",
@@ -45,7 +47,6 @@ const UserMainForm = () => {
         { id: 10, store: "Dessert Palace", product: "화이트 초콜릿 케이크", price: 23000, rating: 4.5, region: "서초구", category: "떡 케이크" }
     ];
 
-    // 별점 렌더링 함수
     const renderStars = (rating) => {
         const fullStars = Math.floor(rating);
         const emptyStars = 5 - fullStars;
@@ -61,17 +62,33 @@ const UserMainForm = () => {
         );
     };
 
-    // 선택된 필터에 따라 제품 리스트 필터링
-    const filteredProducts = productList.filter((product) => {
-        return (
-            (selectedRegion ? product.region === selectedRegion : true) &&
-            (selectedCategory ? product.category === selectedCategory : true)
-        );
-    });
+    const filteredProducts = productList
+        .filter((product) => {
+            return (
+                (selectedRegion ? product.region === selectedRegion : true) &&
+                (selectedCategory ? product.category === selectedCategory : true)
+            );
+        })
+        .sort((a, b) => {
+            if (sortOrder === "rating") {
+                return sortDirection === "asc" ? a.rating - b.rating : b.rating - a.rating;
+            } else if (sortOrder === "price") {
+                return sortDirection === "asc" ? a.price - b.price : b.price - a.price;
+            }
+            return 0;
+        });
+
+    const handleSort = (order) => {
+        if (sortOrder === order) {
+            setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+        } else {
+            setSortOrder(order);
+            setSortDirection("desc"); // 새 기준으로 정렬 시 내림차순부터 시작
+        }
+    };
 
     return (
         <div id="user-wrap" className="text-center userMainFormContainer">
-            {/* Header */}
             <header id="user-wrap-head">
                 <Header />
             </header>
@@ -86,7 +103,6 @@ const UserMainForm = () => {
                             <img src={mapImg} alt="지도" />
                         </div>
                         <div className="map-click">
-                            {/* 전체 버튼 추가 */}
                             <button
                                 className={!selectedRegion ? "active" : ""}
                                 onClick={() => setSelectedRegion("")}
@@ -114,8 +130,17 @@ const UserMainForm = () => {
                         <li><button onClick={() => setSelectedCategory("반려동물 케이크")}>반려동물 케이크</button></li>
                     </ul>
                 </div>
+
                 <div className='sub-title-box'>
                     <h3 className="sy-user-main-title">{selectedRegion || "전체 지역"} {selectedCategory || "모든 카테고리"} 케이크</h3>
+                    <div className='sort-box'>
+                    <button onClick={() => handleSort("rating")}>
+                        별점순 {sortOrder === "rating" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+                    </button>
+                    <button onClick={() => handleSort("price")}>
+                        가격순 {sortOrder === "price" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+                    </button>
+                </div>
                     <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
                 <div className='allList-box'>
@@ -141,7 +166,6 @@ const UserMainForm = () => {
                 <Footer />
             </footer>
         </div>
-        
     );
 };
 

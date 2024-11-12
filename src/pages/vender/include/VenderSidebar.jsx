@@ -15,7 +15,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                 <p><Link to="/vender/venderCreatePage" onClick={toggleMenu}><FaClipboardList /> 업체사이트 관리</Link></p>
             </div>
             <ul className="vender-menu">
-                <li><Link to="/user/" onClick={toggleMenu}><FaHome /> 메인페이지 바로가기</Link></li>
+                <li><Link to="/" onClick={toggleMenu}><FaHome /> 메인페이지 바로가기</Link></li>
                 <li><Link to="/vender" onClick={toggleMenu}><FaChartBar /> 대시보드</Link></li>
                 <li><Link to="/vender/statistics" onClick={toggleMenu}><FaChartBar /> 통계보기</Link></li>
                 <li><Link to="/vender/cakeDesign/list" onClick={toggleMenu}><FaShoppingCart /> 도안관리</Link></li>
