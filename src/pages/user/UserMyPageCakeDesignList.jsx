@@ -4,7 +4,6 @@ import Footer from "./include/Footer";
 import UserSidebar from "./include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userMyPageCakeDesignList.css";
-/*import { FaHeart, FaSearch } from "react-icons/fa";*/
 import { Link } from 'react-router-dom'; 
 import { Search } from 'lucide-react';
 const UserMyPageCakeDesignList = () => {
@@ -23,25 +22,25 @@ const UserMyPageCakeDesignList = () => {
       id: 1,
       image: "/images/2호_일반케이크.jpg",
       name: "초코 도안",
-      id: "dud9902",
+      userId: "dud9902",
     },
     {
       id: 2,
       image: "/images/4호_골프장 케이크.png",
       name: "초코 도안",
-      id: "sso",
+      userId: "sso",
     },
     {
       id: 3,
       image: "/images/4호_달걀 한판 케이크.png",
       name: "초코 도안",
-      id: "ddr",
+      userId: "ddr",
     },
     {
       id: 4,
       image: "/images/3호_특별한케이크(달력).jpg",
       name: "초코 케이크",
-      id: "jeff",
+      userId: "jeff",
     },
     // ... 더 많은 상품 데이터
   ];
@@ -100,10 +99,10 @@ const UserMyPageCakeDesignList = () => {
                 .filter(
                   (product) => !selectedStyle || product.style === selectedStyle
                 )
-                .map((product) => (
+                .map((product, index) => (
                   <Link
                     to={`/user/cakeDesign/detail`}
-                    key={product.id}
+                    key={index}
                     className="product-card"
                   >
                     <div className="product-image">
@@ -111,7 +110,7 @@ const UserMyPageCakeDesignList = () => {
                     </div>
                     <div className="product-info">
                       <h3>{product.name}</h3>
-                      <p>{product.id}</p>
+                      <p>{product.userId}</p>
                     </div>
                   </Link>
                 ))}

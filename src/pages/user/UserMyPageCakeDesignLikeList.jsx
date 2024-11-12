@@ -5,7 +5,6 @@ import UserSidebar from "./include/UserSidebar";
 import RightNavbar from './include/RightNavbar'; // 새로 만든 RightNavbar 컴포넌트 임포트
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
-import { FaHeart, FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom'; // Link 컴포넌트 import
 import { Search } from 'lucide-react';
 
@@ -21,25 +20,25 @@ const UserMyPageCakeDesignLikeList = () => {
       id: 1,
       image: "/images/2호_일반케이크.jpg",
       name: "초코 도안",
-      id: "dud9902",
+      userId: "dud9902",
     },
     {
       id: 2,
       image: "/images/4호_골프장 케이크.png",
       name: "초코 도안",
-      id: "sso",
+      userId: "sso",
     },
     {
       id: 3,
       image: "/images/4호_달걀 한판 케이크.png",
       name: "초코 도안",
-      id: "ddr",
+      userId: "ddr",
     },
     {
       id: 4,
       image: "/images/3호_특별한케이크(달력).jpg",
       name: "초코 케이크",
-      id: "jeff",
+      userId: "jeff",
     },
     // ... 더 많은 상품 데이터
   ];
@@ -81,8 +80,9 @@ const UserMyPageCakeDesignLikeList = () => {
                   {styleOptions.map((style) => (
                     <button
                       key={style}
-                      className={`filter-btn ${selectedStyle === style ? "active" : ""
-                        }`}
+                      className={`filter-btn ${
+                        selectedStyle === style ? "active" : ""
+                      }`}
                       onClick={() => handleStyleSelect(style)}
                     >
                       {style}
@@ -98,10 +98,10 @@ const UserMyPageCakeDesignLikeList = () => {
                 .filter(
                   (product) => !selectedStyle || product.style === selectedStyle
                 )
-                .map((product) => (
+                .map((product, index) => (
                   <Link
                     to={`/user/cakeDesign/detail`}
-                    key={product.id}
+                    key={index}
                     className="product-card"
                   >
                     <div className="product-image">
@@ -109,7 +109,7 @@ const UserMyPageCakeDesignLikeList = () => {
                     </div>
                     <div className="product-info">
                       <h3>{product.name}</h3>
-                      <p>{product.id}</p>
+                      <p>{product.userId}</p>
                     </div>
                   </Link>
                 ))}
