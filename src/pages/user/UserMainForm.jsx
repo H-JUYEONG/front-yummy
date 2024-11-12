@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Header from './include/Header';
@@ -26,7 +26,9 @@ const UserMainForm = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [sortOrder, setSortOrder] = useState("rating"); // 기본 정렬 기준은 별점순
     const [sortDirection, setSortDirection] = useState("desc"); // 기본 정렬 방향은 내림차순
-
+    useEffect(() => {
+        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+    }, []);
     const mapList = [
         "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구",
         "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구",
@@ -134,13 +136,13 @@ const UserMainForm = () => {
                 <div className='sub-title-box'>
                     <h3 className="sy-user-main-title">{selectedRegion || "전체 지역"} {selectedCategory || "모든 카테고리"} 케이크</h3>
                     <div className='sort-box'>
-                    <button onClick={() => handleSort("rating")}>
-                        별점순 {sortOrder === "rating" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-                    </button>
-                    <button onClick={() => handleSort("price")}>
-                        가격순 {sortOrder === "price" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
-                    </button>
-                </div>
+                        <button onClick={() => handleSort("rating")}>
+                            별점순 {sortOrder === "rating" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+                        </button>
+                        <button onClick={() => handleSort("price")}>
+                            가격순 {sortOrder === "price" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+                        </button>
+                    </div>
                     <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
                 <div className='allList-box'>
