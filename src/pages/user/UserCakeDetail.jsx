@@ -17,6 +17,9 @@ const UserCakeDetail = () => {
     const [selectedFlavor, setSelectedFlavor] = useState('');          // 선택된 맛 옵션
     const [selectedSize, setSelectedSize] = useState('');              // 선택된 사이즈 옵션
     const [selectedColor, setSelectedColor] = useState(''); // 색상 선택을 위한 state 추가
+    const [isLiked, setIsLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(128); // 초기 찜 개수 (예시)
+
 
     const [isDragging, setIsDragging] = useState(false); //옵션 스크롤 효과
     const [startX, setStartX] = useState(0);
@@ -117,7 +120,7 @@ const UserCakeDetail = () => {
         setStartX(e.pageX - container.offsetLeft);
         setScrollLeft(container.scrollLeft);
     };
-    
+
     const handleMouseMove = (e, ref) => {
         if (!isDragging) return;
         e.preventDefault();
@@ -126,12 +129,12 @@ const UserCakeDetail = () => {
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
     };
-    
+
     const handleMouseUp = (ref) => {
         setIsDragging(false);
         ref.current.classList.remove('dragging');
     };
-    
+
     const handleMouseLeave = (ref) => {
         setIsDragging(false);
         ref.current.classList.remove('dragging');
@@ -219,7 +222,7 @@ const UserCakeDetail = () => {
                                 <div className="rating-select">
                                     <p>별점을 선택해주세요</p>
                                     <div className="stars-input">
-                                        {[5,4,3,2,1].map((star) => ( // 순서를 1부터 5로 변경
+                                        {[5, 4, 3, 2, 1].map((star) => ( // 순서를 1부터 5로 변경
                                             <button
                                                 key={star}
                                                 type="button"
@@ -366,10 +369,16 @@ const UserCakeDetail = () => {
                 return null;
         }
     };
+
+    // 찜 핸들러 추가
+    const handleLike = () => {
+        setIsLiked(!isLiked);
+        setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+    };
     return (
         // 전체 페이지 래퍼
         <div id="user-wrap" className="text-center">
-            
+
             {/* 메인 컨텐츠 영역 */}
             <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
@@ -426,6 +435,16 @@ const UserCakeDetail = () => {
                         <div className="product-info">
                             <h2>Lettering 맛있는 레터링 크림케이크 (1호,2호)</h2>
                             <p className="price">46,000 won</p>
+                            {/* 하트 버튼 추가 */}
+                            <div className="like-button-container">
+                                <button
+                                    className={`like-button ${isLiked ? 'liked' : ''}`}
+                                    onClick={handleLike}
+                                >
+                                    <span className="heart-icon">{isLiked ? '♥' : '♡'}</span>
+                                    <span className="like-count">{likeCount}</span>
+                                </button>
+                            </div>
                         </div>
 
                         {/* 옵션 선택 영역 */}
@@ -478,12 +497,12 @@ const UserCakeDetail = () => {
                             <div className="option-group">
                                 <h3>사이즈</h3>
                                 <div
-                                   ref={sizeContainerRef}
-                                   className="option-scroll-container"
-                                   onMouseDown={(e) => handleMouseDown(e, sizeContainerRef)}
-                                   onMouseMove={(e) => handleMouseMove(e, sizeContainerRef)}
-                                   onMouseUp={() => handleMouseUp(sizeContainerRef)}
-                                   onMouseLeave={() => handleMouseLeave(sizeContainerRef)}
+                                    ref={sizeContainerRef}
+                                    className="option-scroll-container"
+                                    onMouseDown={(e) => handleMouseDown(e, sizeContainerRef)}
+                                    onMouseMove={(e) => handleMouseMove(e, sizeContainerRef)}
+                                    onMouseUp={() => handleMouseUp(sizeContainerRef)}
+                                    onMouseLeave={() => handleMouseLeave(sizeContainerRef)}
                                 >
                                     <div className="option-grid">
                                         {sizeOptions.map((size) => (
@@ -543,7 +562,7 @@ const UserCakeDetail = () => {
                             </div>
                             <div className="option-group">
 
-                            <h3>케이크 위 레터링 요청</h3>
+                                <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">
                                     <textarea
                                         placeholder="예) 생크림을 좀만 넣어주세요."
@@ -586,8 +605,8 @@ const UserCakeDetail = () => {
                 </div>
             </main>
 
-            
-    
+
+
         </div>
     );
 };

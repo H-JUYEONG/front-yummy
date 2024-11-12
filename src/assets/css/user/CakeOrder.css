@@ -639,6 +639,49 @@
     background-color: #7C3AED;
 }
 
+/* CakeOrder.css의 좋아요 버튼 스타일 수정 */
+#user-wrap .cake-order-container .like-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#user-wrap .cake-order-container .like-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid #FF69B4;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 85px; /* 버튼 최소 너비 지정 */
+}
+
+#user-wrap .cake-order-container .like-button:hover {
+    background: #FFF0F5;
+}
+
+#user-wrap .cake-order-container .like-button .heart-icon {
+    font-size: 20px;
+    color: #FF69B4;
+    transition: color 0.3s ease; /* transform 제거하고 color만 변경 */
+    width: 20px; /* 하트 아이콘 너비 고정 */
+    display: inline-block;
+    text-align: center;
+}
+
+#user-wrap .cake-order-container .like-button.liked .heart-icon {
+    color: #FF1493;
+}
+
+#user-wrap .cake-order-container .like-button .like-count {
+    font-size: 14px;
+    color: #666;
+    min-width: 30px;
+    text-align: left;
+}
 /* 반응형 스타일 */
 @media (max-width: 1024px) {
     #user-wrap .cake-order-container {
