@@ -12,13 +12,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
 
-const Banner = () => (
-    <div className="banner">
-        <h1>세상에 하나뿐인 케이크</h1>
-        <p>당신만의 특별한 순간을 케이크로 만들어 드립니다</p>
-        <button className="create-cake-btn">Let's GO</button>
-    </div>
-);
 
 const UserMainForm = () => {
     const navigate = useNavigate();
@@ -30,7 +23,14 @@ const UserMainForm = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
+    const Banner = () => (
+        <div className="banner">
+            <h1>세상에 하나뿐인 케이크</h1>
+            <p>당신만의 특별한 순간을 케이크로 만들어 드립니다</p>
+            <button className="create-cake-btn"  onClick={() => navigate('/user/audition')}>Let's GO</button>
+        </div>
+    );
+    
     const mapList = [
         "강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구",
         "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구",
@@ -147,18 +147,29 @@ const UserMainForm = () => {
                     </div>
                     <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
+
                 <div className='allList-box'>
                     {filteredProducts.map((item) => (
                         <div className="all-product-item" key={item.id}>
-                            <div className="list_hover_img">
+                            {/* 상품 이미지 클릭 시 링크 추가 */}
+                            <Link to="/user/cakedetail" className="list_hover_img">
                                 <img src={productImg} alt={item.product} />
                                 <div className="store-info">
-                                    <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
-                                    <b>{item.store}</b>
+                                    {/* 업체 로고와 업체명 클릭 시 /user/storedetail로 이동 */}
+                                    <Link to="/user/storedetail">
+                                        <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
+                                    </Link>
+                                    <Link to="/user/storedetail">
+                                        <b>{item.store}</b>
+                                    </Link>
                                 </div>
-                            </div>
+                            </Link>
+
+                            {/* 상품명 클릭 시 링크 추가 */}
                             <div className="product-info">
-                                <p>{item.product}</p>
+                                <Link to="/user/cakedetail">
+                                    <p>{item.product}</p>
+                                </Link>
                                 <p>가격: {item.price.toLocaleString()}원</p>
                                 <p>평점: {renderStars(item.rating)} ({item.rating})</p>
                             </div>

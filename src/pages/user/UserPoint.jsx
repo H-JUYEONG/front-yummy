@@ -17,7 +17,7 @@ const UserPoint = () => {
                 <UserSidebar />
                 
 
-                    <div className="main-content">
+                    <div className="user-main-content">
                         <h2>포인트 내역</h2>
 
                         {/* 현재 포인트 표시 */}
