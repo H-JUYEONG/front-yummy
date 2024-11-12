@@ -128,6 +128,7 @@ const UserMainForm = () => {
                                 <div className='userMain-product-img'>
                                     <img src={cakeImg} alt="상품 이미지" />
                                 </div>
+
                                 <b onClick={() => navigate("/user/storedetail")}>{item.store}</b>
                                 <p onClick={() => navigate("/user/cakedetail")}>{item.product}</p>
                                 <p>가격: {item.price.toLocaleString()}원</p>

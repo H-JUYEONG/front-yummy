@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../assets/css/user/userstoredetail.css';
 
+import VenderHeader from '../vender/include/VenderHeader';
+import Footer from './include/Footer';
+import '../../assets/css/user/userstoredetail.css';
+import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -60,25 +63,23 @@ const UserStoreDetail = () => {
     };
 
     return (
+        <>
         <div id="user-wrap" className="text-center">
-            {/* 로고 이미지 영역 */}
-            <div className="sd-logo-container">
-                <img src="/images/빵집 로고.jpg" alt="Store Logo" className="sd-store-logo" />
-            </div>
+
+            
+        <VenderHeader />
+
 
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">
                     {/* 프로필 영역 */}
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                            <Link to="/user" className="sd-back-btn">
-                                <img src="/images/뒤로가기.png" alt="뒤로가기" />
-                            </Link>
                             <h2 className="sd-store-name">cakefactory</h2>
                         </div>
                         <div className="sd-profile-content">
                             <div className="sd-profile-image">
-                                <img src="/images/1호_일반케이크.jpg" alt="cakefactory" />
+                                <img src={cakeLogo} alt="cakefactory" />
                             </div>
                             <div className="sd-profile-text">
                                 <div className="sd-profile-stats">
@@ -139,6 +140,7 @@ const UserStoreDetail = () => {
                 </section>
             </main>
         </div>
+        </>
     );
 };
 
