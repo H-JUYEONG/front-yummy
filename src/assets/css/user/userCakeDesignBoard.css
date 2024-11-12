@@ -39,7 +39,7 @@
   margin-bottom: 5px;
   padding: 10px 12px;
   color: #4B5563;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #ddd;
   border-radius: 25px;
   background-color: #ffffff;
   cursor: pointer;
@@ -78,16 +78,17 @@
 
 .user-cake-design-select-option button {
   padding: 8px 16px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;
     border-radius: 20px;
-    background-color: white;
+    background-color: #fff;
     color: #4B5563;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .user-cake-design-select-option button:hover {
-  background-color: #F3F4F6;
+  background-color: #ff6f61;
+  color: white;
 }
 
 /* 검색창 스타일 */
@@ -108,7 +109,8 @@
 
 .user-cake-design-search input {
   padding: 8px 16px 8px 36px; /* 왼쪽에 아이콘 공간 확보 */
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
+
   border-radius: 25px;
   outline: none;
   font-size: 1rem;
@@ -123,12 +125,14 @@
 .user-cake-design-card {
   background: #fff;
   border: 1px solid #ddd;
+  border-radius: 5px;
   overflow: hidden;
   text-align: center;
   transition: transform 0.3s ease;
   width: 100%;
   max-width: 250px; /* 카드 최대 너비 */
   margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
+  height: 295px;
 }
 
 .user-cake-design-card {
@@ -143,7 +147,7 @@
 
 .user-cake-design-card-image img {
   width: 100%;
-  height: auto;
+  height: 200px;
   object-fit: cover;
   border-bottom: 1px solid #ddd;
 }
@@ -158,7 +162,7 @@
   /* background-color: rgba(255, 255, 255, 0.8); */
   background-color: white;
   border: 1px solid #e0e0e0;
-  padding: 3px 8px;
+  padding: 6px 8px;
   border-radius: 25px;
   font-size: 0.9em;
 }
@@ -202,29 +206,29 @@
 }
 
 /* Page number buttons */
-.pagination-page-number,
-.pagination-arrow {
+.user-cake-design-pagination-page-number,
+.user-cake-design-pagination-arrow {
   padding: 8px 12px;
   cursor: pointer;
   font-size: 1rem;
-  transition: color 0.3s;
+  transition: color 0.3s, font-weight 0.3s;
   border: none; /* Border 제거 */
   background-color: transparent; /* 배경색 제거 */
 }
 
 /* Active page button */
-.pagination-page-active {
-  color: black;
-  font-weight: bold; /* 활성화된 페이지 강조 */
+.user-cake-design-pagination-page-active {
+  color: #000;
 }
 
 /* Arrow button styling */
-.pagination-arrow {
+.user-cake-design-pagination-arrow {
   font-size: 1.2rem;
 }
 
 /* Hover effect for buttons */
-.pagination-page-number:hover,
-.pagination-arrow:hover {
-  color: #4f46e5; /* 호버 시 강조 색상 */
+.user-cake-design-pagination-page-number:hover,
+.user-cake-design-pagination-arrow:hover {
+  color: #000; /* 호버 시 강조 색상 */
+  font-weight: bold; /* 폰트 bold 추가 */
 }

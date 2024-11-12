@@ -1,210 +1,239 @@
-#user-wrap {
-    font-family: Arial, sans-serif;
+#user-cake-audition-tip {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
-.user-audition-board-list h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+#user-cake-audition-tip h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
-.user-audition-board-list p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 20px;
+#user-cake-audition-tip p {
+  font-size: 20px;
 }
 
-.user-cake-design-select-option button {
-    background-color: #f5f5f5;
-    border: none;
-    padding: 10px 15px;
-    margin-right: 10px;
+.user-cake-audition-board-list {
+  width: 100%;
+  margin: 0 auto; /* 가로 가운데 정렬 */
+}
+
+/* 전체 그리드 스타일 */
+.user-cake-audition-list-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 카드 */
+  gap: 16px;
+  max-width: 1200px; /* 중앙에 배치되도록 최대 너비 설정 */
+}
+
+#user-cake-audition-add {
+  padding: 0px 4px;
+}
+
+.user-cake-audition-add-btn {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#user-cake-audition-add button {
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  color: #4B5563;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#user-cake-audition-add button:hover {
+  background-color: #F3F4F6;
+}
+
+.user-cake-audition-all {
+  float: left;
+  padding: 20px 0px 0px 5px;
+  font-weight: bold;
+  top: -10px;
+}
+
+/* 상단 버튼 및 검색창 컨테이너 */
+#user-cake-audition-select-option-list {
+  display: flex;
+  justify-content: space-between; /* 양쪽 끝 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-bottom: 20px;
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
+}
+
+/* 버튼 그룹 중앙 정렬 */
+.user-cake-audition-select-option {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left: 240px;
+}
+
+.user-cake-audition-select-option button {
+  padding: 8px 16px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    background-color: #fff;
+    color: #4B5563;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s;
 }
 
-.user-cake-design-select-option button:hover {
-    background-color: #ddd;
+.user-cake-audition-select-option button:hover {
+  background-color: #ff6f61;
+  color: white;
 }
 
-.user-cake-design-search {
-    position: relative;
+/* 검색창 스타일 */
+.user-cake-audition-search {
+  position: relative;
+  flex-shrink: 0; /* 오른쪽에 고정 */
+  display: flex;
+  align-items: center;
 }
 
-.user-cake-design-search input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 200px;
-    margin-left: 10px;
+.user-cake-audition-search .search-icon {
+  position: absolute;
+  left: 12px; /* 아이콘 위치 */
+  font-size: 1rem;
+  color: #999;
+  pointer-events: none; /* 아이콘 클릭 방지 */
 }
 
-.search-icon {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #aaa;
+.user-cake-audition-search input {
+  padding: 8px 16px 8px 36px; /* 왼쪽에 아이콘 공간 확보 */
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  font-size: 1rem;
+  width: 250px; /* 원하는 너비로 조정 */
 }
 
-.user-cake-design-list-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.user-cake-audition-search input:focus {
+  border-color: #cbcbcb;
 }
 
-.user-cake-design-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: box-shadow 0.3s;
+/* 카드 스타일 */
+.user-cake-audition-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 250px; /* 카드 최대 너비 */
+  margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
+  height: 295px;
 }
 
-.user-cake-design-card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+.user-cake-audition-card {
+    margin-bottom: 15px;
 }
 
-.user-cake-design-card-image {
-    position: relative;
+/* 이미지 스타일 */
+.user-cake-audition-card-image {
+  position: relative;
+  cursor: pointer;
 }
 
-.user-cake-design-card-image img {
-    width: 100%;
-    height: auto;
+.user-cake-audition-card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
 }
 
-.user-cake-design-card-likes {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
+/* 좋아요 아이콘 위치 */
+.user-cake-audition-status {
+  position: absolute;
+  display: flex; /* 수평 정렬 */
+  align-items: center; /* 세로 가운데 정렬 */
+  top: 8px;
+  right: 8px;
+  background-color: white;
+  padding: 6px 8px;
+  border-radius: 25px;
+  font-size: 0.9em;
+  color: white;
+  border: 1px solid #e0e0e0;
 }
 
-.heart-icon {
-    margin-right: 5px;
+/* 진행중 상태 스타일 */
+.status-in-progress {
+  background-color: #008000;
 }
 
-.user-cake-design-card-info {
-    padding: 15px;
+/* 종료 상태 스타일 */
+.status-completed {
+  background-color: red;
 }
 
-.user-cake-design-card-title {
-    font-size: 1.1em;
-    margin: 5px 0;
+/* 카드 정보 스타일 */
+.user-cake-audition-card-info {
+  padding: 0px 10px 10px 10px;
 }
 
-.user-cake-design-card-subtitle {
-    color: #888;
-    font-size: 0.9em;
+.user-cake-audition-card-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0.5em 0;
+  white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+  overflow: hidden;     /* 넘치는 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘치는 부분을 '...'로 표시 */
 }
 
-.user-cake-design-card-stats {
-    margin-top: 10px;
-    font-size: 0.85em;
-    color: #666;
+.user-cake-audition-card-subtitle {
+  font-size: 0.8em;
+  color: #666;
 }
 
-.user-cake-design-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+.user-cake-audition-card-stats {
+  font-size: 0.8em;
+  color: #999;
+  margin-top: 8px;
 }
 
+/* Pagination container */
+.user-cake-audition-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+/* Page number buttons */
+.pagination-page-number,
 .pagination-arrow {
-    padding: 10px;
-    margin: 0 5px;
-    border: none;
-    background: #f5f5f5;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s, font-weight 0.3s;
+  border: none; /* Border 제거 */
+  background-color: transparent; /* 배경색 제거 */
 }
 
-.pagination-arrow:hover {
-    background: #ddd;
-}
-
-.pagination-page-number {
-    padding: 10px;
-    margin: 0 5px;
-    border: none;
-    background: #f5f5f5;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
+/* Active page button */
 .pagination-page-active {
-    background-color: #ffb3b3;
+  color: #000;
+  font-weight: bold; /* 활성화된 페이지 강조 */
 }
 
-.user-cake-design-card-image {
-    position: relative;
+/* Arrow button styling */
+.pagination-arrow {
+  font-size: 1.2rem;
 }
 
-.status-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.9em;
-    color: #fff;
-}
-
-.status-badge.ongoing {
-    background-color: #28a745;
-    /* 진행 중 상태일 때 초록색 배경 */
-}
-
-.status-badge.completed {
-    background-color: #dc3545;
-    /* 종료 상태일 때 빨간색 배경 */
-}
-
-/* 상태 필터 버튼 스타일 */
-.filter-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.filter-button {
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    padding: 10px 15px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 5px;
-}
-
-.filter-button.active {
-    background-color: #ff9999;
-    color: white;
-}
-
-.status-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.9em;
-    color: #fff;
-}
-
-.status-badge.ongoing {
-    background-color: #28a745; /* 진행 중 상태일 때 초록색 배경 */
-}
-
-.status-badge.completed {
-    background-color: #dc3545; /* 종료 상태일 때 빨간색 배경 */
+/* Hover effect for buttons */
+.pagination-page-number:hover,
+.pagination-arrow:hover {
+  color: #000; /* 호버 시 강조 색상 */
+  font-weight: bold; /* 폰트 bold 추가 */
 }

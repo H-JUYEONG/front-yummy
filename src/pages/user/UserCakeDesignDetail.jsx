@@ -25,7 +25,7 @@ const UserCakeDesignDetail = () => {
         <div className="user-cake-designs-details">
           <div className="user-design-header">
             <div className="user-cake-designs-title">
-              <span>골프장 테마 케이크 도안</span>
+              <span>친구를 위한 특별한 생일 디자인</span>
               <div className="user-cake-design-write-date">
                 <p> 2024.11.10 13:00:00</p>
               </div>
@@ -35,7 +35,7 @@ const UserCakeDesignDetail = () => {
               data-tooltip-id="audition-tooltip" // Tooltip 연결 ID
               data-tooltip-content="이 도안으로 케이크를 만들어주실 분을 찾아보세요!"
             >
-              케이크 오디션
+              케이크 요청하기
             </button>
             <Tooltip
               id="audition-tooltip"
@@ -52,8 +52,8 @@ const UserCakeDesignDetail = () => {
 
           <div>
             <div className="user-view-section">
-                <FaEye className="users-view-icon" /> 200
-              </div>
+              <FaEye className="users-view-icon" /> 200
+            </div>
             {/* Image Section */}
             <div className="user-cake-designs-detail-imgs">
               <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
