@@ -54,10 +54,37 @@ const UserMainForm = () => {
     const handleScroll = () => {
         setIsScrolled(true);
     };
+    const productList = [
+        { id: 1, store: "Sweet Delight", product: "초코 케이크", price: 15000, rating: 4.5 },
+        { id: 2, store: "케이크하우스", product: "레드벨벳 케이크", price: 20000, rating: 4.8 },
+        { id: 3, store: "Bake & Bite", product: "블루베리 치즈 케이크", price: 18000, rating: 4.2 },
+        { id: 4, store: "Dreamy Dessert", product: "초콜릿 무스 케이크", price: 22000, rating: 4.7 },
+        { id: 5, store: "Sugar Rush", product: "티라미수", price: 16000, rating: 4.6 },
+        { id: 6, store: "Lovely Layers", product: "스트로베리 케이크", price: 25000, rating: 4.9 },
+        { id: 7, store: "베이크헤븐", product: "카라멜 프라푸치노 케이크", price: 21000, rating: 4.3 },
+        { id: 8, store: "Cake Magic", product: "라즈베리 케이크", price: 19000, rating: 4.4 },
+        { id: 9, store: "Sugar Bliss", product: "레몬 치즈 케이크", price: 17000, rating: 4.1 },
+        { id: 10, store: "Dessert Palace", product: "화이트 초콜릿 케이크", price: 23000, rating: 4.5 }
+    ];
 
+    const renderStars = (rating) => {
+        const fullStars = Math.floor(rating); // 가득 찬 별의 개수
+        const emptyStars = 5 - fullStars; // 빈 별의 개수
+
+        return (
+            <>
+                {Array(fullStars).fill('★').map((star, index) => (
+                    <span key={`full-${index}`} style={{ color: '#FFD700' }}>{star}</span> // 가득 찬 별
+                ))}
+                {Array(emptyStars).fill('☆').map((star, index) => (
+                    <span key={`empty-${index}`} style={{ color: '#FFD700' }}>{star}</span> // 빈 별
+                ))}
+            </>
+        );
+    };
     return (
         <div id="user-wrap" className="text-center userMainFormContainer">
-            {/* Header */}    
+            {/* Header */}
             <header id="user-wrap-head">
                 <Header />
             </header>
@@ -107,20 +134,21 @@ const UserMainForm = () => {
                     <span>총 상품 | 10개</span>
                 </div>
                 <div className='allList-box'>
-                    {mapList.map((item, idx) => (
-                        <div className="all-product-item">
+                    {productList.map((item) => (
+                        <div className="all-product-item" key={item.id}>
                             <div className="list_hover_img">
-                                <img src={cakeImg} />
+                                <img src={cakeImg} alt={item.product} />
                             </div>
                             <div className="allList-item">
-
                                 <div className='userMain-product-img'>
-                                    <img src={cakeImg} />
+                                    <img src={cakeImg} alt="상품 이미지" />
                                 </div>
-                                <b onClick={() => navigate("/user/storedetail")}>업체명</b>
-                                <p onClick={() => navigate("/user/cakedetail")}>상품 1 *클릭해주세요*</p>
+                                <b onClick={() => navigate("/user/storedetail")}>{item.store}</b>
+                                <p onClick={() => navigate("/user/cakedetail")}>{item.product}</p>
+                                <p>가격: {item.price.toLocaleString()}원</p>
+                                <p>평점: {renderStars(item.rating)} ({item.rating})</p>
                             </div>
-                            </div>
+                        </div>
                     ))}
                 </div>
 
