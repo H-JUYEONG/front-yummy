@@ -134,12 +134,17 @@ button {
     z-index: 12;
     cursor: pointer;
 }
-.allList-box p {
-    margin-top: 10px;
-    font-size:13px;
+.allList-box .userMain-product-name {
+    margin-top: 8px;
+    font-size:14px;
     position: relative;
     z-index: 12;
     cursor: pointer;
+}
+.allList-box p{
+    font-size:14px;
+    position: relative;
+    z-index: 12;
 }
 .list_hover_img {
     opacity: 0;
