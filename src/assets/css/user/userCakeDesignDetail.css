@@ -68,7 +68,7 @@
   width: 100%;
   max-width: 503px;
   height: auto;
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
 /* Sub Images */
@@ -124,7 +124,7 @@
 }
 
 .user-cake-designs-detail-txt h2 {
-  font-size: 35px;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
 }

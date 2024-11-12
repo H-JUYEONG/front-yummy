@@ -75,13 +75,16 @@ const UserCakeDesignDetail = () => {
               <div id="user-cake-design-detail-txt-area">
                 {/* Description Section */}
                 <div className="user-cake-designs-detail-txt">
-                  <h2>상세 설명</h2>
+                  <h2>어떤 디자인인가요?</h2>
                   <p>
                     이 케이크는 환갑을 맞이한 분을 위한 특별한 디자인으로,
                     따뜻하고 축하의 의미가 가득 담긴 세련된 스타일의
                     케이크입니다. 케이크의 메인 색상은 부드러운 핑크빛으로,
                     사랑과 축복을 상징하는 컬러로 제작되었습니다.
                   </p>
+                  <h2>어떤분들이 선호하나요?</h2>
+                  <p>추천 행사: 환갑 잔치</p>
+                  <h2>추천하는 이벤트가 있나요?</h2>
                   <p>추천 행사: 환갑 잔치</p>
 
                   <div id="cake-design-action-btns" className="clearfix">
