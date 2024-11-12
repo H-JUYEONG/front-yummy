@@ -6,7 +6,7 @@ import Footer from './include/Footer';
 
 import mapImg from '../../assets/images/map_0.png';
 import cakeImg from '../../assets/images/download.jfif';
-
+import venderImg from '../../assets/images/cake-logo1.png';
 import '../../assets/css/user/userMainForm.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -153,7 +153,7 @@ const UserMainForm = () => {
                             </div>
                             <div className="allList-item">
                                 <div className='userMain-product-img'>
-                                    <img src={cakeImg} alt="상품 이미지" />
+                                    <img src={venderImg} alt="상품 이미지" />
                                 </div>
 
                                 <b onClick={() => navigate("/user/storedetail")}>{item.store}</b>
