@@ -112,7 +112,7 @@ const UserMainForm = () => {
                                 <div className='userMain-product-img'>
                                     <img src={cakeImg} />
                                 </div>
-                                <b onClick={() => navigate("/vender/venderMain")}>상품1</b>
+                                <b onClick={() => navigate("/user/storedetail")}>업체명</b>
                                 <p onClick={() => navigate("/user/cakedetail")}>상품 1 *클릭해주세요*</p>
                             </div>
                             </div>

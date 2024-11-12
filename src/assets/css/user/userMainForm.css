@@ -146,10 +146,13 @@ button {
     width: 100%;
     height: 100%;
     position: absolute;
-    transition:0.5s;
+    /*transition: opacity 1s ease, transform 1s ease;  부드럽게 변화하도록 설정 */
+    transition:0.7s;
     border-radius: 5px;
     overflow: hidden;
 }
+
+
 .allList-box .all-product-item:hover .list_hover_img {
     opacity: 1;
 }
