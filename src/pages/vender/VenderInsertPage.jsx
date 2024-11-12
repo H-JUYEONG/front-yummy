@@ -42,6 +42,12 @@ const VenderDashboard = () => {
         updatedCategoryPreviews.splice(index, 1); // 해당 인덱스의 항목 삭제
         setCategoryPreviews(updatedCategoryPreviews); // 상태 업데이트
     }
+
+     // 미리보기 버튼 클릭 시 새로운 웹 창 열기
+    const openPreviewInNewWindow = () => {
+        const previewWindow = window.open('/vender/venderMain', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
+        previewWindow.focus(); // 새 창이 열리면 포커스
+    };
     
 
     return (
@@ -55,12 +61,14 @@ const VenderDashboard = () => {
                             <div id="createPage-wrap">
                                 <h1 className='sy-create-title'>나만의 사이트를 꾸며보세요!</h1>
                                 <ul id="createPage-nav">
-                                    <Link to='/vender/venderMain'>
                                         <li>
-                                            <ResizeIcon className='formIcon' style={{ fontSize: '40px', color: '#007bff', backgroundColor: 'transparent'}} />
+                                            <button style={{ background: 'none', border: 'none' }} onClick={openPreviewInNewWindow}>
+                                                <ResizeIcon className='formIcon' style={{ fontSize: '40px', color: '#007bff', backgroundColor: 'transparent'}} />
+                                                <span>미리보기</span>
+                                            </button>
                                         </li>
-                                        <span>미리보기</span>
-                                    </Link>
+                                        
+                                    
                                 </ul>
                                 
                                 <div className='create-sy-flex-box'>
@@ -165,8 +173,8 @@ const VenderDashboard = () => {
 
                                 
                                 <div className='insert-btn'>
-                                    <button className="sy-apply-button"><Link to='/user/storedetail'>저장하기</Link></button>
-                                    <button className="sy-apply-button"><Link to='/user/storedetail'>적용하기</Link></button>
+                                    <button className="sy-apply-button"><Link to='/vender'>저장하기</Link></button>
+                                    <button className="sy-apply-button"><Link to='/vender'>적용하기</Link></button>
                                 </div>    
                             </div>
                             

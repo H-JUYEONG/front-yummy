@@ -32,13 +32,9 @@
     left: 50%; /* 수평 중앙 정렬 */
     transform: translateX(-50%); /* 정확히 중앙에 오도록 조정 */
 }
-#createPage-nav li:last-child{
-    background-color: aliceblue;
-    text-align: right;
-    padding-top: 5px;
-}
 
-#createPage-nav a {
+
+#createPage-nav button {
     
     padding: 8px 15px;
     border-radius: 5px;
