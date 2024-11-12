@@ -2,7 +2,7 @@
 #user-wrap .order-detail-container {
     padding: 20px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -11,7 +11,7 @@
     color: #333;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom:  2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .order-basic-info {
@@ -34,7 +34,7 @@
     gap: 20px;
     padding: 20px;
     background-color: #f8f9fa;
-    border-radius: 8px;
+    border-radius: 5px;
     margin-bottom: 30px;
     align-items: center;
 }
@@ -43,7 +43,7 @@
     width: 200px;
     height: 200px;
     flex-shrink: 0;
-    border-radius: 8px;
+    border-radius: 5px;
     overflow: hidden;
     border: 1px solid #e5e7eb;
 }
@@ -84,7 +84,7 @@
 #user-wrap .order-detail-container .product-status {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px dashed #e5e7eb;
+    border-top: 2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .status-label {
@@ -93,14 +93,14 @@
 }
 
 #user-wrap .order-detail-container .status-value {
-    color: #7C3AED;
+    color: #ff6f61;
     font-weight: bold;
 }
 
 #user-wrap .order-detail-container .order-section {
     margin-bottom: 30px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 20px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
@@ -110,7 +110,7 @@
     color: #333;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .info-content {
@@ -136,16 +136,16 @@
 }
 
 #user-wrap .order-detail-container .delivery-note {
-    color: #7C3AED;
+    color:  #ff6f61;
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px dashed #e5e7eb;
+    border-top:  2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .price-summary {
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px dashed #e5e7eb;
+    border-top: 2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .price-summary p {
@@ -159,12 +159,12 @@
     color: #333;
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid #e5e7eb;
+    border-top: 2px solid #ddd;
 }
 
 #user-wrap .order-detail-container .price {
     font-size: 1.1em;
-    color: #7C3AED;
+    color:  #ff6f61;
 }
 
 /* 반응형 스타일 */
