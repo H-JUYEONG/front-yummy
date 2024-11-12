@@ -1,7 +1,8 @@
-import React ,{ useState } from 'react'; // useState 훅 import from "react";
+import React, { useState } from 'react'; // useState 훅 import from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import UserSidebar from "./include/UserSidebar";
+import RightNavbar from './include/RightNavbar'; // 새로 만든 RightNavbar 컴포넌트 임포트
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userMyPageCakeDesignLikeList.css";
 import { FaHeart, FaSearch } from "react-icons/fa";
@@ -53,7 +54,8 @@ const UserMyPageCakeDesignLikeList = () => {
       <header id="user-wrap-head">
         <Header />
       </header>
-
+      {/* Right Navbar */}
+      <RightNavbar />
       <main id="user-wrap-body">
         <UserSidebar />
         <section id="user-wrap-main">
@@ -79,9 +81,8 @@ const UserMyPageCakeDesignLikeList = () => {
                   {styleOptions.map((style) => (
                     <button
                       key={style}
-                      className={`filter-btn ${
-                        selectedStyle === style ? "active" : ""
-                      }`}
+                      className={`filter-btn ${selectedStyle === style ? "active" : ""
+                        }`}
                       onClick={() => handleStyleSelect(style)}
                     >
                       {style}

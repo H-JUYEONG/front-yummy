@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Header from './include/Header';
 import Footer from './include/Footer';
-
+import RightNavbar from './include/RightNavbar'; // 새로 만든 RightNavbar 컴포넌트 임포트
 import bannerOne from '../../assets/images/cake-facebook-cover-design_220346-14126.avif';
 import mapImg from '../../assets/images/map_0.png';
 import cakeImg from '../../assets/images/download.jfif';
@@ -50,7 +50,8 @@ const UserMainForm = () => {
             <header id="user-wrap-head">
                 <Header />
             </header>
-
+            {/* Right Navbar */}
+            <RightNavbar />
             <div className='main-wrap'>
                 <div className='banner-box'>
                     <div className="banner-txt">
