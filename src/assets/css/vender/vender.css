@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    background-color: #f5f5f5;
     font-family: 'IBM Plex Sans KR', sans-serif;
     position: relative;
     padding: 20px;
@@ -21,22 +20,22 @@
     margin: 0 auto;
 }
 
-/* 사이드바 스타일 - 선명한 블랙 사파이어 */
+/* 사이드바 스타일 */
 .vender-sidebar {
     width: 250px;
-    background: rgba(10, 10, 20, 0.85); /* 진하고 선명한 블랙 */
-    color: rgba(255, 255, 255, 0.95); /* 밝고 선명한 텍스트 */
+    background-color:black;
+    color: #ffffff;
     height: calc(100vh - 40px);
     padding: 20px;
     position: sticky;
     top: 20px;
-    backdrop-filter: blur(5px); /* 블러 효과 줄이기 */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); /* 짧고 선명한 그림자 */
+    box-shadow: 2px 0 5px rgba(141, 138, 123, 0.1);
+    overflow-y: auto;
     border-radius: 16px;
-    border: 1px solid rgba(80, 80, 120, 0.6); /* 더 선명한 테두리 */
     z-index: 10;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
+
 /* 사이드바 프로필 영역 */
 .vender-profile {
     text-align: center;
