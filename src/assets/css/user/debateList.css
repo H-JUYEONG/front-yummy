@@ -1,82 +1,114 @@
-/* Board Header Container Styling */
-.j-board-header {
-  margin-bottom: 20px;
-  text-align: center; /* Centers the title and description */
+#user-debate-tip {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
-/* Board Title Styling */
-.j-board-header .j-board-title {
-  font-family: 'GmarketSans', sans-serif; /* Use GmarketSans for a bold and readable title */
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
+#user-debate-tip h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
-/* Board Description Styling */
-.j-board-header .j-board-description {
-  font-family: 'NanumSquare', sans-serif; /* Use NanumSquare for the description */
-  font-size: 1.2rem;
-  color: #666;
+#user-debate-tip p {
+  font-size: 20px;
 }
 
-/* Container */
-#debate-wrap {
-  max-width: 1200px;
+.user-debate-board-list {
+  width: 100%;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f8f9fa;
 }
 
-/* Main Section */
-#debate-wrap-main {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-#debate-wrap-main h2 {
-  font-family: 'NanumSquare', sans-serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* Toolbar */
-.j-discussion-toolbar {
+/* 버튼 및 검색창 컨테이너 */
+#user-debate-select-option-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
 }
 
-.j-category-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  font-size: 1rem;
+.user-debate-select-option {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left: 240px;
 }
 
-.j-search-bar input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px;
-}
-
-.j-search-btn {
-  padding: 10px 20px; /* Matches the padding of .search-button */
-  background: #7C3AED; /* Matches the background color */
-  border: none;
-  border-radius: 0 20px 20px 0; /* Matches the rounded corners */
-  color: white;
+.user-debate-select-option button {
+  padding: 8px 16px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  background-color: white;
+  color: #4B5563;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  width: 125px; /* Set a fixed width */
 }
 
-.j-search-btn:hover {
-  background: #6D28D9; /* Hover color matches .search-button */
+.user-debate-select-option button:hover {
+  background-color: #F3F4F6;
+}
+
+
+/* 검색창 스타일 */
+.user-debate-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-debate-search .search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 1rem;
+  color: #999;
+  pointer-events: none;
+}
+
+.user-debate-search input {
+  padding: 8px 16px 8px 36px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  outline: none;
+  font-size: 1rem;
+  width: 250px;
+}
+
+.user-debate-search input:focus {
+  border-color: #cbcbcb;
+}
+
+/* Pagination */
+.user-debate-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination-page-number,
+.pagination-arrow {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s;
+  border: none;
+  background-color: transparent;
+}
+
+.pagination-page-active {
+  color: black;
+  font-weight: bold;
+}
+
+.pagination-arrow {
+  font-size: 1.2rem;
+}
+
+.pagination-page-number:hover,
+.pagination-arrow:hover {
+  color: #4f46e5;
 }
 
 
@@ -105,41 +137,34 @@
   background-color: #f9f9f9;
 }
 
-/* Bottom Toolbar */
-.j-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin: 20px 0;
+#user-debate-add {
+  padding: 0px 4px;
 }
 
-.j-pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+.user-debate-add-btn {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.j-page-btn,
-.j-next-btn {
-  font-family: 'NanumSquare', sans-serif;
-  padding: 5px 10px;
-  background-color: #eee;
-  border: 1px solid #ddd;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.j-page-btn:hover,
-.j-next-btn:hover {
-  background-color: #ddd;
-}
-
-.j-write-btn {
-  background-color: #27AE60  ;
-  color: #fff;
-  font-weight: bold;
-  padding: 8px 16px;
-  border: none;
+#user-debate-add button {
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  color: #4B5563;
+  border: 2px solid #ddd;
   border-radius: 25px;
+  background-color: #ffffff;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#user-debate-add button:hover {
+  background-color: #F3F4F6;
+}
+
+.user-debate-all {
+  float: left;
+  padding: 20px 0px 0px 5px;
   font-weight: bold;
+  top: -10px;
 }
