@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import VenderHeader from '../vender/include/VenderHeader';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
 
@@ -83,9 +84,12 @@ const UserCakeDetail = () => {
     const colorOptions = [
         { id: 'pink', name: '핑크', className: 'pink' },
         { id: 'yellow', name: '노랑', className: 'yellow' },
-        { id: 'orange', name: '오렌지', className: 'orange' }
+        { id: 'orange', name: '오렌지', className: 'orange' },
+        { id: 'blue', name: '파랑', className: 'blue' },
+        { id: 'green', name: '초록', className: 'green' },
+        { id: 'purple', name: '보라', className: 'purple' },
+        { id: 'brown', name: '갈색', className: 'brown' }
     ];
-
     // 케이크 사이즈 옵션 데이터
     const sizeOptions = [
         { id: 'size1', name: '1호', image: '/images/size-1.jpg' },
@@ -350,6 +354,7 @@ const UserCakeDetail = () => {
 
     return (
         <div id="user-wrap" className="text-center">
+              <VenderHeader />
             <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
                     {/* 왼쪽 섹션: 상품 이미지 및 상세 정보 */}

@@ -74,13 +74,17 @@ button {
 }
 
 .category-box {
-    padding: 40px 0;
+    width: 100%; /* 가로 전체 너비 */
+    padding: 10px 0; /* 상하 여백 */
+    display: flex;
+    justify-content: center;
 }
 
 .category-box ul {
     display: flex;
-    gap: 20px;
-    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .category-box ul button {
@@ -98,6 +102,10 @@ button {
     background-color: #fff;
     color: #000;
     border: 0;
+}
+
+.category-box li {
+    margin: 0 20px; /* 버튼 간격 */
 }
 
 .category-box ul button:before {
@@ -339,4 +347,42 @@ button {
 .userMainFormContainer .create-cake-btn:active {
     transform: scale(0.95);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 정렬 버튼 스타일 */
+.sort-box {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
+    margin: 20px 0;
+}
+
+.sort-box button {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 10px 20px;
+    margin-left: 10px; /* 버튼 간격 추가 */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+.sort-box button:hover {
+    background-color: #e2e6ea;
+}
+
+.sort-box button.active {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* 화살표 스타일 */
+.sort-box button::after {
+    content: attr(data-sort);
+    margin-left: 5px;
+    font-weight: bold;
+    color: inherit;
+    font-size: 12px;
 }

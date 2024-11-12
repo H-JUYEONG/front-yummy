@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import VenderHeader from '../vender/include/VenderHeader';
-import Footer from './include/Footer';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 const UserStoreDetail = () => {

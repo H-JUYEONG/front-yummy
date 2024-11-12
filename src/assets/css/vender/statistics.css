@@ -100,7 +100,7 @@
 }
 /* 리뷰 관리 버튼 스타일 */
 .review-analysis-section .filter-section button {
-    background-color: #36A2EB;
+    background-color: #4f46e5;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -112,7 +112,7 @@
 }
 
 .review-analysis-section .filter-section button:hover {
-    background-color: #1D88D3;
+    background-color: #4338ca;
 }
 
 /* 반응형 스타일 조정 */

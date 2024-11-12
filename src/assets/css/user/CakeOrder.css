@@ -167,7 +167,10 @@
 /* 색상 옵션 */
 #user-wrap .cake-order-container .color-options {
     display: flex;
-    gap: 45px;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 #user-wrap .cake-order-container .color-option {
@@ -178,18 +181,18 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
+    margin-bottom: 20px;
 }
 
 #user-wrap .cake-order-container .color-option:hover {
     transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 #user-wrap .cake-order-container .color-option.active {
     border-color: #ff6f61;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.2);
 }
-
 #user-wrap .cake-order-container .color-option.active::after {
     content: '✓';
     position: absolute;
@@ -198,7 +201,7 @@
     transform: translate(-50%, -50%);
     color: white;
     font-size: 14px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 #user-wrap .cake-order-container .color-option.pink {
@@ -628,7 +631,7 @@
     background-color:  #ff6f61;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 30px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -817,17 +820,21 @@
     margin-top: 4px;
     color: #666;
 }
+/* color-option::before 부분만 수정하면 됩니다 */
 #user-wrap .cake-order-container .color-option::before {
     content: attr(title);
     position: absolute;
-    bottom: -20px;  /* 아래쪽 간격 조정 */
+    bottom: -25px;  /* -20px에서 -25px로 수정 */
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
-    color: #333;  /* 항상 검정색으로 표시 */
+    color: #333;
     white-space: nowrap;
+    background-color: white;  /* 배경색 추가 */
+    padding: 2px 6px;  /* 패딩 추가 */
+    pointer-events: none;  /* 마우스 이벤트 방지 */
+    z-index: 2;  /* z-index 추가 */
 }
-
 #user-wrap .cake-order-container .color-options {
     display: flex;
     gap: 45px;
@@ -863,6 +870,51 @@
 
 #user-wrap .cake-order-container .review-image img {
     border-radius: 5px;
+}
+
+/* 기존 색상 */
+#user-wrap .cake-order-container .color-option.pink {
+    background-color: #FFB6C1;
+}
+
+#user-wrap .cake-order-container .color-option.yellow {
+    background-color: #FFD700;
+}
+
+#user-wrap .cake-order-container .color-option.orange {
+    background-color: #FFA500;
+}
+
+/* 새로운 색상 */
+#user-wrap .cake-order-container .color-option.blue {
+    background-color: #4169E1;
+}
+
+#user-wrap .cake-order-container .color-option.green {
+    background-color: #32CD32;
+}
+
+#user-wrap .cake-order-container .color-option.purple {
+    background-color: #8A2BE2;
+}
+
+#user-wrap .cake-order-container .color-option.brown {
+    background-color: #8B4513;
+}
+
+/* 어두운 색상 체크마크 강화 */
+#user-wrap .cake-order-container .color-option.blue.active::after,
+#user-wrap .cake-order-container .color-option.purple.active::after,
+#user-wrap .cake-order-container .color-option.brown.active::after {
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+    #user-wrap .cake-order-container .color-options {
+        gap: 20px;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 480px) {
