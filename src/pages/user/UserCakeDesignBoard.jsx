@@ -140,7 +140,7 @@ const UserCakeDesignBoard = () => {
                 <div className="user-cake-design-card-info">
                   <h3 className="user-cake-design-card-title">{card.title}</h3>
                   <p className="user-cake-design-card-subtitle">{card.nickname}</p>
-                  <div className="user-cake-design-card-stats">
+                  <div className="user-cake-design-card-status">
                     <span>조회수: {card.views}</span>
                   </div>
                 </div>

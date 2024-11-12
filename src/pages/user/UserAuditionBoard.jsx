@@ -149,7 +149,7 @@ const UserAuditionBoard = () => {
                   <p className="user-cake-audition-card-subtitle">
                     {card.nickname}
                   </p>
-                  <div className="user-cake-audition-card-stats">
+                  <div className="user-cake-audition-card-status">
                     <span>참여: {card.author}</span>
                   </div>
                 </div>
