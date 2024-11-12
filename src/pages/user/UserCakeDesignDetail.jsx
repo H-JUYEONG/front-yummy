@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 
@@ -14,7 +14,7 @@ const UserCakeDesignDetail = () => {
   const navigate = useNavigate();
 
   return (
-    <div id="user-wrap" className="user-text-center">
+    <div id="user-wrap">
       {/* Header */}
       <header id="user-wrap-head">
         <Header />
@@ -25,96 +25,107 @@ const UserCakeDesignDetail = () => {
         <div className="user-cake-designs-details">
           <div className="user-design-header">
             <div className="user-cake-designs-title">
-              <span>골프장 테마 케이크 도안</span>
+              <span>친구를 위한 특별한 생일 디자인</span>
               <div className="user-cake-design-write-date">
-                <p> 2024.11.10 13:00:00</p>
+                <p>2024.11.10 13:00:00&emsp;|</p>
+                <p> 조회: 7</p>
               </div>
             </div>
-            <button
-              className="user-audition-button"
-              data-tooltip-id="audition-tooltip" // Tooltip 연결 ID
-              data-tooltip-content="이 도안으로 케이크를 만들어주실 분을 찾아보세요!"
-            >
-              케이크 오디션
-            </button>
-            <Tooltip
-              id="audition-tooltip"
-              place="top"
-              style={{
-                backgroundColor: "#333",
-                color: "#fff",
-                borderRadius: "5px",
-                padding: "8px",
-              }}
-            />{" "}
-            {/* Tooltip 컴포넌트 */}
+            <div className="user-action-buttons">
+              <button
+                className="user-audition-button"
+                data-tooltip-id="audition-tooltip"
+                data-tooltip-content="이 도안으로 케이크를 만들어주실 분을 찾아보세요!"
+              >
+                케이크 요청하기
+              </button>
+              <Tooltip
+                id="audition-tooltip"
+                place="top"
+                style={{
+                  backgroundColor: "#333",
+                  color: "#fff",
+                  borderRadius: "5px",
+                  padding: "8px",
+                }}
+              />
+            </div>
           </div>
 
-          <div>
-            <div className="user-view-section">
-                <FaEye className="users-view-icon" /> 200
+          <div id="user-cake-design-detail-box">
+            <div className="user-cake-design-detail-area">
+              <div id="user-cake-design-detail-imgs-area">
+                {/* Image Section */}
+                <div className="user-cake-designs-detail-imgs">
+                  <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                  <div className="user-cake-designs-detail-sub-imgs">
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                    <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                  </div>
+                </div>
               </div>
-            {/* Image Section */}
-            <div className="user-cake-designs-detail-imgs">
-              <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-              <div className="user-cake-designs-detail-sub-imgs">
-                <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+
+              <div id="user-cake-design-detail-txt-area">
+                {/* Description Section */}
+                <div className="user-cake-designs-detail-txt">
+                  <h2>상세 설명</h2>
+                  <p>
+                    이 케이크는 환갑을 맞이한 분을 위한 특별한 디자인으로,
+                    따뜻하고 축하의 의미가 가득 담긴 세련된 스타일의
+                    케이크입니다. 케이크의 메인 색상은 부드러운 핑크빛으로,
+                    사랑과 축복을 상징하는 컬러로 제작되었습니다.
+                  </p>
+                  <p>추천 행사: 환갑 잔치</p>
+
+                  <div id="cake-design-action-btns" className="clearfix">
+                    {/* Favorite Button */}
+                    <div className="user-favorite-section">
+                      <button className="user-favorite-button">
+                        <FaRegHeart className="users-heart-icon" />
+                        <span className="users-favorite-count">10</span>
+                      </button>
+                    </div>
+                    <div className="user-control-section">
+                      <button
+                        className="user-cake-edit-button"
+                        onClick={() => navigate("/user/cakeDesign/edit")}
+                      >
+                        수정
+                      </button>
+                      <button
+                        className="user-cake-delete-button"
+                        onClick={() => alert("삭제 기능")}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* Description Section */}
-            <div className="user-cake-designs-detail-txt">
-              <h2>도안 설명</h2>
-              <p>
-                좋은일이 가득하길 바라는 꽃 장식이 포인트이며 하트 데코가 추가된
-                디자인입니다.
-              </p>
-              <p>추천 행사: 환갑 잔치</p>
-
-              {/* Edit and Delete Buttons */}
-              <div className="user-cake-action-buttons">
-                <button
-                  className="user-cake-edit-button"
-                  onClick={() => navigate("/user/cakeDesign/edit")}
-                >
-                  수정
-                </button>
-                <button
-                  className="user-cake-delete-button"
-                  onClick={() => alert("삭제 기능")}
-                >
-                  삭제
-                </button>
-              </div>
-            </div>
-
-            {/* Favorite Button */}
-            <div className="user-favorite-section">
-              <button className="user-favorite-button">
-                <FaRegHeart className="users-heart-icon" />
-                <span className="users-favorite-count">10</span>
-              </button>
             </div>
 
             {/* Businesses Using This Design */}
-            <div className="user-business-section">
-              <h2>이 도안을 사용중인 업체</h2>
-              <div className="user-business-list">
-                <div className="user-business-item">
+            <div className="user-cakes-section">
+              <h2>이 도안을 사용한 케이크</h2>
+              <div className="user-cakes-list">
+                <div className="user-cakes-item">
                   <p className="vender-use-name">달콤 베이커리</p>
                   <p className="vender-sub-txt">서울 강남구</p>
                   <p className="vender-sub-txt">★ 4.7</p>
                 </div>
-                <div className="user-business-item">
+                <div className="user-cakes-item">
                   <p className="vender-use-name">해피 케이크</p>
                   <p className="vender-sub-txt">경기 이천시</p>
                   <p className="vender-sub-txt">★ 4.8</p>
                 </div>
-                <div className="user-business-item">
+                <div className="user-cakes-item">
                   <p className="vender-use-name">케이크 하우스</p>
                   <p className="vender-sub-txt">경기 하남시</p>
                   <p className="vender-sub-txt">★ 4.9</p>
