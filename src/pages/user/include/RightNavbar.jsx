@@ -5,9 +5,9 @@ import '../../../assets/css/user/rightNavbar.css';
 
 const RightNavbar = () => {
     return (
-        <div className="right-navbar">
+        <div className="user-right-navbar">
             <ul>
-                <li><Link to="/user">홈</Link></li>
+                <li><Link to="/">홈</Link></li>
                 <li><Link to="/user/mypage/order">마이페이지</Link></li>
             </ul>
         </div>
