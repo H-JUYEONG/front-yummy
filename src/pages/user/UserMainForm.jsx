@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Header from './include/Header';
 import Footer from './include/Footer';
 
-import bannerOne from '../../assets/images/cake-facebook-cover-design_220346-14126.avif';
 import mapImg from '../../assets/images/map_0.png';
 import cakeImg from '../../assets/images/download.jfif';
-
 
 import '../../assets/css/user/userMainForm.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
 
+const Banner = () => (
+    <div className="banner">
+        <h1>세상에 하나뿐인 케이크</h1>
+        <p>당신만의 특별한 순간을 케이크로 만들어 드립니다</p>
+        <button className="create-cake-btn">Let's GO</button>
+    </div>
+);
+
 const UserMainForm = () => {
     const navigate = useNavigate();
+    const [isScrolled, setIsScrolled] = useState(false);
     const mapList = [
         "강남구",
         "강동구",
@@ -43,22 +50,21 @@ const UserMainForm = () => {
         "중구",
         "중랑구"
     ];
+    // 스크롤 이벤트 핸들러
+    const handleScroll = () => {
+        setIsScrolled(true);
+    };
 
     return (
-        <div id="user-wrap" className="text-center userMainFformContainer">
-            {/* Header */}
+        <div id="user-wrap" className="text-center userMainFormContainer">
+            {/* Header */}    
             <header id="user-wrap-head">
                 <Header />
             </header>
-
+            <div className={`banner ${isScrolled ? "hidden" : ""}`}>
+                <Banner onScroll={handleScroll} />
+            </div>
             <div className='main-wrap'>
-                <div className='banner-box'>
-                    <div className="banner-txt">
-                    </div>
-                    <div className='banner-img'>
-                        <img src={bannerOne} alt='베너이미지' />
-                    </div>
-                </div>
                 <div className='map-box aos-init' data-aos="fade-up" data-aos-duration="1500">
                     <h3 className="sy-user-main-title">내위치찾기</h3>
                     <div className='map-img-box'>
