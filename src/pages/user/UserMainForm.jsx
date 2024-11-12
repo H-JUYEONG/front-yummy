@@ -147,18 +147,29 @@ const UserMainForm = () => {
                     </div>
                     <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
+
                 <div className='allList-box'>
                     {filteredProducts.map((item) => (
                         <div className="all-product-item" key={item.id}>
-                            <div className="list_hover_img">
+                            {/* 상품 이미지 클릭 시 링크 추가 */}
+                            <Link to="/user/cakedetail" className="list_hover_img">
                                 <img src={productImg} alt={item.product} />
                                 <div className="store-info">
-                                    <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
-                                    <b>{item.store}</b>
+                                    {/* 업체 로고와 업체명 클릭 시 /user/storedetail로 이동 */}
+                                    <Link to="/user/storedetail">
+                                        <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
+                                    </Link>
+                                    <Link to="/user/storedetail">
+                                        <b>{item.store}</b>
+                                    </Link>
                                 </div>
-                            </div>
+                            </Link>
+
+                            {/* 상품명 클릭 시 링크 추가 */}
                             <div className="product-info">
-                                <p>{item.product}</p>
+                                <Link to="/user/cakedetail">
+                                    <p>{item.product}</p>
+                                </Link>
                                 <p>가격: {item.price.toLocaleString()}원</p>
                                 <p>평점: {renderStars(item.rating)} ({item.rating})</p>
                             </div>
