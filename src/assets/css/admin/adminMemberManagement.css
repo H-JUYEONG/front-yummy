@@ -6,7 +6,9 @@
 
 .admin-container .admin-member-content {
     flex: 1;
-    padding: 20px;
+    padding: 40px;
+    background-color: #d8d8d8;
+    border-radius: 5px;
 }
 
 /* 탭 메뉴 */

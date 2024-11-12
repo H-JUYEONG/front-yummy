@@ -8,6 +8,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
 
+import VenderHeader from './include/VenderHeader';
+
 import VenderSidebar from './include/VenderSidebar';
 const VenderDashboard = () => {
     // FullCalendar 컴포넌트에 필요한 설정들을 정의합니다.
@@ -53,7 +55,10 @@ const VenderDashboard = () => {
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
                     <div className="vender-content">
-                        <main className="main-content">
+                        <main className="dashboard-content">
+                            <header className="vender-header ">
+                                <VenderHeader />
+                            </header>
                             <section className="dashboard-summary">
                                 <div className="summary-cards">
                                     <div className="card">

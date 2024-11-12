@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import "../../assets/css/vender/createPage.css"
 
-
 const VenderCreatePage = () => {
 
     const [logoPreview, setLogoPreview] = useState(null);

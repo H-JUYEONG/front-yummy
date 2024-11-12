@@ -1,3 +1,4 @@
+
 #user-cake-audition-tip {
   text-align: center;
   margin-bottom: 60px;
@@ -6,6 +7,11 @@
 #user-cake-audition-tip h2 {
   font-size: 20px;
   margin-bottom: 10px;
+
+.user-audition-board-list h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+
 }
 
 #user-cake-audition-tip p {

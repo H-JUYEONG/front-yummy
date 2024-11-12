@@ -1,21 +1,31 @@
-// Import libraries
-import React from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import "../../assets/css/all.css";
-import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/debateList.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaSearch, FaHeart } from "react-icons/fa";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 
+// css
+import "../../assets/css/all.css";
+import "../../assets/css/user/usermain.css";
+import "../../assets/css/user/debateList.css";
+
 const UserDebateList = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5; // 예시 페이지 수
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   const handleRowClick = (id) => {
     navigate(`/board/boardview`);
   };
 
   return (
-    <div id="user-wrap" className="user-text-center">
+    <div id="user-wrap" className="text-center">
       {/* Header */}
       <header id="user-wrap-head">
         <Header />
@@ -23,26 +33,31 @@ const UserDebateList = () => {
 
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
-        {/* Main Section */}
-        <section id="user-wrap-main">
-          
-
-          {/* Section Title and Description */}
-          <div className="j-board-header">
-              <div className="j-board-title">토론 게시판</div>
-              <div className="j-board-description">원하는 토론 주제를 선택하거나 새 글을 작성해보세요.</div>
+        <div className="user-debate-board-list">
+          <div id="user-debate-tip">
+            <h2>고민을 나누고 다양한 의견을 들어보는 공간입니다.</h2>
+            <p>
+              고민이 되는 도안이나 케이크 고민이 있다면 <strong>'고민 상담'</strong>을 통해 도움을 받아보세요!
+            </p>
           </div>
-          
-          {/* Search and Filter Toolbar */}
-          <div className="j-discussion-toolbar">
-            <select className="j-category-select">
-              <option value="all">전체</option>
-              <option value="design">도안 토론</option>
-              <option value="vendor">업체 토론</option>
-            </select>
-            <div className="j-search-bar">
-              <input type="text" placeholder="검색어를 입력하세요" />
-              <button className="j-search-btn">검색</button>
+          <div id="user-debate-select-option-list">
+            <div className="user-debate-select-option">
+              <button>전체</button>
+              <button>도안 고민</button>
+              <button>결과물 고민</button>
+            </div>
+            <div className="user-debate-search">
+              <FaSearch className="search-icon" />
+              <input type="text" placeholder="게시물 검색" />
+            </div>
+          </div>
+
+          <div id="user-debate-add" className="clearfix">
+            <div className="user-debate-all">ALL 3</div>
+            <div className="user-debate-add-btn">
+              <button onClick={() => navigate("/board/debateinsert")}>
+                고민 등록하기
+              </button>
             </div>
           </div>
 
@@ -86,21 +101,38 @@ const UserDebateList = () => {
             </tbody>
           </table>
 
-          {/* Write Button */}
-          <div className="j-toolbar">
-            <Link to="/board/debateinsert" className="j-write-btn">글쓰기</Link>
-          </div>
-
           {/* Pagination */}
-          <div className="j-pagination">
-            <button className="j-page-btn">1</button>
-            <button className="j-page-btn">2</button>
-            <button className="j-page-btn">3</button>
-            <button className="j-next-btn">다음 &gt;</button>
+          <div className="user-debate-pagination">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-arrow pagination-arrow-left"
+            >
+              {"<"}
+            </button>
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                className={`pagination-page-number ${
+                  currentPage === index + 1 ? "pagination-page-active" : ""
+                }`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="pagination-arrow pagination-arrow-right"
+            >
+              {">"}
+            </button>
           </div>
-        </section>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>

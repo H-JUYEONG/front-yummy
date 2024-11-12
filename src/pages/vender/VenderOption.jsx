@@ -6,12 +6,7 @@ import VenderSidebar from './include/VenderSidebar';
 
 function VenderOption() {
     const [options, setOptions] = useState([
-        {
-            id: 1, name: '상품종류', subOptions: [
-                { name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' },
-                { name: '비건케이크', imageUrl: 'https://via.placeholder.com/150' }
-            ]
-        },
+        { id: 1, name: '상품종류', subOptions: [{ name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' }] },
         { id: 2, name: '케이크 사이즈', subOptions: [] },
         { id: 3, name: '맛-시트', subOptions: [] },
         { id: 4, name: '맛-크림', subOptions: [] },
@@ -22,7 +17,7 @@ function VenderOption() {
         { id: 9, name: '데코 색상', subOptions: [] },
     ]);
 
-    const [expandedOptions, setExpandedOptions] = useState({}); // 옵션별로 열림 상태를 관리
+    const [expandedOptions, setExpandedOptions] = useState({});
 
     const addSubOption = (optionId, subOption) => {
         setOptions(options.map(option =>
@@ -74,6 +69,7 @@ function VenderOption() {
 function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOption }) {
     const [subOptionName, setSubOptionName] = useState("");
     const [subOptionFile, setSubOptionFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState("");
 
     const handleAddSubOption = () => {
         if (!subOptionName.trim() || !subOptionFile) {
@@ -89,12 +85,20 @@ function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOptio
         addSubOption(option.id, newSubOption);
         setSubOptionName("");
         setSubOptionFile(null);
+        setPreviewUrl("");
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setSubOptionFile(file);
+        if (file) setPreviewUrl(URL.createObjectURL(file));
     };
 
     return (
         <li className="option-item">
             <div className="option-header" onClick={toggleOption}>
                 <span className="option-name">{option.name}</span>
+                <span className="toggle-icon">{isExpanded ? "▲" : "▼"}</span>
             </div>
             {isExpanded && (
                 <div className="option-details">
@@ -106,18 +110,28 @@ function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOptio
                         />
                     ))}
                     <div className="add-sub-option">
+                        <div className="input-group">
+                            <label className="upload-label" htmlFor="file-input">
+                                {previewUrl ? (
+                                    <img src={previewUrl} alt="미리보기" className="preview-image" />
+                                ) : (
+                                    <span className="upload-placeholder">이미지 선택</span>
+                                )}
+                            </label>
+                            <input
+                                type="file"
+                                id="file-input"
+                                className="input-file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                            />
+                        </div>
                         <input
                             type="text"
                             className="input-text"
                             placeholder="옵션 이름"
                             value={subOptionName}
                             onChange={(e) => setSubOptionName(e.target.value)}
-                        />
-                        <input
-                            type="file"
-                            className="input-file"
-                            accept="image/*"
-                            onChange={(e) => setSubOptionFile(e.target.files[0])}
                         />
                         <button className="add-button" onClick={handleAddSubOption}>등록하기</button>
                     </div>

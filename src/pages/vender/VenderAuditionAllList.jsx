@@ -8,7 +8,7 @@ import AppealDesignDetails from './VenderAuditionParticipation'; // 생성한 Mo
 
 //import css
 import '../../assets/css/vender/auditionAllList.css';
-
+import VenderHeader from './include/VenderHeader';
 
 
 
@@ -49,35 +49,24 @@ const VenderAudirionAllList = () => {
     const openModal = () => {
         setIsModalOpen(true);
     };
-
     // 모달 닫기
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-
-
-
-
-
-
     // 1.이벤트 잡기
-
     //2. 데이터 잡기 + 묶기(배열)
-
     //3. 전송 (ajax 사용)
-
-
-
     return (
         <>
             <div className="vender-container">
                 <div className="vender-content-wrapper">
                     {/* 사이드바 영역 */}
                     <VenderSidebar />
-
                     {/* 메인 콘텐츠 영역 */}
                     <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">

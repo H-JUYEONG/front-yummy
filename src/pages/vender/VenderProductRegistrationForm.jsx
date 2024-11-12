@@ -431,7 +431,8 @@ function ProductRegistrationForm() {
                                 onSelectDesign={handleDesignSelect}
                             />
                             <div className="form-group centered-button-group">
-                                <button type="submit" className="add-button">상품 등록하기</button>
+                                <button type="submit" className="add-button">저장하기</button>
+                                <button type="submit" className="add-button">등록하기</button>
                             </div>
                         </form>
                         <button className="floating-preview-button" onClick={() => navigate('/vender/productpreview')}>미리보기</button>

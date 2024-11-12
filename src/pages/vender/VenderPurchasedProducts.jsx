@@ -5,7 +5,7 @@ import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/purchasedproducts.css';
 
 import VenderSidebar from './include/VenderSidebar';
-
+import VenderHeader from './include/VenderHeader';
 const VenderPurchasedProducts = () => {
     const [filter, setFilter] = useState("all");
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
@@ -63,6 +63,9 @@ const VenderPurchasedProducts = () => {
             <div className="vender-content-wrapper">
                 <VenderSidebar />
                 <div className="vender-content">
+                    <header className="vender-header ">
+                        <VenderHeader />
+                    </header>
                     <main className="vender-order-list-main-content">
                         <section className="vender-order-list">
                             <header className="order-list-header">

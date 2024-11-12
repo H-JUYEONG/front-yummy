@@ -1,13 +1,14 @@
 #createPage-wrap {
-    width: 80%;
+    width: 100%;
     margin: auto;
     padding: 20px;
-    background-color: #fcecec;
+
     border: 2px solid #fcbdbd;
     border-radius: 10px;
 }
 .sy-create-title{
     text-align: center;
+    font-size: 25px;
 }
 
 #createPage-nav {

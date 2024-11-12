@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/css/vender/venderreview.css'; // 업체 페이지 전용 스타일
 import VenderSidebar from './include/VenderSidebar';
-
+import VenderHeader from './include/VenderHeader';
 const VenderReview = () => {
     const reviews = [
         {
@@ -30,10 +30,13 @@ const VenderReview = () => {
                 <div className="vender-content-wrapper">
                     <VenderSidebar />
                     <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
                         <main>
                             <section className="review-management-section">
                                 <h2 className="review-info-text">
-                                   리뷰 관리
+                                    리뷰 관리
                                 </h2>
                                 <table className="review-table">
                                     <thead>

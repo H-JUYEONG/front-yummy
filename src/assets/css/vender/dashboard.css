@@ -57,3 +57,9 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
+
+.vender-content .vender-header {
+    border-radius: 20px; /* 라운드 효과 */
+    overflow: hidden; /* 내용이 경계를 넘지 않도록 설정 */
+    margin-bottom: 20px; /* 다른 컨텐츠와의 간격 */
+}

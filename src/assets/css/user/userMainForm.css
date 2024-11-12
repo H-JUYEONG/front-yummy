@@ -1,87 +1,108 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
-#user-wrap.userMainFformContainer {
-    font-family: "IBM Plex Sans KR", sans-serif;
+
+
+#user-wrap {
     font-weight: 400;
     font-style: normal;
 }
-button {
+
+.userMainFormContainer button {
     cursor: pointer;
+        border-radius: 5px 
 }
-.sy-user-main-title {
-    margin-bottom: 20px;
-    font-size:24px;
+
+.userMainFormContainer .sy-user-main-title {
+    margin: 25px 0px;
+    font-size: 24px;
     font-weight: 600;
-} 
-.map-img-box {
+}
+
+.userMainFormContainer .map-img-box {
     display: flex;
 }
-.map-con {
+
+.userMainFormContainer .map-con {
     flex-grow: 1;
+
 }
-.userMain-map-search {
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #ddd;
+
+.userMainFormContainer .userMain-map-search {
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
     padding: 20px 0;
 }
-.userMain-map-search select ,
+
+.userMain-map-search select,
 .userMain-map-search input {
-    border:0;
+    border: 0;
     width: calc(100% - 200px);
-} 
-.map-img {
+}
+
+.userMainFormContainer .map-img {
     padding-right: 50px;
 }
-.map-img img {
+
+.userMainFormContainer .map-img img {
     max-width: 400px;
 }
-.userMain-map-search select {
+
+.userMainFormContainer .userMain-map-search select {
     width: 150px;
     margin-right: 50px;
 }
-.map-click {
+
+.userMainFormContainer .map-click {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin: 20px 0;
 }
-.map-click button{
+
+.userMainFormContainer .map-click button {
     width: calc((100% - 40px) / 5);
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     padding: 20px;
-    font-size:16px;
+    font-size: 14px;
     background: #fff;
+    
 }
-.map-click button:hover {
+
+.userMainFormContainer .map-click button:hover {
     background-color: #000;
     color: #fff;
 }
 
-.category-box {
-    padding: 50px 0;
+.userMainFormContainer .category-box {
+    width: 100%; /* 가로 전체 너비 */
+    display: flex;
+    justify-content: center;
 }
-.category-box ul {
+
+.userMainFormContainer .category-box ul {
     display: flex;
     gap: 20px;
     justify-content: center;
 }
-.category-box ul button {
+
+.userMainFormContainer .category-box ul button {
     border: 0;
     background-color: #000;
     color: #fff;
     text-align: center;
-    flex:1;
+    flex: 1;
     position: relative;
     padding: 20px 0;
     width: 200px;
 }
-.category-box ul button:hover {
+
+.userMainFormContainer .category-box ul button:hover {
     background-color: #fff;
     color: #000;
-    border:0;
+    border: 0;
 }
-.category-box ul button:before {
-    content:"";
+
+.userMainFormContainer .category-box ul button:before {
+    content: "";
     display: block;
     top: 0;
     left: 0;
@@ -91,8 +112,9 @@ button {
     transition: 0.3s;
     position: absolute;
 }
-.category-box ul button:after {
-    content:"";
+
+.userMainFormContainer .category-box ul button:after {
+    content: "";
     display: block;
     bottom: 0;
     right: 0;
@@ -103,62 +125,265 @@ button {
     position: absolute;
 }
 
-.category-box ul button:hover:before ,
-.category-box ul button:hover:after {
+.userMainFormContainer .category-box ul button:hover:before,
+.userMainFormContainer .category-box ul button:hover:after {
     width: 100%;
 }
-.allList-box {
+
+.userMainFormContainer .allList-box {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
 }
-.allList-box .all-product-item {
-    border:1px solid #ddd;
-    border-radius: 5px;
-    width: calc((100% - 60px)/4);
-    position: relative;
-}
-.allList-box  .allList-item {
-    
-    padding: 20px 20px 30px;
-    
-}
-.allList-box img {
-    width: 70%;
-    margin-bottom: 20px;
-}
-.allList-box b {
-    display: block;
-    font-size:18px;
-    position: relative;
-    z-index: 12;
-    cursor: pointer;
-}
-.allList-box p {
-    margin-top: 10px;
-    font-size:13px;
-    position: relative;
-    z-index: 12;
-    cursor: pointer;
-}
-.list_hover_img {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    /*transition: opacity 1s ease, transform 1s ease;  부드럽게 변화하도록 설정 */
-    transition:0.7s;
-    border-radius: 5px;
+
+.userMainFormContainer .all-product-item {
+    width: calc((100% - 80px) / 4);
+    border-radius: 10px;
     overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-
-.allList-box .all-product-item:hover .list_hover_img {
-    opacity: 1;
+.userMainFormContainer .list_hover_img {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.allList-box .all-product-item:hover .list_hover_img img {
-    max-width: inherit;
+
+.userMainFormContainer .list_hover_img img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.userMainFormContainer .allList-item {
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+/* 매장 정보 (로고와 상호명)를 이미지 상단에 겹쳐서 표시 */
+.userMainFormContainer .store-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.userMainFormContainer .store-info img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.userMainFormContainer .product-info {
     width: 100%;
+    padding: 10px;
+    text-align: left;
+    background-color: #f8f8f8;
+}
+
+.userMainFormContainer .product-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+/* 내부 이미지 배치 */
+.userMainFormContainer .userMain-product-img img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* 텍스트 스타일 */
+.userMainFormContainer .allList-item b {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0 5px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.userMainFormContainer .allList-item b:hover {
+    color: #ff6b6b; /* 포인트 색상 */
+}
+
+.userMainFormContainer .allList-item p {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.userMainFormContainer .allList-item p:hover {
+    color: #333;
+}
+
+.userMainFormContainer .banner {
+    width: 100vw;
+    /* 전체 화면 너비로 설정 */
+    margin-left: calc(50% - 50vw);
+    /* 컨테이너 중앙 정렬 영향 제거 */
+    height: 500px;
+    background: linear-gradient(to right, rgba(255, 105, 135, 0.8), rgba(255, 156, 167, 0.8)),
+        url('../../images/banner-image.jpg');
+    background-size: 200% 200%;
+    background-position: 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    animation: slideBackground 10s linear infinite;
+    overflow: hidden;
+    /* 혹시 화면 밖으로 넘칠 수 있는 요소 숨기기 */
+}
+
+@keyframes slideBackground {
+    0% {
+        background-position: 0 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+.userMainFormContainer .banner h1 {
+    font-size: 50px;
+    /* 원하는 제목 크기 */
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    /* 글자 간격 조정 */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* 그림자 효과 */
+    line-height: 1.2;
+    /* 제목의 행간 조절 */
+    margin: 0;
+    /* 여백 초기화 */
+}
+
+.userMainFormContainer .banner p {
+    font-size: 20px;
+    /* 서브 텍스트 크기 */
+    color: white;
+    margin: 15px 0;
+    letter-spacing: 1px;
+    /* 글자 간격 조정 */
+    line-height: 1.5;
+    /* 서브 텍스트의 행간 조절 */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    /* 그림자 효과 */
+}
+
+
+.userMainFormContainer .create-cake-btn {
+    padding: 12px 24px;
+    background-color: #ff6f61;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-transform: uppercase;
+    /* 버튼 텍스트를 모두 대문자로 */
+    letter-spacing: 1.5px;
+    /* 버튼 글자 간격 */
+}
+
+
+.userMainFormContainer .create-cake-btn:hover {
+    background-color: #e04e4e;
+    transform: scale(1.1);
+}
+
+
+.userMainFormContainer .banner h1,
+.userMainFormContainer .banner p,
+.userMainFormContainer .create-cake-btn {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 20px rgba(255, 105, 135, 0.6),
+            0 0 30px rgba(255, 156, 167, 0.6);
+    }
+
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+            0 0 30px rgba(255, 105, 135, 0.8),
+            0 0 40px rgba(255, 156, 167, 1);
+    }
+}
+
+.userMainFormContainer .create-cake-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+
+/* 정렬 버튼 스타일 */
+.sort-box {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
+    margin: 20px 0;
+}
+
+.sort-box button {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 10px 20px;
+    margin-left: 10px; /* 버튼 간격 추가 */
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+}
+
+.sort-box button:hover {
+    background-color: #e2e6ea;
+}
+
+.sort-box button.active {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* 화살표 스타일 */
+.sort-box button::after {
+    content: attr(data-sort);
+    margin-left: 5px;
+    font-weight: bold;
+    color: inherit;
+    font-size: 12px;
 }
