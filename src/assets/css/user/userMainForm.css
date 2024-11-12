@@ -7,7 +7,7 @@
     font-style: normal;
 }
 
-button {
+.userMainFformContainer button {
     cursor: pointer;
         border-radius: 5px 
 }
@@ -18,11 +18,11 @@ button {
     font-weight: 600;
 }
 
-.map-img-box {
+.userMainFformContainer .map-img-box {
     display: flex;
 }
 
-.map-con {
+.userMainFformContainer .map-con {
     flex-grow: 1;
 
 }

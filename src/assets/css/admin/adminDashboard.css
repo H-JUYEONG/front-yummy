@@ -6,6 +6,8 @@
 .admin-container .admin-dashboard-content {
     flex: 1;
     padding: 40px;
+    background-color: #d8d8d8;
+    border-radius: 5px;
 }
 
 .admin-container .header {

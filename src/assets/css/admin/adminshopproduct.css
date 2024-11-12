@@ -4,6 +4,8 @@
 .admin-shopproduct-page {
     flex: 1;
     padding: 40px;
+    background-color: #d8d8d8;
+    border-radius: 5px;
 }
 
 /* 헤더 스타일 */

@@ -6,7 +6,7 @@ import '../../../assets/css/admin/adminSidebar.css';
 const AdminSidebar = () => {
     return (
         <aside className="admin-sidebar">
-            <div className="logo">쇼핑몰 관리</div>
+            <div className="logo">관리자 페이지</div>
             
             <ul className="menu">
                 <li><Link to="/admin">대시보드</Link></li>
