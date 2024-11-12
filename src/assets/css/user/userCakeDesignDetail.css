@@ -4,6 +4,7 @@
   margin: 0 auto;
 }
 
+/* Header 전체 정렬 */
 .user-design-header {
   display: flex;
   justify-content: space-between;
@@ -13,29 +14,28 @@
   border-bottom: 1px solid #000000;
 }
 
-/* 타이틀 스타일 */
-.user-cake-designs-title {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: #333;
-  margin: 0;
-  justify-content: space-between; /* 제목과 날짜를 양쪽 정렬 */
-}
-
 /* 제목 스타일 */
-.user-cake-designs-title span {
+.user-cake-designs-title {
   font-size: 30px;
   font-weight: bold;
+  color: #333;
 }
 
-/* 날짜와 조회수 스타일 */
-.user-cake-design-write-date {
+/* 작성 날짜와 버튼 컨테이너 */
+.user-design-info {
   display: flex;
-  gap: 10px;
-  font-size: 13px; /* 글자 크기 줄이기 */
-  color: #666;
   align-items: center;
+}
+
+/* 날짜 스타일 */
+.user-cake-design-write-date {
+  font-size: 18px;
+  color: #666;
+  padding-right: 10px;
+}
+
+.user-action-buttons {
+  float: right;
 }
 
 /* Audition Button */
@@ -117,6 +117,10 @@
   margin-left: 25px;
 }
 
+.user-cake-designs-detail-txt > div {
+  flex: 1; /* 자식 div들이 동일한 크기를 차지하도록 설정 */
+}
+
 /* 설명 텍스트 스타일 */
 .user-cake-designs-detail-txt {
   color: #555;
@@ -124,9 +128,9 @@
 }
 
 .user-cake-designs-detail-txt h2 {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-top: 2px;
 }
 
 .user-cake-designs-detail-txt p {
@@ -135,13 +139,13 @@
   word-wrap: break-word;
 }
 
+
 /* 찜 버튼 스타일 */
 .user-favorite-section {
   float: left;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-bottom: 25px;
 }
 
 .user-favorite-button {
@@ -156,19 +160,21 @@
 }
 
 .users-heart-icon {
-  font-size: 20px;
+  font-size: 25px;
   color: red;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .users-favorite-count {
-  font-size: 20px;
+  font-size: 25px;
   color: #333;
 }
 
 .user-control-section {
   float: right;
 }
+
+
 
 
 /* cakes Section */
@@ -185,6 +191,19 @@
   font-weight: bold;
   margin-bottom: 16px;
 }
+
+#cake-design-hash-tag-box {
+  display: flex;
+  gap: 10px; /* 각 태그 사이에 간격을 추가하려면 사용 */
+}
+
+.cake-design-hash-tag {
+  padding: 5px 7px;
+  border: 2px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 25px;
+}
+
 
 .user-cakes-list {
   display: flex;
@@ -212,78 +231,6 @@
   color: #777777;
 }
 
-/* Review Section */
-.user-review-section {
-  margin-top: 25px;
-  text-align: left;
-}
-
-.user-review-section h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 16px;
-}
-
-/* Review Item */
-.user-cake-designs-review-item {
-  padding: 20px;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: 2px solid #ddd;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Review Header */
-.user-review-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #666;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.user-review-stars {
-  color: #fbc02d;
-  font-size: 16px;
-}
-
-.user-review-email-id {
-  font-weight: bold;
-  color: #333;
-}
-
-.user-review-date {
-  font-size: 12px;
-  color: #666;
-}
-
-/* Review Body */
-.user-review-body {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.user-cake-designs-review-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  margin: 5px 0px;
-}
-
-.user-review-text {
-  flex: 1;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
-  margin: 5px 0px;
-}
-
 /* Edit, Delete Buttons */
 .user-cake-action-buttons {
   margin-bottom: 20px;
@@ -291,9 +238,16 @@
   gap: 10px;
 }
 
-.user-cake-edit-button,
+.user-cake-edit-button {
+  margin: 0px 7px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #cacaca;
+  background-color: #ffffff;
+}
+
 .user-cake-delete-button {
-  margin-left: 10px;
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
@@ -307,4 +261,101 @@
 
 .user-cake-delete-button {
   color: #333;
+}
+
+
+/* Review Section */
+.user-review-section {
+  margin-top: 20px;
+  text-align: left;
+  border-top: 1px solid #000;
+}
+
+.user-review-section h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+/* Review Item */
+.user-cake-designs-review-item {
+  padding: 20px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Review Header */
+.user-review-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.user-review-email-id {
+  font-weight: bold;
+  color: #333;
+}
+
+.user-review-date {
+  font-size: 12px;
+  color: #666;
+}
+
+.user-review-stars {
+  color: #fbc02d;
+  font-size: 16px;
+  margin-left: auto; /* 별점을 오른쪽 끝으로 정렬 */
+}
+
+/* Review Body */
+.user-review-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Review Image */
+.user-cake-designs-review-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Review Text */
+.user-review-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.bakery-name {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+}
+
+.cake-name {
+  font-size: 16px;
+  color: #666;
+}
+
+.review-content {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #555;
 }
