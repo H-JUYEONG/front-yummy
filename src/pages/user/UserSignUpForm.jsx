@@ -97,6 +97,16 @@ const UserSignUpForm = () => {
             </div>
 
             <div className="user-input-group-txt">
+              <label htmlFor="user-nikname">닉네임</label>
+              <input
+                id="user-nikname"
+                type="text"
+                value=""
+                placeholder="닉네임을 입력해주세요."
+              />
+            </div>
+
+            <div className="user-input-group-txt">
               <label htmlFor="user-phone">휴대폰번호</label>
               <div className="user-phonenum-input-wrapper">
                 <input

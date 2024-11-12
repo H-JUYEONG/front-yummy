@@ -38,16 +38,16 @@
 #user-cake-design-add button {
   margin-bottom: 5px;
   padding: 10px 12px;
-  color: #4B5563;
+  color: #fff;
   border: 2px solid #ddd;
   border-radius: 25px;
-  background-color: #ffffff;
+  background-color: #ff6f61;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 #user-cake-design-add button:hover {
-  background-color: #F3F4F6;
+  background-color: #e65a50;
 }
 
 .user-cake-design-all {
@@ -132,7 +132,7 @@
   width: 100%;
   max-width: 250px; /* 카드 최대 너비 */
   margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
-  height: 295px;
+  height: 305px;
 }
 
 .user-cake-design-card {
@@ -187,14 +187,13 @@
 }
 
 .user-cake-design-card-subtitle {
-  font-size: 0.8em;
+  font-size: 1.0em;
   color: #666;
 }
 
-.user-cake-design-card-stats {
-  font-size: 0.8em;
+.user-cake-design-card-status {
+  font-size: 1.0em;
   color: #999;
-  margin-top: 8px;
 }
 
 /* Pagination container */

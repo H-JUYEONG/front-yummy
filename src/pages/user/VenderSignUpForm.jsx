@@ -123,6 +123,16 @@ const VenderSignUpForm = () => {
             </div>
 
             <div className="vender-input-group">
+              <label htmlFor="vender-nikname">닉네임</label>
+              <input
+                id="vender-nikname"
+                type="text"
+                value=""
+                placeholder="닉네임을 입력해주세요."
+              />
+            </div>
+
+            <div className="vender-input-group">
               <label htmlFor="vender-owner">대표자명</label>
               <input
                 id="vender-owner"
