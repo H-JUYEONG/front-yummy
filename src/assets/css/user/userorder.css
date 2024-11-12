@@ -8,7 +8,7 @@
 #user-wrap .order-table th,
 #user-wrap .order-table td {
     padding: 16px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;
     text-align: left;
     vertical-align: middle;
 }
@@ -25,14 +25,14 @@
 }
 
 #user-wrap .order-table .clickable-status {
-    color: #7C3AED;
+    color:  #ff6f61;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.2s;
 }
 
 #user-wrap .order-table .clickable-status:hover {
-    color: #6D28D9;
+    color:  #ff6f61;;
 }
 
 #user-wrap .order-table .action-buttons {
@@ -42,22 +42,19 @@
 }
 
 #user-wrap .action-btn {
-    padding: 8px 5px;
-    background: #fff;
-    border: 1px solid #7C3AED;
-    border-radius: 4px;
-    color: #7C3AED;
+    padding: 10px 8px;
+    font-size: 18px;
+    background-color:#f9f9f9;;
+    color: #333;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.2s;
-    display: inline-block;
-    text-decoration: none;
-    line-height: normal;
-    font-size: 10px;
-    white-space: nowrap;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #user-wrap .action-btn:hover {
-    background: #7C3AED;
+    background:  #ff6f61;
     color: white;
 }
 
@@ -68,7 +65,7 @@
     align-items: center;
     background: #f8f9fa;
     padding: 24px;
-    border-radius: 8px;
+    border-radius: 5px;
     margin: 30px 0;
     gap: 10px;
 }
@@ -86,7 +83,7 @@
 #user-wrap .status-count {
     font-size: 1.5em;
     font-weight: bold;
-    color: #7C3AED;
+    color:  #ff6f61;
     margin-bottom: 8px;
 }
 
@@ -117,7 +114,7 @@
 
 #user-wrap .description-table td {
     padding: 12px 16px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;
     line-height: 1.5;
 }
 
@@ -143,25 +140,25 @@
 
 #user-wrap .date-filter input[type="date"] {
     padding: 8px 12px;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     font-size: 0.9em;
 }
 
 #user-wrap .period-btn {
     padding: 8px 14px;
     background: #f8f9fa;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.9em;
 }
 
 #user-wrap .period-btn:hover {
-    background: #7C3AED;
+    background:  #ff6f61;
     color: white;
-    border-color: #7C3AED;
+    border-color: #ff6f61;
 }
 
 #user-wrap .notice {
