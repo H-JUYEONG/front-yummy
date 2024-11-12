@@ -21,6 +21,7 @@ import VenderProductPreview from './pages/vender/VenderProductPreview';
 import VenderMain from './pages/vender/VenderMain';
 import VenderReview from './pages/vender/VenderReview';
 import VenderHeader from './pages/vender/include/VenderHeader';
+import VenderInsertPage from './pages/vender/VenderInsertPage';
 
 
 // user
@@ -105,6 +106,7 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
+          <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
           
           
           {/* User Routes */}
