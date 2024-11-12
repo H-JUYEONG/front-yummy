@@ -47,10 +47,11 @@ const AdminShopProduct = () => {
             <div className="admin-shopproduct-page">
                 <header className="admin-shopproduct-header">
                     <h1>쇼핑몰 상품 관리</h1>
+                    <button className="add-product-button" onClick={() => navigate('/admin/shopproductsdetail')}>새 재료 등록하기</button>
                 </header>
 
                 <section>
-                    <button className="add-product-button" onClick={() => navigate('/admin/shopproductsdetail')}>새 재료 등록하기</button>
+                  
                     <table className="product-table">
                         <thead>
                             <tr>

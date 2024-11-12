@@ -163,6 +163,28 @@
     background-color: #4338ca;
 }
 
+
+.product-list-main-content .status-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.product-list-main-content .status-button.visible {
+    background-color: #4CAF50;
+    /* 노출 상태의 녹색 버튼 */
+}
+
+.product-list-main-content .status-button.hidden {
+    background-color: #f44336;
+    /* 미노출 상태의 빨간색 버튼 */
+}
+
+
+
 /* 반응형 처리 */
 @media (max-width: 768px) {
     .product-list-header {

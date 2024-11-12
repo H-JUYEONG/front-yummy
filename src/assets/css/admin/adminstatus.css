@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
-    width: 1430px;
+    width: 100%;
 }
 
 .admin-container .detailed-stats-page .stats-header h1 {
@@ -36,7 +36,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 1400px;
+    width: 100%;
 }
 
 .admin-container .detailed-stats-page .chart-container canvas {

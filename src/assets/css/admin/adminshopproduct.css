@@ -22,8 +22,9 @@
     font-weight: bold;
 }
 
-/* "새 재료 등록하기" 버튼 스타일 */
-.admin-shopproduct-page .add-product-button {
+/* "새 재료 등록하기" 버튼을 오른쪽에 배치 */
+.admin-shopproduct-header .add-product-button {
+    margin-left: auto; /* 버튼을 오른쪽으로 밀기 */
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
@@ -31,7 +32,6 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: 20px;
 }
 
 .admin-shopproduct-page .add-product-button:hover {

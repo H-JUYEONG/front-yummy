@@ -14,12 +14,12 @@ const VenderProductList = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     // 상품 리스트 데이터 예시
-    const products = [
+    const [products, setProducts] = useState([
         { name: '초콜릿 케이크', type: '일반 케이크', price: '30,000원', description: '촉촉, 풍부한 초콜릿 맛', status: '노출' },
         { name: '바닐라 생크림 케이크', type: '생크림 케이크', price: '32,000원', description: '부드러운 생크림, 클래식한 맛', status: '임시저장' },
         { name: '바닐라 비건 케이크', type: '비건 케이크', price: '32,000원', description: '부드러운 비건 생크림, 클래식한 맛', status: '미노출' },
         // ... 더 많은 상품 데이터 추가 가능
-    ];
+    ]);
 
     // 검색어에 따라 필터링된 상품 리스트
     const filteredProducts = products.filter(product =>
@@ -33,6 +33,23 @@ const VenderProductList = () => {
 
     // 페이지 수 계산
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+    // 상품 노출 상태 변경 함수
+    const toggleProductStatus = (productIndex) => {
+        setProducts(prevProducts => {
+            // 원래 products 배열에서 인덱스 기반으로 변경
+            const updatedProducts = prevProducts.map((product, index) => {
+                if (index === productIndex) {
+                    return {
+                        ...product,
+                        status: product.status === '노출' ? '미노출' : '노출'
+                    };
+                }
+                return product;
+            });
+            return updatedProducts;
+        });
+    };
 
     return (
         <>
@@ -84,7 +101,14 @@ const VenderProductList = () => {
                                                 <td>{product.type}</td>
                                                 <td>{product.price}</td>
                                                 <td>{product.description}</td>
-                                                <td>{product.status}</td>
+                                                <td>
+                                                    <button
+                                                        className={`status-button ${product.status === '노출' ? 'visible' : 'hidden'}`}
+                                                        onClick={() => toggleProductStatus(indexOfFirstItem + index)}
+                                                    >
+                                                        {product.status}
+                                                    </button>
+                                                </td>
                                                 <td>
                                                     <button className="edit-button">수정</button>
                                                     <button className="delete-button">삭제</button>

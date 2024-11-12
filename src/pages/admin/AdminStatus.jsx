@@ -123,7 +123,7 @@ const AdminStatus = () => {
                 <header className="stats-header">
                     <h1>상세 통계 페이지</h1>
                     <div className="metric-display">
-                        현재 선택된 메트릭: {selectedMetric}
+                        {selectedMetric}
                     </div>
                 </header>
 
