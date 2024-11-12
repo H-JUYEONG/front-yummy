@@ -5,7 +5,6 @@ import Header from './include/Header';
 import Footer from './include/Footer';
 
 import mapImg from '../../assets/images/map_0.png';
-import productImg from '../../assets/images/pusheen-pusheen-cat.gif'; // 상품 이미지
 import storeLogo from '../../assets/images/cake-logo1.png'; // 매장 로고 이미지
 import '../../assets/css/user/userMainForm.css';
 import AOS from 'aos';
