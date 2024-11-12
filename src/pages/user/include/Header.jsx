@@ -81,7 +81,7 @@ const Header = () => {
     <div className="header-container">
       {/* Logo */}
       <div className="logo">
-        <Link to={`/user/`}>
+        <Link to={`/`}>
           <h1>YUMMY</h1>
         </Link>
       </div>
