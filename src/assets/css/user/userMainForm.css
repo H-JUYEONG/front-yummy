@@ -1,33 +1,33 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-#user-wrap.userMainFformContainer {
+#user-wrap {
     font-family: "IBM Plex Sans KR", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
-.userMainFformContainer button {
+.userMainFormContainer button {
     cursor: pointer;
         border-radius: 5px 
 }
 
-.sy-user-main-title {
+.userMainFormContainer .sy-user-main-title {
     margin: 25px 0px;
     font-size: 24px;
     font-weight: 600;
 }
 
-.userMainFformContainer .map-img-box {
+.userMainFormContainer .map-img-box {
     display: flex;
 }
 
-.userMainFformContainer .map-con {
+.userMainFormContainer .map-con {
     flex-grow: 1;
 
 }
 
-.userMain-map-search {
+.userMainFormContainer .userMain-map-search {
     border-top: 2px solid #ddd;
     border-bottom: 2px solid #ddd;
     padding: 20px 0;
@@ -39,27 +39,27 @@
     width: calc(100% - 200px);
 }
 
-.map-img {
+.userMainFormContainer .map-img {
     padding-right: 50px;
 }
 
-.map-img img {
+.userMainFormContainer .map-img img {
     max-width: 400px;
 }
 
-.userMain-map-search select {
+.userMainFormContainer .userMain-map-search select {
     width: 150px;
     margin-right: 50px;
 }
 
-.map-click {
+.userMainFormContainer .map-click {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin: 20px 0;
 }
 
-.map-click button {
+.userMainFormContainer .map-click button {
     width: calc((100% - 40px) / 5);
     border: 2px solid #ddd;
     padding: 20px;
@@ -68,24 +68,24 @@
     
 }
 
-.map-click button:hover {
+.userMainFormContainer .map-click button:hover {
     background-color: #000;
     color: #fff;
 }
 
-.category-box {
+.userMainFormContainer .category-box {
     width: 100%; /* 가로 전체 너비 */
     display: flex;
     justify-content: center;
 }
 
-.category-box ul {
+.userMainFormContainer .category-box ul {
     display: flex;
     gap: 20px;
     justify-content: center;
 }
 
-.category-box ul button {
+.userMainFormContainer .category-box ul button {
     border: 0;
     background-color: #000;
     color: #fff;
@@ -96,13 +96,13 @@
     width: 200px;
 }
 
-.category-box ul button:hover {
+.userMainFormContainer .category-box ul button:hover {
     background-color: #fff;
     color: #000;
     border: 0;
 }
 
-.category-box ul button:before {
+.userMainFormContainer .category-box ul button:before {
     content: "";
     display: block;
     top: 0;
@@ -114,7 +114,7 @@
     position: absolute;
 }
 
-.category-box ul button:after {
+.userMainFormContainer .category-box ul button:after {
     content: "";
     display: block;
     bottom: 0;
@@ -126,12 +126,12 @@
     position: absolute;
 }
 
-.category-box ul button:hover:before,
-.category-box ul button:hover:after {
+.userMainFormContainer .category-box ul button:hover:before,
+.userMainFormContainer .category-box ul button:hover:after {
     width: 100%;
 }
 
-.allList-box {
+.userMainFormContainer .allList-box {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
@@ -139,7 +139,7 @@
     margin-bottom: 60px;
 }
 
-.all-product-item {
+.userMainFormContainer .all-product-item {
     width: calc((100% - 80px) / 4);
     border-radius: 10px;
     overflow: hidden;
@@ -147,71 +147,69 @@
     background-color: #fff;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-
-
-/* 이미지 오버레이 */
-.list_hover_img {
+.userMainFormContainer .list_hover_img {
     position: relative;
     width: 100%;
-    height: 160px;
+    height: 200px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.list_hover_img img {
+.userMainFormContainer .list_hover_img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
-/* 오버레이 효과 */
-.list_hover_img::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.15); /* 은은한 오버레이 */
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.all-product-item:hover .list_hover_img::before {
-    opacity: 1;
-}
-
-.allList-box .product-info {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white; /* 텍스트를 흰색으로 */
-    background: transparent; /* 배경을 투명하게 */
-    padding: 0;
-    text-align: right;
-}
-
-.allList-box .product-info p {
-    margin: 3px 0;
-    font-size: 14px;
-    color: white; /* 텍스트를 이미지 위에서 잘 보이도록 흰색으로 */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* 가독성을 높이기 위해 그림자 추가 */
-}
-.allList-item {
+.userMainFormContainer .allList-item {
     padding: 10px;
     text-align: center;
     position: relative;
     cursor: pointer;
     transition: color 0.3s ease;
 }
+/* 매장 정보 (로고와 상호명)를 이미지 상단에 겹쳐서 표시 */
+.userMainFormContainer .store-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
+.userMainFormContainer .store-info img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.userMainFormContainer .product-info {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background-color: #f8f8f8;
+}
+
+.userMainFormContainer .product-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+}
 /* 내부 이미지 배치 */
-.userMain-product-img img {
+.userMainFormContainer .userMain-product-img img {
     width: 50px;
     height: 50px;
     object-fit: cover;
@@ -219,7 +217,7 @@
 }
 
 /* 텍스트 스타일 */
-.allList-item b {
+.userMainFormContainer .allList-item b {
     display: block;
     font-size: 18px;
     font-weight: 600;
@@ -229,18 +227,18 @@
     transition: color 0.3s ease;
 }
 
-.allList-item b:hover {
+.userMainFormContainer .allList-item b:hover {
     color: #ff6b6b; /* 포인트 색상 */
 }
 
-.allList-item p {
+.userMainFormContainer .allList-item p {
     font-size: 14px;
     color: #666;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
-.allList-item p:hover {
+.userMainFormContainer .allList-item p:hover {
     color: #333;
 }
 

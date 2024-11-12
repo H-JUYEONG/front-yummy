@@ -5,6 +5,7 @@ import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignList.css";
 
 import VenderSidebar from "./include/VenderSidebar";
+import VenderHeader from './include/VenderHeader';
 
 const VenderCakeDesignList = () => {
   const navigate = useNavigate();
@@ -12,8 +13,8 @@ const VenderCakeDesignList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
-   // Navigate to detail page on image click
-   const handleImageClick = () => {
+  // Navigate to detail page on image click
+  const handleImageClick = () => {
     navigate("/vender/cakeDesign/detail");
   };
 
@@ -65,6 +66,9 @@ const VenderCakeDesignList = () => {
         <div className="vender-content-wrapper">
           <VenderSidebar />
           <div className="vender-content">
+            <header className="vender-header ">
+              <VenderHeader />
+            </header>
             <main className="product-list-main-content">
               <section className="product-list">
                 <header className="product-list-header">
@@ -134,7 +138,7 @@ const VenderCakeDesignList = () => {
                     />
                     <p>몽환의 숲</p>
                   </div>
-                  
+
                 </div>
 
                 {/* 페이징 네비게이션 */}
@@ -142,9 +146,8 @@ const VenderCakeDesignList = () => {
                   {Array.from({ length: totalPages }, (_, index) => (
                     <button
                       key={index}
-                      className={`page-button ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
+                      className={`page-button ${currentPage === index + 1 ? "active" : ""
+                        }`}
                       onClick={() => setCurrentPage(index + 1)}
                     >
                       {index + 1}

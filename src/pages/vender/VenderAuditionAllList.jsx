@@ -8,7 +8,7 @@ import AppealDesignDetails from './VenderAuditionParticipation'; // 생성한 Mo
 
 //import css
 import '../../assets/css/vender/auditionAllList.css';
-
+import VenderHeader from './include/VenderHeader';
 
 
 
@@ -64,6 +64,9 @@ const VenderAudirionAllList = () => {
                     <VenderSidebar />
                     {/* 메인 콘텐츠 영역 */}
                     <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">

@@ -5,8 +5,8 @@ import Header from './include/Header';
 import Footer from './include/Footer';
 
 import mapImg from '../../assets/images/map_0.png';
-import productImg from '../../assets/images/download.jfif'; // 상품 이미지 명칭 변경
-import storeLogo from '../../assets/images/cake-logo1.png'; // 벤더 이미지 명칭 변경
+import productImg from '../../assets/images/download.jfif'; // 상품 이미지
+import storeLogo from '../../assets/images/cake-logo1.png'; // 매장 로고 이미지
 import '../../assets/css/user/userMainForm.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -24,11 +24,11 @@ const UserMainForm = () => {
     const navigate = useNavigate();
     const [selectedRegion, setSelectedRegion] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
-    const [sortOrder, setSortOrder] = useState("rating"); // 기본 정렬 기준은 별점순
-    const [sortDirection, setSortDirection] = useState("desc"); // 기본 정렬 방향은 내림차순
+    const [sortOrder, setSortOrder] = useState("rating");
+    const [sortDirection, setSortDirection] = useState("desc");
 
     useEffect(() => {
-        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+        window.scrollTo(0, 0);
     }, []);
 
     const mapList = [
@@ -87,7 +87,7 @@ const UserMainForm = () => {
             setSortDirection(sortDirection === "asc" ? "desc" : "asc");
         } else {
             setSortOrder(order);
-            setSortDirection("desc"); // 새 기준으로 정렬 시 내림차순부터 시작
+            setSortDirection("desc");
         }
     };
 
@@ -152,17 +152,15 @@ const UserMainForm = () => {
                         <div className="all-product-item" key={item.id}>
                             <div className="list_hover_img">
                                 <img src={productImg} alt={item.product} />
-                                <div className="product-info">
-                                    <p>{item.product}</p>
-                                    <p>가격: {item.price.toLocaleString()}원</p>
-                                    <p>평점: {renderStars(item.rating)} ({item.rating})</p>
+                                <div className="store-info">
+                                    <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
+                                    <b>{item.store}</b>
                                 </div>
                             </div>
-                            <div className="allList-item">
-                                <div className='userMain-product-img'>
-                                    <img src={storeLogo} alt="매장 로고 이미지" />
-                                </div>
-                                <b onClick={() => navigate("/user/storedetail")}>{item.store}</b>
+                            <div className="product-info">
+                                <p>{item.product}</p>
+                                <p>가격: {item.price.toLocaleString()}원</p>
+                                <p>평점: {renderStars(item.rating)} ({item.rating})</p>
                             </div>
                         </div>
                     ))}
