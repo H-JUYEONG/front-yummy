@@ -108,6 +108,9 @@ const UserPersonalInfoEdit = () => {
             <label>이름</label>
             <input type="text" value="김덕훈" readOnly />
 
+            <label>유저네임</label>
+            <input type="text" placeholder="SteamDuck77" />
+
             <label>새 비밀번호</label>
             <input type="password" placeholder="새 비밀번호" />
 
