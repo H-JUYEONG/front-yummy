@@ -435,7 +435,12 @@ function ProductRegistrationForm() {
                                 <button type="submit" className="add-button">등록하기</button>
                             </div>
                         </form>
-                        <button className="floating-preview-button" onClick={() => navigate('/vender/productpreview')}>미리보기</button>
+                        <button
+                            className="floating-preview-button"
+                            onClick={() => window.open('/vender/productpreview', '_blank')}
+                        >
+                            미리보기
+                        </button>
                     </div>
                 </div>
             </div>

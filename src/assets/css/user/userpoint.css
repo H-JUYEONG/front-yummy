@@ -2,7 +2,6 @@
 
 
 .order-status-container .status-label {
-    font-family: 'NanumSquare', sans-serif;
     margin-bottom: 5px;
     font-size: 16px;
     color: #666;
@@ -17,7 +16,6 @@
 .order-table th {
     background: #f8f9fa;
     padding: 12px;
-    font-family: 'NanumSquare', sans-serif;
 }
 
 /* 반응형 스타일 */

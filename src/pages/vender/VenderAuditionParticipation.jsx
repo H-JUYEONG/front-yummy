@@ -29,11 +29,13 @@ const VenderAuditionParticipation = ({ isOpen, onClose, children }) => {
                     <p className='sy-modal-sub-title'>신청하기</p>
                     <form>  
                         <div className='input-recept-box'>
-                            <div className='input-recept-value'>
-                                <input id="input-photo" type='file' name='' hidden />
-                                {!fileImg ? 
-                                <label  htmlFor='input-photo' name="" value="">상품사진을 첨부해주세요</label>
-                                :<div className='input-photo-value'>{fileImg}</div>}
+                            <div className='search-input input-recept-value'>
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="상품명 검색하기"
+                                value=''
+                            />
                                     
                                 
                             </div>

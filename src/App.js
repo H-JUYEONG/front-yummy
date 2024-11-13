@@ -75,6 +75,7 @@ import AdminVenderOrder from './pages/admin/AdminVenderOrder';
 import AdminShopManage from './pages/admin/AdminShopManage';
 import AdminShopAdd from './pages/admin/AdminShopAdd';
 import Hyun from './pages/admin/Hyun';
+import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 
 
 
@@ -107,6 +108,7 @@ function App() {
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
           <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
+          <Route path="/vender/VenderInsertPage" element={<VenderInsertAudition/>} />
           
           
           {/* User Routes */}

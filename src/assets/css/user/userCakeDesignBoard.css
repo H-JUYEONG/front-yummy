@@ -4,12 +4,12 @@
 }
 
 #user-cake-design-tip h2 {
-  font-size: 30px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
 #user-cake-design-tip p {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .user-cake-design-board-list {
@@ -26,7 +26,8 @@
 }
 
 #user-cake-design-add {
-  padding: 0px 4px;
+  /* padding: 0px 4px; */
+  padding-top: 20px;
 }
 
 .user-cake-design-add-btn {
@@ -54,7 +55,7 @@
 .user-cake-design-all {
   float: left;
   padding: 20px 0px 0px 5px;
-  top: -10px;
+  font-size: 1.1em;
 }
 
 /* 상단 버튼 및 검색창 컨테이너 */
@@ -85,6 +86,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-size: 18px;
+    font-weight: bold;
 }
 
 .user-cake-design-select-option button:hover {
@@ -125,7 +127,7 @@
 /* 카드 스타일 */
 .user-cake-design-card {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
   text-align: center;
@@ -133,7 +135,7 @@
   width: 100%;
   max-width: 250px; /* 카드 최대 너비 */
   margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
-  height: 305px;
+  height: 310px;
 }
 
 .user-cake-design-card {
@@ -165,7 +167,7 @@
   border: 1px solid #e0e0e0;
   padding: 6px 8px;
   border-radius: 25px;
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
 .heart-icon {
@@ -179,7 +181,8 @@
 }
 
 .user-cake-design-card-title {
-  font-size: 19px;
+  font-size: 20px;
+  font-weight: bold;
   margin: 14px 0px 10px 0px;
   white-space: nowrap; /* 텍스트를 한 줄로 유지 */
   overflow: hidden;     /* 넘치는 텍스트를 숨김 */
@@ -187,14 +190,18 @@
 }
 
 .user-cake-design-card-subtitle {
-  font-size: 15px;
+  font-size: 17px;
   color: #666;
   padding-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-cake-design-card-status {
-  font-size: 14px;
+  font-size: 17px;
   color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 페이지네이션 스타일 */
@@ -230,7 +237,7 @@
 .user-cake-design-page-number:hover,
 .user-cake-design-prev-page:hover,
 .user-cake-design-next-page:hover {
-    background: #F3F4F6;
+    background: #ff6f61;
 }
 
 .user-cake-design-page-number.active {

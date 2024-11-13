@@ -45,14 +45,14 @@ const VenderDashboard = () => {
 
      // 미리보기 버튼 클릭 시 새로운 웹 창 열기
     const openPreviewInNewWindow = () => {
-        const previewWindow = window.open('/vender/venderMain', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
+        const previewWindow = window.open('/user/storedetail', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
         previewWindow.focus(); // 새 창이 열리면 포커스
     };
     
 
     return (
         <>  
-            <VenderHeader />
+           
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />

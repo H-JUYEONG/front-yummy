@@ -4,6 +4,8 @@ import '../../assets/css/user/usermyaudtion.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
 
+import AppealDesignDetails from '../vender/VenderAppealDesignDetails'
+
 const UserMyAudtion = () => {
     const auditions = [
         { id: 1, companyName: "업체명", deliveryDate: "2024-11-15", pickupMethod: "배달", bidAmount: "60,000 원", status: "오디션 진행중입니다", orderLink: "#", reviewLink: null },
@@ -13,6 +15,16 @@ const UserMyAudtion = () => {
         { id: 1004, companyName: "더미 데이터 2", deliveryDate: "2024-12-10", pickupMethod: "배달", bidAmount: "50,000 원", status: "종료", orderLink: "#", reviewLink: "#" },
         // 필요한 만큼 데이터 추가
     ];
+
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+     // 모달 열기
+     const openModal = () => {
+        setIsModalOpen(true);
+    };
+    // 모달 닫기
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const itemsPerPage = 5; // 페이지당 항목 수
     const [currentPage, setCurrentPage] = useState(1);
@@ -92,8 +104,9 @@ const UserMyAudtion = () => {
                                     <td>{audition.pickupMethod}</td>
                                     <td>{audition.bidAmount}</td>
                                     <td>{audition.status}</td>
+                                    
                                     <td>
-                                        <a href={audition.orderLink} className="order-link">주문 상세내역</a>
+                                    <a href={audition.orderLink} className="order-link" onClick={openModal}>주문 상세내역</a>
                                         {audition.reviewLink && (
                                             <button className="review-button">리뷰작성하러가기</button>
                                         )}
@@ -121,6 +134,10 @@ const UserMyAudtion = () => {
             <footer id="user-wrap-footer">
                 <Footer />
             </footer>
+            {/* 모달 컴포넌트 */}
+            <AppealDesignDetails isOpen={isModalOpen} onClose={closeModal}>
+
+            </AppealDesignDetails>
         </div>
     );
 };

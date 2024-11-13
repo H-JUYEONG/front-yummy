@@ -1,6 +1,6 @@
 //import 라이브러리
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,  Link } from 'react-router-dom';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -112,9 +112,11 @@ const VenderAudirionAllList = () => {
                                             <td>2024-11-15</td>
                                             <td>픽업</td>
                                             <td>3번도안</td>
-                                            <td>보유중</td>
+                                            <td>미보유</td>
                                             <td>
-                                                <button className="supervision-read-button">도안 추가하러가기</button>
+                                                <Link to='/user/cakeDesign/detail'>
+                                                    <button className="supervision-read-button" >도안 추가하러가기</button>
+                                                </Link>
                                             </td>
                                         </tr>
 
