@@ -17,6 +17,9 @@ const UserDebateView = () => {
   const handleLeftVote = () => setLeftVoteCount(leftVoteCount + 1);
   const handleRightVote = () => setRightVoteCount(rightVoteCount + 1);
 
+  const textContent = `10년 지기 친구에게 줄 특별한 케이크를 준비하고 있는데, 친구가 고양이를 정말 좋아해서 케이크 디자인에 고양이 캐릭터를 넣으려고 해요. 
+              두 가지 다 매력적이어서 결정하기가 정말 어려운데, 과연 어떤 고양이 캐릭터로 친구에게 완벽한 케이크를 선물할 수 있을까요?`;
+
   return (
     <div id="user-wrap" className="text-center">
       <header id="user-wrap-head">
@@ -66,8 +69,12 @@ const UserDebateView = () => {
           <div className="debate-description">
             <h2>내용</h2>
             <p>
-              10년 지기 친구에게 줄 특별한 케이크를 준비하고 있는데, 친구가 고양이를 정말 좋아해서 케이크 디자인에 고양이 캐릭터를 넣으려고 해요. 
-              두 가지 다 매력적이어서 결정하기가 정말 어려운데, 과연 어떤 고양이 캐릭터로 친구에게 완벽한 케이크를 선물할 수 있을까요?
+              {textContent.split('\n').map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </p>
           </div>
 
