@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
 
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */
-    const [selectedTab, setSelectedTab] = useState('상품 상세정보');    // 현재 선택된 탭 관리
+    const location = useLocation();  // cakeorder에서 이동했을때
+
+    const [selectedTab, setSelectedTab] = useState(
+        location.state?.openReview ? '후기' : '상품 상세정보'
+    );      // 현재 선택된 탭 관리
     const [selectedDate, setSelectedDate] = useState('');              // 선택된 픽업 날짜
     const [selectedTime, setSelectedTime] = useState('');              // 선택된 픽업 시간
     const [mainImage, setMainImage] = useState('/images/2호_일반케이크.jpg');  // 현재 표시되는 메인 이미지
@@ -23,9 +27,13 @@ const UserCakeDetail = () => {
     const flavorContainerRef = useRef(null);
     const sizeContainerRef = useRef(null);
     const tabContentRef = useRef(null);
+
+
+
+
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
-      }, []);
+    }, []);
     // 리뷰 작성을 위한 상태
     const [newReview, setNewReview] = useState({
         rating: 5,        // 기본 별점은 5점으로 설정
@@ -53,6 +61,21 @@ const UserCakeDetail = () => {
             image: '/images/review2.jpg'
         }
     ]);
+    useEffect(() => {
+        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+    }, []);
+    useEffect(() => {
+        // 리뷰 탭이 선택되었을 때 리뷰 섹션으로 스크롤
+        if (location.state?.openReview) {
+            const reviewSection = document.getElementById('리뷰');
+            if (reviewSection) {
+                setTimeout(() => {
+                    reviewSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);  // 약간의 지연을 주어 렌더링 후 스크롤되도록 함
+            }
+        }
+    }, [location.state?.openReview]);
+  
 
     // 별점 통계 데이터
     const ratingStats = {
@@ -207,7 +230,7 @@ const UserCakeDetail = () => {
                     <div className="rating-select">
                         <p>별점을 선택해주세요</p>
                         <div className="stars-input">
-                            {[5,4,3,2,1].map((star) => (
+                            {[5, 4, 3, 2, 1].map((star) => (
                                 <button
                                     key={star}
                                     type="button"
@@ -276,7 +299,7 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
                 <div className="rating-bars">
-                    {[1,2,3,4,5].map((score) => (
+                    {[1, 2, 3, 4, 5].map((score) => (
                         <div key={score} className="rating-bar-row">
                             <span className="score">{score}점</span>
                             <div className="bar-container">
@@ -316,7 +339,7 @@ const UserCakeDetail = () => {
                                 <span className="author">{review.author}</span>
                                 <span className="date">{review.date}</span>
                             </div>
-                            <button 
+                            <button
                                 className="report-button"
                                 onClick={() => handleReportReview(review.id)}
                             >
@@ -354,9 +377,11 @@ const UserCakeDetail = () => {
         </div>
     );
 
+    
+
     return (
         <div id="user-wrap" className="text-center">
-              <VenderHeader />
+            <VenderHeader />
             <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
                     {/* 왼쪽 섹션: 상품 이미지 및 상세 정보 */}
