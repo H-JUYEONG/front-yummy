@@ -1,6 +1,6 @@
 //import 라이브러리
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -19,6 +19,8 @@ const VenderAudirionAllList = () => {
 
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
+
+    const navigate = useNavigate();
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -70,9 +72,16 @@ const VenderAudirionAllList = () => {
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">
-                                    <h2 className="product-list-title">실시간 오디션 현황</h2>
+                                    <h2 className="product-list-title">실시간 신청 리스트</h2>
+                                    <div className="button-group">
+                                        <button className="add-button" onClick={() => navigate('/vender/supervisionList')}>
+                                            참여 리스트
+                                        </button>
+                                        <button className="add-button" onClick={() => navigate('/vender/auditionAllList')}>
+                                            실시간 신청 리스트
+                                        </button>
+                                    </div>
                                 </header>
-                                <p id="search-now-area"><img src="../assets/images/짱구얼굴.jifif" alt='' />현위치 : 강남구</p>
                                 <table className="product-table">
                                     <thead>
                                         <tr>

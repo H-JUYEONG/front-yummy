@@ -21,7 +21,7 @@ const VenderAuditionParticipation = ({ isOpen, onClose, children }) => {
             <div className="vender-sso-modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className='sso-modal-head'>
                     <button className="vender-sso-modal-close-button" onClick={onClose}>X</button>
-                    <h2 className='vender-appeal-title-name'>신청내역 상세</h2>
+                    <h2 className='vender-appeal-title-name'>참여하기</h2>
                 </div>
                 <div className='sso-modal-body'>
                     
