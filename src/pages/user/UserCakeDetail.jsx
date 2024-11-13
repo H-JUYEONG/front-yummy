@@ -97,12 +97,12 @@ const UserCakeDetail = () => {
 
     // 케이크 맛 옵션 데이터
     const flavorOptions = [
-        { id: 'choco', name: '초코', image: '/images/flavor-choco.jpg' },
-        { id: 'vanilla', name: '바닐라', image: '/images/flavor-vanilla.jpg' },
-        { id: 'strawberry', name: '딸기', image: '/images/flavor-strawberry.jpg' },
-        { id: 'matcha', name: '말차', image: '/images/flavor-matcha.jpg' },
-        { id: 'cheese', name: '치즈', image: '/images/flavor-cheese.jpg' },
-        { id: 'redvelvet', name: '레드벨벳', image: '/images/flavor-redvelvet.jpg' }
+        { id: 'choco', name: '초코', image: '/images/기브미 쪼꼬레또.jpg' },
+        { id: 'vanilla', name: '바닐라', image: '/images/바닐라.jpg' },
+        { id: 'strawberry', name: '딸기', image: '/images/딸기.jpg' },
+        { id: 'matcha', name: '말차', image: '/images/말차.png' },
+        { id: 'cheese', name: '치즈', image: '/images/치즈.jpg' },
+        { id: 'redvelvet', name: '레드벨벳', image: '/images/레드벨벳.jpg' }
     ];
 
     // 색깔 옵션
@@ -117,8 +117,8 @@ const UserCakeDetail = () => {
     ];
     // 케이크 사이즈 옵션 데이터
     const sizeOptions = [
-        { id: 'size1', name: '1호', image: '/images/size-1.jpg' },
-        { id: 'size2', name: '2호', image: '/images/size-2.jpg' },
+        { id: 'size1', name: '1호', image: '/images/1호.jpg' },
+        { id: 'size2', name: '2호', image: '/images/2호.jpg' },
         { id: 'size3', name: '3호', image: '/images/size-3.jpg' }
     ];
 
