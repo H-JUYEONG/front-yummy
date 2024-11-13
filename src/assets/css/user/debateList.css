@@ -5,12 +5,12 @@
 }
 
 #user-debate-tip h2 {
-  font-size: 20px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
 #user-debate-tip p {
-  font-size: 20px;
+  font-size: 28px;
 }
 
 .user-debate-board-list {
@@ -252,4 +252,17 @@
   color: white;
   border-color: #ff6f61;
 
+}
+
+.gif-container img.right-gif{
+  position: absolute;
+  right: 20px; /* 오른쪽 여백 조정 */
+  top: 200px; /* 상단 여백 조정 */
+  z-index: 1; /* 다른 요소 위에 겹치지 않도록 설정 */
+}
+.gif-container img.right-gif{
+  width: 150px; /* 크기를 작게 조정 */
+  height: auto;
+  top:-5%;
+  right: 5%;
 }
