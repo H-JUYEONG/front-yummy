@@ -12,6 +12,9 @@ import VenderHeader from './include/VenderHeader';
 
 import VenderSidebar from './include/VenderSidebar';
 const VenderDashboard = () => {
+
+    
+
     // FullCalendar 컴포넌트에 필요한 설정들을 정의합니다.
     const calendarOptions = {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
