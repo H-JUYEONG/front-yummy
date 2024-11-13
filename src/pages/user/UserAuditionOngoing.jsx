@@ -24,6 +24,23 @@ const UserAuditionOngoing = () => {
     image: "/images/goodcake.png",
   };
 
+  // 선택된 업체 리뷰
+  const selectedCompanyReviews = [
+    { id: 1, user: "김철수", rating: 4, comment: "케이크가 아주 맛있었어요!", imageUrl: "/images/4.png" },
+  ];
+  const renderReview = (review) => (
+    <div key={review.id} className="review-item">
+      {review.imageUrl && (
+        <img src={review.imageUrl} alt={`${review.user}의 리뷰 이미지`} className="review-image" />
+      )}
+      <div className="review-text">
+        <p><strong>{review.user}</strong></p>
+        <div className="review-rating">{renderStars(review.rating)}</div>
+        <p>{review.comment}</p>
+      </div>
+    </div>
+  );
+
   // 오디션 참가 업체 리스트
   const participatingCompanies = [
     {
@@ -105,14 +122,22 @@ const UserAuditionOngoing = () => {
             <h2>오디션 참가 업체</h2>
             {isEnded ? (
               // 오디션 종료 상태에서는 선택된 업체만 표시
-              <div className="ongoing-company">
-                <img src={selectedCompany.image} alt="선택된 케이크 이미지" />
-                <div className="ongoing-company-info">
-                  <p>{selectedCompany.name}</p>
-                  <div className="ongoing-company-rating">
-                    {renderStars(selectedCompany.rating)}
+              <div className="ongoing-company-wrapper">
+                <div className="ongoing-company">
+                  <img src={selectedCompany.image} alt="선택된 케이크 이미지" />
+                  <div className="ongoing-company-info">
+                    <p>{selectedCompany.name}</p>
+                    <div className="ongoing-company-rating">
+                      {renderStars(selectedCompany.rating)}
+                    </div>
+                    <p>제시금액: {selectedCompany.bidAmount}</p>
                   </div>
-                  <p>제시금액: {selectedCompany.bidAmount}</p>
+                </div>
+
+                {/* 리뷰 섹션을 아래로 이동 */}
+                <div className="review-section">
+                  <h3>구매자 리뷰</h3>
+                  {selectedCompanyReviews.map((review) => renderReview(review))}
                 </div>
               </div>
             ) : (
@@ -134,7 +159,6 @@ const UserAuditionOngoing = () => {
           </div>
         </div>
       </main>
-
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
