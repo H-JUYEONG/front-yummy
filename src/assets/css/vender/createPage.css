@@ -141,9 +141,6 @@
     flex: 0 0 calc(30% - 30px); /* 부모 컨테이너의 너비에 비례 */
     
     
-    
-    
-    
 }
 .category-box{
     display: flex;

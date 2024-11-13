@@ -110,7 +110,7 @@ const VenderProductList = () => {
                                                     </button>
                                                 </td>
                                                 <td>
-                                                    <button className="edit-button">수정</button>
+                                                    <button className="edit-button" onClick={() => navigate('/vender/registrationform')}>수정</button>
                                                     <button className="delete-button">삭제</button>
                                                 </td>
                                             </tr>
