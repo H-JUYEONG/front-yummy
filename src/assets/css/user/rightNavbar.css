@@ -3,10 +3,10 @@
 /* 고양이 컨테이너 */
 .cat-container {
     position: fixed;
-    top: 10%;
+    top: 12%;
     right: 50px;
     width: 200px;
-    height: 200px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,8 +21,3 @@
     animation: moveUpAndDown 4s ease-in-out infinite alternate;
 }
 
-/* 고양이 상하 움직임 애니메이션 */
-@keyframes moveUpAndDown {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(30px); }
-}

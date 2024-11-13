@@ -21,7 +21,7 @@ const UserSidebar = () => {
             <h2>김덕성님 어서오세요!</h2>
     <ul>
         <li>
-        <Link to="/user/">
+        <Link to="/">
             <FaHome className="icon" /> 메인 바로가기
         </Link>
         </li>

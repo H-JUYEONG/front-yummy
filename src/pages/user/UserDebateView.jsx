@@ -42,12 +42,12 @@ const UserDebateView = () => {
           <div className="debate-images-progress-container">
             <div className="debate-image-section">
               <div className="debate-image-container">
-                <img src="https://via.placeholder.com/300" alt="케이크 A" />
+                <img src="/images/peach-cat-goma.gif" alt="케이크 A" />
                 <button className="vote-button vote-button-a" onClick={handleLeftVote}>케이크 A 버튼</button>
               </div>
               <div className="vs-text">VS</div>
               <div className="debate-image-container">
-                <img src="https://via.placeholder.com/300" alt="케이크 B" />
+                <img src="/images/doconghoa.gif" alt="케이크 B" />
                 <button className="vote-button vote-button-b" onClick={handleRightVote}>케이크 B 버튼</button>
               </div>
             </div>
@@ -65,7 +65,20 @@ const UserDebateView = () => {
           {/* Description Section */}
           <div className="debate-description">
             <h2>내용</h2>
-            <p>10년지기 친구한테 줄 케이크를 사주려고 합니다...</p>
+            <p>10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            10년지기 친구한테 줄 케이크를 사주려고 합니다...
+            </p>
           </div>
 
           {/* Comments Section */}
@@ -80,11 +93,11 @@ const UserDebateView = () => {
               </div>
             </div>
             <div className="comment">
-              <div className="comment-author">작성자B</div>
+              <div className="comment-author">캣맘</div>
               <p>좋은 정보 감사합니다!</p>
             </div>
             <div className="comment">
-              <div className="comment-author">작성자C</div>
+              <div className="comment-author">내가달콤한거사줄게</div>
               <p>케이크 B가 정말 맛있어 보여요.</p>
             </div>
           </div>
