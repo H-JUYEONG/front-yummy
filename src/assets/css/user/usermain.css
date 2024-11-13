@@ -15,6 +15,14 @@
     font-style: normal;
 }
 
+/* 학교안심 그림일기 */
+@font-face {
+    font-family: 'HakgyoansimGeurimilgiTTF-R';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimGeurimilgiTTF-R.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 기본 레이아웃 설정 */
 #user-wrap {
     display: flex;
@@ -22,7 +30,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    font-family: "NPSfontBold", sans-serif;
+    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
     font-style: normal;
 }
 /* 메인 컨텐츠 영역 */
@@ -46,7 +54,7 @@
 }
 
 #user-wrap-side h2 {
-    font-family: "NPSfontBold", sans-serif;
+    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
     font-size: 1.3em;
     color: #333;
     margin-bottom: 20px;
@@ -55,7 +63,7 @@
 }
 
 #user-wrap-side h3 {
-    font-family: "NPSfontBold", sans-serif;
+    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
     font-size: 1.1em;
     color: #333;
     margin: 20px 0 10px 0;
@@ -74,7 +82,7 @@
 }
 
 #user-wrap-side a {
-    font-family: "NPSfontBold", sans-serif;
+    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
     text-decoration: none;
     color: #555;
     font-size: 0.95em;
