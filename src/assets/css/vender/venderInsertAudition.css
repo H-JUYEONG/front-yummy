@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+.vender-insert-audition-wrap{
+    width: 1200px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    height: 100vh;
+    margin: 20px;
+    padding: 20px;
+}
+.insert-h1-box{
+    width: 100%;
+    padding:10px;
+    border-bottom: 1px solid #000;
+}
+.vender-insert-audition-wrap h1{
+    font-size: 40px;
+    font-weight: bold;
+}
+.insert-search-img-box{
+    width: 100%;
+    padding: 10px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: space-between;
+}
+.insert-h2-box{
+    width: 100%;
+    padding: 10px;
+    
+}
+.insert-h2-box h2{
+    font-size: 20px;
+}
+.insert-search-img-box h2{
+    font-size: 20px;
+    
+}
+.insert-search-img-box input{
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+.insert-recipt-box{
+    display: flex;
+    justify-content: space-between;
+
+}
+.insert-recipt-box .insert-audition-right-box{
+    width: 50%;
+    height: 400px;
+    
+}
+.appeal-design-text{
+    padding-left: 10px;
+    
+}
+.insert-recipt-box .insert-audition-right-box ul{
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-right: none;
+}   
+
+.insert-recipt-box .insert-audition-left-box{
+    width: 50%;
+    height: 400px;
+}
+.input-photo-box{
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-left: none;
+    
+}
+.input-photo-box .input-photo-box-line{
+    
+}
+
+.insert-recipt-box .insert-audition-left-box{}

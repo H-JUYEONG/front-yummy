@@ -64,7 +64,7 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
 
                             <div className='modal-user-input-img'>
                                 <p className='sy-modal-sub-title'>예시도안</p>
-                                <div className='appeal-design-photo'><img src='../../assts/images/짱구얼굴' />도안사진</div>
+                                <div className='appeal-design-photo'><img src='../../assets/images/cake-logo1.png' alt='예시도안' /></div>
                             </div>
                         </div>
                     </div>

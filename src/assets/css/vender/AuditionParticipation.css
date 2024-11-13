@@ -16,11 +16,14 @@
     padding: 10px;
     border-radius: 10px;
 }
+.sy-modal-input-search{
+    font-weight: bolder;
+}
 .input-recept-box{
     /* border: 1px solid #000; */
     display: flex;
     width: 100%;
-   
+
 }
 .input-recept-box > div{
     width: calc(100% / 2);
