@@ -6,8 +6,12 @@ import '../../../assets/css/admin/adminSidebar.css';
 const AdminSidebar = () => {
     return (
         <aside className="admin-sidebar">
-            <div className="logo">관리자 페이지</div>
-            
+            <div className="logo">
+                <Link to={`/`}>
+                    <h1>YUMMY</h1>
+                </Link>
+            </div>
+
             <ul className="menu">
                 <li><Link to="/admin">대시보드</Link></li>
                 <li><Link to="/admin/status">통계</Link></li>
@@ -26,7 +30,7 @@ const AdminSidebar = () => {
             </ul>
 
             {/* 쇼핑몰 관리와 업체 관리 사이의 구분선 */}
-            <hr className="menu-divider" /> 
+            <hr className="menu-divider" />
 
             <ul className="menu">
                 <li><Link to="/admin/venderorder">업체-주문 관리</Link></li>

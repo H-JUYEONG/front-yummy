@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Orbit&display=swap');
 /*admin-container */
+
+/* 국민연금체 */
+@font-face {
+    font-family: 'NPSfontBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+    /* font-weight: 700; */
+    font-style: normal;
+}
 .admin-container {
     display: flex;
     min-height: 100vh;
@@ -27,10 +35,12 @@
 }
 
 .admin-sidebar .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 40px;
-    color: #3b82f6;
+    font-family: 'NPSfontBold', serif !important;
+    font-size: 2em;
+    margin: 0;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    letter-spacing: 0.05em;
 }
 
 /* 메뉴 구분선 스타일 */
