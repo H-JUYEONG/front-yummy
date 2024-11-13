@@ -49,6 +49,8 @@
     gap: 40px;
     padding: 20px 40px;
     justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
 }
 
 .sd-profile-image {
@@ -57,6 +59,7 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
+    margin-top: 20px;
 }
 
 .sd-profile-image img {
@@ -71,14 +74,41 @@
 }
 
 .sd-profile-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     margin-bottom: 15px;
-    text-align: center;
 }
 
 .sd-profile-stats span {
     font-family: 'NanumSquare', sans-serif;
-    margin-right: 20px;
     color: #333;
+}
+
+/* 카카오톡 버튼 스타일 */
+.kakao-chat-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #FEE500;
+    border: none;
+    border-radius: 20px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 0.9em;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.kakao-chat-btn .kakao-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.kakao-chat-btn:hover {
+    background-color: #FDD835;
+    transform: translateY(-1px);
 }
 
 .sd-profile-text p {
@@ -133,7 +163,7 @@
 }
 
 .sd-category-item.active p {
-    color: #7C3AED;
+    color: #ff6f61;;
     font-weight: bold;
 }
 
@@ -183,6 +213,9 @@
     font-size: 0.9em;
     color: #333;
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sd-price {
@@ -190,6 +223,7 @@
     font-size: 0.9em;
     color: #333;
     margin: 2px 0 0 0;
+    font-weight: bold;
 }
 
 /* 반응형 스타일 */
@@ -198,10 +232,21 @@
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        text-align: center;
     }
 
     .sd-profile-text {
         text-align: center;
+    }
+
+    .sd-profile-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .kakao-chat-btn {
+        margin-top: 10px;
+        justify-content: center;
     }
 
     .sd-store-name {
@@ -216,9 +261,178 @@
         overflow-x: auto;
         justify-content: flex-start;
         padding: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .sd-category-container::-webkit-scrollbar {
+        display: none;
     }
 
     .sd-category-item {
         flex: 0 0 auto;
+    }
+
+    .sd-profile-image {
+        margin-top: 10px;
+    }
+
+    .sd-profile-container {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .sd-profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .sd-store-name {
+        font-size: 1.2em;
+    }
+
+    .sd-profile-stats {
+        font-size: 0.9em;
+    }
+
+    .kakao-chat-btn {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .sd-product-name {
+        font-size: 0.8em;
+    }
+
+    .sd-price {
+        font-size: 0.8em;
+    }
+
+    .sd-category-item img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .sd-category-item p {
+        font-size: 0.8em;
+    }
+}
+
+/* 호버 효과 */
+.sd-product-item:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+.sd-product-item:hover .sd-product-image img {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* 로딩 상태 */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #ff6f61;;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 카카오톡 버튼 추가 스타일 */
+.kakao-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #FEE500;
+    border: none;
+    border-radius: 20px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kakao-chat-btn:hover {
+    background-color: #FDD835;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kakao-chat-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.kakao-chat-btn .kakao-icon {
+    width: 20px;
+    height: 20px;
+    fill: #391B1B;
+}
+
+/* 스크롤바 스타일링 */
+.sd-category-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.sd-category-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.sd-category-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.sd-category-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 부드러운 애니메이션 */
+.sd-category-item,
+.sd-product-item,
+.kakao-chat-btn {
+    transition: all 0.3s ease;
+}
+
+/* 접근성 포커스 스타일 */
+.kakao-chat-btn:focus,
+.sd-category-item:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff6f61;;
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) {
+    .sd-product-item:hover {
+        transform: none;
+    }
+
+    .sd-product-item:hover .sd-product-image img {
+        transform: none;
+    }
+
+    .kakao-chat-btn:hover {
+        transform: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 }

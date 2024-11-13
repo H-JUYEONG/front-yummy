@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
+
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
+    
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
     }, []);
+
     // 상품 데이터
     const categoryProducts = {
         '카테고리 1': [
@@ -63,85 +65,92 @@ const UserStoreDetail = () => {
         }
     };
 
+    // 카카오톡 채팅 핸들러
+    const handleKakaoChat = () => {
+        // 카카오톡 채팅 기능 구현
+        window.open('http://pf.kakao.com/_xdMxfLxj', '_blank');
+    };
+
     return (
-        <>
-            <div id="user-wrap" className="text-center">
-
-
-                <VenderHeader />
-
-
-                <main id="user-wrap-body" className="clearfix">
-                    <section id="user-wrap-main">
-                        {/* 프로필 영역 */}
-                        <div className="sd-profile-container">
-                            <div className="sd-profile-header">
-                                <h2 className="sd-store-name">cakefactory</h2>
+        <div id="user-wrap" className="text-center">
+            <VenderHeader />
+            <main id="user-wrap-body" className="clearfix">
+                <section id="user-wrap-main">
+                    {/* 프로필 영역 */}
+                    <div className="sd-profile-container">
+                        <div className="sd-profile-header">
+                            <h2 className="sd-store-name">cakefactory</h2>
+                        </div>
+                        <div className="sd-profile-content">
+                            <div className="sd-profile-image">
+                                <img src={cakeLogo} alt="cakefactory" />
                             </div>
-                            <div className="sd-profile-content">
-                                <div className="sd-profile-image">
-                                    <img src={cakeLogo} alt="cakefactory" />
+                            <div className="sd-profile-text">
+                                <div className="sd-profile-stats">
+                                    <span>게시물 24</span>
+                                    <span>리뷰 128</span>
+                                    <button onClick={handleKakaoChat} className="kakao-chat-btn">
+                                        <svg className="kakao-icon" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 3C6.477 3 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10z" fill="#FFE812"/>
+                                            <path d="M12 6.5c-3.866 0-7 2.614-7 5.833 0 2.06 1.368 3.868 3.43 4.898-.151.517-.486 1.87-.556 2.164-.087.37.136.365.287.265.118-.078 1.878-1.276 2.632-1.792.395.057.8.087 1.207.087 3.866 0 7-2.614 7-5.833S15.866 6.5 12 6.5z" fill="#381F1F"/>
+                                        </svg>
+                                        카카오톡 문의하기
+                                    </button>
                                 </div>
-                                <div className="sd-profile-text">
-                                    <div className="sd-profile-stats">
-                                        <span>게시물 24</span>
-                                        <span>리뷰 128</span>
-                                    </div>
-                                    <p>🎂케이크는 맛있게</p>
-                                    <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
-                                    <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
-                                    <p>💕디자인과 맛 모두 놓치지 않는 케이크🍰</p>
-                                    <p>🎨캐릭터, 포토, 생화케이크는 DM문의💌</p>
-                                    <p>✔️주문마감 D-2</p>
-                                    <p>✔️11시-20시</p>
-                                    <p>⚡️디자인상담 1:1채팅 문의해주세요</p>
-                                </div>
+                                <p>🎂케이크는 맛있게</p>
+                                <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
+                                <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
+                                <p>💕디자인과 맛 모두 놓치지 않는 케이크🍰</p>
+                                <p>🎨캐릭터, 포토, 생화케이크는 DM문의💌</p>
+                                <p>✔️주문마감 D-2</p>
+                                <p>✔️11시-20시</p>
+                                <p>⚡️디자인상담 1:1채팅 문의해주세요</p>
                             </div>
                         </div>
+                    </div>
 
-                        <hr className="sd-divider" />
+                    <hr className="sd-divider" />
 
-                        {/* 카테고리 */}
-                        <div className="sd-category-container">
-                            {Object.keys(categoryProducts).map((category) => (
-                                <div
-                                    key={category}
-                                    className={`sd-category-item ${selectedCategory === category ? 'active' : ''}`}
-                                    onClick={() => handleCategoryClick(category)}
-                                >
-                                    <img
-                                        src={`/images/category-${category.slice(-1)}.jpg`}
-                                        alt={category}
-                                    />
-                                    <p>{category}</p>
+                    {/* 카테고리 */}
+                    <div className="sd-category-container">
+                        {Object.keys(categoryProducts).map((category) => (
+                            <div
+                                key={category}
+                                className={`sd-category-item ${selectedCategory === category ? 'active' : ''}`}
+                                onClick={() => handleCategoryClick(category)}
+                            >
+                                <img
+                                    src={`/images/category-${category.slice(-1)}.jpg`}
+                                    alt={category}
+                                />
+                                <p>{category}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <hr className="sd-divider" />
+
+                    {/* 상품 리스트 */}
+                    <div className="sd-products-container">
+                        {getProducts().map((product) => (
+                            <Link
+                                to={`/user/cakedetail`}
+                                key={product.id}
+                                className="sd-product-item"
+                            >
+                                <div className="sd-product-image">
+                                    <img src={product.image} alt={product.name} />
                                 </div>
-                            ))}
-                        </div>
-
-                        <hr className="sd-divider" />
-
-                        {/* 상품 리스트 */}
-                        <div className="sd-products-container">
-                            {getProducts().map((product) => (
-                                <Link
-                                    to={`/user/cakedetail`}
-                                    key={product.id}
-                                    className="sd-product-item"
-                                >
-                                    <div className="sd-product-image">
-                                        <img src={product.image} alt={product.name} />
-                                    </div>
-                                    <div className="sd-price-info">
-                                        <p className="sd-product-name">{product.name}</p>
-                                        <p className="sd-price">{product.price}</p>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                    </section>
-                </main>
-            </div>
-        </>
+                                <div className="sd-price-info">
+                                    <p className="sd-product-name">{product.name}</p>
+                                    <p className="sd-price">{product.price}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            </main>
+        </div>
     );
 };
 
