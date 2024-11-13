@@ -35,7 +35,7 @@ const UserSidebar = () => {
             </li>
             <li>
               <Link to="/user/mypage/audition">
-                <FaComments className="icon" /> 오디션 내역 관리
+                <FaComments className="icon" /> 케이크 요청 내역
               </Link>
             </li>
           </ul>
