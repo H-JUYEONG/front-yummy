@@ -36,7 +36,7 @@ const UserOrderComplete = () => {
                             </div>
                         </div>
                         <div className="button-container">
-                            <Link to="/user/" className="main-button">
+                            <Link to="/" className="main-button">
                                 메인으로 돌아가기
                             </Link>
                         </div>

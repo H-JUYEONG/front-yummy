@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 15px;
+  padding-bottom: 7px;
   margin-bottom: 15px;
   border-bottom: 1px solid #000000;
 }
@@ -29,9 +29,20 @@
 
 /* 날짜 스타일 */
 .user-cake-design-write-date {
-  font-size: 18px;
+  font-size: 15px;
   color: #666;
   padding-right: 10px;
+}
+
+.user-cake-design-hit {
+  font-size: 15px;
+  color: #666;
+  padding-right: 10px;
+}
+
+.user-cake-design-author {
+    font-size: 15px;
+    color: #666;
 }
 
 .user-action-buttons {
@@ -243,16 +254,28 @@
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
+  border-radius: 25px;
   border: 1px solid #cacaca;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
+}
+
+.user-cake-edit-button:hover {
+  color: white;
+  background-color: #0056b3;
 }
 
 .user-cake-delete-button {
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
+  border-radius: 25px;
   border: 1px solid #cacaca;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
+}
+
+.user-cake-delete-button:hover {
+  color: white;
+  background-color: red;
 }
 
 .user-cake-edit-button {

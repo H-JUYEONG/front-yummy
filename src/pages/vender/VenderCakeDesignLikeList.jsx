@@ -5,6 +5,7 @@ import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignLikeList.css";
 
 import VenderSidebar from "./include/VenderSidebar";
+import VenderHeader from "./include/VenderHeader";
 
 const VenderCakeDesignLikeList = () => {
   const navigate = useNavigate();
@@ -65,6 +66,9 @@ const VenderCakeDesignLikeList = () => {
         <div className="vender-content-wrapper">
           <VenderSidebar />
           <div className="vender-content">
+            <header className="vender-header ">
+              <VenderHeader />
+            </header>
             <main className="product-list-main-content">
               <section className="product-list">
                 <header className="product-list-header">
