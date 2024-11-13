@@ -25,26 +25,32 @@ const VenderCakeDesignDetail = () => {
                   {/* 이미지 섹션 */}
                   <div className="cake-design-detail-imgs">
                     <img
-                      src="/images/2호_일반케이크.jpg"
+                      src="/images/7.png"
                       alt="케이크 이미지"
                       className="cake-design-detail-main-img"
                     />
                     <div className="cake-design-detail-sub-imgs">
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
-                      <img src="/images/2호_일반케이크.jpg" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
+                      <img src="/images/7.png" alt="케이크 이미지" />
                     </div>
                   </div>
 
                   {/* 설명 섹션 */}
                   <div className="cake-design-detail-txt">
-                    <h2>몽환의 숲</h2>
-                    <p>설명: 꽃과 풀이 가득한 초원 위에서 밤하늘을 바라보는 디자인입니다.</p>
-                    <p>추천 행사: 생일, 기념일</p>
+                    <h2>토이스토리 컨셉 도안</h2>
+                    <h3>설명</h3>
+                    <p style={{ whiteSpace: "pre-line" }}>→ 장난감 친구들과 함께하는 유쾌한 파티를 주제로 한 케이크 디자인. <br/>하단은 크림으로 마무리하고 상단에는 반짝이는 스파클링 장식으로 포인트!</p>
+                    <h3>선호하는 케이크 형태</h3>
+                    <p>→ 1호 원형 케이크</p>
+                    <h3>선호하는 연령대</h3>
+                    <p>→ 20~30대 여성</p>
+                    <h3>적용 가능 이벤트</h3>
+                    <p>→ 생일</p>
                     <div className="cake-design-detail-buttons">
                       <button onClick={() => navigate("/vender/cakeDesign/edit")}>수정</button>
                       <button onClick={() => navigate("/vender/cakeDesign/list")}>삭제</button>

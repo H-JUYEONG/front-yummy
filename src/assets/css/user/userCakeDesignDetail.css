@@ -203,9 +203,9 @@
   margin-bottom: 16px;
 }
 
-#cake-design-hash-tag-box {
+/* #cake-design-hash-tag-box {
   display: flex;
-  gap: 10px; /* 각 태그 사이에 간격을 추가하려면 사용 */
+  gap: 10px;
 }
 
 .cake-design-hash-tag {
@@ -213,7 +213,7 @@
   border: 2px solid #ddd;
   background-color: #f9f9f9;
   border-radius: 25px;
-}
+} */
 
 
 .user-cakes-list {
