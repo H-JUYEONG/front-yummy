@@ -4,22 +4,9 @@ import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/option.css';
 import VenderSidebar from './include/VenderSidebar';
 
-// 기본 옵션 템플릿 데이터
-const optionTemplates = [
-    { id: 1, name: '상품종류', subOptions: [{ name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' }] },
-    { id: 2, name: '케이크 사이즈', subOptions: [{ name: '소형', imageUrl: 'https://via.placeholder.com/150' }] },
-    { id: 3, name: '맛-시트', subOptions: [{ name: '초코 시트', imageUrl: 'https://via.placeholder.com/150' }] },
-    { id: 4, name: '맛-크림', subOptions: [{ name: '바닐라 크림', imageUrl: 'https://via.placeholder.com/150' }] },
-];
-function VenderOption() {
-       // 옵션 불러오기
-       const loadOptionTemplate = (templateId) => {
-        const template = optionTemplates.find(option => option.id === templateId);
-        if (template && !options.some(option => option.id === template.id)) {
-            setOptions([...options, { ...template }]);
-        }
-    };
 
+function VenderOption() {
+ 
     const [options, setOptions] = useState([
         { id: 1, name: '상품종류', subOptions: [{ name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' }] },
         { id: 2, name: '케이크 사이즈', subOptions: [] },
