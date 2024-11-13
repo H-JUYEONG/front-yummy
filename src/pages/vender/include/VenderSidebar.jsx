@@ -13,7 +13,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                 </Link>
 
                 <h3>CakeLines</h3>
-                <p><Link to="/vender/venderCreatePage" onClick={toggleMenu}><FaClipboardList /> 업체사이트 관리</Link></p>
+                <p><Link to="/vender/venderInsertPage" onClick={toggleMenu}><FaClipboardList /> 업체사이트 관리</Link></p>
 
             </div>
             <ul className="vender-menu">
