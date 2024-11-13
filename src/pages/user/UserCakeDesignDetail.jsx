@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 
@@ -12,6 +12,11 @@ import "../../assets/css/user/userCakeDesignDetail.css";
 
 const UserCakeDesignDetail = () => {
   const navigate = useNavigate();
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const toggleFavorite = () => {
+    setIsFavorited(!isFavorited);
+  };
 
   return (
     <div id="user-wrap">
@@ -105,33 +110,18 @@ const UserCakeDesignDetail = () => {
               </div>
             </div>
 
-            {/* Businesses Using This Design */}
-            {/* <div className="user-cakes-section">
-              <h2>이 도안을 사용한 케이크</h2>
-              <div className="user-cakes-list">
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">달콤 베이커리</p>
-                  <p className="vender-sub-txt">서울 강남구</p>
-                  <p className="vender-sub-txt">★ 4.7</p>
-                </div>
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">해피 케이크</p>
-                  <p className="vender-sub-txt">경기 이천시</p>
-                  <p className="vender-sub-txt">★ 4.8</p>
-                </div>
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">케이크 하우스</p>
-                  <p className="vender-sub-txt">경기 하남시</p>
-                  <p className="vender-sub-txt">★ 4.9</p>
-                </div>
-              </div>
-            </div> */}
-
             <div id="cake-design-action-btns" className="clearfix">
               {/* Favorite Button */}
               <div className="user-favorite-section">
-                <button className="user-favorite-button">
-                  <FaRegHeart className="users-heart-icon" />
+                <button
+                  className="user-favorite-button"
+                  onClick={toggleFavorite}
+                >
+                  {isFavorited ? (
+                    <FaHeart className="users-heart-icon" />
+                  ) : (
+                    <FaRegHeart className="users-heart-icon" />
+                  )}
                   <span className="users-favorite-count">10</span>
                 </button>
               </div>
