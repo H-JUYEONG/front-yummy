@@ -41,7 +41,7 @@
 }
 
 .header-container .nav-menu a {
-    font-family: 'GmarketSans', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
     text-decoration: none;
     color: #555 !important;
     font-size: 1.1em;
@@ -67,7 +67,7 @@
 }
 
 .header-container .user-actions a.header-link {
-    font-family: 'GmarketSans', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
     text-decoration: none;
     color: #555 !important;
     font-size: 1em;
@@ -103,17 +103,17 @@
   }
   
   .header-link:hover {
-    color: #7C3AED; 
+    color:  #ff6f61; 
   }
   
  
   .header-link.primary {
-    background-color: #7C3AED;
+    background-color:  #ff6f61;
     color: white;
     border-radius: 4px;
   }
   
   .header-link.primary:hover {
-    background-color: #6D28D9;
+    background-color:  #ff6f61;
     color: white;
   }

@@ -1,24 +1,20 @@
-// Import libraries
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import UserDebateModal from "./include/UserDebateModal"; // Import the modal component
+import UserDebateModal from "./include/UserDebateModal";
 
 const UserDebateEdit = () => {
-  // Initial state with preloaded images and text
   const [leftImage, setLeftImage] = useState("path/to/leftImage.jpg");
   const [rightImage, setRightImage] = useState("path/to/rightImage.jpg");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImageSide, setSelectedImageSide] = useState("");
   const [title, setTitle] = useState("기존 제목을 입력하세요");
   const [content, setContent] = useState("기존 글 내용을 작성하세요");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImageSide, setSelectedImageSide] = useState("");
-
-  // Handle image upload and delete
   const handleLeftImageUpload = (event) => {
     setLeftImage(URL.createObjectURL(event.target.files[0]));
   };
@@ -46,114 +42,144 @@ const UserDebateEdit = () => {
     } else if (selectedImageSide === "right") {
       setRightImage(imageUrl);
     }
-    setIsModalOpen(false); // Close the modal after selecting the image
+    setIsModalOpen(false);
   };
 
   return (
-    <div id="user-wrap" className="user-text-center">
-      {/* Header */}
+    <div id="user-wrap" className="text-center">
       <header id="user-wrap-head">
         <Header />
       </header>
 
-      {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
-        {/* Main Section */}
-        <section id="user-wrap-main">
-          {/* Title Section */}
-          <div className="j-debate-title-section">
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="j-title-input"
-            />
-            <select className="j-category-select">
-              <option value="all">카테고리 선택</option>
-              <option value="design">도안 토론</option>
-              <option value="vendor">업체 토론</option>
-            </select>
-          </div>
+        <div className="debate-insert-list">
+          <form className="debate-insert-main">
+            <h1 className="debate-insert-title">고민 수정</h1>
 
-          {/* Image Insert Section */}
-          <div className="j-image-insert-section">
-            <div className="j-image-option">
-              {leftImage ? (
-                <>
-                  <img src={leftImage} alt="Left" className="j-inserted-image" />
-                  <button className="j-delete-btn" onClick={handleLeftImageDelete}>
-                    이미지 삭제
-                  </button>
-                </>
-              ) : (
-                <>
-                  <label className="j-upload-btn">
-                    이미지 선택
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleLeftImageUpload}
-                      className="j-image-upload-input"
-                    />
-                  </label>
-                  <button className="j-modal-btn" onClick={() => openModal("left")}>
-                    모달 창 이미지 선택
-                  </button>
-                </>
-              )}
+            {/* Debate Title Section */}
+            <div className="debate-insert-list-group">
+              <label htmlFor="debate-insert-title">제목</label>
+              <input
+                type="text"
+                id="debate-insert-title"
+                placeholder="고민의 제목을 입력하세요"
+                className="debate-insert-input-text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
 
-            <div className="j-image-option">
-              {rightImage ? (
-                <>
-                  <img src={rightImage} alt="Right" className="j-inserted-image" />
-                  <button className="j-delete-btn" onClick={handleRightImageDelete}>
-                    이미지 삭제
-                  </button>
-                </>
-              ) : (
-                <>
-                  <label className="j-upload-btn">
-                    이미지 선택
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleRightImageUpload}
-                      className="j-image-upload-input"
-                    />
-                  </label>
-                  <button className="j-modal-btn" onClick={() => openModal("right")}>
-                    모달 창 이미지 선택
-                  </button>
-                </>
-              )}
+            {/* Category Selection */}
+            <div className="debate-insert-list-group">
+              <label htmlFor="debate-insert-category">카테고리</label>
+              <select id="debate-insert-category" className="debate-insert-input-text">
+                <option value="all">카테고리 선택</option>
+                <option value="design">도안 토론</option>
+                <option value="vendor">업체 토론</option>
+              </select>
             </div>
-          </div>
 
-          {/* Text Area Section */}
-          <div className="j-text-area-section">
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="j-text-area"
-              rows="5"
-            ></textarea>
-          </div>
+            {/* Image Insert Section */}
+            <div className="debate-insert-list-group">
+              <label htmlFor="debate-insert-content">이미지</label>
+              <div className="debate-insert-image-section">
+                <div className="debate-insert-image-option">
+                  {!leftImage ? (
+                    <>
+                      <button className="debate-insert-upload-btn">
+                        내PC에서 추가
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleLeftImageUpload}
+                          className="debate-insert-image-upload-input"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="debate-insert-modal-btn"
+                        onClick={() => openModal("left")}
+                      >
+                        찜에서 추가
+                      </button>
+                    </>
+                  ) : (
+                    <div className="debate-insert-image-container">
+                      <img src={leftImage} alt="Left" className="debate-insert-inserted-image" />
+                      <button
+                        type="button"
+                        className="debate-insert-delete-btn"
+                        onClick={handleLeftImageDelete}
+                      >
+                        이미지 삭제
+                      </button>
+                    </div>
+                  )}
+                </div>
 
-          {/* Footer Buttons */}
-          <div className="j-debate-footer">
-            <Link to="/board" className="j-back-btn">취소</Link>
-            <Link to="/board" className="j-submit-btn">수정</Link>
-          </div>
-        </section>
+                <div className="debate-insert-image-option">
+                  {!rightImage ? (
+                    <>
+                      <button className="debate-insert-upload-btn">
+                        내PC에서 추가
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleRightImageUpload}
+                          className="debate-insert-image-upload-input"
+                        />
+                      </button>
+                      <button
+                        type="button"
+                        className="debate-insert-modal-btn"
+                        onClick={() => openModal("right")}
+                      >
+                        찜에서 추가
+                      </button>
+                    </>
+                  ) : (
+                    <div className="debate-insert-image-container">
+                      <img src={rightImage} alt="Right" className="debate-insert-inserted-image" />
+                      <button
+                        type="button"
+                        className="debate-insert-delete-btn"
+                        onClick={handleRightImageDelete}
+                      >
+                        이미지 삭제
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Text Area for Description */}
+            <div className="debate-insert-list-group">
+              <label htmlFor="debate-insert-content">내용</label>
+              <textarea
+                id="debate-insert-content"
+                placeholder="고민을 작성하세요"
+                className="debate-insert-input-text"
+                rows="4"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
+
+            {/* Submit and Cancel Buttons */}
+            <div className="debate-insert-list-group">
+              <button type="submit" className="debate-insert-submit-button">
+                수정 완료
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
 
-      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
 
-      {/* Modal for Image Selection */}
       {isModalOpen && (
         <UserDebateModal
           onSelectImage={handleModalImageSelect}

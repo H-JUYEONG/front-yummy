@@ -13,11 +13,11 @@ const UserOrder = () => {
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     const orderStatuses = [
+        { label: '결제대기', count: 0 },
         { label: '결제완료', count: 0 },
         { label: '제작중', count: 0 },
         { label: '픽업/배송중', count: 0 },
-        { label: '픽업/배송완료', count: 0 },
-        { label: '주문취소', count: 0 }
+        { label: '픽업/배송완료', count: 0 }
     ];
 
     const orderList = [

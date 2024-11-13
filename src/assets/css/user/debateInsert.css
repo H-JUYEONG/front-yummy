@@ -1,192 +1,171 @@
-/* Navigation Bar */
-.j-nav-menu {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px 0;
-  margin: 0;
-  background-color: #f0f0f0;
-  border-bottom: 2px solid #ddd;
+.debate-insert-main {
+  max-width: 1000px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px 50px;
+  margin: 0 auto;
+  border: 0.5px solid #e8e8e8;
+  transition: transform 0.3s;
 }
 
-.j-nav-menu li {
-  cursor: pointer;
-  padding: 8px 16px;
-  font-size: 1rem;
-  color: #333;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.j-nav-menu li:hover {
-  background-color: #e8e8e8;
-  color: #555;
-  border-radius: 25px;
-}
-
-.j-nav-menu .j-active {
+/* 타이틀 스타일 */
+.debate-insert-title {
+  font-size: 2.2em;
   font-weight: bold;
-  color: #4caf50;
-  border-bottom: 2px solid #4caf50;
+  color: #333;
+  margin-bottom: 35px;
+  text-align: left;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 10px;
 }
 
-/* Title Section */
-.j-debate-title-section {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+.debate-insert-list {
+  width: 100%;
+  margin: 0 auto;
 }
 
-.j-title-input {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 25px;
+/* Form Group Style */
+.debate-insert-list-group {
+  margin-bottom: 28px;
 }
 
-.j-category-select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  background-color: #fff;
-  font-size: 1rem;
+.debate-insert-list-group label {
+  display: block;
+  font-size: 1.2em;
+  color: #4a4a4a;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* Image Insert Section */
-.j-image-insert-section {
+.debate-insert-image-section {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   margin: 20px 0;
 }
 
-.j-image-option {
+.debate-insert-image-option {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-.j-image-container {
+/* Image Container */
+.debate-insert-image-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Fixed Size for Inserted Image */
-.j-inserted-image {
-  width: 200px;  /* Fixed width */
-  height: 200px; /* Fixed height */
-  object-fit: cover; /* Crop the image to fill the fixed size */
+.debate-insert-inserted-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
   border-radius: 4px;
   border: 1px solid #ddd;
 }
 
-
-/* Image Selection and Modal Button */
-
-.j-upload-btn,
-.j-modal-btn,
-.j-delete-btn {
-  padding: 8px 20px; /* Adjusted padding to ensure consistency */
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #fff;
+/* Common Button Styling */
+.debate-insert-upload-btn,
+.debate-insert-modal-btn,
+.debate-insert-delete-btn,
+.debate-insert-submit-button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  background-color: #000000;
+  color: #ffffff;
   border: none;
-  border-radius: 25px;
   cursor: pointer;
-  width: 150px; /* Set a fixed width for all three buttons */
+  font-size: 1em;
+  width: auto;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  width: 150px;
 }
 
-.j-upload-btn {
-  padding: 8px 12px;
-  background-color: #00A884;
-  color: #fff;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: inline-block;
+/* Individual Button Colors */
+.debate-insert-upload-btn {
+  background-color: #333; /* Upload from PC */
 }
 
-.j-image-upload-input {
-  display: none;
+.debate-insert-modal-btn {
+  background-color: #333; /* Select from Favorites */
 }
 
-.j-modal-btn {
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  color: #fff;
-  background-color: #6D28D9;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
+.debate-insert-delete-btn {
+  background-color: #e74c3c; /* Delete Image */
 }
 
-.j-delete-btn {
-  margin-top: 10px;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  color: #fff;
-  background-color: #ff4b87;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
+
+/* Hover Effects */
+.debate-insert-upload-btn:hover {
+  background-color: #333;
 }
 
-.j-inserted-image {
-  width: 300px;
-  height: 300px;
-  object-fit: cover; /* or 'contain' if you want to maintain aspect ratio with possible empty space */
-  border-radius: 4px;
-  margin-top: 10px;
-  border: 1px solid #ddd;
+.debate-insert-modal-btn:hover {
+  background-color: #333;
 }
 
-/* Text Area Section */
-.j-text-area-section {
-  margin-top: 20px;
+.debate-insert-delete-btn:hover {
+  background-color: #e74c3c;
 }
 
-.j-text-area {
+
+/* Hidden File Input */
+.debate-insert-image-upload-input {
+  display: none; /* Hide the actual file input */
+}
+
+/* Input Text Field */
+.debate-insert-input-text {
   width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+  padding: 14px;
+  font-size: 1em;
+  border: 1px solid #dcdcdc;
   border-radius: 4px;
-  resize: vertical;
+  color: #444;
+  transition: border-color 0.3s ease;
 }
 
-/* Footer Buttons */
-.j-debate-footer {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.j-submit-btn,
-.j-back-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
+/* Button Styles */
+.debate-insert-submit-button {
+  width: 20%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 15px 0;
+  font-size: 1.2em;
+  border: 1px solid #000000;
   cursor: pointer;
-  flex: 1; /* Allows both buttons to grow equally within the container */
-  max-width: 200px; /* Optional: set a max width if you don't want them to get too large */
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s;
+  margin: 0 auto;
+  display: block;
 }
 
-.j-submit-btn {
-  background-color: #00A884;
-}
-
-.j-back-btn {
+.debate-insert-cancel-button {
+  width: 20%;
   background-color: #ff4b87;
+  color: #ffffff;
+  padding: 15px 0;
+  font-size: 1.2em;
+  border: 1px solid #ff4b87;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-right: 15px;
+  display: inline-block;
+  text-align: center;
 }
-
-
+.debate-insert-input-text#debate-insert-content {
+  height: 250px; /* Set height to 300px */
+  width: 100%; /* Keep the width full */
+  padding: 14px;
+  font-size: 1em;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  color: #444;
+  transition: border-color 0.3s ease;
+  resize: none; /* Optional: Prevent manual resizing */
+}

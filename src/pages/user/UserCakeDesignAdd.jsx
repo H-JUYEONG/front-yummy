@@ -10,7 +10,9 @@ import "../../assets/css/user/userCakeDesignAdd.css";
 const UserCakeDesignAdd = () => {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
+  const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
+  const [cakeDesignKeyword, setCakeDesignKeyword] = useState("");
   const [files, setFiles] = useState([
     { id: Date.now(), file: null, preview: null },
   ]);
@@ -23,8 +25,16 @@ const UserCakeDesignAdd = () => {
     setCakeDesignDescription(e.target.value);
   };
 
+  const handleCakeDesignPrefer = (e) => {
+    setCakeDesignPrefer(e.target.value);
+  };
+
   const handleCakeDesignEvent = (e) => {
     setCakeDesignEvent(e.target.value);
+  };
+
+  const handleCakeDesignKeyword = (e) => {
+    setCakeDesignKeyword(e.target.value);
   };
 
   const addFileInput = () => {
@@ -113,7 +123,7 @@ const UserCakeDesignAdd = () => {
               <input
                 type="text"
                 id="user-cake-design-name"
-                placeholder="예: 몽환의 숲"
+                placeholder="예: 친구 생일 케이크 디자인"
                 value={cakeDesignName}
                 onChange={handleCakeDesignName}
                 className="user-input-text"
@@ -133,9 +143,22 @@ const UserCakeDesignAdd = () => {
               />
             </div>
 
+            {/* 선호 연령대 */}
+            <div className="user-cake-design-form-group">
+              <label htmlFor="user-cake-design-prefer">선호하는 연령대</label>
+              <input
+                type="text"
+                id="user-cake-design-prefer"
+                placeholder="예: 20대 여성"
+                value={cakeDesignPrefer}
+                onChange={handleCakeDesignPrefer}
+                className="user-input-text"
+              />
+            </div>
+
             {/* 적용 가능 이벤트 */}
             <div className="user-cake-design-form-group">
-              <label htmlFor="user-cake-design-event">적용 가능 이벤트</label>
+              <label htmlFor="user-cake-design-event">추천하는 이벤트</label>
               <input
                 type="text"
                 id="user-cake-design-event"
@@ -146,10 +169,23 @@ const UserCakeDesignAdd = () => {
               />
             </div>
 
+            {/* 연관 키워드 */}
+            <div className="user-cake-design-form-group">
+              <label htmlFor="user-cake-design-keyword">연관 키워드</label>
+              <input
+                type="text"
+                id="user-cake-design-keyword"
+                placeholder="예: 사랑, 친구, 하늘"
+                value={cakeDesignKeyword}
+                onChange={handleCakeDesignKeyword}
+                className="user-input-text"
+              />
+            </div>
+
             {/* 등록 버튼 */}
             <div className="user-form-group">
               <button type="submit" className="user-cake-design-add-button">
-                도안 등록하기
+                등록하기
               </button>
             </div>
           </form>
