@@ -71,14 +71,14 @@ const VenderAudirionAllList = () => {
                         </header>
                         <main className="product-list-main-content ">
                             <section className="product-list">
-                                <header className="product-list-header">    
-                                    <h2 className="product-list-title">실시간 오디션 현황</h2>
+                                <header className="product-list-header">
+                                    <h2 className="product-list-title">실시간 신청 리스트</h2>
                                     <div className="button-group">
                                         <button className="add-button" onClick={() => navigate('/vender/supervisionList')}>
                                             참여 리스트
                                         </button>
                                         <button className="add-button" onClick={() => navigate('/vender/auditionAllList')}>
-                                            실시간오디션현황
+                                            실시간 신청 리스트
                                         </button>
                                     </div>
                                 </header>

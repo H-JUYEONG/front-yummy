@@ -1,6 +1,6 @@
 //import 라이브러리
-import React,{useState} from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -78,19 +78,19 @@ const VenderSupervisionList = () => {
                     <VenderSidebar />
                     {/* 메인 콘텐츠 영역 */}
                     <div className="vender-content">
-                    <header className="vender-header ">
-                                <VenderHeader />
-                            </header>
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">
-                                    <h2 className="product-list-title">MY오디션 관리</h2>
+                                    <h2 className="product-list-title">참여 리스트</h2>
                                     <div className="button-group">
                                         <button className="add-button" onClick={() => navigate('/vender/supervisionList')}>
                                             참여 리스트
                                         </button>
                                         <button className="add-button" onClick={() => navigate('/vender/auditionAllList')}>
-                                            실시간오디션현황
+                                            실시간 신청 리스트
                                         </button>
                                     </div>
 
@@ -115,8 +115,8 @@ const VenderSupervisionList = () => {
                                             <td>2024-11-30</td>
                                             <td>
                                                 <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
-                                                    <button className="supervision-delete-button">취소하기</button>
-                                                
+                                                <button className="supervision-delete-button">취소하기</button>
+
                                             </td>
                                         </tr>
                                         <tr>
