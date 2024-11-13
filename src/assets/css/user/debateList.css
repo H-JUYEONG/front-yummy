@@ -117,11 +117,13 @@
 }
 
 /* Table */
+/* Table */
 .j-discussion-list {
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
   border-radius: 8px;
+  table-layout: fixed; /* Ensures fixed table layout for better handling of widths */
 }
 
 .j-discussion-list th,
@@ -137,9 +139,22 @@
   font-weight: bold;
 }
 
+.j-discussion-list td:nth-child(2) {
+  max-width: 300px; /* Set a max width to control column size */
+  white-space: nowrap; /* Prevents wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
+}
+
+.j-discussion-list td:nth-child(2):hover {
+  white-space: normal; /* Allows wrapping on hover */
+  word-wrap: break-word;
+}
+
 .j-discussion-list tr:hover {
   background-color: #f9f9f9;
 }
+
 
 #user-debate-add {
   padding: 0px 4px;
@@ -172,3 +187,15 @@
   font-weight: bold;
   top: -10px;
 }  
+
+
+.gif-container {
+  position: absolute;
+  right: 120px; /* 오른쪽 여백 */
+  top: 10px; /* 상단 여백을 조정해 위치 설정 */
+}
+
+.right-gif {
+  width: 100px; /* 크기 조정 */
+  height: auto;
+}
