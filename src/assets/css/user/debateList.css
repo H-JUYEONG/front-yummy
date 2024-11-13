@@ -187,3 +187,15 @@
   font-weight: bold;
   top: -10px;
 }  
+
+
+.gif-container {
+  position: absolute;
+  right: 120px; /* 오른쪽 여백 */
+  top: 10px; /* 상단 여백을 조정해 위치 설정 */
+}
+
+.right-gif {
+  width: 100px; /* 크기 조정 */
+  height: auto;
+}

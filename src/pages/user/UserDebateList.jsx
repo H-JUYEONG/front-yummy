@@ -8,6 +8,7 @@ import Footer from "./include/Footer";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateList.css";
+import bubuDuduGif from "../../assets/images/bubu-dudu-sseeyall.gif";
 
 const UserDebateList = () => {
   const navigate = useNavigate();
@@ -35,11 +36,16 @@ const UserDebateList = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-debate-board-list">
           <div id="user-debate-tip">
+            {/* 오른쪽에 GIF 추가 */}
+            <div className="gif-container">
+              <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
+            </div>
             <h2>고민을 나누고 다양한 의견을 들어보는 공간입니다.</h2>
             <p>
               고민이 되는 도안이나 케이크 고민이 있다면 <strong>'고민 상담'</strong>을 통해 도움을 받아보세요!
             </p>
           </div>
+
           <div id="user-debate-select-option-list">
             <div className="user-debate-select-option">
               <button>전체</button>
@@ -113,9 +119,8 @@ const UserDebateList = () => {
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index + 1}
-                className={`pagination-page-number ${
-                  currentPage === index + 1 ? "pagination-page-active" : ""
-                }`}
+                className={`pagination-page-number ${currentPage === index + 1 ? "pagination-page-active" : ""
+                  }`}
                 onClick={() => handlePageChange(index + 1)}
               >
                 {index + 1}
