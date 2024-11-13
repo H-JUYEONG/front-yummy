@@ -16,7 +16,7 @@
 }
 
 .header-container .logo h1 {
-    font-family: 'NPSfontBold', serif !important;
+    font-family: 'HakgyoansimGeurimilgiTTF-R', serif !important;
     font-size: 3.5em;
     margin: 0;
     color: #333;
@@ -41,7 +41,7 @@
 }
 
 .header-container .nav-menu a {
-    font-family: 'NPSfontBold', sans-serif;
+    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
     text-decoration: none;
     color: #555 !important;
     font-size: 1.5em;
@@ -67,7 +67,7 @@
 }
 
 .header-container .user-actions a.header-link {
-    font-family: 'NPSfontBold', sans-serif;
+    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
     text-decoration: none;
     color: #555 !important;
     font-size: 1em;
