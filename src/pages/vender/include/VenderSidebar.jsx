@@ -11,8 +11,10 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                 <Link to='/user/storedetail'>
                     <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
                 </Link>
+
                 <h3>CakeLines</h3>
                 <p><Link to="/vender/venderCreatePage" onClick={toggleMenu}><FaClipboardList /> 업체사이트 관리</Link></p>
+
             </div>
             <ul className="vender-menu">
                 <li><Link to="/" onClick={toggleMenu}><FaHome /> 메인페이지 바로가기</Link></li>

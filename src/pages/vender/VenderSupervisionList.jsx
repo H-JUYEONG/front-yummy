@@ -19,6 +19,8 @@ const VenderSupervisionList = () => {
 
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
+    const navigate = useNavigate();
+
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -83,6 +85,14 @@ const VenderSupervisionList = () => {
                             <section className="product-list">
                                 <header className="product-list-header">
                                     <h2 className="product-list-title">MY오디션 관리</h2>
+                                    <div className="button-group">
+                                        <button className="add-button" onClick={() => navigate('/vender/supervisionList')}>
+                                            참여 리스트
+                                        </button>
+                                        <button className="add-button" onClick={() => navigate('/vender/auditionAllList')}>
+                                            실시간오디션현황
+                                        </button>
+                                    </div>
 
                                 </header>
                                 <table className="product-table">
@@ -105,9 +115,8 @@ const VenderSupervisionList = () => {
                                             <td>2024-11-30</td>
                                             <td>
                                                 <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
-                                                <Link to='/vender/auditionAllList'>
-                                                    <button className="supervision-delete-button">전체리스트보기</button>
-                                                </Link>
+                                                    <button className="supervision-delete-button">취소하기</button>
+                                                
                                             </td>
                                         </tr>
                                         <tr>
