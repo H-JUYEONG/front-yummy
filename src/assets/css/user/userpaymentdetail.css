@@ -60,7 +60,6 @@
 
 #user-wrap .payment-container .detail-item {
     margin-bottom: 15px;
-    font-family: 'NanumSquare', sans-serif;
     line-height: 1.6;
 }
 
@@ -102,7 +101,6 @@
     background-color: #ff6f61;
     color: white;
     border: none;
-    font-family: "IBM Plex Sans KR", sans-serif;
     border-radius: 30px;
     font-size: 1.1em;
     cursor: pointer;
