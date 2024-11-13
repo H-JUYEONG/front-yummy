@@ -52,7 +52,7 @@ const VenderDashboard = () => {
 
     return (
         <>  
-            <VenderHeader />
+           
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
