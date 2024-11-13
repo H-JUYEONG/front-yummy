@@ -55,6 +55,7 @@ const UserAuditionOngoing = () => {
           <div className="user-design-info">
             <p className="user-cake-design-write-date">2024.11.10 13:00:00</p>
             <p className="user-cake-design-hit">조회 7</p>
+            <p className="user-cake-design-author">작성자 dud9902</p>
             <div className="user-control-section">
               {/* <button
                 className="user-cake-edit-button"
@@ -69,14 +70,13 @@ const UserAuditionOngoing = () => {
                 삭제
               </button> */}
               <div className="toggles-status-container">
-  <button
-    className={isEnded ? "ended-button" : "ongoing-button"}
-    onClick={() => setIsEnded(!isEnded)}
-  >
-    {isEnded ? "진행 중 보기" : "종료 상태 보기"}
-  </button>
-</div>
-
+                <button
+                  className={isEnded ? "ended-button" : "ongoing-button"}
+                  onClick={() => setIsEnded(!isEnded)}
+                >
+                  {isEnded ? "진행 중 보기" : "종료 상태 보기"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

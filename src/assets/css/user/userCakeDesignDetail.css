@@ -29,14 +29,20 @@
 
 /* 날짜 스타일 */
 .user-cake-design-write-date {
-  font-size: 18px;
+  font-size: 15px;
   color: #666;
   padding-right: 10px;
 }
 
 .user-cake-design-hit {
-  font-size: 18px;
+  font-size: 15px;
   color: #666;
+  padding-right: 10px;
+}
+
+.user-cake-design-author {
+    font-size: 15px;
+    color: #666;
 }
 
 .user-action-buttons {
@@ -250,7 +256,12 @@
   cursor: pointer;
   border-radius: 25px;
   border: 1px solid #cacaca;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
+}
+
+.user-cake-edit-button:hover {
+  color: white;
+  background-color: #0056b3;
 }
 
 .user-cake-delete-button {
@@ -259,7 +270,12 @@
   cursor: pointer;
   border-radius: 25px;
   border: 1px solid #cacaca;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
+}
+
+.user-cake-delete-button:hover {
+  color: white;
+  background-color: red;
 }
 
 .user-cake-edit-button {
