@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermyaudtion.css';
 import Header from './include/Header';
@@ -7,6 +8,8 @@ import Footer from './include/Footer';
 import AppealDesignDetails from '../vender/VenderAppealDesignDetails'
 
 const UserMyAudtion = () => {
+
+    
     const auditions = [
         { id: 1, companyName: "업체명", deliveryDate: "2024-11-15", pickupMethod: "배달", bidAmount: "60,000 원", status: "오디션 진행중입니다", orderLink: "#", reviewLink: null },
         { id: 20, companyName: "업체명", deliveryDate: "2024-11-02", pickupMethod: "픽업", bidAmount: "45,000 원", status: "오디션 진행중입니다", orderLink: "#", reviewLink: null },
@@ -18,7 +21,7 @@ const UserMyAudtion = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
      // 모달 열기
-     const openModal = () => {
+    const openModal = () => {
         setIsModalOpen(true);
     };
     // 모달 닫기
@@ -108,7 +111,9 @@ const UserMyAudtion = () => {
                                     <td>
                                     <a href={audition.orderLink} className="order-link" onClick={openModal}>주문 상세내역</a>
                                         {audition.reviewLink && (
-                                            <button className="review-button">리뷰작성하러가기</button>
+                                            <Link to='/user/cakedetail'>
+                                                <button className="review-button">리뷰작성하러가기</button>
+                                            </Link>
                                         )}
                                     </td>
                                 </tr>

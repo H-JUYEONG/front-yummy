@@ -1,5 +1,5 @@
-import React ,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import React ,{useState , useEffect} from 'react';
+import { Link  } from 'react-router-dom';
 
 
 import '../../assets/css/all.css'; // 전역 css
@@ -48,6 +48,9 @@ const VenderDashboard = () => {
         const previewWindow = window.open('/user/storedetail', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
         previewWindow.focus(); // 새 창이 열리면 포커스
     };
+    useEffect(() => {
+        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+    }, []);
     
 
     return (

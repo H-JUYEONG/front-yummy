@@ -75,7 +75,7 @@ const UserCakeDetail = () => {
             }
         }
     }, [location.state?.openReview]);
-  
+
 
     // 별점 통계 데이터
     const ratingStats = {
