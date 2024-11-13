@@ -155,7 +155,7 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* 좋아요 아이콘 위치 */
+/* 경매 아이콘 위치 */
 .user-cake-audition-status {
   position: absolute;
   display: flex; /* 수평 정렬 */
@@ -165,7 +165,7 @@
   background-color: white;
   padding: 6px 8px;
   border-radius: 25px;
-  font-size: 0.9em;
+  font-size: 1em;
   color: white;
   border: 1px solid #e0e0e0;
 }
