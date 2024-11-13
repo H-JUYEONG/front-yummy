@@ -150,7 +150,7 @@
 
 /* 진행 중 보기 버튼 (파란색 호버) */
 .ongoing-button:hover {
-    background-color: red;
+    background-color: #EA4335;
     color: white;
 }
 
