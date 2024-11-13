@@ -127,13 +127,15 @@
     margin: 10px 0;
     
 }
-.section-flex{
+.section-flex {
     display: flex;
     justify-content: flex-start;
-    align-items: 45px;
+    align-items: center;
     gap: 30px;
     flex-wrap: wrap;
     margin-top: 5px;
+    max-width: 800px; /* 원하는 고정된 최대 너비를 설정 */
+    width: 100%;      /* 컨테이너가 가로로 꽉 차게 설정 */
 }
 .sy-category-upload {
     flex: 0 0 calc(30% - 30px); /* 부모 컨테이너의 너비에 비례 */
