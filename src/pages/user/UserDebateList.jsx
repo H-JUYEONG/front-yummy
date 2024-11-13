@@ -76,25 +76,25 @@ const UserDebateList = () => {
             <tbody>
               <tr onClick={() => handleRowClick(1)} className="clickable-row">
                 <td>1</td>
-                <td>첫 번째 토론 주제</td>
+                <td>캐릭터 둘 중에 어떤 게 케이크로 만드는 게 좋을까요?</td>
                 <td>도안 토론</td>
-                <td>작성자A</td>
+                <td>캣타워</td>
                 <td>2024-11-01</td>
                 <td>120</td>
               </tr>
               <tr onClick={() => handleRowClick(2)} className="clickable-row">
                 <td>2</td>
-                <td>두 번째 토론 주제</td>
+                <td>제가 진상인가요?</td>
                 <td>업체 토론</td>
-                <td>작성자B</td>
+                <td>진상왕</td>
                 <td>2024-11-01</td>
                 <td>85</td>
               </tr>
               <tr onClick={() => handleRowClick(3)} className="clickable-row">
                 <td>3</td>
-                <td>세 번째 토론 주제</td>
+                <td>스폰지밥 케이크 무엇이 좋을까요?</td>
                 <td>도안 토론</td>
-                <td>작성자C</td>
+                <td>뚱이</td>
                 <td>2024-11-01</td>
                 <td>300</td>
               </tr>
