@@ -27,7 +27,7 @@
 }
 
 #user-cake-audition-add {
-  /* padding: 0px 4px; */
+  padding: 0px 7px;
   padding-top: 20px;
 }
 
@@ -112,12 +112,13 @@
 }
 
 .user-cake-audition-search input {
+  margin-right: 6px;
   padding: 8px 16px 8px 36px; /* 왼쪽에 아이콘 공간 확보 */
   border: 2px solid #ddd;
   border-radius: 25px;
   outline: none;
   width: 250px; /* 원하는 너비로 조정 */
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .user-cake-audition-search input:focus {
@@ -216,7 +217,7 @@
     align-items: center;
     gap: 10px;
     margin-top: 30px;
-    padding-left:50px;
+    /* padding-left:10px; */
 }
 
 .user-audition-page-numbers {
