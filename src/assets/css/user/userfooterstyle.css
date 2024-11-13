@@ -16,7 +16,7 @@
 }
 
 .footer-logo h2 {
-    font-family: 'SF함박눈', serif;
+    font-family: 'IM_Hyemin-Bold', serif;
     font-size: 3em;
     color: #333;
     margin: 0;
@@ -40,7 +40,7 @@
 .company-info p {
     margin: 0;
     margin-bottom: 12px;
-    font-family: 'NanumSquare', sans-serif;
+    font-family: 'IM_Hyemin-Bold', sans-serif;
     color: #4b5563;
     display: flex;
     align-items: center;
@@ -73,7 +73,7 @@
 }
 
 .footer-links a {
-    font-family: 'GmarketSans', sans-serif;
+    font-family: 'IM_Hyemin-Bold', sans-serif;
     text-decoration: none;
     color: #4b5563 !important;
     font-size: 0.9em;
@@ -98,6 +98,6 @@
     margin: 0;
     color: #9ca3af;
     font-size: 0.9em;
-    font-family: 'NanumSquare', sans-serif;
+    font-family: 'IM_Hyemin-Bold', sans-serif;
 }
 
