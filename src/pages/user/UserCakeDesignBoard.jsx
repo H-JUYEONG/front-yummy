@@ -29,52 +29,59 @@ const UserCakeDesignBoard = () => {
   const cardData = [
     {
       id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      nickname: "aaa11",
+      title: "부모님 결혼기념일 기념 특별한 디자인",
+      like: 10,
+      views: "10",
+      src: "/images/1.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 2,
+      nickname: "bbb22",
+      title: "첫돌 기념 사랑스러운 디자인",
+      like: 30,
+      views: "2",
+      src: "/images/2.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 3,
+      nickname: "ccc33",
+      title: "친구를 위한 특별한 생일 디자인",
+      like: 15,
+      views: "6",
+      src: "/images/3.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 4,
+      nickname: "ddd44",
+      title: "따뜻한 연말 모임에 어울리는 디자인",
+      like: 7,
+      views: "10",
+      src: "/images/4.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 5,
+      nickname: "eee55",
+      title: "졸업을 축하하는 특별한 선물 디자인",
+      like: 20,
+      views: "8",
+      src: "/images/5.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 6,
+      nickname: "fff66",
+      title: "다크한 보석함 디자인",
+      like: 25,
+      views: "22",
+      src: "/images/6.png",
     },
     {
-      id: 1,
-      title: "dud9902",
-      subtitle: "아버지 테마의 도안이에요",
-      views: 30,
-      likes: 1,
+      id: 7,
+      nickname: "ggg77",
+      title: "토이스토리 귀여운 디자인",
+      like: 9,
+      views: "5",
+      src: "/images/7.png",
     },
     // 다른 카드 데이터도 여기에 추가
   ];
@@ -93,8 +100,8 @@ const UserCakeDesignBoard = () => {
           <div id="user-cake-design-tip">
             <h2>케이크 디자인을 공유하는 공간입니다.</h2>
             <p>
-              마음에 드는 디자인을 발견하면 <strong>'케이크 오디션'</strong>을
-              통해 제작 요청을 남겨보세요!
+              마음에 드는 디자인을 찾았다면 <strong>'케이크 요청'</strong>을
+              통해 제작을 의뢰해보세요!
             </p>
           </div>
           <div id="user-cake-design-select-option-list">
@@ -121,21 +128,19 @@ const UserCakeDesignBoard = () => {
               <div key={card.id} className="user-cake-design-card">
                 <div className="user-cake-design-card-image">
                   <img
-                    src="/images/2호_일반케이크.jpg"
+                    src={card.src}
                     onClick={handleImageClick}
                     alt="케이크 도안"
                   />
                   <div className="user-cake-design-card-likes">
                     <FaHeart className="heart-icon" />
-                    <span>10</span>
+                    <span>{card.like}</span>
                   </div>
                 </div>
                 <div className="user-cake-design-card-info">
-                  <h3 className="user-cake-design-card-title">
-                    축하케이크 도안~
-                  </h3>
-                  <p className="user-cake-design-card-subtitle">dud9902</p>
-                  <div className="user-cake-design-card-stats">
+                  <h3 className="user-cake-design-card-title">{card.title}</h3>
+                  <p className="user-cake-design-card-subtitle">{card.nickname}</p>
+                  <div className="user-cake-design-card-status">
                     <span>조회수: {card.views}</span>
                   </div>
                 </div>
@@ -155,8 +160,10 @@ const UserCakeDesignBoard = () => {
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index + 1}
-                className={`pagination-page-number ${
-                  currentPage === index + 1 ? "pagination-page-active" : ""
+                className={`user-cake-design-pagination-page-number ${
+                  currentPage === index + 1
+                    ? "user-cake-design-pagination-page-active"
+                    : ""
                 }`}
                 onClick={() => handlePageChange(index + 1)}
               >
@@ -166,7 +173,7 @@ const UserCakeDesignBoard = () => {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="pagination-arrow pagination-arrow-right"
+              className="user-cake-design-pagination-arrow user-cake-design-pagination-arrow-right"
             >
               {">"}
             </button>

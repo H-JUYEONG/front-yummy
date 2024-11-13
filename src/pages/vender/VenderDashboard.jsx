@@ -50,13 +50,15 @@ const VenderDashboard = () => {
     };
 
     return (
-        <>  
-            <VenderHeader />
+        <>
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
                     <div className="vender-content">
-                        <main className="main-content">
+                        <main className="dashboard-content">
+                            <header className="vender-header ">
+                                <VenderHeader />
+                            </header>
                             <section className="dashboard-summary">
                                 <div className="summary-cards">
                                     <div className="card">

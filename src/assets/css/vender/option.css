@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-
-
 /* 옵션 리스트 영역 */
 .vender-content .option-main-content .option-list {
     list-style: none;
@@ -9,7 +7,7 @@
     margin: 0;
 }
 
-/* 각 옵션 아이템 스타일 */
+/* 옵션 아이템 스타일 */
 .vender-content .option-main-content .option-item {
     background-color: #f9fafb;
     border-radius: 8px;
@@ -25,17 +23,20 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* 옵션 제목 스타일 */
+/* 옵션 헤더 */
 .vender-content .option-main-content .option-header {
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: bold;
     font-size: 1.2em;
     color: #333;
     margin-bottom: 10px;
     padding-left: 10px;
+    cursor: pointer;
 }
 
-/* 옵션 세부 사항 영역 */
+/* 옵션 세부 사항 */
 .vender-content .option-main-content .option-details {
     padding: 10px;
     margin-left: 5px;
@@ -44,7 +45,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* 서브 옵션 아이템 스타일 */
+/* 서브 옵션 아이템 */
 .vender-content .option-main-content .option-sub-item {
     display: flex;
     align-items: center;
@@ -68,8 +69,61 @@
     margin-right: 5px;
 }
 
-/* 등록하기 버튼 스타일 */
-.vender-content .option-main-content .add-button {
+/* 추가 옵션 입력 */
+.add-sub-option {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* 파일 업로드 버튼 및 미리보기 */
+.input-group {
+    position: relative;
+    margin-right: 30px;
+}
+
+.upload-label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 8px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.upload-label:hover {
+    background-color: #e0e0e0;
+}
+
+.upload-placeholder {
+    color: #888;
+    font-size: 14px;
+}
+
+.preview-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.input-file {
+    display: none; /* 숨겨진 파일 입력 */
+}
+
+/* 텍스트 입력 */
+.input-text {
+    padding: 5px;
+    width: 150px;
+}
+
+/* 등록 버튼 */
+.vender-content .option-main-content .add-button,
+.add-button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 8px 16px;
@@ -77,6 +131,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    margin-left: auto;
 }
 
 .vender-content .option-main-content .add-button:hover {
@@ -85,7 +140,7 @@
     transform: translateY(-3px);
 }
 
-/* 삭제 버튼 스타일 */
+/* 삭제 버튼 */
 .vender-content .option-main-content .delete-button {
     background-color: #f87171;
     color: #ffffff;
@@ -101,31 +156,4 @@
 .vender-content .option-main-content .delete-button:hover {
     background-color: #e11d48;
     transform: translateY(-2px);
-}
-
-/* 작은 화면용 스타일 */
-@media (max-width: 768px) {
-    .option-main-content {
-        padding: 16px;
-    }
-
-    .option-main-content .option-item {
-        padding: 12px;
-    }
-
-    .option-main-content .add-sub-option {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .option-main-content .input-text,
-    .option-main-content .input-file {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .option-main-content .add-button {
-        width: 100%;
-        margin-top: 10px;
-    }
 }

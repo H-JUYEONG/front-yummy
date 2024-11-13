@@ -1,141 +1,125 @@
-// Import libraries
 import React, { useState } from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userdebateview.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import { FaEye, FaHeart } from "react-icons/fa";
 
 const UserDebateView = () => {
   const [leftVoteCount, setLeftVoteCount] = useState(10);
   const [rightVoteCount, setRightVoteCount] = useState(15);
 
-  // Calculate the total votes and percentages for each side
   const totalVotes = leftVoteCount + rightVoteCount;
-  const leftVotePercentage =
-    totalVotes > 0 ? (leftVoteCount / totalVotes) * 100 : 0;
-  const rightVotePercentage =
-    totalVotes > 0 ? (rightVoteCount / totalVotes) * 100 : 0;
+  const leftVotePercentage = totalVotes > 0 ? (leftVoteCount / totalVotes) * 100 : 0;
+  const rightVotePercentage = totalVotes > 0 ? (rightVoteCount / totalVotes) * 100 : 0;
 
   const handleLeftVote = () => setLeftVoteCount(leftVoteCount + 1);
   const handleRightVote = () => setRightVoteCount(rightVoteCount + 1);
 
   return (
-    <div id="user-wrap" className="user-text-center">
-      {/* Header */}
+    <div id="user-wrap" className="text-center">
       <header id="user-wrap-head">
         <Header />
       </header>
 
-      {/* Navigation */}
-
-      {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
-        <section id="user-wrap-main">
-          {/* Title Section */}
-          <div className="j-title-section">
-            <h2>제목: 게시물 제목 예시</h2>
-          </div>
-          {/* Meta Data Section */}
-          <div className="j-meta-data">
-            <span>등록자: 작성자A</span>
-            <span>등록일: 2024-11-01</span>
-            <span>조회수: 120</span>
-            <span>투표수: 25</span>
-          </div>
-
-          <div className="j-images-section">
-            <div className="j-image-view-container">
-              <img src="https://via.placeholder.com/300" alt="케이크 A" />
-              <div className="j-caption">케이크 사진 A</div>
-              <button className="j-vote-button j-vote-button-left" onClick={handleLeftVote}>
-                케이크 A 버튼
-              </button>
+        <div className="debate-view-container">
+          <div className="debate-view-header">
+            <div className="user-debate-title">
+              <span>캐릭터 둘 중에 어떤 게 케이크로 만드는 게 좋을까요?</span>
             </div>
-            <div className="j-vs-divider">VS</div>
-            <div className="j-image-view-container">
-              <img src="https://via.placeholder.com/300" alt="케이크 B" />
-              <div className="j-caption">케이크 사진 B</div>
-              <button className="j-vote-button j-vote-button-right" onClick={handleRightVote}>
-                케이크 B 버튼
-              </button>
+
+            <div className="debate-meta-info">
+              <span><FaEye /> 조회수 120</span>
+              <span>투표수 25</span>
+              <span>작성자: 캣타워</span>
+              <span>2024-11-01</span>
             </div>
           </div>
 
-          {/* Post Content Section */}
-          <div className="post-text">
+          {/* Images and Progress Bar Container */}
+          <div className="debate-images-progress-container">
+            <div className="debate-image-section">
+              <div className="debate-image-container">
+                <img src="/images/peach-cat-goma.gif" alt="케이크 A" />
+                <button className="vote-button vote-button-a" onClick={handleLeftVote}>케이크 A 버튼</button>
+              </div>
+              <div className="vs-text">VS</div>
+              <div className="debate-image-container">
+                <img src="/images/doconghoa.gif" alt="케이크 B" />
+                <button className="vote-button vote-button-b" onClick={handleRightVote}>케이크 B 버튼</button>
+              </div>
+            </div>
+
+            <div className="vote-progress-bar">
+              <div className="left-bar" style={{ width: `${leftVotePercentage}%` }}>
+                {leftVotePercentage.toFixed(1)}% ({leftVoteCount}명)
+              </div>
+              <div className="right-bar" style={{ width: `${rightVotePercentage}%` }}>
+                {rightVotePercentage.toFixed(1)}% ({rightVoteCount}명)
+              </div>
+            </div>
+          </div>
+
+          {/* Description Section */}
+          <div className="debate-description">
+            <h2>내용</h2>
             <p>
-              10년지기 친구한테 줄 케이크를 사주려고 합니다. 스폰지밥을 좋아하는
-              것 같은데 둘 중 어떤 디자인이 더 좋을까요?
+              10년 지기 친구에게 줄 특별한 케이크를 준비하고 있는데, 친구가 고양이를 정말 좋아해서 케이크 디자인에 고양이 캐릭터를 넣으려고 해요. 
+              두 가지 다 매력적이어서 결정하기가 정말 어려운데, 과연 어떤 고양이 캐릭터로 친구에게 완벽한 케이크를 선물할 수 있을까요?
             </p>
           </div>
 
-          {/* Combined Horizontal Progress Bar */}
-          <div className="j-combined-progress-bar">
-            <div
-              className="j-bar-left"
-              style={{ width: `${leftVotePercentage}%` }}
-            >
-              {leftVotePercentage > 10 && (
-                <>
-                  {leftVotePercentage.toFixed(1)}% ({leftVoteCount}명)
-                </>
-              )}
-            </div>
-            <div
-              className="j-bar-right"
-              style={{ width: `${rightVotePercentage}%` }}
-            >
-              {rightVotePercentage > 10 && (
-                <>
-                  {rightVotePercentage.toFixed(1)}% ({rightVoteCount}명)
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Comment Section */}
-          <div className="j-comment-section">
-            <div className="j-comment-input-container">
-              <textarea
-                className="j-comment-box"
-                placeholder="댓글 쓰는 섹션"
-              ></textarea>
-              <button className="j-comment-submit">등록</button>
-            </div>
-          </div>
-
-          {/* Display of Other Comments */}
-          <div className="j-other-comments">
-            <div className="j-comment">
-              <img
-                src="https://via.placeholder.com/40"
-                alt="작성자B의 프로필"
-                className="j-profile-pic"
-              />
-              <div className="j-comment-content">
-                <span className="j-comment-author">작성자B</span>
-                <span className="j-user-side">(소비자 편)</span>
-                <p>좋은 정보 감사합니다!</p>
+          {/* Comments Section */}
+          <div className="comments-section">
+            <h2>댓글</h2>
+            <div className="comment-input-wrapper">
+              <div className="comment-textarea-container">
+                <textarea placeholder="댓글 쓰기"></textarea>
+              </div>
+              <div className="comment-submit-container">
+                <button className="submit-comment">등록</button>
               </div>
             </div>
-            <div className="j-comment">
-              <img
-                src="https://via.placeholder.com/40"
-                alt="작성자C의 프로필"
-                className="j-profile-pic"
-              />
-              <div className="j-comment-content">
-                <span className="j-comment-author">작성자C</span>
-                <span className="j-user-side">(업자 편)</span>
-                <p>케이크 B가 정말 맛있어 보여요.</p>
-              </div>
-            </div>
+
+            <div className="comment-list">
+  <div className="comment">
+    <div className="comment-profile-pic">
+      <img
+        src="https://images.unsplash.com/photo-1516280030429-27679b3dc9cf?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="캣맘의 프로필"
+      />
+    </div>
+    <div className="comment-content">
+      <div className="comment-author-vote">
+        <span className="comment-author">캣맘</span>
+        <span className="user-vote-indicator-a">투표: 케이크 A</span>
+      </div>
+      <p>둘 다 만들어 주시죠!</p>
+    </div>
+  </div>
+  <div className="comment">
+    <div className="comment-profile-pic">
+      <img
+        src="https://via.placeholder.com/40"
+        alt="내가달콤한거사줄게의 프로필"
+      />
+    </div>
+    <div className="comment-content">
+      <div className="comment-author-vote">
+        <span className="comment-author">내가달콤한거사줄게</span>
+        <span className="user-vote-indicator-b">투표: 케이크 B</span>
+      </div>
+      <p>케이크 B가 정말 맛있어 보여요.</p>
+    </div>
+  </div>
+</div>
+
           </div>
-        </section>
+        </div>
       </main>
 
-      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>

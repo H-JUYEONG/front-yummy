@@ -15,7 +15,7 @@
 #user-wrap .order-complete-container .check-circle {
     width: 80px;
     height: 80px;
-    background-color: #7C3AED;
+    background-color: #ff6f61;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -32,7 +32,6 @@
 }
 
 #user-wrap .order-complete-container .order-complete-message h2 {
-    font-family: 'GmarketSans', sans-serif;
     font-size: 24px;
     color: #333;
     margin-bottom: 12px;
@@ -74,18 +73,20 @@
 }
 
 #user-wrap .order-complete-container .main-button {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #7C3AED;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 #user-wrap .order-complete-container .main-button:hover {
-    background-color: #7C3AED;
+    background-color: #ff6f61;
 }
 
 @media (max-width: 768px) {

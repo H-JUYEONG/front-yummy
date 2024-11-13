@@ -1,33 +1,11 @@
 /* 폰트 설정 */
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
-/* SF함박눈 폰트 - CDN 방식 */
-@font-face {
-    font-family: 'SF함박눈';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF함박눈.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* 나눔스퀘어 폰트 */
-@font-face {
-    font-family: 'NanumSquare';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* Gmarket Sans 폰트 */
-@font-face {
-    font-family: 'GmarketSans';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 #adminShopManage-wrap {
     flex: 1;
     padding: 40px;
+    background-color: #d8d8d8;
+    border-radius: 5px;
 }
 
 #adminShopManage-wrap .admin-shop-title {

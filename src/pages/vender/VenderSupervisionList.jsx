@@ -8,7 +8,7 @@ import AppealDesignDetails from './VenderAppealDesignDetails'; // 생성한 Moda
 
 //import css
 import '../../assets/css/vender/supervisionList.css';
-
+import VenderHeader from './include/VenderHeader';
 
 
 
@@ -78,6 +78,9 @@ const VenderSupervisionList = () => {
                     <VenderSidebar />
                     {/* 메인 콘텐츠 영역 */}
                     <div className="vender-content">
+                    <header className="vender-header ">
+                                <VenderHeader />
+                            </header>
                         <main className="product-list-main-content ">
                             <section className="product-list">
                                 <header className="product-list-header">

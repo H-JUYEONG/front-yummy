@@ -8,7 +8,9 @@ import "../../assets/css/vender/venderCakeDesignAdd.css";
 function VenderCakeDesignAdd() {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
+  const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
+  const [cakeDesignKeyword, setCakeDesignKeyword] = useState("");
   const [files, setFiles] = useState([
     { id: Date.now(), file: null, preview: null },
   ]);
@@ -21,8 +23,16 @@ function VenderCakeDesignAdd() {
     setCakeDesignDescription(e.target.value);
   };
 
+  const handleCakeDesignPrefer = (e) => {
+    setCakeDesignPrefer(e.target.value);
+  };
+
   const handleCakeDesignEvent = (e) => {
     setCakeDesignEvent(e.target.value);
+  };
+
+  const handleCakeDesignKeyword = (e) => {
+    setCakeDesignKeyword(e.target.value);
   };
 
   const addFileInput = () => {
@@ -101,11 +111,11 @@ function VenderCakeDesignAdd() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="cake-design-name">도안명</label>
+                <label htmlFor="cake-design-name">제목</label>
                 <input
                 type="text"
                 id="cake-design-name"
-                placeholder="예: 몽환의 숲"
+                placeholder="예: 친구 생일 케이크 디자인"
                 value={cakeDesignName}
                 onChange={handleCakeDesignName}
                 className="input-text"
@@ -113,7 +123,7 @@ function VenderCakeDesignAdd() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="cake-design-description">도안 설명</label>
+                <label htmlFor="cake-design-description">설명</label>
                 <textarea
                   id="cake-design-description"
                   placeholder="도안의 주요 특징과 콘셉트를 설명해주세요."
@@ -123,6 +133,19 @@ function VenderCakeDesignAdd() {
                   rows="4"
                 />
               </div>
+
+              {/* 선호 연령대 */}
+            <div className="form-group">
+              <label htmlFor="cake-design-prefer">선호하는 연령대</label>
+              <input
+                type="text"
+                id="cake-design-prefer"
+                placeholder="예: 20대 여성"
+                value={cakeDesignPrefer}
+                onChange={handleCakeDesignPrefer}
+                className="user-input-text"
+              />
+            </div>
 
               <div className="form-group">
                 <label htmlFor="cake-design-event">적용 가능 이벤트</label>
@@ -135,6 +158,19 @@ function VenderCakeDesignAdd() {
                   className="input-text"
                 />
               </div>
+
+              {/* 연관 키워드 */}
+            <div className="form-group">
+              <label htmlFor="cake-design-keyword">연관 키워드</label>
+              <input
+                type="text"
+                id="cake-design-keyword"
+                placeholder="예: 사랑, 친구, 하늘"
+                value={cakeDesignKeyword}
+                onChange={handleCakeDesignKeyword}
+                className="user-input-text"
+              />
+            </div>
 
               {/* 등록 버튼 */}
               <div className="form-group centered-button-group">

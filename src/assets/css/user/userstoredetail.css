@@ -1,7 +1,21 @@
 /* storedetail.css */
+.sd-logo-container {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: #fff;
+}
+
+.sd-store-logo {
+    max-width: 200px;
+    height: auto;
+}
+
 .sd-profile-container {
     padding-right: 20px;
     position: relative;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .sd-profile-header {
@@ -9,11 +23,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 .sd-back-btn {
     position: absolute;
-    left: 20px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -26,13 +41,14 @@
 .sd-store-name {
     font-family: 'GmarketSans', sans-serif;
     font-size: 1.5em;
-    margin: 0 0 15px 215px;
+    margin: 0;
 }
 
 .sd-profile-content {
     display: flex;
     gap: 40px;
     padding: 20px 40px;
+    justify-content: center;
 }
 
 .sd-profile-image {
@@ -50,12 +66,13 @@
 }
 
 .sd-profile-text {
-    flex: 1;
+    flex: 0 1 400px;
     text-align: left;
 }
 
 .sd-profile-stats {
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .sd-profile-stats span {
@@ -75,7 +92,8 @@
 .sd-divider {
     border: none;
     border-top: 1px solid #e5e7eb;
-    margin: 20px 0;
+    margin: 20px auto;
+    max-width: 800px;
 }
 
 /* 카테고리 */
@@ -84,6 +102,8 @@
     justify-content: center;
     gap: 30px;
     padding: 20px 0;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .sd-category-item {
@@ -124,6 +144,8 @@
     gap: 1px;
     background-color: #e5e7eb;
     padding: 1px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .sd-product-item {
@@ -131,6 +153,7 @@
     background: #fff;
     width: 100%;
     aspect-ratio: 1;
+    text-decoration: none;
 }
 
 .sd-product-image {
@@ -174,7 +197,7 @@
     .sd-profile-content {
         flex-direction: column;
         align-items: center;
-        padding: 40px 20px 20px;
+        padding: 20px;
     }
 
     .sd-profile-text {
@@ -182,11 +205,6 @@
     }
 
     .sd-store-name {
-        margin: 0;
-        text-align: center;
-    }
-
-    .sd-profile-stats {
         text-align: center;
     }
 

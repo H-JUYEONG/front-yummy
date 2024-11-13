@@ -14,7 +14,7 @@
 #user-wrap .wishlist-container .search-input {
     flex: 1;
     padding: 10px 15px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;
     border-radius: 20px 0 0 20px;
     font-size: 14px;
     outline: none;
@@ -22,7 +22,7 @@
 
 #user-wrap .wishlist-container .search-button {
     padding: 10px 20px;
-    background: #7C3AED;
+    background:#ff6f61;;
     border: none;
     border-radius: 0 20px 20px 0;
     color: white;
@@ -31,7 +31,7 @@
 }
 
 #user-wrap .wishlist-container .search-button:hover {
-    background: #6D28D9;
+    background: #ff6f61;
 }
 
 /* 카테고리 필터 스타일 */
@@ -56,7 +56,7 @@
 
 #user-wrap .wishlist-container .filter-btn {
     padding: 8px 16px;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;;
     border-radius: 20px;
     background: white;
     color: #4B5563;
@@ -69,9 +69,9 @@
 }
 
 #user-wrap .wishlist-container .filter-btn.active {
-    background: #7C3AED;
+    background: #ff6f61;
     color: white;
-    border-color: #7C3AED;
+    border-color: #ff6f61;
 }
 
 /* 상품 그리드 스타일 */
@@ -96,7 +96,7 @@
 
 
 #user-wrap .wishlist-container .product-card:hover {
-    border-color: #7C3AED; /* hover 시 테두리 색상 변경 */
+    border-color: #ff6f61; /* hover 시 테두리 색상 변경 */
 }
 
 #user-wrap .wishlist-container .product-image {
@@ -135,7 +135,7 @@
 
 #user-wrap .wishlist-container .product-info p {
     font-size: 1em;
-    color: #7C3AED;
+    color: #ff6f61;
     font-weight: bold;
     margin: 0;
 }
@@ -161,7 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #ddd;
     background: white;
     border-radius: 6px;
     cursor: pointer;
@@ -175,9 +175,9 @@
 }
 
 #user-wrap .wishlist-container .page-number.active {
-    background: #7C3AED;
+    background: #ff6f61;
     color: white;
-    border-color: #7C3AED;
+    border-color: #ff6f61;
 }
 
 /* 반응형 디자인 */

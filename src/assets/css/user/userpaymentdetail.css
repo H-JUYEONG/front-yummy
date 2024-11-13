@@ -1,4 +1,6 @@
 /* userpaymentdetail.css */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+
 #user-wrap .payment-container {
     max-width: 1000px;
     margin: 40px auto;
@@ -20,7 +22,7 @@
 
 #user-wrap .payment-container .product-info .product-image {
     flex: 0 0 400px;
-    border-radius: 8px;
+    border-radius: 5px;
     overflow: hidden;
     height: 400px;
     background-color: #f8f9fa;
@@ -43,14 +45,12 @@
 }
 
 #user-wrap .payment-container .payment-label {
-    font-family: 'GmarketSans', sans-serif;
     font-size: 1.2em;
     color: #666;
     margin-bottom: 10px;
 }
 
 #user-wrap .payment-container .product-title {
-    font-family: 'SF함박눈', serif;
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
@@ -77,7 +77,7 @@
 
 #user-wrap .payment-container .detail-item .price {
     font-size: 1.2em;
-    color: #7C3AED;
+    color: #ff6f61;
     font-weight: bold;
 }
 
@@ -89,8 +89,9 @@
     margin-top: 20px;
     padding: 15px;
     background-color: #f8f9fa;
-    border-radius: 8px;
-    /*border: 1px solid #e5e7eb;*/
+    border-radius: 5px;
+    border: 2px solid #ddd;
+;
 }
 
 #user-wrap .payment-container .payment-button {
@@ -98,11 +99,11 @@
     width: 200px;
     margin: 30px auto 0;
     padding: 12px 24px;
-    background-color: #7C3AED;
+    background-color: #ff6f61;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-family: 'GmarketSans', sans-serif;
+    font-family: "IBM Plex Sans KR", sans-serif;
+    border-radius: 30px;
     font-size: 1.1em;
     cursor: pointer;
 }
@@ -110,7 +111,7 @@
 
 
 #user-wrap .payment-container .payment-button:hover {
-    background-color: #6D28D9;
+    background-color: #ff6f61;
     transform: translateY(-2px);
 }
 

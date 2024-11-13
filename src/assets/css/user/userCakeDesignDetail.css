@@ -1,43 +1,41 @@
 /* Title and button alignment */
 .user-cake-designs-details {
   width: 100%;
-  margin: 0 auto; /* 가로 가운데 정렬 */
+  margin: 0 auto;
 }
 
+/* Header 전체 정렬 */
 .user-design-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 15px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #000000; /* 타이틀 강조선 */
+  border-bottom: 1px solid #000000;
 }
 
-/* 타이틀 스타일 */
+/* 제목 스타일 */
 .user-cake-designs-title {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* 조회수와 제목 간격 조정 */
-  font-size: 2.2em;
-  color: #333;
-  margin: 0;
-}
-
-.user-cake-designs-title span {
   font-size: 30px;
-    font-weight: bold;
+  font-weight: bold;
+  color: #333;
 }
 
-.user-view-section {
+/* 작성 날짜와 버튼 컨테이너 */
+.user-design-info {
   display: flex;
   align-items: center;
-  font-size: 15px; /* 조회수 크기 조정 */
-  color: #666;
 }
 
-.users-view-icon {
-  color: gray;
-  margin-right: 5px;
+/* 날짜 스타일 */
+.user-cake-design-write-date {
+  font-size: 18px;
+  color: #666;
+  padding-right: 10px;
+}
+
+.user-action-buttons {
+  float: right;
 }
 
 /* Audition Button */
@@ -51,74 +49,109 @@
   font-weight: bold;
 }
 
-/* 메인 이미지 스타일 */
-.user-cake-designs-detail-imgs img {
+/* Main layout for image and text area */
+.user-cake-design-detail-area {
+  display: flex;
   width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin-top: 14px; /* 이미지와 제목 시작 위치 조정 */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 서브 이미지 */
+/* Image Section */
+#user-cake-design-detail-imgs-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-cake-designs-detail-imgs img {
+  width: 100%;
+  max-width: 503px;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* Sub Images */
 .user-cake-designs-detail-sub-imgs {
   display: flex;
-  flex-wrap: wrap; /* 이미지가 넘어가면 아래로 배치 */
-  justify-content: center; /* 서브 이미지를 가로 중심 정렬 */
-  max-width: 600px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  overflow-x: hidden; /* 기본 상태에서 스크롤 숨기기 */
+  max-width: 503px; /* 큰 이미지와 동일한 너비로 설정 */
+  width: 100%;
+  padding-bottom: 10px;
+  gap: 5px;
+  scrollbar-width: thin; /* Firefox에서 얇은 스크롤바 */
+}
+
+.user-cake-designs-detail-sub-imgs:hover {
+  overflow-x: auto; /* 마우스를 올렸을 때만 가로 스크롤 표시 */
+}
+
+/* Webkit 기반 브라우저 (Chrome, Safari) 스크롤바 스타일 */
+.user-cake-designs-detail-sub-imgs::-webkit-scrollbar {
+  height: 6px; /* 스크롤바 높이 조정 */
+}
+
+.user-cake-designs-detail-sub-imgs::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* 스크롤바 색상 */
+  border-radius: 10px;
 }
 
 .user-cake-designs-detail-sub-imgs img {
   width: 100%;
-  max-width: 100px;
+  max-width: 80px; /* 서브 이미지 개별 크기 설정 */
   height: auto;
-  margin-top: 14px;
-  margin-right: 10px;
   cursor: pointer;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+
+
+
+/* Text Area */
+#user-cake-design-detail-txt-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 25px;
+}
+
+.user-cake-designs-detail-txt > div {
+  flex: 1; /* 자식 div들이 동일한 크기를 차지하도록 설정 */
 }
 
 /* 설명 텍스트 스타일 */
 .user-cake-designs-detail-txt {
-  max-width: 1000px;
   color: #555;
   line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 설명 텍스트를 중심 정렬 */
-  text-align: center; /* 텍스트 가운데 정렬 */
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .user-cake-designs-detail-txt h2 {
-  padding-bottom: 10px;
-  font-size: 35px;
+  font-size: 24px;
   font-weight: bold;
+  margin-top: 2px;
 }
 
 .user-cake-designs-detail-txt p {
   font-size: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
   word-wrap: break-word;
 }
 
+
 /* 찜 버튼 스타일 */
 .user-favorite-section {
+  float: left;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #000000;
 }
 
 .user-favorite-button {
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  /* border: 1px solid #cacaca; */
   border: none;
   border-radius: 25px;
   padding: 5px 10px;
@@ -127,38 +160,61 @@
 }
 
 .users-heart-icon {
+  font-size: 25px;
   color: red;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .users-favorite-count {
-  font-size: 16px;
+  font-size: 25px;
   color: #333;
 }
 
-/* 업체 섹션 스타일 */
-.user-business-section {
+.user-control-section {
+  float: right;
+}
+
+
+
+
+/* cakes Section */
+.user-cakes-section {
   text-align: left;
+  margin-top: 25px;
   padding: 25px 0px;
+  border-top: 1px solid #000000;
   border-bottom: 1px solid #000000;
 }
 
-.user-business-section h2 {
+.user-cakes-section h2 {
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 16px;
 }
 
-.user-business-list {
+#cake-design-hash-tag-box {
+  display: flex;
+  gap: 10px; /* 각 태그 사이에 간격을 추가하려면 사용 */
+}
+
+.cake-design-hash-tag {
+  padding: 5px 7px;
+  border: 2px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 25px;
+}
+
+
+.user-cakes-list {
   display: flex;
   gap: 12px;
   justify-content: flex-start;
 }
 
-.user-business-item {
-  background-color: #f7f7f7;
+.user-cakes-item {
+ background-color: #f9f9f9;
   padding: 15px 25px;
-  border: 1px solid #e8e8e8;
+  border: 2px solid #ddd;
   border-radius: 10px;
   text-align: center;
   font-size: 14px;
@@ -175,31 +231,66 @@
   color: #777777;
 }
 
-/* 리뷰 섹션 스타일 */
+/* Edit, Delete Buttons */
+.user-cake-action-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.user-cake-edit-button {
+  margin: 0px 7px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #cacaca;
+  background-color: #ffffff;
+}
+
+.user-cake-delete-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #cacaca;
+  background-color: #ffffff;
+}
+
+.user-cake-edit-button {
+  color: #333;
+}
+
+.user-cake-delete-button {
+  color: #333;
+}
+
+
+/* Review Section */
 .user-review-section {
-  margin-top: 25px;
+  margin-top: 20px;
   text-align: left;
+  border-top: 1px solid #000;
 }
 
 .user-review-section h2 {
   font-size: 1.5em;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  padding-top: 20px;
 }
 
-/* 리뷰 아이템 */
+/* Review Item */
 .user-cake-designs-review-item {
-  background-color: #f9f9f9;
   padding: 20px;
   margin-top: 8px;
   border-radius: 10px;
-  border: 1px solid #e8e8e8;
+  border: 2px solid #ddd;
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
-/* 리뷰 헤더 */
+/* Review Header */
 .user-review-header {
   display: flex;
   align-items: center;
@@ -208,11 +299,6 @@
   color: #666;
   padding-bottom: 5px;
   border-bottom: 1px solid #e8e8e8;
-}
-
-.user-review-stars {
-  color: #fbc02d; /* 별 색상 */
-  font-size: 16px;
 }
 
 .user-review-email-id {
@@ -225,58 +311,51 @@
   color: #666;
 }
 
-/* 리뷰 본문 */
-.user-review-body {
-  display: flex;
-  align-items: flex-center;
-  /* align-items: center; */
-  gap: 15px;
+.user-review-stars {
+  color: #fbc02d;
+  font-size: 16px;
+  margin-left: auto; /* 별점을 오른쪽 끝으로 정렬 */
 }
 
+/* Review Body */
+.user-review-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Review Image */
 .user-cake-designs-review-image {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  margin: 5px 0px;
 }
 
+/* Review Text */
 .user-review-text {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   font-size: 14px;
   line-height: 1.6;
   color: #333;
-  margin: 5px 0px;
 }
 
-/* 수정, 삭제 버튼 */
-.user-cake-action-buttons {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-}
-
-.user-cake-edit-button,
-.user-cake-delete-button {
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  border: 1px solid #cacaca;
-  background-color: #ffffff;
-}
-
-.user-cake-edit-button {
-  background-color: #ffffff;
+.bakery-name {
+  font-weight: bold;
+  font-size: 18px;
   color: #333;
 }
 
-.user-cake-delete-button {
-  background-color: #ffffff;
-  color: #333;
-}
-
-
-.user-cake-design-write-date p {
-  font-size: 13px;
-  text-align: left;
+.cake-name {
+  font-size: 16px;
   color: #666;
+}
+
+.review-content {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #555;
 }

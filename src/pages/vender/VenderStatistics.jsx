@@ -8,6 +8,7 @@ import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타�
 import '../../assets/css/vender/statistics.css'; // 대시보드 전용 스타일
 
 import VenderSidebar from './include/VenderSidebar';
+import VenderHeader from './include/VenderHeader';
 
 ChartJS.register(
     CategoryScale,
@@ -98,6 +99,9 @@ const VenderStatistics = () => {
                     <VenderSidebar />
                     {/* 콘텐츠 영역 */}
                     <div className="vender-content">
+                    <header className="vender-header ">
+                                <VenderHeader />
+                            </header>
                         {/* 통계 요약 카드 섹션 */}
                         <div className="summary-card-section">
                             <div className="summary-card">
