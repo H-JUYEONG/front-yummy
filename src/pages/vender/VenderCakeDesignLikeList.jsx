@@ -15,7 +15,7 @@ const VenderCakeDesignLikeList = () => {
 
    // Navigate to detail page on image click
    const handleImageClick = () => {
-    navigate("/vender/cakeDesign/detail");
+    navigate("/user/cakeDesign/detail");
   };
 
   // 상품 리스트 데이터 예시
