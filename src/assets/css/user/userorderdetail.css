@@ -11,7 +11,7 @@
     color: #333;
     margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom:  2px solid #ddd;
+    border-bottom:  2px solid #333;
 }
 
 #user-wrap .order-detail-container .order-basic-info {
@@ -45,7 +45,7 @@
     flex-shrink: 0;
     border-radius: 5px;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 2px solid #333;
 }
 
 #user-wrap .order-detail-container .product-image {
@@ -84,7 +84,7 @@
 #user-wrap .order-detail-container .product-status {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 2px solid #ddd;
+    border-top: 2px solid #333;
 }
 
 #user-wrap .order-detail-container .status-label {
@@ -110,7 +110,7 @@
     color: #333;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #333;
 }
 
 #user-wrap .order-detail-container .info-content {
