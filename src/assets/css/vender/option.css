@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-/* 전역 스타일 */
-body, button, input {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 /* 레이아웃 */
 .option-selection-area {
     display: flex;
@@ -14,27 +7,28 @@ body, button, input {
     height: 100vh;
 }
 
-.left-panel, .right-panel {
+.vender-content-wrapper .left-panel,
+.vender-content-wrapper .right-panel {
     width: 50%;
     padding: 20px;
     overflow-y: auto;
     box-sizing: border-box;
 }
 
-.right-panel {
+.vender-content-wrapper .right-panel {
     border-left: 1px solid #ddd;
     background-color: #f8f9fa;
 }
 
 /* 옵션 리스트 영역 */
-.option-list {
+.vender-content-wrapper .option-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 /* 옵션 아이템 스타일 */
-.option-item {
+.vender-content-wrapper .option-item {
     background-color: #f9fafb;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -44,13 +38,13 @@ body, button, input {
     cursor: pointer;
 }
 
-.option-item:hover {
+.vender-content-wrapper .option-item:hover {
     background-color: #eef2ff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 /* 옵션 헤더 */
-.option-header {
+.vender-content-wrapper .option-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,7 +54,7 @@ body, button, input {
 }
 
 /* 옵션 세부 사항 */
-.option-details {
+.vender-content-wrapper .option-details {
     padding: 10px;
     margin-top: 10px;
     background-color: #ffffff;
@@ -69,7 +63,7 @@ body, button, input {
 }
 
 /* 서브 옵션 아이템 */
-.option-sub-item {
+.vender-content-wrapper .option-sub-item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
@@ -78,7 +72,7 @@ body, button, input {
     border-radius: 4px;
 }
 
-.sub-option-image {
+.vender-content-wrapper .sub-option-image {
     width: 50px;
     height: 50px;
     border-radius: 4px;
@@ -86,7 +80,7 @@ body, button, input {
     object-fit: cover;
 }
 
-.sub-option-name {
+.vender-content-wrapper .sub-option-name {
     flex: 1;
     font-size: 1em;
     color: #333;
@@ -94,19 +88,19 @@ body, button, input {
 }
 
 /* 추가 옵션 입력 */
-.add-sub-option {
+.vender-content-wrapper .add-sub-option {
     display: flex;
     align-items: center;
     margin-top: 10px;
 }
 
 /* 파일 업로드 버튼 및 미리보기 */
-.input-group {
+.vender-content-wrapper .input-group {
     position: relative;
     margin-right: 20px;
 }
 
-.upload-label {
+.vender-content-wrapper .upload-label {
     display: inline-block;
     cursor: pointer;
     padding: 8px;
@@ -118,16 +112,16 @@ body, button, input {
     transition: background-color 0.3s;
 }
 
-.upload-label:hover {
+.vender-content-wrapper .upload-label:hover {
     background-color: #e0e0e0;
 }
 
-.upload-placeholder {
+.vender-content-wrapper .upload-placeholder {
     color: #888;
     font-size: 14px;
 }
 
-.preview-image {
+.vender-content-wrapper .preview-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -135,12 +129,13 @@ body, button, input {
     object-fit: cover;
 }
 
-.input-file {
-    display: none; /* 숨겨진 파일 입력 */
+.vender-content-wrapper .input-file {
+    display: none;
+    /* 숨겨진 파일 입력 */
 }
 
 /* 텍스트 입력 */
-.input-text {
+.vender-content-wrapper .input-text {
     padding: 5px;
     width: 150px;
     border: 1px solid #ddd;
@@ -150,7 +145,7 @@ body, button, input {
 }
 
 /* 등록 버튼 */
-.add-button {
+.vender-content-wrapper .add-button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 8px 16px;
@@ -161,14 +156,14 @@ body, button, input {
     margin-left: auto;
 }
 
-.add-button:hover {
+.vender-content-wrapper .add-button:hover {
     background-color: #4338ca;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
 
 /* 삭제 버튼 */
-.delete-button {
+.vender-content-wrapper .delete-button {
     background-color: #f87171;
     color: #ffffff;
     padding: 5px 10px;
@@ -180,26 +175,26 @@ body, button, input {
     margin-left: 5px;
 }
 
-.delete-button:hover {
+.vender-content-wrapper .delete-button:hover {
     background-color: #e11d48;
     transform: translateY(-2px);
 }
 
 /* 오른쪽 패널 헤더 */
-.right-panel h3 {
+.vender-content-wrapper .right-panel h3 {
     font-size: 1.5em;
     color: #4f46e5;
     margin-bottom: 20px;
 }
 
-.selected-options {
+.vender-content-wrapper .selected-options {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 /* 오른쪽 패널의 옵션 그룹 스타일 */
-.selected-option-group {
+.vender-content-wrapper .selected-option-group {
     margin-bottom: 20px;
     padding: 10px;
     background-color: #ffffff;
@@ -207,7 +202,7 @@ body, button, input {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.option-group-title {
+.vender-content-wrapper .option-group-title {
     font-size: 1.2em;
     color: #4f46e5;
     margin-bottom: 10px;
@@ -215,13 +210,13 @@ body, button, input {
 }
 
 /* 템플릿 리스트 스타일 */
-.template-list {
+.vender-content-wrapper .template-list {
     list-style: none;
     padding: 0;
     margin-bottom: 20px;
 }
 
-.template-button {
+.vender-content-wrapper .template-button {
     width: 100%;
     padding: 8px 16px;
     background-color: #6b7280;
@@ -233,6 +228,6 @@ body, button, input {
     margin-bottom: 10px;
 }
 
-.template-button:hover {
+.vender-content-wrapper .template-button:hover {
     background-color: #4b5563;
 }
