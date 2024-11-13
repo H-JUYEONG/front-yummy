@@ -16,8 +16,8 @@
 }
 
 .header-container .logo h1 {
-    font-family: 'IM_Hyemin-Bold', serif !important;
-    font-size: 2.5em;
+    font-family: 'NPSfontBold', serif !important;
+    font-size: 3.5em;
     margin: 0;
     color: #333;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -41,10 +41,10 @@
 }
 
 .header-container .nav-menu a {
-    font-family: 'IM_Hyemin-Bold', sans-serif;
+    font-family: 'NPSfontBold', sans-serif;
     text-decoration: none;
     color: #555 !important;
-    font-size: 1.1em;
+    font-size: 1.5em;
     transition: background-color 0.3s ease;
     display: inline-block;
     padding: 8px 12px;
@@ -67,7 +67,7 @@
 }
 
 .header-container .user-actions a.header-link {
-    font-family: 'IM_Hyemin-Bold', sans-serif;
+    font-family: 'NPSfontBold', sans-serif;
     text-decoration: none;
     color: #555 !important;
     font-size: 1em;

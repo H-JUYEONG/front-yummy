@@ -178,8 +178,8 @@
 }
 
 .user-cake-design-card-title {
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 1.2em;
+  /* font-weight: bold; */
   margin: 0.5em 0;
   white-space: nowrap; /* 텍스트를 한 줄로 유지 */
   overflow: hidden;     /* 넘치는 텍스트를 숨김 */

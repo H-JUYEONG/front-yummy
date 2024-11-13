@@ -1,16 +1,18 @@
 /* 폰트 설정 */
-/* SF함박눈 폰트 - CDN 방식 */
-@font-face {
-    font-family: 'SF함박눈';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF함박눈.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
+/*IM 혜민*/
 @font-face {
     font-family: 'IM_Hyemin-Bold';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Bold.woff2') format('woff');
     font-weight: normal;
+    font-style: normal;
+}
+
+/* 국민연금체 */
+@font-face {
+    font-family: 'NPSfontBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+    /* font-weight: 700; */
     font-style: normal;
 }
 
@@ -21,7 +23,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    font-family: "IM_Hyemin-Bold", sans-serif;
+    font-family: "NPSfontBold", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -46,7 +48,7 @@
 }
 
 #user-wrap-side h2 {
-    font-family: "IM_Hyemin-Bold", sans-serif;
+    font-family: "NPSfontBold", sans-serif;
     font-size: 1.3em;
     color: #333;
     margin-bottom: 20px;
@@ -55,7 +57,7 @@
 }
 
 #user-wrap-side h3 {
-    font-family: "IM_Hyemin-Bold", sans-serif;
+    font-family: "NPSfontBold", sans-serif;
     font-size: 1.1em;
     color: #333;
     margin: 20px 0 10px 0;
@@ -74,7 +76,7 @@
 }
 
 #user-wrap-side a {
-    font-family: "IM_Hyemin-Bold", sans-serif;
+    font-family: "NPSfontBold", sans-serif;
     text-decoration: none;
     color: #555;
     font-size: 0.95em;
