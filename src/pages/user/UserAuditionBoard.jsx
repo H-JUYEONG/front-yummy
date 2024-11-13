@@ -13,7 +13,7 @@ const UserAuditionBoard = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5; // 예시 페이지 수
+  const totalPages = 68; // 총 페이지 수
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -157,30 +157,34 @@ const UserAuditionBoard = () => {
             ))}
           </div>
 
-          {/* Pagination */}
-          <div className="user-cake-audition-pagination">
+          {/* 페이지네이션 */}
+          <div className="user-audition-pagination">
             <button
+              className="user-audition-prev-page"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="pagination-arrow pagination-arrow-left"
             >
               {"<"}
             </button>
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index + 1}
-                className={`pagination-page-number ${
-                  currentPage === index + 1 ? "pagination-page-active" : ""
-                }`}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
+            <div className="user-audition-page-numbers">
+              {[1, 2, 3, "...", 67, 68].map((page, index) => (
+                <button
+                  key={index}
+                  className={`user-audition-page-number ${
+                    currentPage === page ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    typeof page === "number" && handlePageChange(page)
+                  }
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
             <button
+              className="user-audition-next-page"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="pagination-arrow pagination-arrow-right"
             >
               {">"}
             </button>

@@ -5,22 +5,6 @@
     padding: 20px;
 }
 
-.ongoing-back-button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 20px;
-}
-
-.ongoing-back-button {
-    background-color: transparent;
-    border: none;
-    color: #007bff;
-    font-size: 1em;
-    cursor: pointer;
-    padding: 5px 10px;
-    display: inline-block;
-}
-
 .ongoing-content {
     display: flex;
     flex-direction: column;
