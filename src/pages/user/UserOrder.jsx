@@ -143,11 +143,13 @@ const UserOrder = () => {
                                             ) : action === '리뷰쓰기' ? (
                                                 <Link
                                                     key={idx}
-                                                    to={`/user/cakedetail`}
+                                                    to="/user/cakedetail"
+                                                    state={{ openReview: true }}  // state 추가
                                                     className="action-btn"
                                                 >
                                                     {action}
                                                 </Link>
+
                                             ) : (
                                                 <button key={idx} className="action-btn">
                                                     {action}
