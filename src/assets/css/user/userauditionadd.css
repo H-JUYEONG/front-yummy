@@ -1,41 +1,43 @@
-
 .user-cake-audition-main {
-    max-width: 1000px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 40px 50px;
-    margin: 0 auto;
-    border: 0.5px solid #e8e8e8;
-    transition: transform 0.3s;
+  max-width: 1000px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px 50px;
+  margin: 0 auto;
+  border: 0.5px solid #e8e8e8;
+  transition: transform 0.3s;
 }
 
 /* 타이틀 스타일 */
 .user-cake-audition-title {
-    font-size: 2.2em;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 35px;
-    text-align: left; /* 웹사이트 느낌을 위해 왼쪽 정렬 */
-    border-bottom: 1px solid #000000; /* 타이틀 강조선 */
-    padding-bottom: 10px;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 35px;
+  text-align: left;
+  /* 웹사이트 느낌을 위해 왼쪽 정렬 */
+  border-bottom: 1px solid #000000;
+  /* 타이틀 강조선 */
+  padding-bottom: 10px;
 
 }
 
 /* 이미지 미리보기 스타일 */
 .user-cake-audition-imgs {
-    display: flex;
-    gap: 20px;
-    justify-content: flex-start; /* 왼쪽 정렬로 웹 레이아웃 느낌 */
-    flex-wrap: wrap;
-    margin-bottom: 25px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  /* 왼쪽 정렬로 웹 레이아웃 느낌 */
+  flex-wrap: wrap;
+  margin-bottom: 25px;
 }
 
 .user-cake-audition-imgs img {
-    width: 140px;
-    height: 140px;
-    object-fit: cover;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s ease;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
 }
 
 /* 폼 그룹 스타일 */
@@ -45,177 +47,177 @@
 }
 
 .user-cake-audition-form-group label {
-    display: block;
-    font-size: 1.2em;
-    color: #4a4a4a;
-    font-weight: bold;
-    margin-bottom: 10px;
+  display: block;
+  font-size: 1.2em;
+  color: #4a4a4a;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 /* 파일 입력 필드 스타일 */
 .user-file-input-wrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .user-file-input-wrapper input[type="file"] {
-    flex: 1;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: #666;
+  flex: 1;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #666;
 }
 
 
 .user-cake-audition-remove-button {
-    margin-left: 10px;
-    padding: 8px 14px;
-    background-color: #e74c3c;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.2s ease;
+  margin-left: 10px;
+  padding: 8px 14px;
+  background-color: #e74c3c;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease;
 }
 
 .user-cake-audition-add-image-button {
-    margin-top: 15px;
-    padding: 10px 18px;
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
-    width: auto;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  width: auto;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
 /* 입력 필드 공통 스타일 */
 .user-audition-input-text {
-    width: 100%;
-    padding: 14px;
-    font-size: 1em;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-    color: #444;
+  width: 100%;
+  padding: 14px;
+  font-size: 1em;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  color: #444;
 }
 
 .user-audition-input-text:focus {
-    outline: none;
+  outline: none;
 }
 
 .user-audition-add {
-    margin-top: 20px;
+  margin-top: 20px;
 
 }
+
 /* 등록 버튼 스타일 */
 .user-cake-audition-add-button {
-    width: 20%;
-    background-color: #000000;
-    color: #ffffff;
-    padding: 15px 0;
-    font-size: 1.2em;
-    border: 1px solid #000000;
-    cursor: pointer;
-    /* font-weight: bold; */
-    text-transform: uppercase;
-    transition: background-color 0.3s ease, transform 0.2s;
-    margin: 0 auto; /* Centers the button */
-    display: block;
+  width: 20%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 15px 0;
+  font-size: 1.2em;
+  border: 1px solid #000000;
+  cursor: pointer;
+  /* font-weight: bold; */
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s;
+  margin: 0 auto;
+  /* Centers the button */
+  display: block;
 }
 
 
 /* 탭 메뉴 스타일 */
 .user-audition-tabs {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    gap: 10px;
-  }
-  
-  .user-audition-tabs button {
-    padding: 10px 20px;
-    border: 1px solid #000;
-    background-color: #ffffff;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .user-audition-tabs button.active,
-  .user-audition-tabs button:hover {
-    background-color: #000;
-    color: #ffffff;
-  }
-  
-  /* 탭 내용 영역 */
-  .user-audition-design-preview {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
 
-    text-align: center;
-  }
-  
-  /* 찜한 도안 카드 */
-  .user-audition-liked-designs {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .user-audition-liked-design-card {
-    width: 140px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  
-  .user-audition-liked-design-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
-  
-  /* 사진 업로드 섹션 */
-  .user-audition-upload-section {
-    padding: 20px;
-    border: 1px dashed #ddd;
-    border-radius: 5px;
-    background-color: #ffffff;
-    text-align: center;
+.user-audition-tabs button {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  background-color: #ffffff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    transition: border-color 0.3s;
-  }
-  
-  .user-audition-upload-section input[type="file"] {
-    display: inline-block;
-    margin-top: 10px;
-  }
-  
-  .user-audition-uploaded-image-preview {
-    margin-top: 15px;
-  }
-  
-  .user-audition-uploaded-image-preview img {
-    width: 100%;
-    max-width: 200px;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  
+.user-audition-tabs button.active,
+.user-audition-tabs button:hover {
+  background-color: #000;
+  color: #ffffff;
+}
 
+/* 탭 내용 영역 */
+.user-audition-design-preview {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+
+  text-align: center;
+}
+
+/* 찜한 도안 카드 */
+.user-audition-liked-designs {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.user-audition-liked-design-card {
+  width: 140px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.user-audition-liked-design-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* 사진 업로드 섹션 */
+.user-audition-upload-section {
+  padding: 20px;
+  border: 1px dashed #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  text-align: center;
+
+  transition: border-color 0.3s;
+}
+
+.user-audition-upload-section input[type="file"] {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.user-audition-uploaded-image-preview {
+  margin-top: 15px;
+}
+
+.user-audition-uploaded-image-preview img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
