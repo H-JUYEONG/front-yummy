@@ -8,7 +8,7 @@ const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     
     useEffect(() => {
-        window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+        window.scrollTo(0, 0);
     }, []);
 
     // 상품 데이터
@@ -45,10 +45,8 @@ const UserStoreDetail = () => {
         ]
     };
 
-    // 전체 상품 리스트 계산
     const allProducts = Object.values(categoryProducts).flat();
 
-    // 현재 선택된 카테고리의 상품 리스트 가져오기
     const getProducts = () => {
         if (!selectedCategory) {
             return allProducts;
@@ -56,7 +54,6 @@ const UserStoreDetail = () => {
         return categoryProducts[selectedCategory] || [];
     };
 
-    // 카테고리 선택 핸들러
     const handleCategoryClick = (category) => {
         if (selectedCategory === category) {
             setSelectedCategory(null);
@@ -65,9 +62,7 @@ const UserStoreDetail = () => {
         }
     };
 
-    // 카카오톡 채팅 핸들러
     const handleKakaoChat = () => {
-        // 카카오톡 채팅 기능 구현
         window.open('http://pf.kakao.com/_xdMxfLxj', '_blank');
     };
 
@@ -76,16 +71,20 @@ const UserStoreDetail = () => {
             <VenderHeader />
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">
-                    {/* 프로필 영역 */}
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
                             <h2 className="sd-store-name">cakefactory</h2>
                         </div>
                         <div className="sd-profile-content">
-                            <div className="sd-profile-image">
-                                <img src={cakeLogo} alt="cakefactory" />
+                            {/* 프로필 이미지 섹션 */}
+                            <div className="sd-section sd-image-section">
+                                <div className="sd-profile-image">
+                                    <img src={cakeLogo} alt="cakefactory" />
+                                </div>
                             </div>
-                            <div className="sd-profile-text">
+
+                            {/* 프로필 정보 섹션 */}
+                            <div className="sd-section sd-info-section">
                                 <div className="sd-profile-stats">
                                     <span>게시물 24</span>
                                     <span>리뷰 128</span>
@@ -97,21 +96,37 @@ const UserStoreDetail = () => {
                                         카카오톡 문의하기
                                     </button>
                                 </div>
-                                <p>🎂케이크는 맛있게</p>
-                                <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
-                                <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
-                                <p>💕디자인과 맛 모두 놓치지 않는 케이크🍰</p>
-                                <p>🎨캐릭터, 포토, 생화케이크는 DM문의💌</p>
-                                <p>✔️주문마감 D-2</p>
-                                <p>✔️11시-20시</p>
-                                <p>⚡️디자인상담 1:1채팅 문의해주세요</p>
+                                <div className="sd-info-content">
+                                    <p>🎂케이크는 맛있게</p>
+                                    <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
+                                    <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
+                                    <p>💕디자인과 맛 모두 놓치지 않는 케이크🍰</p>
+                                    <p>🎨캐릭터, 포토, 생화케이크는 DM문의💌</p>
+                                    <p>✔️주문마감 D-2</p>
+                                    <p>✔️11시-20시</p>
+                                    <p>⚡️디자인상담 1:1채팅 문의해주세요</p>
+                                </div>
+                            </div>
+
+                            {/* 지도 섹션 */}
+                            <div className="sd-section sd-map-section">
+                                <div className="sd-map-container">
+                                    <div className="map-placeholder">
+                                        <p>지도 영역</p>
+                                        <p>Kakao Maps API</p>
+                                    </div>
+                                </div>
+                                <div className="sd-map-info">
+                                    <p className="sd-map-title">📍 매장 위치</p>
+                                    <p>서울특별시 송파구 올림픽로 240</p>
+                                    <p>송파 롤링스톤즈 2층</p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <hr className="sd-divider" />
 
-                    {/* 카테고리 */}
                     <div className="sd-category-container">
                         {Object.keys(categoryProducts).map((category) => (
                             <div
@@ -130,7 +145,6 @@ const UserStoreDetail = () => {
 
                     <hr className="sd-divider" />
 
-                    {/* 상품 리스트 */}
                     <div className="sd-products-container">
                         {getProducts().map((product) => (
                             <Link
