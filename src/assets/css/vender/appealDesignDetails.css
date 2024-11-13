@@ -27,6 +27,11 @@
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo{
     height: 80%;
     margin-top: auto;
+
+}
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo img{
+    width: 95%;
+    height: 95%;
 }
 .appeal-design-text li + li{
     margin-top: 10px;
