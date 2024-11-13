@@ -1,60 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
+/* 레이아웃 */
+.option-selection-area {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.vender-content-wrapper .left-panel,
+.vender-content-wrapper .right-panel {
+    width: 50%;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.vender-content-wrapper .right-panel {
+    border-left: 1px solid #ddd;
+    background-color: #f8f9fa;
+}
+
 /* 옵션 리스트 영역 */
-.vender-content .option-main-content .option-list {
+.vender-content-wrapper .option-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 /* 옵션 아이템 스타일 */
-.vender-content .option-main-content .option-item {
+.vender-content-wrapper .option-item {
     background-color: #f9fafb;
     border-radius: 8px;
     margin-bottom: 20px;
     padding: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: background-color 0.3s, box-shadow 0.3s;
-    width: 100%;
+    cursor: pointer;
 }
 
-.vender-content .option-main-content .option-item:hover {
-    background-color: #f0f4ff;
+.vender-content-wrapper .option-item:hover {
+    background-color: #eef2ff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 /* 옵션 헤더 */
-.vender-content .option-main-content .option-header {
+.vender-content-wrapper .option-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: bold;
     font-size: 1.2em;
     color: #333;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    cursor: pointer;
 }
 
 /* 옵션 세부 사항 */
-.vender-content .option-main-content .option-details {
+.vender-content-wrapper .option-details {
     padding: 10px;
-    margin-left: 5px;
+    margin-top: 10px;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* 서브 옵션 아이템 */
-.vender-content .option-main-content .option-sub-item {
+.vender-content-wrapper .option-sub-item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
     padding: 8px;
-    width: 100%;
+    background-color: #f1f5f9;
+    border-radius: 4px;
 }
 
-.vender-content .option-main-content .sub-option-image {
+.vender-content-wrapper .sub-option-image {
     width: 50px;
     height: 50px;
     border-radius: 4px;
@@ -62,7 +80,7 @@
     object-fit: cover;
 }
 
-.vender-content .option-main-content .sub-option-name {
+.vender-content-wrapper .sub-option-name {
     flex: 1;
     font-size: 1em;
     color: #333;
@@ -70,19 +88,19 @@
 }
 
 /* 추가 옵션 입력 */
-.add-sub-option {
+.vender-content-wrapper .add-sub-option {
     display: flex;
     align-items: center;
     margin-top: 10px;
 }
 
 /* 파일 업로드 버튼 및 미리보기 */
-.input-group {
+.vender-content-wrapper .input-group {
     position: relative;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
-.upload-label {
+.vender-content-wrapper .upload-label {
     display: inline-block;
     cursor: pointer;
     padding: 8px;
@@ -94,16 +112,16 @@
     transition: background-color 0.3s;
 }
 
-.upload-label:hover {
+.vender-content-wrapper .upload-label:hover {
     background-color: #e0e0e0;
 }
 
-.upload-placeholder {
+.vender-content-wrapper .upload-placeholder {
     color: #888;
     font-size: 14px;
 }
 
-.preview-image {
+.vender-content-wrapper .preview-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -111,19 +129,23 @@
     object-fit: cover;
 }
 
-.input-file {
-    display: none; /* 숨겨진 파일 입력 */
+.vender-content-wrapper .input-file {
+    display: none;
+    /* 숨겨진 파일 입력 */
 }
 
 /* 텍스트 입력 */
-.input-text {
+.vender-content-wrapper .input-text {
     padding: 5px;
     width: 150px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1em;
 }
 
 /* 등록 버튼 */
-.vender-content .option-main-content .add-button,
-.add-button {
+.vender-content-wrapper .add-button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 8px 16px;
@@ -134,14 +156,14 @@
     margin-left: auto;
 }
 
-.vender-content .option-main-content .add-button:hover {
+.vender-content-wrapper .add-button:hover {
     background-color: #4338ca;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
 
 /* 삭제 버튼 */
-.vender-content .option-main-content .delete-button {
+.vender-content-wrapper .delete-button {
     background-color: #f87171;
     color: #ffffff;
     padding: 5px 10px;
@@ -149,11 +171,63 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    margin-left: 5px;
     transition: background-color 0.3s, transform 0.2s;
+    margin-left: 5px;
 }
 
-.vender-content .option-main-content .delete-button:hover {
+.vender-content-wrapper .delete-button:hover {
     background-color: #e11d48;
     transform: translateY(-2px);
+}
+
+/* 오른쪽 패널 헤더 */
+.vender-content-wrapper .right-panel h3 {
+    font-size: 1.5em;
+    color: #4f46e5;
+    margin-bottom: 20px;
+}
+
+.vender-content-wrapper .selected-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 오른쪽 패널의 옵션 그룹 스타일 */
+.vender-content-wrapper .selected-option-group {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vender-content-wrapper .option-group-title {
+    font-size: 1.2em;
+    color: #4f46e5;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* 템플릿 리스트 스타일 */
+.vender-content-wrapper .template-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.vender-content-wrapper .template-button {
+    width: 100%;
+    padding: 8px 16px;
+    background-color: #6b7280;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.vender-content-wrapper .template-button:hover {
+    background-color: #4b5563;
 }

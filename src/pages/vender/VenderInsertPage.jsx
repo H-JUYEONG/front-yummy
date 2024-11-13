@@ -9,6 +9,13 @@ import '../../assets/css/vender/insertPage.css';
 import VenderHeader from './include/VenderHeader';
 import VenderSidebar from './include/VenderSidebar';
 
+//img
+import ResizeIcon from '@rsuite/icons/Resize'; //미리보기 아이콘
+import ExpandOutlineIcon from '@rsuite/icons/ExpandOutline'; //사진첨부 아이콘
+import ArchiveIcon from '@rsuite/icons/Archive'; //이미지모양 아이콘
+import TrashIcon from '@rsuite/icons/Trash'; //휴지통 아이콘
+
+
 
 
 
@@ -25,7 +32,22 @@ const VenderDashboard = () => {
             setPreview(imageUrl);
         }
     };
-    
+
+    // 카테고리 추가 핸들러
+    const addCategory = () => {
+        setCategoryPreviews([...categoryPreviews, null]); // 새로운 카테고리 항목을 추가
+    };
+    const handleDeleteCategory = (index) => {
+        const updatedCategoryPreviews = [...categoryPreviews];
+        updatedCategoryPreviews.splice(index, 1); // 해당 인덱스의 항목 삭제
+        setCategoryPreviews(updatedCategoryPreviews); // 상태 업데이트
+    }
+
+     // 미리보기 버튼 클릭 시 새로운 웹 창 열기
+    const openPreviewInNewWindow = () => {
+        const previewWindow = window.open('/vender/venderMain', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
+        previewWindow.focus(); // 새 창이 열리면 포커스
+    };
     
 
     return (
@@ -39,44 +61,83 @@ const VenderDashboard = () => {
                             <div id="createPage-wrap">
                                 <h1 className='sy-create-title'>나만의 사이트를 꾸며보세요!</h1>
                                 <ul id="createPage-nav">
-                                    <li><Link to="/vender/venderMain">미리보기</Link></li>
+                                        <li>
+                                            <button style={{ background: 'none', border: 'none' }} onClick={openPreviewInNewWindow}>
+                                                <ResizeIcon className='formIcon' style={{ fontSize: '40px', color: '#007bff', backgroundColor: 'transparent'}} />
+                                                <span>미리보기</span>
+                                            </button>
+                                        </li>
+                                        
+                                    
                                 </ul>
+                                
+                                <div className='create-sy-flex-box'>
+                                <div className="create-sy-section sy-img-margin-box">
+                                    <h3 htmlFor='shop-name'>업체명</h3>
+                                    <input className='short-input-txt' id='shop-name' type="text" placeholder="업체명을 입력해주세요!" name=''  />
+                                </div>
+                                <div className="create-sy-section sy-img-margin-box">
+                                
+                                    <div className='banner-flex'>
+                                        <label htmlFor='bannerUpload'><h3>베너이미지 추가</h3></label>
+                                        <input 
+                                            type="file" 
+                                            accept="image/*" 
+                                            onChange={(e) => handleImageChange(e, setLogoPreview)}
+                                            id="mainbannerUpload"
+                                            style={{ display: 'none' }} // 파일 입력을 숨김
+                                        />
+                                        <label htmlFor="mainbannerUpload" className="upload-button">
+                                            <ExpandOutlineIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
+                                        </label>
+                                    </div>
+                                    
+                                    {logoPreview && <img src={logoPreview} alt="베너이미지 미리보기" className="preview" />}
+                                    
+                                </div>
 
+                                <div className="create-sy-section sy-img-margin-box">
+                                    <div className='banner-flex'>
+                                        <label htmlFor='bannerUpload'><h3>프로필이미지 추가</h3></label>
+                                        <input 
+                                            type="file" 
+                                            accept="image/*" 
+                                            onChange={(e) => handleImageChange(e, setBannerPreview)}
+                                            id="bannerUpload"
+                                            style={{ display: 'none' }} // 파일 입력을 숨김
+                                        />
+                                        <label htmlFor="bannerUpload" className="upload-button">
+                                            <ExpandOutlineIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
+                                        </label>
+                                    </div>
+                                    {bannerPreview && <img src={bannerPreview} alt="프로필 이미지 미리보기" className="preview" />}
+                                </div>
+                                </div>
+
+                                
                                 <div className="create-sy-section">
-                                    <label>로고 이미지</label>
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        onChange={(e) => handleImageChange(e, setLogoPreview)}
-                                    />
-                                    {logoPreview && <img src={logoPreview} alt="로고 이미지 미리보기" className="preview" />}
+                                    <h3><label htmlFor='shop-area'>업체위치 [주소첨부]</label></h3>
+                                    <input className='long-input-txt' id='shop-area' type="text" placeholder="업체주소를 입력해주세요" name='' value='' />
                                 </div>
 
                                 <div className="create-sy-section">
-                                    <label>대문로고 이미지</label>
-                                    <input 
-                                        type="file" 
-                                        accept="image/*" 
-                                        onChange={(e) => handleImageChange(e, setBannerPreview)}
-                                    />
-                                    {bannerPreview && <img src={bannerPreview} alt="대문로고 이미지 미리보기" className="preview" />}
+                                    <h3><label htmlFor='shop-kakao'>카카오톡 채널 URL</label></h3>
+                                    <input className='long-input-txt' id='shop-kakao' type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" name='' value=''/>
                                 </div>
-
                                 <div className="create-sy-section">
-                                    <label htmlFor='shop-name'>업체명</label>
-                                    <input id='shop-name' type="text" placeholder="업체명을 입력해주세요!" name='' value='' />
+                                    <h3 htmlFor='shop-txt'>업체상세 설명</h3>
+                                    <textarea  id='shop-txt' placeholder="자유롭게 작성해주세요" ></textarea>
                                 </div>
-
+                                
                                 <div className="create-sy-section">
-                                    <label htmlFor='shop-txt'>업체 설명</label>
-                                    <textarea id='shop-txt' placeholder="자유롭게 작성해주세요" value=''></textarea>
-                                </div>
-
-                                <div className="create-sy-section section-flex">
-                                    <label>카테고리 등록</label>
+                                    <div className='category-box'>
+                                        <h3>카테고리 등록</h3>
+                                        <button className="sy-add-category" onClick={addCategory}>카테고리 추가</button>
+                                    </div>
+                                    <div className=' section-flex'>
+                                    
                                     {categoryPreviews.map((preview, index) => (
-                                        <div key={index} className="sy-category-upload">
-                                            <input />
+                                        <div key={index} className="sy-category-upload sy-img-margin-box ">
                                             <input 
                                                 type="file" 
                                                 accept="image/*" 
@@ -90,7 +151,15 @@ const VenderDashboard = () => {
                                                     }
                                                 }} 
                                                 className="file-input"  // 파일 입력에 대한 클래스를 추가하여 숨길 준비
+                                                id={`category-nth ${index + 1}`}
+                                                style={{ display: 'none' }} // 파일 입력을 숨김
                                             />
+                                            
+                                            <input className='short-input-txt'  type='text' name=''  placeholder='카테고리명을 입력해주세요' />
+                                            <label htmlFor={`category-nth ${index + 1}`} className="upload-button">
+                                            <ArchiveIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
+                                            </label>
+                                            <TrashIcon className='trash-bannerIcon' style={{ fontSize: '24px', color: 'black',}} onClick={() => handleDeleteCategory(index)} />
                                             {preview && (
                                             <div className="preview-container">
                                                 <img src={preview} alt={`카테고리 이미지 ${index + 1} 미리보기`} className="preview" />
@@ -98,20 +167,15 @@ const VenderDashboard = () => {
                                         )}
                                         </div>
                                     ))}
-                                    <button className="sy-add-category">+ 추가</button>
+                                    
+                                </div>
                                 </div>
 
-                                <div className="create-sy-section">
-                                    <label htmlFor='shop-area'>업체위치 [주소첨부]</label>
-                                    <input id='shop-area' type="text" placeholder="업체주소를 입력해주세요" name='' value='' />
-                                </div>
-
-                                <div className="create-sy-section">
-                                    <label htmlFor='shop-kakao'>카카오톡 채널 URL</label>
-                                    <input id='shop-kakao' type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" name='' value=''/>
-                                </div>
-
-                                <button className="sy-apply-button"><Link to='/user/storedetail'>적용하기</Link></button>
+                                
+                                <div className='insert-btn'>
+                                    <button className="sy-apply-button"><Link to='/vender'>저장하기</Link></button>
+                                    <button className="sy-apply-button"><Link to='/vender'>적용하기</Link></button>
+                                </div>    
                             </div>
                             
                             

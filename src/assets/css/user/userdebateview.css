@@ -35,7 +35,16 @@
     color: #666;
   }
   
-  /* Image Section */
+  /* Image and Progress Bar Section */
+  .debate-images-progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  
   .debate-image-section {
     display: flex;
     align-items: center;
@@ -68,14 +77,14 @@
     border-radius: 25px;
     cursor: pointer;
   }
-
-.vote-button-a {
+  
+  .vote-button-a {
     background-color: #6D28D9; /* Purple for Button A */
-}
-
-.vote-button-b {
+  }
+  
+  .vote-button-b {
     background-color: #ff4b87; /* Pink for Button B */
-}
+  }
   
   .vs-text {
     font-size: 24px;
@@ -103,6 +112,7 @@
   }
   
   .debate-description p {
+    white-space: pre-line; /* Preserves line breaks */
     text-align: left;
     font-size: 1em;
     color: #555;
@@ -138,9 +148,6 @@
     color: white;
     font-weight: bold;
   }
-  .debate-images-progress-container {
-    border-bottom: ;
-  }
   
   /* Comments Section */
   .comments-section {
@@ -156,52 +163,20 @@
     margin-bottom: 16px;
   }
   
-  .comments-section textarea {
-    width: 100%;
-    height: 100px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    font-size: 14px;
-  }
-  
-  .submit-comment {
-    display: block;
-    margin-top: 10px;
-    background-color: #00A884;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-  }
-  
-  .comment {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 8px;
-  }
-  
-  .comment-author {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
+  /* Comment Input Area */
   .comment-input-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
-}
-
-/* Textarea container takes full width minus button width */
-.comment-textarea-container {
+  }
+  
+  /* Textarea container takes full width minus button width */
+  .comment-textarea-container {
     flex-grow: 1;
-}
-
-.comment-textarea-container textarea {
+  }
+  
+  .comment-textarea-container textarea {
     width: 100%;
     height: 100px;
     border: 1px solid #ddd;
@@ -209,10 +184,10 @@
     padding: 10px;
     font-size: 14px;
     resize: vertical;
-}
-
-/* Fixed-width button styling */
-.comment-submit-container .submit-comment {
+  }
+  
+  /* Fixed-width button styling */
+  .comment-submit-container .submit-comment {
     background-color: #00A884;
     color: white;
     padding: 10px 20px;
@@ -221,4 +196,48 @@
     cursor: pointer;
     font-size: 14px;
     width: 100px; /* Set fixed width for the button */
-}
+  }
+  
+  /* Display of Existing Comments */
+  .comment-list {
+    margin-top: 20px;
+  }
+  
+  .comment {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .comment-profile-pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .comment-content {
+    flex: 1;
+  }
+  
+  .comment-author-vote {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+  }
+  
+  .comment-author {
+    color: #333;
+  }
+  
+  .user-vote-indicator-a {
+    font-size: 0.9em;
+    color: #6D28D9;
+  }
+  .user-vote-indicator-b {
+    font-size: 0.9em;
+    color: #ff4b87;
+  }
+  

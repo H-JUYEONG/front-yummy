@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import '../../assets/css/all.css'; // 공통 초기화 및 전역 css
-import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
-import '../../assets/css/vender/option.css'; // 상품 등록 페이지 전용 스타일
+import '../../assets/css/all.css';
+import '../../assets/css/vender/vender.css';
+import '../../assets/css/vender/option.css';
 import VenderSidebar from './include/VenderSidebar';
 
+
 function VenderOption() {
+ 
     const [options, setOptions] = useState([
         { id: 1, name: '상품종류', subOptions: [{ name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' }] },
         { id: 2, name: '케이크 사이즈', subOptions: [] },
@@ -43,22 +45,45 @@ function VenderOption() {
 
     return (
         <div className="vender-container">
-            <div class="vender-content-wrapper">
+            <div className="vender-content-wrapper">
                 <VenderSidebar />
                 <div className="vender-content">
-                    <div className="option-main-content">
-                        <ul className="option-list">
-                            {options.map(option => (
-                                <Option
-                                    key={option.id}
-                                    option={option}
-                                    addSubOption={addSubOption}
-                                    removeSubOption={removeSubOption}
-                                    isExpanded={!!expandedOptions[option.id]}
-                                    toggleOption={() => toggleOption(option.id)}
-                                />
-                            ))}
-                        </ul>
+                    <div className="option-selection-area">
+                        {/* 왼쪽: 옵션 리스트 */}
+                        <div className="left-panel">
+                            <ul className="option-list">
+                                {options.map(option => (
+                                    <Option
+                                        key={option.id}
+                                        option={option}
+                                        addSubOption={addSubOption}
+                                        removeSubOption={removeSubOption}
+                                        isExpanded={!!expandedOptions[option.id]}
+                                        toggleOption={() => toggleOption(option.id)}
+                                    />
+                                ))}
+                            </ul>
+                        </div>
+                        {/* 오른쪽: 선택된 옵션 */}
+                        <div className="right-panel">
+                            <h3>선택된 옵션</h3>
+                            <div className="selected-options">
+                                {options.map(option => (
+                                    option.subOptions.length > 0 && (
+                                        <div key={option.id} className="selected-option-group">
+                                            <h4 className="option-group-title">{option.name}</h4>
+                                            {option.subOptions.map((subOption, index) => (
+                                                <SubOption
+                                                    key={`${option.id}-${index}`}
+                                                    subOption={subOption}
+                                                    removeSubOption={() => removeSubOption(option.id, index)}
+                                                />
+                                            ))}
+                                        </div>
+                                    )
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,7 +136,7 @@ function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOptio
                     ))}
                     <div className="add-sub-option">
                         <div className="input-group">
-                            <label className="upload-label" htmlFor="file-input">
+                            <label className="upload-label" htmlFor={`file-input-${option.id}`}>
                                 {previewUrl ? (
                                     <img src={previewUrl} alt="미리보기" className="preview-image" />
                                 ) : (
@@ -120,7 +145,7 @@ function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOptio
                             </label>
                             <input
                                 type="file"
-                                id="file-input"
+                                id={`file-input-${option.id}`}
                                 className="input-file"
                                 accept="image/*"
                                 onChange={handleFileChange}

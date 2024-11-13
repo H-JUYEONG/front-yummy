@@ -53,7 +53,7 @@
 }
 
 #user-cake-audition-add button:hover {
-  background-color: #e65a50;
+  background-color: #fc5343;
 }
 
 .user-cake-audition-all {
@@ -86,7 +86,7 @@
   padding: 8px 16px;
     border: 2px solid #ddd;
     border-radius: 25px;
-    background-color: #fff;
+    background-color: #f9f9f9;
     color: #4B5563;
     cursor: pointer;
     transition: all 0.2s;
@@ -174,7 +174,7 @@
 
 /* 진행중 상태 스타일 */
 .status-in-progress {
-  background-color: #008000;
+  background-color: #0056b3;
 }
 
 /* 종료 상태 스타일 */
@@ -206,39 +206,44 @@
   color: #999;
 }
 
-/* Pagination container */
-.user-cake-audition-pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 10px;
+/* 페이지네이션 스타일 */
+.user-audition-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-left:50px;
 }
 
-/* Page number buttons */
-.pagination-page-number,
-.pagination-arrow {
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: color 0.3s, font-weight 0.3s;
-  border: none; /* Border 제거 */
-  background-color: transparent; /* 배경색 제거 */
+.user-audition-page-numbers {
+    display: flex;
+    gap: 5px;
 }
 
-/* Active page button */
-.pagination-page-active {
-  color: #000;
-  font-weight: bold; /* 활성화된 페이지 강조 */
+.user-audition-page-number,
+.user-audition-prev-page,
+.user-audition-next-page {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-/* Arrow button styling */
-.pagination-arrow {
-  font-size: 1.2rem;
+.user-audition-page-number:hover,
+.user-audition-prev-page:hover,
+.user-audition-next-page:hover {
+    background: #F3F4F6;
 }
 
-/* Hover effect for buttons */
-.pagination-page-number:hover,
-.pagination-arrow:hover {
-  color: #000; /* 호버 시 강조 색상 */
-  font-weight: bold; /* 폰트 bold 추가 */
+.user-audition-page-number.active {
+    background: #ff6f61;
+    color: white;
+    border-color: #ff6f61;
 }

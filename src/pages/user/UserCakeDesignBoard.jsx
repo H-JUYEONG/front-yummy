@@ -139,7 +139,9 @@ const UserCakeDesignBoard = () => {
                 </div>
                 <div className="user-cake-design-card-info">
                   <h3 className="user-cake-design-card-title">{card.title}</h3>
-                  <p className="user-cake-design-card-subtitle">{card.nickname}</p>
+                  <p className="user-cake-design-card-subtitle">
+                    {card.nickname}
+                  </p>
                   <div className="user-cake-design-card-status">
                     <span>조회수: {card.views}</span>
                   </div>
@@ -148,32 +150,34 @@ const UserCakeDesignBoard = () => {
             ))}
           </div>
 
-          {/* Pagination */}
+          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
             <button
+              className="user-cake-design-prev-page"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="pagination-arrow pagination-arrow-left"
             >
               {"<"}
             </button>
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index + 1}
-                className={`user-cake-design-pagination-page-number ${
-                  currentPage === index + 1
-                    ? "user-cake-design-pagination-page-active"
-                    : ""
-                }`}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
+            <div className="user-cake-design-page-numbers">
+              {[1, 2, 3, "...", 67, 68].map((page, index) => (
+                <button
+                  key={index}
+                  className={`user-cake-design-page-number ${
+                    currentPage === page ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    typeof page === "number" && handlePageChange(page)
+                  }
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
             <button
+              className="user-cake-design-next-page"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="user-cake-design-pagination-arrow user-cake-design-pagination-arrow-right"
             >
               {">"}
             </button>

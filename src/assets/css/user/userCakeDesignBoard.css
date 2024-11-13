@@ -47,7 +47,7 @@
 }
 
 #user-cake-design-add button:hover {
-  background-color: #e65a50;
+  background-color: #fc5343;
 }
 
 .user-cake-design-all {
@@ -80,7 +80,7 @@
   padding: 8px 16px;
     border: 2px solid #ddd;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: #f9f9f9;
     color: #4B5563;
     cursor: pointer;
     transition: all 0.2s;
@@ -178,8 +178,8 @@
 }
 
 .user-cake-design-card-title {
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 1.2em;
+  /* font-weight: bold; */
   margin: 0.5em 0;
   white-space: nowrap; /* 텍스트를 한 줄로 유지 */
   overflow: hidden;     /* 넘치는 텍스트를 숨김 */
@@ -196,38 +196,44 @@
   color: #999;
 }
 
-/* Pagination container */
+/* 페이지네이션 스타일 */
 .user-cake-design-pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-left:50px;
 }
 
-/* Page number buttons */
-.user-cake-design-pagination-page-number,
-.user-cake-design-pagination-arrow {
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: color 0.3s, font-weight 0.3s;
-  border: none; /* Border 제거 */
-  background-color: transparent; /* 배경색 제거 */
+.user-cake-design-page-numbers {
+    display: flex;
+    gap: 5px;
 }
 
-/* Active page button */
-.user-cake-design-pagination-page-active {
-  color: #000;
+.user-cake-design-page-number,
+.user-cake-design-prev-page,
+.user-cake-design-next-page {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-/* Arrow button styling */
-.user-cake-design-pagination-arrow {
-  font-size: 1.2rem;
+.user-cake-design-page-number:hover,
+.user-cake-design-prev-page:hover,
+.user-cake-design-next-page:hover {
+    background: #F3F4F6;
 }
 
-/* Hover effect for buttons */
-.user-cake-design-pagination-page-number:hover,
-.user-cake-design-pagination-arrow:hover {
-  color: #000; /* 호버 시 강조 색상 */
-  font-weight: bold; /* 폰트 bold 추가 */
+.user-cake-design-page-number.active {
+    background: #ff6f61;
+    color: white;
+    border-color: #ff6f61;
 }
