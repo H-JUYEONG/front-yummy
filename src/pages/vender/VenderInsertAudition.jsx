@@ -52,11 +52,12 @@ const VenderInsertAudition = () => {
                             </div>
                             <div className='appeal-design-text'>
                                 <ul>
-                                    <li>선택지역 : 강남구</li>
-                                    <li>주문번호 : 1</li>
+                                    <li>주문번호: 1 </li>
+                                    <li>주문이름: </li>
                                     <li>제시금액 : 60,000원</li>
                                     <li>사이즈 : 12cm</li>
                                     <li>수령방식 : 픽업</li>
+                                    <li>희망지역: 강남구</li>
                                     <li>수령일자 : 2024-11-10</li>
                                     <li>요청사항</li>
                                     <li>
@@ -74,29 +75,33 @@ const VenderInsertAudition = () => {
                             </div>
                             <div className='input-photo-box'>
                                 <div className='input-photo-box-line'>
-                                    <img src='' />
+                                    <img src='#' />
                                 </div>
                             </div>
                         </div>
                     </div>
 
 
-
-
-
-                    <div className='insert-product-alllist'>
-                        <div className='insert-search-img-box'>
+                    
+                        <div className='insert-h2-box choose-flex-box'>
                             <h2>상품선택</h2>
-                            <input type='text' name='' value='' placeholder='상품을 검색해보세요' />
+                            <button>선택하러가기</button>
                         </div>
-                        <div>
-                            <div>
-                                
-                            </div>
+                        <div className='insert-h2-box choose-flex-box'>
+                            <h2>옵션선택</h2>
+                            <button type='button'>선택하러가기</button>
                         </div>
+                        <div className='insert-h2-box choose-flex-box'>
+                            <h2><label htmlFor='insert-price-txt'>신청금액</label></h2>
+                            <input id='insert-price-txt' type='text' name='' value=''/>원
+                        </div>
+                        <div className='insert-btn-box'>
+                            <button type='button' className='insert-btn'>신청하기</button>
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
+            
 
                     
         </>

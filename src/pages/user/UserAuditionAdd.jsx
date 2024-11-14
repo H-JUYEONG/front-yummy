@@ -17,6 +17,9 @@ const UserAuditionAdd = () => {
     { id: 2, title: "생일 케이크 도안", image: "/images/2.png" },
     { id: 3, title: "생일 케이크 도안", image: "/images/2.png" },
     { id: 4, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 5, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 6, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 7, title: "생일 케이크 도안", image: "/images/2.png" },
   ]);
 
   const handleTabChange = (tab) => {
@@ -51,70 +54,72 @@ const UserAuditionAdd = () => {
 
             {/* 주문 정보 입력 섹션 */}
             <div className="user-cake-audition-form-group">
-              <label htmlFor="order">주문</label>
+              <label htmlFor="order">제목</label>
               <input
                 type="text"
                 id="order"
-                placeholder="예) 바닐라 생크림 케이크"
+                placeholder="예: 생일 파티용 케이크 만들어 주세요."
                 className="user-audition-input-text"
               />
             </div>
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="style">스타일</label>
-              <input
-                type="text"
-                id="style"
-                placeholder="예) 도시락케이크"
-                className="user-audition-input-text"
-              />
-            </div>
+
             <div className="user-cake-audition-form-group">
               <label htmlFor="price">가격</label>
               <input
                 type="text"
                 id="price"
-                placeholder="예) 35,000원"
+                placeholder="예: 35,000원"
                 className="user-audition-input-text"
               />
             </div>
             <div className="user-cake-audition-form-group">
-              <label htmlFor="receiveDate">수령일</label>
+              <label htmlFor="style">사이즈</label>
               <input
                 type="text"
-                id="receiveDate"
-                placeholder="예) 예약"
+                id="style"
+                placeholder="예: 12cm"
                 className="user-audition-input-text"
               />
             </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="receiveHow">수령방식</label>
+              <input
+                type="text"
+                id="receiveHow"
+                placeholder="예: 픽업, 배송"
+                className="user-audition-input-text"
+              />
+            </div>
+
             {/* 지역 선택 섹션 */}
             <div className="user-cake-audition-form-group">
               <label htmlFor="regionSelect">지역 선택</label>
               <select id="regionSelect" className="user-audition-input-text">
-                <option>서울</option>
-                <option>경기</option>
-                <option>인천</option>
-                <option>대전</option>
-                <option>대구</option>
-                <option>부산</option>
-                <option>광주</option>
-                <option>울산</option>
-                <option>세종</option>
-                <option>강원</option>
-                <option>충북</option>
-                <option>충남</option>
-                <option>전북</option>
-                <option>전남</option>
-                <option>경북</option>
-                <option>경남</option>
-                <option>제주</option>
+                <option>강남구</option>
+                <option>강동구</option>
+                <option>강북구</option>
+                <option>강서구</option>
+                <option>관악구</option>
+                <option>구로구</option>
               </select>
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="receiveDate">수령일자</label>
+              <input
+                type="text"
+                id="receiveDate"
+                placeholder="예: 예약"
+                className="user-audition-input-text"
+              />
             </div>
 
             <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>
               <textarea
                 id="requests"
-                placeholder="텍스트나 추가 설명을 작성해 주세요."
+                placeholder="케이크의 컨셉, 색상, 디자인 요소 등 원하는 내용을 자세히 적어주세요."
                 className="user-audition-input-text"
                 rows="4"
               ></textarea>

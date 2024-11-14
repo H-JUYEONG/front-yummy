@@ -248,20 +248,30 @@ function ProductRegistrationForm() {
                 const mockOptions = [
                     {
                         id: 1,
-                        name: '크기',
+                        name: '색상',
                         subOptions: [
-                            { name: '소형', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '중형', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '대형', imageUrl: 'https://via.placeholder.com/150' }
+                            { name: '빨강', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '파랑', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '노랑', imageUrl: 'https://via.placeholder.com/150' }
                         ]
                     },
+            
                     {
                         id: 2,
-                        name: '시트 맛',
+                        name: '맛',
                         subOptions: [
                             { name: '초코', imageUrl: 'https://via.placeholder.com/150' },
                             { name: '바닐라', imageUrl: 'https://via.placeholder.com/150' },
                             { name: '레드벨벳', imageUrl: 'https://via.placeholder.com/150' }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: '크기',
+                        subOptions: [
+                            { name: '1호', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '2호', imageUrl: 'https://via.placeholder.com/150' },
+                            { name: '3호', imageUrl: 'https://via.placeholder.com/150' }
                         ]
                     }
                 ];
@@ -331,7 +341,19 @@ function ProductRegistrationForm() {
                     <div className="product-registration">
                         <form className="main-content" onSubmit={handleSubmit}>
                             <h1 className="product-list-title">상품 등록</h1>
-
+                            <div className="form-group">
+                                <label htmlFor="productType">상품 종류 선택</label>
+                                <select
+                                    id="productType"
+                                    value={productType}
+                                    onChange={(e) => setProductType(e.target.value)}
+                                    className="input-select"
+                                >
+                                    <option value="">상품 종류를 선택해주세요</option>
+                                    <option value="일반케이크">일반케이크</option>
+                                    <option value="비건케이크">비건케이크</option>
+                                </select>
+                            </div>
                             <div className="form-group">
                                 <label htmlFor="productName">상품명</label>
                                 <input
@@ -343,23 +365,6 @@ function ProductRegistrationForm() {
                                     className="input-text"
                                 />
                             </div>
-
-                            <div className="form-group">
-                                <label htmlFor="productType">상품 종류 선택</label>
-                                <select
-                                    id="productType"
-                                    value={productType}
-                                    onChange={(e) => setProductType(e.target.value)}
-                                    className="input-select"
-                                >
-                                    <option value="">상품 종류를 선택해주세요</option>
-                                    <option value="케이크">케이크</option>
-                                    <option value="디저트">디저트</option>
-                                </select>
-                            </div>
-
-                            <ProductImages images={images} handleImageChange={handleImageChange} />
-
                             <div className="form-group">
                                 <label htmlFor="price">가격</label>
                                 <input
@@ -371,6 +376,7 @@ function ProductRegistrationForm() {
                                     className="input-text"
                                 />
                             </div>
+                            <ProductImages images={images} handleImageChange={handleImageChange} />
 
                             <ProductEditor
                                 description={description}

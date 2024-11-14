@@ -13,7 +13,7 @@
   font-size: 2.2em;
   font-weight: bold;
   color: #333;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   text-align: left;
   /* 웹사이트 느낌을 위해 왼쪽 정렬 */
   border-bottom: 1px solid #000000;
@@ -175,6 +175,8 @@
   gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
+  max-height: 300px; /* 스크롤 허용을 위한 최대 높이 */
+  overflow-y: auto; /* 수직 스크롤 활성화 */
 }
 
 .user-audition-liked-design-card {

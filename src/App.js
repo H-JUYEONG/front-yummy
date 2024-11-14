@@ -22,6 +22,7 @@ import VenderMain from './pages/vender/VenderMain';
 import VenderReview from './pages/vender/VenderReview';
 import VenderHeader from './pages/vender/include/VenderHeader';
 import VenderInsertPage from './pages/vender/VenderInsertPage';
+import VenderAuditionRequest from './pages/vender/VenderAuditionRequest';
 
 
 // user
@@ -108,7 +109,10 @@ function App() {
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
           <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
+          <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           <Route path="/vender/VenderInsertPage" element={<VenderInsertAudition/>} />
+          <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
+
           
           
           {/* User Routes */}

@@ -13,6 +13,10 @@
   font-size: 28px;
 }
 
+#user-cake-audition-tip strong {
+  color: #ff6f61;
+}
+
 .user-cake-audition-board-list {
   width: 100%;
   margin: 0 auto; /* 가로 가운데 정렬 */

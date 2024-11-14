@@ -34,11 +34,10 @@ const UserOrderList = () => {
 
     return (
         <div id="user-wrap">
-        <header id="user-wrap-head">
-           <Header/>
-        </header>
-
-        <main id="user-wrap-body">
+            <header id="user-wrap-head">
+                <Header />
+            </header>
+            <main id="user-wrap-body">
                 {/* Sidebar */}
                 <UserSidebar />
 
@@ -48,7 +47,7 @@ const UserOrderList = () => {
 
                     {/* Order Status Description */}
                     <section className="status-description">
-                        <h3>주문상태 안내</h3><br/><br/>
+                        <h3>주문상태 안내</h3><br /><br />
                         <table className="description-table">
                             <tbody>
                                 <tr>
@@ -144,7 +143,7 @@ const UserOrderList = () => {
 
             {/* Footer */}
             <footer id="user-wrap-footer">
-               <Footer/>
+                <Footer />
             </footer>
         </div>
     );
