@@ -34,42 +34,49 @@ const VenderCakeDesignDetail = () => {
                       alt="케이크 이미지"
                       className="cake-design-detail-main-img"
                     />
-                    <div className="cake-design-detail-sub-imgs">
-                      <img
-                        src="/images/1.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/1.png")}
-                      />
-                      <img
-                        src="/images/2.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/2.png")}
-                      />
-                      <img
-                        src="/images/3.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/3.png")}
-                      />
-                      <img
-                        src="/images/4.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/4.png")}
-                      />
-                      <img
-                        src="/images/5.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/5.png")}
-                      />
-                      <img
-                        src="/images/6.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/6.png")}
-                      />
-                      <img
-                        src="/images/7.png"
-                        alt="케이크 이미지"
-                        onClick={() => handleSubImageClick("/images/7.png")}
-                      />
+                    <div className="cake-design-detail-sub-imgs-wrapper">
+                      <div className="cake-design-detail-sub-imgs">
+                        <img
+                          src="/images/1.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/1.png")}
+                        />
+                        <img
+                          src="/images/2.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/2.png")}
+                        />
+                        <img
+                          src="/images/3.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/3.png")}
+                        />
+                        <img
+                          src="/images/4.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/4.png")}
+                        />
+                        <img
+                          src="/images/5.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/5.png")}
+                        />
+                        <img
+                          src="/images/6.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/6.png")}
+                        />
+                        <img
+                          src="/images/7.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/7.png")}
+                        />
+                        <img
+                          src="/images/7.png"
+                          alt="케이크 이미지"
+                          onClick={() => handleSubImageClick("/images/7.png")}
+                        />
+                      </div>
                     </div>
                   </div>
 
