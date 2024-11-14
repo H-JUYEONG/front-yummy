@@ -82,12 +82,14 @@ const VenderCakeDesignLikeList = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button
+                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/list")}
                     >
                       나의 도안
                     </button>
                     <button
+                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/like/list")}
                     >
@@ -109,7 +111,9 @@ const VenderCakeDesignLikeList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -118,7 +122,9 @@ const VenderCakeDesignLikeList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -127,7 +133,9 @@ const VenderCakeDesignLikeList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -136,7 +144,9 @@ const VenderCakeDesignLikeList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
                 </div>
 
