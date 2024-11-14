@@ -1,0 +1,343 @@
+/* 모든 스타일이 .vertical-cake-order 클래스 내부로 범위가 제한됨 */
+.vertical-cake-order {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 제품 정보 입력 폼 스타일 */
+.vertical-cake-order .product-info-input {
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-cake-order .input-group {
+    margin-bottom: 15px;
+}
+
+.vertical-cake-order .input-group:last-child {
+    margin-bottom: 0;
+}
+
+.vertical-cake-order .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.vertical-cake-order .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.vertical-cake-order .input-group input:focus {
+    outline: none;
+    border-color: #ff6f61;
+}
+
+.vertical-cake-order .price-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.vertical-cake-order .price-input-wrapper input {
+    padding-right: 40px;
+}
+
+.vertical-cake-order .price-unit {
+    position: absolute;
+    right: 12px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* 이미지 영역 스타일 */
+.vertical-cake-order .product-image-section {
+    margin-bottom: 40px;
+}
+
+.vertical-cake-order .main-image {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.vertical-cake-order .thumbnail-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.vertical-cake-order .thumbnail-wrapper {
+    position: relative;
+    padding-bottom: 100%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.vertical-cake-order .thumbnail-wrapper.active {
+    border-color: #ff6f61;
+}
+
+.vertical-cake-order .thumbnail-wrapper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-cake-order .thumbnail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 옵션 영역 스타일 */
+.vertical-cake-order .options-section {
+    margin-bottom: 40px;
+}
+
+.vertical-cake-order .option-group {
+    margin-bottom: 30px;
+}
+
+.vertical-cake-order .option-group h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 색상 옵션 스타일 */
+.vertical-cake-order .color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.vertical-cake-order .color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.vertical-cake-order .color-option:hover {
+    transform: scale(1.1);
+}
+
+.vertical-cake-order .color-option.active {
+    border-color: #ff6f61;
+}
+
+.vertical-cake-order .color-option::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    white-space: nowrap;
+    color: #666;
+}
+
+/* 색상 클래스 정의 */
+.vertical-cake-order .color-option.pink { background-color: #FFB6C1; }
+.vertical-cake-order .color-option.yellow { background-color: #FFD700; }
+.vertical-cake-order .color-option.orange { background-color: #FFA500; }
+.vertical-cake-order .color-option.blue { background-color: #4169E1; }
+.vertical-cake-order .color-option.green { background-color: #32CD32; }
+.vertical-cake-order .color-option.purple { background-color: #8A2BE2; }
+.vertical-cake-order .color-option.brown { background-color: #8B4513; }
+
+/* 옵션 그리드 스타일 */
+.vertical-cake-order .option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.vertical-cake-order .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vertical-cake-order .option-item:hover {
+    border-color: #ff6f61;
+    transform: translateY(-2px);
+}
+
+.vertical-cake-order .option-item.active {
+    border-color: #ff6f61;
+    background-color: #fff5f4;
+}
+
+.vertical-cake-order .option-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.vertical-cake-order .option-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 신청사항 영역 스타일 */
+.vertical-cake-order .request-section {
+    margin-bottom: 30px;
+}
+
+.vertical-cake-order .request-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.vertical-cake-order .request-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.vertical-cake-order .request-textarea:focus {
+    outline: none;
+    border-color: #ff6f61;
+}
+
+/* 전송 버튼 스타일 */
+.vertical-cake-order .submit-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+}
+
+.vertical-cake-order .submit-button:hover {
+    background-color: #ff5c52;
+}
+.vertical-cake-order {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 제품 정보 영역 스타일 */
+.vertical-cake-order .product-info-input {
+    margin-bottom: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-cake-order .product-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.vertical-cake-order .price-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 200px;
+}
+
+.vertical-cake-order .price-input-wrapper input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.vertical-cake-order .price-input-wrapper input:focus {
+    outline: none;
+    border-color: #ff6f61;
+}
+
+.vertical-cake-order .price-unit {
+    position: absolute;
+    right: 12px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .vertical-cake-order .thumbnail-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .vertical-cake-order .option-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .vertical-cake-order .color-options {
+        justify-content: center;
+    }
+
+    .vertical-cake-order .main-image {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vertical-cake-order .option-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .vertical-cake-order .main-image {
+        height: 250px;
+    }
+
+    .vertical-cake-order .color-options {
+        gap: 15px;
+    }
+}
