@@ -82,13 +82,15 @@ const VenderCakeDesignList = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button
+                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/list")}
                     >
                       나의 도안
                     </button>
                     <button
-                      className="add-button"
+                      style={{ backgroundColor: "#27ae60" }}
+                      className="add-button btn-colors"
                       onClick={() => navigate("/vender/cakeDesign/like/list")}
                     >
                       찜한 도안
@@ -109,7 +111,9 @@ const VenderCakeDesignList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -118,7 +122,9 @@ const VenderCakeDesignList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -127,7 +133,9 @@ const VenderCakeDesignList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
 
                   <div className="vender-cake-design-list-box">
@@ -136,9 +144,10 @@ const VenderCakeDesignList = () => {
                       alt="케이크 이미지"
                       onClick={handleImageClick}
                     />
-                    <p className="vender-cake-design-title">토이스토리 컨셉 도안</p>
+                    <p className="vender-cake-design-title">
+                      토이스토리 컨셉 도안
+                    </p>
                   </div>
-
                 </div>
 
                 {/* 페이징 네비게이션 */}
@@ -146,8 +155,9 @@ const VenderCakeDesignList = () => {
                   {Array.from({ length: totalPages }, (_, index) => (
                     <button
                       key={index}
-                      className={`page-button ${currentPage === index + 1 ? "active" : ""
-                        }`}
+                      className={`page-button ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
                       onClick={() => setCurrentPage(index + 1)}
                     >
                       {index + 1}
