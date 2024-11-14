@@ -108,11 +108,10 @@ const UserWritingList = () => {
             <table className="writing-table">
               <thead>
                 <tr>
-                  <th>번호</th>
-                  <th>제목</th>
-                  <th>추천수</th>
-                  <th>작성일시</th>
-                  <th>관리</th>
+                  <th className="j-writing-table-num">번호</th>
+                  <th className="j-writing-table-title">제목</th>
+                  <th className="j-writing-table-date">작성일시</th>
+                  <th className="j-writing-table-btn">관리</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,11 +123,10 @@ const UserWritingList = () => {
                   >
                     <td>{item.id}</td>
                     <td>{item.title}</td>
-                    <td>{item.likes}</td>
                     <td>{item.date}</td>
                     <td>
-                      <button className="action-btn">수정</button>
-                      <button className="action-btn delete-btn">삭제</button>
+                      <button className="j-action-btn">수정</button>
+                      <button className="j-action-btn delete-btn">삭제</button>
                     </td>
                   </tr>
                 ))}

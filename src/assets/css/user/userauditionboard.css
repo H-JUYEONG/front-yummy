@@ -13,6 +13,16 @@
   font-size: 28px;
 }
 
+#user-cake-audition-tip strong {
+  color: #ff6f61;
+}
+
+/* 텍스트 영역에 애니메이션 적용 */
+#user-cake-audition-tip h2,
+#user-cake-audition-tip p {
+  animation: fadeIn 1s ease-in-out;
+}
+
 .user-cake-audition-board-list {
   width: 100%;
   margin: 0 auto; /* 가로 가운데 정렬 */
@@ -251,3 +261,16 @@
     color: white;
     border-color: #ff6f61;
 }
+
+/* 텍스트 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

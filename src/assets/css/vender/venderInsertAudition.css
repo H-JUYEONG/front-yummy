@@ -1,11 +1,15 @@
 @charset "UTF-8";
-
+.vender-container {
+    
+    min-height: 100vh;
+}
 .vender-insert-audition-wrap{
-    width: 1200px;
+    max-width: 100%;
+    width: 100%;
     border: 2px solid #ddd;
     border-radius: 10px;
-    height: 100vh;
-    margin: 20px;
+    background-color: #fff; /* 내부 콘텐츠 영역의 흰색 배경 */
+
     padding: 20px;
 }
 .insert-h1-box{
@@ -45,26 +49,27 @@
 .insert-recipt-box{
     display: flex;
     justify-content: space-between;
+    border-bottom:1px solid #000 ;
 
 }
 .insert-recipt-box .insert-audition-right-box{
     width: 50%;
-    height: 400px;
+    height: 350px;
+    overflow-y: auto;  /* 높이 초과 시 수직 스크롤 생김 */
+
     
 }
 .appeal-design-text{
-    padding-left: 10px;
-    
-}
-.insert-recipt-box .insert-audition-right-box ul{
+    padding: 5px 10px;
     border: 1px solid #ddd;
-    padding: 10px 15px;
     border-right: none;
-}   
+}
+ 
 
 .insert-recipt-box .insert-audition-left-box{
     width: 50%;
-    height: 400px;
+    height: 430px;
+    overflow-y: auto;  /* 높이 초과 시 수직 스크롤 생김 */
 }
 .input-photo-box{
     width: 100%;
@@ -72,10 +77,94 @@
     border: 1px solid #ddd;
     padding: 10px 15px;
     border-left: none;
-    
-}
-.input-photo-box .input-photo-box-line{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
 }
 
-.insert-recipt-box .insert-audition-left-box{}
+.input-photo-box .input-photo-box-line{
+    border: 1px solid#000;
+    height: 80%;
+    width: 80%;
+}
+
+.insert-recipt-box .insert-audition-left-box{
+    width: 50%;
+    
+    
+
+}
+/*요청사항박스*/
+.appeal-design-text-RequestedTerm{
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    height: 150px;
+    padding: 5px;
+    overflow-y: auto;  /* 높이 초과 시 수직 스크롤 생김 */
+
+}
+
+.insert-product-alllist{
+    margin-top: 10px;
+    
+}
+
+/* ///////////////////*/
+.insert-product-alllist-flex-box{
+    display: flex;
+    justify-content: space-between;
+
+}
+/*
+.flex-box-left-product{
+    background-color: aquamarine;
+    width: 50%;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    height: 300px;
+}
+
+.flex-box-right-option{
+    background-color: bisque;
+    width: 50%;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    height: 300px;
+}
+    */
+.choose-flex-box{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.choose-flex-box button{
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+.choose-flex-box input{
+    width:85%;
+    padding: 5px 5px;
+}
+.insert-btn-box{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    padding-top: 15px;
+}
+.insert-btn{
+    width: 800px;
+    padding: 8px 15px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}

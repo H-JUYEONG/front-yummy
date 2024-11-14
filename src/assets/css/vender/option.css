@@ -231,3 +231,31 @@
 .vender-content-wrapper .template-button:hover {
     background-color: #4b5563;
 }
+
+
+.vender-content-wrapper .right-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.vender-content-wrapper .register-product-button {
+    background-color: #4f46e5;
+    /* 세련된 보라색 계열 */
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    margin-left: 10px;
+}
+
+.vender-content-wrapper .register-product-button:hover {
+    background-color: #4338ca;
+    /* 호버 시 더 어두운 보라색 */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transform: translateY(-3px);
+}

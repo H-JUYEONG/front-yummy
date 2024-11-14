@@ -4,9 +4,7 @@ import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/option.css';
 import VenderSidebar from './include/VenderSidebar';
 
-
 function VenderOption() {
- 
     const [options, setOptions] = useState([
         { id: 1, name: '상품종류', subOptions: [{ name: '일반케이크', imageUrl: 'https://via.placeholder.com/150' }] },
         { id: 2, name: '케이크 사이즈', subOptions: [] },
@@ -57,7 +55,6 @@ function VenderOption() {
                                         key={option.id}
                                         option={option}
                                         addSubOption={addSubOption}
-                                        removeSubOption={removeSubOption}
                                         isExpanded={!!expandedOptions[option.id]}
                                         toggleOption={() => toggleOption(option.id)}
                                     />
@@ -66,7 +63,10 @@ function VenderOption() {
                         </div>
                         {/* 오른쪽: 선택된 옵션 */}
                         <div className="right-panel">
-                            <h3>선택된 옵션</h3>
+                            <div className="right-panel-header">
+                                <h3>선택된 옵션</h3>
+                                <button className="register-product-button">상품등록하기</button>
+                            </div>
                             <div className="selected-options">
                                 {options.map(option => (
                                     option.subOptions.length > 0 && (
@@ -91,7 +91,7 @@ function VenderOption() {
     );
 }
 
-function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOption }) {
+function Option({ option, addSubOption, isExpanded, toggleOption }) {
     const [subOptionName, setSubOptionName] = useState("");
     const [subOptionFile, setSubOptionFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState("");
@@ -127,13 +127,6 @@ function Option({ option, addSubOption, removeSubOption, isExpanded, toggleOptio
             </div>
             {isExpanded && (
                 <div className="option-details">
-                    {option.subOptions.map((subOption, index) => (
-                        <SubOption
-                            key={index}
-                            subOption={subOption}
-                            removeSubOption={() => removeSubOption(option.id, index)}
-                        />
-                    ))}
                     <div className="add-sub-option">
                         <div className="input-group">
                             <label className="upload-label" htmlFor={`file-input-${option.id}`}>

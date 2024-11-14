@@ -10,6 +10,17 @@
 
 #user-cake-design-tip p {
   font-size: 28px;
+  padding-bottom: 10px;
+}
+
+#user-cake-design-tip strong {
+  color: #ff6f61;
+}
+
+/* 텍스트 영역 애니메이션 적용 */
+#user-cake-design-tip h2,
+#user-cake-design-tip p {
+  animation: fadeIn 1s ease-in-out;
 }
 
 .user-cake-design-board-list {
@@ -172,7 +183,7 @@
 }
 
 .heart-icon {
-  color: #e63946; /* 하트 색상 */
+  color: #ff4b87; /* 하트 색상 */
   margin-right: 4px;
 }
 
@@ -246,3 +257,16 @@
     color: white;
     border-color: #ff6f61;
 }
+
+/* 텍스트 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

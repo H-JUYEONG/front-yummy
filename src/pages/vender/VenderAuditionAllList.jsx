@@ -103,7 +103,9 @@ const VenderAudirionAllList = () => {
                                             <td>3번도안</td>
                                             <td>보유중</td>
                                             <td>
-                                                <button className="supervision-read-button" onClick={openModal}>참여하러가기</button>
+                                                <Link to='/vender/venderInsertAudition'>
+                                                    <button className="supervision-read-button">참여하러가기</button>
+                                                </Link>
                                             </td>
                                         </tr>
                                         <tr>
