@@ -10,6 +10,11 @@
 
 #user-cake-design-tip p {
   font-size: 28px;
+  padding-bottom: 6px;
+}
+
+#user-cake-design-tip strong {
+  color: #ff6f61;
 }
 
 .user-cake-design-board-list {
