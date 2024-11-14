@@ -15,6 +15,8 @@
   font-size: 28px;
 }
 
+
+
 .user-debate-board-list {
   width: 100%;
   margin: 0 auto;
@@ -228,10 +230,9 @@
     margin-bottom: 5px;
 }
 
-.user-debate-all {
+.user-debate-all-count {
   float: left;
   padding: 20px 0px 0px 5px;
-  font-weight: bold;
   top: -10px;
 }  
 
@@ -274,13 +275,13 @@
 
 .gif-container img.right-gif{
   position: absolute;
-  right: 20px; /* 오른쪽 여백 조정 */
+  right: 10 0px; /* 오른쪽 여백 조정 */
   top: 200px; /* 상단 여백 조정 */
   z-index: 1; /* 다른 요소 위에 겹치지 않도록 설정 */
 }
 .gif-container img.right-gif{
-  width: 150px; /* 크기를 작게 조정 */
+  width: 100px; /* 크기를 작게 조정 */
   height: auto;
-  top:-5%;
+  top:-1%;
   right: 5%;
 }
