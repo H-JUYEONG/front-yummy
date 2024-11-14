@@ -366,18 +366,20 @@ const UserCakeDetail = () => {
 
     const renderTabContent = () => (
         <div className="full-content">
-            <div id="상품상세" className="content-section">
-                <img src="/images/제품 설명 1.png" alt="상품 상세 정보" />
-                <img src="/images/픽업 방법.png" alt="상품 상세 정보" />
-                <img src="/images/상품문의.png" alt="상품 상세 정보" />
-            </div>
-            <div id="리뷰" className="content-section">
-                {renderReviewSection()}
+            <div className="content-sections">
+                <div id="상품상세" className="content-section">
+                    <img src="/images/제품 설명 1.png" alt="상품 상세 정보" />
+                    <img src="/images/픽업 방법.png" alt="상품 상세 정보" />
+                    <img src="/images/상품문의.png" alt="상품 상세 정보" />
+                </div>
+                <div id="리뷰" className="content-section">
+                    {renderReviewSection()}
+                </div>
             </div>
         </div>
     );
 
-    
+
 
     return (
         <div id="user-wrap" className="text-center">
@@ -406,7 +408,7 @@ const UserCakeDetail = () => {
                         </div>
 
                         <div className="product-tabs">
-                            <div className="tabs-header">
+                            <div className="tabs-header sticky">
                                 {tabs.map((tab) => (
                                     <button
                                         key={tab}

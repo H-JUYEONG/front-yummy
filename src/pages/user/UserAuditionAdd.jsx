@@ -17,6 +17,9 @@ const UserAuditionAdd = () => {
     { id: 2, title: "생일 케이크 도안", image: "/images/2.png" },
     { id: 3, title: "생일 케이크 도안", image: "/images/2.png" },
     { id: 4, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 5, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 6, title: "생일 케이크 도안", image: "/images/2.png" },
+    { id: 7, title: "생일 케이크 도안", image: "/images/2.png" },
   ]);
 
   const handleTabChange = (tab) => {
