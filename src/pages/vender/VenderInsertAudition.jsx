@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 //import 컴포넌트
 import VenderProductModalInsert from './VenderProductModalInsert';
-
+import VenderSidebar from './include/VenderSidebar';
+import VenderHeader from './include/VenderHeader';
 //import css
 import '../../assets/css/vender/venderInsertAudition.css';
 
@@ -51,6 +52,14 @@ const VenderInsertAudition = () => {
 
     return (
         <>
+        <div className="vender-container">
+                <div class="vender-content-wrapper">
+                    <VenderSidebar />
+                    <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
+                        <main className="product-list-main-content">
             <div className="vender-container">
                 <div className='vender-insert-audition-wrap'>
                     <div className='insert-h1-box'>
@@ -117,6 +126,10 @@ const VenderInsertAudition = () => {
                 {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
             {isModalOpen && <VenderProductModalInsert onClose={closeModal} />}
             
+            </main>
+                    </div>
+                </div>
+            </div>
 
                     
         </>
