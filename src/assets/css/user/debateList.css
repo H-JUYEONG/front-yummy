@@ -1,4 +1,6 @@
 /* General Styling for User Debate Section */
+
+
 #user-debate-tip {
   text-align: center;
   margin-bottom: 60px;
@@ -46,6 +48,7 @@
   cursor: pointer;
   transition: all 0.2s;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .user-debate-select-option button:hover {
@@ -157,6 +160,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 16px; /* Set consistent font size */
   color: #333; /* Uniform text color */
+  font-weight: bold;
 }
 
 /* Header Row Styling */
