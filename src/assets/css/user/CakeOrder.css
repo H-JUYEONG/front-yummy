@@ -873,6 +873,48 @@
     margin-bottom: 20px;
     border-radius: 8px;
 }
+#user-wrap .cake-order-container .delivery-type-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#user-wrap .cake-order-container .delivery-option-button {
+    flex: 1;
+    padding: 12px 24px;
+    border: 2px solid #ff6f61;
+    border-radius: 30px;
+    background: white;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#user-wrap .cake-order-container .delivery-option-button:hover {
+    background-color: #ff6f61;
+    color: white;
+}
+
+#user-wrap .cake-order-container .delivery-option-button.active {
+    background-color: #ff6f61;
+    color: white;
+}
+
+/* 주소 입력 필드 스타일 */
+#user-wrap .cake-order-container .address-input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#user-wrap .cake-order-container .address-input-field:focus {
+    border-color: #ff6f61;
+    outline: none;
+}
 
 /* 기존 색상 */
 #user-wrap .cake-order-container .color-option.pink {
@@ -903,7 +945,41 @@
 #user-wrap .cake-order-container .color-option.brown {
     background-color: #8B4513;
 }
+#user-wrap .cake-order-container .receiver-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
+#user-wrap .cake-order-container .receiver-info .input-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#user-wrap .cake-order-container .receiver-info .input-field label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+#user-wrap .cake-order-container .receiver-info .receiver-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+#user-wrap .cake-order-container .receiver-info .receiver-input:focus {
+    border-color: #ff6f61;
+    outline: none;
+}
+
+#user-wrap .cake-order-container .receiver-info .receiver-input::placeholder {
+    color: #aaa;
+}
 
 /* 반응형 대응 */
 @media (max-width: 768px) {

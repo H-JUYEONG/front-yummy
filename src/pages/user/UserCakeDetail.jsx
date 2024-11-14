@@ -27,7 +27,7 @@ const UserCakeDetail = () => {
     const flavorContainerRef = useRef(null);
     const sizeContainerRef = useRef(null);
     const tabContentRef = useRef(null);
-
+    const [deliveryType, setDeliveryType] = useState('pickup');
 
 
 
@@ -510,16 +510,43 @@ const UserCakeDetail = () => {
                                     </div>
                                 </div>
                             </div>
-
                             <div className="option-group">
-                                <h3>픽업 장소</h3>
-                                <div className="location-select">
-                                    <div className="map-placeholder">지도 영역. api가 필요합니다</div>
+                                <h3>배송 방식</h3>
+                                <div className="delivery-type-buttons">
+                                    <button
+                                        className={`delivery-option-button ${deliveryType === 'pickup' ? 'active' : ''}`}
+                                        onClick={() => setDeliveryType('pickup')}
+                                    >
+                                        픽업
+                                    </button>
+                                    <button
+                                        className={`delivery-option-button ${deliveryType === 'quick' ? 'active' : ''}`}
+                                        onClick={() => setDeliveryType('quick')}
+                                    >
+                                        퀵
+                                    </button>
                                 </div>
                             </div>
 
                             <div className="option-group">
-                                <h3>픽업 날짜</h3>
+                                <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
+                                {deliveryType === 'pickup' ? (
+                                    <div className="location-select">
+                                        <div className="map-placeholder">지도 영역. api가 필요합니다</div>
+                                    </div>
+                                ) : (
+                                    <div className="address-input">
+                                        <input
+                                            type="text"
+                                            placeholder="주소를 입력해주세요"
+                                            className="address-input-field"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="option-group">
+                                <h3>{deliveryType === 'pickup' ? '픽업 날짜' : '배송 날짜'}</h3>
                                 <div className="date-select">
                                     <input
                                         type="date"
@@ -531,7 +558,7 @@ const UserCakeDetail = () => {
                             </div>
 
                             <div className="option-group">
-                                <h3>픽업 시간</h3>
+                                <h3>{deliveryType === 'pickup' ? '픽업 시간' : '배송 시간'}</h3>
                                 <div className="time-select">
                                     <select
                                         value={selectedTime}
@@ -547,7 +574,27 @@ const UserCakeDetail = () => {
                                     </select>
                                 </div>
                             </div>
-
+                            <div className="option-group">
+    <h3>받는 사람 정보</h3>
+    <div className="receiver-info">
+        <div className="input-field">
+            <label>받는 사람</label>
+            <input
+                type="text"
+                placeholder="받는 사람 이름을 입력해주세요"
+                className="receiver-input"
+            />
+        </div>
+        <div className="input-field">
+            <label>연락처</label>
+            <input
+                type="tel"
+                placeholder="'-' 없이 숫자만 입력해주세요"
+                className="receiver-input"
+            />
+        </div>
+    </div>
+</div>
                             <div className="option-group">
                                 <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">

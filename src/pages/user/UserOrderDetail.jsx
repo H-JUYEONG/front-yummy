@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderdetail.css'
@@ -6,8 +6,10 @@ import Header from './include/Header';
 import Footer from './include/Footer';
 
 const UserOrderDetail = () => {
-    // 상품 이미지ㅇㅇ URL - 실제로는 props나 API로 받아올 것 이거 안씁니다 userorder 쓸거에용 
-    const productImage = "/images/2호_일반케이크.jpg"; // 예시 이미지 경로
+    // 컴포넌트 마운트 시 스크롤 최상단으로
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div id="user-wrap">
@@ -30,26 +32,60 @@ const UserOrderDetail = () => {
 
                         {/* 주문 상품 정보 */}
                         <div className="order-product-info">
+                            
                             <div className="product-image-container">
-                                {productImage ? (
-                                    <img 
-                                        src={productImage} 
-                                        alt="생일 축하 레터링 케이크" 
-                                        className="product-image"
-                                        onError={(e) => {
-                                            e.target.onerror = null;
-                                            e.target.src = '/defaultCake.jpg'; // 대체 이미지 경로
-                                        }}
-                                    />
-                                ) : (
-                                    <div className="product-image no-image">
-                                        이미지 준비중
-                                    </div>
-                                )}
+                                <img 
+                                    src="/images/2호_일반케이크.jpg"
+                                    alt="생일 축하 레터링 케이크" 
+                                    className="product-image"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = '/defaultCake.jpg';
+                                    }}
+                                />
                             </div>
                             <div className="product-details">
-                                <h3>생일 축하 레터링 케이크 (초코맛 맛)</h3>
-                                <div className="product-price">35,000원 · 1개</div>
+                                <h3>special 꽃감사패 (1호,2호)</h3>
+                                <div className="detail-item">
+                                    <span className="label">배송방법: </span>
+                                    <span className="value">픽업</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">픽업일시: </span>
+                                    <span className="value">2024/11/04 오후 5시</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">픽업장소: </span>
+                                    <span className="value">노량진 9호선 밑바닥</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">색상: </span>
+                                    <span className="value">초록</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">맛: </span>
+                                    <span className="value">초코(+5000)</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">사이즈: </span>
+                                    <span className="value">1호</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">가격: </span>
+                                    <span className="value price">40,000원 · 1개</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">케이크 위 문구: </span>
+                                    <span className="value">합격하세요</span>
+                                </div>
+                                <div className="detail-item">
+                                    <span className="label">케이크 판 문구: </span>
+                                    <span className="value">사랑합니다</span>
+                                </div>
+                                <div className="detail-item note">
+                                    <span className="label">요청사항: </span>
+                                    <span className="value">크림을 조금만 부탁드립니다. 느끼한 걸 싫어해요.</span>
+                                </div>
                                 <div className="product-status">
                                     <span className="status-label">주문상태</span>
                                     <span className="status-value">픽업 완료</span>
@@ -88,7 +124,6 @@ const UserOrderDetail = () => {
                                     <span className="label">받는 주소</span>
                                     <span className="value">서울특별시 강남구 대치동 123 (ABC 빌딩 101호)</span>
                                 </p>
-                                <p className="delivery-note">배송 요청 사항: 위에 사랑한다고 적어주세요</p>
                             </div>
                         </div>
 
@@ -115,10 +150,7 @@ const UserOrderDetail = () => {
                     </div>
                 </section>
             </main>
-
-            
-               <Footer/>
-        
+            <Footer/>
         </div>
     );
 };
