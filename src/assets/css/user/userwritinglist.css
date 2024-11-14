@@ -78,6 +78,7 @@
     cursor: pointer;
     width: 60px; /* Set fixed width for uniform button size */
     text-align: center; /* Center text within the button */
+    margin-left: 10px;
   }
   
   .j-action-btn.delete-btn {
