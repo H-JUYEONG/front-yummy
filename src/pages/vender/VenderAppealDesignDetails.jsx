@@ -27,11 +27,12 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                                 <p className='sy-modal-sub-title'>주문정보</p>
                                 <div className='appeal-design-text'>
                                     <ul>
-                                        <li>선택지역 : 강남구</li>
                                         <li>주문번호 : 1</li>
+                                        <li>주문이름: 생일케이크</li>
                                         <li>제시금액 : 60,000원</li>
                                         <li>사이즈 : 12cm</li>
                                         <li>수령방식 : 픽업</li>
+                                        <li>희망지역:  강남구</li>
                                         <li>수령일자 : 2024-11-10</li>
                                         <li>요청사항</li>
                                         <li>
@@ -66,9 +67,10 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                                 <p className='sy-modal-sub-title'>예시도안</p>
                                 <div className='appeal-design-photo'><img src='../../assets/images/cake-logo1.png' alt='예시도안' /></div>
                             </div>
+                            
                         </div>
                     </div>
-
+                    
                 </div>
                 {children}
             </div>
