@@ -193,7 +193,7 @@ const UserCakeDetail = () => {
         }
     };
 
-    // 리뷰 관련 핸들러
+    // 리뷰 관련 핸들러11
     const handleRatingChange = (rating) => {
         setNewReview(prev => ({ ...prev, rating }));
     };
