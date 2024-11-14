@@ -4,11 +4,12 @@
     min-height: 100vh;
 }
 .vender-insert-audition-wrap{
-    width: 1200px;
+    max-width: 100%;
+    width: 100%;
     border: 2px solid #ddd;
     border-radius: 10px;
     background-color: #fff; /* 내부 콘텐츠 영역의 흰색 배경 */
-    margin: 20px;
+
     padding: 20px;
 }
 .insert-h1-box{
@@ -33,10 +34,10 @@
     
 }
 .insert-h2-box h2{
-    font-size: 24px;
+    font-size: 20px;
 }
 .insert-search-img-box h2{
-    font-size: 24px;
+    font-size: 20px;
     
 }
 .insert-search-img-box input{
@@ -144,7 +145,8 @@
     cursor: pointer;
 }
 .choose-flex-box input{
-    width: 1000px;
+    width:85%;
+    padding: 5px 5px;
 }
 .insert-btn-box{
     margin-top: 10px;

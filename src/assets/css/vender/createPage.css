@@ -159,9 +159,10 @@
     cursor: pointer;
     text-align: left;
 }
-.insert-btn{
+.page-insert-btn{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 15px;
 }
 .sy-apply-button {

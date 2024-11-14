@@ -1,10 +1,11 @@
 //import 라이브러리
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 //import 컴포넌트
-
-
+import VenderProductModalInsert from './VenderProductModalInsert';
+import VenderSidebar from './include/VenderSidebar';
+import VenderHeader from './include/VenderHeader';
 //import css
 import '../../assets/css/vender/venderInsertAudition.css';
 
@@ -23,9 +24,16 @@ const VenderInsertAudition = () => {
 
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const openNewWindow = () => {
         window.open('/vender/venderauditonrequest', '_blank');
+    };
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
     
 
@@ -44,6 +52,14 @@ const VenderInsertAudition = () => {
 
     return (
         <>
+        <div className="vender-container">
+                <div class="vender-content-wrapper">
+                    <VenderSidebar />
+                    <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
+                        <main className="product-list-main-content">
             <div className="vender-container">
                 <div className='vender-insert-audition-wrap'>
                     <div className='insert-h1-box'>
@@ -89,7 +105,7 @@ const VenderInsertAudition = () => {
                     
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>상품선택</h2>
-                            <button>선택하러가기</button>
+                            <button onClick={openModal}>선택하러가기</button>
                         </div>
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>옵션선택</h2>
@@ -107,7 +123,13 @@ const VenderInsertAudition = () => {
                         
                     </div>
                 </div>
+                {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
+            {isModalOpen && <VenderProductModalInsert onClose={closeModal} />}
             
+            </main>
+                    </div>
+                </div>
+            </div>
 
                     
         </>
