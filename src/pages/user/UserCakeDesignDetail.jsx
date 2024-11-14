@@ -13,9 +13,14 @@ import "../../assets/css/user/userCakeDesignDetail.css";
 const UserCakeDesignDetail = () => {
   const navigate = useNavigate();
   const [isFavorited, setIsFavorited] = useState(false);
+  const [mainImage, setMainImage] = useState("/images/3.png"); // Default main image
 
   const toggleFavorite = () => {
     setIsFavorited(!isFavorited);
+  };
+
+  const handleSubImageClick = (imageSrc) => {
+    setMainImage(imageSrc); // Update main image when a sub-image is clicked
   };
 
   return (
@@ -58,14 +63,53 @@ const UserCakeDesignDetail = () => {
               <div id="user-cake-design-detail-imgs-area">
                 {/* Image Section */}
                 <div className="user-cake-designs-detail-imgs">
-                  <img src="/images/3.png" alt="케이크 이미지" />
+                  <img src={mainImage} alt="케이크 이미지" />
                   <div className="user-cake-designs-detail-sub-imgs">
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
+                    <img
+                      src="/images/3.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/3.png")}
+                    />
+                    <img
+                      src="/images/4.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/4.png")}
+                    />
+                    <img
+                      src="/images/5.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/5.png")}
+                    />
+                    <img
+                      src="/images/6.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/6.png")}
+                    />
+                    <img
+                      src="/images/7.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/7.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
                   </div>
                 </div>
               </div>

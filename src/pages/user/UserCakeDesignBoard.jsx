@@ -100,15 +100,20 @@ const UserCakeDesignBoard = () => {
           <div id="user-cake-design-tip">
             <h2>케이크 디자인을 공유하는 공간입니다.</h2>
             <p>
-              마음에 드는 디자인을 찾았다면 <strong>'케이크 요청'</strong>을
-              통해 제작을 의뢰해보세요!
+              마음에 드는 디자인을 찾았다면 <strong>'케이크 요청'</strong>을 통해
+              제작을 의뢰해보세요!
+            </p>
+            <p>
+              내가 올린 도안으로 주문이 이루어지면 <strong>'포인트'</strong>를
+              받을 수 있어요!
             </p>
           </div>
           <div id="user-cake-design-select-option-list">
             <div className="user-cake-design-select-option">
+              <button>전체</button>
               <button>최신순</button>
-              <button>좋아요순</button>
               <button>조회수순</button>
+              <button>찜순</button>
             </div>
             <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
