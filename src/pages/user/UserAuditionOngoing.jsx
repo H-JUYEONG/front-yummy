@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import "../../assets/css/user/userauditionongoing.css";
@@ -152,7 +152,9 @@ const UserAuditionOngoing = () => {
                     </div>
                     <p>제시금액: {company.bidAmount}</p>
                   </div>
-                  <button className="ongoing-select-button">선택하기</button>
+                  <Link to='/user/paymentdetail'>
+                    <button className="ongoing-select-button">선택하기</button>
+                  </Link>
                 </div>
               ))
             )}

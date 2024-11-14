@@ -110,7 +110,6 @@ function App() {
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
           <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
           <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
-          <Route path="/vender/VenderInsertPage" element={<VenderInsertAudition/>} />
           <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
 
           

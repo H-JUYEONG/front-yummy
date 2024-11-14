@@ -1,5 +1,6 @@
 //import 라이브러리
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 //import 컴포넌트
 
@@ -23,7 +24,10 @@ const VenderInsertAudition = () => {
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
 
-
+    const openNewWindow = () => {
+        window.open('/vender/venderauditonrequest', '_blank');
+    };
+    
 
     
 
@@ -89,14 +93,16 @@ const VenderInsertAudition = () => {
                         </div>
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>옵션선택</h2>
-                            <button type='button'>선택하러가기</button>
+                            <button type='button' onClick={openNewWindow}>선택하러가기</button>
                         </div>
                         <div className='insert-h2-box choose-flex-box'>
                             <h2><label htmlFor='insert-price-txt'>신청금액</label></h2>
                             <input id='insert-price-txt' type='text' name='' value=''/>원
                         </div>
                         <div className='insert-btn-box'>
-                            <button type='button' className='insert-btn'>신청하기</button>
+                            <Link to='/user/audition/ongoing'>
+                                <button type='button' className='insert-btn'>신청하기</button>
+                            </Link>
                         </div>
                         
                     </div>
