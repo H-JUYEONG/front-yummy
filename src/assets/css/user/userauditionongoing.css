@@ -134,16 +134,16 @@
     justify-content: space-between; 
     align-items: center;
     width: 100%; 
-    position: relative;
     margin-bottom: 5px;
+    position: relative;
 }
 
 /* Toggle Button Style */
 .toggles-status-container {
     text-align: right;
-    position: absolute; /* 부모 요소 기준으로 위치 조정 가능 */
     right: 3px; /* 오른쪽으로부터 10px */
     transform: translateY(-30%); /* 수직 중앙 정렬 보정 */
+    position: absolute; 
 }
 
 /* 기본 버튼 스타일 */
