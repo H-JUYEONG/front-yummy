@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import UserSidebar from '../../pages/user/include/UserSidebar';
-import RightNavbar from './include/RightNavbar'; // 새로 만든 RightNavbar 컴포넌트 임포트
+import RightNavbar from './include/RightNavbar';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorder.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
 
-//얘가 주문조회 둘다있는거에요 이거 쓸겁니다
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
+    // 컴포넌트 마운트 시 스크롤 최상단으로
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const orderStatuses = [
-        { label: '결제대기', count: 0 },
         { label: '결제완료', count: 0 },
         { label: '제작중', count: 0 },
-        { label: '픽업/배송중', count: 0 },
+        { label: '제작완료', count: 0 },
+        { label: '픽업요청/배송중', count: 0 },
         { label: '픽업/배송완료', count: 0 }
     ];
 
@@ -25,7 +29,7 @@ const UserOrder = () => {
             id: 1,
             date: '2024-11-01',
             productName: '조끼핏 케이크',
-            orderStatus: '결제대기',
+            orderStatus: '결제완료',
             statusMessage: '업로드 미완료',
             actions: ['주문상세보기'],
             images: [],
@@ -35,24 +39,41 @@ const UserOrder = () => {
             id: 2,
             date: '2024-10-03',
             productName: '생크림 케이크',
-            orderStatus: '픽업완료',
+            orderStatus: '픽업/배송완료',
             statusMessage: '업로드 완료',
             actions: ['주문상세보기', '리뷰쓰기'],
-            images: ['/images/케이크 제작 1.jpg', '/images/케이크 제작 2.png'],
+            images: ['/images/케이크 제작 1.jpg'],
             video: '/cake-video.mp4'
         }
     ];
 
+    // 상태 클릭 핸들러 - 스크롤 처리 추가
     const handleStatusClick = (order) => {
         if (order.statusMessage === '업로드 완료') {
+            window.scrollTo(0, 0);
             setSelectedOrder(order);
             setShowDetail(true);
         }
     };
 
+    // 목록으로 돌아가기 핸들러 - 스크롤 처리 추가
     const handleBackToList = () => {
+        window.scrollTo(0, 0);
         setShowDetail(false);
         setSelectedOrder(null);
+    };
+
+    // 링크 클릭 시 스크롤 처리를 위한 컴포넌트
+    const ScrollToTopLink = ({ to, className, children, state }) => {
+        const handleClick = () => {
+            window.scrollTo(0, 0);
+        };
+
+        return (
+            <Link to={to} className={className} state={state} onClick={handleClick}>
+                {children}
+            </Link>
+        );
     };
 
     // 주문 목록 화면
@@ -133,23 +154,22 @@ const UserOrder = () => {
                                     <div className="action-buttons">
                                         {order.actions.map((action, idx) => (
                                             action === '주문상세보기' ? (
-                                                <Link
+                                                <ScrollToTopLink
                                                     key={idx}
                                                     to={`/user/mypage/orderdetail`}
                                                     className="action-btn"
                                                 >
                                                     {action}
-                                                </Link>
+                                                </ScrollToTopLink>
                                             ) : action === '리뷰쓰기' ? (
-                                                <Link
+                                                <ScrollToTopLink
                                                     key={idx}
                                                     to="/user/cakedetail"
-                                                    state={{ openReview: true }}  // state 추가
+                                                    state={{ openReview: true }}
                                                     className="action-btn"
                                                 >
                                                     {action}
-                                                </Link>
-
+                                                </ScrollToTopLink>
                                             ) : (
                                                 <button key={idx} className="action-btn">
                                                     {action}
@@ -223,15 +243,11 @@ const UserOrder = () => {
             <header id="user-wrap-head">
                 <Header />
             </header>
-            {/* Right Navbar */}
             <RightNavbar />
             <main id="user-wrap-body">
                 <UserSidebar />
-
                 {showDetail ? <OrderDetail /> : <OrderList />}
-
             </main>
-
             <footer id="user-wrap-footer">
                 <Footer />
             </footer>

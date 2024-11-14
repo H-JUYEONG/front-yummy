@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userpaymentdetail.css';
 import { Link } from 'react-router-dom';
+
 const UserPaymentDetail = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div id="user-wrap" className="text-center">
-        
-        <VenderHeader/>
+            <VenderHeader/>
             <main id="user-wrap-body">
-
                 <div className="payment-container">
                     <div className="payment-content">
                         <div className="product-info">
@@ -17,8 +20,7 @@ const UserPaymentDetail = () => {
                             </div>
                             <div className="product-details">
                                 <div className="payment-label">주문 내역 확인</div>
-                                <div className="product-title">spcial 꽃감사패 (1호,2호)</div>
-
+                                <div className="product-title">special 꽃감사패 (1호,2호)</div>
                                 <div className="detail-item">
                                     <span className="label">배송방법: </span>
                                     <span className="value">픽업</span>
@@ -27,38 +29,36 @@ const UserPaymentDetail = () => {
                                     <span className="label">픽업일시: </span>
                                     <span className="value">2024/11/04 오후 5시</span>
                                 </div>
-
                                 <div className="detail-item">
                                     <span className="label">픽업장소: </span>
                                     <span className="value">노량진 9호선 밑바닥</span>
                                 </div>
-
                                 <div className="detail-item">
-                                    <span className="label">맛: </span>
-                                    <span className="value">초코(+5000)</span>
+                                    <span className="label">받으실 분: </span>
+                                    <span className="value">황덕룡</span>
                                 </div>
-
+                                <div className="detail-item">
+                                    <span className="label">받으실 분 번호 </span>
+                                    <span className="value">010-3333-2222</span>
+                                </div>
+                                
                                 <div className="detail-item">
                                     <span className="label">사이즈: </span>
                                     <span className="value">1호</span>
                                 </div>
-
                                 <div className="detail-item">
                                     <span className="label">가격: </span>
                                     <span className="value price">40,000원</span>
                                 </div>
-
-
+                               
                                 <div className="detail-item">
                                     <span className="label">케이크 위 문구: </span>
                                     <span className="value">합격하세요</span>
                                 </div>
-
                                 <div className="detail-item message">
                                     <span className="label">케이크 판 문구: </span>
                                     <span className="value">사랑합니다</span>
                                 </div>
-
                                 <div className="detail-item note">
                                     <span className="label">요청사항: </span>
                                     <span className="value">크림을 조금만 부탁드립니다. 느끼한 걸 싫어해요.</span>
@@ -71,9 +71,6 @@ const UserPaymentDetail = () => {
                     </div>
                 </div>
             </main>
-
-            
-                
         </div>
     );
 };

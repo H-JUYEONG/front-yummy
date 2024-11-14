@@ -77,16 +77,6 @@ const VerticalCakeOrder = () => {
                 {/* 제품명과 가격 입력 영역 */}
                 <div className="product-info-input">
                     <h2 className="product-title">Lettering 맛있는 레터링 크림케이크 (1호,2호)</h2>
-                    <div className="price-input-wrapper">
-                        <input
-                            type="text"
-                            id="price"
-                            value={price}
-                            onChange={handlePriceChange}
-                            placeholder="가격을 입력해주세요"
-                        />
-                        <span className="price-unit">원</span>
-                    </div>
                 </div>
 
                 {/* 메인 이미지 및 썸네일 */}
@@ -162,20 +152,20 @@ const VerticalCakeOrder = () => {
                     </div>
                 </div>
 
-                {/* 신청사항 */}
+                {/* 금액 측정*/}
                 <div className="request-section">
-                    <h3>신청사항</h3>
+                    <h3>금액 측정</h3>
                     <textarea
                         value={requestText}
                         onChange={(e) => setRequestText(e.target.value)}
-                        placeholder="케이크에 대한 요청사항을 입력해주세요."
+                        placeholder="금액에 관련된 사항들을 측정해 주세요."
                         className="request-textarea"
                     />
                 </div>
 
-                {/* 전송 버튼 */}
+                {/* 신청 버튼 */}
                 <button className="submit-button" onClick={handleSubmit}>
-                    전송하기
+                    신청하기
                 </button>
             </div>
         </div>
