@@ -176,6 +176,7 @@ const UserCakeDesignDetail = () => {
                   id="audition-tooltip"
                   place="top"
                   style={{
+                    fontSize: "1em",
                     backgroundColor: "#333",
                     color: "#fff",
                     borderRadius: "5px",
