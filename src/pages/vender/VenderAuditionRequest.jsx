@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/vender/venderauditionrequest.css';
 
 const VerticalCakeOrder = () => {
@@ -72,7 +71,7 @@ const VerticalCakeOrder = () => {
 
     return (
         <div id="user-wrap">
-            <VenderHeader />
+           
             <div className="vertical-cake-order">
                 {/* 제품명과 가격 입력 영역 */}
                 <div className="product-info-input">

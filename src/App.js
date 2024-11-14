@@ -23,7 +23,7 @@ import VenderReview from './pages/vender/VenderReview';
 import VenderHeader from './pages/vender/include/VenderHeader';
 import VenderInsertPage from './pages/vender/VenderInsertPage';
 import VenderAuditionRequest from './pages/vender/VenderAuditionRequest';
-
+import VenderAuditionRequestModal from './pages/vender/VenderAuditionRequestModal';
 
 // user
 import UserSignupType from './pages/user/UserSignupType';
@@ -111,8 +111,8 @@ function App() {
           <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
           <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
+          <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal/>}/>
 
-          
           
           {/* User Routes */}
           <Route path='/user/test' element={<UserMain/>}/>
