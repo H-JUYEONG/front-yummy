@@ -43,6 +43,18 @@ function VenderCakeDesignAdd() {
     setFiles(files.filter((file) => file.id !== id));
   };
 
+  // 등록 버튼
+  const handleAdd = (e) => {
+    e.preventDefault();
+
+    const cakeDesignVo = {
+      cakeDesignDescription: cakeDesignDescription,
+      cakeDesignShape: cakeDesignShape,
+      cakeDesignPrefer: cakeDesignPrefer,
+      cakeDesignEvent: cakeDesignEvent,
+    };
+  };
+
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     if (file) {
@@ -66,7 +78,7 @@ function VenderCakeDesignAdd() {
         <VenderSidebar />
         <div className="vender-content">
           <div className="product-registration">
-            <form className="main-content">
+            <form className="main-content" onSubmit={handleAdd}>
               <h1 className="product-list-title">도안 등록</h1>
 
               <div className="cake-design-imgs">

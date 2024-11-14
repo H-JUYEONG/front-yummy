@@ -60,13 +60,25 @@ function VenderCakeDesignEdit() {
     }
   };
 
+  // 수정 버튼
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+    const cakeDesignVo = {
+      cakeDesignDescription: cakeDesignDescription,
+      cakeDesignShape: cakeDesignShape,
+      cakeDesignPrefer: cakeDesignPrefer,
+      cakeDesignEvent: cakeDesignEvent,
+    };
+  };
+
   return (
     <div className="vender-container">
       <div className="vender-content-wrapper">
         <VenderSidebar />
         <div className="vender-content">
           <div className="product-registration">
-            <form className="main-content">
+            <form className="main-content" onSubmit={handleEdit}>
               <h1 className="product-list-title">도안 수정</h1>
 
               <div className="cake-design-imgs">
