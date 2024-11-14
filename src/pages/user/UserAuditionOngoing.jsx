@@ -74,9 +74,9 @@ const UserAuditionOngoing = () => {
             <p className="user-cake-design-hit">조회 7</p>
             <p className="user-cake-design-author">작성자 dud9902</p>
             <div className="user-control-section">
-              {/* <button
+              <button
                 className="user-cake-edit-button"
-                onClick={() => navigate("/user/cakeDesign/edit")}
+                onClick={() => navigate("/user/mypage/audition")}
               >
                 수정
               </button>
@@ -85,15 +85,7 @@ const UserAuditionOngoing = () => {
                 onClick={() => alert("삭제 기능")}
               >
                 삭제
-              </button> */}
-              <div className="toggles-status-container">
-                <button
-                  className={isEnded ? "ended-button" : "ongoing-button"}
-                  onClick={() => setIsEnded(!isEnded)}
-                >
-                  {isEnded ? "진행 중 보기" : "종료 상태 보기"}
-                </button>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -119,7 +111,19 @@ const UserAuditionOngoing = () => {
           </div>
 
           <div className="ongoing-participating-companies">
-            <h2>오디션 참가 업체</h2>
+            <div id="audition-status-container" className="audition-header-container">
+              <div className="audition-vender-name">
+                <h2>오디션 참가 업체</h2>
+              </div>
+              <div className="toggles-status-container">
+                  <button
+                    className={isEnded ? "ended-button" : "ongoing-button"}
+                    onClick={() => setIsEnded(!isEnded)}
+                  >
+                    {isEnded ? "진행 중 보기" : "종료 상태 보기"}
+                  </button>
+                </div>
+            </div>
             {isEnded ? (
               // 오디션 종료 상태에서는 선택된 업체만 표시
               <div className="ongoing-company-wrapper">
