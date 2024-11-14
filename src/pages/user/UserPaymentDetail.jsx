@@ -11,7 +11,7 @@ const UserPaymentDetail = () => {
     return (
         <div id="user-wrap" className="text-center">
             <VenderHeader/>
-            <main id="user-wrap-body">
+            <main id="d-user-wrap-body">
                 <div className="payment-container">
                     <div className="payment-content">
                         <div className="product-info">
