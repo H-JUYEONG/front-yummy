@@ -127,8 +127,8 @@ const UserWritingList = () => {
                     <td>{item.likes}</td>
                     <td>{item.date}</td>
                     <td>
-                      <button className="action-btn">수정</button>
-                      <button className="action-btn delete-btn">삭제</button>
+                      <button className="j-action-btn">수정</button>
+                      <button className="j-action-btn delete-btn">삭제</button>
                     </td>
                   </tr>
                 ))}

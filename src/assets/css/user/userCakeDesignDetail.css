@@ -75,12 +75,21 @@
   align-items: flex-start;
 }
 
-.user-cake-designs-detail-imgs img {
+/* .user-cake-designs-detail-imgs img {
   width: 100%;
   max-width: 503px;
   height: auto;
   margin-top: 10px;
+} */
+
+.user-cake-designs-detail-imgs img {
+  width: 100%;
+  height: 500px; /* 고정된 높이 설정 */
+  max-width: 500px;
+  object-fit: contain; /* 이미지가 지정된 크기에 맞게 비율을 유지하면서 맞춰짐 */
+  background-color: #fff; /* 이미지가 작을 경우 배경색 지정 */
 }
+
 
 /* Sub Images */
 .user-cake-designs-detail-sub-imgs {
@@ -91,6 +100,16 @@
   padding-bottom: 10px;
   gap: 5px;
   scrollbar-width: thin; /* Firefox에서 얇은 스크롤바 */
+}
+
+.user-cake-designs-detail-sub-imgs img {
+   width: 80px;
+  max-width: 80px; /* 서브 이미지 개별 크기 설정 */
+  height: auto;
+  cursor: pointer;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
 }
 
 .user-cake-designs-detail-sub-imgs:hover {
@@ -106,18 +125,6 @@
   background-color: #ccc; /* 스크롤바 색상 */
   border-radius: 10px;
 }
-
-.user-cake-designs-detail-sub-imgs img {
-  width: 100%;
-  max-width: 80px; /* 서브 이미지 개별 크기 설정 */
-  height: auto;
-  cursor: pointer;
-  object-fit: cover;
-  border: 1px solid #ddd;
-}
-
-
-
 
 /* Text Area */
 #user-cake-design-detail-txt-area {
@@ -145,7 +152,7 @@
 }
 
 .user-cake-designs-detail-txt p {
-  font-size: 20px;
+  font-size: 21px;
   margin-bottom: 20px;
   word-wrap: break-word;
 }
@@ -172,7 +179,7 @@
 
 .users-heart-icon {
   font-size: 25px;
-  color: red;
+  color: #EA4335;
   margin-right: 10px;
 }
 
@@ -203,9 +210,9 @@
   margin-bottom: 16px;
 }
 
-#cake-design-hash-tag-box {
+/* #cake-design-hash-tag-box {
   display: flex;
-  gap: 10px; /* 각 태그 사이에 간격을 추가하려면 사용 */
+  gap: 10px;
 }
 
 .cake-design-hash-tag {
@@ -213,7 +220,7 @@
   border: 2px solid #ddd;
   background-color: #f9f9f9;
   border-radius: 25px;
-}
+} */
 
 
 .user-cakes-list {
@@ -310,7 +317,7 @@
   background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 /* Review Header */
@@ -325,18 +332,19 @@
 }
 
 .user-review-email-id {
+  font-size: 1.1em;
   font-weight: bold;
   color: #333;
 }
 
 .user-review-date {
-  font-size: 12px;
+  font-size: 1.1em;
   color: #666;
 }
 
 .user-review-stars {
   color: #fbc02d;
-  font-size: 16px;
+  font-size: 1.2em;
   margin-left: auto; /* 별점을 오른쪽 끝으로 정렬 */
 }
 
@@ -367,18 +375,18 @@
 }
 
 .bakery-name {
+  font-size: 1.4em;
   font-weight: bold;
-  font-size: 18px;
   color: #333;
 }
 
 .cake-name {
-  font-size: 16px;
+  font-size: 1.3em;
   color: #666;
 }
 
 .review-content {
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 1.2em;
   color: #555;
 }

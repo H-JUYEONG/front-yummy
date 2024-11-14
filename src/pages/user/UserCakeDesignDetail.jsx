@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 
@@ -12,6 +12,16 @@ import "../../assets/css/user/userCakeDesignDetail.css";
 
 const UserCakeDesignDetail = () => {
   const navigate = useNavigate();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [mainImage, setMainImage] = useState("/images/3.png"); // Default main image
+
+  const toggleFavorite = () => {
+    setIsFavorited(!isFavorited);
+  };
+
+  const handleSubImageClick = (imageSrc) => {
+    setMainImage(imageSrc); // Update main image when a sub-image is clicked
+  };
 
   return (
     <div id="user-wrap">
@@ -53,14 +63,53 @@ const UserCakeDesignDetail = () => {
               <div id="user-cake-design-detail-imgs-area">
                 {/* Image Section */}
                 <div className="user-cake-designs-detail-imgs">
-                  <img src="/images/3.png" alt="케이크 이미지" />
+                  <img src={mainImage} alt="케이크 이미지" />
                   <div className="user-cake-designs-detail-sub-imgs">
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
-                    <img src="/images/3.png" alt="도안 이미지" />
+                    <img
+                      src="/images/3.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/3.png")}
+                    />
+                    <img
+                      src="/images/4.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/4.png")}
+                    />
+                    <img
+                      src="/images/5.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/5.png")}
+                    />
+                    <img
+                      src="/images/6.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/6.png")}
+                    />
+                    <img
+                      src="/images/7.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/7.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
+                    <img
+                      src="/images/8.png"
+                      alt="도안 이미지"
+                      onClick={() => handleSubImageClick("/images/8.png")}
+                    />
                   </div>
                 </div>
               </div>
@@ -82,56 +131,35 @@ const UserCakeDesignDetail = () => {
                   </div>
 
                   <div id="detail-txt2">
+                    <h2>선호하는 케이크 형태가 있나요?</h2>
+                    <p>눈길을 끌 수 있는 대형 케이크가 좋습니다.</p>
+                  </div>
+
+                  <div id="detail-txt3">
                     <h2>어떤분들이 선호하나요?</h2>
                     <p>20~30대 여성</p>
                   </div>
 
-                  <div id="detail-txt3">
+                  <div id="detail-txt4">
                     <h2>추천하는 이벤트가 있나요?</h2>
                     <p>생일</p>
-                  </div>
-
-                  <div id="detail-txt4">
-                    <h2>연관 키워드</h2>
-                    <div id="cake-design-hash-tag-box">
-                      <p className="cake-design-hash-tag">밤하늘</p>
-                      <p className="cake-design-hash-tag">유성</p>
-                      <p className="cake-design-hash-tag">초원</p>
-                      <p className="cake-design-hash-tag">꽃밭</p>
-                      <p className="cake-design-hash-tag">친구</p>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Businesses Using This Design */}
-            {/* <div className="user-cakes-section">
-              <h2>이 도안을 사용한 케이크</h2>
-              <div className="user-cakes-list">
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">달콤 베이커리</p>
-                  <p className="vender-sub-txt">서울 강남구</p>
-                  <p className="vender-sub-txt">★ 4.7</p>
-                </div>
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">해피 케이크</p>
-                  <p className="vender-sub-txt">경기 이천시</p>
-                  <p className="vender-sub-txt">★ 4.8</p>
-                </div>
-                <div className="user-cakes-item">
-                  <p className="vender-use-name">케이크 하우스</p>
-                  <p className="vender-sub-txt">경기 하남시</p>
-                  <p className="vender-sub-txt">★ 4.9</p>
-                </div>
-              </div>
-            </div> */}
-
             <div id="cake-design-action-btns" className="clearfix">
               {/* Favorite Button */}
               <div className="user-favorite-section">
-                <button className="user-favorite-button">
-                  <FaRegHeart className="users-heart-icon" />
+                <button
+                  className="user-favorite-button"
+                  onClick={toggleFavorite}
+                >
+                  {isFavorited ? (
+                    <FaHeart className="users-heart-icon" />
+                  ) : (
+                    <FaRegHeart className="users-heart-icon" />
+                  )}
                   <span className="users-favorite-count">10</span>
                 </button>
               </div>
@@ -140,6 +168,7 @@ const UserCakeDesignDetail = () => {
                   className="user-audition-button"
                   data-tooltip-id="audition-tooltip"
                   data-tooltip-content="이 도안으로 케이크를 만들어주실 분을 찾아보세요!"
+                  onClick={() => window.open("/user/audition/add", "_blank")}
                 >
                   케이크 요청하기
                 </button>

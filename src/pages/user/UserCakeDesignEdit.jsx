@@ -10,9 +10,9 @@ import "../../assets/css/user/userCakeDesignEdit.css";
 const UserCakeDesignEdit = () => {
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
+  const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
-  const [cakeDesignKeyword, setCakeDesignKeyword] = useState("");
   const [files, setFiles] = useState([
     { id: Date.now(), file: null, preview: null },
   ]);
@@ -25,16 +25,16 @@ const UserCakeDesignEdit = () => {
     setCakeDesignDescription(e.target.value);
   };
 
+  const handleCakeDesignShape = (e) => {
+    setCakeDesignShape(e.target.value);
+  };
+
   const handleCakeDesignPrefer = (e) => {
     setCakeDesignPrefer(e.target.value);
   };
 
   const handleCakeDesignEvent = (e) => {
     setCakeDesignEvent(e.target.value);
-  };
-
-  const handleCakeDesignKeyword = (e) => {
-    setCakeDesignKeyword(e.target.value);
   };
 
   const addFileInput = () => {
@@ -98,35 +98,37 @@ const UserCakeDesignEdit = () => {
             </div>
 
             {/* 도안 이미지 업로드 */}
-            <div className="user-cake-design-form-group">
-              <label>도안 이미지</label>
-              {files.map((fileInput) => (
-                <div key={fileInput.id} className="user-file-input-wrapper">
-                  <input
-                    type="file"
-                    id={`file-${fileInput.id}`}
-                    onChange={(e) => handleFileChange(e, fileInput.id)}
-                  />
-                  <button
-                    type="button"
-                    className="user-remove-button"
-                    onClick={() => removeFileInput(fileInput.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addFileInput}
-                className="user-add-image-button"
-              >
-                이미지 추가
-              </button>
-            </div>
+              <div className="user-cake-design-form-groups">
+                <sapn>
+                  <label>도안 이미지</label>
+                </sapn>
+                <button
+                  type="button"
+                  onClick={addFileInput}
+                  className="user-add-image-button"
+                >
+                  이미지 추가
+                </button>
+                {files.map((fileInput) => (
+                  <div key={fileInput.id} className="user-file-input-wrappers">
+                    <input
+                      type="file"
+                      id={`file-${fileInput.id}`}
+                      onChange={(e) => handleFileChange(e, fileInput.id)}
+                    />
+                    <button
+                      type="button"
+                      className="user-remove-button"
+                      onClick={() => removeFileInput(fileInput.id)}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                ))}
+              </div>
 
             {/* 도안 제목 */}
-            <div className="user-cake-design-form-group">
+            <div className="user-cake-design-form-groups">
               <label htmlFor="user-cake-design-name">제목</label>
               <input
                 type="text"
@@ -139,7 +141,7 @@ const UserCakeDesignEdit = () => {
             </div>
 
             {/* 도안 설명 */}
-            <div className="user-cake-design-form-group">
+            <div className="user-cake-design-form-groups">
               <label htmlFor="user-cake-design-description">설명</label>
               <textarea
                 id="user-cake-design-description"
@@ -151,8 +153,21 @@ const UserCakeDesignEdit = () => {
               />
             </div>
 
-             {/* 선호 연령대 */}
-             <div className="user-cake-design-form-group">
+            {/* 선호 케이크형태 */}
+            <div className="user-cake-design-form-groups">
+              <label htmlFor="user-cake-design-shape">선호하는 케이크 형태</label>
+              <input
+                type="text"
+                id="user-cake-design-shape"
+                placeholder="눈길을 끌 수 있는 대형 케이크가 좋습니다."
+                value={cakeDesignShape}
+                onChange={handleCakeDesignShape}
+                className="user-input-text"
+              />
+            </div>
+
+            {/* 선호 연령대 */}
+            <div className="user-cake-design-form-groups">
               <label htmlFor="user-cake-design-prefer">선호하는 연령대</label>
               <input
                 type="text"
@@ -165,7 +180,7 @@ const UserCakeDesignEdit = () => {
             </div>
 
             {/* 적용 가능 이벤트 */}
-            <div className="user-cake-design-form-group">
+            <div className="user-cake-design-form-groups">
               <label htmlFor="user-cake-design-event">적용 가능 이벤트</label>
               <input
                 type="text"
@@ -173,19 +188,6 @@ const UserCakeDesignEdit = () => {
                 placeholder="생일"
                 value={cakeDesignEvent}
                 onChange={handleCakeDesignEvent}
-                className="user-input-text"
-              />
-            </div>
-
-            {/* 연관 키워드 */}
-            <div className="user-cake-design-form-group">
-              <label htmlFor="user-cake-design-keyword">연관 키워드</label>
-              <input
-                type="text"
-                id="user-cake-design-keyword"
-                placeholder="밤하늘, 유성, 초원, 꽃밭, 친구"
-                value={cakeDesignKeyword}
-                onChange={handleCakeDesignKeyword}
                 className="user-input-text"
               />
             </div>

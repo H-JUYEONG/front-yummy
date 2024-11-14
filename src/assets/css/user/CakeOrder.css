@@ -26,7 +26,7 @@
     width: 100%;
     height: 500px;
     object-fit: contain;
-    border-radius: 50px;
+    border-radius: 25px;
     margin-bottom: 20px;
 }
 
@@ -69,15 +69,19 @@
 /* 탭 스타일 */
 #user-wrap .cake-order-container .product-tabs {
     margin-top: 30px;
+    position: relative;
+    background: white;
 }
 
 #user-wrap .cake-order-container .tabs-header {
     display: flex;
-    width: 100%;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
     border-bottom: 2px solid #eee;
-    margin-bottom: 0;
+    width: 100%;
 }
-
 #user-wrap .cake-order-container .tab-button {
     flex: 1;
     padding: 15px 0;
@@ -88,8 +92,8 @@
     color: #666;
     position: relative;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
-
 #user-wrap .cake-order-container .tab-button.active {
     color: #ff6f61;
 }
@@ -112,6 +116,10 @@
     min-height: 500px;
     width: 100%;
     box-sizing: border-box;
+}
+#user-wrap .cake-order-container .content-sections {
+    width: 100%;
+    height: auto;
 }
 
 #user-wrap .cake-order-container .detail-content,
@@ -181,28 +189,18 @@
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #user-wrap .cake-order-container .color-option:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1)
 }
 
 #user-wrap .cake-order-container .color-option.active {
     border-color: #ff6f61;
-    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.2);
+    
 }
-#user-wrap .cake-order-container .color-option.active::after {
-    content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 14px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-}
+
 
 #user-wrap .cake-order-container .color-option.pink {
     background-color: #FFB6C1;
@@ -335,6 +333,7 @@
 /* 리뷰 관련 스타일 */
 #user-wrap .cake-order-container .reviews-container {
     padding: 20px 0;
+   
 }
 
 #user-wrap .cake-order-container .rating-stats {
@@ -502,14 +501,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 /* 리뷰 작성 폼 */
 #user-wrap .cake-order-container .review-form-container {
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 8px;
-    padding: 20px;
+    padding: 20px 0;
     margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
 }
 
 #user-wrap .cake-order-container .review-form-container h3 {
@@ -695,22 +696,17 @@
 /*탭관련*/
 #user-wrap .cake-order-container .tab-content {
     height: auto;
-    max-height: 800px;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    position: relative;
-    border-radius: 8px;
+    max-height: none;
+    overflow-y: visible;
+    background: transparent;
+    padding: 0;
 }
 
 #user-wrap .cake-order-container .content-section {
     width: 100%;
-    padding: 0;
+    padding: 20px 0;
 }
 
-#user-wrap .cake-order-container .content-section img {
-    width: 100%;
-    display: block;
-}
 
 /* 신고 버튼 스타일 */
 #user-wrap .cake-order-container .report-button {
@@ -767,7 +763,8 @@
     }
 
     #user-wrap .cake-order-container .rating-stats {
-        flex-direction: column;
+        background: #ffffff;
+        border: 2px solid #eee;
     }
 
     #user-wrap .cake-order-container .rating-average {
@@ -821,20 +818,28 @@
     color: #666;
 }
 /* color-option::before 부분만 수정하면 됩니다 */
-#user-wrap .cake-order-container .color-option::before {
+/* 이전 ::after와 ::before를 제거하고 아래 스타일로 교체 */
+#user-wrap .cake-order-container .color-option {
+    position: relative;
+    margin-bottom: 25px; /* 텍스트를 위한 공간 확보 */
+}
+
+#user-wrap .cake-order-container .color-option::after {
     content: attr(title);
     position: absolute;
-    bottom: -25px;  /* -20px에서 -25px로 수정 */
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
     color: #333;
     white-space: nowrap;
-    background-color: white;  /* 배경색 추가 */
-    padding: 2px 6px;  /* 패딩 추가 */
-    pointer-events: none;  /* 마우스 이벤트 방지 */
-    z-index: 2;  /* z-index 추가 */
+    background-color: white;
+    padding: 2px 6px;
+    pointer-events: none;
+    z-index: 2;
 }
+
+/* ::before 가상 요소 제거 */
 #user-wrap .cake-order-container .color-options {
     display: flex;
     gap: 45px;
@@ -863,13 +868,10 @@
 }
 
 #user-wrap .cake-order-container .content-section img {
-    border-radius: 5px;
     width: 100%;
     display: block;
-}
-
-#user-wrap .cake-order-container .review-image img {
-    border-radius: 5px;
+    margin-bottom: 20px;
+    border-radius: 8px;
 }
 
 /* 기존 색상 */
@@ -902,12 +904,6 @@
     background-color: #8B4513;
 }
 
-/* 어두운 색상 체크마크 강화 */
-#user-wrap .cake-order-container .color-option.blue.active::after,
-#user-wrap .cake-order-container .color-option.purple.active::after,
-#user-wrap .cake-order-container .color-option.brown.active::after {
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.8);
-}
 
 /* 반응형 대응 */
 @media (max-width: 768px) {

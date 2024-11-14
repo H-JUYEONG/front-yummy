@@ -149,7 +149,7 @@
 
 /* 진행 중 보기 버튼 (파란색 호버) */
 .ongoing-button:hover {
-    background-color: red;
+    background-color: #EA4335;
     color: white;
 }
 
@@ -160,14 +160,15 @@
 }
 
 /* 리뷰 섹션 스타일 */
-.review-section {
+.ongoing-audition .review-section {
     padding: 15px;
     border-top: 1px solid #ddd;
     background-color: #f9f9f9;
     border-radius: 5px;
 }
 
-.review-section h3 {
+/* 리뷰 섹션 스타일 */
+.ongoing-audition .review-section h3 {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
@@ -175,7 +176,7 @@
 }
 
 /* 개별 리뷰 아이템 */
-.review-item {
+.ongoing-audition .review-item {
     display: flex;
     align-items: flex-start;
     padding: 10px;
@@ -185,12 +186,13 @@
     margin-bottom: 10px;
 }
 
-.review-item:last-child {
+
+.ongoing-audition .review-item:last-child {
     border-bottom: none; /* 마지막 리뷰 아이템에만 경계 제거 */
 }
 
 /* 리뷰 이미지 스타일 */
-.review-image {
+.ongoing-audition .review-image {
     width: 60px;
     height: 60px;
     border-radius: 5px;
@@ -199,30 +201,30 @@
 }
 
 /* 리뷰 텍스트 섹션 */
-.review-text {
+.ongoing-audition .review-text {
     display: flex;
     flex-direction: column;
 }
 
-.review-text p {
+.ongoing-audition .review-text p {
     margin: 5px 0;
     font-size: 16px;
     color: #555;
 }
 
-.review-text p strong {
+.ongoing-audition .review-text p strong {
     font-weight: bold;
     color: #333;
 }
 
 /* 리뷰 평점 섹션 */
-.review-rating {
+.ongoing-audition .review-rating {
     display: flex;
     align-items: center;
     margin-top: 5px;
 }
 
 /* 별 아이콘 스타일 */
-.review-rating .fa-star {
+.ongoing-audition .review-rating .fa-star {
     margin-right: 2px;
 }

@@ -114,7 +114,7 @@ const UserAuditionOngoing = () => {
             <div className="ongoing-design-preview">
               <h3>예시도안</h3>
               <img src="/images/3.png" alt="예시 도안" />
-              <p>친구야 생일 축하해!</p>
+              {/* <p>친구야 생일 축하해!</p> */}
             </div>
           </div>
 

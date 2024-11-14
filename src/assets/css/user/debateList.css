@@ -1,17 +1,21 @@
 /* General Styling for User Debate Section */
+
+
 #user-debate-tip {
   text-align: center;
   margin-bottom: 60px;
 }
 
 #user-debate-tip h2 {
-  font-size: 20px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
 #user-debate-tip p {
-  font-size: 20px;
+  font-size: 28px;
 }
+
+
 
 .user-debate-board-list {
   width: 100%;
@@ -37,10 +41,42 @@
 }
 
 /* Updated Button Styles */
-.user-debate-select-option button,
+.user-debate-select-option button{
+  padding: 8px 16px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  background-color: #f9f9f9;
+  color: #4B5563;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.user-debate-select-option button:hover {
+  background-color: #ff6f61;
+  color: white;
+}
+
+.user-debate-add-btn button{
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  background-color: #ff6f61;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 18px;
+}
+
+.user-debate-add-btn button:hover{
+  background-color: #fc5343;
+  color: white;
+}
+
 .pagination-page-number,
-.pagination-arrow,
-.user-debate-add-btn button {
+.pagination-arrow {
   background-color: #f5f5f5;
   border: none;
   padding: 10px 15px;
@@ -50,10 +86,8 @@
   border-radius: 20px;
 }
 
-.user-debate-select-option button:hover,
 .pagination-page-number:hover,
-.pagination-arrow:hover,
-.user-debate-add-btn button:hover {
+.pagination-arrow:hover {
   background-color: #ddd;
 }
 
@@ -128,6 +162,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-size: 16px; /* Set consistent font size */
   color: #333; /* Uniform text color */
+  font-weight: bold;
 }
 
 /* Header Row Styling */
@@ -195,25 +230,9 @@
     margin-bottom: 5px;
 }
 
-#user-debate-add button {
-  margin-bottom: 5px;
-  padding: 10px 12px;
-  color: #4B5563;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  background-color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#user-debate-add button:hover {
-  background-color: #F3F4F6;
-}
-
-.user-debate-all {
+.user-debate-all-count {
   float: left;
   padding: 20px 0px 0px 5px;
-  font-weight: bold;
   top: -10px;
 }  
 
@@ -252,4 +271,17 @@
   color: white;
   border-color: #ff6f61;
 
+}
+
+.gif-container img.right-gif{
+  position: absolute;
+  right: 10 0px; /* 오른쪽 여백 조정 */
+  top: 200px; /* 상단 여백 조정 */
+  z-index: 1; /* 다른 요소 위에 겹치지 않도록 설정 */
+}
+.gif-container img.right-gif{
+  width: 100px; /* 크기를 작게 조정 */
+  height: auto;
+  top:-1%;
+  right: 5%;
 }
