@@ -108,7 +108,7 @@ function App() {
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
           <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
-          <Route path="/vender/VenderInsertPage" element={<VenderInsertAudition/>} />
+          <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           
           
           {/* User Routes */}
