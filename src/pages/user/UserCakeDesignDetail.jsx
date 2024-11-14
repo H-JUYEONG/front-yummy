@@ -87,24 +87,18 @@ const UserCakeDesignDetail = () => {
                   </div>
 
                   <div id="detail-txt2">
+                    <h2>선호하는 케이크 형태가 있나요?</h2>
+                    <p>눈길을 끌 수 있는 대형 케이크가 좋습니다.</p>
+                  </div>
+
+                  <div id="detail-txt3">
                     <h2>어떤분들이 선호하나요?</h2>
                     <p>20~30대 여성</p>
                   </div>
 
-                  <div id="detail-txt3">
+                  <div id="detail-txt4">
                     <h2>추천하는 이벤트가 있나요?</h2>
                     <p>생일</p>
-                  </div>
-
-                  <div id="detail-txt4">
-                    <h2>연관 키워드</h2>
-                    <div id="cake-design-hash-tag-box">
-                      <p className="cake-design-hash-tag">밤하늘</p>
-                      <p className="cake-design-hash-tag">유성</p>
-                      <p className="cake-design-hash-tag">초원</p>
-                      <p className="cake-design-hash-tag">꽃밭</p>
-                      <p className="cake-design-hash-tag">친구</p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -130,6 +124,7 @@ const UserCakeDesignDetail = () => {
                   className="user-audition-button"
                   data-tooltip-id="audition-tooltip"
                   data-tooltip-content="이 도안으로 케이크를 만들어주실 분을 찾아보세요!"
+                  onClick={() => window.open("/user/audition/add", "_blank")}
                 >
                   케이크 요청하기
                 </button>

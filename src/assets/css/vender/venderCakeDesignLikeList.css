@@ -10,6 +10,15 @@
     margin-bottom: 10px;
 }
 
+.vender-cake-design-title {
+    display: block;            /* 블록 요소로 설정하여 부모 내에서 정렬 가능 */
+    text-align: center;        /* 텍스트 중앙 정렬 */
+    white-space: nowrap;       
+    overflow: hidden;          
+    text-overflow: ellipsis;   
+    width: 250px;               /* 그리드 셀 너비에 맞춤 */
+}
+
 .cake-design-list-imgs img {
     width: 100%; /* 그리드 셀의 너비에 맞게 이미지 크기 조정 */
     max-width: 250px; /* 이미지 최대 너비 설정 */
