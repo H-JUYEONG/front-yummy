@@ -1,14 +1,18 @@
-#audition-list-container {
+.audition-list-container {
     padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
-.audition-list-container h1 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+.audition-list-container h2 {
+
+    margin-bottom: 30px;
 }
 
 .audition-filter {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .filter-button {
@@ -29,13 +33,20 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+
+    
+    background: #fff;
+    border-radius: 8px;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .audition-table th,
 .audition-table td {
     padding: 12px;
-    border: 1px solid #ddd;
+
     text-align: center;
+    border: none; /* 테이블, 헤더, 셀 모두 테두리를 제거 */
 }
 
 .audition-table th {
