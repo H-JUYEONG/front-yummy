@@ -70,7 +70,7 @@ const UserMyAudtion = () => {
                 <UserSidebar />
                 
                 <div className="audition-list-container">
-                    <h1>MY 오디션 관리</h1>
+                    <h2>MY 오디션 관리</h2>
                     <div className="audition-filter">
                         <button 
                             className={`filter-button ${filter === "진행중" ? 'active' : ''}`} 

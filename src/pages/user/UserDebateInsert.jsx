@@ -79,20 +79,25 @@ const UserDebateInsert = () => {
             <div className="debate-insert-list-group">
               <label htmlFor="debate-insert-content">이미지</label>
               <div className="debate-insert-image-section">
-                <div className="debate-insert-image-option">
+              <div className="debate-insert-image-option">
                   {!leftImage && (
                     <>
-                      <button className="debate-insert-upload-btn">
-                        내PC에서 추가
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleLeftImageUpload}
-                          className="debate-insert-image-upload-input"
-                        />
-                      </button>
                       <button
-                        type="button" // Fix: prevents form submission
+                        className="debate-insert-upload-btn"
+                        onClick={() => document.getElementById('left-image-upload').click()}
+                        type="button"
+                      >
+                        내PC에서 추가
+                      </button>
+                      <input
+                        type="file"
+                        id="left-image-upload"
+                        accept="image/*"
+                        onChange={handleLeftImageUpload}
+                        className="debate-insert-image-upload-input"
+                      />
+                      <button
+                        type="button"
                         className="debate-insert-modal-btn"
                         onClick={() => openModal("left")}
                       >
@@ -104,7 +109,7 @@ const UserDebateInsert = () => {
                     <div className="debate-insert-image-container">
                       <img src={leftImage} alt="Left" className="debate-insert-inserted-image" />
                       <button
-                        type="button" // Fix: prevents form submission
+                        type="button"
                         className="debate-insert-delete-btn"
                         onClick={handleLeftImageDelete}
                       >
