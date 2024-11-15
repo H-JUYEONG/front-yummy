@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 //css
 import "../../assets/css/all.css";
@@ -27,6 +28,8 @@ const UserLoginForm = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   console.log(code);
 
+  const navigate = useNavigate();
+  
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -37,6 +40,55 @@ const UserLoginForm = () => {
   const handleUserPassword = (e) => {
     setUserPassword(e.target.value);
   };
+
+  // 로그인 버튼 클릭
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // 데이터 모으기 
+    const userVo = {
+      email: userEmail,
+      password_hash: userPassword
+    }
+    console.log(userVo);
+    console.log(process.env.REACT_APP_API_URL);
+
+    // 전송
+    axios({
+        method: 'post', 			// put, post, delete                   
+        url: `${process.env.REACT_APP_API_URL}/api/users/login`,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        data: userVo,
+    
+        responseType: 'json' //수신타입
+      }).then(response => {
+        console.log(response); //수신데이타
+        console.log(response.data); //수신데이타
+        console.log(response.data.apiData); //수신데이타
+    
+        // 헤더에서 토큰 꺼내기
+        const token = response.headers['authorization'].split(' ')[1];
+        console.log(token);
+
+        // 로컬스토리지에 토큰 저장
+        localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+
+        // 로컬스토리지에 authUser 저장
+        /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
+        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
+        localStorage.setItem("authUser", JSON.stringify(response.data.apiData)); 
+
+        if(response.data.apiData !== null) {
+          //리다이렉트
+          navigate("/");
+        } else {
+          alert("로그인 실패");
+        }
+    
+      }).catch(error => {
+        console.log(error);
+    });
+}
 
   return (
     <div id="user-wrap" className="user-text-center">
@@ -69,7 +121,7 @@ const UserLoginForm = () => {
 
         {/* 로그인폼 */}
         <div className="user-loginform">
-          <form>
+          <form onSubmit={handleLogin}>
             <label htmlFor="user-id"></label>
             <input
               id="user-id"

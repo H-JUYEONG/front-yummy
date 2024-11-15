@@ -3,47 +3,32 @@ import { Link } from "react-router-dom";
 import '../../../assets/css/user/userheaderstyle.css';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // 로그인 상태를 true로 변경
-  const [userRole] = useState('user'); // 'user', 'vender', 'admin' 중 하나로 설정
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    // 로그아웃 처리 로직 추가
+    // Remove token and authUser from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('authUser');
+
+    // Update state to reflect logged-out status
+    setToken(null);
+    setAuthUser(null);
   };
 
-  // 역할에 따른 네비게이션 메뉴 렌더링
-  const renderNavMenu = () => {
-    switch(userRole) {
-      case 'vender': //업체
-        return (
-          <ul>
-            <li><Link to="/user/audition">케이크요청</Link></li>
-            <li><Link to="/user/cakeDesign/board">디자인공유</Link></li>
-            <li><Link to="/board">케이크토크</Link></li>
-          </ul>
-        );
-      case 'admin': //관리자
-        return (
-          <ul>
-         <li><Link to="/user/audition">케이크요청</Link></li>
-            <li><Link to="/user/cakeDesign/board">디자인공유</Link></li>
-            <li><Link to="/board">케이크토크</Link></li>
-          </ul>
-        );
-      default: // 일반 사용자
-        return (
-          <ul>
-            <li><Link to="/user/audition">케이크요청</Link></li>
-            <li><Link to="/user/cakeDesign/board">디자인공유</Link></li>
-            <li><Link to="/board">케이크토크</Link></li>
-          </ul>
-        );
-    }
-  };
+  // Render navigation menu based on user role
+  const renderNavMenu = () => (
+    <ul>
+      <li><Link to="/user/audition">케이크요청</Link></li>
+      <li><Link to="/user/cakeDesign/board">디자인공유</Link></li>
+      <li><Link to="/board">케이크토크</Link></li>
+    </ul>
+  );
 
-  // 역할에 따른 액션 버튼 렌더링
+  // Render user actions based on authentication status and user role
   const renderUserActions = () => {
-    if (!isLoggedIn) {
+    if (!authUser) {
+      // If not logged in, show login and signup links
       return (
         <>
           <Link to="/user/login" className="header-link">로그인</Link>
@@ -52,22 +37,23 @@ const Header = () => {
       );
     }
 
-    switch(userRole) {
-      case 'vender':
+    // Display different actions based on `authUser` type
+    switch(authUser.type) {
+      case '업체':
         return (
           <>
             <Link to="/vender/" className="header-link">내 업체 페이지</Link>
             <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
           </>
         );
-      case 'admin':
+      case '어드민':
         return (
           <>
             <Link to="/admin/" className="header-link">관리페이지</Link>
             <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
           </>
         );
-      default:
+      default: // 'user'
         return (
           <>
             <Link to='/user/mypage/order' className="header-link">마이페이지</Link>
@@ -86,12 +72,12 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* 메뉴는 통일해놨는데 나중에 바꾸시려면 바꾸세요 */}
+      {/* Navigation Menu */}
       <nav className="nav-menu">
         {renderNavMenu()}
       </nav>
 
-      {/* 누르면 상태 바뀌어요 */}
+      {/* User Actions */}
       <div className="user-actions">
         {renderUserActions()}
       </div>
