@@ -1,0 +1,78 @@
+@charset "UTF-8";
+.ssso-modal-content{
+    background: #fff;
+    border-radius: 12px;
+    max-width: 1200px;
+    width: 90%;
+    height: 600px;
+    padding: 25px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1010;
+
+}
+.ssso-title-box{
+    height: 50px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #000;
+}
+.ssso-modal-content h2{
+    font-size: 30px;
+}
+.ssso-insert-box{
+    padding-left: 5px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    align-items: first baseline;
+}
+.ssso-insert-box input{
+    width: 90%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+.ssso-productlist-box{
+    max-width: 100%;
+    height: 400px;
+    margin-top: 15px;
+    border-top: 1px solid #000;
+    display: flex;
+    flex-wrap: wrap;  /* 아이템이 여러 줄에 걸쳐서 배치될 수 있게 */
+    justify-content: space-between; /* 아이템 간 간격을 균등하게 배분 */
+    overflow-y: scroll;
+    padding: 10px 10px ;
+}
+.ssso-product-one-box{
+
+    height: 200px;
+    margin-bottom: 10px;
+    flex: 0 0 calc(25% - 10px); /* 한 줄에 4개씩 배치, 아이템 간 간격을 고려한 너비 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 4px 오른쪽, 4px 아래, 흐림 10px, 어두운 색상 */
+}
+
+.ssso-img-box{
+    width: 100%;
+    height: 80%;
+
+    padding: 5px 5px;
+}
+.ssso-img-box img{
+    width: 100%;
+    height: 100%;
+}
+.ssso-product-one-box p{
+    text-align: center;
+    padding-top: 5px;
+}
+.ssso-pick-btn-box{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+}
+.ssso-pick-btn-box button{
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    width: 150px;
+}

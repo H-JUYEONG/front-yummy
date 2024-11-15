@@ -1,26 +1,38 @@
-/* userpaymentdetail.css */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-#user-wrap .payment-container {
-    max-width: 1000px;
-    margin: 40px auto;
+#user-wrap.text-center {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#user-wrap.text-center #d-user-wrap-body {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     padding: 20px;
+}
+
+#user-wrap.text-center #d-user-wrap-body .payment-container {
+    width: 100%;
+    max-width: 1000px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-#user-wrap .payment-container .payment-content {
+#user-wrap.text-center #d-user-wrap-body .payment-container .payment-content {
     padding: 20px;
 }
 
-#user-wrap .payment-container .product-info {
+#user-wrap.text-center #d-user-wrap-body .payment-container .product-info {
     display: flex;
     gap: 40px;
     margin-bottom: 30px;
 }
 
-#user-wrap .payment-container .product-info .product-image {
+#user-wrap.text-center #d-user-wrap-body .payment-container .product-info .product-image {
     flex: 0 0 400px;
     border-radius: 5px;
     overflow: hidden;
@@ -29,28 +41,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* border: 1px solid #e5e7eb; <- 이 줄을 삭제 */
 }
 
-#user-wrap .payment-container .product-info .product-image img {
+#user-wrap.text-center #d-user-wrap-body .payment-container .product-info .product-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     padding: 10px;
 }
 
-#user-wrap .payment-container .product-info .product-details {
+#user-wrap.text-center #d-user-wrap-body .payment-container .product-info .product-details {
     flex: 1;
     text-align: left;
 }
 
-#user-wrap .payment-container .payment-label {
+#user-wrap.text-center #d-user-wrap-body .payment-container .payment-label {
     font-size: 1.2em;
     color: #666;
     margin-bottom: 10px;
 }
 
-#user-wrap .payment-container .product-title {
+#user-wrap.text-center #d-user-wrap-body .payment-container .product-title {
     font-size: 2em;
     color: #333;
     margin-bottom: 20px;
@@ -58,42 +69,41 @@
     border-bottom: 2px solid #e5e7eb;
 }
 
-#user-wrap .payment-container .detail-item {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item {
     margin-bottom: 15px;
     line-height: 1.6;
 }
 
-#user-wrap .payment-container .detail-item .label {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .label {
     font-weight: bold;
     color: #555;
     min-width: 132px;
     display: inline-block;
 }
 
-#user-wrap .payment-container .detail-item .value {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .value {
     color: #333;
 }
 
-#user-wrap .payment-container .detail-item .price {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .price {
     font-size: 1.2em;
     color: #ff6f61;
     font-weight: bold;
 }
 
-#user-wrap .payment-container .detail-item.message {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item.message {
     margin-top: 20px;
 }
 
-#user-wrap .payment-container .detail-item.note {
+#user-wrap.text-center #d-user-wrap-body .payment-container .detail-item.note {
     margin-top: 20px;
     padding: 15px;
     background-color: #f8f9fa;
     border-radius: 5px;
     border: 2px solid #ddd;
-;
 }
 
-#user-wrap .payment-container .payment-button {
+#user-wrap.text-center #d-user-wrap-body .payment-container .payment-button {
     display: block;
     width: 200px;
     margin: 30px auto 0;
@@ -104,49 +114,48 @@
     border-radius: 30px;
     font-size: 1.1em;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
-    
 
-
-#user-wrap .payment-container .payment-button:hover {
+#user-wrap.text-center #d-user-wrap-body .payment-container .payment-button:hover {
     background-color: #ff6f61;
     transform: translateY(-2px);
 }
 
 /* 반응형 스타일 */
 @media (max-width: 768px) {
-    #user-wrap .payment-container .product-info {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .product-info {
         flex-direction: column;
         align-items: center;
     }
 
-    #user-wrap .payment-container .product-info .product-image {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .product-info .product-image {
         flex: none;
         width: 300px;
         height: 300px;
     }
 
-    #user-wrap .payment-container .product-info .product-details {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .product-info .product-details {
         padding: 20px 0;
         width: 100%;
     }
 
-    #user-wrap .payment-container .product-title {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .product-title {
         font-size: 1.5em;
     }
 
-    #user-wrap .payment-container .detail-item .label {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .label {
         min-width: 120px;
     }
 }
 
 /* 인쇄 스타일 */
 @media print {
-    #user-wrap .payment-container {
+    #user-wrap.text-center #d-user-wrap-body .payment-container {
         box-shadow: none;
     }
 
-    #user-wrap .payment-container .payment-button {
+    #user-wrap.text-center #d-user-wrap-body .payment-container .payment-button {
         display: none;
     }
 }

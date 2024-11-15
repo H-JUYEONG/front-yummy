@@ -27,14 +27,6 @@
   margin-bottom: 5px;
 }
 
-.cake-design-detail-sub-imgs-wrapper {
-  overflow-x: hidden; /* 기본적으로 가로 스크롤 숨기기 */
-}
-
-.cake-design-detail-sub-imgs-wrapper:hover .cake-design-detail-sub-imgs {
-  overflow-x: auto; /* 마우스를 올렸을 때만 가로 스크롤 활성화 */
-}
-
 .cake-design-detail-sub-imgs {
   display: flex;
   max-width: 500px;
@@ -46,13 +38,21 @@
 }
 
 .cake-design-detail-sub-imgs img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   cursor: pointer;
   border-radius: 4px;
   transition: transform 0.2s;
   flex-shrink: 0;
+}
+
+.cake-design-detail-sub-imgs-wrapper {
+  overflow-x: hidden; /* 기본적으로 가로 스크롤 숨기기 */
+}
+
+.cake-design-detail-sub-imgs-wrapper:hover .cake-design-detail-sub-imgs {
+  overflow-x: auto; /* 마우스를 올렸을 때만 가로 스크롤 활성화 */
 }
 
 /* Webkit 기반 브라우저 (Chrome, Safari) 스크롤바 스타일 */
@@ -99,7 +99,7 @@
 .cake-design-detail-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 90px;
+  margin-top: 110px;
   justify-content: flex-end;
 }
 

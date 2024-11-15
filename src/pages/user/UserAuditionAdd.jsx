@@ -82,14 +82,13 @@ const UserAuditionAdd = () => {
               />
             </div>
 
+            {/* 수령방식 */}
             <div className="user-cake-audition-form-group">
               <label htmlFor="receiveHow">수령방식</label>
-              <input
-                type="text"
-                id="receiveHow"
-                placeholder="예: 픽업, 배송"
-                className="user-audition-input-text"
-              />
+              <select id="receiveHow" className="user-audition-input-text">
+                <option>픽업</option>
+                <option>배송</option>
+              </select>
             </div>
 
             {/* 지역 선택 섹션 */}
@@ -105,16 +104,56 @@ const UserAuditionAdd = () => {
               </select>
             </div>
 
+            {/* 픽업일 경우 */}
             <div className="user-cake-audition-form-group">
-              <label htmlFor="receiveDate">수령일자</label>
+              <label htmlFor="PickupDate">희망 픽업일</label>
               <input
                 type="text"
-                id="receiveDate"
-                placeholder="예: 예약"
+                id="PickupDate"
+                placeholder="예: 2024-11-14"
                 className="user-audition-input-text"
               />
             </div>
 
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="PickupTime">희망 픽업 시간</label>
+              <select id="PickupTime" className="user-audition-input-text">
+                <option value="">시간 선택</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+              </select>
+            </div>
+
+            {/* 배송일 경우 */}
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="DesiredDeliveryDate">희망 수령일</label>
+              <input
+                type="text"
+                id="DesiredDeliveryDate"
+                placeholder="예: 2024-11-14"
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="DesiredDeliveryTime">희망 수령시간</label>
+              <select
+                id="DesiredDeliveryTime"
+                className="user-audition-input-text"
+              >
+                <option value="">시간 선택</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+              </select>
+            </div>
+
+            {/* 요청사항 */}
             <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>
               <textarea

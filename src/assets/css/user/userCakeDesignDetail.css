@@ -54,7 +54,7 @@
   background-color: #ff4b87;
   color: #fff;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
@@ -157,6 +157,9 @@
   word-wrap: break-word;
 }
 
+#cake-design-action-btns {
+  margin-top: 10px;
+}
 
 /* 찜 버튼 스타일 */
 .user-favorite-section {
@@ -170,21 +173,21 @@
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  border: none;
+  border: 2px solid #ff4b87;
   border-radius: 25px;
-  padding: 5px 10px;
+  padding: 6px 10px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .users-heart-icon {
-  font-size: 25px;
-  color: #EA4335;
+  font-size: 20px;
+  color: #ff4b87;
   margin-right: 10px;
 }
 
 .users-favorite-count {
-  font-size: 25px;
+  font-size: 20px;
   color: #333;
 }
 

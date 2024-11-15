@@ -3,6 +3,8 @@
 /*예시글씨*/
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text{
     padding: 10px;
+
+   
 }
 /*요청사항*/
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm{
@@ -16,7 +18,7 @@
 }
 /*스크롤*/
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3); /* 트랙 색상: 옅은 회색, 반투명 */
+    background: rgba(0, 0, 0, 0.1); /* 트랙 색상: 옅은 회색, 반투명 */
     
 }
 /* 스크롤바 위아래 화살표 숨기기 */
@@ -27,11 +29,15 @@
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo{
     height: 80%;
     margin-top: auto;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo img{
-    width: 95%;
-    height: 95%;
+    width: 90%;
+    height: 90%;
 }
 .appeal-design-text li + li{
     margin-top: 10px;

@@ -55,7 +55,7 @@ const VenderDashboard = () => {
 
     return (
         <>  
-           
+        
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
@@ -79,6 +79,24 @@ const VenderDashboard = () => {
                                     <h3 htmlFor='shop-name'>업체명</h3>
                                     <input className='short-input-txt' id='shop-name' type="text" placeholder="업체명을 입력해주세요!" name=''  />
                                 </div>
+                                
+
+                                <div className="create-sy-section sy-img-margin-box">
+                                    <div className='banner-flex'>
+                                        <label htmlFor='bannerUpload'><h3>프로필이미지 추가</h3></label>
+                                        <input 
+                                            type="file" 
+                                            accept="image/*" 
+                                            onChange={(e) => handleImageChange(e, setBannerPreview)}
+                                            id="bannerUpload"
+                                            style={{ display: 'none' }} // 파일 입력을 숨김
+                                        />
+                                        <label htmlFor="bannerUpload" className="upload-button">
+                                            <ExpandOutlineIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
+                                        </label>
+                                    </div>
+                                    {bannerPreview && <img src={bannerPreview} alt="프로필 이미지 미리보기" className="preview" />}
+                                </div>
                                 <div className="create-sy-section sy-img-margin-box">
                                 
                                     <div className='banner-flex'>
@@ -98,23 +116,6 @@ const VenderDashboard = () => {
                                     {logoPreview && <img src={logoPreview} alt="베너이미지 미리보기" className="preview" />}
                                     
                                 </div>
-
-                                <div className="create-sy-section sy-img-margin-box">
-                                    <div className='banner-flex'>
-                                        <label htmlFor='bannerUpload'><h3>프로필이미지 추가</h3></label>
-                                        <input 
-                                            type="file" 
-                                            accept="image/*" 
-                                            onChange={(e) => handleImageChange(e, setBannerPreview)}
-                                            id="bannerUpload"
-                                            style={{ display: 'none' }} // 파일 입력을 숨김
-                                        />
-                                        <label htmlFor="bannerUpload" className="upload-button">
-                                            <ExpandOutlineIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
-                                        </label>
-                                    </div>
-                                    {bannerPreview && <img src={bannerPreview} alt="프로필 이미지 미리보기" className="preview" />}
-                                </div>
                                 </div>
 
                                 
@@ -132,51 +133,11 @@ const VenderDashboard = () => {
                                     <textarea  id='shop-txt' placeholder="자유롭게 작성해주세요" ></textarea>
                                 </div>
                                 
-                                <div className="create-sy-section">
-                                    <div className='category-box'>
-                                        <h3>카테고리 등록</h3>
-                                        <button className="sy-add-category" onClick={addCategory}>카테고리 추가</button>
-                                    </div>
-                                    <div className=' section-flex'>
-                                    
-                                    {categoryPreviews.map((preview, index) => (
-                                        <div key={index} className="sy-category-upload sy-img-margin-box ">
-                                            <input 
-                                                type="file" 
-                                                accept="image/*" 
-                                                onChange={(e) => {
-                                                    const file = e.target.files[0];
-                                                    if (file) {
-                                                        const imageUrl = URL.createObjectURL(file);
-                                                        const newPreviews = [...categoryPreviews];
-                                                        newPreviews[index] = imageUrl;
-                                                        setCategoryPreviews(newPreviews);
-                                                    }
-                                                }} 
-                                                className="file-input"  // 파일 입력에 대한 클래스를 추가하여 숨길 준비
-                                                id={`category-nth ${index + 1}`}
-                                                style={{ display: 'none' }} // 파일 입력을 숨김
-                                            />
-                                            
-                                            <input className='short-input-txt'  type='text' name=''  placeholder='카테고리명을 입력해주세요' />
-                                            <label htmlFor={`category-nth ${index + 1}`} className="upload-button">
-                                            <ArchiveIcon className='bannerIcon' style={{ fontSize: '24px', color: 'black',}} />
-                                            </label>
-                                            <TrashIcon className='trash-bannerIcon' style={{ fontSize: '24px', color: 'black',}} onClick={() => handleDeleteCategory(index)} />
-                                            {preview && (
-                                            <div className="preview-container">
-                                                <img src={preview} alt={`카테고리 이미지 ${index + 1} 미리보기`} className="preview" />
-                                            </div>
-                                        )}
-                                        </div>
-                                    ))}
-                                    
-                                </div>
-                                </div>
+                                
 
                                 
-                                <div className='insert-btn'>
-                                    <button className="sy-apply-button"><Link to='/vender'>저장하기</Link></button>
+                                <div className='page-insert-btn'>
+                                    
                                     <button className="sy-apply-button"><Link to='/vender'>적용하기</Link></button>
                                 </div>    
                             </div>

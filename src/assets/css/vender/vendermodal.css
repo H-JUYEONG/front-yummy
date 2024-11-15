@@ -1,0 +1,69 @@
+.vender-audition-request-modal .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.vender-audition-request-modal .modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.vender-audition-request-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.vender-audition-request-modal .modal-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.vender-audition-request-modal .modal-close-button {
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.vender-audition-request-modal .modal-body {
+  padding: 1rem;
+  margin-bottom: 20px;
+}
+
+.vender-audition-request-modal .submit-button {
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.vender-audition-request-modal .submit-button:hover {
+  background-color: #ff5c52;
+}
