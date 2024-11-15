@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import Modal from 'react-modal'; // 모달 라이브러리 import
@@ -7,6 +8,61 @@ import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/productregistrationform.css';
 import VenderSidebar from './include/VenderSidebar';
+const API_URL = process.env.REACT_APP_API_URL;
+
+// 한글 옵션 유형 매핑
+const OPTION_TYPE_NAME_KO = {
+    1: "상품 종류",
+    2: "케이크 크기",
+    3: "맛 - 시트",
+    4: "맛 - 크림",
+    5: "케이크 배경 색상",
+    6: "크림 위치",
+    7: "크림 색상",
+    8: "데코 종류",
+    9: "데코 색상",
+    10: "카테고리"
+};
+
+// 옵션 이름 변환
+const translateOptionTypeName = (options) => {
+    return options.map(option => ({
+        ...option,
+        optionTypeName: OPTION_TYPE_NAME_KO[option.optionTypeId] || option.optionTypeName
+    }));
+};
+
+// 옵션 선택 컴포넌트 (체크 박스 버전)
+const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
+    return (
+        <div className="option-selector">
+            <label>{optionName}</label>
+            <div className="option-items">
+                {options.map((option, index) => {
+                    const isSelected = selectedOptions.includes(option.optionValueId); // 선택 여부 확인
+                    return (
+                        <div key={index} className={`option-item ${isSelected ? 'selected' : ''}`}>
+                            <input
+                                type="checkbox"
+                                id={`${optionName}-${index}`}
+                                checked={isSelected}
+                                onChange={() => onSelect(option.optionValueId)}
+                            />
+                            <label htmlFor={`${optionName}-${index}`}>
+                                <img
+                                    src={option.optionValueImageUrl}
+                                    alt={option.optionValueName}
+                                    className="option-image"
+                                />
+                                <span className="option-name">{option.optionValueName}</span>
+                            </label>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
 
 // 도안 모달 컴포넌트
 const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) => {
@@ -14,7 +70,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) =>
 
     // 검색된 도안 필터링
     const filteredDesigns = designs.filter(design =>
-        design.name.toLowerCase().includes(searchText.toLowerCase())
+        design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
     );
 
     return (
@@ -36,43 +92,18 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) =>
             <div className="design-list">
                 {filteredDesigns.map((design, index) => (
                     <div key={index} className="design-item">
-                        <img src={design.imageUrl} alt={design.name} className="design-image" />
-                        <span className="design-name">{design.name}</span>
+                        {design.cakeDesignImageUrl ? (
+                            <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
+                        ) : (
+                            <div className="design-image-placeholder">이미지 없음</div>
+                        )}
+                        <span className="design-name">{design.cakeDesignTitle}</span>
                         <button onClick={() => onSelectDesign(design)}>선택</button>
                     </div>
                 ))}
             </div>
             <button onClick={onRequestClose} className="close-modal-button">닫기</button>
         </Modal>
-    );
-};
-
-// 옵션 선택 컴포넌트 (체크 박스 버전)
-const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
-    return (
-        <div className="option-selector">
-            <label>{optionName}</label>
-            <div className="option-items">
-                {options.map((option, index) => (
-                    <div key={index} className="option-item">
-                        <input
-                            type="checkbox"
-                            id={`${optionName}-${index}`}
-                            checked={selectedOptions.includes(option.name)}
-                            onChange={() => onSelect(option.name)}
-                        />
-                        <label htmlFor={`${optionName}-${index}`}>
-                            <img
-                                src={option.imageUrl}
-                                alt={option.name}
-                                className="option-image"
-                            />
-                            <span className="option-name">{option.name}</span>
-                        </label>
-                    </div>
-                ))}
-            </div>
-        </div>
     );
 };
 
@@ -152,51 +183,9 @@ const ProductEditor = ({ description, setDescription }) => {
     );
 };
 
-// ProductImages 컴포넌트
-const ProductImages = ({ images, handleImageChange }) => {
-    return (
-        <div className="form-group">
-            <label>상품 이미지 등록</label>
-            <div className="image-upload-container">
-                <div className="image-upload">
-                    <label htmlFor="mainImage" className="image-placeholder">
-                        {images.main ? (
-                            <img src={images.main} alt="메인이미지" />
-                        ) : (
-                            <span>메인 이미지</span>
-                        )}
-                    </label>
-                    <input
-                        type="file"
-                        id="mainImage"
-                        accept="image/*"
-                        onChange={(e) => handleImageChange(e, 'main')}
-                    />
-                </div>
-
-                {images.subs.map((image, index) => (
-                    <div key={index} className="image-upload">
-                        <label htmlFor={`subImage${index}`} className="image-placeholder">
-                            {image ? (
-                                <img src={image} alt={`서브이미지${index + 1}`} />
-                            ) : (
-                                <span>서브이미지{index + 1}</span>
-                            )}
-                        </label>
-                        <input
-                            type="file"
-                            id={`subImage${index}`}
-                            accept="image/*"
-                            onChange={(e) => handleImageChange(e, index)}
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
 
 function ProductRegistrationForm() {
+    const venderId = 39; // 예시로 사용
     const navigate = useNavigate();
     const [productName, setProductName] = useState('');
     const [productType, setProductType] = useState('');
@@ -209,23 +198,6 @@ function ProductRegistrationForm() {
     // 옵션 상태 관리
     const [availableOptions, setAvailableOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState({});
-    useEffect(() => {
-        const fetchDesigns = async () => {
-            try {
-                // 임시 데이터
-                const mockDesigns = [
-                    { name: '도안 1', imageUrl: 'https://via.placeholder.com/150' },
-                    { name: '도안 2', imageUrl: 'https://via.placeholder.com/150' },
-                    { name: '도안 3', imageUrl: 'https://via.placeholder.com/150' },
-                ];
-                setAvailableDesigns(mockDesigns);
-            } catch (error) {
-                console.error('도안 로드 중 에러:', error);
-            }
-        };
-        fetchDesigns();
-    }, []);
-
     const openDesignModal = useCallback(() => {
         setIsDesignModalOpen(true);
     }, []);
@@ -234,80 +206,63 @@ function ProductRegistrationForm() {
         setIsDesignModalOpen(false);
     }, []);
 
-    const handleDesignSelect = useCallback((design) => {
-        setSelectedDesign(design);
-        closeDesignModal();
-    }, [closeDesignModal]);
-
-    // 옵션 데이터 불러오기
+    const handleDesignSelect = (design) => {
+        setSelectedDesign(design); // 선택한 도안 저장
+        closeDesignModal(); // 모달 닫기
+    };
+    // 도안 데이터 로드
     useEffect(() => {
-        // 실제 구현시에는 API 호출로 대체
+        const fetchWishlistDesigns = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/wishlist-designs`, {
+                    params: { memberId: 39 },
+                });
+                console.log("찜한 도안 데이터:", response.data);
+                setAvailableDesigns(response.data);
+            } catch (error) {
+                console.error("찜한 도안 데이터 로드 중 에러 발생:", error);
+            }
+        };
+
+        fetchWishlistDesigns();
+    }, []);
+
+    // 옵션 데이터 로드
+    useEffect(() => {
         const fetchOptions = async () => {
             try {
-                // 임시 데이터
-                const mockOptions = [
-                    {
-                        id: 1,
-                        name: '색상',
-                        subOptions: [
-                            { name: '빨강', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '파랑', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '노랑', imageUrl: 'https://via.placeholder.com/150' }
-                        ]
-                    },
-            
-                    {
-                        id: 2,
-                        name: '맛',
-                        subOptions: [
-                            { name: '초코', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '바닐라', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '레드벨벳', imageUrl: 'https://via.placeholder.com/150' }
-                        ]
-                    },
-                    {
-                        id: 3,
-                        name: '크기',
-                        subOptions: [
-                            { name: '1호', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '2호', imageUrl: 'https://via.placeholder.com/150' },
-                            { name: '3호', imageUrl: 'https://via.placeholder.com/150' }
-                        ]
-                    }
-                ];
-                setAvailableOptions(mockOptions);
+                const response = await axios.get(`${API_URL}/api/options/${venderId}`);
+                const translatedOptions = translateOptionTypeName(response.data);
+                setAvailableOptions(translatedOptions);
             } catch (error) {
-                console.error('옵션 로드 중 에러:', error);
+                console.error('옵션 데이터 로드 중 에러 발생:', error);
             }
         };
 
         fetchOptions();
-    }, []);
-
+    }, [venderId]);
+    // 필터링된 옵션
+    const visibleOptions = availableOptions.filter(option => option.optionValues && option.optionValues.length > 0);
     // 옵션 선택 핸들러
-    const handleOptionSelect = (optionType, value) => {
-        setSelectedOptions(prev => {
-            const currentOptions = prev[optionType] ? [...prev[optionType]] : [];
-            if (currentOptions.includes(value)) {
+    const handleOptionSelect = (optionTypeId, value) => {
+        setSelectedOptions(prevState => {
+            const currentValues = prevState[optionTypeId] || [];
+            if (currentValues.includes(value)) {
                 return {
-                    ...prev,
-                    [optionType]: currentOptions.filter(opt => opt !== value)
+                    ...prevState,
+                    [optionTypeId]: currentValues.filter(opt => opt !== value)
                 };
             } else {
                 return {
-                    ...prev,
-                    [optionType]: [...currentOptions, value]
+                    ...prevState,
+                    [optionTypeId]: [...currentValues, value]
                 };
             }
         });
     };
 
-    // 옵션 페이지로 이동
-    const handleAddOptions = () => {
-        navigate('/vender/option');  // VenderOption 페이지 경로
-    };
-
-    const handleImageChange = useCallback((e, index) => {
+    // 이미지 업로드 핸들러
+    const handleImageChange = (e, index) => {
         const file = e.target.files[0];
         if (file) {
             const newImages = { ...images };
@@ -318,97 +273,128 @@ function ProductRegistrationForm() {
             }
             setImages(newImages);
         }
-    }, [images]);
-
-    const handleSubmit = useCallback((e) => {
+    };
+    // 옵션 페이지로 이동
+    const handleAddOptions = () => {
+        navigate('/vender/option');  // VenderOption 페이지 경로
+    };
+    // 폼 제출 핸들러
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // 제출 로직에 선택된 옵션 포함
-        console.log({
+        const productData = {
             productName,
             productType,
-            images,
-            description,
             price,
-            selectedOptions
-        });
-    }, [productName, productType, images, description, price, selectedOptions]);
+            description,
+            selectedOptions,
+        };
+        console.log("제출 데이터:", productData);
+        try {
+            const response = await axios.post(`${API_URL}/api/products`, productData);
+            console.log("상품 등록 성공:", response.data);
+        } catch (error) {
+            console.error("상품 등록 실패:", error);
+        }
+    };
 
     return (
         <div className="vender-container">
-            <div class="vender-content-wrapper">
+            <div className="vender-content-wrapper">
                 <VenderSidebar />
                 <div className="vender-content">
                     <div className="product-registration">
                         <form className="main-content" onSubmit={handleSubmit}>
                             <h1 className="product-list-title">상품 등록</h1>
-                            <div className="form-group">
-                                <label htmlFor="productType">상품 종류 선택</label>
-                                <select
-                                    id="productType"
-                                    value={productType}
-                                    onChange={(e) => setProductType(e.target.value)}
-                                    className="input-select"
-                                >
-                                    <option value="">상품 종류를 선택해주세요</option>
-                                    <option value="일반케이크">일반케이크</option>
-                                    <option value="비건케이크">비건케이크</option>
-                                </select>
-                            </div>
+
+                            {/* 상품명 입력 */}
                             <div className="form-group">
                                 <label htmlFor="productName">상품명</label>
                                 <input
                                     type="text"
                                     id="productName"
-                                    placeholder="상품명을 입력해주세요"
                                     value={productName}
                                     onChange={(e) => setProductName(e.target.value)}
+                                    placeholder="상품명을 입력해주세요"
                                     className="input-text"
                                 />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="price">가격</label>
-                                <input
-                                    type="text"
-                                    id="price"
-                                    placeholder="가격을 입력해주세요"
-                                    value={price}
-                                    onChange={(e) => setPrice(e.target.value)}
-                                    className="input-text"
-                                />
-                            </div>
-                            <ProductImages images={images} handleImageChange={handleImageChange} />
 
                             <ProductEditor
                                 description={description}
                                 setDescription={setDescription}
                             />
+                            {/* 가격 입력 */}
+                            <div className="form-group">
+                                <label htmlFor="price">가격</label>
+                                <input
+                                    type="number"
+                                    id="price"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder="가격을 입력해주세요"
+                                    className="input-text"
+                                />
+                            </div>
 
-                            {/* 옵션 선택 섹션 */}
-                            <div className="options-section">
-                                <div className="options-header">
-                                    <h2>상품 옵션 선택</h2>
-                                    <button
-                                        type="button"
-                                        className="add-options-button"
-                                        onClick={handleAddOptions}
-                                    >
-                                        옵션 추가하기
-                                    </button>
+                            {/* 이미지 업로드 */}
+                            <div className="form-group">
+                                <label>이미지 업로드</label>
+                                <div className="image-upload-container">
+                                    <div className="image-upload">
+                                        <label htmlFor="mainImage" className="image-placeholder">
+                                            {images.main ? (
+                                                <img src={images.main} alt="메인 이미지" />
+                                            ) : (
+                                                <span>메인 이미지</span>
+                                            )}
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="mainImage"
+                                            accept="image/*"
+                                            onChange={(e) => handleImageChange(e, 'main')}
+                                        />
+                                    </div>
+                                    {images.subs.map((image, index) => (
+                                        <div key={index} className="image-upload">
+                                            <label htmlFor={`subImage${index}`} className="image-placeholder">
+                                                {image ? (
+                                                    <img src={image} alt={`서브 이미지 ${index + 1}`} />
+                                                ) : (
+                                                    <span>서브 이미지 {index + 1}</span>
+                                                )}
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id={`subImage${index}`}
+                                                accept="image/*"
+                                                onChange={(e) => handleImageChange(e, index)}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
+                            </div>
 
-                                {availableOptions.map(option => (
+                            <div className="form-group">
+                                <h3>상품 옵션 선택</h3>
+                                <button
+                                    type="button"
+                                    className="add-options-button"
+                                    onClick={handleAddOptions}
+                                >
+                                    옵션 추가하기
+                                </button>
+                                {visibleOptions.map(option => (
                                     <OptionSelector
-                                        key={option.id}
-                                        optionName={option.name}
-                                        options={option.subOptions}
-                                        selectedOptions={selectedOptions[option.name.toLowerCase().replace(/\s+/g, '')] || []}
-                                        onSelect={(value) => handleOptionSelect(
-                                            option.name.toLowerCase().replace(/\s+/g, ''),
-                                            value
-                                        )}
+                                        key={option.optionTypeId}
+                                        optionName={option.optionTypeName}
+                                        options={option.optionValues}
+                                        selectedOptions={selectedOptions[option.optionTypeId] || []}
+                                        onSelect={(value) => handleOptionSelect(option.optionTypeId, value)}
                                     />
                                 ))}
                             </div>
+
                             {/* 도안 선택 섹션 */}
                             <div className="cakeDesign-section">
                                 <div className="options-header">
@@ -423,10 +409,11 @@ function ProductRegistrationForm() {
                                 </div>
                                 {selectedDesign && (
                                     <div className="selected-design">
-                                        <img src={selectedDesign.imageUrl} alt={selectedDesign.name} className="selected-design-image" />
-                                        <span className="selected-design-name">{selectedDesign.name}</span>
+                                        <img src={selectedDesign.cakeDesignImageUrl} alt={selectedDesign.cakeDesignTitle} className="selected-design-image" />
+                                        <span className="selected-design-name">{selectedDesign.cakeDesignTitle}</span>
                                     </div>
                                 )}
+
                             </div>
 
                             {/* 도안 모달 */}
@@ -441,16 +428,10 @@ function ProductRegistrationForm() {
                                 <button type="submit" className="add-button">등록하기</button>
                             </div>
                         </form>
-                        <button
-                            className="floating-preview-button"
-                            onClick={() => window.open('/vender/productpreview', '_blank')}
-                        >
-                            미리보기
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
