@@ -15,6 +15,7 @@ function VenderOption() {
         { id: 7, name: '크림 색상', subOptions: [] },
         { id: 8, name: '데코 종류', subOptions: [] },
         { id: 9, name: '데코 색상', subOptions: [] },
+        { id: 9, name: '카테코리', subOptions: [] },
     ]);
 
     const [expandedOptions, setExpandedOptions] = useState({});
