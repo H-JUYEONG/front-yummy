@@ -99,7 +99,7 @@ function App() {
           <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList/>} />
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
-          <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
+          <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit/>} />
           <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
           {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}

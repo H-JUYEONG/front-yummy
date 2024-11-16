@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import VenderSidebar from "./include/VenderSidebar";
 
 import "../../assets/css/all.css";
@@ -6,43 +9,65 @@ import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignEdit.css";
 
 function VenderCakeDesignEdit() {
+  const { cakeDesignId } = useParams();
+  const navigate = useNavigate();
+
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
-  const [files, setFiles] = useState([
-    { id: Date.now(), file: null, preview: null },
-  ]);
+  const [registeredImages, setRegisteredImages] = useState([]); // 등록된 이미지 리스트
+  const [files, setFiles] = useState([]); // 새로 추가된 이미지 리스트
+  const [deletedImages, setDeletedImages] = useState([]); // 삭제된 이미지 추적
 
-  const handleCakeDesignName = (e) => {
-    setCakeDesignName(e.target.value);
+  // 도안 정보를 가져오는 함수
+  const fetchCakeDesignDetail = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.log("토큰이 없습니다. 로그인하세요.");
+        navigate("/user/login");
+        return;
+      }
+
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/detail/${cakeDesignId}`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.data.result === "success") {
+        const detail = response.data.apiData;
+        setCakeDesignName(detail.cakeDesignTitle);
+        setCakeDesignDescription(detail.cakeDesignDescription);
+        setCakeDesignShape(detail.cakeDesignPreferredShape);
+        setCakeDesignPrefer(detail.cakeDesignPreferredAge);
+        setCakeDesignEvent(detail.cakeDesignRecommendedEvent);
+        setRegisteredImages(detail.subImages); // 서버에서 받은 이미지 리스트 설정
+      } else {
+        alert("도안 정보를 불러오는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 정보 불러오기 실패", error);
+    }
   };
 
-  const handleCakeDesignDescription = (e) => {
-    setCakeDesignDescription(e.target.value);
-  };
+  useEffect(() => {
+    fetchCakeDesignDetail();
+  }, [cakeDesignId]);
 
-  const handleCakeDesignShape = (e) => {
-    setCakeDesignShape(e.target.value);
-  };
-
-  const handleCakeDesignPrefer = (e) => {
-    setCakeDesignPrefer(e.target.value);
-  };
-
-  const handleCakeDesignEvent = (e) => {
-    setCakeDesignEvent(e.target.value);
-  };
-
+  // 새 이미지 추가
   const addFileInput = () => {
     setFiles([...files, { id: Date.now(), file: null, preview: null }]);
   };
 
+  // 새 이미지 삭제
   const removeFileInput = (id) => {
     setFiles(files.filter((file) => file.id !== id));
   };
 
+  // 새 이미지 변경
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     if (file) {
@@ -60,16 +85,60 @@ function VenderCakeDesignEdit() {
     }
   };
 
+  // 등록된 이미지 삭제
+  const handleRegisteredImageDelete = (imageUrl) => {
+    setRegisteredImages(registeredImages.filter((image) => image !== imageUrl));
+    setDeletedImages([...deletedImages, imageUrl]); // 삭제된 이미지를 추적
+  };
+
   // 수정 버튼
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
 
-    const cakeDesignVo = {
-      cakeDesignDescription: cakeDesignDescription,
-      cakeDesignShape: cakeDesignShape,
-      cakeDesignPrefer: cakeDesignPrefer,
-      cakeDesignEvent: cakeDesignEvent,
-    };
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("cakeDesignTitle", cakeDesignName);
+    formData.append("cakeDesignDescription", cakeDesignDescription);
+    formData.append("cakeDesignPreferredShape", cakeDesignShape);
+    formData.append("cakeDesignPreferredAge", cakeDesignPrefer);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignEvent);
+    formData.append("cakeDesignId", cakeDesignId);
+
+    // 새로 추가된 파일
+    files.forEach((fileInput) => {
+      if (fileInput.file) {
+        formData.append("files", fileInput.file);
+      }
+    });
+
+    // 삭제된 이미지
+    deletedImages.forEach((deletedImage) => {
+      formData.append("deletedImages", deletedImage);
+    });
+
+    try {
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/cakeDesign/edit`,
+        headers: { Authorization: `Bearer ${token}` },
+        data: formData,
+      });
+
+      if (response.data.result === "success") {
+        alert("도안 수정이 완료되었습니다.");
+        navigate(`/vender/cakeDesign/detail/${cakeDesignId}`);
+      } else {
+        alert("도안 수정에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 수정 실패", error);
+    }
   };
 
   return (
@@ -81,15 +150,23 @@ function VenderCakeDesignEdit() {
             <form className="main-content" onSubmit={handleEdit}>
               <h1 className="product-list-title">도안 수정</h1>
 
+              {/* 등록된 이미지 표시 */}
               <div className="cake-design-imgs">
-                {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
-                <img src="/images/2호_일반케이크.jpg" alt="회사 로고" />
+                {registeredImages.map((image, index) => (
+                  <div key={index} className="registered-image-wrapper">
+                    <img src={image} alt={`등록 이미지 ${index + 1}`} />
+                    <button
+                      type="button"
+                      className="remove-button"
+                      onClick={() => handleRegisteredImageDelete(image)}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                ))}
               </div>
 
+              {/* 새 이미지 미리보기 */}
               <div className="cake-design-imgs">
                 {files.map(
                   (fileInput) =>
@@ -133,6 +210,7 @@ function VenderCakeDesignEdit() {
                 </div>
               </div>
 
+              {/* 도안 정보 입력 */}
               <div className="form-group">
                 <label htmlFor="cake-design-name">제목</label>
                 <input
@@ -140,7 +218,7 @@ function VenderCakeDesignEdit() {
                   id="cake-design-name"
                   placeholder="친구 생일 케이크 디자인"
                   value={cakeDesignName}
-                  onChange={handleCakeDesignName}
+                  onChange={(e) => setCakeDesignName(e.target.value)}
                   className="input-text"
                 />
               </div>
@@ -151,13 +229,13 @@ function VenderCakeDesignEdit() {
                   id="cake-design-description"
                   placeholder="꽃과 풀이 가득한 초원 위에서 밤하늘을 바라보는 디자인입니다."
                   value={cakeDesignDescription}
-                  onChange={handleCakeDesignDescription}
+                  onChange={(e) => setCakeDesignDescription(e.target.value)}
                   className="input-text"
                   rows="4"
                 />
               </div>
 
-              {/* 선호 케이크형태 */}
+              {/* 선호 케이크 형태 */}
               <div className="user-cake-design-form-groups">
                 <label htmlFor="user-cake-design-shape">
                   선호하는 케이크 형태
@@ -167,7 +245,7 @@ function VenderCakeDesignEdit() {
                   id="user-cake-design-shape"
                   placeholder="눈길을 끌 수 있는 대형 케이크가 좋습니다."
                   value={cakeDesignShape}
-                  onChange={handleCakeDesignShape}
+                  onChange={(e) => setCakeDesignShape(e.target.value)}
                   className="user-input-text"
                 />
               </div>
@@ -180,7 +258,7 @@ function VenderCakeDesignEdit() {
                   id="cake-design-prefer"
                   placeholder="20~30대 여성"
                   value={cakeDesignPrefer}
-                  onChange={handleCakeDesignPrefer}
+                  onChange={(e) => setCakeDesignPrefer(e.target.value)}
                   className="user-input-text"
                 />
               </div>
@@ -192,7 +270,7 @@ function VenderCakeDesignEdit() {
                   id="cake-design-event"
                   placeholder="생일, 기념일"
                   value={cakeDesignEvent}
-                  onChange={handleCakeDesignEvent}
+                  onChange={(e) => setCakeDesignEvent(e.target.value)}
                   className="input-text"
                 />
               </div>
