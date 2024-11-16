@@ -287,13 +287,20 @@ function ProductRegistrationForm() {
             price,
             description,
             selectedOptions,
+            isVisible: 0, // 미노출 상태로 등록
+            images: images.subs.map((url, index) => ({
+                [`image${index + 1}`]: url, // 이미지 매핑
+            })),
+            designId: selectedDesign ? selectedDesign.cakeDesignId : null, // 선택된 도안
         };
         console.log("제출 데이터:", productData);
         try {
             const response = await axios.post(`${API_URL}/api/products`, productData);
             console.log("상품 등록 성공:", response.data);
+            alert("상품이 미노출 상태로 등록되었습니다!");
         } catch (error) {
             console.error("상품 등록 실패:", error);
+            alert("상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
     };
 
@@ -424,10 +431,15 @@ function ProductRegistrationForm() {
                                 onSelectDesign={handleDesignSelect}
                             />
                             <div className="form-group centered-button-group">
-                                <button type="submit" className="add-button">저장하기</button>
                                 <button type="submit" className="add-button">등록하기</button>
                             </div>
                         </form>
+                        <button
+                            className="floating-preview-button"
+                            onClick={() => window.open('/vender/productpreview', '_blank')}
+                        >
+                            미리보기
+                        </button>
                     </div>
                 </div>
             </div>
