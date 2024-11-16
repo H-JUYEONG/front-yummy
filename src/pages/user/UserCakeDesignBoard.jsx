@@ -12,30 +12,22 @@ import "../../assets/css/user/userCakeDesignBoard.css";
 
 const UserCakeDesignBoard = () => {
   const navigate = useNavigate();
-  const [userCakeDesignBoard, setUserCakeDesignBoard] = useState([]);
+  const [userCakeDesignBoard, setUserCakeDesignBoard] = useState([]); // 현재 렌더링되는 데이터
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9; // 한 페이지에 보여줄 항목 수
   const maxVisiblePages = 10; // 한 번에 보일 페이지 번호의 최대 개수
 
-  // axios 통신으로 데이터 가져오기
-  const getUserCakeDesignBoard = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      console.log("토큰이 없습니다. 로그인하세요.");
-      navigate("/user/login");
-      return;
-    }
-
+  // 데이터 가져오기 함수
+  const fetchData = (url) => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_URL}/api/user/cakeDesign/board`,
-      headers: { Authorization: `Bearer ${token}` },
+      url: `${process.env.REACT_APP_API_URL}${url}`,
       responseType: "json",
     })
       .then((response) => {
         if (response.data.result === "success") {
           setUserCakeDesignBoard(response.data.apiData); // 서버에서 받아온 데이터 설정
+          setCurrentPage(1); // 페이지 초기화
         } else {
           alert("리스트 가져오기 실패");
         }
@@ -45,8 +37,17 @@ const UserCakeDesignBoard = () => {
       });
   };
 
+  // 정렬별 데이터 가져오기
+  const getUserCakeDesignBoard = () => fetchData("/api/user/cakeDesign/board"); // 전체
+  const getUserCakeDesignBoardLatest = () =>
+    fetchData("/api/user/cakeDesign/board/latest"); // 최신순
+  const getUserCakeDesignBoardViews = () =>
+    fetchData("/api/user/cakeDesign/board/views"); // 조회수순
+  const getUserCakeDesignBoardLikes = () =>
+    fetchData("/api/user/cakeDesign/board/likes"); // 찜순
+
   useEffect(() => {
-    getUserCakeDesignBoard();
+    getUserCakeDesignBoard(); // 초기 데이터 가져오기
   }, []);
 
   // 현재 페이지의 데이터 필터링
@@ -107,10 +108,10 @@ const UserCakeDesignBoard = () => {
           </div>
           <div id="user-cake-design-select-option-list">
             <div className="user-cake-design-select-option">
-              <button>전체</button>
-              <button>최신순</button>
-              <button>조회수순</button>
-              <button>찜순</button>
+              <button onClick={getUserCakeDesignBoard}>전체</button>
+              <button onClick={getUserCakeDesignBoardLatest}>최신순</button>
+              <button onClick={getUserCakeDesignBoardViews}>조회수순</button>
+              <button onClick={getUserCakeDesignBoardLikes}>찜순</button>
             </div>
             <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
@@ -128,8 +129,8 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
           <div className="user-cake-design-list-grid">
-            {paginatedData.map((card) => (
-              <div key={card.id} className="user-cake-design-card">
+            {paginatedData.map((card,index) => (
+              <div key={index} className="user-cake-design-card">
                 <div className="user-cake-design-card-image">
                   <img
                     src={card.cakeDesignImageUrl}
