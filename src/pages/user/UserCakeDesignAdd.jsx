@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 
@@ -8,6 +10,8 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignAdd.css";
 
 const UserCakeDesignAdd = () => {
+  const navigate = useNavigate();
+
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignShape, setCakeDesignShape] = useState("");
@@ -17,25 +21,12 @@ const UserCakeDesignAdd = () => {
     { id: Date.now(), file: null, preview: null },
   ]);
 
-  const handleCakeDesignName = (e) => {
-    setCakeDesignName(e.target.value);
-  };
-
-  const handleCakeDesignDescription = (e) => {
+  const handleCakeDesignName = (e) => setCakeDesignName(e.target.value);
+  const handleCakeDesignDescription = (e) =>
     setCakeDesignDescription(e.target.value);
-  };
-
-  const handleCakeDesignShape = (e) => {
-    setCakeDesignShape(e.target.value);
-  };
-
-  const handleCakeDesignPrefer = (e) => {
-    setCakeDesignPrefer(e.target.value);
-  };
-
-  const handleCakeDesignEvent = (e) => {
-    setCakeDesignEvent(e.target.value);
-  };
+  const handleCakeDesignShape = (e) => setCakeDesignShape(e.target.value);
+  const handleCakeDesignPrefer = (e) => setCakeDesignPrefer(e.target.value);
+  const handleCakeDesignEvent = (e) => setCakeDesignEvent(e.target.value);
 
   const addFileInput = () => {
     setFiles([...files, { id: Date.now(), file: null, preview: null }]);
@@ -48,17 +39,60 @@ const UserCakeDesignAdd = () => {
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     if (file) {
-      const updatedFiles = files.map((fileInput) => {
-        if (fileInput.id === id) {
-          return {
-            ...fileInput,
-            file,
-            preview: URL.createObjectURL(file),
-          };
-        }
-        return fileInput;
-      });
+      const updatedFiles = files.map((fileInput) =>
+        fileInput.id === id
+          ? { ...fileInput, file, preview: URL.createObjectURL(file) }
+          : fileInput
+      );
       setFiles(updatedFiles);
+    }
+  };
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/user/login");
+      return;
+    }
+
+    // FormData 생성
+    const formData = new FormData();
+    formData.append("cakeDesignTitle", cakeDesignName);
+    formData.append("cakeDesignDescription", cakeDesignDescription);
+    formData.append("cakeDesignPreferredShape", cakeDesignShape);
+    formData.append("cakeDesignPreferredAge", cakeDesignPrefer);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignEvent);
+
+    files.forEach((fileInput) => {
+      if (fileInput.file) {
+        formData.append("files", fileInput.file);
+      }
+    });
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/add/user/cakeDesign`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data.result === "success") {
+        alert("도안 등록이 완료되었습니다.");
+        navigate("/user/cakeDesign/board");
+      } else {
+        alert("도안 등록에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 등록 실패:", error);
+      alert("도안 등록 중 오류가 발생했습니다.");
     }
   };
 
@@ -72,7 +106,7 @@ const UserCakeDesignAdd = () => {
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-design-board-list">
-          <form className="user-cake-design-main">
+          <form className="user-cake-design-main" onSubmit={handleAdd}>
             <h1 className="user-cake-design-title">도안 등록</h1>
 
             {/* 이미지 미리보기 */}
@@ -90,11 +124,8 @@ const UserCakeDesignAdd = () => {
             </div>
 
             {/* 도안 이미지 업로드 */}
-
             <div className="user-cake-design-form-groups">
-              <sapn>
-                <label>도안 이미지</label>
-              </sapn>
+              <label>도안 이미지</label>
               <button
                 type="button"
                 onClick={addFileInput}

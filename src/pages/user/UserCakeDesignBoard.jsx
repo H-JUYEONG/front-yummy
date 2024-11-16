@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaSearch, FaHeart } from "react-icons/fa";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import axios from "axios";
 
 // css
 import "../../assets/css/all.css";
@@ -11,9 +12,51 @@ import "../../assets/css/user/userCakeDesignBoard.css";
 
 const UserCakeDesignBoard = () => {
   const navigate = useNavigate();
-
+  const [userCakeDesignBoard, setUserCakeDesignBoard] = useState([]); // 현재 렌더링되는 데이터
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5; // 예시 페이지 수
+  const itemsPerPage = 9; // 한 페이지에 보여줄 항목 수
+  const maxVisiblePages = 10; // 한 번에 보일 페이지 번호의 최대 개수
+
+  // 데이터 가져오기 함수
+  const fetchData = (url) => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}${url}`,
+      responseType: "json",
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          setUserCakeDesignBoard(response.data.apiData); // 서버에서 받아온 데이터 설정
+          setCurrentPage(1); // 페이지 초기화
+        } else {
+          alert("리스트 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("데이터 가져오기 실패", error);
+      });
+  };
+
+  // 정렬별 데이터 가져오기
+  const getUserCakeDesignBoard = () => fetchData("/api/user/cakeDesign/board"); // 전체
+  const getUserCakeDesignBoardLatest = () =>
+    fetchData("/api/user/cakeDesign/board/latest"); // 최신순
+  const getUserCakeDesignBoardViews = () =>
+    fetchData("/api/user/cakeDesign/board/views"); // 조회수순
+  const getUserCakeDesignBoardLikes = () =>
+    fetchData("/api/user/cakeDesign/board/likes"); // 찜순
+
+  useEffect(() => {
+    getUserCakeDesignBoard(); // 초기 데이터 가져오기
+  }, []);
+
+  // 현재 페이지의 데이터 필터링
+  const paginatedData = userCakeDesignBoard.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(userCakeDesignBoard.length / itemsPerPage);
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -21,70 +64,25 @@ const UserCakeDesignBoard = () => {
     }
   };
 
-  // 이미지 클릭시 상세페이지로 이동
-  const handleImageClick = () => {
-    navigate("/user/cakeDesign/detail");
+  const generatePagination = () => {
+    const pages = [];
+    const startPage =
+      Math.floor((currentPage - 1) / maxVisiblePages) * maxVisiblePages + 1;
+    const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+
+    return pages;
   };
 
-  const cardData = [
-    {
-      id: 1,
-      nickname: "aaa11",
-      title: "부모님 결혼기념일 기념 특별한 디자인",
-      like: 10,
-      views: "10",
-      src: "/images/1.png",
-    },
-    {
-      id: 2,
-      nickname: "bbb22",
-      title: "첫돌 기념 사랑스러운 디자인",
-      like: 30,
-      views: "2",
-      src: "/images/2.png",
-    },
-    {
-      id: 3,
-      nickname: "ccc33",
-      title: "친구를 위한 특별한 생일 디자인",
-      like: 15,
-      views: "6",
-      src: "/images/3.png",
-    },
-    {
-      id: 4,
-      nickname: "ddd44",
-      title: "따뜻한 연말 모임에 어울리는 디자인",
-      like: 7,
-      views: "10",
-      src: "/images/4.png",
-    },
-    {
-      id: 5,
-      nickname: "eee55",
-      title: "졸업을 축하하는 특별한 선물 디자인",
-      like: 20,
-      views: "8",
-      src: "/images/5.png",
-    },
-    {
-      id: 6,
-      nickname: "fff66",
-      title: "다크한 보석함 디자인",
-      like: 25,
-      views: "22",
-      src: "/images/6.png",
-    },
-    {
-      id: 7,
-      nickname: "ggg77",
-      title: "토이스토리 귀여운 디자인",
-      like: 9,
-      views: "5",
-      src: "/images/7.png",
-    },
-    // 다른 카드 데이터도 여기에 추가
-  ];
+  const paginationNumbers = generatePagination();
+
+  // 이미지 클릭 시 상세 페이지로 이동
+  const handleImageClick = (cakeDesignId) => {
+    navigate(`/user/cakeDesign/detail/${cakeDesignId}`);
+  };
 
   return (
     <div id="user-wrap" className="text-center">
@@ -110,10 +108,10 @@ const UserCakeDesignBoard = () => {
           </div>
           <div id="user-cake-design-select-option-list">
             <div className="user-cake-design-select-option">
-              <button>전체</button>
-              <button>최신순</button>
-              <button>조회수순</button>
-              <button>찜순</button>
+              <button onClick={getUserCakeDesignBoard}>전체</button>
+              <button onClick={getUserCakeDesignBoardLatest}>최신순</button>
+              <button onClick={getUserCakeDesignBoardViews}>조회수순</button>
+              <button onClick={getUserCakeDesignBoardLikes}>찜순</button>
             </div>
             <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
@@ -121,7 +119,9 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
           <div id="user-cake-design-add" className="clearfix">
-            <div className="user-cake-design-all">ALL 7</div>
+            <div className="user-cake-design-all">
+              ALL {userCakeDesignBoard.length}
+            </div>
             <div className="user-cake-design-add-btn">
               <button onClick={() => navigate("/user/cakeDesign/add")}>
                 도안 등록하기
@@ -129,26 +129,26 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
           <div className="user-cake-design-list-grid">
-            {cardData.map((card) => (
-              <div key={card.id} className="user-cake-design-card">
+            {paginatedData.map((card,index) => (
+              <div key={index} className="user-cake-design-card">
                 <div className="user-cake-design-card-image">
                   <img
-                    src={card.src}
-                    onClick={handleImageClick}
+                    src={card.cakeDesignImageUrl}
+                    onClick={() => handleImageClick(card.cakeDesignId)}
                     alt="케이크 도안"
                   />
                   <div className="user-cake-design-card-likes">
                     <FaHeart className="heart-icon" />
-                    <span>{card.like}</span>
+                    <span>{card.cakeDesignWishlistCount}</span>
                   </div>
                 </div>
                 <div className="user-cake-design-card-info">
-                  <h3 className="user-cake-design-card-title">{card.title}</h3>
+                  <h3 className="user-cake-design-card-title">{card.cakeDesignTitle}</h3>
                   <p className="user-cake-design-card-subtitle">
-                    {card.nickname}
+                    {card.userNickname}
                   </p>
                   <div className="user-cake-design-card-status">
-                    <span>조회수: {card.views}</span>
+                    <span>조회수: {card.cakeDesignViewCount}</span>
                   </div>
                 </div>
               </div>
@@ -159,21 +159,28 @@ const UserCakeDesignBoard = () => {
           <div className="user-cake-design-pagination">
             <button
               className="user-cake-design-prev-page"
+              onClick={() =>
+                handlePageChange(Math.max(currentPage - maxVisiblePages, 1))
+              }
+              disabled={currentPage <= maxVisiblePages}
+            >
+              {"<<"}
+            </button>
+            <button
+              className="user-cake-design-prev-page"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
               {"<"}
             </button>
             <div className="user-cake-design-page-numbers">
-              {[1, 2, 3, "...", 67, 68].map((page, index) => (
+              {paginationNumbers.map((page) => (
                 <button
-                  key={index}
+                  key={page}
                   className={`user-cake-design-page-number ${
                     currentPage === page ? "active" : ""
                   }`}
-                  onClick={() =>
-                    typeof page === "number" && handlePageChange(page)
-                  }
+                  onClick={() => handlePageChange(page)}
                 >
                   {page}
                 </button>
@@ -185,6 +192,15 @@ const UserCakeDesignBoard = () => {
               disabled={currentPage === totalPages}
             >
               {">"}
+            </button>
+            <button
+              className="user-cake-design-next-page"
+              onClick={() =>
+                handlePageChange(Math.min(currentPage + maxVisiblePages, totalPages))
+              }
+              disabled={currentPage > totalPages - maxVisiblePages}
+            >
+              {">>"}
             </button>
           </div>
         </div>
