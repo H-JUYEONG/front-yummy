@@ -188,8 +188,8 @@ function ProductRegistrationForm() {
     const venderId = 39; // 예시로 사용
     const navigate = useNavigate();
     const [productName, setProductName] = useState('');
-    const [productType, setProductType] = useState('');
     const [images, setImages] = useState({ main: null, subs: [null, null, null] });
+    const [preview, setPreview] = useState({ main: null, subs: [null, null, null] });
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
@@ -266,44 +266,66 @@ function ProductRegistrationForm() {
         const file = e.target.files[0];
         if (file) {
             const newImages = { ...images };
+            const newPreview = { ...preview };
             if (index === 'main') {
-                newImages.main = URL.createObjectURL(file);
+                newImages.main = file; // 원본 파일 저장
+                newPreview.main = URL.createObjectURL(file); // 미리보기 URL 생성
             } else {
-                newImages.subs[index] = URL.createObjectURL(file);
+                newImages.subs[index] = file; // 원본 파일 저장
+                newPreview.subs[index] = URL.createObjectURL(file); // 미리보기 URL 생성
             }
             setImages(newImages);
+            setPreview(newPreview);
         }
     };
     // 옵션 페이지로 이동
     const handleAddOptions = () => {
         navigate('/vender/option');  // VenderOption 페이지 경로
     };
-    // 폼 제출 핸들러
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const productData = {
-            productName,
-            productType,
-            price,
-            description,
-            selectedOptions,
-            isVisible: 0, // 미노출 상태로 등록
-            images: images.subs.map((url, index) => ({
-                [`image${index + 1}`]: url, // 이미지 매핑
-            })),
-            designId: selectedDesign ? selectedDesign.cakeDesignId : null, // 선택된 도안
-        };
-        console.log("제출 데이터:", productData);
+
+        const formData = new FormData();
+
+        // 벤더 ID 및 상품 데이터 추가
+        formData.append("venderId", venderId);
+        formData.append("productName", productName);
+        formData.append("price", price);
+        formData.append("description", description);
+        formData.append("isVisible", 0);
+
+        // 메인 이미지 추가
+        if (images.main) {
+            formData.append("mainImage", images.main);
+        }
+
+        // 서브 이미지 추가
+        images.subs.forEach((subImage, index) => {
+            if (subImage) {
+                formData.append("subImages", subImage); // 서버에서 List로 처리
+            }
+        });
+        // **선택된 옵션 데이터를 JSON 문자열로 추가**
+        if (Object.keys(selectedOptions).length > 0) {
+            formData.append("selectedOptions", JSON.stringify(selectedOptions));
+        }
+
         try {
-            const response = await axios.post(`${API_URL}/api/products`, productData);
+            const response = await axios.post(`${API_URL}/api/products`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
             console.log("상품 등록 성공:", response.data);
-            alert("상품이 미노출 상태로 등록되었습니다!");
+            alert("상품이 성공적으로 등록되었습니다!");
         } catch (error) {
-            console.error("상품 등록 실패:", error);
+            console.error("상품 등록 실패:", error.response || error.message);
             alert("상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
     };
-
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">
@@ -347,10 +369,11 @@ function ProductRegistrationForm() {
                             <div className="form-group">
                                 <label>이미지 업로드</label>
                                 <div className="image-upload-container">
+                                    {/* 메인 이미지 */}
                                     <div className="image-upload">
                                         <label htmlFor="mainImage" className="image-placeholder">
-                                            {images.main ? (
-                                                <img src={images.main} alt="메인 이미지" />
+                                            {preview.main ? (
+                                                <img src={preview.main} alt="메인 이미지 미리보기" className="preview-image" />
                                             ) : (
                                                 <span>메인 이미지</span>
                                             )}
@@ -362,11 +385,12 @@ function ProductRegistrationForm() {
                                             onChange={(e) => handleImageChange(e, 'main')}
                                         />
                                     </div>
+                                    {/* 서브 이미지 */}
                                     {images.subs.map((image, index) => (
                                         <div key={index} className="image-upload">
                                             <label htmlFor={`subImage${index}`} className="image-placeholder">
-                                                {image ? (
-                                                    <img src={image} alt={`서브 이미지 ${index + 1}`} />
+                                                {preview.subs[index] ? (
+                                                    <img src={preview.subs[index]} alt={`서브 이미지 ${index + 1} 미리보기`} className="preview-image" />
                                                 ) : (
                                                     <span>서브 이미지 {index + 1}</span>
                                                 )}
