@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useLocation,useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
 import "../../assets/css/user/CakeOrder.css"
 import '../../assets/css/user/usermain.css';
@@ -7,6 +8,7 @@ import '../../assets/css/user/usermain.css';
 const UserCakeDetail = () => {
     /* ===== 상태 관리 영역 시작 ===== */
     const location = useLocation();  // cakeorder에서 이동했을때
+    const { productId } = useParams();  // URL에서 productId를 가져옴
 
     const [selectedTab, setSelectedTab] = useState(
         location.state?.openReview ? '후기' : '상품 상세정보'
@@ -29,11 +31,69 @@ const UserCakeDetail = () => {
     const tabContentRef = useRef(null);
     const [deliveryType, setDeliveryType] = useState('pickup');
 
-
+    //데이터 가져올 때 쓸 함수입니다.
+    const [productDetail, setProductDetail] = useState(null);
+    const [productOptions, setProductOptions] = useState({
+        colors: [],    // Cream Color 옵션
+        flavors: [],   // Flavor 옵션
+        sizes: []      // Cake Size 옵션
+    });
+   
 
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
     }, []);
+    
+    //페이지
+    useEffect(() => {
+        if(productDetail?.productImage1Url) {
+            setMainImage(productDetail.productImage1Url);
+        }
+    }, [productDetail]);
+    
+    // 상품 상세 정보 가져오기
+    const getProductDetail = () => {
+        axios({
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/products/${productId}`,
+            responseType: 'json'
+        }).then(response => {
+            setProductDetail(response.data.apiData);
+            console.log("상품 상세:", response.data.apiData);
+        }).catch(error => {
+            console.log(error);
+        });
+    };
+   
+    // 옵션 데이터 가져오기
+const getProductOptions = () => {
+    axios({
+        method: 'get',
+        url: `${process.env.REACT_APP_API_URL}/api/products/${productId}/options`,
+        responseType: 'json'
+    }).then(response => {
+        const options = response.data.apiData;
+        // 옵션 데이터 분류
+        const formattedOptions = {
+            colors: options.filter(opt => opt.optionTypeName === 'Cream Color'),
+            flavors: options.filter(opt => opt.optionTypeName === 'Flavor - Sheet' || opt.optionTypeName === 'Flavor - Cream'),
+            sizes: options.filter(opt => opt.optionTypeName === 'Cake Size')
+        };
+        setProductOptions(formattedOptions);
+        console.log("상품 옵션:", formattedOptions);
+    }).catch(error => {
+        console.log(error);
+    });
+};
+    
+   // 컴포넌트 마운트 시 데이터 로드
+    useEffect(() => {
+        if(productId) {
+            getProductDetail();
+            getProductOptions();
+        }
+    }, [productId]);
+    
     // 리뷰 작성을 위한 상태
     const [newReview, setNewReview] = useState({
         rating: 5,        // 기본 별점은 5점으로 설정
@@ -76,6 +136,7 @@ const UserCakeDetail = () => {
         }
     }, [location.state?.openReview]);
 
+    
 
     // 별점 통계 데이터
     const ratingStats = {
@@ -379,42 +440,39 @@ const UserCakeDetail = () => {
         </div>
     );
 
-
-
     return (
         <div id="user-wrap" className="text-center">
             <VenderHeader />
             <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
-                    {/* 왼쪽 섹션: 상품 이미지 및 상세 정보 */}
+                    {/* 왼쪽 섹션 */}
                     <div className="left-section">
+                        {/* 상품 이미지 갤러리 */}
                         <div className="product-image">
                             <img src={mainImage} alt="케이크" className="main-image" />
                             <div className="thumbnail-container">
-                                {images.map((image, index) => (
-                                    <div
-                                        key={index}
-                                        className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                                        onClick={() => handleThumbnailClick(image)}
-                                    >
-                                        <img
-                                            src={image}
-                                            alt={`썸네일${index + 1}`}
-                                            className="thumbnail-image"
-                                        />
+                                {productDetail && [
+                                    productDetail.productImage1Url,
+                                    productDetail.productImage2Url,
+                                    productDetail.productImage3Url,
+                                    productDetail.productImage4Url
+                                ].filter(Boolean).map((image, index) => (
+                                    <div key={index} 
+                                         className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
+                                         onClick={() => handleThumbnailClick(image)}>
+                                        <img src={image} alt={`썸네일${index + 1}`} className="thumbnail-image" />
                                     </div>
                                 ))}
                             </div>
                         </div>
-
+     
+                        {/* 상세 정보 탭 */}
                         <div className="product-tabs">
                             <div className="tabs-header sticky">
                                 {tabs.map((tab) => (
-                                    <button
-                                        key={tab}
+                                    <button key={tab}
                                         className={`tab-button ${selectedTab === tab ? 'active' : ''}`}
-                                        onClick={() => handleTabClick(tab)}
-                                    >
+                                        onClick={() => handleTabClick(tab)}>
                                         {tab}
                                     </button>
                                 ))}
@@ -424,110 +482,102 @@ const UserCakeDetail = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* 오른쪽 섹션: 상품 옵션 선택 영역 */}
+     
+                    {/* 오른쪽 섹션 */}
                     <div className="right-section">
                         <div className="product-info">
-                            <h2>Lettering 맛있는 레터링 크림케이크 (1호,2호)</h2>
-                            <p className="price">46,000 won</p>
+                            <h2>{productDetail?.productName}</h2>
+                            <p className="price">{productDetail?.productPrice?.toLocaleString()} won</p>
                             <div className="like-button-container">
-                                <button
-                                    className={`like-button ${isLiked ? 'liked' : ''}`}
-                                    onClick={handleLike}
-                                >
+                                <button className={`like-button ${isLiked ? 'liked' : ''}`} 
+                                        onClick={handleLike}>
                                     <span className="heart-icon">{isLiked ? '♥' : '♡'}</span>
                                     <span className="like-count">{likeCount}</span>
                                 </button>
                             </div>
                         </div>
-
+     
                         <div className="options">
+                            {/* 크림 색상 옵션 */}
                             <div className="option-group">
                                 <h3>크림 색상</h3>
                                 <div className="color-options">
-                                    {colorOptions.map((color) => (
+                                    {productOptions.colors.map((color) => (
                                         <button
-                                            key={color.id}
-                                            className={`color-option ${color.className} ${selectedColor === color.id ? 'active' : ''}`}
-                                            onClick={() => handleColorSelect(color.id)}
-                                            aria-label={`${color.name} 색상 선택`}
-                                            title={color.name}
+                                            key={color.optionValueId}
+                                            className={`color-option ${color.optionValueName.toLowerCase()} ${selectedColor === color.optionValueId ? 'active' : ''}`}
+                                            onClick={() => handleColorSelect(color.optionValueId)}
+                                            aria-label={`${color.optionValueName} 색상 선택`}
+                                            title={color.optionValueName}
                                         />
                                     ))}
                                 </div>
                             </div>
-
+     
+                            {/* 맛 옵션 */}
                             <div className="option-group">
                                 <h3>맛</h3>
-                                <div
-                                    ref={flavorContainerRef}
-                                    className="option-scroll-container"
+                                <div ref={flavorContainerRef} className="option-scroll-container"
                                     onMouseDown={(e) => handleMouseDown(e, flavorContainerRef)}
                                     onMouseMove={(e) => handleMouseMove(e, flavorContainerRef)}
                                     onMouseUp={() => handleMouseUp(flavorContainerRef)}
-                                    onMouseLeave={() => handleMouseLeave(flavorContainerRef)}
-                                >
+                                    onMouseLeave={() => handleMouseLeave(flavorContainerRef)}>
                                     <div className="option-grid">
-                                        {flavorOptions.map((flavor) => (
+                                        {productOptions.flavors.map((flavor) => (
                                             <button
-                                                key={flavor.id}
-                                                className={`option-item ${selectedFlavor === flavor.id ? 'active' : ''}`}
-                                                onClick={() => handleFlavorSelect(flavor.id)}
-                                            >
+                                                key={flavor.optionValueId}
+                                                className={`option-item ${selectedFlavor === flavor.optionValueId ? 'active' : ''}`}
+                                                onClick={() => handleFlavorSelect(flavor.optionValueId)}>
                                                 <div className="option-image">
-                                                    <img src={flavor.image} alt={flavor.name} />
+                                                    <img src={flavor.optionValueImageUrl} alt={flavor.optionValueName} />
                                                 </div>
-                                                <span>{flavor.name}</span>
+                                                <span>{flavor.optionValueName}</span>
                                             </button>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="option-group">
+     
+                            {/* 사이즈 옵션 */}
+                                                        <div className="option-group">
                                 <h3>사이즈</h3>
-                                <div
-                                    ref={sizeContainerRef}
-                                    className="option-scroll-container"
+                                <div ref={sizeContainerRef} className="option-scroll-container"
                                     onMouseDown={(e) => handleMouseDown(e, sizeContainerRef)}
                                     onMouseMove={(e) => handleMouseMove(e, sizeContainerRef)}
                                     onMouseUp={() => handleMouseUp(sizeContainerRef)}
-                                    onMouseLeave={() => handleMouseLeave(sizeContainerRef)}
-                                >
+                                    onMouseLeave={() => handleMouseLeave(sizeContainerRef)}>
                                     <div className="option-grid">
-                                        {sizeOptions.map((size) => (
+                                        {productOptions.sizes.map((size) => (
                                             <button
-                                                key={size.id}
-                                                className={`option-item ${selectedSize === size.id ? 'active' : ''}`}
-                                                onClick={() => handleSizeSelect(size.id)}
-                                            >
+                                                key={size.optionValueId}
+                                                className={`option-item ${selectedSize === size.optionValueId ? 'active' : ''}`}
+                                                onClick={() => handleSizeSelect(size.optionValueId)}>
                                                 <div className="option-image">
-                                                    <img src={size.image} alt={size.name} />
+                                                    <img src={size.optionValueImageUrl} alt={size.optionValueName} />
                                                 </div>
-                                                <span>{size.name}</span>
+                                                <span>{size.optionValueName}</span>
                                             </button>
                                         ))}
                                     </div>
                                 </div>
                             </div>
+     
+                            {/* 배송 방식 */}
                             <div className="option-group">
                                 <h3>배송 방식</h3>
                                 <div className="delivery-type-buttons">
-                                    <button
-                                        className={`delivery-option-button ${deliveryType === 'pickup' ? 'active' : ''}`}
-                                        onClick={() => setDeliveryType('pickup')}
-                                    >
+                                    <button className={`delivery-option-button ${deliveryType === 'pickup' ? 'active' : ''}`}
+                                            onClick={() => setDeliveryType('pickup')}>
                                         픽업
                                     </button>
-                                    <button
-                                        className={`delivery-option-button ${deliveryType === 'quick' ? 'active' : ''}`}
-                                        onClick={() => setDeliveryType('quick')}
-                                    >
+                                    <button className={`delivery-option-button ${deliveryType === 'quick' ? 'active' : ''}`}
+                                            onClick={() => setDeliveryType('quick')}>
                                         퀵
                                     </button>
                                 </div>
                             </div>
-
+     
+                            {/* 주소 정보 */}
                             <div className="option-group">
                                 <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
                                 {deliveryType === 'pickup' ? (
@@ -536,35 +586,31 @@ const UserCakeDetail = () => {
                                     </div>
                                 ) : (
                                     <div className="address-input">
-                                        <input
-                                            type="text"
-                                            placeholder="주소를 입력해주세요"
-                                            className="address-input-field"
-                                        />
+                                        <input type="text"
+                                               placeholder="주소를 입력해주세요"
+                                               className="address-input-field" />
                                     </div>
                                 )}
                             </div>
-
+     
+                            {/* 날짜 선택 */}
                             <div className="option-group">
                                 <h3>{deliveryType === 'pickup' ? '픽업 날짜' : '배송 날짜'}</h3>
                                 <div className="date-select">
-                                    <input
-                                        type="date"
-                                        value={selectedDate}
-                                        onChange={(e) => setSelectedDate(e.target.value)}
-                                        className="date-input"
-                                    />
+                                    <input type="date"
+                                           value={selectedDate}
+                                           onChange={(e) => setSelectedDate(e.target.value)}
+                                           className="date-input" />
                                 </div>
                             </div>
-
+     
+                            {/* 시간 선택 */}
                             <div className="option-group">
                                 <h3>{deliveryType === 'pickup' ? '픽업 시간' : '배송 시간'}</h3>
                                 <div className="time-select">
-                                    <select
-                                        value={selectedTime}
-                                        onChange={(e) => setSelectedTime(e.target.value)}
-                                        className="time-input"
-                                    >
+                                    <select value={selectedTime}
+                                            onChange={(e) => setSelectedTime(e.target.value)}
+                                            className="time-input">
                                         <option value="">시간 선택</option>
                                         <option value="10:00">10:00</option>
                                         <option value="11:00">11:00</option>
@@ -574,57 +620,51 @@ const UserCakeDetail = () => {
                                     </select>
                                 </div>
                             </div>
+     
+                            {/* 받는 사람 정보 */}
                             <div className="option-group">
-    <h3>받는 사람 정보</h3>
-    <div className="receiver-info">
-        <div className="input-field">
-            <label>받는 사람</label>
-            <input
-                type="text"
-                placeholder="받는 사람 이름을 입력해주세요"
-                className="receiver-input"
-            />
-        </div>
-        <div className="input-field">
-            <label>연락처</label>
-            <input
-                type="tel"
-                placeholder="'-' 없이 숫자만 입력해주세요"
-                className="receiver-input"
-            />
-        </div>
-    </div>
-</div>
+                                <h3>받는 사람 정보</h3>
+                                <div className="receiver-info">
+                                    <div className="input-field">
+                                        <label>받는 사람</label>
+                                        <input type="text"
+                                               placeholder="받는 사람 이름을 입력해주세요"
+                                               className="receiver-input" />
+                                    </div>
+                                    <div className="input-field">
+                                        <label>연락처</label>
+                                        <input type="tel"
+                                               placeholder="'-' 없이 숫자만 입력해주세요"
+                                               className="receiver-input" />
+                                    </div>
+                                </div>
+                            </div>
+     
+                            {/* 요청사항 */}
                             <div className="option-group">
                                 <h3>케이크 위 레터링 요청</h3>
                                 <div className="request-input">
-                                    <textarea
-                                        placeholder="예) 생크림을 좀만 넣어주세요."
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
+                                    <textarea placeholder="예) 생크림을 좀만 넣어주세요."
+                                              rows="4"
+                                              className="request-textarea" />
                                 </div>
-
+     
                                 <h3>케이크 판 레터링 요청</h3>
                                 <div className="request-input">
-                                    <textarea
-                                        placeholder="예) 생크림을 좀만 넣어주세요."
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
+                                    <textarea placeholder="예) 생크림을 좀만 넣어주세요."
+                                              rows="4"
+                                              className="request-textarea" />
                                 </div>
-
+     
                                 <h3>기타 요청사항</h3>
                                 <div className="request-input">
-                                    <textarea
-                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
+                                    <textarea placeholder="예) 살 안찌는 생크림케이크로 해주세요"
+                                              rows="4"
+                                              className="request-textarea" />
                                 </div>
                             </div>
                         </div>
-
+     
                         <Link to="/user/paymentdetail" className="submit-button">
                             요청사항 확인
                         </Link>
@@ -632,7 +672,7 @@ const UserCakeDetail = () => {
                 </div>
             </main>
         </div>
-    );
+     );
 };
 
 export default UserCakeDetail;

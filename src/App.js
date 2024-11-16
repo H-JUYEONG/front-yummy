@@ -123,7 +123,7 @@ function App() {
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
+          <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
           <Route path='/user/mypage/orderdetail' element={<UserOrderDetail/>}/>
           <Route path='/user/mypage/order' element={<UserOrder/>}/>
