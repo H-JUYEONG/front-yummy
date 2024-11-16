@@ -100,7 +100,7 @@ function App() {
           <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList/>} />
           <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd/>} />
           <Route path='/vender/cakeDesign/edit' element={<VenderCakeDesignEdit/>} />
-          <Route path='/vender/cakeDesign/detail' element={<VenderCakeDesignDetail/>} />
+          <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail/>} />
           <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails/>} />
           {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
           <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
@@ -129,7 +129,7 @@ function App() {
           <Route path='/user/mypage/order' element={<UserOrder/>}/>
           <Route path='/user/mypage/wishlist' element={<UserWishList/>}/>
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
-          <Route path='/user/cakeDesign/detail' element={<UserCakeDesignDetail/>}/>
+          <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>

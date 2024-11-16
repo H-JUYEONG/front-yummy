@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import VenderSidebar from "./include/VenderSidebar";
 
 import "../../assets/css/all.css";
@@ -6,6 +8,8 @@ import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignAdd.css";
 
 function VenderCakeDesignAdd() {
+  const navigate = useNavigate();
+
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignShape, setCakeDesignShape] = useState("");
@@ -45,15 +49,59 @@ function VenderCakeDesignAdd() {
 
   // 등록 버튼
   const handleAdd = (e) => {
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return; // 오류가 있으면 함수 중단
+    }
+  
     e.preventDefault();
-
-    const cakeDesignVo = {
-      cakeDesignDescription: cakeDesignDescription,
-      cakeDesignShape: cakeDesignShape,
-      cakeDesignPrefer: cakeDesignPrefer,
-      cakeDesignEvent: cakeDesignEvent,
-    };
+  
+    // FormData 생성
+    const formData = new FormData();
+  
+    // FormData에 텍스트 데이터 추가
+    formData.append("cakeDesignTitle", cakeDesignName);
+    formData.append("cakeDesignDescription", cakeDesignDescription);
+    formData.append("cakeDesignPreferredAge", cakeDesignShape);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignPrefer);
+    formData.append("cakeDesignPreferredShape", cakeDesignEvent);
+  
+    // FormData에 이미지 파일 추가
+    files.forEach((fileInput) => {
+      if (fileInput.file) {
+        formData.append("files", fileInput.file);
+      }
+    });
+  
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/add/vender/cakeDesign`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data", // FormData 전송을 위한 헤더
+      },
+      data: formData,
+      responseType: "json",
+    })
+      .then((response) => {
+        console.log(response); // 수신 데이터
+        console.log(response.data); // 수신 데이터
+  
+        if (response.data.result === "success") {
+          // 리다이렉트
+          navigate("/vender/cakeDesign/list");
+        } else {
+          alert("등록 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  
 
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
