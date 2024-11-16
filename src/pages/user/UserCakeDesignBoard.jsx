@@ -13,6 +13,7 @@ import "../../assets/css/user/userCakeDesignBoard.css";
 const UserCakeDesignBoard = () => {
   const navigate = useNavigate();
   const [userCakeDesignBoard, setUserCakeDesignBoard] = useState([]); // 현재 렌더링되는 데이터
+  const [totalAllCount, setTotalAllCount] = useState(0); // ALL 갯수
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9; // 한 페이지에 보여줄 항목 수
   const maxVisiblePages = 10; // 한 번에 보일 페이지 번호의 최대 개수
@@ -27,6 +28,7 @@ const UserCakeDesignBoard = () => {
       .then((response) => {
         if (response.data.result === "success") {
           setUserCakeDesignBoard(response.data.apiData); // 서버에서 받아온 데이터 설정
+          console.log(response.data.apiData); // 서버에서 받아온 데이터 설정
           setCurrentPage(1); // 페이지 초기화
         } else {
           alert("리스트 가져오기 실패");
@@ -34,6 +36,26 @@ const UserCakeDesignBoard = () => {
       })
       .catch((error) => {
         console.error("데이터 가져오기 실패", error);
+      });
+  };
+
+  // ALL 갯수 가져오기
+  const fetchTotalAllCount = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/user/cakeDesign/board/count`,
+      responseType: "json",
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          setTotalAllCount(response.data.apiData.totalCount);
+          console.log(`데이터: ${response.data.apiData.totalCount}`);
+        } else {
+          alert("총 갯수 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("총 갯수 가져오기 실패", error);
       });
   };
 
@@ -48,6 +70,7 @@ const UserCakeDesignBoard = () => {
 
   useEffect(() => {
     getUserCakeDesignBoard(); // 초기 데이터 가져오기
+    fetchTotalAllCount(); // ALL 갯수 가져오기
   }, []);
 
   // 현재 페이지의 데이터 필터링
@@ -98,8 +121,8 @@ const UserCakeDesignBoard = () => {
           <div id="user-cake-design-tip">
             <h2>케이크 디자인을 공유하는 공간입니다.</h2>
             <p>
-              마음에 드는 디자인을 찾았다면 <strong>'케이크 요청'</strong>을 통해
-              제작을 의뢰해보세요!
+              마음에 드는 디자인을 찾았다면 <strong>'케이크 요청'</strong>을
+              통해 제작을 의뢰해보세요!
             </p>
             <p>
               내가 올린 도안으로 주문이 이루어지면 <strong>'포인트'</strong>를
@@ -119,9 +142,7 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
           <div id="user-cake-design-add" className="clearfix">
-            <div className="user-cake-design-all">
-              ALL {userCakeDesignBoard.length}
-            </div>
+            <div className="user-cake-design-all">ALL {totalAllCount}</div>
             <div className="user-cake-design-add-btn">
               <button onClick={() => navigate("/user/cakeDesign/add")}>
                 도안 등록하기
@@ -129,7 +150,7 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
           <div className="user-cake-design-list-grid">
-            {paginatedData.map((card,index) => (
+            {paginatedData.map((card, index) => (
               <div key={index} className="user-cake-design-card">
                 <div className="user-cake-design-card-image">
                   <img
@@ -143,9 +164,14 @@ const UserCakeDesignBoard = () => {
                   </div>
                 </div>
                 <div className="user-cake-design-card-info">
-                  <h3 className="user-cake-design-card-title">{card.cakeDesignTitle}</h3>
+                  <h3 className="user-cake-design-card-title">
+                    {card.cakeDesignTitle}
+                  </h3>
                   <p className="user-cake-design-card-subtitle">
-                    {card.userNickname}
+                   {""}
+                    {card.type === "업체"
+                      ? "업체"
+                      : card.userNickname || "익명"}
                   </p>
                   <div className="user-cake-design-card-status">
                     <span>조회수: {card.cakeDesignViewCount}</span>
@@ -196,7 +222,9 @@ const UserCakeDesignBoard = () => {
             <button
               className="user-cake-design-next-page"
               onClick={() =>
-                handlePageChange(Math.min(currentPage + maxVisiblePages, totalPages))
+                handlePageChange(
+                  Math.min(currentPage + maxVisiblePages, totalPages)
+                )
               }
               disabled={currentPage > totalPages - maxVisiblePages}
             >
