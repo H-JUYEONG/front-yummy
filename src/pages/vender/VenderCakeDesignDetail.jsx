@@ -1,18 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import VenderSidebar from "./include/VenderSidebar";
-import { useNavigate } from "react-router-dom";
-
-
 import "../../assets/css/all.css";
 import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignDetail.css";
 
 const VenderCakeDesignDetail = () => {
+  const { cakeDesignId } = useParams(); // URL에서 cakeDesignId를 가져옴
   const navigate = useNavigate();
-  const [mainImage, setMainImage] = useState("/images/7.png"); // 기본 메인 이미지
+  const [mainImage, setMainImage] = useState(""); // 메인 이미지 상태
+  const [subImages, setSubImages] = useState([]); // 서브 이미지 배열
+  const [cakeDesignDetail, setCakeDesignDetail] = useState({}); // 도안 상세 정보
 
+  // 서버에서 도안 상세 정보를 가져오는 함수
+  const fetchCakeDesignDetail = () => {
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+  
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/vender/detail/${cakeDesignId}`,
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: "json",
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          const detail = response.data.apiData;
+  
+          console.log(detail); // 데이터 확인 로그
+  
+          // 메인 이미지와 서브 이미지 설정
+          setMainImage(detail.mainImageUrl || ""); // 메인 이미지
+          setSubImages(detail.subImages || []); // 서브 이미지 배열
+          setCakeDesignDetail(detail); // 도안 상세 정보 설정
+        } else {
+          alert("도안 정보를 불러오는 데 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error("도안 정보 불러오기 실패", error);
+      });
+  };
+  
+  
+
+  useEffect(() => {
+    fetchCakeDesignDetail();
+  }, [cakeDesignId]);
+
+  // 서브 이미지를 클릭했을 때 메인 이미지 변경
   const handleSubImageClick = (imageSrc) => {
-    setMainImage(imageSrc); // 서브 이미지를 클릭했을 때 메인 이미지 변경
+    setMainImage(imageSrc);
   };
 
   return (
@@ -37,80 +82,51 @@ const VenderCakeDesignDetail = () => {
                     />
                     <div className="cake-design-detail-sub-imgs-wrapper">
                       <div className="cake-design-detail-sub-imgs">
-                        <img
-                          src="/images/1.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/1.png")}
-                        />
-                        <img
-                          src="/images/2.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/2.png")}
-                        />
-                        <img
-                          src="/images/3.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/3.png")}
-                        />
-                        <img
-                          src="/images/4.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/4.png")}
-                        />
-                        <img
-                          src="/images/5.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/5.png")}
-                        />
-                        <img
-                          src="/images/6.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/6.png")}
-                        />
-                        <img
-                          src="/images/7.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/7.png")}
-                        />
-                        <img
-                          src="/images/7.png"
-                          alt="케이크 이미지"
-                          onClick={() => handleSubImageClick("/images/7.png")}
-                        />
+                        {subImages.map((imageSrc, index) => (
+                          <img
+                            key={index}
+                            src={imageSrc}
+                            alt={`서브 이미지 ${index + 1}`}
+                            onClick={() => handleSubImageClick(imageSrc)}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
 
                   {/* 설명 섹션 */}
                   <div className="cake-design-detail-txt">
-                    <h2>토이스토리 컨셉 도안</h2>
+                    <h2>{cakeDesignDetail.cakeDesignTitle || "도안 제목"}</h2>
                     <h3>설명</h3>
                     <p style={{ whiteSpace: "pre-line" }}>
-                      → 장난감 친구들과 함께하는 유쾌한 파티를 주제로 한 케이크
-                      디자인. <br />
-                      하단은 크림으로 마무리하고 상단에는 반짝이는 스파클링
-                      장식으로 포인트!
+                      {cakeDesignDetail.cakeDesignDescription ||
+                        "도안에 대한 설명이 없습니다."}
                     </p>
                     <h3>선호하는 케이크 형태</h3>
-                    <p>→ 1호 원형 케이크</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignPreferredShape || "정보 없음"}
+                    </p>
                     <h3>선호하는 연령대</h3>
-                    <p>→ 20~30대 여성</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignPreferredAge || "정보 없음"}
+                    </p>
                     <h3>적용 가능 이벤트</h3>
-                    <p>→ 생일</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignRecommendedEvent ||
+                        "정보 없음"}
+                    </p>
                     <div className="cake-design-detail-buttons">
                       <button
-                        onClick={() => navigate("/vender/cakeDesign/edit")}
+                        onClick={() =>
+                          navigate(`/vender/cakeDesign/edit/${cakeDesignId}`)
+                        }
                       >
                         수정
                       </button>
-                      <button
-                        onClick={() => navigate("/vender/cakeDesign/list")}
-                      >
+                      <button onClick={() => navigate("/vender/cakeDesign/list")}>
                         삭제
                       </button>
-                      <button
-                        onClick={() => navigate("/vender/cakeDesign/list")}
-                      >
+                      <button onClick={() => navigate("/vender/cakeDesign/list")}>
                         뒤로가기
                       </button>
                     </div>

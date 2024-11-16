@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import VenderSidebar from "./include/VenderSidebar";
 
 import "../../assets/css/all.css";
@@ -6,11 +8,14 @@ import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignAdd.css";
 
 function VenderCakeDesignAdd() {
+  const navigate = useNavigate();
+
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
+  const [cakeDesignVisibility, setCakeDesignVisibility] = useState("false");
   const [files, setFiles] = useState([
     { id: Date.now(), file: null, preview: null },
   ]);
@@ -35,6 +40,10 @@ function VenderCakeDesignAdd() {
     setCakeDesignEvent(e.target.value);
   };
 
+  const handleCakeDesignVisibility = (e) => {
+    setCakeDesignVisibility(e.target.value);
+  };
+
   const addFileInput = () => {
     setFiles([...files, { id: Date.now(), file: null, preview: null }]);
   };
@@ -45,14 +54,58 @@ function VenderCakeDesignAdd() {
 
   // 등록 버튼
   const handleAdd = (e) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return; // 오류가 있으면 함수 중단
+    }
+
     e.preventDefault();
 
-    const cakeDesignVo = {
-      cakeDesignDescription: cakeDesignDescription,
-      cakeDesignShape: cakeDesignShape,
-      cakeDesignPrefer: cakeDesignPrefer,
-      cakeDesignEvent: cakeDesignEvent,
-    };
+    // FormData 생성
+    const formData = new FormData();
+
+    // FormData에 텍스트 데이터 추가
+    formData.append("cakeDesignTitle", cakeDesignName);
+    formData.append("cakeDesignDescription", cakeDesignDescription);
+    formData.append("cakeDesignPreferredAge", cakeDesignShape);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignPrefer);
+    formData.append("cakeDesignPreferredShape", cakeDesignEvent);
+    formData.append("cakeDesignVisibility", cakeDesignVisibility);
+
+    // FormData에 이미지 파일 추가
+    files.forEach((fileInput) => {
+      if (fileInput.file) {
+        formData.append("files", fileInput.file);
+      }
+    });
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/add/vender/cakeDesign`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data", // FormData 전송을 위한 헤더
+      },
+      data: formData,
+      responseType: "json",
+    })
+      .then((response) => {
+        console.log(response); // 수신 데이터
+        console.log(response.data); // 수신 데이터
+
+        if (response.data.result === "success") {
+          // 리다이렉트
+          navigate("/vender/cakeDesign/list");
+        } else {
+          alert("등록 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleFileChange = (e, id) => {
@@ -188,6 +241,34 @@ function VenderCakeDesignAdd() {
                   onChange={handleCakeDesignEvent}
                   className="input-text"
                 />
+              </div>
+
+              <div className="form-group">
+                <label>도안 공개 여부</label>
+                <div className="vender-cake-design-radio-group">
+                  <label htmlFor="visibility-true" className="vender-cake-design-radio-label">
+                    <input
+                      type="radio"
+                      id="visibility-true"
+                      name="cake-design-visibility"
+                      value="true"
+                      onChange={handleCakeDesignVisibility}
+                      checked={cakeDesignVisibility === "true"}
+                    />
+                    공개
+                  </label>
+                  <label htmlFor="visibility-false" className="vender-cake-design-radio-label">
+                    <input
+                      type="radio"
+                      id="visibility-false"
+                      name="cake-design-visibility"
+                      value="false"
+                      onChange={handleCakeDesignVisibility}
+                      checked={cakeDesignVisibility === "false"}
+                    />
+                    비공개
+                  </label>
+                </div>
               </div>
 
               {/* 등록 버튼 */}

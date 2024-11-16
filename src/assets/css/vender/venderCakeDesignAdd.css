@@ -90,3 +90,12 @@
     border-radius: 8px;
     box-sizing: border-box;
 }
+
+.vender-cake-design-radio-group {
+    display: flex;
+    gap: 30px; /* 라디오 버튼 간의 간격 */
+  }
+
+  .vender-cake-design-radio-label input[type="radio"] {
+    margin-right: 8px; /* 라벨 텍스트와 라디오 버튼 사이 간격 */
+  }
