@@ -73,21 +73,21 @@ const UserStoreDetail = () => {
                 <section id="user-wrap-main">
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                            <h2 className="sd-store-name">cakefactory</h2>
+                            <h2 className="sd-store-name">업체명을 입력해주세요!</h2>
                         </div>
                         <div className="sd-profile-content">
                             {/* 프로필 이미지 섹션 */}
                             <div className="sd-section sd-image-section">
                                 <div className="sd-profile-image">
-                                    <img src={cakeLogo} alt="cakefactory" />
+                                    <img src="" alt="cakefactory" />
                                 </div>
                             </div>
 
                             {/* 프로필 정보 섹션 */}
                             <div className="sd-section sd-info-section">
                                 <div className="sd-profile-stats">
-                                    <span>게시물 24</span>
-                                    <span>리뷰 128</span>
+                                    <span>게시물 0</span>
+                                    <span>리뷰 0</span>
                                     <button onClick={handleKakaoChat} className="kakao-chat-btn">
                                         <svg className="kakao-icon" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 3C6.477 3 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10z" fill="#FFE812"/>
@@ -118,8 +118,8 @@ const UserStoreDetail = () => {
                                 </div>
                                 <div className="sd-map-info">
                                     <p className="sd-map-title">📍 매장 위치</p>
-                                    <p>서울특별시 송파구 올림픽로 240</p>
-                                    <p>송파 롤링스톤즈 2층</p>
+                                    <p>매장주소를 입력해주세요</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {getProducts().map((product) => (
+                      {/*  {getProducts().map((product) => (
                             <Link
                                 to={`/user/cakedetail`}
                                 key={product.id}
@@ -159,8 +159,8 @@ const UserStoreDetail = () => {
                                     <p className="sd-product-name">{product.name}</p>
                                     <p className="sd-price">{product.price}</p>
                                 </div>
-                            </Link>
-                        ))}
+                            </Link> 
+                        ))}*/}
                     </div>
                 </section>
             </main>

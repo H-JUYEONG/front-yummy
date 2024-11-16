@@ -47,7 +47,7 @@ const VenderHeader = () => {
         <>
             <div className='vender-header-wrap'>
                 <Link to='/user/storedetail'>
-                    <img src={cakeLogo} />
+                    <img src='#' />
                 </Link>
                 <Link to='/vender/'>
                     <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
