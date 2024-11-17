@@ -175,20 +175,23 @@ const UserCakeDesignEdit = () => {
               <div className="user-cake-design-saved-list">
                 {registeredImages.map((image, index) => (
                   <div key={index}>
-                    <img src={image} alt={`등록 이미지 ${index + 1}`} />
+                      <div>
+                      <img src={image} alt={`등록 이미지 ${index + 1}`} />
+                    </div>
                     <button
-                      type="button"
-                      className="remove-button"
-                      onClick={() => handleRegisteredImageDelete(image)}
-                    >
-                      삭제
-                    </button>
+                        type="button"
+                        className="user-remove-btn"
+                        onClick={() => handleRegisteredImageDelete(image)}
+                      >
+                        삭제
+                      </button>
                   </div>
+                  
                 ))
                 }
               </div>
               {/* 추가된 파일 미리보기 */}
-              <div>
+              <div className="new-Preview-img">
                 {files.map(
                   (fileInput) =>
                     fileInput.preview && (

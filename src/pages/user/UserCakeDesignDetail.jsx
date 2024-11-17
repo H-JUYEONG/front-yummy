@@ -118,6 +118,38 @@ const UserCakeDesignDetail = () => {
     getCakeDesignReviews();
   }, [cakeDesignId]);
 
+  // 도안 삭제 요청 함수
+  const deleteCakeDesign = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/cakeDesign/delete/${cakeDesignId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      })
+        .then((response) => {
+          if (response.data.result === "success") {
+            alert("도안이 성공적으로 삭제되었습니다.");
+            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+          } else {
+            alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
+          }
+        })
+        .catch((error) => {
+          console.error("도안 삭제 실패", error);
+          alert("도안을 삭제하는 중 문제가 발생했습니다.");
+        });
+    }
+  };
+
   return (
     <div id="user-wrap">
       {/* Header */}
@@ -156,7 +188,7 @@ const UserCakeDesignDetail = () => {
                   </button>
                   <button
                     className="user-cake-delete-button"
-                    onClick={() => alert("삭제 기능")}
+                    onClick={deleteCakeDesign}
                   >
                     삭제
                   </button>
