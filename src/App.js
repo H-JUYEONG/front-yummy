@@ -109,7 +109,7 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
-          <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
+          <Route path="/vender/VenderInsertPage/:venderId" element={<VenderInsertPage/>} />
           <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
           <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal/>}/>
@@ -134,7 +134,7 @@ function App() {
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
           <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
-          <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
+          <Route path='/user/storedetail/:venderId' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>
