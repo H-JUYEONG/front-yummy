@@ -1,10 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useState } from 'react-router-dom';
+import axios from 'axios';
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
+
+
+
+
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
+
+  const {venderId} = useParams();
+
+
+
+
     return (
       <aside className={`vender-sidebar ${isOpen ? "open" : ""}`}>
         <div className="vender-profile">
@@ -14,7 +25,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
           <h3>CakeLines</h3>
           <p>
-            <Link to="/vender/venderinsertpage" onClick={toggleMenu}>
+            <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleMenu}>
               <FaClipboardList /> 업체사이트 관리
             </Link>
           </p>
