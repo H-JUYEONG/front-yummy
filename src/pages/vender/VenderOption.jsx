@@ -6,6 +6,7 @@ import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/option.css';
 import VenderSidebar from './include/VenderSidebar';
 import yummyLogo from '../../assets/images/yummylogo.webp'; // 기본 이미지 임포트
+
 const API_URL = process.env.REACT_APP_API_URL;
 // 한글 옵션 유형 매핑
 const OPTION_TYPE_NAME_KO = {
@@ -30,8 +31,12 @@ const translateOptionTypeName = (options) => {
 
 function VenderOption() {
     const navigate = useNavigate();
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
     const [options, setOptions] = useState([]);
-    const venderId = 39; // 예시로 사용
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
     useEffect(() => {
         const fetchOptions = async () => {
             try {

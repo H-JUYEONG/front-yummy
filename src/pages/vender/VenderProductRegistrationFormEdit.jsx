@@ -65,12 +65,14 @@ const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
 };
 
 
-// 도안 모달 컴포넌트
-const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) => {
+const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [], onSelectDesign }) => {
     const [searchText, setSearchText] = useState('');
 
     // 검색된 도안 필터링
-    const filteredDesigns = designs.filter(design =>
+    const filteredWishlistDesigns = (designs || []).filter(design =>
+        design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
+    );
+    const filteredMyDesigns = (myDesigns || []).filter(design =>
         design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
     );
 
@@ -91,7 +93,22 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) =>
                 className="design-search-input"
             />
             <div className="design-list">
-                {filteredDesigns.map((design, index) => (
+                <h3>찜한 도안</h3>
+                {filteredWishlistDesigns.map((design, index) => (
+                    <div key={index} className="design-item">
+                        {design.cakeDesignImageUrl ? (
+                            <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
+                        ) : (
+                            <div className="design-image-placeholder">이미지 없음</div>
+                        )}
+                        <span className="design-name">{design.cakeDesignTitle}</span>
+                        <button onClick={() => onSelectDesign(design)}>선택</button>
+                    </div>
+                ))}
+            </div>
+            <div className="design-list">
+                <h3>내가 그린 도안</h3>
+                {filteredMyDesigns.map((design, index) => (
                     <div key={index} className="design-item">
                         {design.cakeDesignImageUrl ? (
                             <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
@@ -107,6 +124,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) =>
         </Modal>
     );
 };
+
 
 // ProductEditor 컴포넌트
 const ProductEditor = ({ description, setDescription }) => {
@@ -186,8 +204,12 @@ const ProductEditor = ({ description, setDescription }) => {
 
 
 function VenderProductRegistrationFormEdit() {
-    const venderId = 39; // 예시로 사용
-
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
+    const memberId = authUser?.member_id || null;
     const navigate = useNavigate();
     const { productId } = useParams(); // URL에서 productId 가져오기
     const [productName, setProductName] = useState('');
@@ -198,10 +220,13 @@ function VenderProductRegistrationFormEdit() {
     const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
     const [selectedDesign, setSelectedDesign] = useState(null);
     const [availableDesigns, setAvailableDesigns] = useState([]);
+    const [myDesigns, setMyDesigns] = useState([]); // 내가 그린 도안 상태
     // 옵션 상태 관리
     const [availableOptions, setAvailableOptions] = useState([]);
     const [isLoadingOptions, setIsLoadingOptions] = useState(true);
     const [selectedOptions, setSelectedOptions] = useState({});
+
+    
     const openDesignModal = useCallback(() => {
         setIsDesignModalOpen(true);
     }, []);
@@ -218,12 +243,30 @@ function VenderProductRegistrationFormEdit() {
         console.log("Available options:", availableOptions);
     }, [availableOptions])
 
+
+    useEffect(() => {
+        const fetchMyDesigns = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/my-designs`, {
+                    params: { memberId }, // 현재 사용자 ID
+                });
+                console.log("내가 그린 도안 데이터:", response.data);
+                setMyDesigns(response.data); // 도안 데이터 상태 업데이트
+            } catch (error) {
+                console.error("내가 그린 도안 데이터 로드 중 에러 발생:", error);
+            }
+        };
+
+        fetchMyDesigns();
+    }, []);
+
+
     // 도안 데이터 로드
     useEffect(() => {
         const fetchWishlistDesigns = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/wishlist-designs`, {
-                    params: { memberId: 39 },
+                    params: { memberId },
                 });
                 console.log("찜한 도안 데이터:", response.data);
                 setAvailableDesigns(response.data);
@@ -234,6 +277,8 @@ function VenderProductRegistrationFormEdit() {
 
         fetchWishlistDesigns();
     }, []);
+
+
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
@@ -626,6 +671,7 @@ function VenderProductRegistrationFormEdit() {
                                 isOpen={isDesignModalOpen}
                                 onRequestClose={closeDesignModal}
                                 designs={availableDesigns}
+                                myDesigns={myDesigns} // 내가 그린 도안 전달
                                 onSelectDesign={handleDesignSelect}
                             />
                             <div className="form-group centered-button-group">

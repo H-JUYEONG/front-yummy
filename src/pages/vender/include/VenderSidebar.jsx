@@ -6,11 +6,14 @@ import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOut
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
-    const { venderId } = useParams(); // URL에서 venderId 추출
+    
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-
+    const [authUser, setAuthUser] = useState(() => {
+      const user = localStorage.getItem('authUser');
+      return user ? JSON.parse(user) : null;
+  });
+    const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
     const handleLogout = () => {
         console.log('로그아웃');
 

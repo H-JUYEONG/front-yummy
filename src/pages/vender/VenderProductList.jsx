@@ -11,13 +11,17 @@ import VenderHeader from './include/VenderHeader';
 const VenderProductList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
     const [products, setProducts] = useState([]); // 서버에서 받아온 상품 데이터
     const [loading, setLoading] = useState(true); // 로딩 상태 관리
     const [error, setError] = useState(null); // 에러 상태 관리
-
-    const venderId = 39; // 테스트용 39번 업체 ID
+  
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
 
     // 상품 데이터 불러오기
     useEffect(() => {

@@ -207,7 +207,10 @@ const ProductEditor = ({ description, setDescription }) => {
 
 
 function ProductRegistrationForm() {
-    const venderId = 39; // 예시로 사용
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
     const navigate = useNavigate();
     const [productName, setProductName] = useState('');
     const [images, setImages] = useState({ main: null, subs: [null, null, null] });
@@ -220,7 +223,9 @@ function ProductRegistrationForm() {
     const [myDesigns, setMyDesigns] = useState([]); // 내가 그린 도안 상태
     // 옵션 상태 관리
     const [availableOptions, setAvailableOptions] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState({});
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
+    const memberId = authUser?.member_id || null;
     const openDesignModal = useCallback(() => {
         setIsDesignModalOpen(true);
     }, []);
@@ -238,7 +243,7 @@ function ProductRegistrationForm() {
         const fetchMyDesigns = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/my-designs`, {
-                    params: { memberId: 39 }, // 현재 사용자 ID
+                    params: { memberId }, // 현재 사용자 ID
                 });
                 console.log("내가 그린 도안 데이터:", response.data);
                 setMyDesigns(response.data); // 도안 데이터 상태 업데이트
@@ -254,7 +259,7 @@ function ProductRegistrationForm() {
         const fetchWishlistDesigns = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/wishlist-designs`, {
-                    params: { memberId: 39 },
+                    params: { memberId },
                 });
                 console.log("찜한 도안 데이터:", response.data);
                 setAvailableDesigns(response.data);
@@ -286,7 +291,7 @@ function ProductRegistrationForm() {
     const handleOptionSelect = (optionTypeId, value) => {
         setSelectedOptions(prevState => {
             const isSingleSelect = availableOptions.find(opt => opt.optionTypeId === optionTypeId)?.optionTypeName === "상품 종류";
-    
+
             if (isSingleSelect) {
                 // 단일 선택
                 return { ...prevState, [optionTypeId]: value };
@@ -331,52 +336,59 @@ function ProductRegistrationForm() {
     };
 
 
+    const prepareOptionsForServer = (selectedOptions) => {
+        const formattedOptions = {};
+        for (const [key, value] of Object.entries(selectedOptions)) {
+            formattedOptions[key] = Array.isArray(value) ? value : [value]; // 단일 값도 배열로 변환
+        }
+        return formattedOptions;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
 
-        // 벤더 ID 및 상품 데이터 추가
+        // 기본 데이터 추가
         formData.append("venderId", venderId);
         formData.append("productName", productName);
         formData.append("price", price);
         formData.append("description", description);
         formData.append("isVisible", 0);
 
-        // 선택한 도안 정보 추가
+        // 도안 데이터 추가
         if (selectedDesign) {
-            formData.append("cakeDesignId", selectedDesign.cakeDesignId); // 도안 ID
+            formData.append("cakeDesignId", selectedDesign.cakeDesignId);
         }
 
-        // 메인 이미지 추가
+        // 이미지 데이터 추가
         if (images.main) {
             formData.append("mainImage", images.main);
         }
-
-        // 서브 이미지 추가
         images.subs.forEach((subImage, index) => {
             if (subImage) {
-                formData.append("subImages", subImage); // 서버에서 List로 처리
+                formData.append("subImages", subImage);
             }
         });
-        // **선택된 옵션 데이터를 JSON 문자열로 추가**
-        if (Object.keys(selectedOptions).length > 0) {
-            formData.append("selectedOptions", JSON.stringify(selectedOptions));
+
+        // 옵션 데이터 추가
+        const preparedOptions = prepareOptionsForServer(selectedOptions);
+        formData.append("selectedOptions", JSON.stringify(preparedOptions));
+
+        // 데이터 확인
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
         }
 
         try {
             const response = await axios.post(`${API_URL}/api/products`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+                headers: { "Content-Type": "multipart/form-data" },
             });
-            console.log("상품 등록 성공:", response.data);
             alert("상품이 성공적으로 등록되었습니다!");
-            navigate("/vender/productslist"); // 수정 후 목록 페이지로 이동 (필요 시 경로 수정)
+            navigate("/vender/productslist");
         } catch (error) {
             console.error("상품 등록 실패:", error.response || error.message);
-            alert("상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+            alert("상품 등록 중 오류가 발생했습니다.");
         }
     };
     return (

@@ -17,7 +17,7 @@ import GearIcon from '@rsuite/icons/Gear';
 
 const VenderHeader = () => {
 
-    
+
 
     /* ---라우터 관련 ------ */
 
@@ -32,7 +32,7 @@ const VenderHeader = () => {
 
 
 
-    
+
 
 
 
@@ -55,8 +55,8 @@ const VenderHeader = () => {
                     <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
                 </Link>
             </div>
-            
-            
+
+
         </>
     );
 }
