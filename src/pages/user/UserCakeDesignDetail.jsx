@@ -235,6 +235,35 @@ const UserCakeDesignDetail = () => {
                 />
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <div className="user-review-section">
+              <h2>도안 사용 후기</h2>
+              <div className="user-cake-designs-review-item">
+                <div className="user-review-header">
+                  <span className="user-review-email-id">dud9902</span>
+                  <span className="user-review-date">2022.10.04</span>
+                  <span className="user-review-stars">★★★★★</span>
+                </div>
+                <div className="user-review-body">
+                  <img
+                    src="/images/goodcake.png"
+                    alt="리뷰 이미지"
+                    className="user-cake-designs-review-image"
+                  />
+                  <div className="user-review-text">
+                    <p className="bakery-name">달콤 베이커리</p>
+                    <p className="cake-name">하늘나라 케이크</p>
+                    <p className="review-content">
+                      하늘 아래 푸른 초원에서 친구들과 함께하는 평화로운 장면이
+                      마음에 들어 이 도안으로 케이크를 주문했어요. 케이크가 너무
+                      예쁘고 포근한 느낌을 주어 가족들도 정말 좋아했습니다!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </main>
