@@ -123,7 +123,7 @@ function App() {
           <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
           <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar/>}/>
-          <Route path='/user/cakedetail' element={<UserCakeDetail />} />
+          <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
           <Route path='/user/orderlist' element={<UserOrderList/>}/>
           <Route path='/user/mypage/orderdetail' element={<UserOrderDetail/>}/>
           <Route path='/user/mypage/order' element={<UserOrder/>}/>
@@ -131,7 +131,7 @@ function App() {
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
-          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>

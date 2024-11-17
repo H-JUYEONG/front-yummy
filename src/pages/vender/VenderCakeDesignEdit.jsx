@@ -183,7 +183,7 @@ function VenderCakeDesignEdit() {
               {/* 이미지 등록 영역 */}
               <div id="form-group-img-box">
                 <div className="form-group-img">
-                  <label>도안 이미지 수정</label>
+                  <label>도안 이미지</label>
                   <button
                     type="button"
                     onClick={addFileInput}
@@ -216,7 +216,7 @@ function VenderCakeDesignEdit() {
                 <input
                   type="text"
                   id="cake-design-name"
-                  placeholder="친구 생일 케이크 디자인"
+                  placeholder=""
                   value={cakeDesignName}
                   onChange={(e) => setCakeDesignName(e.target.value)}
                   className="input-text"
@@ -227,7 +227,7 @@ function VenderCakeDesignEdit() {
                 <label htmlFor="cake-design-description">설명</label>
                 <textarea
                   id="cake-design-description"
-                  placeholder="꽃과 풀이 가득한 초원 위에서 밤하늘을 바라보는 디자인입니다."
+                  placeholder=""
                   value={cakeDesignDescription}
                   onChange={(e) => setCakeDesignDescription(e.target.value)}
                   className="input-text"
@@ -243,7 +243,7 @@ function VenderCakeDesignEdit() {
                 <input
                   type="text"
                   id="user-cake-design-shape"
-                  placeholder="눈길을 끌 수 있는 대형 케이크가 좋습니다."
+                  placeholder=""
                   value={cakeDesignShape}
                   onChange={(e) => setCakeDesignShape(e.target.value)}
                   className="user-input-text"
@@ -256,7 +256,7 @@ function VenderCakeDesignEdit() {
                 <input
                   type="text"
                   id="cake-design-prefer"
-                  placeholder="20~30대 여성"
+                  placeholder=""
                   value={cakeDesignPrefer}
                   onChange={(e) => setCakeDesignPrefer(e.target.value)}
                   className="user-input-text"
@@ -268,7 +268,7 @@ function VenderCakeDesignEdit() {
                 <input
                   type="text"
                   id="cake-design-event"
-                  placeholder="생일, 기념일"
+                  placeholder=""
                   value={cakeDesignEvent}
                   onChange={(e) => setCakeDesignEvent(e.target.value)}
                   className="input-text"
