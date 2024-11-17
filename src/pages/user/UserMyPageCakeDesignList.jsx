@@ -32,6 +32,7 @@ const UserMyPageCakeDesignList = () => {
     })
       .then((response) => {
         if (response.data.result === "success") {
+          console.log(response.data.apiData.content);
           setUserCakeDesignList(response.data.apiData.content || []); // 페이징된 데이터
           setTotalPages(response.data.apiData.totalPages || 1); // 전체 페이지 수
         } else {
@@ -69,8 +70,8 @@ const UserMyPageCakeDesignList = () => {
 
   // 검색 핸들러
   const handleSearch = () => {
-    setCurrentPage(1); // 검색 시 첫 페이지로 이동
     loadCakeDesigns(1);
+    setCurrentPage(1); // 검색 시 첫 페이지로 이동
   };
 
   // 스타일 선택 핸들러

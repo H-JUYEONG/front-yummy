@@ -69,8 +69,8 @@ const UserMyPageCakeDesignLikeList = () => {
 
   // 검색 핸들러
   const handleSearch = () => {
-    setCurrentPage(1); // 검색 시 첫 페이지로 이동
     loadCakeDesigns(1);
+    setCurrentPage(1); // 검색 시 첫 페이지로 이동
   };
 
   // 스타일 선택 핸들러

@@ -23,25 +23,22 @@ const UserCakeDesignDetail = () => {
 
   const toggleFavorite = async () => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       console.log("토큰이 없습니다. 로그인하세요.");
       navigate("/user/login");
       return;
     }
 
-    console.log("Request Data:", { isFavorited: !isFavorited });
-    console.log("Token:", token);
-
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/favorite/${cakeDesignId}`,
-        { isFavorited: !isFavorited }, // 현재 상태 반대로 전송
+        { isFavorited: !isFavorited },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data.result === "success") {
-        // 서버에서 반환된 데이터를 반영
+        console.log(response.data);
+        console.log(response.data.isFavorited);
         setIsFavorited(response.data.isFavorited);
         setCakeDesignDetail((prevDetail) => ({
           ...prevDetail,
@@ -182,7 +179,9 @@ const UserCakeDesignDetail = () => {
                 <div className="user-control-section">
                   <button
                     className="user-cake-edit-button"
-                    onClick={() => navigate(`/user/cakeDesign/edit/${cakeDesignId}`)}
+                    onClick={() =>
+                      navigate(`/user/cakeDesign/edit/${cakeDesignId}`)
+                    }
                   >
                     수정
                   </button>
@@ -319,7 +318,9 @@ const UserCakeDesignDetail = () => {
                         src={review.reviewImageUrl}
                         alt="리뷰 이미지"
                         className="user-cake-designs-review-image"
-                        onClick={() => navigate(`/user/cakedetail/${review.productId}`)}
+                        onClick={() =>
+                          navigate(`/user/cakedetail/${review.productId}`)
+                        }
                       />
                       <div className="user-review-text">
                         <p className="bakery-name">{review.venderName}</p>
