@@ -19,16 +19,7 @@ const UserCakeDesignDetail = () => {
   const [subImages, setSubImages] = useState([]); // 서브 이미지 배열
   const [cakeDesignDetail, setCakeDesignDetail] = useState([]);
 
-  const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
-  };
-
-  const handleSubImageClick = (imageSrc) => {
-    setMainImage(imageSrc); // Update main image when a sub-image is clicked
-  };
-
-  // 서버에서 도안 상세 정보를 가져오는 함수
-  const getCakeDesignDetail = () => {
+  const toggleFavorite = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -37,29 +28,69 @@ const UserCakeDesignDetail = () => {
       return;
     }
 
-    axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
-      headers: { Authorization: `Bearer ${token}` },
-      responseType: "json",
-    })
-      .then((response) => {
-        if (response.data.result === "success") {
-          const detail = response.data.apiData;
+  console.log("Request Data:", { isFavorited: !isFavorited });
+  console.log("Token:", token);
 
-          console.log(detail); // 데이터 확인 로그
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/user/favorite/${cakeDesignId}`,
+        { isFavorited: !isFavorited }, // 현재 상태 반대로 전송
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-          // 메인 이미지와 서브 이미지 설정
-          setMainImage(detail.mainImageUrl || ""); // 메인 이미지
-          setSubImages(detail.subImages || []); // 서브 이미지 배열
-          setCakeDesignDetail(detail); // 도안 상세 정보 설정
-        } else {
-          alert("도안 정보를 불러오는 데 실패했습니다.");
-        }
-      })
-      .catch((error) => {
-        console.error("도안 정보 불러오기 실패", error);
-      });
+      if (response.data.result === "success") {
+        // 서버에서 반환된 데이터를 반영
+        setIsFavorited(response.data.isFavorited);
+        setCakeDesignDetail((prevDetail) => ({
+          ...prevDetail,
+          cakeDesignWishlistCount: response.data.updatedWishlistCount,
+        }));
+      } else {
+        alert(response.data.message || "찜 상태를 변경하는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("찜 상태 변경 실패:", error);
+      alert("찜 상태를 변경하는 중 문제가 발생했습니다.");
+    }
+  };
+
+  const handleSubImageClick = (imageSrc) => {
+    setMainImage(imageSrc); // Update main image when a sub-image is clicked
+  };
+
+  // 서버에서 도안 상세 정보를 가져오는 함수
+  const getCakeDesignDetail = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.data.result === "success") {
+        const detail = response.data.apiData;
+
+        console.log(detail); // 데이터 확인 로그
+
+        // 메인 이미지와 서브 이미지 설정
+        setMainImage(detail.mainImageUrl || ""); // 메인 이미지
+        setSubImages(detail.subImages || []); // 서브 이미지 배열
+        setCakeDesignDetail(detail); // 도안 상세 정보 설정
+        setIsFavorited(detail.isFavorited || false); // 초기 찜 상태 설정
+      } else {
+        alert("도안 정보를 불러오는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 정보 불러오기 실패:", error);
+      alert("도안 정보를 가져오는 중 문제가 발생했습니다.");
+    }
   };
 
   useEffect(() => {
@@ -202,34 +233,6 @@ const UserCakeDesignDetail = () => {
                     padding: "8px",
                   }}
                 />
-              </div>
-            </div>
-
-            {/* Reviews Section */}
-            <div className="user-review-section">
-              <h2>도안 사용 후기</h2>
-              <div className="user-cake-designs-review-item">
-                <div className="user-review-header">
-                  <span className="user-review-email-id">dud9902</span>
-                  <span className="user-review-date">2022.10.04</span>
-                  <span className="user-review-stars">★★★★★</span>
-                </div>
-                <div className="user-review-body">
-                  <img
-                    src="/images/goodcake.png"
-                    alt="리뷰 이미지"
-                    className="user-cake-designs-review-image"
-                  />
-                  <div className="user-review-text">
-                    <p className="bakery-name">달콤 베이커리</p>
-                    <p className="cake-name">하늘나라 케이크</p>
-                    <p className="review-content">
-                      하늘 아래 푸른 초원에서 친구들과 함께하는 평화로운 장면이
-                      마음에 들어 이 도안으로 케이크를 주문했어요. 케이크가 너무
-                      예쁘고 포근한 느낌을 주어 가족들도 정말 좋아했습니다!
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
