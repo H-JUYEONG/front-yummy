@@ -40,7 +40,7 @@ const VenderCakeDesignLikeList = () => {
         if (response.data.result === "success") {
           setVenderCakeDesignLikeList(response.data.apiData);
         } else {
-          alert("리스트 가져오기 실패");
+          // alert("찜한 도안이 없습니다.");
         }
       })
       .catch((error) => {
@@ -129,7 +129,7 @@ const VenderCakeDesignLikeList = () => {
                       </div>
                     ))
                   ) : (
-                    <p>등록된 도안이 없습니다.</p>
+                    <p>찜한 도안이 없습니다.</p>
                   )}
                 </div>
 

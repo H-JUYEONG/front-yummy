@@ -85,7 +85,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/vender/' element={<VenderDashboard />} />
+          <Route path='/vender/:venderId' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
