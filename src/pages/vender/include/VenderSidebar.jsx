@@ -1,20 +1,46 @@
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useState } from 'react-router-dom';
+import axios from 'axios';
+
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
-const VenderSidebar = ({ isOpen, toggleMenu }) => {
+
+
+// const VenderSidebar = ({ isOpen, toggleMenu }) => {
+//     const [token, setToken] = useState(localStorage.getItem('token'));
+//     const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+//     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
+
+//     const handleLogout = (e) => {
+//         console.log('로그아웃');
+
+//         // 로컬스토리지의 token 삭제
+//         localStorage.removeItem('token');
+//         // 로컬스토리지의 authUser 삭제
+//         localStorage.removeItem('authUser');
+
+//         // 화면반영을 위한 상태값 변경
+//         setToken(null);
+//         setAuthUser(null);
+
+//         // 메인 페이지로 이동
+//         navigate('/');
+//     };
+
+
     return (
-      <aside className={`vender-sidebar ${isOpen ? "open" : ""}`}>
-        <div className="vender-profile">
-          <Link to="/user/storedetail">
-            <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
-          </Link>
+        <aside className={`vender-sidebar ${isOpen ? "open" : ""}`}>
+            <div className="vender-profile">
+                <Link to="/user/storedetail">
+                    <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
+                </Link>
 
           <h3>CakeLines</h3>
           <p>
-            <Link to="/vender/venderinsertpage" onClick={toggleMenu}>
+            <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleMenu}>
               <FaClipboardList /> 업체사이트 관리
             </Link>
           </p>
@@ -60,6 +86,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
           <FaSignOutAlt /> 로그아웃
         </button>
       </aside>
+
     );
 };
 

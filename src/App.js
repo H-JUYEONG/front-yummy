@@ -86,7 +86,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/vender/' element={<VenderDashboard />} />
+          <Route path='/vender/:venderId' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -109,7 +109,7 @@ function App() {
           <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
           <Route path="/vender/review" element={<VenderReview/>} />
           <Route path="/vender/VenderHeader" element={<VenderHeader/>} />
-          <Route path="/vender/VenderInsertPage" element={<VenderInsertPage/>} />
+          <Route path="/vender/VenderInsertPage/:venderId" element={<VenderInsertPage/>} />
           <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
           <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal/>}/>
@@ -132,9 +132,9 @@ function App() {
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
-          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
-          <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
+          <Route path='/user/storedetail/:venderId' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList/>}/>
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList/>}/>

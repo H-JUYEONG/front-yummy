@@ -346,7 +346,7 @@
 }
 
 .user-review-stars {
-  color: #fbc02d;
+  color: gold;
   font-size: 1.2em;
   margin-left: auto; /* 별점을 오른쪽 끝으로 정렬 */
 }
@@ -364,6 +364,7 @@
   width: 150px;
   height: 150px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 /* Review Text */

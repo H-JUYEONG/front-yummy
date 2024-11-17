@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 //css
 import "../../assets/css/all.css";
@@ -11,7 +11,6 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
-  
   // 앱 정보 넣어두기
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
@@ -26,10 +25,10 @@ const UserLoginForm = () => {
 
   // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
   const code = new URL(window.location.href).searchParams.get("code");
-  console.log(code);
+  // console.log(code);
 
   const navigate = useNavigate();
-  
+
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -45,29 +44,28 @@ const UserLoginForm = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 데이터 모으기 
+    // 데이터 모으기
     const userVo = {
       email: userEmail,
-      password_hash: userPassword
-    }
-    console.log(userVo);
-    console.log(process.env.REACT_APP_API_URL);
+      password_hash: userPassword,
+    };
 
     // 전송
     axios({
-        method: 'post', 			// put, post, delete                   
-        url: `${process.env.REACT_APP_API_URL}/api/users/login`,
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        data: userVo,
-    
-        responseType: 'json' //수신타입
-      }).then(response => {
+      method: "post", // put, post, delete
+      url: `${process.env.REACT_APP_API_URL}/api/users/login`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: userVo,
+
+      responseType: "json", //수신타입
+    })
+      .then((response) => {
         console.log(response); //수신데이타
         console.log(response.data); //수신데이타
         console.log(response.data.apiData); //수신데이타
-    
+
         // 헤더에서 토큰 꺼내기
-        const token = response.headers['authorization'].split(' ')[1];
+        const token = response.headers["authorization"].split(" ")[1];
         console.log(token);
 
         // 로컬스토리지에 토큰 저장
@@ -76,19 +74,22 @@ const UserLoginForm = () => {
         // 로컬스토리지에 authUser 저장
         /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
         JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
-        localStorage.setItem("authUser", JSON.stringify(response.data.apiData)); 
+        localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
 
-        if(response.data.apiData !== null) {
+        if (response.data.apiData !== null) {
           //리다이렉트
           navigate("/");
         } else {
-          alert("로그인 실패");
+          console.log("테스트");
+          console.error(response.data.message);
+          alert(response.data.message || "로그인에 실패했습니다.");
         }
-    
-      }).catch(error => {
-        console.log(error);
-    });
-}
+      })
+      .catch((error) => {
+        console.error("로그인 오류:", error);
+        alert("입력하신 아이디 또는 비밀번호가 잘못 되었습니다.");
+      });
+  };
 
   return (
     <div id="user-wrap" className="user-text-center">
