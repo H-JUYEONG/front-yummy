@@ -57,7 +57,7 @@ const UserCakeDetail = () => {
         additionalRequest: ''
     });
     const [selectedOptionNames, setSelectedOptionNames] = useState({});
-    
+    const [deliveryAddress, setDeliveryAddress] = useState('');
 
     // 리뷰 관련 상태
     const [newReview, setNewReview] = useState({
@@ -575,12 +575,15 @@ return (
                                 </div>
                             ) : (
                                 <div className="address-input">
-                                    <input
-                                        type="text"
-                                        placeholder="주소를 입력해주세요"
-                                        className="address-input-field"
-                                    />
-                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="주소를 입력해주세요"
+                                    className="address-input-field"
+                                    value={deliveryAddress}
+                                    onChange={(e) => setDeliveryAddress(e.target.value)}
+                                />
+                            </div>
+                            
                             )}
                         </div>
 
@@ -700,7 +703,7 @@ return (
                                 selectedTime,
                                 recipientName: recipientInfo.name,
                                 recipientPhone: recipientInfo.phone,
-                                address: deliveryType === 'pickup' ? productDetail?.venderAddress : '배송주소',
+                                address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress, // 수정된 부분
                                 cakeLetter: letters.cakeLetter,
                                 plateLetter: letters.plateLetter,
                                 additionalRequest: letters.additionalRequest,
