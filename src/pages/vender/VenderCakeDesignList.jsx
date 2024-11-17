@@ -41,7 +41,7 @@ const VenderCakeDesignList = () => {
         if (response.data.result === "success") {
           setVenderCakeDesignList(response.data.apiData); // 리스트 데이터 설정
         } else {
-          alert("리스트 가져오기 실패");
+          // alert("등록된 도안이 없습니다.");
         }
       })
       .catch((error) => {
@@ -130,7 +130,7 @@ const VenderCakeDesignList = () => {
                     </div>
                   ))
                 ) : (
-                  <p>등록된 도안이 없습니다.</p>
+                  <p className="no-cake-design">등록된 도안이 없습니다.</p>
                 )}
               </div>
 

@@ -86,7 +86,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/vender/' element={<VenderDashboard />} />
+          <Route path='/vender/:venderId' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -132,7 +132,7 @@ function App() {
           <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard/>}/>
           <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail/>}/>
           <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd/>}/>
-          <Route path='/user/cakeDesign/edit' element={<UserCakeDesignEdit/>}/>
+          <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit/>}/>
           <Route path='/user/mypage/point' element={<UserPoint/>}/>
           <Route path='/user/storedetail' element={<UserStoreDetail/>}/>
           <Route path='/user/paymentdetail' element={<UserPaymentDetail/>}/>

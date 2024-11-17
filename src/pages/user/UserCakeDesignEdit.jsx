@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import axios from "axios";
 
 // css
 import "../../assets/css/all.css";
@@ -8,14 +10,47 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userCakeDesignEdit.css";
 
 const UserCakeDesignEdit = () => {
+  const { cakeDesignId } = useParams();
+  const navigate = useNavigate();
+
   const [cakeDesignName, setCakeDesignName] = useState("");
   const [cakeDesignDescription, setCakeDesignDescription] = useState("");
   const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
-  const [files, setFiles] = useState([
-    { id: Date.now(), file: null, preview: null },
-  ]);
+  const [registeredImages, setRegisteredImages] = useState([]); // 등록된 이미지 리스트
+  const [files, setFiles] = useState([]); // 새로 추가된 이미지 리스트
+  const [deletedImages, setDeletedImages] = useState([]); // 삭제된 이미지 추적
+
+  const getCakeDesignDetailList = () => {
+    axios({
+      method: "get", // put, post, delete
+      url: `${process.env.REACT_APP_API_URL}/api/cakeDesign/detail/${cakeDesignId}`,
+      responseType: "json", //수신타입
+    })
+      .then((response) => {
+        console.log(response.data.apiData); //수신데이타
+
+        if (response.data.result === "success") {
+          const detail = response.data.apiData;
+          setCakeDesignName(detail.cakeDesignTitle);
+          setCakeDesignDescription(detail.cakeDesignDescription);
+          setCakeDesignShape(detail.cakeDesignPreferredShape);
+          setCakeDesignPrefer(detail.cakeDesignPreferredAge);
+          setCakeDesignEvent(detail.cakeDesignRecommendedEvent);
+          setRegisteredImages(detail.subImages);
+        } else {
+          alert("도안 정보를 불러오는데 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getCakeDesignDetailList();
+  }, [cakeDesignId]);
 
   const handleCakeDesignName = (e) => {
     setCakeDesignName(e.target.value);
@@ -37,14 +72,17 @@ const UserCakeDesignEdit = () => {
     setCakeDesignEvent(e.target.value);
   };
 
+  // 새 이미지 추가
   const addFileInput = () => {
     setFiles([...files, { id: Date.now(), file: null, preview: null }]);
   };
 
+  // 새 이미지 삭제
   const removeFileInput = (id) => {
     setFiles(files.filter((file) => file.id !== id));
   };
 
+  // 새 이미지 변경
   const handleFileChange = (e, id) => {
     const file = e.target.files[0];
     if (file) {
@@ -62,6 +100,62 @@ const UserCakeDesignEdit = () => {
     }
   };
 
+  // 등록된 이미지 삭제
+  const handleRegisteredImageDelete = (imageUrl) => {
+    setRegisteredImages(registeredImages.filter((image) => image !== imageUrl));
+    setDeletedImages([...deletedImages, imageUrl]); // 삭제된 이미지를 추적
+  };
+
+  // 수정 버튼
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("cakeDesignTitle", cakeDesignName);
+    formData.append("cakeDesignDescription", cakeDesignDescription);
+    formData.append("cakeDesignPreferredShape", cakeDesignShape);
+    formData.append("cakeDesignPreferredAge", cakeDesignPrefer);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignEvent);
+    formData.append("cakeDesignId", cakeDesignId);
+
+    // 새로 추가된 파일
+    files.forEach((fileInput) => {
+      if (fileInput.file) {
+        formData.append("files", fileInput.file);
+      }
+    });
+
+    // 삭제된 이미지
+    deletedImages.forEach((deletedImage) => {
+      formData.append("deletedImages", deletedImage);
+    });
+
+    try {
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/cakeDesign/detail/edit`,
+        headers: { Authorization: `Bearer ${token}` },
+        data: formData,
+      });
+
+      if (response.data.result === "success") {
+        alert("도안 수정이 완료되었습니다.");
+        navigate(`/user/cakeDesign/board`);
+      } else {
+        alert("도안 수정에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 수정 실패", error);
+    }
+  };
+
   return (
     <div id="user-wrap" className="text-center">
       {/* Header */}
@@ -72,60 +166,75 @@ const UserCakeDesignEdit = () => {
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-design-board-list">
-          <form className="user-cake-design-main">
+          <form className="user-cake-design-main" onSubmit={handleEdit}>
             <h1 className="user-cake-design-title">도안 수정</h1>
 
             {/* 기본 이미지 + 미리보기 이미지 출력 */}
             <div className="user-cake-design-imgs">
               {/* 기본 이미지 */}
               <div className="user-cake-design-saved-list">
-                <img src="/images/3.png" alt="회사 로고" />
-                <img src="/images/3.png" alt="회사 로고" />
-                <img src="/images/3.png" alt="회사 로고" />
-                <img src="/images/3.png" alt="회사 로고" />
+                {registeredImages.map((image, index) => (
+                  <div key={index}>
+                      <div>
+                      <img src={image} alt={`등록 이미지 ${index + 1}`} />
+                    </div>
+                    <button
+                        type="button"
+                        className="user-remove-btn"
+                        onClick={() => handleRegisteredImageDelete(image)}
+                      >
+                        삭제
+                      </button>
+                  </div>
+                  
+                ))
+                }
               </div>
               {/* 추가된 파일 미리보기 */}
-              {files.map(
-                (fileInput) =>
-                  fileInput.preview && (
-                    <img
-                      key={fileInput.id}
-                      src={fileInput.preview}
-                      alt="미리보기 이미지"
-                    />
-                  )
-              )}
+              <div className="new-Preview-img">
+                {files.map(
+                  (fileInput) =>
+                    fileInput.preview && (
+                      <img
+                        key={fileInput.id}
+                        src={fileInput.preview}
+                        alt="미리보기 이미지"
+                      />
+                    )
+                )}
+              </div>
+
             </div>
 
             {/* 도안 이미지 업로드 */}
-              <div className="user-cake-design-form-groups">
-                <sapn>
-                  <label>도안 이미지</label>
-                </sapn>
-                <button
-                  type="button"
-                  onClick={addFileInput}
-                  className="user-add-image-button"
-                >
-                  이미지 추가
-                </button>
-                {files.map((fileInput) => (
-                  <div key={fileInput.id} className="user-file-input-wrappers">
-                    <input
-                      type="file"
-                      id={`file-${fileInput.id}`}
-                      onChange={(e) => handleFileChange(e, fileInput.id)}
-                    />
-                    <button
-                      type="button"
-                      className="user-remove-button"
-                      onClick={() => removeFileInput(fileInput.id)}
-                    >
-                      삭제
-                    </button>
-                  </div>
-                ))}
-              </div>
+            <div className="user-cake-design-form-groups">
+              <span>
+                <label>도안 이미지</label>
+              </span>
+              <button
+                type="button"
+                onClick={addFileInput}
+                className="user-add-image-button"
+              >
+                이미지 추가
+              </button>
+              {files.map((fileInput) => (
+                <div key={fileInput.id} className="user-file-input-wrappers">
+                  <input
+                    type="file"
+                    id={`file-${fileInput.id}`}
+                    onChange={(e) => handleFileChange(e, fileInput.id)}
+                  />
+                  <button
+                    type="button"
+                    className="user-remove-button"
+                    onClick={() => removeFileInput(fileInput.id)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              ))}
+            </div>
 
             {/* 도안 제목 */}
             <div className="user-cake-design-form-groups">
@@ -133,7 +242,7 @@ const UserCakeDesignEdit = () => {
               <input
                 type="text"
                 id="user-cake-design-name"
-                placeholder="친구를 위한 특별한 생일 디자인"
+                placeholder=""
                 value={cakeDesignName}
                 onChange={handleCakeDesignName}
                 className="user-input-text"
@@ -145,7 +254,7 @@ const UserCakeDesignEdit = () => {
               <label htmlFor="user-cake-design-description">설명</label>
               <textarea
                 id="user-cake-design-description"
-                placeholder="푸른 밤하늘 아래, 잔잔한 초원에 누워 있는 두 친구의 평화로운 순간이 담긴 그림입니다. 다양한 색의 작은 꽃들이 자연스럽게 펼쳐져 있어 따뜻하고 포근한 느낌을 줍니다. 큰 귀를 가진 사랑스러운 동물 캐릭터와 돌 모양의 친구가 함께하며 조용한 유대감을 표현합니다. 동화 속 한 장면처럼, 소중한 추억과 편안한 휴식을 상징하는 이 그림은 보는 이에게도 잔잔한 미소를 선사합니다."
+                placeholder=""
                 value={cakeDesignDescription}
                 onChange={handleCakeDesignDescription}
                 className="user-input-text"
@@ -155,11 +264,13 @@ const UserCakeDesignEdit = () => {
 
             {/* 선호 케이크형태 */}
             <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-shape">선호하는 케이크 형태</label>
+              <label htmlFor="user-cake-design-shape">
+                선호하는 케이크 형태
+              </label>
               <input
                 type="text"
                 id="user-cake-design-shape"
-                placeholder="눈길을 끌 수 있는 대형 케이크가 좋습니다."
+                placeholder=""
                 value={cakeDesignShape}
                 onChange={handleCakeDesignShape}
                 className="user-input-text"
@@ -172,7 +283,7 @@ const UserCakeDesignEdit = () => {
               <input
                 type="text"
                 id="user-cake-design-prefer"
-                placeholder="20~30대 여성"
+                placeholder=""
                 value={cakeDesignPrefer}
                 onChange={handleCakeDesignPrefer}
                 className="user-input-text"
@@ -185,7 +296,7 @@ const UserCakeDesignEdit = () => {
               <input
                 type="text"
                 id="user-cake-design-event"
-                placeholder="생일"
+                placeholder=""
                 value={cakeDesignEvent}
                 onChange={handleCakeDesignEvent}
                 className="user-input-text"
