@@ -42,8 +42,6 @@ const UserCakeDetail = () => {
 
     // refs
     const containerRef = useRef(null);
-    const flavorContainerRef = useRef(null);
-    const sizeContainerRef = useRef(null);
     const tabContentRef = useRef(null);
 
     // 데이터 상태
@@ -59,7 +57,7 @@ const UserCakeDetail = () => {
         additionalRequest: ''
     });
     const [selectedOptionNames, setSelectedOptionNames] = useState({});
-    
+    const [deliveryAddress, setDeliveryAddress] = useState('');
 
     // 리뷰 관련 상태
     const [newReview, setNewReview] = useState({
@@ -205,6 +203,22 @@ const handleMouseUp = (ref) => {
 const handleMouseLeave = (ref) => {
     setIsDragging(false);
     ref.current.classList.remove('dragging');
+};
+
+const handleRecipientChange = (e) => {
+    const { name, value } = e.target;
+    setRecipientInfo(prev => ({
+        ...prev,
+        [name]: value
+    }));
+};
+
+const handleLetterChange = (e) => {
+    const { name, value } = e.target;
+    setLetters(prev => ({
+        ...prev,
+        [name]: value
+    }));
 };
 
 // 옵션 렌더링 컴포넌트
@@ -475,25 +489,26 @@ return (
             <div className="cake-order-container">
                 {/* 왼쪽 섹션 */}
                 <div className="left-section">
-                <div className="product-image">
-    <img src={mainImage || productDetail?.productImage1Url} alt="케이크" className="main-image" />
-    <div className="thumbnail-container">
-        {productDetail && [
-            productDetail.productImage1Url,
-            productDetail.productImage2Url,
-            productDetail.productImage3Url,
-            productDetail.productImage4Url
-        ].filter(Boolean).map((image, index) => (
-            <div
-                key={index}
-                className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                onClick={() => handleThumbnailClick(image)}
-            >
-                <img src={image} alt={`썸네일${index + 1}`} className="thumbnail-image" />
-            </div>
-        ))}
-    </div>
-</div>
+                    <div className="product-image">
+                        <img src={mainImage || productDetail?.productImage1Url} alt="케이크" className="main-image" />
+                        <div className="thumbnail-container">
+                            {productDetail && [
+                                productDetail.productImage1Url,
+                                productDetail.productImage2Url,
+                                productDetail.productImage3Url,
+                                productDetail.productImage4Url
+                            ].filter(Boolean).map((image, index) => (
+                                <div
+                                    key={index}
+                                    className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
+                                    onClick={() => handleThumbnailClick(image)}
+                                >
+                                    <img src={image} alt={`썸네일${index + 1}`} className="thumbnail-image" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="product-tabs">
                         <div className="tabs-header sticky">
                             {tabs.map((tab) => (
@@ -507,14 +522,12 @@ return (
                             ))}
                         </div>
                         <div className="tab-content" ref={tabContentRef}>
-                            {/* 탭 컨텐츠 */}
-                            {renderTabContent()} 
+                            {renderTabContent()}
                         </div>
                     </div>
                 </div>
-
-                {/* 오른쪽 섹션 */}
-                <div className="right-section">
+                  {/* 오른쪽 섹션 */}
+                  <div className="right-section">
                     <div className="product-info">
                         <h2>{productDetail?.productName}</h2>
                         <p className="price">{productDetail?.productPrice?.toLocaleString()} won</p>
@@ -534,7 +547,6 @@ return (
                             renderOptionGroup(optionType, productOptions[optionType])
                         )}
 
-                        {/* 배송 관련 옵션들 */}
                         <div className="option-group">
                             <h3>배송 방식</h3>
                             <div className="delivery-type-buttons">
@@ -552,33 +564,28 @@ return (
                                 </button>
                             </div>
                         </div>
-                        {/* 주소/지도 정보 */}
-<div className="option-group">
-    <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
-    {deliveryType === 'pickup' ? (
-        <div className="location-select">
-            <div className="map-placeholder">
-                지도 영역. api가 필요합니다
-                {productDetail && (
-                    <div>
-                        <p>{productDetail.venderAddress}</p>
-                        {/* 카카오맵 API 연동 시 사용할 좌표 */}
-                        {/* latitude: {productDetail.latitude} */}
-                        {/* longitude: {productDetail.longitude} */}
-                    </div>
-                )}
-            </div>
-        </div>
-    ) : (
-        <div className="address-input">
-            <input
-                type="text"
-                placeholder="주소를 입력해주세요"
-                className="address-input-field"
-            />
-        </div>
-    )}
-</div>
+
+                        <div className="option-group">
+                            <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
+                            {deliveryType === 'pickup' ? (
+                                <div className="location-select">
+                                    <div className="map-placeholder">
+                                        <p>{productDetail?.venderAddress}</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="address-input">
+                                <input
+                                    type="text"
+                                    placeholder="주소를 입력해주세요"
+                                    className="address-input-field"
+                                    value={deliveryAddress}
+                                    onChange={(e) => setDeliveryAddress(e.target.value)}
+                                />
+                            </div>
+                            
+                            )}
+                        </div>
 
                         <div className="option-group">
                             <h3>{deliveryType === 'pickup' ? '픽업 날짜' : '배송 날짜'}</h3>
@@ -601,16 +608,19 @@ return (
                                     className="time-input"
                                 >
                                     <option value="">시간 선택</option>
+                                    <option value="9:00">9:00</option>
                                     <option value="10:00">10:00</option>
                                     <option value="11:00">11:00</option>
                                     <option value="12:00">12:00</option>
                                     <option value="13:00">13:00</option>
-                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
                                 </select>
                             </div>
                         </div>
 
-                        {/* 받는 사람 정보 */}
                         <div className="option-group">
                             <h3>받는 사람 정보</h3>
                             <div className="receiver-info">
@@ -618,6 +628,9 @@ return (
                                     <label>받는 사람</label>
                                     <input
                                         type="text"
+                                        name="name"
+                                        value={recipientInfo.name}
+                                        onChange={handleRecipientChange}
                                         placeholder="받는 사람 이름을 입력해주세요"
                                         className="receiver-input"
                                     />
@@ -626,6 +639,9 @@ return (
                                     <label>연락처</label>
                                     <input
                                         type="tel"
+                                        name="phone"
+                                        value={recipientInfo.phone}
+                                        onChange={handleRecipientChange}
                                         placeholder="'-' 없이 숫자만 입력해주세요"
                                         className="receiver-input"
                                     />
@@ -633,11 +649,13 @@ return (
                             </div>
                         </div>
 
-                        {/* 요청사항 */}
                         <div className="option-group">
                             <h3>케이크 위 레터링 요청</h3>
                             <div className="request-input">
                                 <textarea
+                                    name="cakeLetter"
+                                    value={letters.cakeLetter}
+                                    onChange={handleLetterChange}
                                     placeholder="예) 생크림을 좀만 넣어주세요."
                                     rows="4"
                                     className="request-textarea"
@@ -647,6 +665,9 @@ return (
                             <h3>케이크 판 레터링 요청</h3>
                             <div className="request-input">
                                 <textarea
+                                    name="plateLetter"
+                                    value={letters.plateLetter}
+                                    onChange={handleLetterChange}
                                     placeholder="예) 생크림을 좀만 넣어주세요."
                                     rows="4"
                                     className="request-textarea"
@@ -656,6 +677,9 @@ return (
                             <h3>기타 요청사항</h3>
                             <div className="request-input">
                                 <textarea
+                                    name="additionalRequest"
+                                    value={letters.additionalRequest}
+                                    onChange={handleLetterChange}
                                     placeholder="예) 살 안찌는 생크림케이크로 해주세요"
                                     rows="4"
                                     className="request-textarea"
@@ -663,39 +687,37 @@ return (
                             </div>
                         </div>
                     </div>
-
                     <Link 
-                            to="/user/paymentdetail" 
-                            state={{
-                                productInfo: {
-                                    productId: productDetail?.productId,
-                                    productName: productDetail?.productName,
-                                    productPrice: productDetail?.productPrice,
-                                    productImage: productDetail?.productImage1Url,
-                                    cakeDesignId: productDetail?.cakeDesignId
-                                },
-                                orderInfo: {
-                                    deliveryType,
-                                    selectedDate,
-                                    selectedTime,
-                                    recipientName: recipientInfo.name,
-                                    recipientPhone: recipientInfo.phone,
-                                    address: deliveryType === 'pickup' ? productDetail?.venderAddress : '배송주소',
-                                    cakeLetter: letters.cakeLetter,
-                                    plateLetter: letters.plateLetter,
-                                    additionalRequest: letters.additionalRequest,
-                                    selectedOptions: selectedOptionNames
-                                }
-                            }}
-                            className="submit-button"
-                                >
-            요청사항 확인
-        </Link>
+                        to="/user/paymentdetail" 
+                        state={{
+                            productInfo: {
+                                productId: productDetail?.productId,
+                                productName: productDetail?.productName,
+                                productPrice: productDetail?.productPrice,
+                                productImage: productDetail?.productImage1Url,
+                                cakeDesignId: productDetail?.cakeDesignId
+                            },
+                            orderInfo: {
+                                deliveryType,
+                                selectedDate,
+                                selectedTime,
+                                recipientName: recipientInfo.name,
+                                recipientPhone: recipientInfo.phone,
+                                address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress, // 수정된 부분
+                                cakeLetter: letters.cakeLetter,
+                                plateLetter: letters.plateLetter,
+                                additionalRequest: letters.additionalRequest,
+                                selectedOptions: selectedOptionNames
+                            }
+                        }}
+                        className="submit-button"
+                    >
+                        요청사항 확인
+                    </Link>
                 </div>
             </div>
         </main>
     </div>
 );
 };
-
 export default UserCakeDetail;
