@@ -278,8 +278,11 @@ const VenderProductPreview = () => {
         <div className="full-content">
             <div className="content-sections">
                 <div id="상품상세" className="content-section">
-                    {productDetail?.description ? (
-                        <div>{productDetail.description}</div> // 데이터를 화면에 출력
+                    {productDetail && productDetail.description ? (
+                        <div
+                            className="description"
+                            dangerouslySetInnerHTML={{ __html: productDetail.description }}
+                        />
                     ) : (
                         <p>상품 설명이 없습니다.</p>
                     )}
