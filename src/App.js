@@ -77,6 +77,7 @@ import AdminShopManage from './pages/admin/AdminShopManage';
 import AdminShopAdd from './pages/admin/AdminShopAdd';
 import Hyun from './pages/admin/Hyun';
 import VenderInsertAudition from './pages/vender/VenderInsertAudition';
+import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 
 
 
@@ -89,7 +90,7 @@ function App() {
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-          <Route path='/vender/productpreview' element={<VenderProductPreview/>} />
+          <Route path='/vender/productpreview/:productId' element={<VenderProductPreview/>} />
           <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
           <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
           <Route path='/vender/statistics' element={<VenderStatistics />} />
@@ -112,7 +113,7 @@ function App() {
           <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition/>} />
           <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest/>}/>
           <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal/>}/>
-
+          <Route path='/vender/registrationformedit/:productId' element={<VenderProductRegistrationFormEdit />} />
           
           {/* User Routes */}
           <Route path='/user/test' element={<UserMain/>}/>

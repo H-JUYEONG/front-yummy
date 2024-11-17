@@ -474,3 +474,55 @@
     font-size: 14px;
     color: #444;
 }
+
+/* 라디오 버튼 숨기기 및 커스텀 스타일 적용 */
+.product-registration .option-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 라디오 버튼 커스텀 스타일 */
+.product-registration .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 120px;
+    height: 150px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+/* 선택된 라디오 버튼 스타일 */
+.product-registration .option-item.selected {
+    background-color: #eef2ff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    border: 2px solid #4f46e5;
+}
+
+/* 서브옵션 이미지 스타일 */
+.product-registration .option-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* 서브옵션 이름 스타일 */
+.product-registration .option-item span {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+}
+

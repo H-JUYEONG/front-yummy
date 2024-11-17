@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import Modal from 'react-modal'; // 모달 라이브러리 import
 import 'react-quill/dist/quill.snow.css';
@@ -33,24 +33,20 @@ const translateOptionTypeName = (options) => {
 };
 
 // 옵션 선택 컴포넌트 (체크 박스 버전)
-const OptionSelector = ({ optionName, options, selectedOptions, onSelect, isSingleSelect }) => {
+const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
     return (
         <div className="option-selector">
             <label>{optionName}</label>
             <div className="option-items">
                 {options.map((option, index) => {
-                    const isSelected = isSingleSelect
-                        ? selectedOptions === option.optionValueId // 라디오 버튼은 단일 값 선택
-                        : selectedOptions.includes(option.optionValueId); // 체크박스는 배열로 관리
-
+                    const isSelected = selectedOptions.includes(option.optionValueId); // 선택 여부 확인
                     return (
                         <div key={index} className={`option-item ${isSelected ? 'selected' : ''}`}>
                             <input
-                                type={isSingleSelect ? "radio" : "checkbox"} // 단일 선택 여부에 따라 타입 변경
+                                type="checkbox"
                                 id={`${optionName}-${index}`}
                                 checked={isSelected}
                                 onChange={() => onSelect(option.optionValueId)}
-                                name={isSingleSelect ? optionName : undefined} // 라디오 그룹 네임 설정
                             />
                             <label htmlFor={`${optionName}-${index}`}>
                                 <img
@@ -68,15 +64,13 @@ const OptionSelector = ({ optionName, options, selectedOptions, onSelect, isSing
     );
 };
 
+
 // 도안 모달 컴포넌트
-const CakeDesignModal = ({ isOpen, onRequestClose, designs, myDesigns, onSelectDesign }) => {
+const CakeDesignModal = ({ isOpen, onRequestClose, designs, onSelectDesign }) => {
     const [searchText, setSearchText] = useState('');
 
     // 검색된 도안 필터링
-    const filteredWishlistDesigns = designs.filter(design =>
-        design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
-    );
-    const filteredMyDesigns = myDesigns.filter(design =>
+    const filteredDesigns = designs.filter(design =>
         design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
     );
 
@@ -97,22 +91,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, myDesigns, onSelectD
                 className="design-search-input"
             />
             <div className="design-list">
-                <h3>찜한 도안</h3>
-                {filteredWishlistDesigns.map((design, index) => (
-                    <div key={index} className="design-item">
-                        {design.cakeDesignImageUrl ? (
-                            <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
-                        ) : (
-                            <div className="design-image-placeholder">이미지 없음</div>
-                        )}
-                        <span className="design-name">{design.cakeDesignTitle}</span>
-                        <button onClick={() => onSelectDesign(design)}>선택</button>
-                    </div>
-                ))}
-            </div>
-            <div className="design-list">
-                <h3>내가 그린 도안</h3>
-                {filteredMyDesigns.map((design, index) => (
+                {filteredDesigns.map((design, index) => (
                     <div key={index} className="design-item">
                         {design.cakeDesignImageUrl ? (
                             <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
@@ -206,9 +185,11 @@ const ProductEditor = ({ description, setDescription }) => {
 };
 
 
-function ProductRegistrationForm() {
+function VenderProductRegistrationFormEdit() {
     const venderId = 39; // 예시로 사용
+
     const navigate = useNavigate();
+    const { productId } = useParams(); // URL에서 productId 가져오기
     const [productName, setProductName] = useState('');
     const [images, setImages] = useState({ main: null, subs: [null, null, null] });
     const [preview, setPreview] = useState({ main: null, subs: [null, null, null] });
@@ -217,9 +198,9 @@ function ProductRegistrationForm() {
     const [isDesignModalOpen, setIsDesignModalOpen] = useState(false);
     const [selectedDesign, setSelectedDesign] = useState(null);
     const [availableDesigns, setAvailableDesigns] = useState([]);
-    const [myDesigns, setMyDesigns] = useState([]); // 내가 그린 도안 상태
     // 옵션 상태 관리
     const [availableOptions, setAvailableOptions] = useState([]);
+    const [isLoadingOptions, setIsLoadingOptions] = useState(true);
     const [selectedOptions, setSelectedOptions] = useState({});
     const openDesignModal = useCallback(() => {
         setIsDesignModalOpen(true);
@@ -233,23 +214,11 @@ function ProductRegistrationForm() {
         setSelectedDesign(design); // 선택한 도안 저장
         closeDesignModal(); // 모달 닫기
     };
-    // 내가 그린 도안
     useEffect(() => {
-        const fetchMyDesigns = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/my-designs`, {
-                    params: { memberId: 39 }, // 현재 사용자 ID
-                });
-                console.log("내가 그린 도안 데이터:", response.data);
-                setMyDesigns(response.data); // 도안 데이터 상태 업데이트
-            } catch (error) {
-                console.error("내가 그린 도안 데이터 로드 중 에러 발생:", error);
-            }
-        };
+        console.log("Available options:", availableOptions);
+    }, [availableOptions])
 
-        fetchMyDesigns();
-    }, []);
-    // 찜한 데이터 로드
+    // 도안 데이터 로드
     useEffect(() => {
         const fetchWishlistDesigns = async () => {
             try {
@@ -265,64 +234,216 @@ function ProductRegistrationForm() {
 
         fetchWishlistDesigns();
     }, []);
+    useEffect(() => {
+        const fetchProductDetails = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/vender/products/${productId}`);
+                const { product, options } = response.data;
+                console.log("Fetched product:", product);
 
-    // 옵션 데이터 로드
+                if (!product || !options) {
+                    console.error("Invalid product or options data:", response.data);
+                    return;
+                }
+
+                // 데이터 설정
+                setProductName(product.productName || '');
+                setPrice(product.price || '');
+                setDescription(product.description || '');
+                setImages({
+                    main: product.productImage1Url || null,
+                    subs: [
+                        product.productImage2Url || null,
+                        product.productImage3Url || null,
+                        product.productImage4Url || null,
+                    ],
+                });
+
+                const formattedOptions = options.reduce((acc, option) => {
+                    const { optionTypeId, optionTypeName, optionValueId, optionValueName, isSelected } = option;
+                    if (!acc[optionTypeId]) {
+                        acc[optionTypeId] = {
+                            optionTypeName: OPTION_TYPE_NAME_KO[optionTypeId] || optionTypeName,
+                            values: [],
+                        };
+                    }
+                    acc[optionTypeId].values.push({
+                        optionValueId,
+                        optionValueName,
+                        isSelected,
+                    });
+                    return acc;
+                }, {});
+                setAvailableOptions(formattedOptions);
+
+                const selected = options.filter(opt => opt.isSelected).reduce((acc, opt) => {
+                    if (!acc[opt.optionTypeId]) {
+                        acc[opt.optionTypeId] = [];
+                    }
+                    acc[opt.optionTypeId].push(opt.optionValueId);
+                    return acc;
+                }, {});
+                setSelectedOptions(selected);
+            } catch (error) {
+                console.error("Failed to fetch product details:", error);
+            }
+        };
+
+        fetchProductDetails();
+    }, [productId]);
+
+
+
+    useEffect(() => {
+        const fetchProductData = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/products/${productId}`);
+                const data = response.data;
+
+                // apiData 유효성 검사
+                if (!data || data.result !== "success" || !data.apiData) {
+                    console.error("Invalid product data", data);
+                    return;
+                }
+
+                const product = data.apiData;
+
+                setProductName(product.productName || "");
+                setPrice(product.productPrice || 0);
+                setDescription(""); // API 응답에 description이 없으므로 기본값 설정
+
+                setImages({
+                    main: product.productImage1Url || null,
+                    subs: [
+                        product.productImage2Url || null,
+                        product.productImage3Url || null,
+                        product.productImage4Url || null,
+                    ],
+                });
+
+                setPreview({
+                    main: product.productImage1Url || null,
+                    subs: [
+                        product.productImage2Url || null,
+                        product.productImage3Url || null,
+                        product.productImage4Url || null,
+                    ],
+                });
+            } catch (error) {
+                console.error("Failed to fetch product data:", error);
+            }
+        };
+
+        fetchProductData();
+    }, [productId]);
+
+
+    useEffect(() => {
+        const fetchProductOptions = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/vender/products/${productId}/options`);
+                const options = response.data.options;
+
+                // 옵션 데이터가 없을 경우 기본값 설정
+                if (!options || !Array.isArray(options)) {
+                    setAvailableOptions({});
+                    return;
+                }
+
+                const formattedOptions = options.reduce((acc, option) => {
+                    const { optionTypeId, optionTypeName, optionValueId, optionValueName, isSelected } = option;
+
+                    if (!acc[optionTypeId]) {
+                        acc[optionTypeId] = {
+                            optionTypeName,
+                            values: []
+                        };
+                    }
+
+                    acc[optionTypeId].values.push({
+                        optionValueId,
+                        optionValueName,
+                        isSelected: Boolean(isSelected) // 선택 여부를 Boolean으로 변환
+                    });
+
+                    return acc;
+                }, {});
+
+                setAvailableOptions(formattedOptions);
+
+                // 초기 선택된 옵션 설정
+                const initialSelected = Object.entries(formattedOptions).reduce((acc, [typeId, { values }]) => {
+                    acc[typeId] = values.filter(value => value.isSelected).map(value => value.optionValueId);
+                    return acc;
+                }, {});
+                setSelectedOptions(initialSelected);
+            } catch (error) {
+                console.error("옵션 데이터 로드 실패:", error);
+                setAvailableOptions({}); // 에러 발생 시 기본값 설정
+            }
+        };
+
+        fetchProductOptions();
+    }, [productId]);
+
+
+
     useEffect(() => {
         const fetchOptions = async () => {
+            setIsLoadingOptions(true); // 로딩 시작
             try {
                 const response = await axios.get(`${API_URL}/api/options/${venderId}`);
                 const translatedOptions = translateOptionTypeName(response.data);
                 setAvailableOptions(translatedOptions);
             } catch (error) {
-                console.error('옵션 데이터 로드 중 에러 발생:', error);
+                console.error("옵션 데이터 로드 중 에러 발생:", error);
+            } finally {
+                setIsLoadingOptions(false); // 로딩 완료
             }
         };
 
         fetchOptions();
     }, [venderId]);
     // 필터링된 옵션
-    const visibleOptions = availableOptions.filter(option => option.optionValues && option.optionValues.length > 0);
+    const visibleOptions = Array.isArray(availableOptions)
+        ? availableOptions.filter(option => option.optionValues && option.optionValues.length > 0)
+        : [];
     // 옵션 선택 핸들러
-    const handleOptionSelect = (optionTypeId, value) => {
+    const handleOptionSelect = (optionTypeId, valueId) => {
         setSelectedOptions(prevState => {
-            const isSingleSelect = availableOptions.find(opt => opt.optionTypeId === optionTypeId)?.optionTypeName === "상품 종류";
-    
-            if (isSingleSelect) {
-                // 단일 선택
-                return { ...prevState, [optionTypeId]: value };
+            const currentValues = prevState[optionTypeId] || [];
+            if (currentValues.includes(valueId)) {
+                // 선택 해제
+                return {
+                    ...prevState,
+                    [optionTypeId]: currentValues.filter(id => id !== valueId)
+                };
             } else {
-                // 다중 선택
-                const currentValues = prevState[optionTypeId] || [];
-                if (currentValues.includes(value)) {
-                    return {
-                        ...prevState,
-                        [optionTypeId]: currentValues.filter(opt => opt !== value)
-                    };
-                } else {
-                    return {
-                        ...prevState,
-                        [optionTypeId]: [...currentValues, value]
-                    };
-                }
+                // 선택 추가
+                return {
+                    ...prevState,
+                    [optionTypeId]: [...currentValues, valueId]
+                };
             }
         });
     };
-
     // 이미지 업로드 핸들러
     const handleImageChange = (e, index) => {
         const file = e.target.files[0];
         if (file) {
-            const newImages = { ...images };
-            const newPreview = { ...preview };
+            const updatedImages = { ...images };
+            const updatedPreview = { ...preview };
+
             if (index === 'main') {
-                newImages.main = file; // 원본 파일 저장
-                newPreview.main = URL.createObjectURL(file); // 미리보기 URL 생성
+                updatedImages.main = file; // 새 이미지 파일 저장
+                updatedPreview.main = URL.createObjectURL(file); // 새 미리보기 생성
             } else {
-                newImages.subs[index] = file; // 원본 파일 저장
-                newPreview.subs[index] = URL.createObjectURL(file); // 미리보기 URL 생성
+                updatedImages.subs[index] = file;
+                updatedPreview.subs[index] = URL.createObjectURL(file);
             }
-            setImages(newImages);
-            setPreview(newPreview);
+
+            setImages(updatedImages);
+            setPreview(updatedPreview);
         }
     };
     // 옵션 페이지로 이동
@@ -330,23 +451,20 @@ function ProductRegistrationForm() {
         navigate('/vender/option');  // VenderOption 페이지 경로
     };
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
 
-        // 벤더 ID 및 상품 데이터 추가
+        // 상품 데이터 추가
         formData.append("venderId", venderId);
         formData.append("productName", productName);
         formData.append("price", price);
         formData.append("description", description);
-        formData.append("isVisible", 0);
-
+        console.log([...formData.entries()]); // formData 확인
         // 선택한 도안 정보 추가
         if (selectedDesign) {
-            formData.append("cakeDesignId", selectedDesign.cakeDesignId); // 도안 ID
+            formData.append("cakeDesignId", selectedDesign.cakeDesignId);
         }
 
         // 메인 이미지 추가
@@ -357,28 +475,31 @@ function ProductRegistrationForm() {
         // 서브 이미지 추가
         images.subs.forEach((subImage, index) => {
             if (subImage) {
-                formData.append("subImages", subImage); // 서버에서 List로 처리
+                formData.append("subImages", subImage);
             }
         });
+
         // **선택된 옵션 데이터를 JSON 문자열로 추가**
         if (Object.keys(selectedOptions).length > 0) {
             formData.append("selectedOptions", JSON.stringify(selectedOptions));
         }
 
         try {
-            const response = await axios.post(`${API_URL}/api/products`, formData, {
+            // PUT 요청으로 상품 및 옵션 수정
+            const response = await axios.put(`${API_URL}/api/vender/products/${productId}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log("상품 등록 성공:", response.data);
-            alert("상품이 성공적으로 등록되었습니다!");
+            console.log("상품 및 옵션 수정 성공:", response.data);
+            alert("상품 및 옵션이 성공적으로 수정되었습니다!");
             navigate("/vender/productslist"); // 수정 후 목록 페이지로 이동 (필요 시 경로 수정)
         } catch (error) {
-            console.error("상품 등록 실패:", error.response || error.message);
-            alert("상품 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+            console.error("상품 및 옵션 수정 실패:", error.response || error.message);
+            alert("상품 및 옵션 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
     };
+
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">
@@ -394,7 +515,7 @@ function ProductRegistrationForm() {
                                 <input
                                     type="text"
                                     id="productName"
-                                    value={productName}
+                                    value={productName || ""} // 기본값 설정
                                     onChange={(e) => setProductName(e.target.value)}
                                     placeholder="상품명을 입력해주세요"
                                     className="input-text"
@@ -411,7 +532,7 @@ function ProductRegistrationForm() {
                                 <input
                                     type="number"
                                     id="price"
-                                    value={price}
+                                    value={price || 0} // 기본값 설정
                                     onChange={(e) => setPrice(e.target.value)}
                                     placeholder="가격을 입력해주세요"
                                     className="input-text"
@@ -439,7 +560,7 @@ function ProductRegistrationForm() {
                                         />
                                     </div>
                                     {/* 서브 이미지 */}
-                                    {images.subs.map((image, index) => (
+                                    {images.subs.map((subImage, index) => (
                                         <div key={index} className="image-upload">
                                             <label htmlFor={`subImage${index}`} className="image-placeholder">
                                                 {preview.subs[index] ? (
@@ -473,9 +594,8 @@ function ProductRegistrationForm() {
                                         key={option.optionTypeId}
                                         optionName={option.optionTypeName}
                                         options={option.optionValues}
-                                        selectedOptions={selectedOptions[option.optionTypeId] || (option.optionTypeName === "상품 종류" ? null : [])}
+                                        selectedOptions={selectedOptions[option.optionTypeId] || []}
                                         onSelect={(value) => handleOptionSelect(option.optionTypeId, value)}
-                                        isSingleSelect={option.optionTypeName === "상품 종류"} // "상품 종류"는 라디오 버튼
                                     />
                                 ))}
                             </div>
@@ -506,11 +626,10 @@ function ProductRegistrationForm() {
                                 isOpen={isDesignModalOpen}
                                 onRequestClose={closeDesignModal}
                                 designs={availableDesigns}
-                                myDesigns={myDesigns} // 내가 그린 도안 전달
                                 onSelectDesign={handleDesignSelect}
                             />
                             <div className="form-group centered-button-group">
-                                <button type="submit" className="add-button">등록하기</button>
+                                <button type="submit" className="add-button">수정하기</button>
                             </div>
                         </form>
                         <button
@@ -526,4 +645,4 @@ function ProductRegistrationForm() {
     );
 }
 
-export default ProductRegistrationForm;
+export default VenderProductRegistrationFormEdit;
