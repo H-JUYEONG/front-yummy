@@ -5,13 +5,12 @@ import '../../../assets/css/user/userheaderstyle.css';
 
 const Header = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-  const [venderId, setVenderId] = useState(authUser.vender_id)
+  const [authUser, setAuthUser] = useState(() => {
+    const user = localStorage.getItem('authUser');
+    return user ? JSON.parse(user) : null;
+  });
+  const [venderId, setVenderId] = useState(authUser?.vender_id || null);
   const navigate = useNavigate();
-
-
-
-
 
 
   const handleLogout = () => {
@@ -22,26 +21,26 @@ const Header = () => {
     // Update state to reflect logged-out status
     setToken(null);
     setAuthUser(null);
-    
+
   };
 
   //소영 : 업체 홈페이지 등록여부확인 및 부여
-  
-  const handleCheckShop = ()=>{
-    
-    
-    console.log("type:"+typeof venderId)
+
+  const handleCheckShop = () => {
+
+
+    console.log("type:" + typeof venderId)
     console.log(venderId)
     axios({
       method: 'get',          // put, post, delete                   
       url: `${process.env.REACT_APP_API_URL}/api/svender/${venderId}`,
-      
+
       responseType: 'json' //수신타입
-  }).then(response => {
+    }).then(response => {
       console.log(response); //수신데이타
       console.log(response.data.apiData)
 
-      if(response.data.apiData == 0){
+      if (response.data.apiData == 0) {
         alert("등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?")
         navigate('/vender');
 
@@ -49,30 +48,30 @@ const Header = () => {
         axios({
           method: 'put',          // put, post, delete                   
           url: `${process.env.REACT_APP_API_URL}/api/svender/${venderId}`,
-          
+
           responseType: 'json' //수신타입
-      }).then(response => {
+        }).then(response => {
           console.log(response); //수신데이타
           console.log(response.data.apiData)
-    
-          
-      
-      }).catch(error => {
+
+
+
+        }).catch(error => {
           console.log(error);
-      });
-      
-      }else if(response.data.apiData == 1){
+        });
+
+      } else if (response.data.apiData == 1) {
         navigate(`/vender/${venderId}`);
-      }else if(response.data.apiData == 2){
+      } else if (response.data.apiData == 2) {
         navigate(`/vender/${venderId}`);
-      }else{
+      } else {
         console.log("오류")
       }
-      
-  
-  }).catch(error => {
+
+
+    }).catch(error => {
       console.log(error);
-  });
+    });
 
   }
 
@@ -100,7 +99,7 @@ const Header = () => {
     }
 
     // Display different actions based on `authUser` type
-    switch(authUser.type) {
+    switch (authUser.type) {
       case '업체':
         return (
           <>
