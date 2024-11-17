@@ -17,13 +17,13 @@ const VenderCakeDesignDetail = () => {
   // 서버에서 도안 상세 정보를 가져오는 함수
   const fetchCakeDesignDetail = () => {
     const token = localStorage.getItem("token");
-  
+
     if (!token) {
       console.log("토큰이 없습니다. 로그인하세요.");
       navigate("/user/login");
       return;
     }
-  
+
     axios({
       method: "get",
       url: `${process.env.REACT_APP_API_URL}/api/vender/detail/${cakeDesignId}`,
@@ -33,9 +33,9 @@ const VenderCakeDesignDetail = () => {
       .then((response) => {
         if (response.data.result === "success") {
           const detail = response.data.apiData;
-  
+
           console.log(detail); // 데이터 확인 로그
-  
+
           // 메인 이미지와 서브 이미지 설정
           setMainImage(detail.mainImageUrl || ""); // 메인 이미지
           setSubImages(detail.subImages || []); // 서브 이미지 배열
@@ -48,8 +48,38 @@ const VenderCakeDesignDetail = () => {
         console.error("도안 정보 불러오기 실패", error);
       });
   };
-  
-  
+
+  // 도안 삭제 요청 함수
+  const deleteCakeDesign = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/cakeDesign/delete/${cakeDesignId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      })
+        .then((response) => {
+          if (response.data.result === "success") {
+            alert("도안이 성공적으로 삭제되었습니다.");
+            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+          } else {
+            alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
+          }
+        })
+        .catch((error) => {
+          console.error("도안 삭제 실패", error);
+          alert("도안을 삭제하는 중 문제가 발생했습니다.");
+        });
+    }
+  };
 
   useEffect(() => {
     fetchCakeDesignDetail();
@@ -123,9 +153,7 @@ const VenderCakeDesignDetail = () => {
                       >
                         수정
                       </button>
-                      <button onClick={() => navigate("/vender/cakeDesign/list")}>
-                        삭제
-                      </button>
+                      <button onClick={deleteCakeDesign}>삭제</button>
                       <button onClick={() => navigate("/vender/cakeDesign/list")}>
                         뒤로가기
                       </button>

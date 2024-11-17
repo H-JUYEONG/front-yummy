@@ -85,7 +85,6 @@ const UserCakeDesignAdd = () => {
       );
 
       if (response.data.result === "success") {
-        alert("도안 등록이 완료되었습니다.");
         navigate("/user/cakeDesign/board");
       } else {
         alert("도안 등록에 실패했습니다.");

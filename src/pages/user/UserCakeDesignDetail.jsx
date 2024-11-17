@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaStar } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import axios from "axios";
@@ -17,29 +17,28 @@ const UserCakeDesignDetail = () => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [mainImage, setMainImage] = useState(""); // Default main image
   const [subImages, setSubImages] = useState([]); // 서브 이미지 배열
-  const [cakeDesignDetail, setCakeDesignDetail] = useState([]);
+  const [cakeDesignDetail, setCakeDesignDetail] = useState([]); // 도안 상세 정보 리스트
+  const [cakeDesignReviews, setCakeDesignReviews] = useState([]); // 도안 리뷰 리스트
+  const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
   const toggleFavorite = async () => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       console.log("토큰이 없습니다. 로그인하세요.");
       navigate("/user/login");
       return;
     }
 
-  console.log("Request Data:", { isFavorited: !isFavorited });
-  console.log("Token:", token);
-
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/favorite/${cakeDesignId}`,
-        { isFavorited: !isFavorited }, // 현재 상태 반대로 전송
+        { isFavorited: !isFavorited },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data.result === "success") {
-        // 서버에서 반환된 데이터를 반영
+        console.log(response.data);
+        console.log(response.data.isFavorited);
         setIsFavorited(response.data.isFavorited);
         setCakeDesignDetail((prevDetail) => ({
           ...prevDetail,
@@ -58,20 +57,12 @@ const UserCakeDesignDetail = () => {
     setMainImage(imageSrc); // Update main image when a sub-image is clicked
   };
 
-  // 서버에서 도안 상세 정보를 가져오는 함수
+  // 도안 상세 정보 가져오기
   const getCakeDesignDetail = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      console.log("토큰이 없습니다. 로그인하세요.");
-      navigate("/user/login");
-      return;
-    }
-
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { responseType: "json" }
       );
 
       if (response.data.result === "success") {
@@ -93,9 +84,68 @@ const UserCakeDesignDetail = () => {
     }
   };
 
+  // 도안 리뷰 가져오기
+  const getCakeDesignReviews = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/user/cakeDesign/reviews/${cakeDesignId}`,
+        { responseType: "json" }
+      );
+
+      if (response.data.result === "success") {
+        const reviews = response.data.apiData;
+        console.log(reviews); // 데이터 확인 로그
+
+        setCakeDesignReviews(reviews);
+      } else {
+        // alert("도안 리뷰를 불러오는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("리뷰 정보 불러오기 실패:", error);
+      alert("리뷰 정보를 가져오는 중 문제가 발생했습니다.");
+    }
+  };
+
   useEffect(() => {
+    // 로그인된 사용자 정보 가져오기
+    const user = JSON.parse(localStorage.getItem("authUser"));
+    setAuthUser(user);
+
     getCakeDesignDetail();
+    getCakeDesignReviews();
   }, [cakeDesignId]);
+
+  // 도안 삭제 요청 함수
+  const deleteCakeDesign = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/cakeDesign/delete/${cakeDesignId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      })
+        .then((response) => {
+          if (response.data.result === "success") {
+            alert("도안이 성공적으로 삭제되었습니다.");
+            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+          } else {
+            alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
+          }
+        })
+        .catch((error) => {
+          console.error("도안 삭제 실패", error);
+          alert("도안을 삭제하는 중 문제가 발생했습니다.");
+        });
+    }
+  };
 
   return (
     <div id="user-wrap">
@@ -124,20 +174,25 @@ const UserCakeDesignDetail = () => {
                   ? "업체"
                   : cakeDesignDetail.userNickname || "익명"}
               </p>
-              <div className="user-control-section">
-                <button
-                  className="user-cake-edit-button"
-                  onClick={() => navigate("/user/cakeDesign/edit")}
-                >
-                  수정
-                </button>
-                <button
-                  className="user-cake-delete-button"
-                  onClick={() => alert("삭제 기능")}
-                >
-                  삭제
-                </button>
-              </div>
+              {/* 조건부 렌더링: 작성자와 현재 로그인된 사용자 비교 */}
+              {authUser && cakeDesignDetail.memberId === authUser.member_id ? (
+                <div className="user-control-section">
+                  <button
+                    className="user-cake-edit-button"
+                    onClick={() =>
+                      navigate(`/user/cakeDesign/edit/${cakeDesignId}`)
+                    }
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="user-cake-delete-button"
+                    onClick={deleteCakeDesign}
+                  >
+                    삭제
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -234,6 +289,50 @@ const UserCakeDesignDetail = () => {
                   }}
                 />
               </div>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="user-review-section">
+              <h2>도안 사용 후기</h2>
+              {cakeDesignReviews.length > 0 ? (
+                cakeDesignReviews.map((review, index) => (
+                  <div className="user-cake-designs-review-item" key={index}>
+                    <div className="user-review-header">
+                      <span className="user-review-email-id">
+                        {review.userNickname}
+                      </span>
+                      <span className="user-review-date">
+                        {review.reviewCreatedAt}
+                      </span>
+                      <span className="user-review-stars">
+                        {[...Array(review.reviewRating)].map((_, starIndex) => (
+                          <FaStar
+                            key={starIndex}
+                            className="cake-design-review-star-icon"
+                          />
+                        ))}
+                      </span>
+                    </div>
+                    <div className="user-review-body">
+                      <img
+                        src={review.reviewImageUrl}
+                        alt="리뷰 이미지"
+                        className="user-cake-designs-review-image"
+                        onClick={() =>
+                          navigate(`/user/cakedetail/${review.productId}`)
+                        }
+                      />
+                      <div className="user-review-text">
+                        <p className="bakery-name">{review.venderName}</p>
+                        <p className="cake-name">{review.productName}</p>
+                        <p className="review-content">{review.reviewContent}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>리뷰가 없습니다.</p>
+              )}
             </div>
           </div>
         </div>
