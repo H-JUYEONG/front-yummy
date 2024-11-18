@@ -78,15 +78,12 @@ import AdminShopAdd from './pages/admin/AdminShopAdd';
 import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 
-
-
 function App() {
   return (
     <div>
       <BrowserRouter>
-
           <Routes>
-            <Route path='/vender/' element={<VenderDashboard />} />
+            <Route path='/vender/:venderId' element={<VenderDashboard />} />
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
             <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -103,6 +100,7 @@ function App() {
             <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit />} />
             <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail />} />
             <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails />} />
+            
             {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
             <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/signup' element={<VenderSignUpForm />} />
@@ -166,7 +164,6 @@ function App() {
             <Route path='/board/boardview' element={<UserDebateView />} />
             <Route path="/board/debateedit" element={<UserDebateEdit />} />
           </Routes>
- 
       </BrowserRouter>
     </div>
   );
