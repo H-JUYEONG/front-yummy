@@ -20,6 +20,7 @@ function UserKakaoLogin() {
 
   const handleLogin = async (code) => {
     try {
+      // 카카오 액세스 토큰 받아오기
       const response = await axios({
         method: "post",
         url: `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
@@ -34,6 +35,7 @@ function UserKakaoLogin() {
 
       const accessToken = response.data.apiData;
 
+      // 카카오 유저 정보 가져오기
       const userResponse = await axios({
         method: "get",
         url: `${process.env.REACT_APP_API_URL}/api/users/profile`,
@@ -46,6 +48,7 @@ function UserKakaoLogin() {
 
       const userInfo = userResponse.data.apiData;
 
+      // 우리 사이트 회원인지 확인하고 결과 메세지로 체크
       const userCheck = await axios({
         method: "post",
         url: `${process.env.REACT_APP_API_URL}/api/users/check`,
