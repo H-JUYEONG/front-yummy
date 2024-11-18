@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+//소영 미리보기페이지용
+import { VenderProvider } from '../src/context/VenderContext';
 import Main from './pages/main/main';
 
 import VenderProductList from './pages/vender/VenderProductList';
@@ -57,6 +58,7 @@ import UserAuditionBoard from './pages/user/UserAuditionBoard';
 import UserAuditionAdd from './pages/user/UserAuditionAdd';
 import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
 import UserMyAudtion from './pages/user/UserMyAudtion';
+import UserExeStoreDetail from './pages/user/UserExeStoreDetail';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -83,9 +85,13 @@ import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegis
 function App() {
   return (
     <div>
+      
+
       <BrowserRouter>
 
           <Routes>
+
+          
             <Route path='/vender/:venderId' element={<VenderDashboard />} />
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
@@ -109,7 +115,9 @@ function App() {
             <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
             <Route path="/vender/review" element={<VenderReview />} />
             <Route path="/vender/VenderHeader" element={<VenderHeader />} />
-            <Route path="/vender/VenderInsertPage/:venderId" element={<VenderInsertPage />} />
+            
+              <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
+            
             <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition />} />
             <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
             <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
@@ -145,6 +153,10 @@ function App() {
             <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
             <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
             <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
+            
+              <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
+
+            
 
             {/* Main and Admin */}
             <Route path='/' element={<Main />} />
@@ -166,7 +178,7 @@ function App() {
             <Route path='/board/boardview' element={<UserDebateView />} />
             <Route path="/board/debateedit" element={<UserDebateEdit />} />
           </Routes>
- 
+
       </BrowserRouter>
     </div>
   );
