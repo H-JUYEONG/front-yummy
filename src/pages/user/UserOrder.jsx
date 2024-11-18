@@ -104,7 +104,7 @@ const UserOrder = () => {
             description: '배송중이거나 픽업 대기중입니다'
         },
         {
-            label: '완료',
+            label: '수령완료',
             count: statusCounts?.completedCount || 0,
             description: '주문이 완료되었습니다'
         }
@@ -143,12 +143,11 @@ const UserOrder = () => {
                 <h3>주문상태 안내</h3>
                 <table className="description-table">
                     <tbody>
-                        <tr><td>결제대기</td><td>주문완료 후 결제내역이 미확인 상태입니다.</td></tr>
-                        <tr><td>결제완료</td><td>결제 및 확인이 완료되었습니다.</td></tr>
-                        <tr><td>제작중</td><td>주문한 제품이 제작중입니다.</td></tr>
-                        <tr><td>픽업일(D-day)</td><td>상품이 전부 준비되었습니다! 예약하신 시간에 맞게 방문해주세요!</td></tr>
-                        <tr><td>픽업완료</td><td>고객에 픽업완료 된 상태입니다.</td></tr>
-                        <tr><td>주문취소</td><td>고객님이나 업체측에 의하여 취소된 주문입니다.(단, 위약금 별도)</td></tr>
+                        <tr><td>결제대기</td><td>결제가 완료되었습니다.</td></tr>
+                        <tr><td>결제완료</td><td>케이크를 제작중입니다.</td></tr>
+                        <tr><td>제작중</td><td>케이크 제작이 완료되었습니다.</td></tr>
+                        <tr><td>배송중/픽업대기</td><td>배송중이거나 픽업 대기중입니다.</td></tr>
+                        <tr><td>수령완료</td><td>수령이 완료되었습니다</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -212,15 +211,18 @@ const UserOrder = () => {
                                     <td>
                                         <div className="action-buttons">
                                             {order.actions.map((action, idx) => (
-                                                action === '주문상세보기' ? (
-                                                    <ScrollToTopLink
-                                                        key={idx}
-                                                        to={`/user/mypage/orderdetail`}
-                                                        className="action-btn"
-                                                    >
-                                                        {action}
-                                                    </ScrollToTopLink>
-                                                ) : action === '리뷰쓰기' ? (
+                                              action === '주문상세보기' ? (
+                                                <ScrollToTopLink
+                                                    key={idx}
+                                                    to={`/user/mypage/orderdetail/${order.id}`} // 여기서 order.id 값 console.log로 확인
+                                                    className="action-btn"
+                                                >
+                                                    {action}
+                                                    {console.log("order id:", order.id)} 
+                                                </ScrollToTopLink>
+                                            )
+                                                
+                                                 : action === '리뷰쓰기' ? (
                                                     <ScrollToTopLink
                                                         key={idx}
                                                         to="/user/cakedetail"
