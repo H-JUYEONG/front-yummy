@@ -20,39 +20,56 @@ function UserKakaoLogin() {
 
   const handleLogin = async (code) => {
     try {
-      // 1. Access Token 요청
-      const tokenResponse = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
-        { headers: { "Content-Type": "application/json" } }, // 헤더만 전달
-        {
-          params: { authorizeCode: code }, // Query Parameters로 전달
-        }
-      );
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        params: { authorizeCode: code },
+        responseType: "json"
+      });
+   
+      console.log(response);
+      console.log(response.data);
+      console.log(response.data.apiData);
+   
+      const accessToken = response.data.apiData;
+   
+      const userResponse = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/users/profile`, 
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Authorization": `Bearer ${accessToken}`
+        },
+        responseType: "json"
+      });
+   
+      const userInfo = userResponse.data.apiData;
 
-      const accessToken = tokenResponse.data.accessToken;
-      console.log("Access Token:", accessToken);
-
-      // 2. 사용자 정보 요청
-      const userResponse = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/profile`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-
-      const userInfo = userResponse.data.result;
-      console.log("User Info:", userInfo);
-
-      // 3. 상태 저장 및 리다이렉트
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-      navigate("/"); // 메인 페이지로 이동
+      const userCheck = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/users/check`,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        data: userInfo,
+        responseType: "json"
+      });
+      
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("authUser", JSON.stringify(userInfo));
+   
+      if (userInfo !== null) {
+        navigate("/");
+      } else {
+        console.error(userResponse.data.message);
+        alert(userResponse.data.message || "로그인에 실패했습니다.");
+      }
+   
     } catch (error) {
-      console.error("로그인 실패:", error);
-      setErrorMessage("로그인에 실패했습니다. 다시 시도해주세요.");
-    } finally {
+      console.error("카카오 로그인 오류:", error);
+      alert("카카오 로그인에 실패했습니다.");
       setLoading(false);
     }
-  };
+   };
 
   if (loading) {
     return (
