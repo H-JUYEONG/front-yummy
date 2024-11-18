@@ -73,7 +73,7 @@ const VenderInsertPage = () => {
     //수정폼
 
     const firstList = async ()=>{
-        console.log(shopName)
+        console.log('시작')
         try {
             const response = await axios({
             method: 'get',          // put, post, delete                   
@@ -82,6 +82,7 @@ const VenderInsertPage = () => {
         });
         
             console.log(response); //수신데이타
+            console.log(response.data.apiData)
             const data = response.data.apiData;
 
             // URL을 File로 변환하는 함수
