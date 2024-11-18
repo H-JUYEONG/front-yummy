@@ -1,224 +1,236 @@
 /* General Styling for User Debate Section */
 #j-user-debate-tip {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-  
-  #j-user-debate-tip h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  #j-user-debate-tip p {
-    font-size: 20px;
-  }
-  
-  .j-user-debate-board-list {
-    width: 100%;
-    margin: 0 auto;
-  }
-  
-  /* Button and Search Bar Container */
-  #j-user-debate-select-option-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    max-width: 1200px;
-    margin: 0 auto 20px auto;
-  }
-  
-  .j-user-debate-select-option {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-grow: 1;
-    padding-left: 240px;
-  }
-  
-  /* Updated Button Styles */
-  .j-user-debate-select-option button,
-  .pagination-page-number,
-  .pagination-arrow,
-  .j-user-debate-add-btn button {
-    background-color: #f5f5f5;
-    border: none;
-    padding: 10px 15px;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 20px;
-  }
-  
-  .j-user-debate-select-option button:hover,
-  .pagination-page-number:hover,
-  .pagination-arrow:hover,
-  .j-user-debate-add-btn button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Search Bar Styling */
-  .j-user-debate-search {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .j-user-debate-search .search-icon {
-    position: absolute;
-    left: 12px;
-    font-size: 1rem;
-    color: #999;
-    pointer-events: none;
-  }
-  
-  .j-user-debate-search input {
-    padding: 8px 16px 8px 36px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
-    font-size: 1rem;
-    width: 250px;
-  }
-  
-  .j-user-debate-search input:focus {
-    border-color: #cbcbcb;
-  }
-  
-  /* Pagination Styling */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .page-numbers {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .page-number, .prev-page, .next-page {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e5e7eb;
-    background: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .page-number:hover, .prev-page:hover, .next-page:hover {
-    background: #F3F4F6;
-  }
-  
-  .page-number.active {
-    background: #7C3AED;
-    color: white;
-    border-color: #7C3AED;
-  }
-  
-  /* Table */
-  /* Overall Table Styling */
-  .j-discussion-list {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    color: #333;
-  }
-  
-  /* Header Row Styling */
-  .j-discussion-list th {
-    background-color: #f0f0f0;
-    color: #333;
-    font-weight: normal;
-    padding: 12px 10px;
-    text-align: center;
-  }
-  
-  /* Data Cell Styling */
-  .j-discussion-list td {
-    padding: 12px 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  /* Row Hover Effect */
-  .j-discussion-list tr:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
-  }
-  
-  /* Individual Column Styles */
-  .column-id {
-    width: 5%;
-  }
-  
-  .column-title {
-    width: 40%;
-    text-align: left;
-    padding-left: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .column-category {
-    width: 15%;
-  }
-  
-  .column-author {
-    width: 15%;
-  }
-  
-  .column-date {
-    width: 10%;
-    color: #666;
-  }
-  
-  .column-views {
-    width: 10%;
-    font-weight: bold;
-  }
-  
-  /* Additional Button Styling */
-  #j-user-debate-add {
-    padding: 0px 4px;
-  }
-  
-  .j-user-debate-add-btn {
-    float: right;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
-  #j-user-debate-add button {
-    margin-bottom: 5px;
-    padding: 10px 12px;
-    color: #4B5563;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  #j-user-debate-add button:hover {
-    background-color: #F3F4F6;
-  }
-  
-  .j-user-debate-all {
-    float: left;
-    padding: 20px 0px 0px 5px;
-    font-weight: bold;
-    top: -10px;
-  }
-  
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+#j-user-debate-tip h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#j-user-debate-tip p {
+  font-size: 20px;
+}
+
+.j-user-debate-board-list {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Button and Search Bar Container */
+#j-user-debate-select-option-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
+}
+
+.j-user-debate-select-option {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-grow: 1;
+  padding-left: 240px;
+}
+
+/* Updated Button Styles */
+.j-user-debate-select-option button,
+.pagination-page-number,
+.pagination-arrow,
+.j-user-debate-add-btn button {
+  background-color: #f5f5f5;
+  border: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 20px;
+}
+
+.j-user-debate-select-option button:hover,
+.pagination-page-number:hover,
+.pagination-arrow:hover,
+.j-user-debate-add-btn button:hover {
+  background-color: #ddd;
+}
+
+/* Search Bar Styling */
+.j-user-debate-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.j-user-debate-search .search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 1rem;
+  color: #999;
+  pointer-events: none;
+}
+
+.j-user-debate-search input {
+  padding: 8px 16px 8px 36px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 1rem;
+  width: 250px;
+}
+
+.j-user-debate-search input:focus {
+  border-color: #cbcbcb;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+.page-number,
+.prev-page,
+.next-page {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* 활성화된 버튼에만 hover 효과 적용 */
+.prev-page:not(:disabled):hover,
+.next-page:not(:disabled):hover,
+.page-number:hover {
+  background: #f3f4f6;
+}
+
+/* 비활성화 버튼 스타일 */
+.prev-page:disabled,
+.next-page:disabled {
+  background-color: #f1f1f1 !important;
+  color: #aaa;
+  border-color: #ddd;
+}
+
+.page-number.active {
+  background: #7c3aed;
+  color: white;
+  border-color: #7c3aed;
+}
+
+/* Table */
+/* Overall Table Styling */
+.j-discussion-list {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+}
+
+/* Header Row Styling */
+.j-discussion-list th {
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: normal;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+/* Data Cell Styling */
+.j-discussion-list td {
+  padding: 12px 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Row Hover Effect */
+.j-discussion-list tr:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Individual Column Styles */
+.column-id {
+  width: 5%;
+}
+
+.column-title {
+  width: 40%;
+  text-align: left;
+  padding-left: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.column-category {
+  width: 15%;
+}
+
+.column-author {
+  width: 15%;
+}
+
+.column-date {
+  width: 10%;
+  color: #666;
+}
+
+.column-views {
+  width: 10%;
+  font-weight: bold;
+}
+
+/* Additional Button Styling */
+#j-user-debate-add {
+  padding: 0px 4px;
+}
+
+.j-user-debate-add-btn {
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#j-user-debate-add button {
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  color: #4b5563;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#j-user-debate-add button:hover {
+  background-color: #f3f4f6;
+}
+
+.j-user-debate-all {
+  float: left;
+  padding: 20px 0px 0px 5px;
+  font-weight: bold;
+  top: -10px;
+}

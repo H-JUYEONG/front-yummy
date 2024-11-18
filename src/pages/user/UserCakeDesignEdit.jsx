@@ -146,7 +146,6 @@ const UserCakeDesignEdit = () => {
       });
 
       if (response.data.result === "success") {
-        alert("도안 수정이 완료되었습니다.");
         navigate(`/user/cakeDesign/board`);
       } else {
         alert("도안 수정에 실패했습니다.");

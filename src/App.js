@@ -86,13 +86,13 @@ function App() {
       <BrowserRouter>
 
           <Routes>
-            <Route path='/vender/:venderId' element={<VenderDashboard />} />
+            <Route path='/vender/' element={<VenderDashboard />} />
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
             <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-            <Route path='/vender/productpreview/:productId' element={<VenderProductPreview />} />
-            <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
-            <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
+            <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
+            <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+            <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
             <Route path='/vender/statistics' element={<VenderStatistics />} />
             <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
