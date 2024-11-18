@@ -127,7 +127,7 @@ function App() {
             <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
             <Route path='/user/orderlist' element={<UserOrderList />} />
             <Route path='/user/mypage/orderdetail' element={<UserOrderDetail />} />
-            <Route path='/user/mypage/order' element={<UserOrder />} />
+            <Route path='/user/mypage/order/:orderId' element={<UserOrder />} />
             <Route path='/user/mypage/wishlist' element={<UserWishList />} />
             <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard />} />
             <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail />} />
