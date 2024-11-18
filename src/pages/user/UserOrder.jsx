@@ -12,33 +12,33 @@ const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [orderList, setOrderList] = useState([]);
+    const [statusCounts, setStatusCounts] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     
-    // localStorage에서 authUser 정보 가져오기
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
     });
 
-    // 컴포넌트 마운트 시 실행
     useEffect(() => {
         window.scrollTo(0, 0);
-        checkAuthAndFetchOrders();
+        checkAuthAndFetchData();
     }, []);
 
-    // 인증 체크 및 주문 목록 가져오기
-    const checkAuthAndFetchOrders = async () => {
+    const checkAuthAndFetchData = async () => {
         if (!authUser || !authUser.user_id) {
             alert('로그인이 필요한 서비스입니다.');
             navigate('/user/login');
             return;
         }
-        await fetchOrderList();
+        await Promise.all([
+            fetchOrderList(),
+            fetchStatusCounts()
+        ]);
     };
 
-    // 주문 목록 가져오기
     const fetchOrderList = async () => {
         setLoading(true);
         setError(null);
@@ -46,13 +46,10 @@ const UserOrder = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders`, {
                 params: { userId: authUser.user_id }
             });
-            
-            // 데이터 형식 변환
             const formattedOrders = response.data.map(order => ({
                 ...order,
                 actions: order.actions ? order.actions.split(',') : []
             }));
-            
             setOrderList(formattedOrders);
         } catch (error) {
             console.error('Error fetching order list:', error);
@@ -62,7 +59,18 @@ const UserOrder = () => {
         }
     };
 
-    // 주문 상세 정보 가져오기
+    const fetchStatusCounts = async () => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/mypage/orders/status-count`,
+                { params: { userId: authUser.user_id } }
+            );
+            setStatusCounts(response.data);
+        } catch (error) {
+            console.error('Error fetching status counts:', error);
+        }
+    };
+
     const fetchOrderDetail = async (orderId) => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/${orderId}`);
@@ -74,31 +82,34 @@ const UserOrder = () => {
         }
     };
 
-    // 주문 상태별 카운트 계산
     const orderStatuses = [
-        { 
-            label: '결제완료', 
-            count: orderList.filter(order => order.orderStatus === '결제완료').length 
+        {
+            label: '결제완료',
+            count: statusCounts?.paymentCompletedCount || 0,
+            description: '결제가 완료되었습니다'
         },
-        { 
-            label: '제작중', 
-            count: orderList.filter(order => order.orderStatus === '제작중').length 
+        {
+            label: '제작중',
+            count: statusCounts?.inProductionCount || 0,
+            description: '케이크를 제작중입니다'
         },
-        { 
-            label: '제작완료', 
-            count: orderList.filter(order => order.orderStatus === '제작완료').length 
+        {
+            label: '제작완료',
+            count: statusCounts?.productionCompletedCount || 0,
+            description: '케이크 제작이 완료되었습니다'
         },
-        { 
-            label: '픽업요청/배송중', 
-            count: orderList.filter(order => order.orderStatus === '픽업요청/배송중').length 
+        {
+            label: '배송중/픽업대기',
+            count: statusCounts?.deliveryCount || 0,
+            description: '배송중이거나 픽업 대기중입니다'
         },
-        { 
-            label: '픽업/배송완료', 
-            count: orderList.filter(order => order.orderStatus === '픽업/배송완료').length 
+        {
+            label: '완료',
+            count: statusCounts?.completedCount || 0,
+            description: '주문이 완료되었습니다'
         }
     ];
 
-    // 상태 클릭 핸들러
     const handleStatusClick = (order) => {
         if (order.statusMessage === '업로드 완료') {
             window.scrollTo(0, 0);
@@ -106,14 +117,12 @@ const UserOrder = () => {
         }
     };
 
-    // 목록으로 돌아가기 핸들러
     const handleBackToList = () => {
         window.scrollTo(0, 0);
         setShowDetail(false);
         setSelectedOrder(null);
     };
 
-    // 스크롤 처리를 위한 Link 컴포넌트
     const ScrollToTopLink = ({ to, className, children, state }) => {
         const handleClick = () => {
             window.scrollTo(0, 0);
@@ -126,12 +135,10 @@ const UserOrder = () => {
         );
     };
 
-    // 주문 목록 화면
     const OrderList = () => (
         <div className="main-content">
             <h2>주문조회</h2>
 
-            {/* 주문 상태 설명 */}
             <section className="status-description">
                 <h3>주문상태 안내</h3>
                 <table className="description-table">
@@ -146,18 +153,18 @@ const UserOrder = () => {
                 </table>
             </section>
 
-            {/* 주문 상태 개요 */}
             <section className="order-status-container">
                 {orderStatuses.map((status, index) => (
                     <div key={index} className="status-item">
                         <div className="status-count">{status.count}</div>
                         <div className="status-label">{status.label}</div>
-                        {index < orderStatuses.length - 1 && <div className="status-arrow">▶</div>}
+                        {index < orderStatuses.length - 1 && (
+                            <div className="status-arrow">▶</div>
+                        )}
                     </div>
                 ))}
             </section>
 
-            {/* 주문 검색 섹션 */}
             <section className="order-search">
                 <div className="date-filter">
                     <input type="date" defaultValue="2024-10-03" />
@@ -174,7 +181,6 @@ const UserOrder = () => {
                 </div>
             </section>
 
-            {/* 주문 목록 섹션 */}
             <section className="order-list">
                 {loading && <div>로딩 중...</div>}
                 {error && <div className="error-message">{error}</div>}
@@ -240,7 +246,6 @@ const UserOrder = () => {
         </div>
     );
 
-    // 주문 상세 화면
     const OrderDetail = () => (
         <div className="order-detail-container">
             <div className="header-actions">
@@ -256,7 +261,6 @@ const UserOrder = () => {
                 <p>상품명: {selectedOrder.productName}</p>
             </div>
 
-            {/* 케이크 제작 영상/사진 섹션 */}
             <div className="cake-media-section">
                 {selectedOrder.video && (
                     <div className="video-container">
@@ -270,7 +274,7 @@ const UserOrder = () => {
                     </div>
                 )}
 
-                {selectedOrder.images && selectedOrder.images.length > 0 && (
+                {selectedOrder.image1 && (
                     <div className="photo-container">
                         <h3>제작 사진</h3>
                         <div className="photo-gallery">
