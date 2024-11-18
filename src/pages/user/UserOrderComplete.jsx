@@ -1,14 +1,19 @@
-// OrderComplete.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userordercomplete.css';
 
 const UserOrderComplete = () => {
+    const location = useLocation();
+    const orderData = location.state || {};
+    
+    // 금액 포맷팅
+    const formatPrice = (price) => {
+        return price?.toLocaleString() || '0';
+    };
+
     return (
         <div id="user-wrap">
-           
-
             <main id="user-wrap-body">
                 <section id="user-wrap-main">
                     <div className="order-complete-container">
@@ -24,15 +29,15 @@ const UserOrderComplete = () => {
                         <div className="order-info">
                             <div className="info-row">
                                 <span className="label">주문번호:</span>
-                                <span className="value">ORD-20241103-001</span>
+                                <span className="value">{orderData.orderId || '-'}</span>
                             </div>
                             <div className="info-row">
                                 <span className="label">결제금액:</span>
-                                <span className="value">35,000원</span>
+                                <span className="value">{formatPrice(orderData.totalPrice)}원</span>
                             </div>
                             <div className="info-row">
                                 <span className="label">결제일시:</span>
-                                <span className="value">2024.11.03 15:30</span>
+                                <span className="value">{orderData.orderDateTime || '-'}</span>
                             </div>
                         </div>
                         <div className="button-container">
@@ -43,9 +48,6 @@ const UserOrderComplete = () => {
                     </div>
                 </section>
             </main>
-
-            
-              
         </div>
     );
 };
