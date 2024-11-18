@@ -160,7 +160,6 @@ const UserMyPageCakeDesignList = () => {
             </div>
 
             {/* 페이지네이션 */}
-            {/* 페이지네이션 */}
             <div className="pagination">
               <button
                 className="prev-page"
