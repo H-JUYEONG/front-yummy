@@ -190,16 +190,23 @@ const UserCakeDesignBoard = () => {
             ))}
           </div>
 
-          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
             {/* 이전 페이지 버튼 */}
-            <button
-              className="user-cake-design-prev-page"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              &lt;
-            </button>
+            {currentPage > 1 ? (
+              <button
+                className="user-cake-design-prev-page"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &lt;
+              </button>
+            ) : (
+              <button
+                className="user-cake-design-prev-page"
+                style={{ visibility: "hidden" }}
+              >
+                &lt;
+              </button>
+            )}
 
             {/* 페이지 번호 */}
             {generatePagination().map((page) => (
@@ -215,13 +222,21 @@ const UserCakeDesignBoard = () => {
             ))}
 
             {/* 다음 페이지 버튼 */}
-            <button
-              className="user-cake-design-next-page"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              &gt;
-            </button>
+            {currentPage < totalPages ? (
+              <button
+                className="user-cake-design-next-page"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &gt;
+              </button>
+            ) : (
+              <button
+                className="user-cake-design-next-page"
+                style={{ visibility: "hidden" }}
+              >
+                &gt;
+              </button>
+            )}
           </div>
         </div>
       </main>

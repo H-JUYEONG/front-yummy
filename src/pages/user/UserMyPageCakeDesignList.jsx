@@ -160,11 +160,13 @@ const UserMyPageCakeDesignList = () => {
             </div>
 
             {/* 페이지네이션 */}
+            {/* 페이지네이션 */}
             <div className="pagination">
               <button
                 className="prev-page"
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                style={{ opacity: currentPage === 1 ? 0 : 1 }}
               >
                 {"<"}
               </button>
@@ -203,6 +205,7 @@ const UserMyPageCakeDesignList = () => {
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
+                style={{ opacity: currentPage === totalPages ? 0 : 1 }}
               >
                 {">"}
               </button>

@@ -139,42 +139,55 @@
     margin: 0;
 }
 
-
 /* 페이지네이션 스타일 */
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .page-numbers {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
-.page-number, .prev-page, .next-page {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e5e7eb;
-    background: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
+.page-number,
+.prev-page,
+.next-page {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.page-number:hover, .prev-page:hover, .next-page:hover {
-    background: #F3F4F6;
+/* 활성화된 버튼에만 hover 효과 적용 */
+.prev-page:not(:disabled):hover,
+.next-page:not(:disabled):hover,
+.page-number:hover {
+  background: #f3f4f6;
+}
+
+/* 비활성화 버튼 스타일 */
+.prev-page:disabled,
+.next-page:disabled {
+  background-color: #f1f1f1 !important;
+  color: #aaa;
+  border-color: #ddd;
 }
 
 .page-number.active {
-    background: #7C3AED;
-    color: white;
-    border-color: #7C3AED;
+  background: #7c3aed;
+  color: white;
+  border-color: #7c3aed;
 }
+
 
 /* 반응형 디자인 */
 @media (max-width: 1200px) {

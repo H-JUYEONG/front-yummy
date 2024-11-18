@@ -165,6 +165,7 @@ const UserMyPageCakeDesignLikeList = () => {
                 className="prev-page"
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                style={{ opacity: currentPage === 1 ? 0 : 1 }}
               >
                 {"<"}
               </button>
@@ -203,6 +204,7 @@ const UserMyPageCakeDesignLikeList = () => {
                 onClick={() =>
                   setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
+                style={{ opacity: currentPage === totalPages ? 0 : 1 }}
               >
                 {">"}
               </button>
