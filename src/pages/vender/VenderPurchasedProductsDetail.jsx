@@ -1,25 +1,75 @@
-import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import '../../assets/css/all.css'; // 공통 초기화 및 전역 css
-import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/purchasedproductsDetail.css'; // 주문 상세 페이지 전용 스타일
+import '../../assets/css/vender/vender.css';
 import VenderSidebar from './include/VenderSidebar';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const PurchasedProductsDetail = () => {
+    const { orderId } = useParams(); // URL에서 orderId 가져오기
+    const [orderDetails, setOrderDetails] = useState(null);
     const [status, setStatus] = useState("제작 중");
-    const [isRecording, setIsRecording] = useState(false);
-    const [videoUrl, setVideoUrl] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [videoUrl, setVideoUrl] = useState(null);
     const videoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const chunks = useRef([]);
+    const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+    const [isRecording, setIsRecording] = useState(false);
     const [isLive, setIsLive] = useState(false);
     const [notificationTimeout, setNotificationTimeout] = useState(null);
-    const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
-    const handleStatusChange = (newStatus) => {
-        setStatus(newStatus);
-        alert(`상태가 '${newStatus}'로 변경되었습니다.`);
+    // 주문 상세 정보를 가져오는 함수
+    const fetchOrderDetails = async () => {
+        try {
+            setLoading(true); // 로딩 상태 활성화
+            const response = await axios.get(`${API_URL}/api/vender/orders/${orderId}`);
+            setOrderDetails(response.data);
+            setStatus(response.data.orderStatus); // 최신 상태 반영
+        } catch (error) {
+            console.error("주문 상세 정보를 가져오는 중 오류 발생:", error);
+        } finally {
+            setLoading(false); // 로딩 상태 비활성화
+        }
     };
+
+    useEffect(() => {
+        if (!orderId) {
+            console.error("주문 ID가 제공되지 않았습니다.");
+            setLoading(false);
+            return;
+        }
+        fetchOrderDetails(); // 주문 상세 정보 초기화
+    }, [orderId]);
+
+
+    // 주문 상태 업데이트
+    const updateOrderStatus = async (orderId, orderStatus) => {
+        try {
+            const response = await axios.post(
+                `${API_URL}/api/vender/orders/${orderId}/status`,
+                null, // POST Body 비움
+                {
+                    params: { orderStatus }, // 쿼리 파라미터로 전달
+                }
+            );
+            console.log("응답 데이터:", response.data); // 응답 데이터 로그
+
+            // 상태를 로컬 상태로 즉시 반영
+            setStatus(orderStatus);
+
+            // 주문 상세 정보 새로고침
+            fetchOrderDetails(); // 기존 주문 상세 데이터를 새로 가져옴
+            alert(`주문 상태가 '${orderStatus}'로 변경되었습니다.`);
+        } catch (error) {
+            console.error("요청 실패:", error); // 에러 로그
+            alert("주문 상태 변경에 실패했습니다.");
+        }
+    };
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -33,6 +83,7 @@ const PurchasedProductsDetail = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
@@ -133,6 +184,41 @@ const PurchasedProductsDetail = () => {
         };
     }, [notificationTimeout]);
 
+
+    if (loading) {
+        return <div>로딩 중...</div>;
+    }
+
+    if (!orderDetails) {
+        return <div>주문 정보를 가져오지 못했습니다.</div>;
+    }
+
+    const {
+        productName,
+        deliveryAddress,
+        desiredDeliveryDate,
+        desiredDeliveryTime,
+        desiredPickupDatetime,
+        desiredPickupTime,
+        deliveryMethod,
+        orderStatus,
+        productType,
+        cakeSize,
+        flavorSheet,
+        flavorCream,
+        cakeBackgroundColor,
+        creamPosition,
+        creamColor,
+        decorationType,
+        decorationColor,
+        totalPrice,
+        cakeLettering,
+        plateLettering,
+        additionalRequests,
+        productImageUrl,
+        cakeDesignImageUrl,
+    } = orderDetails;
+
     return (
         <div className="vender-container">
             <div class="vender-content-wrapper">
@@ -144,26 +230,37 @@ const PurchasedProductsDetail = () => {
                             <div className="purchasedproductsDetail-content-box">
                                 <div className="purchasedproductsDetail-content">
                                     <div className="purchasedproductsDetail-text">
-                                        <h2>special 꽃감사패 (1호,2호)</h2>
                                         <div className="purchasedproductsDetail-basic-info">
-                                            <p><strong>배송방법:</strong> 픽업</p>
-                                            <p><strong>지점:</strong> 연남점</p>
-                                            <p><strong>맛:</strong> 초코 (+5000)</p>
-                                            <p><strong>사이즈:</strong> 1호</p>
-                                            <p><strong>가격:</strong> 40,000원</p>
-                                            <p><strong>픽업일시:</strong> 2024/11/04 오후 5시</p>
-                                            <p><strong>케이크 위 문구:</strong> 없음</p>
-                                            <p><strong>케이크 판 문구:</strong> 사랑합니다</p>
-                                            <p><strong>요청사항:</strong> 크림을 조금만 뿌려주세요. 느끼한 게 싫어요.</p>
+                                            <h2>{productName}</h2>
+                                            {deliveryMethod && <p><strong>배송 방법:</strong> {deliveryMethod}</p>}
+                                            {deliveryAddress && <p><strong>배송 주소:</strong> {deliveryAddress}</p>}
+                                            {desiredDeliveryDate && <p><strong>배송 요청일:</strong> {desiredDeliveryDate}</p>}
+                                            {desiredDeliveryTime && <p><strong>배송 요청 시간:</strong> {desiredDeliveryTime}</p>}
+                                            {desiredPickupDatetime && <p><strong>픽업 요청일:</strong> {desiredPickupDatetime}</p>}
+                                            {desiredPickupTime && <p><strong>픽업 요청 시간:</strong> {desiredPickupTime}</p>}
+                                            {orderStatus && <p><strong>주문 상태:</strong> {orderStatus}</p>}
+                                            {productType && <p><strong>상품 종류:</strong> {productType}</p>}
+                                            {cakeSize && <p><strong>케이크 크기:</strong> {cakeSize}</p>}
+                                            {flavorSheet && <p><strong>시트 맛:</strong> {flavorSheet}</p>}
+                                            {flavorCream && <p><strong>크림 맛:</strong> {flavorCream}</p>}
+                                            {cakeBackgroundColor && <p><strong>케이크 배경 색상:</strong> {cakeBackgroundColor}</p>}
+                                            {creamPosition && <p><strong>크림 위치:</strong> {creamPosition}</p>}
+                                            {creamColor && <p><strong>크림 색상:</strong> {creamColor}</p>}
+                                            {decorationType && <p><strong>데코레이션 종류:</strong> {decorationType}</p>}
+                                            {decorationColor && <p><strong>데코레이션 색상:</strong> {decorationColor}</p>}
+                                            {totalPrice && <p><strong>총 가격:</strong> {totalPrice}원</p>}
+                                            {cakeLettering && <p><strong>케이크 문구:</strong> {cakeLettering}</p>}
+                                            {plateLettering && <p><strong>케이크 판 문구:</strong> {plateLettering}</p>}
+                                            {additionalRequests && <p><strong>추가 요청 사항:</strong> {additionalRequests}</p>}
                                         </div>
                                     </div>
                                     <div className="purchasedproductsDetail-images">
                                         <div className="purchasedproductsDetail-image-box">
-                                            <img src="https://via.placeholder.com/150" alt="상품 이미지" />
+                                            <img src={productImageUrl} alt="상품 이미지" />
                                             <p>상품 이미지</p>
                                         </div>
                                         <div className="purchasedproductsDetail-image-box">
-                                            <img src="https://via.placeholder.com/150" alt="도안 이미지" />
+                                            <img src={cakeDesignImageUrl} alt="도안 이미지" />
                                             <p>도안 이미지</p>
                                         </div>
                                     </div>
@@ -187,6 +284,14 @@ const PurchasedProductsDetail = () => {
                                         {isRecording ? "촬영 중지" : "촬영하기"}
                                     </button>
                                 </div>
+                            </div>
+                            <div className="purchasedproductsDetail-status-card">
+                                <h3>📦 {orderStatus}</h3>
+                                <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
+                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 중")}>제작 중</button>
+                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 완료")}>제작 완료</button>
+                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "픽업 요청")}>픽업 요청</button>
+                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "배송 중")}>배송 중</button>
                             </div>
                         </section>
 
@@ -217,16 +322,6 @@ const PurchasedProductsDetail = () => {
                             </div>
                         </section>
 
-                        {/* 4. 주문 상태 변경 섹션 */}
-                        <section className="purchasedproductsDetail-status centered-section">
-                            <div className="purchasedproductsDetail-status-card">
-                                <h3>📦 {status}</h3>
-                                <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
-                                <button className="centered-button" onClick={() => handleStatusChange("제작 중")}>제작 중</button>
-                                <button className="centered-button" onClick={() => handleStatusChange("배송 중")}>배송 중</button>
-                                <button className="centered-button" onClick={() => handleStatusChange("픽업 완료")}>픽업 완료</button>
-                            </div>
-                        </section>
                     </main>
                 </div>
             </div>

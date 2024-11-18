@@ -81,7 +81,7 @@ const VenderProductPreview = () => {
         return <div>데이터를 불러오는 중...</div>;
     }
 
-    const { productName, description, images, selectedOptions, price, selectedDesign } = previewData;
+    const { productName, description, images, selectedOptions, price } = previewData;
 
     const renderTabContent = () => {
         if (selectedTab === '상품 상세정보') {

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // 리디렉션을 위해 react-router-dom 사용
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
 import '../../assets/css/vender/dashboard.css'; // 업체 페이지 전용 스타일
@@ -9,11 +10,27 @@ import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
 
 import VenderHeader from './include/VenderHeader';
-
 import VenderSidebar from './include/VenderSidebar';
-const VenderDashboard = () => {
 
-    
+const VenderDashboard = () => {
+    const navigate = useNavigate(); // 페이지 이동에 사용
+    const [authUser, setAuthUser] = useState(null);
+
+    useEffect(() => {
+        const user = localStorage.getItem('authUser');
+        if (user) {
+            setAuthUser(JSON.parse(user));
+        } else {
+            alert('로그인이 필요합니다.');
+            navigate('/login'); // 로그인 페이지로 리디렉션
+        }
+    }, [navigate]);
+
+    if (!authUser) {
+        return null; // authUser가 없으면 아무것도 렌더링하지 않음
+    }
+
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
 
     // FullCalendar 컴포넌트에 필요한 설정들을 정의합니다.
     const calendarOptions = {
@@ -23,7 +40,7 @@ const VenderDashboard = () => {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         navLinks: true,
         selectable: true,
@@ -32,34 +49,34 @@ const VenderDashboard = () => {
             {
                 title: '예약된 케이크 제작 (주문 5건)',
                 start: '2024-11-05',
-                end: '2024-11-05'
+                end: '2024-11-05',
             },
             {
                 title: '고객 픽업 예약 (주문 3건)',
                 start: '2024-11-10',
-                end: '2024-11-10'
+                end: '2024-11-10',
             },
             {
                 title: '주문 처리 (주문 8건)',
                 start: '2024-11-15',
-                end: '2024-11-15'
+                end: '2024-11-15',
             },
             {
                 title: '고객 픽업 예약 (주문 2건)',
                 start: '2024-11-20',
-                end: '2024-11-20'
-            }
-        ]
+                end: '2024-11-20',
+            },
+        ],
     };
 
     return (
         <>
             <div className="vender-container">
-                <div class="vender-content-wrapper">
+                <div className="vender-content-wrapper">
                     <VenderSidebar />
                     <div className="vender-content">
                         <main className="dashboard-content">
-                            <header className="vender-header ">
+                            <header className="vender-header">
                                 <VenderHeader />
                             </header>
                             <section className="dashboard-summary">

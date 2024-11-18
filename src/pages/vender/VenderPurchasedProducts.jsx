@@ -1,50 +1,84 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/purchasedproducts.css';
 
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
+
+const API_URL = process.env.REACT_APP_API_URL; // 환경변수로 API URL 설정
+
 const VenderPurchasedProducts = () => {
-    const [filter, setFilter] = useState("all");
+    const [orders, setOrders] = useState([]); // 주문 데이터 상태
+    const [filter, setFilter] = useState("all"); // 필터 상태
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+    const [isLoading, setIsLoading] = useState(true); // 로딩 상태
     const ordersPerPage = 5; // 페이지당 표시할 항목 수
     const navigate = useNavigate();
     const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+    const [sortOrder, setSortOrder] = useState("asc"); // 정렬 상태 추가 ("asc" 또는 "desc")
 
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
+    // 윈도우 리사이즈 핸들러
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth >= 768) {
-                setSidebarOpen(true);
-            } else {
-                setSidebarOpen(false);
-            }
+            setSidebarOpen(window.innerWidth >= 768);
         };
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    // 주문 데이터 불러오기
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                setIsLoading(true);
+                const response = await axios.get(`${API_URL}/api/vender/orders`, {
+                    params: { venderId }, // venderId는 필요에 따라 동적으로 설정 가능
+                });
+                setOrders(response.data);
+            } catch (error) {
+                console.error('주문 데이터를 가져오는 중 오류 발생:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+
+    const handleSort = () => {
+        const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+        setSortOrder(newSortOrder);
+
+        const sortedOrders = [...orders].sort((a, b) => {
+            const dateA = new Date(a.desiredDeliveryDate || a.desiredPickupDatetime);
+            const dateB = new Date(b.desiredDeliveryDate || b.desiredPickupDatetime);
+
+            return newSortOrder === "asc" ? dateA - dateB : dateB - dateA;
+        });
+
+        setOrders(sortedOrders);
+    };
+
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
-
-    const orders = [
-        { id: 1001, customerName: "김철수", customerId: "user123", productName: "초콜릿 케이크", orderDate: "2024-11-10", requestDate: "2024-11-15", receiveMethod: "픽업", status: "제작 중" },
-        { id: 1000, customerName: "이영희", customerId: "user456", productName: "딸기 케이크", orderDate: "2024-10-05", requestDate: "2024-10-10", receiveMethod: "배송", status: "배송 완료" },
-        { id: 1002, customerName: "박민수", customerId: "user789", productName: "바닐라 케이크", orderDate: "2024-11-12", requestDate: "2024-11-18", receiveMethod: "배송", status: "주문 완료" },
-        { id: 1003, customerName: "최영수", customerId: "user234", productName: "초코 무스 케이크", orderDate: "2024-11-13", requestDate: "2024-11-19", receiveMethod: "픽업", status: "결제 완료" },
-        { id: 1004, customerName: "홍길동", customerId: "user567", productName: "레몬 케이크", orderDate: "2024-11-14", requestDate: "2024-11-20", receiveMethod: "픽업", status: "픽업 완료" },
-        // 더 많은 주문 데이터 추가 가능
-    ];
 
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
         setCurrentPage(1); // 필터 변경 시 페이지를 첫 페이지로 초기화
     };
 
-    const filteredOrders = filter === "all" ? orders : orders.filter(order => order.status === filter);
+    const filteredOrders = filter === "all" ? orders : orders.filter(order => order.orderStatus === filter);
 
     // 현재 페이지에 표시할 항목 계산
     const indexOfLastOrder = currentPage * ordersPerPage;
@@ -58,12 +92,16 @@ const VenderPurchasedProducts = () => {
         setCurrentPage(pageNumber);
     };
 
+    if (isLoading) {
+        return <div className="loading">데이터를 불러오는 중...</div>;
+    }
+
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">
-                <VenderSidebar />
+                <VenderSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
                 <div className="vender-content">
-                    <header className="vender-header ">
+                    <header className="vender-header">
                         <VenderHeader />
                     </header>
                     <main className="vender-order-list-main-content">
@@ -74,11 +112,12 @@ const VenderPurchasedProducts = () => {
                                     <label htmlFor="order-status-filter">상태별 보기:</label>
                                     <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
                                         <option value="all">전체</option>
-                                        <option value="주문 완료">주문 완료</option>
-                                        <option value="제작 중">제작 중</option>
                                         <option value="결제 완료">결제 완료</option>
-                                        <option value="배송 완료">배송 완료</option>
-                                        <option value="픽업 완료">픽업 완료</option>
+                                        <option value="제작 중">제작 중</option>
+                                        <option value="제작 완료">제작 완료</option>
+                                        <option value="픽업 요청">픽업 요청</option>
+                                        <option value="배송 중">배송 중</option>
+                                        <option value="수령 완료">수령 완료</option>
                                     </select>
                                 </div>
                             </header>
@@ -86,37 +125,44 @@ const VenderPurchasedProducts = () => {
                                 <thead>
                                     <tr>
                                         <th>주문 번호</th>
-                                        <th>고객명</th>
-                                        <th>고객 아이디</th>
                                         <th>상품명</th>
-                                        <th>주문 날짜</th>
-                                        <th>수령 요청일자</th>
+                                        <th>주문일</th>
+                                        <th onClick={handleSort} style={{ cursor: "pointer" }}>
+                                            요청일 {sortOrder === "asc" ? "▲" : "▼"}
+                                        </th>
                                         <th>수령 방법</th>
                                         <th>상태</th>
                                         <th>상세 보기</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentOrders.map(order => (
-                                        <tr key={order.id} data-status={order.status}>
-                                            <td>{order.id}</td>
-                                            <td>{order.customerName}</td>
-                                            <td>{order.customerId}</td>
-                                            <td>{order.productName}</td>
-                                            <td>{order.orderDate}</td>
-                                            <td>{order.requestDate}</td>
-                                            <td>{order.receiveMethod}</td>
-                                            <td>{order.status}</td>
-                                            <td>
-                                                <button onClick={() => navigate(`/vender/purchasedproductsdetail`)}>보기</button>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {currentOrders.map(order => {
+                                        const requestDate = order.desiredDeliveryDate || order.desiredPickupDatetime || 'N/A'; // 요청일 통합 로직
+                                        return (
+                                            <tr key={order.orderId} data-status={order.orderStatus}>
+                                                <td>{order.orderId}</td>
+                                                <td>{order.productName}</td>
+                                                <td>{order.orderDate}</td>
+                                                <td>{requestDate}</td> {/* 요청일 표시 */}
+                                                <td>{order.deliveryMethod}</td>
+                                                <td>{order.orderStatus}</td>
+                                                <td>
+                                                    {order.orderId ? (
+                                                        <button onClick={() => navigate(`/vender/purchasedproductsdetail/${order.orderId}`)}>
+                                                            보기
+                                                        </button>
+                                                    ) : (
+                                                        <span>주문 ID 없음</span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
                                 </tbody>
                             </table>
                             {/* 페이지네이션 영역 */}
                             <div className="pagination">
-                                {[...Array(totalPages)].map((_, index) => (
+                                {Array.from({ length: totalPages }, (_, index) => (
                                     <button
                                         key={index + 1}
                                         className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
