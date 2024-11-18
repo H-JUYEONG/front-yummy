@@ -77,7 +77,9 @@ const UserMyPageCakeDesignList = () => {
   // 스타일 선택 핸들러
   const handleStyleSelect = (style) => {
     setSelectedStyle(style);
-    setCurrentPage(1); // 정렬 변경 시 첫 페이지로 이동
+    setCurrentPage(1);
+    setSearchKeyword(""); // 검색어 초기화
+    loadCakeDesigns(1);
   };
 
   return (
@@ -99,9 +101,9 @@ const UserMyPageCakeDesignList = () => {
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     e.preventDefault(); // 폼 제출 방지
-                    handleSearch();
+                    handleSearch(); // 엔터 눌렀을 때만 검색 실행
                   }
                 }}
                 className="search-input"
@@ -153,7 +155,7 @@ const UserMyPageCakeDesignList = () => {
                   </Link>
                 ))
               ) : (
-                <p>내가 그린 도안이 없습니다.</p>
+                <p>리스트가 없습니다.</p>
               )}
             </div>
 

@@ -127,6 +127,8 @@ const UserCakeDesignBoard = () => {
                   onClick={() => {
                     setSelectedStyle(style);
                     setCurrentPage(1);
+                    setSearchTerm(""); // 검색어 초기화
+                    loadCakeDesigns(1); // 초기화된 상태로 데이터 로드
                   }}
                 >
                   {style}
@@ -134,7 +136,7 @@ const UserCakeDesignBoard = () => {
               ))}
             </div>
             <div className="user-cake-design-search">
-              <FaSearch className="search-icon" />
+              <FaSearch className="search-icon" onClick={handleSearch} />
               <input
                 type="text"
                 placeholder="도안 검색"
