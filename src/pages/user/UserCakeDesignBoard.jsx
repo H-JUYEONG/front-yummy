@@ -190,6 +190,16 @@ const UserCakeDesignBoard = () => {
 
           {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
+            {/* 이전 페이지 버튼 */}
+            <button
+              className="user-cake-design-prev-page"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &lt;
+            </button>
+
+            {/* 페이지 번호 */}
             {generatePagination().map((page) => (
               <button
                 key={page}
@@ -201,6 +211,15 @@ const UserCakeDesignBoard = () => {
                 {page}
               </button>
             ))}
+
+            {/* 다음 페이지 버튼 */}
+            <button
+              className="user-cake-design-next-page"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &gt;
+            </button>
           </div>
         </div>
       </main>
