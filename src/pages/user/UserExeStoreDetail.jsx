@@ -11,7 +11,13 @@ import { useVenderContext } from '../../../src/context/VenderContext';  // useVe
 
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const {venderId} = useParams();
+    const [authUser, setAuthUser] = useState(() => {
+        const storedUser = localStorage.getItem('authUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    const venderId = authUser?.vender_id || null;
+
+
 
     const [venderData, setVenderData] = useState({});
 

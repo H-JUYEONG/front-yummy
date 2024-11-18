@@ -27,7 +27,11 @@ import { AlignRight } from 'lucide-react';
 const VenderInsertPage = () => {
 
     const navigate = useNavigate();
-    const {venderId} = useParams();
+    const [authUser, setAuthUser] = useState(() => {
+        const storedUser = localStorage.getItem('authUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    const venderId = authUser?.vender_id || null;
 
     // useVenderContext 훅을 사용하여 데이터 업데이트 함수와 상태를 가져옴
     const { venderData, updateVenderData } = useVenderContext();
@@ -69,7 +73,7 @@ const VenderInsertPage = () => {
     //수정폼
 
     const firstList = async ()=>{
-        console.log(shopName)
+        console.log('시작')
         try {
             const response = await axios({
             method: 'get',          // put, post, delete                   
@@ -78,6 +82,7 @@ const VenderInsertPage = () => {
         });
         
             console.log(response); //수신데이타
+            console.log(response.data.apiData)
             const data = response.data.apiData;
 
             // URL을 File로 변환하는 함수
@@ -169,7 +174,7 @@ const VenderInsertPage = () => {
             setBannerFile(bannerFile)
             const bimageUrl = URL.createObjectURL(bannerFile);
             setBannerPreview(bimageUrl);
-            updateVenderData({ logoPreview:bimageUrl });
+            updateVenderData({ bannerPreview:bimageUrl });
         }
     };
     const handleAddress = (e)=>{
