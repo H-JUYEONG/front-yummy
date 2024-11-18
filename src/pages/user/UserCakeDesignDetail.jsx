@@ -30,7 +30,7 @@ const UserCakeDesignDetail = () => {
       navigate("/user/login");
       return;
     }
-    
+
     try {
       // 2. API 호출하여 서버에 요청 전송
       const response = await axios.post(
@@ -67,9 +67,12 @@ const UserCakeDesignDetail = () => {
 
   // 도안 상세 정보 가져오기
   const getCakeDesignDetail = async () => {
+    const token = localStorage.getItem("token");
+
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
+        { headers: { Authorization: `Bearer ${token}` } },
         { responseType: "json" }
       );
 
@@ -143,7 +146,7 @@ const UserCakeDesignDetail = () => {
         .then((response) => {
           if (response.data.result === "success") {
             alert("도안이 성공적으로 삭제되었습니다.");
-            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+            navigate("/user/cakeDesign/board"); // 삭제 후 리스트로 이동
           } else {
             alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
           }
