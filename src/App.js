@@ -90,7 +90,7 @@ function App() {
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
             <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-            <Route path='/vender/productpreview/:productId' element={<VenderProductPreview />} />
+            <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
             <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
             <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
             <Route path='/vender/statistics' element={<VenderStatistics />} />
