@@ -11,13 +11,17 @@ import VenderHeader from './include/VenderHeader';
 const VenderProductList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
     const [products, setProducts] = useState([]); // 서버에서 받아온 상품 데이터
     const [loading, setLoading] = useState(true); // 로딩 상태 관리
     const [error, setError] = useState(null); // 에러 상태 관리
-
-    const venderId = 39; // 테스트용 39번 업체 ID
+  
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
 
     // 상품 데이터 불러오기
     useEffect(() => {
@@ -75,12 +79,18 @@ const VenderProductList = () => {
     // 상품 삭제 함수
     const deleteProduct = async (productId) => {
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
-            setProducts(prevProducts => prevProducts.filter(product => product.productId !== productId));
-            alert('상품이 삭제되었습니다.');
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/products/${productId}/mark-deleted`);
+            if (response.status === 200) {
+                setProducts(prevProducts =>
+                    prevProducts.filter(product => product.productId !== productId)
+                );
+                alert('상품이 삭제 상태로 변경되었습니다.');
+            } else {
+                alert('삭제 상태로 변경할 수 없습니다.');
+            }
         } catch (err) {
-            console.error('상품 삭제 중 오류 발생:', err);
-            alert('상품 삭제 중 오류가 발생했습니다.');
+            console.error('상품 삭제 상태 변경 중 오류 발생:', err);
+            alert('상품 삭제 상태 변경 중 오류가 발생했습니다.');
         }
     };
 
@@ -138,9 +148,8 @@ const VenderProductList = () => {
                                                     <td>{product.price.toLocaleString()} 원</td>
                                                     <td>
                                                         <button
-                                                            className={`status-button ${
-                                                                product.isVisible === 1 ? 'visible' : 'hidden'
-                                                            }`}
+                                                            className={`status-button ${product.isVisible === 1 ? 'visible' : 'hidden'
+                                                                }`}
                                                             onClick={() => toggleProductStatus(product.productId)}
                                                         >
                                                             {product.isVisible === 1 ? '노출' : '미노출'}
@@ -149,13 +158,14 @@ const VenderProductList = () => {
                                                     <td>
                                                         <button
                                                             className="edit-button"
-                                                            onClick={() => navigate(`/vender/registrationform/${product.productId}`)}
+                                                            onClick={() => navigate(`/vender/registrationformedit/${product.productId}`)}
                                                         >
                                                             수정
                                                         </button>
                                                         <button
-                                                            className="delete-button"
-                                                            onClick={() => deleteProduct(product.productId)}
+                                                            className={`delete-button ${product.isVisible === 0 ? '' : 'disabled'}`}
+                                                            onClick={() => product.isVisible === 0 && deleteProduct(product.productId)}
+                                                            disabled={product.isVisible !== 0}
                                                         >
                                                             삭제
                                                         </button>

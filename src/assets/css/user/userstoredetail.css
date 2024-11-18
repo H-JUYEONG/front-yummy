@@ -70,7 +70,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-fit: contain; /* 이미지가 잘리지 않고 컨테이너에 맞도록 비율 유지 */
+
 }
 
 /* 정보 섹션 */

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import '../../../assets/css/user/userheaderstyle.css';
 
@@ -9,87 +9,50 @@ const Header = () => {
     const user = localStorage.getItem('authUser');
     return user ? JSON.parse(user) : null;
   });
-  const [venderId, setVenderId] = useState(authUser?.vender_id || null);
   const navigate = useNavigate();
+  const venderId = authUser?.vender_id || null;
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
+  // 로그아웃 처리
   const handleLogout = () => {
-    // Remove token and authUser from localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('authUser');
-
-    // Update state to reflect logged-out status
     setToken(null);
     setAuthUser(null);
-
   };
 
-  //소영 : 업체 홈페이지 등록여부확인 및 부여
+  // 업체 홈페이지 등록 여부 확인 및 이동
+  const handleCheckShop = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/svender/${venderId}`);
+      const shopStatus = response.data.apiData;
 
-  const handleCheckShop = () => {
-
-
-    console.log("type:" + typeof venderId)
-    console.log(venderId)
-    axios({
-      method: 'get',          // put, post, delete                   
-      url: `${process.env.REACT_APP_API_URL}/api/svender/${venderId}`,
-
-      responseType: 'json' //수신타입
-    }).then(response => {
-      console.log(response); //수신데이타
-      console.log(response.data.apiData)
-
-      if (response.data.apiData == 0) {
-        alert("등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?")
-        navigate('/vender');
-
-        //shop status 1로 변경(생성, 비활성)
-        axios({
-          method: 'put',          // put, post, delete                   
-          url: `${process.env.REACT_APP_API_URL}/api/svender/${venderId}`,
-
-          responseType: 'json' //수신타입
-        }).then(response => {
-          console.log(response); //수신데이타
-          console.log(response.data.apiData)
-
-
-
-        }).catch(error => {
-          console.log(error);
-        });
-
-      } else if (response.data.apiData == 1) {
-        navigate(`/vender/${venderId}`);
-      } else if (response.data.apiData == 2) {
-        navigate(`/vender/${venderId}`);
+      if (shopStatus === 0) {
+        if (window.confirm("등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?")) {
+          navigate('/vender');
+          await axios.put(`${API_BASE_URL}/api/svender/${venderId}`);
+        }
       } else {
-        console.log("오류")
+        navigate(`/vender/${venderId}`);
       }
+    } catch (error) {
+      console.error('Error checking shop:', error);
+    }
+  };
 
-
-    }).catch(error => {
-      console.log(error);
-    });
-
-  }
-
-
-
-  // Render navigation menu based on user role
+  // 네비게이션 메뉴 렌더링
   const renderNavMenu = () => (
     <ul>
-      <li><Link to="/user/audition">케이크요청</Link></li>
-      <li><Link to="/user/cakeDesign/board">디자인공유</Link></li>
-      <li><Link to="/board">케이크토크</Link></li>
+      <li><Link to="/user/audition">케이크 요청</Link></li>
+      <li><Link to="/user/cakeDesign/board">디자인 공유</Link></li>
+      <li><Link to="/board">케이크 토크</Link></li>
     </ul>
   );
 
-  // Render user actions based on authentication status and user role
+  // 사용자 동작 렌더링
   const renderUserActions = () => {
     if (!authUser) {
-      // If not logged in, show login and signup links
       return (
         <>
           <Link to="/user/login" className="header-link">로그인</Link>
@@ -98,7 +61,6 @@ const Header = () => {
       );
     }
 
-    // Display different actions based on `authUser` type
     switch (authUser.type) {
       case '업체':
         return (
@@ -110,7 +72,7 @@ const Header = () => {
       case '어드민':
         return (
           <>
-            <Link to="/admin/" className="header-link">관리페이지</Link>
+            <Link to="/admin/" className="header-link">관리 페이지</Link>
             <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
           </>
         );
@@ -126,19 +88,19 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      {/* Logo */}
+      {/* 로고 */}
       <div className="logo">
-        <Link to={`/`}>
+        <Link to={"/"}>
           <h1>YUMMY</h1>
         </Link>
       </div>
 
-      {/* Navigation Menu */}
+      {/* 네비게이션 메뉴 */}
       <nav className="nav-menu">
         {renderNavMenu()}
       </nav>
 
-      {/* User Actions */}
+      {/* 사용자 동작 */}
       <div className="user-actions">
         {renderUserActions()}
       </div>

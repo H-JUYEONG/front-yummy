@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
+    
+    const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
-    const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 사용
-
-    const handleLogout = (e) => {
+    const [authUser, setAuthUser] = useState(() => {
+      const user = localStorage.getItem('authUser');
+      return user ? JSON.parse(user) : null;
+  });
+    const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
+    const handleLogout = () => {
         console.log('로그아웃');
 
-        // 로컬스토리지의 token 삭제
+        // 로컬 스토리지에서 토큰 및 사용자 정보 제거
         localStorage.removeItem('token');
-        // 로컬스토리지의 authUser 삭제
         localStorage.removeItem('authUser');
 
-        // 화면반영을 위한 상태값 변경
+        // 상태값 초기화
         setToken(null);
         setAuthUser(null);
 
@@ -27,15 +30,14 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
     };
 
     return (
-        <aside className={`vender-sidebar ${isOpen ? "open" : ""}`}>
+        <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
                 <Link to="/user/storedetail">
                     <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
                 </Link>
-
                 <h3>CakeLines</h3>
                 <p>
-                    <Link to="/vender/venderinsertpage" onClick={toggleMenu}>
+                    <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleMenu}>
                         <FaClipboardList /> 업체사이트 관리
                     </Link>
                 </p>
@@ -77,7 +79,6 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                     </Link>
                 </li>
             </ul>
-            {/* 로그아웃 버튼 */}
             <button className="exit-button" onClick={handleLogout}>
                 <FaSignOutAlt /> 로그아웃
             </button>

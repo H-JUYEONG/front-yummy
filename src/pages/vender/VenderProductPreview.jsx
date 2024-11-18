@@ -1,163 +1,134 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../assets/css/vender/venderProductPreview.css';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import "../../assets/css/user/CakeOrder.css"; // 케이크 주문 페이지 스타일
+import "../../assets/css/user/usermain.css"; // 공통 사용자 페이지 스타일
+import VenderHeader from '../vender/include/VenderHeader'; // 커스텀 헤더 컴포넌트
+import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL;
 
+// 한글 옵션 유형 매핑
+const OPTION_TYPE_NAME_KO = {
+    1: "상품 종류",
+    2: "케이크 크기",
+    3: "맛 - 시트",
+    4: "맛 - 크림",
+    5: "케이크 배경 색상",
+    6: "크림 위치",
+    7: "크림 색상",
+    8: "데코 종류",
+    9: "데코 색상",
+    10: "카테고리"
+};
 const VenderProductPreview = () => {
-    // 기본 UI 상태 관리
-    const [mainImage, setMainImage] = useState('/images/2호_일반케이크.jpg');
+    const [previewData, setPreviewData] = useState(null);
+    const [mainImage, setMainImage] = useState(null);
+    const [optionDetails, setOptionDetails] = useState({}); // 옵션 ID -> 이름 매핑
     const [selectedTab, setSelectedTab] = useState('상품 상세정보');
-    const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [scrollLeft, setScrollLeft] = useState(0);
-    const containerRef = useRef(null);
-    const flavorContainerRef = useRef(null);
-    const sizeContainerRef = useRef(null);
-    const navigate = useNavigate();
-    // 상품 이미지 배열
-    const images = [
-        '/images/2호_일반케이크.jpg',
-        '/images/3호_특별한케이크(달력).jpg',
-        '/images/1호_일반케이크 1.jpg',
-        '/images/4호_달걀 한판 케이크.png'
-    ];
 
-    // 옵션 데이터
-    const flavorOptions = [
-        { id: 'choco', name: '초코', image: '/images/flavor-choco.jpg' },
-        { id: 'vanilla', name: '바닐라', image: '/images/flavor-vanilla.jpg' },
-        { id: 'strawberry', name: '딸기', image: '/images/flavor-strawberry.jpg' },
-        { id: 'matcha', name: '말차', image: '/images/flavor-matcha.jpg' },
-        { id: 'cheese', name: '치즈', image: '/images/flavor-cheese.jpg' },
-        { id: 'redvelvet', name: '레드벨벳', image: '/images/flavor-redvelvet.jpg' }
-    ];
+    useEffect(() => {
+        const data = localStorage.getItem('previewData');
+        if (data) {
+            const parsedData = JSON.parse(data);
+            setPreviewData(parsedData);
+            setMainImage(parsedData.images.main); // 초기 메인 이미지 설정
 
-    const colorOptions = [
-        { id: 'pink', name: '핑크', className: 'pink' },
-        { id: 'yellow', name: '노랑', className: 'yellow' },
-        { id: 'orange', name: '오렌지', className: 'orange' }
-    ];
+            // 옵션 데이터를 백엔드에서 가져오기
+            const optionArray = convertOptionsToArray(parsedData.selectedOptions);
+            fetchOptionDetails(optionArray);
+        }
+    }, []);
 
-    const sizeOptions = [
-        { id: 'size1', name: '1호', image: '/images/size-1.jpg' },
-        { id: 'size2', name: '2호', image: '/images/size-2.jpg' },
-        { id: 'size3', name: '3호', image: '/images/size-3.jpg' }
-    ];
-
-    // 탭 메뉴 항목
-    const tabs = ['상품 상세정보', '배송/교환/환불', '상품후기', '상품문의'];
-
-    // 썸네일 클릭 핸들러
-    const handleThumbnailClick = (imagePath) => {
-        setMainImage(imagePath);
+    const convertOptionsToArray = (selectedOptions) => {
+        return Object.values(selectedOptions).flat(); // 옵션 ID 배열로 변환
     };
 
-    // 스크롤 핸들러
-    const handleMouseDown = (e, ref) => {
-        setIsDragging(true);
-        const container = ref.current;
-        container.classList.add('dragging');
-        setStartX(e.pageX - container.offsetLeft);
-        setScrollLeft(container.scrollLeft);
+    const fetchOptionDetails = async (selectedOptions) => {
+        try {
+            const response = await axios.post(`${API_URL}/api/options/details`, { selectedOptions });
+            // 데이터 구조 확인 후 변환
+            const formattedDetails = response.data.reduce((acc, option) => {
+                // optionTypeId를 키로 사용하고 옵션 값을 배열로 저장
+                if (!acc[option.optionTypeId]) {
+                    acc[option.optionTypeId] = [];
+                }
+                acc[option.optionTypeId].push(option);
+                return acc;
+            }, {});
+            setOptionDetails(formattedDetails);
+        } catch (error) {
+            console.error('옵션 데이터를 가져오는 중 오류 발생:', error);
+        }
     };
+    const renderOptionItem = (optionTypeId, optionValueId) => {
+        // optionDetails[optionTypeId]가 배열인지 확인
+        const optionsArray = Array.isArray(optionDetails[optionTypeId]) ? optionDetails[optionTypeId] : [];
+        console.log(`optionsArray for type ${optionTypeId}:`, optionsArray);
 
-    const handleMouseMove = (e, ref) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const container = ref.current;
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
+        // 해당 옵션 값을 찾음
+        const option = optionsArray.find(option => option.optionValueId === optionValueId);
+
+        return option ? (
+            <div key={optionValueId} className="option-item">
+                <img src={option.optionValueImageUrl} alt={option.optionValueName} className="option-image" />
+                <p>{option.optionValueName}</p>
+            </div>
+        ) : (
+            <p key={optionValueId}>옵션 정보를 불러오는 중...</p>
+        );
     };
+    if (!previewData) {
+        return <div>데이터를 불러오는 중...</div>;
+    }
 
-    const handleMouseUp = (ref) => {
-        setIsDragging(false);
-        ref.current.classList.remove('dragging');
-    };
+    const { productName, description, images, selectedOptions, price } = previewData;
 
-    const handleMouseLeave = (ref) => {
-        setIsDragging(false);
-        ref.current.classList.remove('dragging');
-    };
-
-    // 탭 컨텐츠 렌더링
     const renderTabContent = () => {
-        switch (selectedTab) {
-            case '상품 상세정보':
-                return (
-                    <div className="detail-content">
-                        <img src="/images/제품 설명 1.png" alt="상품 상세 이미지" className="detail-image" />
-                        <img src="/images/제품 설명 1.png" alt="상품 상세 이미지" className="detail-image" />
-                    </div>
-                );
-            case '배송/교환/환불':
-                return (
-                    <div className="delivery-content">
-                        <img src="/images/제품 설명 1.png" alt="배송 정보" className="info-image" />
-                    </div>
-                );
-            case '상품후기':
-                return (
-                    <div className="reviews-container">
-                        <div className="rating-stats">
-                            <div className="rating-average">
-                                <div className="stars">
-                                    {[...Array(5)].map((_, index) => (
-                                        <span key={index} className="star-filled">★</span>
-                                    ))}
-                                </div>
-                                <div className="average-score">
-                                    <span className="current-score">5</span>
-                                    <span className="total-score">/5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-            case '상품문의':
-                return (
-                    <div className="inquiry-content">
-                        <img src="/images/제품 설명 1.png" alt="문의 가이드" className="inquiry-image" />
-                    </div>
-                );
-            default:
-                return null;
+        if (selectedTab === '상품 상세정보') {
+            return (
+                <div className="content-section">
+                    {description ? (
+                        <div dangerouslySetInnerHTML={{ __html: description }} />
+                    ) : (
+                        <p>상품 설명이 없습니다.</p>
+                    )}
+                </div>
+            );
+        }
+
+        if (selectedTab === '후기') {
+            return (
+                <div className="reviews-container">
+                    <h3>후기 기능 구현 예정</h3>
+                </div>
+            );
         }
     };
 
     return (
-        <div id="vendor-preview-wrap" className="text-center preview-mode">
-            <header id="vendor-preview-wrap-head">
-                {/* 미리보기 모드라는 것을 props로 전달 */}
-                <h1>미리보기 화면</h1>
-                <button onClick={() => navigate('/vender/registrationform')}>뒤로가기</button>
-                <button>등록하기</button>
-            </header>
-            <main id="vendor-wrap-body" className="clearfix">
+        <div id="user-wrap" className="text-center">
+            <VenderHeader />
+            <main id="user-wrap-body" className="clearfix">
                 <div className="cake-order-container">
+                    {/* 왼쪽 섹션 */}
                     <div className="left-section">
                         <div className="product-image">
-                            <img src={mainImage} alt="케이크" className="main-image" />
+                            <img src={mainImage} alt="메인 이미지" className="main-image" />
                             <div className="thumbnail-container">
-                                {images.map((image, index) => (
+                                {images.subs.map((image, index) => (
                                     <div
                                         key={index}
                                         className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                                        onClick={() => handleThumbnailClick(image)}
+                                        onClick={() => setMainImage(image)}
                                     >
-                                        <img
-                                            src={image}
-                                            alt={`썸네일${index + 1}`}
-                                            className="thumbnail-image"
-                                        />
+                                        <img src={image} alt={`서브 이미지 ${index + 1}`} className="thumbnail-image" />
                                     </div>
                                 ))}
                             </div>
                         </div>
-
                         <div className="product-tabs">
-                            <div className="tabs-header">
-                                {tabs.map((tab) => (
+                            <div className="tabs-header sticky">
+                                {['상품 상세정보', '후기'].map(tab => (
                                     <button
                                         key={tab}
                                         className={`tab-button ${selectedTab === tab ? 'active' : ''}`}
@@ -167,97 +138,49 @@ const VenderProductPreview = () => {
                                     </button>
                                 ))}
                             </div>
-                            <div className="tab-content">
-                                {renderTabContent()}
-                            </div>
+                            <div className="tab-content">{renderTabContent()}</div>
                         </div>
                     </div>
 
+                    {/* 오른쪽 섹션 */}
                     <div className="right-section">
-                        <div className="product-info">
-                            <h2>Lettering 맛있는 레터링 크림케이크 (1호, 2호)</h2>
-                            <p className="price">46,000 won</p>
-                            <p className="description">고객님만을 위한 특별한 케이크, 다양한 맛과 크림 색상으로 나만의 특별한 디자인을 완성하세요.</p>
+                        <h2>{productName}</h2>
+                        <p className="price">{price} 원</p>
+
+                        {/* 선택한 옵션들을 표시 */}
+                        <div className="selected-options">
+                            <h3>선택한 옵션</h3>
+                            {Object.entries(selectedOptions).map(([optionTypeId, optionValueId]) => {
+                                // optionTypeId를 숫자로 변환 (string으로 전달될 가능성 처리)
+                                const typeId = parseInt(optionTypeId, 10);
+
+                                // 한글 옵션 유형 이름 가져오기
+                                const optionTypeName = OPTION_TYPE_NAME_KO[typeId] || '알 수 없는 옵션';
+
+                                return (
+                                    <div key={optionTypeId} className="option-group">
+                                        <h4>{optionTypeName}</h4> {/* 한글 옵션 유형 이름 출력 */}
+                                        {Array.isArray(optionValueId) ? (
+                                            // optionValueId가 배열인 경우 모든 값을 렌더링
+                                            optionValueId.map(valueId => renderOptionItem(typeId, valueId))
+                                        ) : (
+                                            // optionValueId가 단일 값인 경우
+                                            renderOptionItem(typeId, optionValueId)
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
 
-                        <div className="preview-options">
-                            <div className="option-group">
-                                <h3>크림 색상</h3>
-                                <div className="color-preview">
-                                    {colorOptions.map((color) => (
-                                        <div key={color.id} className={`color-option ${color.className}`}></div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="option-group">
-                                <h3>맛</h3>
-                                <div
-                                    ref={flavorContainerRef}
-                                    className="option-scroll-container"
-                                    onMouseDown={(e) => handleMouseDown(e, flavorContainerRef)}
-                                    onMouseMove={(e) => handleMouseMove(e, flavorContainerRef)}
-                                    onMouseUp={() => handleMouseUp(flavorContainerRef)}
-                                    onMouseLeave={() => handleMouseLeave(flavorContainerRef)}
-                                >
-                                    <div className="flavor-preview">
-                                        {flavorOptions.map((flavor) => (
-                                            <div key={flavor.id} className="flavor-option">
-                                                <img src={flavor.image} alt={flavor.name} />
-                                                <span>{flavor.name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="option-group">
-                                <h3>사이즈</h3>
-                                <div
-                                    ref={sizeContainerRef}
-                                    className="option-scroll-container"
-                                    onMouseDown={(e) => handleMouseDown(e, sizeContainerRef)}
-                                    onMouseMove={(e) => handleMouseMove(e, sizeContainerRef)}
-                                    onMouseUp={() => handleMouseUp(sizeContainerRef)}
-                                    onMouseLeave={() => handleMouseLeave(sizeContainerRef)}
-                                >
-                                    <div className="size-preview">
-                                        {sizeOptions.map((size) => (
-                                            <div key={size.id} className="size-option">
-                                                <img src={size.image} alt={size.name} />
-                                                <span>{size.name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="option-group">
-                                <h3>픽업 정보</h3>
-                                <div className="pickup-preview">
-                                    <div className="pickup-location">
-                                        <h4>픽업 가능 매장</h4>
-                                        <div className="map-placeholder">지도 영역</div>
-                                    </div>
-                                    <div className="pickup-time">
-                                        <h4>픽업 가능 시간</h4>
-                                        <p>매일 10:00 ~ 14:00</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="option-group">
-                                <h3>레터링</h3>
-                                <div className="lettering-preview">
-                                    <p>레터링 문구 작성 가능 (최대 30자)</p>
-                                    <p className="example">예) 생일 축하해 뽀미야~♡</p>
-                                </div>
-                            </div>
-                        </div>
+                        <Link
+                            to="/user/paymentdetail"
+                            className="submit-button"
+                        >
+                            요청사항 확인
+                        </Link>
                     </div>
                 </div>
             </main>
-
         </div>
     );
 };

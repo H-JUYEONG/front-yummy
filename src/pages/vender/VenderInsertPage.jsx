@@ -1,5 +1,5 @@
 import React ,{useState , useEffect} from 'react';
-import { Link  } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -15,6 +15,7 @@ import ResizeIcon from '@rsuite/icons/Resize'; //미리보기 아이콘
 import ExpandOutlineIcon from '@rsuite/icons/ExpandOutline'; //사진첨부 아이콘
 import ArchiveIcon from '@rsuite/icons/Archive'; //이미지모양 아이콘
 import TrashIcon from '@rsuite/icons/Trash'; //휴지통 아이콘
+import { AlignRight } from 'lucide-react';
 
 
 
@@ -22,6 +23,10 @@ import TrashIcon from '@rsuite/icons/Trash'; //휴지통 아이콘
 
 
 const VenderDashboard = () => {
+
+    const navigate = useNavigate();
+    const {venderId} = useParams();
+
 
     const [logoFile, setLogoFile] = useState(null);
     const [logoPreview, setLogoPreview] = useState(null);
@@ -35,6 +40,81 @@ const VenderDashboard = () => {
     const [kakaoURL, setKakaoURL] = useState('');
     const [shopAddress, setShopAddress] = useState('');
     const [content, setContent] = useState('');
+
+    //변경된 값만 저장용도
+    const [nonce, setNonce] = useState({
+        venderName: '',
+        shopAddress: '',
+        district: '',
+        latitude: '',
+        longitude: '',
+        kakaoURL: '',
+        venderDescription: '',
+        bannerFile: '',
+        profileFile: ''
+
+    })
+
+
+
+
+    //수정폼
+
+    const firstList = async ()=>{
+        console.log(shopName)
+        try {
+            const response = await axios({
+            method: 'get',          // put, post, delete                   
+            url:`${process.env.REACT_APP_API_URL}/api/svenderlist/${venderId}`,
+            responseType: 'json' //수신타입
+        });
+        
+            console.log(response); //수신데이타
+            const data = response.data.apiData;
+
+            // URL을 File로 변환하는 함수
+            const convertUrlToFile = async (url, filename) => {
+                const response = await fetch(url);  // URL에서 이미지 다운로드
+                const blob = await response.blob(); // Blob 객체로 변환
+                const file = new File([blob], filename, { type: blob.type }); // Blob을 File 객체로 변환
+                return file;
+            };
+
+            // bannerURL과 profileURL을 File로 변환
+            const bannerFile = data.bannerURL ? await convertUrlToFile(data.bannerURL, "banner.jpg") : null;
+            const logoFile = data.profileURL ? await convertUrlToFile(data.profileURL, "profile.jpg") : null;
+
+            
+            setNonce({
+                venderName: data.shopName || '',
+                shopAddress:data.venderAddress || '',
+                district:data.district || '',
+                latitude:data.latitude || '',
+                longitude:data.longitude || '',
+                kakaoURL:data.kakaoURL || '',
+                content:data.venderDescription || '',
+                bannerFile:bannerFile || '',
+                logoFile:logoFile || ''
+            })
+
+            setShopName(data.venderName || "");
+            setLogoPreview(data.profileURL || "");
+            setBannerPreview(data.bannerURL || "");
+            setShopAddress(data.venderAddress || "");
+            setKakaoURL(data.kakaoURL || "");
+            setContent(data.venderDescription || ""); 
+
+            
+
+        }catch(error)  {
+            console.log(error);
+        }
+        
+    }
+
+    useEffect(()=>{
+        firstList();
+    },[])
 
 
     //주소검색 api연결
@@ -55,16 +135,16 @@ const VenderDashboard = () => {
         const logoFile = e.target.files[0];
         if (logoFile) {
             setLogoFile(logoFile)
-            const imageUrl = URL.createObjectURL(logoFile);
-            setLogoPreview(imageUrl);
+            const pimageUrl = URL.createObjectURL(logoFile);
+            setLogoPreview(pimageUrl);
         }
     };
     const handleBannerImageChange = (e, setPreview) => {
         const bannerFile = e.target.files[0];
         if (bannerFile) {
             setBannerFile(bannerFile)
-            const imageUrl = URL.createObjectURL(bannerFile);
-            setPreview(imageUrl);
+            const bimageUrl = URL.createObjectURL(bannerFile);
+            setBannerPreview(bimageUrl);
         }
     };
     const handleAddress = (e)=>{
@@ -73,7 +153,6 @@ const VenderDashboard = () => {
     const handleContent = (e)=>{
         setContent(e.target.value);
     }
-     // 입력창들관리
     const handleShopName = (e) =>{
         setShopName(e.target.value);
     }
@@ -98,7 +177,8 @@ const VenderDashboard = () => {
     const handleSubmit = (e)=>{
         e.preventDefault();
 
-        if (logoFile instanceof File) {
+
+        if (bannerFile instanceof File) {
             console.log('logoFile 파일입니다.');
         } else {
             console.log('logoFile 파일이 아닙니다.');
@@ -106,23 +186,22 @@ const VenderDashboard = () => {
         
         const formData = new FormData();
         
-        formData.append('venderId', 1);
-        formData.append('venderName', shopName);
-        formData.append('venderAddress', shopAddress);
-        formData.append('district', '성동구');
-        formData.append('latitude', 1.1);
-        formData.append('longitude', 2.2);
-        formData.append('kakaoURL', kakaoURL);
-        formData.append('venderDescription', content);
+        formData.append('venderName', shopName || nonce.shopName);
+        formData.append('venderAddress', shopAddress || nonce.shopAddress);
+        formData.append('district', '성동구' || nonce.district);
+        formData.append('latitude', 1.1 || nonce.latitude);
+        formData.append('longitude', 2.2 || nonce.longitude);
+        formData.append('kakaoURL', kakaoURL || nonce.kakaoURL);
+        formData.append('venderDescription', content || nonce.content);
 
-        formData.append('bannerFile',bannerFile); //배너이미지
-        formData.append('profileFile', logoFile); //프로필
+        formData.append('bannerFile', bannerFile || nonce.bannerFile); //배너이미지
+        formData.append('profileFile', logoFile || nonce.logoFile); //프로필
 
         console.log(formData)
 
         axios({
             method: 'put',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/svenderVo`,
+            url: `${process.env.REACT_APP_API_URL}/api/svenderVo/${venderId}`,
             
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,           // 첨부파일  multipart방식
@@ -130,6 +209,15 @@ const VenderDashboard = () => {
 
         }).then(response => {
             console.log(response); //수신데이타
+            console.log(response.data.result)
+
+
+            if(response.data.result == "success"){
+                alert("업체정보가 저장되었습니다!")
+                navigate(`/user/storedetail/${venderId}`)
+            }else{
+                alert("정보등록에 실패하였습니다.")
+            }
             
         
         }).catch(error => {
@@ -227,7 +315,7 @@ const VenderDashboard = () => {
                                 </div>
                                 <div className="create-sy-section">
                                     <h3 htmlFor='shop-txt'>업체상세 설명</h3>
-                                    <textarea  id='shop-txt' placeholder="자유롭게 작성해주세요" onChange={handleContent} >{content}</textarea>
+                                    <textarea  id='shop-txt' placeholder="자유롭게 작성해주세요" value={content} onChange={handleContent} ></textarea>
                                 </div>
                                 
                                 

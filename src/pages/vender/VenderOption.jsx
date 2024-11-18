@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/option.css';
 import VenderSidebar from './include/VenderSidebar';
+import yummyLogo from '../../assets/images/yummylogo.webp'; // 기본 이미지 임포트
 
 const API_URL = process.env.REACT_APP_API_URL;
 // 한글 옵션 유형 매핑
@@ -28,8 +30,13 @@ const translateOptionTypeName = (options) => {
 };
 
 function VenderOption() {
+    const navigate = useNavigate();
+    const [authUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
     const [options, setOptions] = useState([]);
-    const venderId = 39; // 예시로 사용
+    const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
     useEffect(() => {
         const fetchOptions = async () => {
             try {
@@ -71,21 +78,32 @@ function VenderOption() {
 
     // 삭제 핸들러 함수
     const removeSubOption = async (optionTypeId, optionValueId) => {
-        console.log("삭제할 optionValueId:", optionValueId); // 삭제할 ID 확인
+        if (!optionValueId || optionValueId <= 0) {
+            alert("유효하지 않은 옵션 값 ID입니다.");
+            return;
+        }
+
+        const confirmDelete = window.confirm("정말로 이 옵션을 삭제하시겠습니까?");
+        if (!confirmDelete) return;
 
         try {
-            await axios.delete(`${API_URL}/api/options/delete/${optionValueId}`);
-
-            setOptions(options.map(option =>
-                option.optionTypeId === optionTypeId
-                    ? {
-                        ...option,
-                        optionValues: option.optionValues.filter(subOption => subOption.optionValueId !== optionValueId)
-                    }
-                    : option
-            ));
+            const response = await axios.delete(`${API_URL}/api/options/delete/${optionValueId}`);
+            if (response.status === 200) {
+                setOptions(options.map(option =>
+                    option.optionTypeId === optionTypeId
+                        ? {
+                            ...option,
+                            optionValues: option.optionValues.filter(subOption => subOption.optionValueId !== optionValueId)
+                        }
+                        : option
+                ));
+                alert(response.data.message || "옵션이 성공적으로 삭제되었습니다.");
+            } else {
+                throw new Error("삭제 요청이 실패했습니다.");
+            }
         } catch (error) {
-            console.error('옵션 값을 삭제하는 중 에러 발생:', error);
+            console.error("옵션 값을 삭제하는 중 에러 발생:", error);
+            alert("옵션 삭제에 실패했습니다. 다시 시도해주세요.");
         }
     };
 
@@ -123,7 +141,7 @@ function VenderOption() {
                         <div className="right-panel">
                             <div className="right-panel-header">
                                 <h3>선택된 옵션</h3>
-                                <button className="register-product-button">상품등록하기</button>
+                                <button className="register-product-button" onClick={() => navigate('/vender/registrationform')} >상품등록하기</button>
                             </div>
                             <div className="selected-options">
                                 {options.map(option => (
@@ -154,22 +172,15 @@ function Option({ option, addSubOption, isExpanded, toggleOption }) {
     const [previewUrl, setPreviewUrl] = useState("");
 
     const handleAddSubOption = async () => {
-        if (!subOptionName.trim() || !subOptionFile) {
-            alert("옵션 이름과 이미지를 모두 입력해주세요.");
-            return;
-        }
-
+        const defaultImageBlob = await fetch(yummyLogo).then((res) => res.blob()); // 기본 이미지 Blob 생성
         const newSubOption = {
             name: subOptionName,
-            file: subOptionFile, // 파일 포함
+            file: subOptionFile || defaultImageBlob, // 파일이 없으면 기본 이미지
         };
 
         await addSubOption(option.optionTypeId, newSubOption);
-
-        setSubOptionName("");
-        setSubOptionFile(null);
-        setPreviewUrl("");
     };
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setSubOptionFile(file);
@@ -190,7 +201,7 @@ function Option({ option, addSubOption, isExpanded, toggleOption }) {
                                 {previewUrl ? (
                                     <img src={previewUrl} alt="미리보기" className="preview-image" />
                                 ) : (
-                                    <span className="upload-placeholder">이미지 선택</span>
+                                    <img src={yummyLogo} alt="기본 이미지" className="preview-image" />
                                 )}
                             </label>
                             <input
