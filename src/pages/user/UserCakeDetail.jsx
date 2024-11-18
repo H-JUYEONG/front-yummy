@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
-import "../../assets/css/user/CakeOrder.css"
+import "../../assets/css/user/CakeOrder.css";
 import '../../assets/css/user/usermain.css';
+import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
@@ -33,7 +34,12 @@ const UserCakeDetail = () => {
     const [mainImage, setMainImage] = useState('');
     const [selectedOptions, setSelectedOptions] = useState({});
     const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(128);
+    const [likeCount, setLikeCount] = useState(0);
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
     const [deliveryType, setDeliveryType] = useState('pickup');
 
     // 스크롤 관련 상태
@@ -94,6 +100,7 @@ const UserCakeDetail = () => {
         1: 0,
         average: 5
     };
+
     // 시간 옵션 상수 추가
     const TIME_OPTIONS = [
         { value: '09:00:00', label: '09:00' },
@@ -107,10 +114,20 @@ const UserCakeDetail = () => {
         { value: '17:00:00', label: '17:00' },
         { value: '18:00:00', label: '18:00' }
     ];
+
+
     // useEffect
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // 컴포넌트 마운트 시 찜 상태 조회
+    useEffect(() => {
+        if (productId) {
+            fetchWishlistInfo();
+        }
+    }, [productId, authUser]);
+
 
     useEffect(() => {
         if (productDetail?.productImage1Url) {
@@ -133,6 +150,7 @@ const UserCakeDetail = () => {
         }
     }, [selectedOptions, productOptions]);
     // API 호출
+
     const getProductDetail = () => {
         setIsLoading(true);
         axios({
@@ -211,10 +229,79 @@ const UserCakeDetail = () => {
         setMainImage(imagePath);
     };
 
-    const handleLike = () => {
-        setIsLiked(!isLiked);
-        setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+
+    // 찜하기/취소 핸들러
+    const handleLike = async () => {
+        if (!authUser) {
+            alert('로그인이 필요한 서비스입니다.');
+            return;
+        }
+    
+        try {
+            if (isLiked) {
+                // 찜 취소
+                await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/remove`,
+                    {
+                        data: {
+                            productId: parseInt(productId),
+                            memberId: authUser.member_id
+                        }
+                    }
+                );
+            } else {
+                // 찜하기
+                await axios.post(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/add`,
+                    {
+                        productId: parseInt(productId),
+                        memberId: authUser.member_id
+                    }
+                );
+            }
+            
+            // UI 즉시 업데이트
+            setIsLiked(!isLiked);
+            setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+            
+            // 서버에서 최신 정보 다시 가져오기
+            await fetchWishlistInfo();
+        } catch (error) {
+            console.error('찜하기 처리 실패:', error);
+            alert('처리 중 오류가 발생했습니다.');
+            // 에러 발생 시 UI 원상복구
+            await fetchWishlistInfo();
+        }
     };
+   // 찜 정보 조회 함수 수정
+const fetchWishlistInfo = async () => {
+    try {
+        // 총 찜 개수 조회
+        const countResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/wishlist/count/${productId}`
+        );
+        console.log('찜 개수 응답:', countResponse.data);
+        // data.data로 접근하도록 수정
+        setLikeCount(countResponse.data.data);
+
+        // 로그인한 경우만 찜 상태 조회
+        if (authUser) {
+            const statusResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/wishlist/check`,
+                {
+                    params: {
+                        productId: parseInt(productId),
+                        memberId: authUser.member_id
+                    }
+                }
+            );
+            console.log('찜 상태 응답:', statusResponse.data);
+            setIsLiked(statusResponse.data.data > 0);
+        }
+    } catch (error) {
+        console.error('찜 정보 조회 실패:', error);
+    }
+};
 
     const handleMouseDown = (e, ref) => {
         setIsDragging(true);
@@ -316,12 +403,22 @@ const UserCakeDetail = () => {
     const renderTabContent = () => (
         <div className="full-content">
             <div className="content-sections">
-                <div id="상품상세" className="content-section">
-                    <img src="/images/제품 설명 1.png" alt="상품 상세 정보" />
-                    <img src="/images/픽업 방법.png" alt="상품 상세 정보" />
-                    <img src="/images/상품문의.png" alt="상품 상세 정보" />
+                <div id="상품 상세정보" className="content-section">
+                    {/* 상품 설명이 있을 경우 표시 */}
+                    {productDetail?.description ? (
+                        <div
+                            className="product-description ql-editor"
+                            dangerouslySetInnerHTML={{ __html: productDetail.description }}
+                        />
+                    ) : (
+                        <div className="no-description">
+                            <p>상품 상세 정보가 없습니다.</p>
+                        </div>
+                    )}
+                    <img src="/images/픽업 방법.png" alt="픽업 방법" />
+                    <img src="/images/상품문의.png" alt="상품 문의" />
                 </div>
-                <div id="리뷰" className="content-section">
+                <div id="후기" className="content-section">
                     {renderReviewSection()}
                 </div>
             </div>

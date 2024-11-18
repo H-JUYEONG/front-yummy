@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import RightNavbar from './include/RightNavbar';
 import '../../assets/css/user/usermain.css';
@@ -10,49 +11,57 @@ import Footer from './include/Footer';
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [orderList, setOrderList] = useState([]);
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
 
     // 컴포넌트 마운트 시 스크롤 최상단으로
     useEffect(() => {
         window.scrollTo(0, 0);
+        fetchOrderList();
     }, []);
 
-    const orderStatuses = [
-        { label: '결제완료', count: 0 },
-        { label: '제작중', count: 0 },
-        { label: '제작완료', count: 0 },
-        { label: '픽업요청/배송중', count: 0 },
-        { label: '픽업/배송완료', count: 0 }
-    ];
-
-    const orderList = [
-        {
-            id: 1,
-            date: '2024-11-01',
-            productName: '조끼핏 케이크',
-            orderStatus: '결제완료',
-            statusMessage: '업로드 미완료',
-            actions: ['주문상세보기'],
-            images: [],
-            video: null
-        },
-        {
-            id: 2,
-            date: '2024-10-03',
-            productName: '생크림 케이크',
-            orderStatus: '픽업/배송완료',
-            statusMessage: '업로드 완료',
-            actions: ['주문상세보기', '리뷰쓰기'],
-            images: ['/images/케이크 제작 1.jpg'],
-            video: '/cake-video.mp4'
+    const fetchOrderList = async () => {
+        if (!authUser || !authUser.user_id) {
+            console.error('User not logged in');
+            return;
         }
+
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders`, {
+                params: { userId: authUser.user_id }
+            });
+            setOrderList(response.data);
+        } catch (error) {
+            console.error('Error fetching order list:', error);
+        }
+    };
+
+    const fetchOrderDetail = async (orderId) => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/${orderId}`);
+            setSelectedOrder(response.data);
+            setShowDetail(true);
+        } catch (error) {
+            console.error('Error fetching order detail:', error);
+        }
+    };
+
+    const orderStatuses = [
+        { label: '결제완료', count: orderList.filter(order => order.orderStatus === '결제완료').length },
+        { label: '제작중', count: orderList.filter(order => order.orderStatus === '제작중').length },
+        { label: '제작완료', count: orderList.filter(order => order.orderStatus === '제작완료').length },
+        { label: '픽업요청/배송중', count: orderList.filter(order => order.orderStatus === '픽업요청/배송중').length },
+        { label: '픽업/배송완료', count: orderList.filter(order => order.orderStatus === '픽업/배송완료').length }
     ];
 
     // 상태 클릭 핸들러 - 스크롤 처리 추가
     const handleStatusClick = (order) => {
         if (order.statusMessage === '업로드 완료') {
             window.scrollTo(0, 0);
-            setSelectedOrder(order);
-            setShowDetail(true);
+            fetchOrderDetail(order.id);
         }
     };
 

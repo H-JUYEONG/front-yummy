@@ -6,6 +6,45 @@
     padding: 20px;
     gap: 100px;
 }
+#user-wrap .cake-order-container .product-description {
+    padding: 20px;
+    margin: 20px 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#user-wrap .cake-order-container .ql-editor {
+    padding: 0;
+}
+
+#user-wrap .cake-order-container .ql-editor h1 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+#user-wrap .cake-order-container .ql-editor h2 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+}
+
+#user-wrap .cake-order-container .ql-editor p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+#user-wrap .cake-order-container .ql-editor ul,
+#user-wrap .cake-order-container .ql-editor ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#user-wrap .cake-order-container .ql-editor img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+    display: block;
+}
 
 #user-wrap .cake-order-container .left-section {
     flex: 1;
