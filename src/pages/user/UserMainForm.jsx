@@ -151,7 +151,7 @@ const UserMainForm = () => {
                     {filteredProducts.map((item) => (
                         <div className="all-product-item" key={item.id}>
                             {/* 상품 이미지 클릭 시 링크 추가 */}
-                            <Link to="/user/cakedetail" className="list_hover_img">
+                            <Link to="/user/cakedetail/21" className="list_hover_img">
                                 <img src={item.image} alt={item.product} /> {/* 각 상품의 이미지 */}
                                 <div className="store-info">
                                     {/* 업체 로고와 업체명 클릭 시 /user/storedetail로 이동 */}

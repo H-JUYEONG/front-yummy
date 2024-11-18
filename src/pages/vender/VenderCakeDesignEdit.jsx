@@ -17,6 +17,7 @@ function VenderCakeDesignEdit() {
   const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
+  const [cakeDesignVisibility, setCakeDesignVisibility] = useState(null);
   const [registeredImages, setRegisteredImages] = useState([]); // 등록된 이미지 리스트
   const [files, setFiles] = useState([]); // 새로 추가된 이미지 리스트
   const [deletedImages, setDeletedImages] = useState([]); // 삭제된 이미지 추적
@@ -39,11 +40,13 @@ function VenderCakeDesignEdit() {
 
       if (response.data.result === "success") {
         const detail = response.data.apiData;
+        console.log(detail);
         setCakeDesignName(detail.cakeDesignTitle);
         setCakeDesignDescription(detail.cakeDesignDescription);
         setCakeDesignShape(detail.cakeDesignPreferredShape);
         setCakeDesignPrefer(detail.cakeDesignPreferredAge);
         setCakeDesignEvent(detail.cakeDesignRecommendedEvent);
+        setCakeDesignVisibility(Boolean(detail.cakeDesignVisibility));
         setRegisteredImages(detail.subImages); // 서버에서 받은 이미지 리스트 설정
       } else {
         alert("도안 정보를 불러오는 데 실패했습니다.");
@@ -108,6 +111,7 @@ function VenderCakeDesignEdit() {
     formData.append("cakeDesignPreferredShape", cakeDesignShape);
     formData.append("cakeDesignPreferredAge", cakeDesignPrefer);
     formData.append("cakeDesignRecommendedEvent", cakeDesignEvent);
+    formData.append("cakeDesignVisibility", cakeDesignVisibility);
     formData.append("cakeDesignId", cakeDesignId);
 
     // 새로 추가된 파일
@@ -273,6 +277,40 @@ function VenderCakeDesignEdit() {
                   onChange={(e) => setCakeDesignEvent(e.target.value)}
                   className="input-text"
                 />
+              </div>
+
+              <div className="form-group">
+                <label>도안 공개 여부</label>
+                <div className="vender-cake-design-radio-group">
+                  <label
+                    htmlFor="visibility-true"
+                    className="vender-cake-design-radio-label"
+                  >
+                    <input
+                      type="radio"
+                      id="visibility-true"
+                      name="cake-design-visibility"
+                      value="true"
+                      onChange={() => setCakeDesignVisibility(true)}
+                      checked={cakeDesignVisibility === true} // === true로 비교
+                    />
+                    공개
+                  </label>
+                  <label
+                    htmlFor="visibility-false"
+                    className="vender-cake-design-radio-label"
+                  >
+                    <input
+                      type="radio"
+                      id="visibility-false"
+                      name="cake-design-visibility"
+                      value="false"
+                      onChange={() => setCakeDesignVisibility(false)}
+                      checked={cakeDesignVisibility === false} // === false로 비교
+                    />
+                    비공개
+                  </label>
+                </div>
               </div>
 
               {/* 수정 버튼 */}

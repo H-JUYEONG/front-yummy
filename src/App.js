@@ -80,15 +80,12 @@ import AdminShopAdd from './pages/admin/AdminShopAdd';
 import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 
-
-
 function App() {
   return (
     <div>
       
 
       <BrowserRouter>
-
           <Routes>
 
           
@@ -96,9 +93,9 @@ function App() {
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
             <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-            <Route path='/vender/productpreview/:productId' element={<VenderProductPreview />} />
-            <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
-            <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
+            <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
+            <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+            <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
             <Route path='/vender/statistics' element={<VenderStatistics />} />
             <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
@@ -109,6 +106,7 @@ function App() {
             <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit />} />
             <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail />} />
             <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails />} />
+            
             {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
             <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/signup' element={<VenderSignUpForm />} />
@@ -178,7 +176,6 @@ function App() {
             <Route path='/board/boardview' element={<UserDebateView />} />
             <Route path="/board/debateedit" element={<UserDebateEdit />} />
           </Routes>
-
       </BrowserRouter>
     </div>
   );

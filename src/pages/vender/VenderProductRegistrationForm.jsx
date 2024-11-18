@@ -238,6 +238,37 @@ function ProductRegistrationForm() {
         setSelectedDesign(design); // 선택한 도안 저장
         closeDesignModal(); // 모달 닫기
     };
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
+    const handlePreview = async () => {
+        const mainImageBase64 = images.main ? await convertToBase64(images.main) : null;
+        const subsBase64 = await Promise.all(
+            images.subs.map((file) => (file ? convertToBase64(file) : null))
+        );
+
+        const previewData = {
+            productName,
+            description,
+            images: {
+                main: mainImageBase64,
+                subs: subsBase64.filter(Boolean), // 서브 이미지 필터링
+            },
+            selectedOptions,
+            price,
+            selectedDesign,
+        };
+
+        localStorage.setItem('previewData', JSON.stringify(previewData));
+        window.open('/vender/productpreview', '_blank', 'width=1200,height=800');
+    };
     // 내가 그린 도안
     useEffect(() => {
         const fetchMyDesigns = async () => {
@@ -525,10 +556,7 @@ function ProductRegistrationForm() {
                                 <button type="submit" className="add-button">등록하기</button>
                             </div>
                         </form>
-                        <button
-                            className="floating-preview-button"
-                            onClick={() => window.open('/vender/productpreview', '_blank')}
-                        >
+                        <button className="floating-preview-button" onClick={handlePreview}>
                             미리보기
                         </button>
                     </div>

@@ -127,6 +127,8 @@ const UserCakeDesignBoard = () => {
                   onClick={() => {
                     setSelectedStyle(style);
                     setCurrentPage(1);
+                    setSearchTerm(""); // 검색어 초기화
+                    loadCakeDesigns(1); // 초기화된 상태로 데이터 로드
                   }}
                 >
                   {style}
@@ -134,7 +136,7 @@ const UserCakeDesignBoard = () => {
               ))}
             </div>
             <div className="user-cake-design-search">
-              <FaSearch className="search-icon" />
+              <FaSearch className="search-icon" onClick={handleSearch} />
               <input
                 type="text"
                 placeholder="도안 검색"
@@ -188,8 +190,25 @@ const UserCakeDesignBoard = () => {
             ))}
           </div>
 
-          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
+            {/* 이전 페이지 버튼 */}
+            {currentPage > 1 ? (
+              <button
+                className="user-cake-design-prev-page"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &lt;
+              </button>
+            ) : (
+              <button
+                className="user-cake-design-prev-page"
+                style={{ visibility: "hidden" }}
+              >
+                &lt;
+              </button>
+            )}
+
+            {/* 페이지 번호 */}
             {generatePagination().map((page) => (
               <button
                 key={page}
@@ -201,6 +220,23 @@ const UserCakeDesignBoard = () => {
                 {page}
               </button>
             ))}
+
+            {/* 다음 페이지 버튼 */}
+            {currentPage < totalPages ? (
+              <button
+                className="user-cake-design-next-page"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &gt;
+              </button>
+            ) : (
+              <button
+                className="user-cake-design-next-page"
+                style={{ visibility: "hidden" }}
+              >
+                &gt;
+              </button>
+            )}
           </div>
         </div>
       </main>
