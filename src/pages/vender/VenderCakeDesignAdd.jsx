@@ -70,9 +70,9 @@ function VenderCakeDesignAdd() {
     // FormData에 텍스트 데이터 추가
     formData.append("cakeDesignTitle", cakeDesignName);
     formData.append("cakeDesignDescription", cakeDesignDescription);
-    formData.append("cakeDesignPreferredAge", cakeDesignShape);
-    formData.append("cakeDesignRecommendedEvent", cakeDesignPrefer);
-    formData.append("cakeDesignPreferredShape", cakeDesignEvent);
+    formData.append("cakeDesignPreferredShape", cakeDesignShape);
+    formData.append("cakeDesignPreferredAge", cakeDesignPrefer);
+    formData.append("cakeDesignRecommendedEvent", cakeDesignEvent);
     formData.append("cakeDesignVisibility", cakeDesignVisibility);
 
     // FormData에 이미지 파일 추가

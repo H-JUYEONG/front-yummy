@@ -145,6 +145,12 @@ const VenderCakeDesignDetail = () => {
                       {cakeDesignDetail.cakeDesignRecommendedEvent ||
                         "정보 없음"}
                     </p>
+                    <h3>공개 여부</h3>
+                    <p>
+                      {cakeDesignDetail.cakeDesignVisibility
+                        ? "공개"
+                        : "비공개"}
+                    </p>
                     <div className="cake-design-detail-buttons">
                       <button
                         onClick={() =>
@@ -154,7 +160,9 @@ const VenderCakeDesignDetail = () => {
                         수정
                       </button>
                       <button onClick={deleteCakeDesign}>삭제</button>
-                      <button onClick={() => navigate("/vender/cakeDesign/list")}>
+                      <button
+                        onClick={() => navigate("/vender/cakeDesign/list")}
+                      >
                         뒤로가기
                       </button>
                     </div>
