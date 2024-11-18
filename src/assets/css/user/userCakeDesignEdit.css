@@ -25,7 +25,7 @@
     gap: 20px;
     justify-content: flex-start; /* 왼쪽 정렬로 웹 레이아웃 느낌 */
     flex-wrap: wrap;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
 }
 
 .user-cake-design-saved-list img {
@@ -34,6 +34,11 @@
     object-fit: cover;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
     transition: transform 0.2s ease;
+}
+
+/* 미리보기 이미지 */
+.new-Preview-img img{
+    margin: 0px 20px 10px 0px;
 }
 
 /* 이미지 미리보기 스타일 */
@@ -83,6 +88,18 @@
     border-radius: 4px;
     box-sizing: border-box;
     color: #666;
+}
+
+/* 등록되어 있는 이미지 삭제 */
+.user-remove-btn {
+    margin: 5px 0px 0px 47px;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
 }
 
 .user-remove-button {

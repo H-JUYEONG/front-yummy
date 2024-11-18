@@ -1,13 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-
-
 /* 타이틀 스타일 */
 .product-registration .product-list-title {
     font-size: 1.8em;
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.product-registration h3 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 /* 폼 그룹 스타일 */
@@ -130,12 +136,26 @@
     margin-top: 0.5rem;
 }
 
-
-.product-registration .option-item.selected {
-    border-color: #007bff;
-    background-color: #f8f9fa;
+.product-registration .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 120px;
+    height: 150px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    transition: box-shadow 0.3s, background-color 0.3s;
 }
 
+/* 체크박스를 숨기고 커스텀 스타일 적용 */
 .product-registration .option-item input[type="checkbox"] {
     position: absolute;
     opacity: 0;
@@ -143,49 +163,43 @@
     height: 0;
 }
 
-.product-registration .option-item input[type="checkbox"]+label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.3s;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+/* 선택된 옵션의 외곽 테두리 */
+.product-registration .option-item.selected::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid #4f46e5;
+    border-radius: 12px;
+    pointer-events: none;
 }
 
-.product-registration .option-item input[type="checkbox"]:checked+label {
-    background-color: #f0f0f0;
-    border-color: #007bff;
+/* 선택된 옵션 배경색과 그림자 */
+.product-registration .option-item.selected {
+    background-color: #eef2ff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
 }
 
-.product-registration .option-item input[type="checkbox"]:focus+label {
-    outline: none;
-}
-
+/* 서브옵션 이미지 스타일 */
 .product-registration .option-image {
     width: 80px;
     height: 80px;
     object-fit: cover;
     border-radius: 4px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
 }
 
+/* 서브옵션 이름 스타일 */
 .product-registration .option-name {
     font-size: 0.9rem;
+    color: #333;
+    margin-top: auto;
     text-align: center;
 }
 
-.product-list-header .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    /* 버튼 간격 */
-    margin-top: 20px;
-    /* 원하는 만큼 여백 추가 */
-}
-
-/* 등록 버튼 스타일 */
+/* 버튼 스타일 */
 .product-registration .add-button {
     background-color: #4f46e5;
     color: #ffffff;
@@ -205,7 +219,7 @@
     transform: translateY(-3px);
 }
 
-/* 떠다니는 미리보기 버튼 스타일 */
+/* 미리보기 버튼 스타일 */
 .product-registration .floating-preview-button {
     position: fixed;
     bottom: 40px;
@@ -227,84 +241,6 @@
     box-shadow: 0 6px 15px rgba(59, 55, 193, 0.4);
     transform: translateY(-5px);
 }
-
-.product-registration .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.product-registration .page-button {
-    margin: 0 5px;
-    padding: 8px 16px;
-    border: none;
-    background-color: #f0f0f0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.product-registration .page-button:hover {
-    background-color: #ddd;
-}
-
-.product-registration .page-button.active {
-    background-color: #007bff;
-    color: white;
-}
-
-
-.product-registration .centered-button-group {
-    text-align: end;
-    /* 컨테이너가 가로 전체를 차지하도록 */
-    margin-top: 20px;
-    margin-left: 10px;
-}
-.product-registration .centered-button-group button{
-    margin-left: 20px;
-}
-
-/* 케이크 도안 선택 섹션 스타일 (상품 등록 폼 전용) */
-.vender-container .product-registration .cakeDesign-section {
-    margin-top: 30px;
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #fafafa;
-    margin-bottom: 20px;
-}
-
-.vender-container .product-registration .options-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.vender-container .product-registration .options-header h2 {
-    font-size: 18px;
-    color: #333;
-}
-
-.vender-container .product-registration .selected-design {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-}
-
-.vender-container .product-registration .selected-design img {
-    width: 60px;
-    height: auto;
-    border-radius: 4px;
-}
-
-.vender-container .product-registration .selected-design span {
-    font-size: 14px;
-    color: #444;
-}
-
 
 /* 모달 창 스타일 (상품 등록 폼 전용) */
 .venderregistrationform-design-modal-overlay {
@@ -438,3 +374,155 @@
     margin-right: 5px;
     font-size: 14px;
 }
+
+/* 떠다니는 미리보기 버튼 스타일 */
+.product-registration .floating-preview-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+
+.product-registration .floating-preview-button:hover {
+    background-color: #3b37c1;
+    box-shadow: 0 6px 15px rgba(59, 55, 193, 0.4);
+    transform: translateY(-5px);
+}
+
+.product-registration .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.product-registration .page-button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-registration .page-button:hover {
+    background-color: #ddd;
+}
+
+.product-registration .page-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.product-registration .centered-button-group {
+    text-align: end;
+    /* 컨테이너가 가로 전체를 차지하도록 */
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.product-registration .centered-button-group button{
+    margin-left: 20px;
+}
+
+/* 케이크 도안 선택 섹션 스타일 (상품 등록 폼 전용) */
+.vender-container .product-registration .cakeDesign-section {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+}
+
+.vender-container .product-registration .options-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.vender-container .product-registration .options-header h2 {
+    font-size: 18px;
+    color: #333;
+}
+
+.vender-container .product-registration .selected-design {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.vender-container .product-registration .selected-design img {
+    width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
+.vender-container .product-registration .selected-design span {
+    font-size: 14px;
+    color: #444;
+}
+
+/* 라디오 버튼 숨기기 및 커스텀 스타일 적용 */
+.product-registration .option-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 라디오 버튼 커스텀 스타일 */
+.product-registration .option-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 120px;
+    height: 150px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+/* 선택된 라디오 버튼 스타일 */
+.product-registration .option-item.selected {
+    background-color: #eef2ff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    border: 2px solid #4f46e5;
+}
+
+/* 서브옵션 이미지 스타일 */
+.product-registration .option-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* 서브옵션 이름 스타일 */
+.product-registration .option-item span {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+}
+

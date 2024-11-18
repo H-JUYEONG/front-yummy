@@ -1,14 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const {venderId} = useParams();
+    const [detailVo, setDetailVo] = useState('');
+
+    const getdetails = ()=>{
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
+    
+            headers: { "Content-Type": "application/json; charset=utf-8" },  // post put
+    
+            responseType: 'json' //수신타입
+            }).then(response => {
+            console.log(response); //수신데이타
+            console.log(response.data.apiData);
+            setDetailVo(response.data.apiData);
+            //console.log(detailVo)
+
+
+    
+            }).catch(error => {
+            console.log(error);
+            });
+    }
+
+    
+
+
     
     useEffect(() => {
         window.scrollTo(0, 0);
+        getdetails();
+
     }, []);
 
     // 상품 데이터
@@ -73,21 +103,23 @@ const UserStoreDetail = () => {
                 <section id="user-wrap-main">
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                            <h2 className="sd-store-name">cakefactory</h2>
+                        {detailVo.venderName ? <h2 className="sd-store-name">{detailVo.venderName}</h2> : <h2 className="sd-store-name">업체명을 입력해주세요!</h2>}
+
+                            
                         </div>
                         <div className="sd-profile-content">
                             {/* 프로필 이미지 섹션 */}
                             <div className="sd-section sd-image-section">
                                 <div className="sd-profile-image">
-                                    <img src={cakeLogo} alt="cakefactory" />
+                                    <img src={detailVo.profileURL} alt="cakefactory" />
                                 </div>
                             </div>
 
                             {/* 프로필 정보 섹션 */}
                             <div className="sd-section sd-info-section">
                                 <div className="sd-profile-stats">
-                                    <span>게시물 24</span>
-                                    <span>리뷰 128</span>
+                                    <span>게시물 0</span>
+                                    <span>리뷰 0</span>
                                     <button onClick={handleKakaoChat} className="kakao-chat-btn">
                                         <svg className="kakao-icon" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 3C6.477 3 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10z" fill="#FFE812"/>
@@ -97,14 +129,15 @@ const UserStoreDetail = () => {
                                     </button>
                                 </div>
                                 <div className="sd-info-content">
-                                    <p>🎂케이크는 맛있게</p>
+                                    {detailVo.venderDescription}
+                                    {/*<p>🎂케이크는 맛있게</p>
                                     <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
                                     <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
                                     <p>💕디자인과 맛 모두 놓치지 않는 케이크🍰</p>
                                     <p>🎨캐릭터, 포토, 생화케이크는 DM문의💌</p>
                                     <p>✔️주문마감 D-2</p>
                                     <p>✔️11시-20시</p>
-                                    <p>⚡️디자인상담 1:1채팅 문의해주세요</p>
+                                    <p>⚡️디자인상담 1:1채팅 문의해주세요</p>*/}
                                 </div>
                             </div>
 
@@ -118,8 +151,8 @@ const UserStoreDetail = () => {
                                 </div>
                                 <div className="sd-map-info">
                                     <p className="sd-map-title">📍 매장 위치</p>
-                                    <p>서울특별시 송파구 올림픽로 240</p>
-                                    <p>송파 롤링스톤즈 2층</p>
+                                    <p>매장주소를 입력해주세요</p>
+                                    <p></p>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +192,7 @@ const UserStoreDetail = () => {
                                     <p className="sd-product-name">{product.name}</p>
                                     <p className="sd-price">{product.price}</p>
                                 </div>
-                            </Link>
+                            </Link> 
                         ))}
                     </div>
                 </section>

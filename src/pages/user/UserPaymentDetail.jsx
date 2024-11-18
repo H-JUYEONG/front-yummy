@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userpaymentdetail.css';
@@ -8,12 +8,20 @@ const UserPaymentDetail = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const orderData = location.state;
+    const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        // orderData가 없으면 메인으로 리다이렉트
-        if (!orderData) {
+        // localStorage에서 인증 정보 가져오기
+        const userStr = localStorage.getItem('authUser');
+        if (userStr) {
+            const user = JSON.parse(userStr);
+            setAuthUser(user);
+        }
+
+        // orderData나 인증 정보가 없으면 메인으로 리다이렉트
+        if (!orderData || !userStr) {
             alert('잘못된 접근입니다.');
             navigate('/');
             return;
@@ -22,7 +30,14 @@ const UserPaymentDetail = () => {
 
     const handlePayment = async () => {
         try {
-            // 1. 옵션 데이터 포맷팅
+            // 로그인 확인
+            if (!authUser) {
+                alert('로그인이 필요한 서비스입니다.');
+                navigate('/user/login');
+                return;
+            }
+
+            // 1. 옵션 데이터 포맷팅 (기존과 동일)
             const formattedOptions = {};
             Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
                 const mappedKey = {
@@ -43,7 +58,7 @@ const UserPaymentDetail = () => {
                 }
             });
 
-            // 2. 날짜/시간 데이터 구성
+            // 2. 날짜/시간 데이터 구성 (기존과 동일)
             const dateTimeData = orderData.orderInfo.deliveryType === 'pickup'
                 ? {
                     desiredPickupDatetime: orderData.orderInfo.selectedDate,
@@ -61,7 +76,7 @@ const UserPaymentDetail = () => {
             // 3. API 요청 데이터 구성
             const requestData = {
                 productId: Number(orderData.productInfo.productId),
-                userId: 1, // 실제 로그인된 유저 ID로 대체 필요
+                userId: authUser.user_id, // 로그인한 사용자의 ID 사용
                 deliveryMethod: orderData.orderInfo.deliveryType,
                 deliveryAddress: orderData.orderInfo.address?.toString() || '',
                 recipientName: orderData.orderInfo.recipientName,
@@ -74,20 +89,25 @@ const UserPaymentDetail = () => {
                 ...formattedOptions
             };
 
-            console.log('Request Data:', requestData);
+            // 토큰 가져오기
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('인증 토큰이 없습니다.');
+            }
 
-            // 4. API 요청
+            // 4. API 요청 (토큰 포함)
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/orders`,
                 requestData,
                 {
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // 토큰 추가
                     }
                 }
             );
 
-            // 5. 응답 처리
+            // 5. 응답 처리 (기존과 동일)
             if (response.data && response.data.result === "success") {
                 // 현재 날짜/시간 포맷팅
                 const now = new Date();
@@ -113,13 +133,14 @@ const UserPaymentDetail = () => {
             }
         } catch (error) {
             console.error('주문 처리 중 오류:', error);
+            if (error.response?.status === 401) {
+                alert('로그인이 필요합니다.');
+                navigate('/user/login');
+                return;
+            }
             alert(error.response?.data?.message || '주문 처리 중 오류가 발생했습니다.');
         }
     };
-
-    if (!orderData) {
-        return null;
-    }
 
     return (
         <div id="user-wrap" className="text-center">

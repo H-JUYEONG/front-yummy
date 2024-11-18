@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaRegHeart, FaHeart, FaStar } from "react-icons/fa";
+import { useParams, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import axios from "axios";
 
 // css
 import "../../assets/css/all.css";
@@ -12,15 +13,138 @@ import "../../assets/css/user/userCakeDesignDetail.css";
 
 const UserCakeDesignDetail = () => {
   const navigate = useNavigate();
+  const { cakeDesignId } = useParams(); // URL에서 cakeDesignId를 가져옴
   const [isFavorited, setIsFavorited] = useState(false);
-  const [mainImage, setMainImage] = useState("/images/3.png"); // Default main image
+  const [mainImage, setMainImage] = useState(""); // Default main image
+  const [subImages, setSubImages] = useState([]); // 서브 이미지 배열
+  const [cakeDesignDetail, setCakeDesignDetail] = useState([]); // 도안 상세 정보 리스트
+  const [cakeDesignReviews, setCakeDesignReviews] = useState([]); // 도안 리뷰 리스트
+  const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
-  const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
+  const toggleFavorite = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/user/favorite/${cakeDesignId}`,
+        { isFavorited: !isFavorited },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (response.data.result === "success") {
+        console.log(response.data);
+        console.log(response.data.isFavorited);
+        setIsFavorited(response.data.isFavorited);
+        setCakeDesignDetail((prevDetail) => ({
+          ...prevDetail,
+          cakeDesignWishlistCount: response.data.updatedWishlistCount,
+        }));
+      } else {
+        alert(response.data.message || "찜 상태를 변경하는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("찜 상태 변경 실패:", error);
+      alert("찜 상태를 변경하는 중 문제가 발생했습니다.");
+    }
   };
 
   const handleSubImageClick = (imageSrc) => {
     setMainImage(imageSrc); // Update main image when a sub-image is clicked
+  };
+
+  // 도안 상세 정보 가져오기
+  const getCakeDesignDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
+        { responseType: "json" }
+      );
+
+      if (response.data.result === "success") {
+        const detail = response.data.apiData;
+
+        console.log(detail); // 데이터 확인 로그
+
+        // 메인 이미지와 서브 이미지 설정
+        setMainImage(detail.mainImageUrl || ""); // 메인 이미지
+        setSubImages(detail.subImages || []); // 서브 이미지 배열
+        setCakeDesignDetail(detail); // 도안 상세 정보 설정
+        setIsFavorited(detail.isFavorited || false); // 초기 찜 상태 설정
+      } else {
+        alert("도안 정보를 불러오는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("도안 정보 불러오기 실패:", error);
+      alert("도안 정보를 가져오는 중 문제가 발생했습니다.");
+    }
+  };
+
+  // 도안 리뷰 가져오기
+  const getCakeDesignReviews = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/user/cakeDesign/reviews/${cakeDesignId}`,
+        { responseType: "json" }
+      );
+
+      if (response.data.result === "success") {
+        const reviews = response.data.apiData;
+        console.log(reviews); // 데이터 확인 로그
+
+        setCakeDesignReviews(reviews);
+      } else {
+        // alert("도안 리뷰를 불러오는 데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("리뷰 정보 불러오기 실패:", error);
+      alert("리뷰 정보를 가져오는 중 문제가 발생했습니다.");
+    }
+  };
+
+  useEffect(() => {
+    // 로그인된 사용자 정보 가져오기
+    const user = JSON.parse(localStorage.getItem("authUser"));
+    setAuthUser(user);
+
+    getCakeDesignDetail();
+    getCakeDesignReviews();
+  }, [cakeDesignId]);
+
+  // 도안 삭제 요청 함수
+  const deleteCakeDesign = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}/api/vender/cakeDesign/delete/${cakeDesignId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      })
+        .then((response) => {
+          if (response.data.result === "success") {
+            alert("도안이 성공적으로 삭제되었습니다.");
+            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+          } else {
+            alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
+          }
+        })
+        .catch((error) => {
+          console.error("도안 삭제 실패", error);
+          alert("도안을 삭제하는 중 문제가 발생했습니다.");
+        });
+    }
   };
 
   return (
@@ -35,26 +159,40 @@ const UserCakeDesignDetail = () => {
         <div className="user-cake-designs-details">
           <div className="user-design-header">
             <div className="user-cake-designs-title">
-              <span>친구를 위한 특별한 생일 디자인</span>
+              <span>{cakeDesignDetail.cakeDesignTitle || "도안 제목"}</span>
             </div>
             <div className="user-design-info">
-              <p className="user-cake-design-write-date">2024.11.10 13:00:00</p>
-              <p className="user-cake-design-hit">조회 7</p>
-              <p className="user-cake-design-author">작성자 dud9902</p>
-              <div className="user-control-section">
-                <button
-                  className="user-cake-edit-button"
-                  onClick={() => navigate("/user/cakeDesign/edit")}
-                >
-                  수정
-                </button>
-                <button
-                  className="user-cake-delete-button"
-                  onClick={() => alert("삭제 기능")}
-                >
-                  삭제
-                </button>
-              </div>
+              <p className="user-cake-design-write-date">
+                {cakeDesignDetail.cakeDesignCreatedAt}
+              </p>
+              <p className="user-cake-design-hit">
+                조회 {cakeDesignDetail.cakeDesignViewCount}
+              </p>
+              <p className="user-cake-design-author">
+                작성자{" "}
+                {cakeDesignDetail.type === "업체"
+                  ? "업체"
+                  : cakeDesignDetail.userNickname || "익명"}
+              </p>
+              {/* 조건부 렌더링: 작성자와 현재 로그인된 사용자 비교 */}
+              {authUser && cakeDesignDetail.memberId === authUser.member_id ? (
+                <div className="user-control-section">
+                  <button
+                    className="user-cake-edit-button"
+                    onClick={() =>
+                      navigate(`/user/cakeDesign/edit/${cakeDesignId}`)
+                    }
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="user-cake-delete-button"
+                    onClick={deleteCakeDesign}
+                  >
+                    삭제
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -65,51 +203,14 @@ const UserCakeDesignDetail = () => {
                 <div className="user-cake-designs-detail-imgs">
                   <img src={mainImage} alt="케이크 이미지" />
                   <div className="user-cake-designs-detail-sub-imgs">
-                    <img
-                      src="/images/3.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/3.png")}
-                    />
-                    <img
-                      src="/images/4.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/4.png")}
-                    />
-                    <img
-                      src="/images/5.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/5.png")}
-                    />
-                    <img
-                      src="/images/6.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/6.png")}
-                    />
-                    <img
-                      src="/images/7.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/7.png")}
-                    />
-                    <img
-                      src="/images/8.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/8.png")}
-                    />
-                    <img
-                      src="/images/8.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/8.png")}
-                    />
-                    <img
-                      src="/images/8.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/8.png")}
-                    />
-                    <img
-                      src="/images/8.png"
-                      alt="도안 이미지"
-                      onClick={() => handleSubImageClick("/images/8.png")}
-                    />
+                    {subImages.map((imageSrc, index) => (
+                      <img
+                        key={index}
+                        src={imageSrc}
+                        alt={`서브 이미지 ${index + 1}`}
+                        onClick={() => handleSubImageClick(imageSrc)}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -120,29 +221,31 @@ const UserCakeDesignDetail = () => {
                   <div id="detail-txt1">
                     <h2>어떤 디자인인가요?</h2>
                     <p style={{ whiteSpace: "pre-line" }}>
-                      푸른 밤하늘 아래, 잔잔한 초원에 누워 있는 두 친구의
-                      평화로운 순간이 담긴 그림입니다. 다양한 색의 작은 꽃들이
-                      자연스럽게 펼쳐져 있어 따뜻하고 포근한 느낌을 줍니다. 큰
-                      귀를 가진 사랑스러운 동물 캐릭터와 돌 모양의 친구가
-                      함께하며 조용한 유대감을 표현합니다. 동화 속 한 장면처럼,
-                      소중한 추억과 편안한 휴식을 상징하는 이 그림은 보는
-                      이에게도 잔잔한 미소를 선사합니다.
+                      {cakeDesignDetail.cakeDesignDescription ||
+                        "도안에 대한 설명이 없습니다."}
                     </p>
                   </div>
 
                   <div id="detail-txt2">
                     <h2>선호하는 케이크 형태가 있나요?</h2>
-                    <p>눈길을 끌 수 있는 대형 케이크가 좋습니다.</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignPreferredShape || "정보 없음"}
+                    </p>
                   </div>
 
                   <div id="detail-txt3">
                     <h2>어떤분들이 선호하나요?</h2>
-                    <p>20~30대 여성</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignPreferredAge || "정보 없음"}
+                    </p>
                   </div>
 
                   <div id="detail-txt4">
                     <h2>추천하는 이벤트가 있나요?</h2>
-                    <p>생일</p>
+                    <p>
+                      {cakeDesignDetail.cakeDesignRecommendedEvent ||
+                        "정보 없음"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -160,7 +263,9 @@ const UserCakeDesignDetail = () => {
                   ) : (
                     <FaRegHeart className="users-heart-icon" />
                   )}
-                  <span className="users-favorite-count">10</span>
+                  <span className="users-favorite-count">
+                    {cakeDesignDetail.cakeDesignWishlistCount || "0"}
+                  </span>
                 </button>
               </div>
               <div className="user-action-buttons">
@@ -189,29 +294,45 @@ const UserCakeDesignDetail = () => {
             {/* Reviews Section */}
             <div className="user-review-section">
               <h2>도안 사용 후기</h2>
-              <div className="user-cake-designs-review-item">
-                <div className="user-review-header">
-                  <span className="user-review-email-id">dud9902</span>
-                  <span className="user-review-date">2022.10.04</span>
-                  <span className="user-review-stars">★★★★★</span>
-                </div>
-                <div className="user-review-body">
-                  <img
-                    src="/images/goodcake.png"
-                    alt="리뷰 이미지"
-                    className="user-cake-designs-review-image"
-                  />
-                  <div className="user-review-text">
-                    <p className="bakery-name">달콤 베이커리</p>
-                    <p className="cake-name">하늘나라 케이크</p>
-                    <p className="review-content">
-                      하늘 아래 푸른 초원에서 친구들과 함께하는 평화로운 장면이
-                      마음에 들어 이 도안으로 케이크를 주문했어요. 케이크가 너무
-                      예쁘고 포근한 느낌을 주어 가족들도 정말 좋아했습니다!
-                    </p>
+              {cakeDesignReviews.length > 0 ? (
+                cakeDesignReviews.map((review, index) => (
+                  <div className="user-cake-designs-review-item" key={index}>
+                    <div className="user-review-header">
+                      <span className="user-review-email-id">
+                        {review.userNickname}
+                      </span>
+                      <span className="user-review-date">
+                        {review.reviewCreatedAt}
+                      </span>
+                      <span className="user-review-stars">
+                        {[...Array(review.reviewRating)].map((_, starIndex) => (
+                          <FaStar
+                            key={starIndex}
+                            className="cake-design-review-star-icon"
+                          />
+                        ))}
+                      </span>
+                    </div>
+                    <div className="user-review-body">
+                      <img
+                        src={review.reviewImageUrl}
+                        alt="리뷰 이미지"
+                        className="user-cake-designs-review-image"
+                        onClick={() =>
+                          navigate(`/user/cakedetail/${review.productId}`)
+                        }
+                      />
+                      <div className="user-review-text">
+                        <p className="bakery-name">{review.venderName}</p>
+                        <p className="cake-name">{review.productName}</p>
+                        <p className="review-content">{review.reviewContent}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                ))
+              ) : (
+                <p>리뷰가 없습니다.</p>
+              )}
             </div>
           </div>
         </div>

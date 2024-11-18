@@ -1,6 +1,6 @@
 //import 라이브러리
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 //import 컴포넌트
 
@@ -17,6 +17,8 @@ import GearIcon from '@rsuite/icons/Gear';
 
 const VenderHeader = () => {
 
+
+
     /* ---라우터 관련 ------ */
 
 
@@ -30,7 +32,7 @@ const VenderHeader = () => {
 
 
 
-    
+
 
 
 
@@ -47,14 +49,14 @@ const VenderHeader = () => {
         <>
             <div className='vender-header-wrap'>
                 <Link to='/user/storedetail'>
-                    <img src={cakeLogo} />
+                    <img src='#' />
                 </Link>
                 <Link to='/vender/'>
                     <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
                 </Link>
             </div>
-            
-            
+
+
         </>
     );
 }
