@@ -264,21 +264,24 @@ const UserCakeDesignDetail = () => {
 
             <div id="cake-design-action-btns" className="clearfix">
               {/* Favorite Button */}
-              <div className="user-favorite-section">
-                <button
-                  className="user-favorite-button"
-                  onClick={toggleFavorite}
-                >
-                  {isFavorited ? (
-                    <FaHeart className="users-heart-icon" />
-                  ) : (
-                    <FaRegHeart className="users-heart-icon" />
-                  )}
-                  <span className="users-favorite-count">
-                    {cakeDesignDetail.cakeDesignWishlistCount || "0"}
-                  </span>
-                </button>
-              </div>
+              {/* Favorite Button: 작성자 본인의 글이 아닌 경우에만 표시 */}
+              {authUser && cakeDesignDetail.memberId !== authUser.member_id && (
+                <div className="user-favorite-section">
+                  <button
+                    className="user-favorite-button"
+                    onClick={toggleFavorite}
+                  >
+                    {isFavorited ? (
+                      <FaHeart className="users-heart-icon" />
+                    ) : (
+                      <FaRegHeart className="users-heart-icon" />
+                    )}
+                    <span className="users-favorite-count">
+                      {cakeDesignDetail.cakeDesignWishlistCount || "0"}
+                    </span>
+                  </button>
+                </div>
+              )}
               <div className="user-action-buttons">
                 <button
                   className="user-audition-button"

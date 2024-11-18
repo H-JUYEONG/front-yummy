@@ -33,6 +33,7 @@ import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/UserLoginForm';
+import UserKakaoLogin from './pages/user/UserKakaoLogin'; // 화면 아님
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -124,6 +125,7 @@ function App() {
             {/* User Routes */}
             <Route path='/user/test' element={<UserMain />} />
             <Route path='/user/login' element={<UserLoginForm />} />
+            <Route path='/auth/login/kakao' element={<UserKakaoLogin />} /> 
             <Route path='/user/signup/type' element={<UserSignupType />} />
             <Route path='/user/signup' element={<UserSignUpForm />} />
             <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
