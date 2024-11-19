@@ -16,13 +16,14 @@ const UserSignUpForm = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [name, setName] = useState("");
-  const [nikname, setNikname] = useState("");
+  const [nickname, setNickname] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [inputCode, setInputCode] = useState("");
 
   // Validation states
   const [emailValid, setEmailValid] = useState(null); // 이메일 중복 여부
+  const [nicknameValid, setNicknameValid] = useState(null); // 닉네임 중복 여부
   const [passwordMatch, setPasswordMatch] = useState(true); // 비밀번호 일치 여부
 
   // Checkbox states
@@ -58,8 +59,24 @@ const UserSignUpForm = () => {
     setPasswordMatch(password === e.target.value);
   };
 
+  // 닉네임 입력 핸들러 및 중복 체크
+  const handleNickname = (e) => {
+    const newNickname = e.target.value;
+    setNickname(newNickname);
+
+    // 서버에 이메일 중복 체크 요청
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/check/nickname`, {
+        params: { user_nickname: newNickname },
+      })
+      .then((response) => {
+        // response.data.result가 'success'이면 이메일 사용 가능, 'fail'이면 중복
+        setNicknameValid(response.data.result === "success"); // true면 사용 가능, false면 중복
+      })
+      .catch((error) => console.error(error));
+  };
+
   const handleName = (e) => setName(e.target.value);
-  const handleNikname = (e) => setNikname(e.target.value);
   const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
   const handleCodeInput = (e) => setInputCode(e.target.value);
 
@@ -99,24 +116,16 @@ const UserSignUpForm = () => {
     }
 
     // 필수 입력 사항과 약관 동의 확인
-    if (!email || !password || !name || !nikname || !phoneNumber) {
+    if (!email || !password || !name || !nickname || !phoneNumber) {
       alert("필수 입력 사항을 모두 입력하고 약관에 동의해주세요.");
       return;
     }
-    // 각 필드의 상태를 콘솔에 출력하여 확인합니다.
-    console.log("email:", email);
-    console.log("password:", password);
-    console.log("name:", name);
-    console.log("nikname:", nikname);
-    console.log("phoneNumber:", phoneNumber);
-    console.log("isTermsChecked:", isTermsChecked);
-    console.log("isPrivacyChecked:", isPrivacyChecked);
 
     const userVo = {
       email: email,
       password_hash: password,
       name: name,
-      user_nickname: nikname,
+      user_nickname: nickname,
       phone_number: phoneNumber,
     };
 
@@ -209,14 +218,20 @@ const UserSignUpForm = () => {
             </div>
 
             <div className="user-input-group-txt">
-              <label htmlFor="user-nikname">닉네임</label>
+              <label htmlFor="user-nickname">닉네임</label>
               <input
-                id="user-nikname"
+                id="user-nickname"
                 type="text"
-                value={nikname}
+                value={nickname}
                 placeholder="닉네임을 입력해주세요."
-                onChange={handleNikname}
+                onChange={handleNickname}
               />
+              {nicknameValid === true && (
+                <p className="user-id-ok">사용 가능한 닉네임 입니다.</p>
+              )}
+              {nicknameValid === false && (
+                <p className="user-id-ok">중복된 닉네임 입니다.</p>
+              )}
             </div>
 
             <div className="user-input-group-txt">

@@ -1,60 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "../../assets/css/admin/adminmemberlist.css";
 
 const AdminMemberList = () => {
-    const allMembers = [
-        { uid: '12345', name: '홍길동', email: 'hong@domain.com', joinType: '이메일 가입', joinDate: '2024-01-01', status: '활성' },
-        { uid: '67890', name: '김철수', email: '(카카오 계정)', joinType: '카카오 로그인', joinDate: '2024-01-02', status: '비활성' },
-        { uid: '11223', name: '박영희', email: 'young@domain.com', joinType: '이메일 가입', joinDate: '2024-01-03', status: '정지' },
-        // 더 많은 회원 데이터를 추가할 수 있습니다.
-    ];
-
-    const [filteredMembers, setFilteredMembers] = useState(allMembers);
+    const [members, setMembers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
     const itemsPerPage = 5;
-    // 페이징 관련 계산
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/admin/members`)
+            .then((response) => {
+                console.log(response.data); // 데이터 확인
+                setMembers(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("데이터 불러오기 실패:", error);
+                setLoading(false);
+            });
+    }, []);
+
+    const filteredMembers = members.filter((member) =>
+        member.uid.includes(searchTerm) ||
+        member.name.includes(searchTerm) ||
+        member.email.includes(searchTerm) ||
+        member.status.includes(searchTerm)
+    );
+
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentMembers = filteredMembers.slice(indexOfFirstItem, indexOfLastItem);
+
     const totalPages = Math.ceil(filteredMembers.length / itemsPerPage);
-    // 검색 필터 핸들러
-    const handleSearchChange = (e) => {
-        const value = e.target.value.toLowerCase();
-        setSearchTerm(value);
-        setFilteredMembers(
-            allMembers.filter(member =>
-                member.uid.toLowerCase().includes(value) ||
-                member.name.toLowerCase().includes(value) ||
-                member.email.toLowerCase().includes(value) ||
-                member.status.toLowerCase().includes(value)
-            )
-        );
-        setCurrentPage(1); // 검색 시 페이지를 첫 페이지로 리셋
-    };
+    const goToPage = (page) => setCurrentPage(page);
 
-
-
-    // 페이지 이동 핸들러
-    const goToPage = (page) => {
-        setCurrentPage(page);
-    };
-
+    if (loading) {
+        return <p>데이터를 불러오는 중...</p>;
+    }
     return (
         <div className="admin-memberlist-content">
             <h2>회원 리스트</h2>
-
-            {/* 검색 필터 */}
             <div className="search-filter">
                 <input
                     type="text"
                     placeholder="검색 (UID, 이름, 이메일, 상태)"
                     value={searchTerm}
-                    onChange={handleSearchChange}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
-
-            {/* 회원 테이블 */}
             <table className="member-table">
                 <thead>
                     <tr>
@@ -74,15 +70,11 @@ const AdminMemberList = () => {
                             <td>{member.email}</td>
                             <td>{member.joinType}</td>
                             <td>{member.joinDate}</td>
-                            <td className={`status-label ${member.status}`}>
-                                {member.status}
-                            </td>
+                            <td>{member.status === "1" ? "활성" : "비활성"}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-            {/* 페이징 */}
             <div className="pagination">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button

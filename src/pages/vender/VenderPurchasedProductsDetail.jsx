@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Webcam from 'react-webcam'; // react-webcam 라이브러리
 import '../../assets/css/all.css'; // 공통 초기화 및 전역 css
 import '../../assets/css/vender/purchasedproductsDetail.css'; // 주문 상세 페이지 전용 스타일
 import '../../assets/css/vender/vender.css';
 import VenderSidebar from './include/VenderSidebar';
+import WebRTCSender from './WebRTCSender'; // 파일 경로 확인
 const API_URL = process.env.REACT_APP_API_URL;
 
 const PurchasedProductsDetail = () => {
@@ -13,15 +15,62 @@ const PurchasedProductsDetail = () => {
     const [status, setStatus] = useState("제작 중");
     const [imageUrl, setImageUrl] = useState(null);
     const [videoUrl, setVideoUrl] = useState(null);
-    const videoRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const chunks = useRef([]);
     const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
     const [isRecording, setIsRecording] = useState(false);
-    const [isLive, setIsLive] = useState(false);
     const [notificationTimeout, setNotificationTimeout] = useState(null);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
+    const [isWebcamModalOpen, setIsWebcamModalOpen] = useState(false);
+    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false); // 모달 상태
+    const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
+    // 사진 촬영 모달 열기/닫기 함수
+    const openWebcamModal = () => setIsWebcamModalOpen(true);
+    const closeWebcamModal = () => setIsWebcamModalOpen(false);
 
+    // 영상 촬영 모달 열기/닫기 함수
+    const openVideoModal = () => { setIsVideoModalOpen(true); };
+    const closeVideoModal = () => { setIsVideoModalOpen(false); if (isRecording) stopRecording(); };
+
+    // 실시간 촬영 모달 열기/닫기 함수
+    const openLiveModal = () => setIsLiveModalOpen(true);
+    const closeLiveModal = () => setIsLiveModalOpen(false);
+    const webcamRef = useRef(null);
+
+    const dataURLtoFile = (dataurl, filename) => {
+        const arr = dataurl.split(',');
+        const mime = arr[0].match(/:(.*?);/)[1];
+        const bstr = atob(arr[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, { type: mime });
+    };
+    const uploadTestFile = () => {
+        const dummyFile = new File([new Blob(["Test content"], { type: "text/plain" })], "testfile.txt", {
+            type: "text/plain",
+        });
+    
+        uploadMedia(orderId, null, dummyFile); // Test file upload for photo
+    };
+
+    //업로드
+    const uploadMedia = async (orderId, videoFile, photoFile) => {
+        const formData = new FormData();
+        if (videoFile) formData.append("video", videoFile);
+        if (photoFile) formData.append("photo", photoFile);
+
+        try {
+            const response = await axios.post(`${API_URL}/api/vender/${orderId}/upload`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            alert("파일 업로드 성공!");
+        } catch (error) {
+            alert("파일 업로드 실패: " + error.response?.data || error.message);
+        }
+    };
     // 주문 상세 정보를 가져오는 함수
     const fetchOrderDetails = async () => {
         try {
@@ -88,95 +137,63 @@ const PurchasedProductsDetail = () => {
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
     };
-    // 웹캠 사진 촬영 (모바일 지원)
-    const takePhoto = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            const video = videoRef.current;
-            video.srcObject = stream;
-            video.play();
 
-            setTimeout(() => {
-                const canvas = document.createElement("canvas");
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const context = canvas.getContext("2d");
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const dataUrl = canvas.toDataURL("image/png");
-                setImageUrl(dataUrl);
 
-                stream.getTracks().forEach(track => track.stop());
-                alert("사진이 촬영되어 저장되었습니다.");
-            }, 1000);
-        } catch (error) {
-            alert("카메라 접근 권한이 필요합니다.");
+
+    useEffect(() => {
+        if (webcamRef.current) {
+            console.log("Webcam 초기화 완료:", webcamRef.current);
+        } else {
+            console.error("Webcam 초기화 실패");
         }
+    }, []);
+
+    // 사진 촬영
+    const takePhoto = () => {
+        if (!webcamRef.current) {
+            console.error("Webcam이 초기화되지 않았습니다.");
+            return;
+        }
+
+        const imageSrc = webcamRef.current.getScreenshot();
+        if (!imageSrc) {
+            console.error("스크린샷을 가져올 수 없습니다. 카메라가 활성화되지 않았을 수 있습니다.");
+            return;
+        }
+
+        setImageUrl(imageSrc);
     };
+    // 동영상 녹화 시작
+    const startRecording = () => {
+        if (!webcamRef.current) return;
 
-    // 웹캠 영상 촬영 시작 (모바일 지원)
-    const startRecording = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "video/webm" });
+        const stream = webcamRef.current.stream; // Webcam의 비디오 스트림 가져오기
+        mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: "video/webm" });
 
-            mediaRecorderRef.current.ondataavailable = (event) => {
+        mediaRecorderRef.current.ondataavailable = (event) => {
+            if (event.data.size > 0) {
                 chunks.current.push(event.data);
-            };
+            }
+        };
 
-            mediaRecorderRef.current.onstop = () => {
-                const blob = new Blob(chunks.current, { type: "video/webm" });
-                const videoUrl = URL.createObjectURL(blob);
-                setVideoUrl(videoUrl);
-                chunks.current = [];
-                alert("영상이 촬영되어 저장되었습니다.");
-            };
+        mediaRecorderRef.current.onstop = () => {
+            const blob = new Blob(chunks.current, { type: "video/webm" });
+            const url = URL.createObjectURL(blob);
+            setVideoUrl(url);
+            chunks.current = [];
+        };
 
-            mediaRecorderRef.current.start();
-            videoRef.current.srcObject = stream;
-        } catch (error) {
-            alert("카메라 접근 권한이 필요합니다.");
-        }
+        mediaRecorderRef.current.start(); // 녹화 시작
+        setIsRecording(true);
     };
 
-    // 웹캠 영상 촬영 종료
+    // 동영상 녹화 중지
     const stopRecording = () => {
-        mediaRecorderRef.current.stop();
-        videoRef.current.srcObject.getTracks().forEach(track => track.stop());
-    };
-
-    // 알람 발송 함수
-    const sendNotification = (message) => {
-        alert(message); // 알람 발송 예시 (서버 API 호출로 대체 가능)
-        console.log("알람 발송:", message);
-    };
-
-    // 실시간 촬영 시작 함수
-    const startLiveBroadcast = async () => {
-        const timeout = setTimeout(() => {
-            sendNotification("실시간 촬영이 10분 후에 시작됩니다.");
-        }, 10 * 60 * 1000);
-
-        setNotificationTimeout(timeout);
-        setIsLive(true);
-        sendNotification("실시간 촬영이 시작되었습니다. 고객에게 알림이 발송되었습니다.");
-
-        videoRef.current.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
-    };
-
-    // 실시간 촬영 종료 함수
-    const stopLiveBroadcast = () => {
-        clearTimeout(notificationTimeout);
-        setNotificationTimeout(null);
-
-        if (videoRef.current.srcObject) {
-            videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
-            videoRef.current.srcObject = null;
+        if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.stop();
+            setIsRecording(false);
         }
-
-        setIsLive(false);
-        sendNotification("실시간 촬영이 종료되었습니다.");
     };
-
     // 컴포넌트가 언마운트 될 때 타이머 정리
     useEffect(() => {
         return () => {
@@ -273,16 +290,53 @@ const PurchasedProductsDetail = () => {
                             <h2 className="media-delivery-heading">중간 과정 또는 마지막 영상(사진)을 촬영하여 전송해주세요~</h2>
                             <div className="purchasedproductsDetail-media-box">
                                 <div className="purchasedproductsDetail-media-item">
+                                    {isWebcamModalOpen && (
+                                        <div className="modal-overlay">
+                                            <div className="modal-content">
+                                                <h3>📷 사진 촬영</h3>
+                                                <Webcam
+                                                    ref={webcamRef}
+                                                    audio={false}
+                                                    screenshotFormat="image/png"
+                                                    videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
+                                                />
+                                                <button onClick={takePhoto}>📸 사진 촬영</button>
+                                                <button onClick={closeWebcamModal}>닫기</button>
+                                            </div>
+                                        </div>
+                                    )}
                                     <h3>📷 사진 촬영하기</h3>
                                     <p>고객에게 사진을 전송해주세요.</p>
-                                    <button className="centered-button" onClick={takePhoto}>촬영하기</button>
+                                    <button onClick={openWebcamModal}>📷 사진 촬영</button>
                                 </div>
-                                <div className="purchasedproductsDetail-media-item">
-                                    <h3>🎥 영상 촬영하기</h3>
-                                    <p>고객에게 영상을 촬영해주세요.</p>
-                                    <button className="centered-button" onClick={isRecording ? stopRecording : startRecording}>
-                                        {isRecording ? "촬영 중지" : "촬영하기"}
-                                    </button>
+                                <div>
+                                    {/* 모달 트리거 버튼 */}
+                                    <div className="purchasedproductsDetail-media-item">
+                                        <h3>🎥 영상 촬영하기</h3>
+                                        <p>고객에게 영상을 전송해주세요.</p>
+                                        <button onClick={openVideoModal}>영상 촬영 시작</button>
+                                    </div>
+
+                                    {/* 영상 촬영 모달 */}
+                                    {isVideoModalOpen && (
+                                        <div className="modal">
+                                            <div className="modal-content">
+                                                <h3>🎥 영상 촬영</h3>
+                                                <Webcam
+                                                    ref={webcamRef}
+                                                    audio={false}
+                                                    screenshotFormat="image/png"
+                                                    videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
+                                                />
+                                                <div className="modal-actions">
+                                                    <button onClick={isRecording ? stopRecording : startRecording}>
+                                                        {isRecording ? "녹화 중지" : "녹화 시작"}
+                                                    </button>
+                                                    <button onClick={closeVideoModal}>닫기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="purchasedproductsDetail-status-card">
@@ -300,14 +354,31 @@ const PurchasedProductsDetail = () => {
                             <div className="purchasedproductsDetail-preview-content">
                                 {imageUrl && (
                                     <div className="purchasedproductsDetail-preview-item">
-                                        <img src={imageUrl} alt="촬영된 사진 미리보기" />
+                                        {imageUrl && <img src={imageUrl} alt="촬영된 사진" />}
+                                        <button
+                                            onClick={() => {
+                                                const blob = dataURLtoFile(imageUrl, "photo.png");
+                                                uploadMedia(orderId, null, blob); // 사진 업로드
+                                            }}
+                                        >
+                                            업로드
+                                        </button>
                                     </div>
                                 )}
                                 {videoUrl && (
                                     <div className="purchasedproductsDetail-preview-item">
                                         <video src={videoUrl} controls />
+                                        <button
+                                            onClick={() => {
+                                                const blob = dataURLtoFile(videoUrl, "video.webm");
+                                                uploadMedia(orderId, blob, null); // 동영상 업로드
+                                            }}
+                                        >
+                                            업로드
+                                        </button>
                                     </div>
                                 )}
+                                <button onClick={uploadTestFile}>임의 파일 업로드 테스트</button>
                             </div>
                         </section>
 
@@ -315,10 +386,19 @@ const PurchasedProductsDetail = () => {
                         <section className="purchasedproductsDetail-live-broadcast centered-section">
                             <h2>제조 과정을 실시간으로 고객에게 전송해주세요~</h2>
                             <div className="purchasedproductsDetail-live-item">
-                                <p>현재 제조 과정을 고객에게 전송 중입니다.</p>
-                                <button className="centered-button" onClick={isLive ? stopLiveBroadcast : startLiveBroadcast}>
-                                    {isLive ? "실시간 촬영 중지" : "실시간 촬영 시작"}
-                                </button>
+                                {isLiveModalOpen && (
+                                    <div className="modal">
+                                        <div className="modal-content">
+                                            <WebRTCSender
+                                                onStartBroadcast={() => console.log("방송 시작")}
+                                                onStopBroadcast={() => console.log("방송 중지")}
+                                            />
+                                            <button onClick={closeLiveModal}>닫기</button>
+                                        </div>
+                                    </div>
+                                )}
+                                {/* 실시간 방송 버튼 */}
+                                <button onClick={openLiveModal}>실시간 방송 시작</button>
                             </div>
                         </section>
 

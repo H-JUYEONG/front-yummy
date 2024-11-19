@@ -93,7 +93,8 @@ const UserStoreDetail = () => {
     };
 
     const handleKakaoChat = () => {
-        window.open('http://pf.kakao.com/_xdMxfLxj', '_blank');
+        window.open(`http://pf.kakao.com/${detailVo.kakaoURL}`, '_blank');
+
     };
 
     return (
