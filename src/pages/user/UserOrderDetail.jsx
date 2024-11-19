@@ -195,7 +195,7 @@ const UserOrderDetail = () => {
             </p>
             <p>
                 <span className="label">연락처</span>
-                <span className="value">{authUser?.phone_number}</span>
+                <span className="value">{orderDetail.senderPhone}</span>
             </p>
         </div>
     </div>
