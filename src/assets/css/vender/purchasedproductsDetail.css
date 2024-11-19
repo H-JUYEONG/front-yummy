@@ -5,7 +5,13 @@
     border: 1px solid #ddd;
     border-radius: 8px;
 }
-
+.purchasedproductsDetail-section {
+    margin-bottom: 20px; /* 섹션 간 간격 */
+    padding: 15px; /* 섹션 내부 여백 */
+    border: 1px solid #ddd; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    background-color: #f9f9f9; /* 섹션 배경색 */
+}
 .purchasedproductsDetail-content {
     display: flex;
     justify-content: space-between;
@@ -30,40 +36,60 @@
     font-weight: bold;
     margin-bottom: 20px;
 }
-
-.purchasedproductsDetail-basic-info p {
-    font-size: 16px;
+.purchasedproductsDetail-section h3 {
+    font-size: 18px; /* 섹션 제목 크기 */
     color: #333;
-    margin: 5px 0;
+    margin-bottom: 10px; /* 제목 아래 간격 */
+    border-bottom: 1px solid #ddd; /* 제목 아래 경계선 */
+    padding-bottom: 5px; /* 제목과 경계선 간격 */
+}
+.purchasedproductsDetail-basic-info p {
+    font-size: 16px; /* 텍스트 크기 */
+    line-height: 1.8; /* 줄 간격 */
+    color: #333; /* 텍스트 색상 */
+    margin: 5px 0; /* 항목 간격 */
 }
 
+.purchasedproductsDetail-basic-info strong {
+    font-weight: bold;
+    color: #444; /* 라벨 색상 */
+}
 /* 이미지 섹션 */
+/* 카드들이 화면에서 중앙 정렬되도록 설정 */
 .purchasedproductsDetail-images {
     display: flex;
-    flex-direction: row;
-    gap: 20px;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    gap: 20px; /* 이미지 간 간격 */
+    margin-top: 60px; /* 위쪽 여백 추가 */
+    margin-left: 60px;
 }
-
 .purchasedproductsDetail-image-box {
     background-color: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 40px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 150px;
+    width: 350px; /* 박스 고정 너비 */
+    height: 440px; /* 박스 고정 높이 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .purchasedproductsDetail-image-box img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* 이미지가 박스 너비에 맞도록 */
+    height: 100%; /* 이미지가 박스 높이에 맞도록 */
+    object-fit: cover; /* 비율을 유지하면서 박스에 맞게 자르기 */
     border-radius: 8px;
-    margin-bottom: 10px;
+    max-height: 200px; /* 이미지 최대 높이 제한 */
 }
 
 .purchasedproductsDetail-image-box p {
+    margin-top: 10px;
     font-size: 14px;
-    color: #666;
-    margin: 0;
+    color: #333;
 }
 
 /* 사진 및 영상 전달 섹션 */
@@ -75,21 +101,26 @@
     border-radius: 8px;
     text-align: center;
 }
+
 .media-delivery-heading {
     font-size: 18px;
     color: #444;
-    margin-bottom: 20px; /* 텍스트와 버튼 사이 간격 */
+    margin-bottom: 20px;
+    /* 텍스트와 버튼 사이 간격 */
 }
+
 .purchasedproductsDetail-media-delivery h2 {
     font-size: 18px;
     color: #444;
     margin-bottom: 15px;
 }
+
 .purchasedproductsDetail-media-box {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
+
 .purchasedproductsDetail-media-item {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -99,8 +130,10 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 가로 중앙 정렬 */
-    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center;
+    /* 가로 중앙 정렬 */
+    justify-content: center;
+    /* 세로 중앙 정렬 */
 }
 
 
@@ -325,15 +358,19 @@
 .purchasedproductsDetail-preview-item .centered-section {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 수평 중앙 정렬 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    margin: 10 auto; /* 여백 자동 설정으로 중앙 배치 */
+    align-items: center;
+    /* 수평 중앙 정렬 */
+    text-align: center;
+    /* 텍스트 중앙 정렬 */
+    margin: 10 auto;
+    /* 여백 자동 설정으로 중앙 배치 */
 }
 
 /* 버튼이 가운데 정렬되도록 추가 스타일 조정 */
 .purchasedproductsDetail-preview-item .centered-button {
     display: inline-block;
-    width: 80%; /* 필요에 따라 너비 조정 */
+    width: 80%;
+    /* 필요에 따라 너비 조정 */
     max-width: 200px;
     margin: 10px 0;
 }
@@ -359,15 +396,59 @@
     text-align: center;
     width: 500px;
     max-width: 90%;
+    max-height: 80vh;
+    /* 화면 높이의 80%로 제한 */
+    overflow-y: auto;
+    /* 세로 스크롤 활성화 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.product-list-main-content  .modal-actions {
+
+/* 스크롤바 전체 영역 */
+.product-list-main-content .modal-content::-webkit-scrollbar {
+    width: 10px;
+    /* 스크롤바 너비 */
+    height: 10px;
+    /* 가로 스크롤바 높이 */
+}
+
+/* 스크롤바 막대 */
+.product-list-main-content .modal-content::-webkit-scrollbar-thumb {
+    background: #999;
+    /* 스크롤바 색상 */
+    border-radius: 5px;
+    /* 스크롤바 둥글게 */
+    border: 2px solid #fff;
+    /* 배경과의 간격 */
+}
+
+/* 스크롤바 막대에 호버 시 효과 */
+.product-list-main-content .modal-content::-webkit-scrollbar-thumb:hover {
+    background: #666;
+    /* 호버 시 색상 */
+}
+
+/* 스크롤 트랙 (스크롤바 배경) */
+.product-list-main-content .modal-content::-webkit-scrollbar-track {
+    background: #f4f4f4;
+    /* 트랙 배경색 */
+    border-radius: 5px;
+    /* 트랙 둥글게 */
+}
+
+/* 스크롤 트랙 끝 (optional) */
+.product-list-main-content .modal-content::-webkit-scrollbar-track-piece {
+    background: #e0e0e0;
+    /* 트랙 끝부분 배경 */
+}
+
+.product-list-main-content .modal-actions {
     margin-top: 15px;
     display: flex;
     justify-content: space-around;
 }
 
-.product-list-main-content  .modal-actions button {
+.product-list-main-content .modal-actions button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -377,79 +458,23 @@
 .product-list-main-content .modal-actions button:hover {
     background-color: #f0f0f0;
 }
-/* 반응형 스타일 */
-@media (max-width: 768px) {
-    /* 주문 정보 섹션 */
-    .purchasedproductsDetail-info {
-        padding: 20px;
-    }
 
-    .purchasedproductsDetail-content {
-        flex-direction: column;
-    }
 
-    /* 텍스트 섹션 */
-    .purchasedproductsDetail-text {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
+.purchasedproductsDetail-preview {
+    margin-top: 15px;
+    text-align: center;
+}
 
-    /* 이미지 섹션 */
-    .purchasedproductsDetail-images {
-        flex-direction: column;
-        align-items: center;
-    }
+.purchasedproductsDetail-preview img,
+.purchasedproductsDetail-preview video {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .purchasedproductsDetail-image-box {
-        width: 100%;
-        max-width: 250px;
-    }
-
-    /* 사진 및 영상 전달 섹션 */
-    .purchasedproductsDetail-media-box {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .purchasedproductsDetail-media-item {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    /* 실시간 제작 과정 전송 섹션 */
-    .purchasedproductsDetail-live-broadcast {
-        padding: 15px;
-    }
-
-    .purchasedproductsDetail-live-item {
-        width: 100%;
-        max-width: 300px;
-    }
-
-    /* 주문 상태 변경 섹션 */
-    .purchasedproductsDetail-status {
-        flex-direction: column;
-    }
-
-    .purchasedproductsDetail-status-card {
-        width: 100%;
-        max-width: 300px;
-        margin-bottom: 20px;
-    }
-
-    /* 미리보기 섹션 */
-    .purchasedproductsDetail-preview {
-        padding: 15px;
-    }
-
-    .purchasedproductsDetail-preview-content {
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .purchasedproductsDetail-preview-item {
-        width: 100%;
-        max-width: 300px;
-    }
+.purchasedproductsDetail-preview h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
 }

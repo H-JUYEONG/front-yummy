@@ -48,13 +48,6 @@ const PurchasedProductsDetail = () => {
         }
         return new File([u8arr], filename, { type: mime });
     };
-    const uploadTestFile = () => {
-        const dummyFile = new File([new Blob(["Test content"], { type: "text/plain" })], "testfile.txt", {
-            type: "text/plain",
-        });
-    
-        uploadMedia(orderId, null, dummyFile); // Test file upload for photo
-    };
 
     //업로드
     const uploadMedia = async (orderId, videoFile, photoFile) => {
@@ -246,29 +239,49 @@ const PurchasedProductsDetail = () => {
                         <section className="purchasedproductsDetail-info">
                             <div className="purchasedproductsDetail-content-box">
                                 <div className="purchasedproductsDetail-content">
+
                                     <div className="purchasedproductsDetail-text">
-                                        <div className="purchasedproductsDetail-basic-info">
-                                            <h2>{productName}</h2>
-                                            {deliveryMethod && <p><strong>배송 방법:</strong> {deliveryMethod}</p>}
-                                            {deliveryAddress && <p><strong>배송 주소:</strong> {deliveryAddress}</p>}
-                                            {desiredDeliveryDate && <p><strong>배송 요청일:</strong> {desiredDeliveryDate}</p>}
-                                            {desiredDeliveryTime && <p><strong>배송 요청 시간:</strong> {desiredDeliveryTime}</p>}
-                                            {desiredPickupDatetime && <p><strong>픽업 요청일:</strong> {desiredPickupDatetime}</p>}
-                                            {desiredPickupTime && <p><strong>픽업 요청 시간:</strong> {desiredPickupTime}</p>}
-                                            {orderStatus && <p><strong>주문 상태:</strong> {orderStatus}</p>}
-                                            {productType && <p><strong>상품 종류:</strong> {productType}</p>}
-                                            {cakeSize && <p><strong>케이크 크기:</strong> {cakeSize}</p>}
-                                            {flavorSheet && <p><strong>시트 맛:</strong> {flavorSheet}</p>}
-                                            {flavorCream && <p><strong>크림 맛:</strong> {flavorCream}</p>}
-                                            {cakeBackgroundColor && <p><strong>케이크 배경 색상:</strong> {cakeBackgroundColor}</p>}
-                                            {creamPosition && <p><strong>크림 위치:</strong> {creamPosition}</p>}
-                                            {creamColor && <p><strong>크림 색상:</strong> {creamColor}</p>}
-                                            {decorationType && <p><strong>데코레이션 종류:</strong> {decorationType}</p>}
-                                            {decorationColor && <p><strong>데코레이션 색상:</strong> {decorationColor}</p>}
-                                            {totalPrice && <p><strong>총 가격:</strong> {totalPrice}원</p>}
-                                            {cakeLettering && <p><strong>케이크 문구:</strong> {cakeLettering}</p>}
-                                            {plateLettering && <p><strong>케이크 판 문구:</strong> {plateLettering}</p>}
-                                            {additionalRequests && <p><strong>추가 요청 사항:</strong> {additionalRequests}</p>}
+                                        <h2>{productName}</h2>
+
+                                        {/* 배송 정보 섹션 */}
+                                        <div className="purchasedproductsDetail-section">
+                                            <h3>📦 배송 정보</h3>
+                                            <div className="purchasedproductsDetail-basic-info">
+                                                {deliveryMethod && <p><strong>배송 방법:</strong> {deliveryMethod}</p>}
+                                                {deliveryAddress && <p><strong>배송 주소:</strong> {deliveryAddress}</p>}
+                                                {desiredDeliveryDate && <p><strong>배송 요청일:</strong> {desiredDeliveryDate}</p>}
+                                                {desiredDeliveryTime && <p><strong>배송 요청 시간:</strong> {desiredDeliveryTime}</p>}
+                                                {desiredPickupDatetime && <p><strong>픽업 요청일:</strong> {desiredPickupDatetime}</p>}
+                                                {desiredPickupTime && <p><strong>픽업 요청 시간:</strong> {desiredPickupTime}</p>}
+                                            </div>
+                                        </div>
+
+                                        {/* 주문 상태 및 케이크 정보 섹션 */}
+                                        <div className="purchasedproductsDetail-section">
+                                            <h3>🎂 케이크 정보</h3>
+                                            <div className="purchasedproductsDetail-basic-info">
+                                                {orderStatus && <p><strong>주문 상태:</strong> {orderStatus}</p>}
+                                                {productType && <p><strong>상품 종류:</strong> {productType}</p>}
+                                                {cakeSize && <p><strong>케이크 크기:</strong> {cakeSize}</p>}
+                                                {flavorSheet && <p><strong>시트 맛:</strong> {flavorSheet}</p>}
+                                                {flavorCream && <p><strong>크림 맛:</strong> {flavorCream}</p>}
+                                                {cakeBackgroundColor && <p><strong>케이크 배경 색상:</strong> {cakeBackgroundColor}</p>}
+                                                {creamPosition && <p><strong>크림 위치:</strong> {creamPosition}</p>}
+                                                {creamColor && <p><strong>크림 색상:</strong> {creamColor}</p>}
+                                                {decorationType && <p><strong>데코레이션 종류:</strong> {decorationType}</p>}
+                                                {decorationColor && <p><strong>데코레이션 색상:</strong> {decorationColor}</p>}
+                                                {cakeLettering && <p><strong>케이크 문구:</strong> {cakeLettering}</p>}
+                                                {plateLettering && <p><strong>케이크 판 문구:</strong> {plateLettering}</p>}
+                                                {additionalRequests && <p><strong>추가 요청 사항:</strong> {additionalRequests}</p>}
+                                            </div>
+                                        </div>
+
+                                        {/* 결제 및 추가 요청 섹션 */}
+                                        <div className="purchasedproductsDetail-section">
+                                            <h3>💰 결제 정보</h3>
+                                            <div className="purchasedproductsDetail-basic-info">
+                                                {totalPrice && <p><strong>총 가격:</strong> {totalPrice}원</p>}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="purchasedproductsDetail-images">
@@ -281,17 +294,25 @@ const PurchasedProductsDetail = () => {
                                             <p>도안 이미지</p>
                                         </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </section>
-
-
                         <section className="purchasedproductsDetail-media-delivery centered-section">
-                            <h2 className="media-delivery-heading">중간 과정 또는 마지막 영상(사진)을 촬영하여 전송해주세요~</h2>
                             <div className="purchasedproductsDetail-media-box">
+                                <div className="purchasedproductsDetail-status-card">
+                                    <h3>📦 {orderStatus}</h3>
+                                    <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
+                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 중")}>제작 중</button>
+                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 완료")}>제작 완료</button>
+                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "픽업 요청")}>픽업 요청</button>
+                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "배송 중")}>배송 중</button>
+                                </div>
+
                                 <div className="purchasedproductsDetail-media-item">
                                     {isWebcamModalOpen && (
-                                        <div className="modal-overlay">
+                                        <div className="modal">
                                             <div className="modal-content">
                                                 <h3>📷 사진 촬영</h3>
                                                 <Webcam
@@ -302,6 +323,19 @@ const PurchasedProductsDetail = () => {
                                                 />
                                                 <button onClick={takePhoto}>📸 사진 촬영</button>
                                                 <button onClick={closeWebcamModal}>닫기</button>
+                                                {imageUrl && (
+                                                    <div className="purchasedproductsDetail-preview">
+                                                        {imageUrl && <img src={imageUrl} alt="촬영된 사진" />}
+                                                        <button
+                                                            onClick={() => {
+                                                                const blob = dataURLtoFile(imageUrl, "photo.png");
+                                                                uploadMedia(orderId, null, blob); // 사진 업로드
+                                                            }}
+                                                        >
+                                                            업로드
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     )}
@@ -309,14 +343,9 @@ const PurchasedProductsDetail = () => {
                                     <p>고객에게 사진을 전송해주세요.</p>
                                     <button onClick={openWebcamModal}>📷 사진 촬영</button>
                                 </div>
-                                <div>
-                                    {/* 모달 트리거 버튼 */}
-                                    <div className="purchasedproductsDetail-media-item">
-                                        <h3>🎥 영상 촬영하기</h3>
-                                        <p>고객에게 영상을 전송해주세요.</p>
-                                        <button onClick={openVideoModal}>영상 촬영 시작</button>
-                                    </div>
 
+                                {/* 모달 트리거 버튼 */}
+                                <div className="purchasedproductsDetail-media-item">
                                     {/* 영상 촬영 모달 */}
                                     {isVideoModalOpen && (
                                         <div className="modal">
@@ -328,57 +357,30 @@ const PurchasedProductsDetail = () => {
                                                     screenshotFormat="image/png"
                                                     videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
                                                 />
-                                                <div className="modal-actions">
-                                                    <button onClick={isRecording ? stopRecording : startRecording}>
-                                                        {isRecording ? "녹화 중지" : "녹화 시작"}
-                                                    </button>
-                                                    <button onClick={closeVideoModal}>닫기</button>
-                                                </div>
+                                                <button onClick={isRecording ? stopRecording : startRecording}>
+                                                    {isRecording ? "녹화 중지" : "녹화 시작"}
+                                                </button>
+                                                <button onClick={closeVideoModal}>닫기</button>
+                                                {videoUrl && (
+                                                    <div className="purchasedproductsDetail-preview">
+                                                        <video src={videoUrl} controls />
+                                                        <button
+                                                            onClick={() => {
+                                                                const blob = dataURLtoFile(videoUrl, "video.webm");
+                                                                uploadMedia(orderId, blob, null); // 동영상 업로드
+                                                            }}
+                                                        >
+                                                            업로드
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     )}
+                                    <h3>🎥 영상 촬영하기</h3>
+                                    <p>고객에게 영상을 전송해주세요.</p>
+                                    <button onClick={openVideoModal}>🎥 영상 촬영 시작</button>
                                 </div>
-                            </div>
-                            <div className="purchasedproductsDetail-status-card">
-                                <h3>📦 {orderStatus}</h3>
-                                <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
-                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 중")}>제작 중</button>
-                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 완료")}>제작 완료</button>
-                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "픽업 요청")}>픽업 요청</button>
-                                <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "배송 중")}>배송 중</button>
-                            </div>
-                        </section>
-
-                        <section className="purchasedproductsDetail-preview">
-                            <h2>촬영된 사진 및 영상 미리보기</h2>
-                            <div className="purchasedproductsDetail-preview-content">
-                                {imageUrl && (
-                                    <div className="purchasedproductsDetail-preview-item">
-                                        {imageUrl && <img src={imageUrl} alt="촬영된 사진" />}
-                                        <button
-                                            onClick={() => {
-                                                const blob = dataURLtoFile(imageUrl, "photo.png");
-                                                uploadMedia(orderId, null, blob); // 사진 업로드
-                                            }}
-                                        >
-                                            업로드
-                                        </button>
-                                    </div>
-                                )}
-                                {videoUrl && (
-                                    <div className="purchasedproductsDetail-preview-item">
-                                        <video src={videoUrl} controls />
-                                        <button
-                                            onClick={() => {
-                                                const blob = dataURLtoFile(videoUrl, "video.webm");
-                                                uploadMedia(orderId, blob, null); // 동영상 업로드
-                                            }}
-                                        >
-                                            업로드
-                                        </button>
-                                    </div>
-                                )}
-                                <button onClick={uploadTestFile}>임의 파일 업로드 테스트</button>
                             </div>
                         </section>
 
