@@ -1,267 +1,224 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect,useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import VenderHeader from '../vender/include/VenderHeader';
+import '../../assets/css/user/userpaymentdetail.css';
 import axios from 'axios';
-import UserSidebar from '../../pages/user/include/UserSidebar';
-import RightNavbar from './include/RightNavbar';
-import '../../assets/css/user/usermain.css';
-import '../../assets/css/user/userorder.css';
-import Header from './include/Header';
-import Footer from './include/Footer';
 
-const UserOrder = () => {
-    const [showDetail, setShowDetail] = useState(false);
-    const [selectedOrder, setSelectedOrder] = useState(null);
-    const [orderList, setOrderList] = useState([]);
-    const [authUser, setAuthUser] = useState(() => {
-        const user = localStorage.getItem('authUser');
-        return user ? JSON.parse(user) : null;
-    });
+const UserPaymentDetail = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const orderData = location.state;
+    const [authUser, setAuthUser] = useState(null);
 
-    // 컴포넌트 마운트 시 스크롤 최상단으로
     useEffect(() => {
         window.scrollTo(0, 0);
-        fetchOrderList();
-    }, []);
+        
+        // localStorage에서 인증 정보 가져오기
+        const userStr = localStorage.getItem('authUser');
+        if (userStr) {
+            const user = JSON.parse(userStr);
+            setAuthUser(user);
+        }
 
-    const fetchOrderList = async () => {
-        if (!authUser || !authUser.user_id) {
-            console.error('User not logged in');
+        // orderData나 인증 정보가 없으면 메인으로 리다이렉트
+        if (!orderData || !userStr) {
+            alert('잘못된 접근입니다.');
+            navigate('/');
             return;
         }
+    }, [orderData, navigate]);
 
+    const handlePayment = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders`, {
-                params: { userId: authUser.user_id }
+            // 로그인 확인
+            if (!authUser) {
+                alert('로그인이 필요한 서비스입니다.');
+                navigate('/user/login');
+                return;
+            }
+
+            // 1. 옵션 데이터 포맷팅 (기존과 동일)
+            const formattedOptions = {};
+            Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
+                const mappedKey = {
+                    'Product Type': 'productType',
+                    'Cake Size': 'cakeSize',
+                    'Flavor - Sheet': 'flavorSheet',
+                    'Flavor - Cream': 'flavorCream',
+                    'Cake Background Color': 'cakeBackgroundColor',
+                    'Cream Position': 'creamPosition',
+                    'Cream Color': 'creamColor',
+                    'Decoration Type': 'decorationType',
+                    'Decoration Color': 'decorationColor',
+                    'Category': 'category'
+                }[key];
+
+                if (mappedKey) {
+                    formattedOptions[mappedKey] = value;
+                }
             });
-            setOrderList(response.data);
+
+            // 2. 날짜/시간 데이터 구성 (기존과 동일)
+            const dateTimeData = orderData.orderInfo.deliveryType === 'pickup'
+                ? {
+                    desiredPickupDatetime: orderData.orderInfo.selectedDate,
+                    desiredPickupTime: orderData.orderInfo.selectedTime,
+                    desiredDeliveryDate: null,
+                    desiredDeliveryTime: null
+                }
+                : {
+                    desiredPickupDatetime: null,
+                    desiredPickupTime: null,
+                    desiredDeliveryDate: orderData.orderInfo.selectedDate,
+                    desiredDeliveryTime: orderData.orderInfo.selectedTime
+                };
+
+            // 3. API 요청 데이터 구성
+            const requestData = {
+                productId: Number(orderData.productInfo.productId),
+                userId: authUser.user_id, // 로그인한 사용자의 ID 사용
+                deliveryMethod: orderData.orderInfo.deliveryType,
+                deliveryAddress: orderData.orderInfo.address?.toString() || '',
+                recipientName: orderData.orderInfo.recipientName,
+                recipientPhone: orderData.orderInfo.recipientPhone,
+                totalPrice: Number(orderData.productInfo.productPrice),
+                cakeLettering: orderData.orderInfo.cakeLetter || '',
+                plateLettering: orderData.orderInfo.plateLetter || '',
+                additionalRequests: orderData.orderInfo.additionalRequest || '',
+                ...dateTimeData,
+                ...formattedOptions
+            };
+
+            // 토큰 가져오기
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('인증 토큰이 없습니다.');
+            }
+
+            // 4. API 요청 (토큰 포함)
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/orders`,
+                requestData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // 토큰 추가
+                    }
+                }
+            );
+
+            // 5. 응답 처리 (기존과 동일)
+            if (response.data && response.data.result === "success") {
+                // 현재 날짜/시간 포맷팅
+                const now = new Date();
+                const formattedDateTime = now.toLocaleString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }).replace(/\. /g, '.').replace(',', '');
+
+                // 주문 완료 페이지로 이동
+                navigate('/user/ordercomplete', {
+                    state: {
+                        orderId: response.data.orderId,
+                        totalPrice: orderData.productInfo.productPrice,
+                        orderDateTime: formattedDateTime
+                    }
+                });
+            } else {
+                throw new Error(response.data?.message || '주문 처리 실패');
+            }
         } catch (error) {
-            console.error('Error fetching order list:', error);
+            console.error('주문 처리 중 오류:', error);
+            if (error.response?.status === 401) {
+                alert('로그인이 필요합니다.');
+                navigate('/user/login');
+                return;
+            }
+            alert(error.response?.data?.message || '주문 처리 중 오류가 발생했습니다.');
         }
     };
-
-    const fetchOrderDetail = async (orderId) => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/${orderId}`);
-            setSelectedOrder(response.data);
-            setShowDetail(true);
-        } catch (error) {
-            console.error('Error fetching order detail:', error);
-        }
-    };
-
-    const orderStatuses = [
-        { label: '결제완료', count: orderList.filter(order => order.orderStatus === '결제완료').length },
-        { label: '제작중', count: orderList.filter(order => order.orderStatus === '제작중').length },
-        { label: '제작완료', count: orderList.filter(order => order.orderStatus === '제작완료').length },
-        { label: '픽업요청/배송중', count: orderList.filter(order => order.orderStatus === '픽업요청/배송중').length },
-        { label: '픽업/배송완료', count: orderList.filter(order => order.orderStatus === '픽업/배송완료').length }
-    ];
-
-    // 상태 클릭 핸들러 - 스크롤 처리 추가
-    const handleStatusClick = (order) => {
-        if (order.statusMessage === '업로드 완료') {
-            window.scrollTo(0, 0);
-            fetchOrderDetail(order.id);
-        }
-    };
-
-    // 목록으로 돌아가기 핸들러 - 스크롤 처리 추가
-    const handleBackToList = () => {
-        window.scrollTo(0, 0);
-        setShowDetail(false);
-        setSelectedOrder(null);
-    };
-
-    // 링크 클릭 시 스크롤 처리를 위한 컴포넌트
-    const ScrollToTopLink = ({ to, className, children, state }) => {
-        const handleClick = () => {
-            window.scrollTo(0, 0);
-        };
-
-        return (
-            <Link to={to} className={className} state={state} onClick={handleClick}>
-                {children}
-            </Link>
-        );
-    };
-
-    // 주문 목록 화면
-    const OrderList = () => (
-        <div className="main-content">
-            <h2>주문조회</h2>
-
-            {/* Order Status Description */}
-            <section className="status-description">
-                <h3>주문상태 안내</h3>
-                <table className="description-table">
-                    <tbody>
-                        <tr><td>결제대기</td><td>주문완료 후 결제내역이 미확인 상태입니다.</td></tr>
-                        <tr><td>결제완료</td><td>결제 및 확인이 완료되었습니다.</td></tr>
-                        <tr><td>제작중</td><td>주문한 제품이 제작중입니다.</td></tr>
-                        <tr><td>픽업일(D-day)</td><td>상품이 전부 준비되었습니다! 예약하신 시간에 맞게 방문해주세요!</td></tr>
-                        <tr><td>픽업완료</td><td>고객에 픽업완료 된 상태입니다.</td></tr>
-                        <tr><td>주문취소</td><td>고객님이나 업체측에 의하여 취소된 주문입니다.(단, 위약금 별도)</td></tr>
-                    </tbody>
-                </table>
-            </section>
-
-            {/* Order Status Overview */}
-            <section className="order-status-container">
-                {orderStatuses.map((status, index) => (
-                    <div key={index} className="status-item">
-                        <div className="status-count">{status.count}</div>
-                        <div className="status-label">{status.label}</div>
-                        {index < orderStatuses.length - 1 && <div className="status-arrow">▶</div>}
-                    </div>
-                ))}
-            </section>
-
-            {/* Order Search Section */}
-            <section className="order-search">
-                <div className="date-filter">
-                    <input type="date" defaultValue="2024-10-03" />
-                    <span>~</span>
-                    <input type="date" defaultValue="2024-11-03" />
-                    <button className="period-btn">최근 1주일</button>
-                    <button className="period-btn">최근 1개월</button>
-                    <button className="period-btn">최근 3개월</button>
-                    <button className="period-btn">최근 6개월</button>
-                </div>
-                <div className="notice">
-                    <p>* 주문상태 새로고침 버튼을 이용하시면 현재의 주문상태를 확인할 수 있습니다</p>
-                    <p>* 제작된 제품사진/영상은 계속해서 보실 수 있습니다.</p>
-                </div>
-            </section>
-
-            {/* Order List Section */}
-            <section className="order-list">
-                <table className="order-table">
-                    <thead>
-                        <tr>
-                            <th>등록 날짜</th>
-                            <th>제품명</th>
-                            <th>주문상태</th>
-                            <th>제작영상/사진</th>
-                            <th>관리</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orderList.map((order) => (
-                            <tr key={order.id}>
-                                <td>{order.date}</td>
-                                <td>{order.productName}</td>
-                                <td>{order.orderStatus}</td>
-                                <td>
-                                    <span
-                                        className={order.statusMessage === '업로드 완료' ? 'clickable-status' : ''}
-                                        onClick={() => handleStatusClick(order)}
-                                    >
-                                        {order.statusMessage}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div className="action-buttons">
-                                        {order.actions.map((action, idx) => (
-                                            action === '주문상세보기' ? (
-                                                <ScrollToTopLink
-                                                    key={idx}
-                                                    to={`/user/mypage/orderdetail`}
-                                                    className="action-btn"
-                                                >
-                                                    {action}
-                                                </ScrollToTopLink>
-                                            ) : action === '리뷰쓰기' ? (
-                                                <ScrollToTopLink
-                                                    key={idx}
-                                                    to="/user/cakedetail"
-                                                    state={{ openReview: true }}
-                                                    className="action-btn"
-                                                >
-                                                    {action}
-                                                </ScrollToTopLink>
-                                            ) : (
-                                                <button key={idx} className="action-btn">
-                                                    {action}
-                                                </button>
-                                            )
-                                        ))}
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    );
-
-    // 주문 상세 화면
-    const OrderDetail = () => (
-        <div className="order-detail-container">
-            <div className="header-actions">
-                <h2 className="order-title">제작 과정 상세</h2>
-                <button onClick={handleBackToList} className="back-to-list">
-                    주문목록으로
-                </button>
-            </div>
-
-            <div className="order-info">
-                <p>주문번호: {selectedOrder.id}</p>
-                <p>주문일자: {selectedOrder.date}</p>
-                <p>상품명: {selectedOrder.productName}</p>
-            </div>
-
-            {/* 케이크 제작 영상/사진 섹션 */}
-            <div className="cake-media-section">
-                {selectedOrder.video && (
-                    <div className="video-container">
-                        <h3>제작 영상</h3>
-                        <div className="video-wrapper">
-                            <video controls className="cake-video">
-                                <source src={selectedOrder.video} type="video/mp4" />
-                                동영상을 재생할 수 없습니다.
-                            </video>
-                        </div>
-                    </div>
-                )}
-
-                {selectedOrder.images.length > 0 && (
-                    <div className="photo-container">
-                        <h3>제작 사진</h3>
-                        <div className="photo-gallery">
-                            {selectedOrder.images.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={image}
-                                    alt={`케이크 제작 과정 ${index + 1}`}
-                                    className="cake-photo"
-                                    onError={(e) => {
-                                        e.target.src = '/images/케이크 제작 1.jpg';
-                                    }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
-    );
 
     return (
-        <div id="user-wrap">
-            <header id="user-wrap-head">
-                <Header />
-            </header>
-            <RightNavbar />
-            <main id="user-wrap-body">
-                <UserSidebar />
-                {showDetail ? <OrderDetail /> : <OrderList />}
+        <div id="user-wrap" className="text-center">
+            <VenderHeader />
+            <main id="d-user-wrap-body">
+                <div className="payment-container">
+                    <div className="payment-content">
+                        <div className="product-info">
+                            <div className="product-image">
+                                <img src={orderData.productInfo.productImage} alt="상품 이미지" />
+                            </div>
+                            <div className="product-details">
+                                <div className="payment-label">주문 내역 확인</div>
+                                <div className="product-title">{orderData.productInfo.productName}</div>
+
+                                <div className="detail-item">
+                                    <span className="label">배송방법: </span>
+                                    <span className="value">
+                                        {orderData.orderInfo.deliveryType === 'pickup' ? '픽업' : '퀵배송'}
+                                    </span>
+                                </div>
+
+                                <div className="detail-item">
+                                    <span className="label">
+                                        {orderData.orderInfo.deliveryType === 'pickup' ? '픽업장소: ' : '배송주소: '}
+                                    </span>
+                                    <span className="value">{orderData.orderInfo.address}</span>
+                                </div>
+
+                                <div className="detail-item">
+                                    <span className="label">받으실 분: </span>
+                                    <span className="value">{orderData.orderInfo.recipientName}</span>
+                                </div>
+
+                                <div className="detail-item">
+                                    <span className="label">받으실 분 번호: </span>
+                                    <span className="value">{orderData.orderInfo.recipientPhone}</span>
+                                </div>
+
+                                <div className="detail-item">
+                                    <span className="label">가격: </span>
+                                    <span className="value price">
+                                        {orderData.productInfo.productPrice?.toLocaleString()}원
+                                    </span>
+                                </div>
+
+                                {orderData.orderInfo.cakeLetter && (
+                                    <div className="detail-item">
+                                        <span className="label">케이크 위 문구: </span>
+                                        <span className="value">{orderData.orderInfo.cakeLetter}</span>
+                                    </div>
+                                )}
+
+                                {orderData.orderInfo.plateLetter && (
+                                    <div className="detail-item">
+                                        <span className="label">케이크 판 문구: </span>
+                                        <span className="value">{orderData.orderInfo.plateLetter}</span>
+                                    </div>
+                                )}
+
+                                {orderData.orderInfo.additionalRequest && (
+                                    <div className="detail-item">
+                                        <span className="label">요청사항: </span>
+                                        <span className="value">{orderData.orderInfo.additionalRequest}</span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <button
+                            onClick={handlePayment}
+                            className="payment-button">
+                            결제하기
+                        </button>
+                    </div>
+                </div>
             </main>
-            <footer id="user-wrap-footer">
-                <Footer />
-            </footer>
         </div>
     );
 };
 
-export default UserOrder;
+export default UserPaymentDetail;
