@@ -19,7 +19,7 @@ const UserPersonalInfoEdit = () => {
 
   const [profilePicture, setProfilePicture] = useState("");
   const [newProfilePicture, setNewProfilePicture] = useState(null); // For new profile image
-  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userName, setUserName] = useState("");
   const [userNickName, setUserNickName] = useState("");
@@ -40,25 +40,23 @@ const UserPersonalInfoEdit = () => {
       headers: { Authorization: `Bearer ${token}` },
       responseType: "json",
     })
-      .then((response) => {
-        if (response.data.result === "success") {
-          const combinedData = response.data.data;
-
-          // Set user profile
-          const userProfile = combinedData.userProfile;
-          setUserId(userProfile.memberId);
-          setUserName(userProfile.name);
-          setUserNickName(userProfile.userNickname);
-          setUserHp(userProfile.phoneNumber);
-          setProfilePicture(userProfile.userProfileImageUrl);
-
-          // Set user events
-          const userEvents = combinedData.userEvents;
-          setUserEventList(userEvents || []);
-        } else {
-          alert("회원정보 가져오기 실패");
-        }
-      })
+    .then((response) => {
+      if (response.data.result === "success") {
+        const combinedData = response.data.apiData || {}; // Use apiData instead of data
+        const userProfile = combinedData.userProfile || {};
+        setUserPw(userProfile.passwordHash || "");
+        setEmail(userProfile.email || "");
+        setUserName(userProfile.name || "");
+        setUserNickName(userProfile.userNickname || "");
+        setUserHp(userProfile.phoneNumber || "");
+        setProfilePicture(userProfile.userProfileImageUrl || "");
+    
+        const userEvents = combinedData.userEvents || [];
+        setUserEventList(userEvents);
+      } else {
+        alert("회원정보 가져오기 실패");
+      }
+    })
       .catch((error) => {
         console.error("Error fetching user personal info:", error);
       });
@@ -244,12 +242,13 @@ const UserPersonalInfoEdit = () => {
           {/* User Information Form */}
           <form className="user-edit-form" onSubmit={handleSave}>
             <label>아이디</label>
-            <input type="text" value={userId} readOnly />
+            <input type="text" value={email} readOnly />
 
             <label>이름</label>
             <input
               type="text"
               value={userName}
+              readOnly
             />
 
             <label>유저네임</label>
@@ -298,7 +297,7 @@ const UserPersonalInfoEdit = () => {
               <button onClick={handleAddEvent}>기념일 추가하기</button>
             </section>
 
-          </form>
+          
 
 
                     {/* Display Event List */}
@@ -334,7 +333,7 @@ const UserPersonalInfoEdit = () => {
               저장하기
             </button>
           </div>
-
+        </form>
           {/* 탈퇴 버튼 Section */}
           <div className="j-user-withdrawal-section">
             <button
@@ -345,6 +344,7 @@ const UserPersonalInfoEdit = () => {
               회원 탈퇴
             </button>
           </div>
+
         </div>
       </main>
 

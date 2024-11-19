@@ -1,16 +1,41 @@
 // Import libraries
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "../../../assets/css/all.css";
 import "../../../assets/css/user/usermain.css";
 import "../../../assets/css/user/userwithdrawconfirm.css"; // Assuming you have a CSS file for styling
 
-const UserWithdrawConfirm = ({ onClose, onConfirm }) => {
+const UserWithdrawConfirm = ({ onClose }) => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
-  const handleConfirmAndNavigate = () => {
-    onConfirm();
-    navigate('/'); // Redirects to the homepage
+  const handleConfirmWithdraw = () => {
+    axios({
+      method: "put", // Using PUT for modifying data
+      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/withdraw`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: "json",
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          alert("회원 탈퇴가 완료되었습니다.");
+
+          // Clear localStorage and log out
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+
+          // Redirect to the login page or homepage
+          navigate('/');
+        } else {
+          alert("회원 탈퇴 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("Error processing withdrawal:", error);
+      });
   };
 
   return (
@@ -29,7 +54,7 @@ const UserWithdrawConfirm = ({ onClose, onConfirm }) => {
           </ul>
         </div>
 
-        <button className="withdraw-confirm-btn" onClick={handleConfirmAndNavigate}>
+        <button className="withdraw-confirm-btn" onClick={handleConfirmWithdraw}>
           회원 삭제
         </button>
         <button className="withdraw-cancel-btn" onClick={onClose}>취소</button>
@@ -39,3 +64,4 @@ const UserWithdrawConfirm = ({ onClose, onConfirm }) => {
 };
 
 export default UserWithdrawConfirm;
+
