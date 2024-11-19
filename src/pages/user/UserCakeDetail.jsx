@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
-import "../../assets/css/user/CakeOrder.css"
+import "../../assets/css/user/CakeOrder.css";
 import '../../assets/css/user/usermain.css';
+import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
@@ -27,12 +28,18 @@ const UserCakeDetail = () => {
     const [selectedTab, setSelectedTab] = useState(
         location.state?.openReview ? '후기' : '상품 상세정보'
     );
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
     const [mainImage, setMainImage] = useState('');
     const [selectedOptions, setSelectedOptions] = useState({});
     const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(128);
+    const [likeCount, setLikeCount] = useState(0);
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
     const [deliveryType, setDeliveryType] = useState('pickup');
 
     // 스크롤 관련 상태
@@ -84,640 +91,765 @@ const UserCakeDetail = () => {
             image: '/images/review2.jpg'
         }
     ]);
-      // 별점 통계 데이터
-   const ratingStats = {
-    5: 12,
-    4: 0,
-    3: 0,
-    2: 0,
-    1: 0,
-    average: 5
-};
+    // 별점 통계 데이터
+    const ratingStats = {
+        5: 12,
+        4: 0,
+        3: 0,
+        2: 0,
+        1: 0,
+        average: 5
+    };
 
-// useEffect
-useEffect(() => {
-    window.scrollTo(0, 0);
-}, []);
+    // 시간 옵션 상수 추가
+    const TIME_OPTIONS = [
+        { value: '09:00:00', label: '09:00' },
+        { value: '10:00:00', label: '10:00' },
+        { value: '11:00:00', label: '11:00' },
+        { value: '12:00:00', label: '12:00' },
+        { value: '13:00:00', label: '13:00' },
+        { value: '14:00:00', label: '14:00' },
+        { value: '15:00:00', label: '15:00' },
+        { value: '16:00:00', label: '16:00' },
+        { value: '17:00:00', label: '17:00' },
+        { value: '18:00:00', label: '18:00' }
+    ];
 
-useEffect(() => {
-    if(productDetail?.productImage1Url) {
-        setMainImage(productDetail.productImage1Url);
-    }
-}, [productDetail]);
 
-useEffect(() => {
-    if(productOptions) {
-        // 선택된 옵션의 실제 이름을 찾아 저장
-        const optionNames = {};
-        Object.keys(OPTION_TYPES).forEach(type => {
-            const options = productOptions[type] || [];
-            const selectedId = selectedOptions[OPTION_TYPES[type].stateKey];
-            const selectedOption = options.find(opt => opt.optionValueId === selectedId);
-            if(selectedOption) {
-                optionNames[type] = selectedOption.optionValueName;
-            }
+    // useEffect
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    // 컴포넌트 마운트 시 찜 상태 조회
+    useEffect(() => {
+        if (productId) {
+            fetchWishlistInfo();
+        }
+    }, [productId, authUser]);
+
+
+    useEffect(() => {
+        if (productDetail?.productImage1Url) {
+            setMainImage(productDetail.productImage1Url);
+        }
+    }, [productDetail]);
+
+    useEffect(() => {
+        if (productOptions && Object.keys(productOptions).length > 0) {
+            const optionNames = {};
+            Object.keys(OPTION_TYPES).forEach(type => {
+                const options = productOptions[type] || [];
+                const selectedId = selectedOptions[OPTION_TYPES[type].stateKey];
+                const selectedOption = options.find(opt => opt.optionValueId === selectedId);
+                if (selectedOption) {
+                    optionNames[type] = selectedOption.optionValueName;
+                }
+            });
+            setSelectedOptionNames(optionNames);
+        }
+    }, [selectedOptions, productOptions]);
+    // API 호출
+
+    const getProductDetail = () => {
+        setIsLoading(true);
+        axios({
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/products/${productId}`,
+            responseType: 'json'
+        }).then(response => {
+            setProductDetail(response.data.apiData);
+            console.log("상품 상세:", response.data.apiData);
+        }).catch(error => {
+            console.log(error);
+        }).finally(() => {
+            setIsLoading(false);
         });
-        setSelectedOptionNames(optionNames);
-    }
-}, [selectedOptions, productOptions]);
-// API 호출
-const getProductDetail = () => {
-    axios({
-        method: 'get',
-        url: `${process.env.REACT_APP_API_URL}/api/products/${productId}`,
-        responseType: 'json'
-    }).then(response => {
-        setProductDetail(response.data.apiData);
-        console.log("상품 상세:", response.data.apiData);
-    }).catch(error => {
-        console.log(error);
-    });
-};
+    };
+    const getProductOptions = () => {
+        axios({
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/products/${productId}/options`,
+            responseType: 'json'
+        }).then(response => {
+            console.log("API Response:", response.data); // 응답 구조 확인
 
-const getProductOptions = () => {
-    axios({
-        method: 'get',
-        url: `${process.env.REACT_APP_API_URL}/api/products/${productId}/options`,
-        responseType: 'json'
-    }).then(response => {
-        const options = response.data.apiData;
-        const groupedOptions = {};
-        options.forEach(option => {
-            if (!groupedOptions[option.optionTypeName]) {
-                groupedOptions[option.optionTypeName] = [];
+            // 데이터가 있는지 확인
+            if (!response.data || !response.data.apiData) {
+                console.log("No data received from API");
+                setProductOptions({});
+                return;
             }
-            groupedOptions[option.optionTypeName].push(option);
+
+            const options = response.data.apiData;
+
+            // options가 배열인지 확인
+            if (!Array.isArray(options)) {
+                console.log("API data is not an array");
+                setProductOptions({});
+                return;
+            }
+
+            const groupedOptions = {};
+            options.forEach(option => {
+                if (!groupedOptions[option.optionTypeName]) {
+                    groupedOptions[option.optionTypeName] = [];
+                }
+                groupedOptions[option.optionTypeName].push(option);
+            });
+
+            setProductOptions(groupedOptions);
+        }).catch(error => {
+            console.error("API Error:", error);
+            setProductOptions({});
         });
-        setProductOptions(groupedOptions);
-    }).catch(error => {
-        console.log(error);
-    });
-};
+    };
 
-useEffect(() => {
-    if(productId) {
-        getProductDetail();
-        getProductOptions();
+    useEffect(() => {
+        if (productId) {
+            getProductDetail();
+            getProductOptions();
+        }
+    }, [productId]);
+
+    // 이벤트 핸들러
+    const handleTimeSelect = (e) => {
+        const selectedTimeValue = e.target.value;
+        console.log('Selected Time:', selectedTimeValue); // 디버깅용
+        setSelectedTime(selectedTimeValue);
+    };
+    const handleOptionSelect = (optionType, optionId) => {
+        setSelectedOptions(prev => ({
+            ...prev,
+            [OPTION_TYPES[optionType].stateKey]: optionId
+        }));
+    };
+
+    const handleThumbnailClick = (imagePath) => {
+        setMainImage(imagePath);
+    };
+
+
+    // 찜하기/취소 핸들러
+    const handleLike = async () => {
+        if (!authUser) {
+            alert('로그인이 필요한 서비스입니다.');
+            return;
+        }
+    
+        try {
+            if (isLiked) {
+                // 찜 취소
+                await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/remove`,
+                    {
+                        data: {
+                            productId: parseInt(productId),
+                            memberId: authUser.member_id
+                        }
+                    }
+                );
+            } else {
+                // 찜하기
+                await axios.post(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/add`,
+                    {
+                        productId: parseInt(productId),
+                        memberId: authUser.member_id
+                    }
+                );
+            }
+            
+            // UI 즉시 업데이트
+            setIsLiked(!isLiked);
+            setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+            
+            // 서버에서 최신 정보 다시 가져오기
+            await fetchWishlistInfo();
+        } catch (error) {
+            console.error('찜하기 처리 실패:', error);
+            alert('처리 중 오류가 발생했습니다.');
+            // 에러 발생 시 UI 원상복구
+            await fetchWishlistInfo();
+        }
+    };
+   // 찜 정보 조회 함수 수정
+const fetchWishlistInfo = async () => {
+    try {
+        // 총 찜 개수 조회
+        const countResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/wishlist/count/${productId}`
+        );
+        console.log('찜 개수 응답:', countResponse.data);
+        // data.data로 접근하도록 수정
+        setLikeCount(countResponse.data.data);
+
+        // 로그인한 경우만 찜 상태 조회
+        if (authUser) {
+            const statusResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/wishlist/check`,
+                {
+                    params: {
+                        productId: parseInt(productId),
+                        memberId: authUser.member_id
+                    }
+                }
+            );
+            console.log('찜 상태 응답:', statusResponse.data);
+            setIsLiked(statusResponse.data.data > 0);
+        }
+    } catch (error) {
+        console.error('찜 정보 조회 실패:', error);
     }
-}, [productId]);
-
-// 이벤트 핸들러
-const handleOptionSelect = (optionType, optionId) => {
-    setSelectedOptions(prev => ({
-        ...prev,
-        [OPTION_TYPES[optionType].stateKey]: optionId
-    }));
 };
 
-const handleThumbnailClick = (imagePath) => {
-    setMainImage(imagePath);
-};
+    const handleMouseDown = (e, ref) => {
+        setIsDragging(true);
+        const container = ref.current;
+        container.classList.add('dragging');
+        setStartX(e.pageX - container.offsetLeft);
+        setScrollLeft(container.scrollLeft);
+    };
 
-const handleLike = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
-};
+    const handleMouseMove = (e, ref) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const container = ref.current;
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2;
+        container.scrollLeft = scrollLeft - walk;
+    };
 
-const handleMouseDown = (e, ref) => {
-    setIsDragging(true);
-    const container = ref.current;
-    container.classList.add('dragging');
-    setStartX(e.pageX - container.offsetLeft);
-    setScrollLeft(container.scrollLeft);
-};
+    const handleMouseUp = (ref) => {
+        setIsDragging(false);
+        ref.current.classList.remove('dragging');
+    };
 
-const handleMouseMove = (e, ref) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const container = ref.current;
-    const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 2;
-    container.scrollLeft = scrollLeft - walk;
-};
+    const handleMouseLeave = (ref) => {
+        setIsDragging(false);
+        ref.current.classList.remove('dragging');
+    };
 
-const handleMouseUp = (ref) => {
-    setIsDragging(false);
-    ref.current.classList.remove('dragging');
-};
+    const handleRecipientChange = (e) => {
+        const { name, value } = e.target;
+        setRecipientInfo(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
-const handleMouseLeave = (ref) => {
-    setIsDragging(false);
-    ref.current.classList.remove('dragging');
-};
+    const handleLetterChange = (e) => {
+        const { name, value } = e.target;
+        setLetters(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
-const handleRecipientChange = (e) => {
-    const { name, value } = e.target;
-    setRecipientInfo(prev => ({
-        ...prev,
-        [name]: value
-    }));
-};
+    // 옵션 렌더링 컴포넌트
+    const renderOptionGroup = (optionType, options) => {
+        if (!options || options.length === 0) return null;
 
-const handleLetterChange = (e) => {
-    const { name, value } = e.target;
-    setLetters(prev => ({
-        ...prev,
-        [name]: value
-    }));
-};
+        const { title, stateKey } = OPTION_TYPES[optionType];
+        const isColorOption = optionType.includes('Color');
+        const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
 
-// 옵션 렌더링 컴포넌트
-const renderOptionGroup = (optionType, options) => {
-    if (!options || options.length === 0) return null;
-
-    const { title, stateKey } = OPTION_TYPES[optionType];
-    const isColorOption = optionType.includes('Color');
-    const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
-
-    const optionContent = (
-        <div className={isColorOption ? "color-options" : "option-grid"}>
-            {options.map((option) => (
-                <button
-                    key={option.optionValueId}
-                    className={`${isColorOption ? 'color-option' : 'option-item'} 
+        const optionContent = (
+            <div className={isColorOption ? "color-options" : "option-grid"}>
+                {options.map((option) => (
+                    <button
+                        key={option.optionValueId}
+                        className={`${isColorOption ? 'color-option' : 'option-item'} 
                              ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
-                    onClick={() => handleOptionSelect(optionType, option.optionValueId)}
-                    aria-label={`${option.optionValueName} 선택`}
-                    title={option.optionValueName}
-                >
-                    {!isColorOption && (
-                        <>
-                            {option.optionValueImageUrl && (
-                                <div className="option-image">
-                                    <img src={option.optionValueImageUrl} alt={option.optionValueName} />
-                                </div>
-                            )}
-                            <span>{option.optionValueName}</span>
-                        </>
+                        onClick={() => handleOptionSelect(optionType, option.optionValueId)}
+                        aria-label={`${option.optionValueName} 선택`}
+                        title={option.optionValueName}
+                    >
+                        {!isColorOption && (
+                            <>
+                                {option.optionValueImageUrl && (
+                                    <div className="option-image">
+                                        <img src={option.optionValueImageUrl} alt={option.optionValueName} />
+                                    </div>
+                                )}
+                                <span>{option.optionValueName}</span>
+                            </>
+                        )}
+                    </button>
+                ))}
+            </div>
+        );
+
+        return (
+            <div className="option-group" key={optionType}>
+                <h3>{title}</h3>
+                {isScrollable ? (
+                    <div
+                        ref={isColorOption ? null : containerRef}
+                        className="option-scroll-container"
+                        onMouseDown={(e) => handleMouseDown(e, containerRef)}
+                        onMouseMove={(e) => handleMouseMove(e, containerRef)}
+                        onMouseUp={() => handleMouseUp(containerRef)}
+                        onMouseLeave={() => handleMouseLeave(containerRef)}
+                    >
+                        {optionContent}
+                    </div>
+                ) : optionContent}
+            </div>
+        );
+    };// 탭 관련
+    const tabs = ['상품상세', '후기'];
+
+    const renderTabContent = () => (
+        <div className="full-content">
+            <div className="content-sections">
+                <div id="상품 상세정보" className="content-section">
+                    {/* 상품 설명이 있을 경우 표시 */}
+                    {productDetail?.description ? (
+                        <div
+                            className="product-description ql-editor"
+                            dangerouslySetInnerHTML={{ __html: productDetail.description }}
+                        />
+                    ) : (
+                        <div className="no-description">
+                            <p>상품 상세 정보가 없습니다.</p>
+                        </div>
                     )}
-                </button>
-            ))}
-        </div>
-    );
-
-    return (
-        <div className="option-group" key={optionType}>
-            <h3>{title}</h3>
-            {isScrollable ? (
-                <div
-                    ref={isColorOption ? null : containerRef}
-                    className="option-scroll-container"
-                    onMouseDown={(e) => handleMouseDown(e, containerRef)}
-                    onMouseMove={(e) => handleMouseMove(e, containerRef)}
-                    onMouseUp={() => handleMouseUp(containerRef)}
-                    onMouseLeave={() => handleMouseLeave(containerRef)}
-                >
-                    {optionContent}
+                    <img src="/images/픽업 방법.png" alt="픽업 방법" />
+                    <img src="/images/상품문의.png" alt="상품 문의" />
                 </div>
-            ) : optionContent}
+                <div id="후기" className="content-section">
+                    {renderReviewSection()}
+                </div>
+            </div>
         </div>
     );
-};// 탭 관련
-const tabs = ['상품상세', '후기'];
 
-const renderTabContent = () => (
-    <div className="full-content">
-        <div className="content-sections">
-            <div id="상품상세" className="content-section">
-                <img src="/images/제품 설명 1.png" alt="상품 상세 정보" />
-                <img src="/images/픽업 방법.png" alt="상품 상세 정보" />
-                <img src="/images/상품문의.png" alt="상품 상세 정보" />
-            </div>
-            <div id="리뷰" className="content-section">
-                {renderReviewSection()}
-            </div>
-        </div>
-    </div>
-);
-
-const handleTabClick = (tab) => {
-    setSelectedTab(tab);
-    if (tab === '후기') {
-        const reviewSection = document.getElementById('리뷰');
-        if (reviewSection) {
-            reviewSection.scrollIntoView({ behavior: 'smooth' });
+    const handleTabClick = (tab) => {
+        setSelectedTab(tab);
+        if (tab === '후기') {
+            const reviewSection = document.getElementById('리뷰');
+            if (reviewSection) {
+                reviewSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            const detailSection = document.getElementById('상품상세');
+            if (detailSection) {
+                detailSection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
-    } else {
-        const detailSection = document.getElementById('상품상세');
-        if (detailSection) {
-            detailSection.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // 리뷰 관련 핸들러
+    const handleRatingChange = (rating) => {
+        setNewReview(prev => ({ ...prev, rating }));
+    };
+
+    const handleReviewContent = (e) => {
+        setNewReview(prev => ({ ...prev, content: e.target.value }));
+    };
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setNewReview(prev => ({ ...prev, image: file }));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
-    }
-};
+    };
 
-// 리뷰 관련 핸들러
-const handleRatingChange = (rating) => {
-    setNewReview(prev => ({ ...prev, rating }));
-};
+    const handleReviewSubmit = (e) => {
+        e.preventDefault();
+        console.log('리뷰 제출:', newReview);
+        setNewReview({ rating: 5, content: '', image: null });
+        setImagePreview(null);
+    };
 
-const handleReviewContent = (e) => {
-    setNewReview(prev => ({ ...prev, content: e.target.value }));
-};
+    const handleReportReview = (reviewId) => {
+        const confirmed = window.confirm('이 리뷰를 신고하시겠습니까?');
+        if (confirmed) {
+            console.log(`리뷰 ${reviewId} 신고됨`);
+            alert('신고가 접수되었습니다.');
+        }
+    };
 
-const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        setNewReview(prev => ({ ...prev, image: file }));
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImagePreview(reader.result);
-        };
-        reader.readAsDataURL(file);
-    }
-};
+    // 리뷰 섹션 렌더링
+    const renderReviewSection = () => (
+        <div className="reviews-container">
+            <div className="review-form-container">
+                <h3>리뷰 작성</h3>
+                <form onSubmit={handleReviewSubmit} className="review-form">
+                    <div className="rating-select">
+                        <p>별점을 선택해주세요</p>
+                        <div className="stars-input">
+                            {[5, 4, 3, 2, 1].map((star) => (
+                                <button
+                                    key={star}
+                                    type="button"
+                                    className={`star-button ${newReview.rating <= star ? 'filled' : ''}`}
+                                    onClick={() => handleRatingChange(star)}
+                                >
+                                    ★
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="review-text-input">
+                        <textarea
+                            value={newReview.content}
+                            onChange={handleReviewContent}
+                            placeholder="리뷰를 작성해주세요 (최소 10자 이상)"
+                            rows="4"
+                        />
+                    </div>
+                    <div className="review-image-input">
+                        <label className="image-upload-button">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                style={{ display: 'none' }}
+                            />
+                            사진 첨부하기
+                        </label>
+                        {imagePreview && (
+                            <div className="image-preview">
+                                <img src={imagePreview} alt="Preview" />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setImagePreview(null);
+                                        setNewReview(prev => ({ ...prev, image: null }));
+                                    }}
+                                    className="remove-image"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <button
+                        type="submit"
+                        className="submit-review-button"
+                        disabled={newReview.content.length < 10}
+                    >
+                        리뷰 등록하기
+                    </button>
+                </form>
+            </div>
 
-const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    console.log('리뷰 제출:', newReview);
-    setNewReview({ rating: 5, content: '', image: null });
-    setImagePreview(null);
-};
-
-const handleReportReview = (reviewId) => {
-    const confirmed = window.confirm('이 리뷰를 신고하시겠습니까?');
-    if (confirmed) {
-        console.log(`리뷰 ${reviewId} 신고됨`);
-        alert('신고가 접수되었습니다.');
-    }
-};
-
-// 리뷰 섹션 렌더링
-const renderReviewSection = () => (
-    <div className="reviews-container">
-        <div className="review-form-container">
-            <h3>리뷰 작성</h3>
-            <form onSubmit={handleReviewSubmit} className="review-form">
-                <div className="rating-select">
-                    <p>별점을 선택해주세요</p>
-                    <div className="stars-input">
-                        {[5, 4, 3, 2, 1].map((star) => (
-                            <button
-                                key={star}
-                                type="button"
-                                className={`star-button ${newReview.rating <= star ? 'filled' : ''}`}
-                                onClick={() => handleRatingChange(star)}
-                            >
-                                ★
-                            </button>
+            <div className="rating-stats">
+                <div className="rating-average">
+                    <div className="stars">
+                        {[...Array(5)].map((_, index) => (
+                            <span key={index} className="star-filled">★</span>
                         ))}
                     </div>
+                    <div className="average-score">
+                        <span className="current-score">5</span>
+                        <span className="total-score">/5</span>
+                    </div>
                 </div>
-                <div className="review-text-input">
-                    <textarea
-                        value={newReview.content}
-                        onChange={handleReviewContent}
-                        placeholder="리뷰를 작성해주세요 (최소 10자 이상)"
-                        rows="4"
-                    />
-                </div>
-                <div className="review-image-input">
-                    <label className="image-upload-button">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            style={{ display: 'none' }}
-                        />
-                        사진 첨부하기
-                    </label>
-                    {imagePreview && (
-                        <div className="image-preview">
-                            <img src={imagePreview} alt="Preview" />
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setImagePreview(null);
-                                    setNewReview(prev => ({ ...prev, image: null }));
-                                }}
-                                className="remove-image"
-                            >
-                                ×
-                            </button>
+                <div className="rating-bars">
+                    {[1, 2, 3, 4, 5].map((score) => (
+                        <div key={score} className="rating-bar-row">
+                            <span className="score">{score}점</span>
+                            <div className="bar-container">
+                                <div
+                                    className="bar-fill"
+                                    style={{
+                                        width: `${(ratingStats[score] / 12) * 100}%`,
+                                        background: score === 5 ? '#FF3B85' : '#e0e0e0'
+                                    }}
+                                ></div>
+                            </div>
+                            <span className="count">{ratingStats[score]}</span>
                         </div>
-                    )}
-                </div>
-                <button
-                    type="submit"
-                    className="submit-review-button"
-                    disabled={newReview.content.length < 10}
-                >
-                    리뷰 등록하기
-                </button>
-            </form>
-        </div>
-
-        <div className="rating-stats">
-            <div className="rating-average">
-                <div className="stars">
-                    {[...Array(5)].map((_, index) => (
-                        <span key={index} className="star-filled">★</span>
                     ))}
                 </div>
-                <div className="average-score">
-                    <span className="current-score">5</span>
-                    <span className="total-score">/5</span>
-                </div>
             </div>
-            <div className="rating-bars">
-                {[1, 2, 3, 4, 5].map((score) => (
-                    <div key={score} className="rating-bar-row">
-                        <span className="score">{score}점</span>
-                        <div className="bar-container">
-                            <div
-                                className="bar-fill"
-                                style={{
-                                    width: `${(ratingStats[score] / 12) * 100}%`,
-                                    background: score === 5 ? '#FF3B85' : '#e0e0e0'
-                                }}
-                            ></div>
+
+            <div className="review-list">
+                <div className="review-filters">
+                    <button className="active">추천순</button>
+                    <button>최신순</button>
+                    <button>평점순</button>
+                    <label className="photo-only">
+                        <input type="checkbox" /> 포토 리뷰만
+                    </label>
+                </div>
+
+                {reviews.map((review) => (
+                    <div key={review.id} className="review-item">
+                        <div className="review-header">
+                            <div className="review-header-info">
+                                <div className="stars">
+                                    {[...Array(review.rating)].map((_, index) => (
+                                        <span key={index} className="star-filled">★</span>
+                                    ))}
+                                </div>
+                                <span className="author">{review.author}</span>
+                                <span className="date">{review.date}</span>
+                            </div>
+                            <button
+                                className="report-button"
+                                onClick={() => handleReportReview(review.id)}
+                            >
+                                <span className="report-icon">⚠️</span>
+                                신고
+                            </button>
                         </div>
-                        <span className="count">{ratingStats[score]}</span>
+                        <div className="review-content">
+                            <p>{review.content}</p>
+                            {review.image && (
+                                <div className="review-image">
+                                    <img src={review.image} alt="리뷰 이미지" />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
+    );
 
-        <div className="review-list">
-            <div className="review-filters">
-                <button className="active">추천순</button>
-                <button>최신순</button>
-                <button>평점순</button>
-                <label className="photo-only">
-                    <input type="checkbox" /> 포토 리뷰만
-                </label>
-            </div>
+    // 메인 렌더링
+    return (
+        <div id="user-wrap" className="text-center">
+            <VenderHeader />
+            <main id="user-wrap-body" className="clearfix">
 
-            {reviews.map((review) => (
-                <div key={review.id} className="review-item">
-                    <div className="review-header">
-                        <div className="review-header-info">
-                            <div className="stars">
-                                {[...Array(review.rating)].map((_, index) => (
-                                    <span key={index} className="star-filled">★</span>
+                <div className="cake-order-container">
+                    {/* 왼쪽 섹션 */}
+                    <div className="left-section">
+                        <div className="product-image">
+                            <img src={mainImage || productDetail?.productImage1Url} alt="케이크" className="main-image" />
+                            <div className="thumbnail-container">
+                                {productDetail && [
+                                    productDetail.productImage1Url,
+                                    productDetail.productImage2Url,
+                                    productDetail.productImage3Url,
+                                    productDetail.productImage4Url
+                                ].filter(Boolean).map((image, index) => (
+                                    <div
+                                        key={index}
+                                        className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
+                                        onClick={() => handleThumbnailClick(image)}
+                                    >
+                                        <img src={image} alt={`썸네일${index + 1}`} className="thumbnail-image" />
+                                    </div>
                                 ))}
                             </div>
-                            <span className="author">{review.author}</span>
-                            <span className="date">{review.date}</span>
                         </div>
-                        <button
-                            className="report-button"
-                            onClick={() => handleReportReview(review.id)}
-                        >
-                            <span className="report-icon">⚠️</span>
-                            신고
-                        </button>
-                    </div>
-                    <div className="review-content">
-                        <p>{review.content}</p>
-                        {review.image && (
-                            <div className="review-image">
-                                <img src={review.image} alt="리뷰 이미지" />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            ))}
-        </div>
-    </div>
-);
 
-// 메인 렌더링
-return (
-    <div id="user-wrap" className="text-center">
-        <VenderHeader />
-        <main id="user-wrap-body" className="clearfix">
-            <div className="cake-order-container">
-                {/* 왼쪽 섹션 */}
-                <div className="left-section">
-                    <div className="product-image">
-                        <img src={mainImage || productDetail?.productImage1Url} alt="케이크" className="main-image" />
-                        <div className="thumbnail-container">
-                            {productDetail && [
-                                productDetail.productImage1Url,
-                                productDetail.productImage2Url,
-                                productDetail.productImage3Url,
-                                productDetail.productImage4Url
-                            ].filter(Boolean).map((image, index) => (
-                                <div
-                                    key={index}
-                                    className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                                    onClick={() => handleThumbnailClick(image)}
+                        <div className="product-tabs">
+                            <div className="tabs-header sticky">
+                                {tabs.map((tab) => (
+                                    <button
+                                        key={tab}
+                                        className={`tab-button ${selectedTab === tab ? 'active' : ''}`}
+                                        onClick={() => handleTabClick(tab)}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                            <div className="tab-content" ref={tabContentRef}>
+                                {renderTabContent()}
+                            </div>
+                        </div>
+                    </div>
+                    {/* 오른쪽 섹션 */}
+                    <div className="right-section">
+                        <div className="product-info">
+                            <h2>{productDetail?.productName}</h2>
+                            <p className="price">{productDetail?.productPrice?.toLocaleString()} won</p>
+                            <div className="like-button-container">
+                                <button
+                                    className={`like-button ${isLiked ? 'liked' : ''}`}
+                                    onClick={handleLike}
                                 >
-                                    <img src={image} alt={`썸네일${index + 1}`} className="thumbnail-image" />
+                                    <span className="heart-icon">{isLiked ? '♥' : '♡'}</span>
+                                    <span className="like-count">{likeCount}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="options">
+                            {Object.keys(OPTION_TYPES).map(optionType =>
+                                renderOptionGroup(optionType, productOptions[optionType])
+                            )}
+
+                            <div className="option-group">
+                                <h3>배송 방식</h3>
+                                <div className="delivery-type-buttons">
+                                    <button
+                                        className={`delivery-option-button ${deliveryType === 'pickup' ? 'active' : ''}`}
+                                        onClick={() => setDeliveryType('pickup')}
+                                    >
+                                        픽업
+                                    </button>
+                                    <button
+                                        className={`delivery-option-button ${deliveryType === 'quick' ? 'active' : ''}`}
+                                        onClick={() => setDeliveryType('quick')}
+                                    >
+                                        퀵
+                                    </button>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="product-tabs">
-                        <div className="tabs-header sticky">
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab}
-                                    className={`tab-button ${selectedTab === tab ? 'active' : ''}`}
-                                    onClick={() => handleTabClick(tab)}
-                                >
-                                    {tab}
-                                </button>
-                            ))}
-                        </div>
-                        <div className="tab-content" ref={tabContentRef}>
-                            {renderTabContent()}
-                        </div>
-                    </div>
-                </div>
-                  {/* 오른쪽 섹션 */}
-                  <div className="right-section">
-                    <div className="product-info">
-                        <h2>{productDetail?.productName}</h2>
-                        <p className="price">{productDetail?.productPrice?.toLocaleString()} won</p>
-                        <div className="like-button-container">
-                            <button
-                                className={`like-button ${isLiked ? 'liked' : ''}`}
-                                onClick={handleLike}
-                            >
-                                <span className="heart-icon">{isLiked ? '♥' : '♡'}</span>
-                                <span className="like-count">{likeCount}</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="options">
-                        {Object.keys(OPTION_TYPES).map(optionType => 
-                            renderOptionGroup(optionType, productOptions[optionType])
-                        )}
-
-                        <div className="option-group">
-                            <h3>배송 방식</h3>
-                            <div className="delivery-type-buttons">
-                                <button
-                                    className={`delivery-option-button ${deliveryType === 'pickup' ? 'active' : ''}`}
-                                    onClick={() => setDeliveryType('pickup')}
-                                >
-                                    픽업
-                                </button>
-                                <button
-                                    className={`delivery-option-button ${deliveryType === 'quick' ? 'active' : ''}`}
-                                    onClick={() => setDeliveryType('quick')}
-                                >
-                                    퀵
-                                </button>
                             </div>
-                        </div>
 
-                        <div className="option-group">
-                            <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
-                            {deliveryType === 'pickup' ? (
-                                <div className="location-select">
-                                    <div className="map-placeholder">
-                                        <p>{productDetail?.venderAddress}</p>
+                            <div className="option-group">
+                                <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
+                                {deliveryType === 'pickup' ? (
+                                    <div className="location-select">
+                                        <div className="map-placeholder">
+                                            <p>{productDetail?.venderAddress}</p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="address-input">
+                                        <input
+                                            type="text"
+                                            placeholder="주소를 입력해주세요"
+                                            className="address-input-field"
+                                            value={deliveryAddress}
+                                            onChange={(e) => setDeliveryAddress(e.target.value)}
+                                        />
+                                    </div>
+
+                                )}
+                            </div>
+
+                            <div className="option-group">
+                                <h3>{deliveryType === 'pickup' ? '픽업 날짜' : '배송 날짜'}</h3>
+                                <div className="date-select">
+                                    <input
+                                        type="date"
+                                        value={selectedDate}
+                                        onChange={(e) => setSelectedDate(e.target.value)}
+                                        className="date-input"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="option-group">
+                                <h3>{deliveryType === 'pickup' ? '픽업 시간' : '배송 시간'}</h3>
+                                <div className="time-select">
+                                    <select
+                                        value={selectedTime}
+                                        onChange={handleTimeSelect}
+                                        className="time-input"
+                                    >
+                                        <option value="">시간 선택</option>
+                                        {TIME_OPTIONS.map(({ value, label }) => (
+                                            <option key={value} value={value}>
+                                                {label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="option-group">
+                                <h3>받는 사람 정보</h3>
+                                <div className="receiver-info">
+                                    <div className="input-field">
+                                        <label>받는 사람</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={recipientInfo.name}
+                                            onChange={handleRecipientChange}
+                                            placeholder="받는 사람 이름을 입력해주세요"
+                                            className="receiver-input"
+                                        />
+                                    </div>
+                                    <div className="input-field">
+                                        <label>연락처</label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={recipientInfo.phone}
+                                            onChange={handleRecipientChange}
+                                            placeholder="'-' 없이 숫자만 입력해주세요"
+                                            className="receiver-input"
+                                        />
                                     </div>
                                 </div>
-                            ) : (
-                                <div className="address-input">
-                                <input
-                                    type="text"
-                                    placeholder="주소를 입력해주세요"
-                                    className="address-input-field"
-                                    value={deliveryAddress}
-                                    onChange={(e) => setDeliveryAddress(e.target.value)}
-                                />
                             </div>
-                            
-                            )}
-                        </div>
 
-                        <div className="option-group">
-                            <h3>{deliveryType === 'pickup' ? '픽업 날짜' : '배송 날짜'}</h3>
-                            <div className="date-select">
-                                <input
-                                    type="date"
-                                    value={selectedDate}
-                                    onChange={(e) => setSelectedDate(e.target.value)}
-                                    className="date-input"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="option-group">
-                            <h3>{deliveryType === 'pickup' ? '픽업 시간' : '배송 시간'}</h3>
-                            <div className="time-select">
-                                <select
-                                    value={selectedTime}
-                                    onChange={(e) => setSelectedTime(e.target.value)}
-                                    className="time-input"
-                                >
-                                    <option value="">시간 선택</option>
-                                    <option value="9:00">9:00</option>
-                                    <option value="10:00">10:00</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="12:00">12:00</option>
-                                    <option value="13:00">13:00</option>
-                                    <option value="15:00">15:00</option>
-                                    <option value="16:00">16:00</option>
-                                    <option value="17:00">17:00</option>
-                                    <option value="18:00">18:00</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="option-group">
-                            <h3>받는 사람 정보</h3>
-                            <div className="receiver-info">
-                                <div className="input-field">
-                                    <label>받는 사람</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={recipientInfo.name}
-                                        onChange={handleRecipientChange}
-                                        placeholder="받는 사람 이름을 입력해주세요"
-                                        className="receiver-input"
+                            <div className="option-group">
+                                <h3>케이크 위 레터링 요청</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        name="cakeLetter"
+                                        value={letters.cakeLetter}
+                                        onChange={handleLetterChange}
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        rows="4"
+                                        className="request-textarea"
                                     />
                                 </div>
-                                <div className="input-field">
-                                    <label>연락처</label>
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        value={recipientInfo.phone}
-                                        onChange={handleRecipientChange}
-                                        placeholder="'-' 없이 숫자만 입력해주세요"
-                                        className="receiver-input"
+
+                                <h3>케이크 판 레터링 요청</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        name="plateLetter"
+                                        value={letters.plateLetter}
+                                        onChange={handleLetterChange}
+                                        placeholder="예) 생크림을 좀만 넣어주세요."
+                                        rows="4"
+                                        className="request-textarea"
+                                    />
+                                </div>
+
+                                <h3>기타 요청사항</h3>
+                                <div className="request-input">
+                                    <textarea
+                                        name="additionalRequest"
+                                        value={letters.additionalRequest}
+                                        onChange={handleLetterChange}
+                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
+                                        rows="4"
+                                        className="request-textarea"
                                     />
                                 </div>
                             </div>
                         </div>
-
-                        <div className="option-group">
-                            <h3>케이크 위 레터링 요청</h3>
-                            <div className="request-input">
-                                <textarea
-                                    name="cakeLetter"
-                                    value={letters.cakeLetter}
-                                    onChange={handleLetterChange}
-                                    placeholder="예) 생크림을 좀만 넣어주세요."
-                                    rows="4"
-                                    className="request-textarea"
-                                />
-                            </div>
-
-                            <h3>케이크 판 레터링 요청</h3>
-                            <div className="request-input">
-                                <textarea
-                                    name="plateLetter"
-                                    value={letters.plateLetter}
-                                    onChange={handleLetterChange}
-                                    placeholder="예) 생크림을 좀만 넣어주세요."
-                                    rows="4"
-                                    className="request-textarea"
-                                />
-                            </div>
-
-                            <h3>기타 요청사항</h3>
-                            <div className="request-input">
-                                <textarea
-                                    name="additionalRequest"
-                                    value={letters.additionalRequest}
-                                    onChange={handleLetterChange}
-                                    placeholder="예) 살 안찌는 생크림케이크로 해주세요"
-                                    rows="4"
-                                    className="request-textarea"
-                                />
-                            </div>
-                        </div>
+                        <Link
+                            to="/user/paymentdetail"
+                            state={{
+                                productInfo: {
+                                    productId: productDetail?.productId,
+                                    productName: productDetail?.productName,
+                                    productPrice: productDetail?.productPrice,
+                                    productImage: productDetail?.productImage1Url,
+                                    cakeDesignId: productDetail?.cakeDesignId
+                                },
+                                orderInfo: {
+                                    deliveryType,
+                                    selectedDate: selectedDate, //  YYYY-MM-DD 형식
+                                    selectedTime: selectedTime, // HH:mm:ss 형식으로 전달
+                                    recipientName: recipientInfo.name,
+                                    recipientPhone: recipientInfo.phone,
+                                    address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress,
+                                    cakeLetter: letters.cakeLetter,
+                                    plateLetter: letters.plateLetter,
+                                    additionalRequest: letters.additionalRequest,
+                                    selectedOptions: selectedOptionNames
+                                }
+                            }}
+                            className="submit-button"
+                        >
+                            요청사항 확인
+                        </Link>
                     </div>
-                    <Link 
-                        to="/user/paymentdetail" 
-                        state={{
-                            productInfo: {
-                                productId: productDetail?.productId,
-                                productName: productDetail?.productName,
-                                productPrice: productDetail?.productPrice,
-                                productImage: productDetail?.productImage1Url,
-                                cakeDesignId: productDetail?.cakeDesignId
-                            },
-                            orderInfo: {
-                                deliveryType,
-                                selectedDate,
-                                selectedTime,
-                                recipientName: recipientInfo.name,
-                                recipientPhone: recipientInfo.phone,
-                                address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress, // 수정된 부분
-                                cakeLetter: letters.cakeLetter,
-                                plateLetter: letters.plateLetter,
-                                additionalRequest: letters.additionalRequest,
-                                selectedOptions: selectedOptionNames
-                            }
-                        }}
-                        className="submit-button"
-                    >
-                        요청사항 확인
-                    </Link>
                 </div>
-            </div>
-        </main>
-    </div>
-);
+            </main>
+        </div>
+    );
 };
 export default UserCakeDetail;

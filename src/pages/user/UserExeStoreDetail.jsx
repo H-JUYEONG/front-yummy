@@ -1,44 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
+import GearIcon from '@rsuite/icons/Gear';
+
+import { useVenderContext } from '../../../src/context/VenderContext';  // useVenderContext 가져오기
+
 
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const {venderId} = useParams();
-    const [detailVo, setDetailVo] = useState('');
-
-    const getdetails = ()=>{
-        axios({
-            method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
-    
-            headers: { "Content-Type": "application/json; charset=utf-8" },  // post put
-    
-            responseType: 'json' //수신타입
-            }).then(response => {
-            console.log(response); //수신데이타
-            console.log(response.data.apiData);
-            setDetailVo(response.data.apiData);
-            //console.log(detailVo)
+    const [authUser, setAuthUser] = useState(() => {
+        const storedUser = localStorage.getItem('authUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    const venderId = authUser?.vender_id || null;
 
 
-    
-            }).catch(error => {
-            console.log(error);
-            });
-    }
 
-    
+    const [venderData, setVenderData] = useState({});
 
+    // 부모창에서 전달한 메시지를 받기 위해 useEffect 사용
+    useEffect(() => {
+        const handleMessage = (event) => {
+            // event.origin을 통해 다른 도메인에서 온 메시지를 차단하는 것도 좋습니다.
+            if (event.origin !== window.location.origin) {
+                return; // 보안상 다른 도메인의 메시지는 무시
+            }
 
+            // 부모창에서 받은 데이터 처리
+            if (event.data) {
+                setVenderData(event.data);  // 데이터를 상태로 저장
+            }
+        };
+         // 메시지 이벤트 리스너 등록
+            window.addEventListener('message', handleMessage);
+
+            // 컴포넌트 언마운트 시 이벤트 리스너 제거
+            return () => {
+                window.removeEventListener('message', handleMessage);
+            };
+        }, []);
     
     useEffect(() => {
         window.scrollTo(0, 0);
-        getdetails();
-
+        
     }, []);
 
     // 상품 데이터
@@ -77,34 +84,32 @@ const UserStoreDetail = () => {
 
     const allProducts = Object.values(categoryProducts).flat();
 
-    const getProducts = () => {
-        if (!selectedCategory) {
-            return allProducts;
-        }
-        return categoryProducts[selectedCategory] || [];
-    };
 
-    const handleCategoryClick = (category) => {
-        if (selectedCategory === category) {
-            setSelectedCategory(null);
-        } else {
-            setSelectedCategory(category);
-        }
-    };
 
     const handleKakaoChat = () => {
-        window.open(`http://pf.kakao.com/${detailVo.kakaoURL}`, '_blank');
+        window.open(`#`, '_blank');
 
     };
 
     return (
         <div id="user-wrap" className="text-center">
-            <VenderHeader />
+            <div className='vender-header-wrap'>
+                <Link to='/user/storedetail'>
+                    <img src={venderData.bannerPreview} />
+                </Link>
+                {{venderId}!=null ? 
+                <Link to={`/vender/${venderId}`}>
+                    <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
+                </Link>: <p></p>}
+            </div>
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                        {detailVo.venderName ? <h2 className="sd-store-name">{detailVo.venderName}</h2> : <h2 className="sd-store-name">업체명을 입력해주세요!</h2>}
+                        {venderData.venderName ? (
+                            <h2 className="sd-store-name">{venderData.venderName}</h2>
+                        ) : (
+                            <h2 className="sd-store-name">업체명을 입력해주세요!</h2>)}
 
                             
                         </div>
@@ -112,7 +117,7 @@ const UserStoreDetail = () => {
                             {/* 프로필 이미지 섹션 */}
                             <div className="sd-section sd-image-section">
                                 <div className="sd-profile-image">
-                                    <img src={detailVo.profileURL} alt="cakefactory" />
+                                    <img src={venderData.logoPreview} alt="cakefactory" />
                                 </div>
                             </div>
 
@@ -130,7 +135,7 @@ const UserStoreDetail = () => {
                                     </button>
                                 </div>
                                 <div className="sd-info-content">
-                                    {detailVo.venderDescription}
+                                    {venderData.content}
                                     {/*<p>🎂케이크는 맛있게</p>
                                     <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
                                     <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
@@ -162,39 +167,13 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-category-container">
-                        {Object.keys(categoryProducts).map((category) => (
-                            <div
-                                key={category}
-                                className={`sd-category-item ${selectedCategory === category ? 'active' : ''}`}
-                                onClick={() => handleCategoryClick(category)}
-                            >
-                                <img
-                                    src={`/images/category-${category.slice(-1)}.jpg`}
-                                    alt={category}
-                                />
-                                <p>{category}</p>
-                            </div>
-                        ))}
+                        
                     </div>
 
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {getProducts().map((product) => (
-                            <Link
-                                to={`/user/cakedetail`}
-                                key={product.id}
-                                className="sd-product-item"
-                            >
-                                <div className="sd-product-image">
-                                    <img src={product.image} alt={product.name} />
-                                </div>
-                                <div className="sd-price-info">
-                                    <p className="sd-product-name">{product.name}</p>
-                                    <p className="sd-price">{product.price}</p>
-                                </div>
-                            </Link> 
-                        ))}
+                        
                     </div>
                 </section>
             </main>

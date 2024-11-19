@@ -20,7 +20,6 @@ const VenderProductList = () => {
     const [products, setProducts] = useState([]); // 서버에서 받아온 상품 데이터
     const [loading, setLoading] = useState(true); // 로딩 상태 관리
     const [error, setError] = useState(null); // 에러 상태 관리
-  
     const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
 
     // 상품 데이터 불러오기

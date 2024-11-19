@@ -1,6 +1,7 @@
 //import 라이브러리
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 //import 컴포넌트
 
@@ -17,43 +18,48 @@ import GearIcon from '@rsuite/icons/Gear';
 
 const VenderHeader = () => {
 
+    const [bannerURL, setBannerURL] = useState('');
 
+    const [authUser, setAuthUser] = useState(() => {
+        const storedUser = localStorage.getItem('authUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    const venderId = authUser?.vender_id || null;
 
-    /* ---라우터 관련 ------ */
+    const bnnerImg = ()=>{
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/getBanner/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            setBannerURL(response.data.apiData);   
 
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+    }
 
-    /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
+    useEffect(()=>{
+        bnnerImg();
+    },[])
 
-
-    /*---일반 메소드 --------------------------------------------*/
-
-
-    /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
-
-
-
-
-
-
-
-
-    // 1.이벤트 잡기
-
-    //2. 데이터 잡기 + 묶기(배열)
-
-    //3. 전송 (ajax 사용)
-
+    
 
 
     return (
         <>
             <div className='vender-header-wrap'>
                 <Link to='/user/storedetail'>
-                    <img src='#' />
+                    <img src={bannerURL} />
                 </Link>
-                <Link to='/vender/'>
+                {{venderId}!=null ? 
+                <Link to={`/vender/${venderId}`}>
                     <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
-                </Link>
+                </Link>: <p></p>}
             </div>
 
 

@@ -21,7 +21,9 @@ const UserCakeDesignDetail = () => {
   const [cakeDesignReviews, setCakeDesignReviews] = useState([]); // 도안 리뷰 리스트
   const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
+  // 찜 기능 수정
   const toggleFavorite = async () => {
+    // 1. 로그인 체크
     const token = localStorage.getItem("token");
     if (!token) {
       console.log("토큰이 없습니다. 로그인하세요.");
@@ -30,19 +32,24 @@ const UserCakeDesignDetail = () => {
     }
 
     try {
+      // 2. API 호출하여 서버에 요청 전송
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/user/favorite/${cakeDesignId}`,
-        { isFavorited: !isFavorited },
+        { isFavorited: !isFavorited }, // 현재 상태의 반대 값을 보냄
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
+      // 3. 서버 응답에 따른 UI 업데이트
       if (response.data.result === "success") {
-        console.log(response.data);
-        console.log(response.data.isFavorited);
-        setIsFavorited(response.data.isFavorited);
+        console.log("찜 상태 변경 성공:", response.data);
+
+        // 찜 상태 업데이트
+        setIsFavorited(response.data.apiData.isFavorited);
+
+        // 찜 개수 업데이트
         setCakeDesignDetail((prevDetail) => ({
           ...prevDetail,
-          cakeDesignWishlistCount: response.data.updatedWishlistCount,
+          cakeDesignWishlistCount: response.data.apiData.updatedWishlistCount,
         }));
       } else {
         alert(response.data.message || "찜 상태를 변경하는 데 실패했습니다.");
@@ -53,15 +60,19 @@ const UserCakeDesignDetail = () => {
     }
   };
 
+  // 서브 이미지 클릭
   const handleSubImageClick = (imageSrc) => {
     setMainImage(imageSrc); // Update main image when a sub-image is clicked
   };
 
   // 도안 상세 정보 가져오기
   const getCakeDesignDetail = async () => {
+    const token = localStorage.getItem("token");
+
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/user/detail/${cakeDesignId}`,
+        { headers: { Authorization: `Bearer ${token}` } },
         { responseType: "json" }
       );
 
@@ -135,7 +146,7 @@ const UserCakeDesignDetail = () => {
         .then((response) => {
           if (response.data.result === "success") {
             alert("도안이 성공적으로 삭제되었습니다.");
-            navigate("/vender/cakeDesign/list"); // 삭제 후 리스트로 이동
+            navigate("/user/cakeDesign/board"); // 삭제 후 리스트로 이동
           } else {
             alert(response.data.message || "도안을 삭제하는 데 실패했습니다.");
           }
@@ -253,21 +264,24 @@ const UserCakeDesignDetail = () => {
 
             <div id="cake-design-action-btns" className="clearfix">
               {/* Favorite Button */}
-              <div className="user-favorite-section">
-                <button
-                  className="user-favorite-button"
-                  onClick={toggleFavorite}
-                >
-                  {isFavorited ? (
-                    <FaHeart className="users-heart-icon" />
-                  ) : (
-                    <FaRegHeart className="users-heart-icon" />
-                  )}
-                  <span className="users-favorite-count">
-                    {cakeDesignDetail.cakeDesignWishlistCount || "0"}
-                  </span>
-                </button>
-              </div>
+              {/* Favorite Button: 작성자 본인의 글이 아닌 경우에만 표시 */}
+              {authUser && cakeDesignDetail.memberId !== authUser.member_id && (
+                <div className="user-favorite-section">
+                  <button
+                    className="user-favorite-button"
+                    onClick={toggleFavorite}
+                  >
+                    {isFavorited ? (
+                      <FaHeart className="users-heart-icon" />
+                    ) : (
+                      <FaRegHeart className="users-heart-icon" />
+                    )}
+                    <span className="users-favorite-count">
+                      {cakeDesignDetail.cakeDesignWishlistCount || "0"}
+                    </span>
+                  </button>
+                </div>
+              )}
               <div className="user-action-buttons">
                 <button
                   className="user-audition-button"

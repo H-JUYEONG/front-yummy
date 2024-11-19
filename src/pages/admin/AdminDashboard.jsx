@@ -1,8 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IoMdCash, IoMdCart, IoMdPeople, IoMdAnalytics, IoMdPersonAdd } from 'react-icons/io';
 import "../../assets/css/admin/adminDashboard.css";
 import AdminSidebar from './include/AdminSidebar';
 const AdminDashboard = () => {
+    const navigate = useNavigate();
+    const [authUser, setAuthUser] = useState(null);
+
+    useEffect(() => {
+        const user = localStorage.getItem('authUser');
+        if (user) {
+            const parsedUser = JSON.parse(user);
+            if (parsedUser.type === '어드민') {
+                setAuthUser(parsedUser); // 어드민일 경우에만 상태에 저장
+            } else {
+                alert('접근 권한이 없습니다.');
+                navigate('/login'); // 권한 없을 경우 로그인 페이지로 리디렉션
+            }
+        } else {
+            alert('로그인이 필요합니다.');
+            navigate('/login'); // 로그인되지 않았을 경우 로그인 페이지로 리디렉션
+        }
+    }, [navigate]);
+
+    if (!authUser) {
+        return null; // authUser가 없으면 아무것도 렌더링하지 않음
+    }
+
+    const memberId = authUser.member_id;
+
     return (
         <div className="admin-container">
             {/* Sidebar */}

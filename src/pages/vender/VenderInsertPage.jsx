@@ -1,6 +1,8 @@
-import React ,{useState , useEffect} from 'react';
+import React ,{useState , useEffect, useContext, useRef} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+
+import {useVenderContext} from '../../context/VenderContext';
 
 
 import '../../assets/css/all.css'; // 전역 css
@@ -22,10 +24,20 @@ import { AlignRight } from 'lucide-react';
 
 
 
-const VenderDashboard = () => {
+const VenderInsertPage = () => {
 
     const navigate = useNavigate();
-    const {venderId} = useParams();
+    const [authUser, setAuthUser] = useState(() => {
+        const storedUser = localStorage.getItem('authUser');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+    const venderId = authUser?.vender_id || null;
+
+    // useVenderContext 훅을 사용하여 데이터 업데이트 함수와 상태를 가져옴
+    const { venderData, updateVenderData } = useVenderContext();
+
+    const [previewWindow, setPreviewWindow] = useState(null);  // 새 창을 관리할 상태
+    const previewWindowRef = useRef(null); // 새 창의 참조
 
 
     const [logoFile, setLogoFile] = useState(null);
@@ -52,8 +64,8 @@ const VenderDashboard = () => {
         venderDescription: '',
         bannerFile: '',
         profileFile: ''
-
     })
+
 
 
 
@@ -61,7 +73,7 @@ const VenderDashboard = () => {
     //수정폼
 
     const firstList = async ()=>{
-        console.log(shopName)
+        console.log('시작')
         try {
             const response = await axios({
             method: 'get',          // put, post, delete                   
@@ -70,6 +82,7 @@ const VenderDashboard = () => {
         });
         
             console.log(response); //수신데이타
+            console.log(response.data.apiData)
             const data = response.data.apiData;
 
             // URL을 File로 변환하는 함수
@@ -102,9 +115,17 @@ const VenderDashboard = () => {
             setBannerPreview(data.bannerURL || "");
             setShopAddress(data.venderAddress || "");
             setKakaoURL(data.kakaoURL || "");
-            setContent(data.venderDescription || ""); 
+            setContent(data.venderDescription || "");
+            console.log(data.venderName)
 
-            
+            updateVenderData({
+                venderName: data.venderName,
+                content: data.venderDescription,
+                logoPreview:data.profileURL,
+                bannerPreview: data.bannerURL
+            })
+
+            console.log(updateVenderData)
 
         }catch(error)  {
             console.log(error);
@@ -114,7 +135,14 @@ const VenderDashboard = () => {
 
     useEffect(()=>{
         firstList();
+
     },[])
+    useEffect(()=>{
+        console.log(venderData)
+
+    },[venderData])
+
+
 
 
     //주소검색 api연결
@@ -137,6 +165,7 @@ const VenderDashboard = () => {
             setLogoFile(logoFile)
             const pimageUrl = URL.createObjectURL(logoFile);
             setLogoPreview(pimageUrl);
+            updateVenderData({ logoPreview:pimageUrl});
         }
     };
     const handleBannerImageChange = (e, setPreview) => {
@@ -145,6 +174,7 @@ const VenderDashboard = () => {
             setBannerFile(bannerFile)
             const bimageUrl = URL.createObjectURL(bannerFile);
             setBannerPreview(bimageUrl);
+            updateVenderData({ bannerPreview:bimageUrl });
         }
     };
     const handleAddress = (e)=>{
@@ -152,21 +182,45 @@ const VenderDashboard = () => {
     }
     const handleContent = (e)=>{
         setContent(e.target.value);
+        updateVenderData({ content: e.target.value });
     }
     const handleShopName = (e) =>{
         setShopName(e.target.value);
+        updateVenderData({ venderName: e.target.value });
     }
     const handelKakaoURL = (e)=>{
         setKakaoURL(e.target.value);
     }
 
-  
+
+
+
+
 
      // 미리보기 버튼 클릭 시 새로운 웹 창 열기
-    const openPreviewInNewWindow = () => {
-        const previewWindow = window.open('/user/storedetail', '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
-        previewWindow.focus(); // 새 창이 열리면 포커스
+    const openPreviewInNewWindow = (e) => {
+        e.preventDefault();
+        const newWindow = window.open(`/vender/exeStoreDetail/${venderId}`, '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
+        // 새 창이 정상적으로 열렸는지 확인
+        if (newWindow) {
+            setPreviewWindow(newWindow);
+            previewWindowRef.current = newWindow; // 새 창 참조 저장
+            // 새 창이 열리면 포커스
+            newWindow.focus(); 
+        } else {
+            console.error("새 창이 열리지 않았습니다.");
+        }
     };
+
+    // venderData가 변경될 때마다 새 창에 데이터를 전송
+    useEffect(() => {
+        if (previewWindowRef.current) {
+            previewWindowRef.current.postMessage(venderData, '*');  // 새 창에 데이터 전송
+        }
+    }, [venderData]);
+
+
+
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
     }, []);
@@ -234,7 +288,7 @@ const VenderDashboard = () => {
 
     return (
         <>  
-            
+
             <div className="vender-container">
                 <div class="vender-content-wrapper">
                     <VenderSidebar />
@@ -333,9 +387,9 @@ const VenderDashboard = () => {
                     </div>
                 </div>
             </div>
-            
+
         </>
     );
 };
 
-export default VenderDashboard;
+export default VenderInsertPage;

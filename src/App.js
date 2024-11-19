@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+//소영 미리보기페이지용
+import { VenderProvider } from '../src/context/VenderContext';
 import Main from './pages/main/main';
 
 import VenderProductList from './pages/vender/VenderProductList';
@@ -32,6 +33,7 @@ import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/UserLoginForm';
+import UserKakaoLogin from './pages/user/UserKakaoLogin'; // 화면 아님
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -57,6 +59,7 @@ import UserAuditionBoard from './pages/user/UserAuditionBoard';
 import UserAuditionAdd from './pages/user/UserAuditionAdd';
 import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
 import UserMyAudtion from './pages/user/UserMyAudtion';
+import UserExeStoreDetail from './pages/user/UserExeStoreDetail';
 
 // board
 import UserDebateInsert from './pages/user/UserDebateInsert';
@@ -78,21 +81,22 @@ import AdminShopAdd from './pages/admin/AdminShopAdd';
 import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 
-
-
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      
 
+      <BrowserRouter>
           <Routes>
+
+          
             <Route path='/vender/:venderId' element={<VenderDashboard />} />
             <Route path='/vender/productlist' element={<VenderProductList />} />
             <Route path='/vender/option' element={<VenderOption />} />
             <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
             <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
-            <Route path='/vender/purchasedproducts' element={<VenderPurchasedProducts />} />
-            <Route path='/vender/purchasedproductsdetail' element={<VenderPurchasedProductsDetail />} />
+            <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+            <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
             <Route path='/vender/statistics' element={<VenderStatistics />} />
             <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
@@ -103,13 +107,16 @@ function App() {
             <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit />} />
             <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail />} />
             <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails />} />
+            
             {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
             <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
             <Route path='/vender/signup' element={<VenderSignUpForm />} />
             <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
             <Route path="/vender/review" element={<VenderReview />} />
             <Route path="/vender/VenderHeader" element={<VenderHeader />} />
-            <Route path="/vender/VenderInsertPage/:venderId" element={<VenderInsertPage />} />
+            
+              <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
+            
             <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition />} />
             <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
             <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
@@ -118,6 +125,7 @@ function App() {
             {/* User Routes */}
             <Route path='/user/test' element={<UserMain />} />
             <Route path='/user/login' element={<UserLoginForm />} />
+            <Route path='/auth/login/kakao' element={<UserKakaoLogin />} /> 
             <Route path='/user/signup/type' element={<UserSignupType />} />
             <Route path='/user/signup' element={<UserSignUpForm />} />
             <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
@@ -126,7 +134,7 @@ function App() {
             <Route path='/user/sidebar' element={<UserSidebar />} />
             <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
             <Route path='/user/orderlist' element={<UserOrderList />} />
-            <Route path='/user/mypage/orderdetail' element={<UserOrderDetail />} />
+            <Route path='/user/mypage/orderdetail/:orderId' element={<UserOrderDetail />} />
             <Route path='/user/mypage/order' element={<UserOrder />} />
             <Route path='/user/mypage/wishlist' element={<UserWishList />} />
             <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard />} />
@@ -145,6 +153,10 @@ function App() {
             <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
             <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
             <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
+            
+              <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
+
+            
 
             {/* Main and Admin */}
             <Route path='/' element={<Main />} />
@@ -166,7 +178,6 @@ function App() {
             <Route path='/board/boardview' element={<UserDebateView />} />
             <Route path="/board/debateedit" element={<UserDebateEdit />} />
           </Routes>
- 
       </BrowserRouter>
     </div>
   );
