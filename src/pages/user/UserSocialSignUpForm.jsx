@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // useLocation 추가
+import axios from "axios";
 
 //css
 import "../../assets/css/all.css";
@@ -10,10 +11,63 @@ import "../../assets/css/user/userSocialSignUpForm.css";
 
 const UserSocialSignUpForm = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // navigate에서 전달된 state를 받기 위한 useLocation 추가
+
+  // 전달된 사용자 정보
+  const {
+    email: kakaoEmail,
+    user_nickname: kakaoNikname,
+    user_profile_image_url: userProfileImageUrl,
+  } = location.state || {};
+
+  const [email, setEmail] = useState(kakaoEmail || ""); // 초기값으로 카카오 이메일 설정
+  const [name, setName] = useState("");
+  const [nickname, setNikname] = useState(""); // 초기값으로 카카오 닉네임 설정
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [emailValid, setEmailValid] = useState(null); // 이메일 중복 여부
+  const [nicknameValid, setNicknameValid] = useState(null); // 닉네임 중복 여부
 
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+
+  // 이메일 입력 핸들러 및 중복 체크
+  const handleEmail = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    // 서버에 이메일 중복 체크 요청
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/check/email`, {
+        params: { email: newEmail },
+      })
+      .then((response) => {
+        // response.data.result가 'success'이면 이메일 사용 가능, 'fail'이면 중복
+        setEmailValid(response.data.result === "success"); // true면 사용 가능, false면 중복
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // 닉네임 입력 핸들러 및 중복 체크
+  const handleNickname = (e) => {
+    const newNickname = e.target.value;
+    setNikname(newNickname);
+
+    // 서버에 이메일 중복 체크 요청
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/check/nickname`, {
+        params: { user_nickname: newNickname },
+      })
+      .then((response) => {
+        // response.data.result가 'success'이면 이메일 사용 가능, 'fail'이면 중복
+        setNicknameValid(response.data.result === "success"); // true면 사용 가능, false면 중복
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleName = (e) => setName(e.target.value);
+  const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
 
   const handleAllCheck = (e) => {
     const checked = e.target.checked;
@@ -34,6 +88,53 @@ const UserSocialSignUpForm = () => {
     }
   };
 
+  const handleSocialSignUp = (e) => {
+    e.preventDefault();
+
+    console.log("Aaa");
+    const userVo = {
+      email: email,
+      name: name,
+      user_nickname: nickname,
+      phone_number: phoneNumber,
+      user_profile_image_url: userProfileImageUrl,
+    };
+
+    console.log("테테스트트");
+    console.log(userVo);
+
+    console.log(userVo);
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/users/kakao`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: userVo,
+    })
+      .then((response) => {
+        console.log(response.data); //수신데이타
+        if (response.data.result === "success") {
+          // 헤더에서 토큰 꺼내기
+          const token = response.headers["authorization"].split(" ")[1];
+          console.log(token);
+
+          // 로컬스토리지에 토큰 저장
+          localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+
+          // 로컬스토리지에 authUser 저장
+          /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
+        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
+          localStorage.setItem(
+            "authUser",
+            JSON.stringify(response.data.apiData)
+          );
+          navigate("/user/signup/succ");
+        } else {
+          alert("회원가입 실패");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -47,7 +148,7 @@ const UserSocialSignUpForm = () => {
 
         <h2>필수사항</h2>
         <div className="userSocialSignUpForm-social-signup-area">
-          <form>
+          <form onSubmit={handleSocialSignUp}>
             <div className="userSocialSignUpForm-input-group">
               <div className="social-guide">
                 <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
@@ -60,11 +161,16 @@ const UserSocialSignUpForm = () => {
               <input
                 id="user-id"
                 type="text"
-                value=""
+                value={email}
                 placeholder="이메일 주소를 입력해주세요."
+                onChange={handleEmail}
               />
-              <p className="user-social-id-ok">사용가능</p>
-              <p className="user-social-id-ok">중복된 이메일 입니다.</p>
+              {emailValid === true && (
+                <p className="user-social-id-ok">사용 가능한 이메일 입니다.</p>
+              )}
+              {emailValid === false && (
+                <p className="user-social-id-ok">중복된 이메일 입니다.</p>
+              )}
             </div>
 
             <div className="userSocialSignUpForm-input-group">
@@ -80,19 +186,27 @@ const UserSocialSignUpForm = () => {
               <input
                 id="user-name"
                 type="text"
-                value=""
+                value={name}
                 placeholder="이름을 입력해주세요."
+                onChange={handleName}
               />
             </div>
 
             <div className="userSocialSignUpForm-input-group">
-              <label htmlFor="user-nikname">닉네임</label>
+              <label htmlFor="user-nickname">닉네임</label>
               <input
-                id="user-nikname"
+                id="user-nickname"
                 type="text"
-                value=""
+                value={nickname}
                 placeholder="닉네임을 입력해주세요."
+                onChange={handleNickname}
               />
+              {nicknameValid === true && (
+                <p className="user-id-ok">사용 가능한 닉네임 입니다.</p>
+              )}
+              {nicknameValid === false && (
+                <p className="user-id-ok">중복된 닉네임 입니다.</p>
+              )}
             </div>
 
             <div className="userSocialSignUpForm-input-group">
@@ -101,12 +215,13 @@ const UserSocialSignUpForm = () => {
                 <input
                   id="user-phone"
                   type="text"
-                  value=""
+                  value={phoneNumber}
                   placeholder="'-' 제외하고 숫자만 입력해주세요."
+                  onChange={handlePhoneNumber}
                 />
-                <button type="button" className="request-code-btn">
+                {/* <button type="button" className="request-code-btn">
                   인증번호 요청
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -148,7 +263,6 @@ const UserSocialSignUpForm = () => {
             <div className="user-social-signup-btn">
               <button
                 type="submit"
-                onClick={() => navigate("/user/signup/succ")}
                 disabled={!(isTermsChecked && isPrivacyChecked)} // 필수 약관 미동의 시 버튼 비활성화
               >
                 회원가입
