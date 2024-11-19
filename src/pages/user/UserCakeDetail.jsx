@@ -135,7 +135,8 @@ const UserCakeDetail = () => {
                 const selectedId = selectedOptions[OPTION_TYPES[type].stateKey];
                 const selectedOption = options.find(opt => opt.optionValueId === selectedId);
                 if (selectedOption) {
-                    optionNames[type] = selectedOption.optionValueName;
+                    // 여기를 수정: 영어 키 대신 한글 키 사용
+                    optionNames[OPTION_TYPES[type].title] = selectedOption.optionValueName;
                 }
             });
             setSelectedOptionNames(optionNames);
@@ -1100,12 +1101,16 @@ const UserCakeDetail = () => {
                                     plateLetter: letters.plateLetter,
                                     additionalRequest: letters.additionalRequest,
                                     selectedOptions: selectedOptionNames
+                                    
                                 }
+                                
                             }}
                             className="submit-button"
                         >
                             요청사항 확인
+                            
                         </Link>
+                     
                     </div>
                 </div>
             </main>
