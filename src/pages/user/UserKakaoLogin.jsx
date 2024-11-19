@@ -46,32 +46,40 @@ function UserKakaoLogin() {
         responseType: "json",
       });
 
-      const userInfo = userResponse.data.apiData;
-
-      // 우리 사이트 회원인지 확인하고 결과 메세지로 체크
-      const userCheck = await axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}/api/users/check`,
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        data: userInfo,
-        responseType: "json",
-      });
-      console.log(userCheck.data);
+      console.log(userResponse.data);
+      // 서버에서 받은 응답 데이터
+      const { userInfo, message, authUser } = userResponse.data.apiData;
 
       // userCheck 응답 확인
-      if (userCheck.data.message === "중복된 이메일") {
-        alert("이미 가입된 이메일입니다. 로그인을 진행합니다.");
-        localStorage.setItem("token", accessToken);
-        localStorage.setItem("authUser", JSON.stringify(userInfo));
-        navigate("/");
+      if (message === "이미 가입된 이메일") {
+        // 헤더에서 토큰 꺼내기
+        const token = userResponse.headers["authorization"].split(" ")[1];
+        console.log(token);
+
+        // 로컬스토리지에 토큰 저장
+        localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+
+        // 로컬스토리지에 authUser 저장
+        /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
+        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
+        localStorage.setItem("authUser", JSON.stringify(authUser));
+        navigate("/"); // 홈으로 이동
+      } else if (message === "신규 회원") {
+        const proceed = window.confirm(
+          "처음 방문하시는 회원입니다. 회원가입 하시겠습니까?"
+        );
+        if (proceed) {
+          // 확인을 누른 경우
+          setTimeout(() => {
+            navigate("/user/social/signup", { state: userInfo }); // 상태로 사용자 정보 전달
+          }, 100); // 100ms 지연
+        } else {
+          // 취소를 누른 경우
+          alert("회원가입이 취소되었습니다.");
+        }
       } else {
-        alert("처음 방문하시는 회원입니다. 회원가입 하시겠습니까?");
-        setTimeout(() => {
-          navigate("/user/social/signup");
-        }, 100); // 100ms 지연
+        throw new Error("알 수 없는 상태입니다.");
       }
-      // localStorage.setItem("token", accessToken);
-      // localStorage.setItem("authUser", JSON.stringify(userInfo));
 
       if (userInfo !== null) {
         navigate("/");
