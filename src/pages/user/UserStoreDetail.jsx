@@ -9,6 +9,24 @@ const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const {venderId} = useParams();
     const [detailVo, setDetailVo] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    
+
+     // 위치 데이터를 저장할 상태
+    const [location, setLocation] = useState(null);
+    const kakaoMapApiKey = process.env.REACT_APP_MAP_REST_API_KEY;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        getdetails();
+        console.log('로케잇션은222???'+latitude)
+        console.log('로케잇션은222???'+longitude)
+
+    }, []);
+
+
+
 
     const getdetails = ()=>{
         axios({
@@ -22,24 +40,61 @@ const UserStoreDetail = () => {
             console.log(response); //수신데이타
             console.log(response.data.apiData);
             setDetailVo(response.data.apiData);
-            //console.log(detailVo)
-
-
+            
+            
+            setLatitude(response.data.apiData.latitude) //위도
+            setLongitude(response.data.apiData.longitude) //경도
+            
+            console.log('**'+latitude);
+            console.log('**'+longitude)
+            
     
             }).catch(error => {
             console.log(error);
             });
     }
 
-    
 
-
-    
+    //위도, 경도로 지도 표시
+    // 카카오맵 API 로드 및 지도 표시
     useEffect(() => {
-        window.scrollTo(0, 0);
-        getdetails();
+        console.log('로케잇션은???'+longitude)
+        console.log('로케잇션은???'+latitude)
+        if (longitude,latitude) {
+        const script = document.createElement("script");
+        script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false'; // 여기에 발급받은 카카오 API 키 입력
+        script.async = true;
+        script.onload = () => {
+            window.kakao.maps.load(() => {
+            const container = document.getElementById('map'); // 지도 표시할 DOM 요소
+            const options = {
+                center: new window.kakao.maps.LatLng(latitude, longitude), // DB에서 가져온 위도, 경도를 지도 중심으로 설정
+                level: 3, // 줌 레벨 (3: 보통, 1: 가까운 거리, 14: 더 멀리)
+            };
 
-    }, []);
+            const map = new window.kakao.maps.Map(container, options); // 지도 객체 생성
+
+            // 마커 생성
+            const markerPosition = new window.kakao.maps.LatLng(latitude,longitude);
+            const marker = new window.kakao.maps.Marker({
+                position: markerPosition,
+            });
+            marker.setMap(map); // 지도에 마커 표시
+            });
+        };
+        document.body.appendChild(script); // script 태그로 카카오맵 API 로드
+        }
+        return () => {
+            const scriptTag = document.querySelector('script[src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false"]');
+            if (scriptTag) {
+            document.body.removeChild(scriptTag); // 컴포넌트가 언마운트 될 때 script 태그를 제거
+            }
+        };
+        },[longitude, latitude]); // latitude, longitude 값이 바뀔 때마다 실행되도록 설정]);
+
+
+    
+    
 
     // 상품 데이터
     const categoryProducts = {
@@ -146,13 +201,21 @@ const UserStoreDetail = () => {
                             <div className="sd-section sd-map-section">
                                 <div className="sd-map-container">
                                     <div className="map-placeholder">
-                                        <p>지도 영역</p>
-                                        <p>Kakao Maps API</p>
+                                        {{latitude} ? (
+                                            <div id="map" style={{ width: '100%', height: '100%', backgroundColor: 'red' }}></div> 
+                                        ):(
+                                            <>
+                                            <p>지도 영역</p>
+                                            <p>Kakao Maps </p>
+                                            </>
+                                        )}
+                                        
+                                        
                                     </div>
                                 </div>
                                 <div className="sd-map-info">
                                     <p className="sd-map-title">📍 매장 위치</p>
-                                    <p>매장주소를 입력해주세요</p>
+                                    {detailVo.venderAddress}
                                     <p></p>
                                 </div>
                             </div>
