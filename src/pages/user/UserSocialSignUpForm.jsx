@@ -16,9 +16,8 @@ const UserSocialSignUpForm = () => {
   // 전달된 사용자 정보
   const {
     email: kakaoEmail,
-    user_nickname: kakaoNikname,
     user_profile_image_url: userProfileImageUrl,
-  } = location.state || {};
+  } = location.state || {}; // user_nickname: kakaoNikname은 제외(사용자가 입력)
 
   const [email, setEmail] = useState(kakaoEmail || ""); // 초기값으로 카카오 이메일 설정
   const [name, setName] = useState("");

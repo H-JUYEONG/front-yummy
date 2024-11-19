@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { useNavigate } from "react-router-dom";
@@ -19,14 +19,49 @@ const UserAuditionAdd = () => {
   const [desiredDate, setDesiredDate] = useState(""); // 희망 날짜
   const [desiredTime, setDesiredTime] = useState(""); // 희망 시간
   const [recipient, setRecipient] = useState(""); // 받는 사람
-  const [region, setRegion] = useState("강남구"); // 지역 구
+  const [region, setRegion] = useState(""); // 지역 구
   const [requests, setRequests] = useState(""); // 요청사항
+  const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
   const [selectedTab, setSelectedTab] = useState("찜한 도안");
-  const [likedDesigns] = useState([
-    { id: 1, title: "생일 케이크 도안", image: "/images/2.png" },
-  ]);
+  const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
+
+  // 찜한 도안 데이터 가져오기
+  useEffect(() => {
+    const fetchLikedDesigns = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("로그인이 필요합니다.");
+          navigate("/user/login");
+          return;
+        }
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/user/liked-designs`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.data.result === "success") {
+          setLikedDesigns(response.data.data); // 서버에서 받은 도안 리스트 설정
+        } else {
+          alert("찜한 도안 데이터를 불러오는데 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("찜한 도안 데이터를 가져오는 중 오류 발생:", error);
+        alert("서버와 통신 중 문제가 발생했습니다.");
+      }
+    };
+
+    if (selectedTab === "찜한 도안") {
+      fetchLikedDesigns();
+    }
+  }, [selectedTab, navigate]);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -35,16 +70,19 @@ const UserAuditionAdd = () => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setUploadedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setUploadedImage(file);
     }
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      navigate("/user/login");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -56,21 +94,26 @@ const UserAuditionAdd = () => {
     formData.append("recipient", recipient);
     formData.append("region", region);
     formData.append("requests", requests);
+    formData.append("deliveryAddress", deliveryAddress);
+
     if (uploadedImage) {
       formData.append("uploadedImage", uploadedImage);
     }
 
     try {
-      const response = await axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}/api/auditions`,
-        headers: { "Content-Type": "multipart/form-data" },
-        data: formData,
-        responseType: "json",
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/user/add/audition`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (response.data.result === "success") {
-        navigate("/audition/success");
+        navigate("/user/audition");
       } else {
         alert("등록 실패");
       }
@@ -130,7 +173,7 @@ const UserAuditionAdd = () => {
             </div>
 
             <div className="user-cake-audition-form-group">
-              <label htmlFor="deliveryMethod">수령방식</label>
+              <label htmlFor="deliveryMethod">수령 방식</label>
               <select
                 id="deliveryMethod"
                 value={deliveryMethod}
@@ -142,7 +185,45 @@ const UserAuditionAdd = () => {
               </select>
             </div>
 
-            {deliveryMethod === "픽업" ? (
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="region">수령 지역</label>
+              <select
+                id="region"
+                value={region}
+                onChange={(e) => setRegion(e.target.value)}
+                className="user-audition-input-text"
+              >
+                <option value="">케이크를 수령할 지역(구)을 선택해주세요.</option>
+                <option value="강남구">강남구</option>
+                <option value="종로구">종로구</option>
+                <option value="중구">중구</option>
+                <option value="용산구">용산구</option>
+                <option value="성동구">성동구</option>
+                <option value="광진구">광진구</option>
+                <option value="동대문구">동대문구</option>
+                <option value="중랑구">중랑구</option>
+                <option value="성북구">성북구</option>
+                <option value="강북구">강북구</option>
+                <option value="도봉구">도봉구</option>
+                <option value="노원구">노원구</option>
+                <option value="은평구">은평구</option>
+                <option value="서대문구">서대문구</option>
+                <option value="마포구">마포구</option>
+                <option value="양천구">양천구</option>
+                <option value="강서구">강서구</option>
+                <option value="구로구">구로구</option>
+                <option value="금천구">금천구</option>
+                <option value="영등포구">영등포구</option>
+                <option value="동작구">동작구</option>
+                <option value="관악구">관악구</option>
+                <option value="서초구">서초구</option>
+                <option value="강남구">강남구</option>
+                <option value="송파구">송파구</option>
+                <option value="강동구">강동구</option>
+              </select>
+            </div>
+
+            {deliveryMethod === "픽업" && (
               <>
                 <div className="user-cake-audition-form-group">
                   <label htmlFor="desiredDate">희망 픽업일</label>
@@ -162,13 +243,23 @@ const UserAuditionAdd = () => {
                     onChange={(e) => setDesiredTime(e.target.value)}
                     className="user-audition-input-text"
                   >
-                    <option value="">시간 선택</option>
+                    <option value="">수령을 원하는 시간을 선택해주세요.</option>
                     <option value="09:00">09:00</option>
                     <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
                   </select>
                 </div>
               </>
-            ) : (
+            )}
+
+            {deliveryMethod === "배송" && (
               <>
                 <div className="user-cake-audition-form-group">
                   <label htmlFor="desiredDate">희망 수령일</label>
@@ -188,9 +279,17 @@ const UserAuditionAdd = () => {
                     onChange={(e) => setDesiredTime(e.target.value)}
                     className="user-audition-input-text"
                   >
-                    <option value="">시간 선택</option>
+                    <option value="">수령을 원하는 시간을 선택해주세요.</option>
+                    <option value="09:00">09:00</option>
                     <option value="10:00">10:00</option>
                     <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
                   </select>
                 </div>
                 <div className="user-cake-audition-form-group">
@@ -200,7 +299,18 @@ const UserAuditionAdd = () => {
                     id="recipient"
                     value={recipient}
                     onChange={(e) => setRecipient(e.target.value)}
-                    placeholder="예: 홍길동"
+                    placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
+                    className="user-audition-input-text"
+                  />
+                </div>
+                <div className="user-cake-audition-form-group">
+                  <label htmlFor="deliveryAddress">배송 주소</label>
+                  <input
+                    type="text"
+                    id="deliveryAddress"
+                    value={deliveryAddress}
+                    onChange={(e) => setDeliveryAddress(e.target.value)}
+                    placeholder="도로명 주소와 상세 주소를 정확히 입력해주세요. (예: 서울특별시 강남구 테헤란로 123, 101동 202호)"
                     className="user-audition-input-text"
                   />
                 </div>
@@ -208,27 +318,12 @@ const UserAuditionAdd = () => {
             )}
 
             <div className="user-cake-audition-form-group">
-              <label htmlFor="region">구 선택</label>
-              <select
-                id="region"
-                value={region}
-                onChange={(e) => setRegion(e.target.value)}
-                className="user-audition-input-text"
-              >
-                <option value="강남구">강남구</option>
-                <option value="종로구">종로구</option>
-                <option value="중구">중구</option>
-                <option value="용산구">용산구</option>
-              </select>
-            </div>
-
-            <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>
               <textarea
                 id="requests"
                 value={requests}
                 onChange={(e) => setRequests(e.target.value)}
-                placeholder="케이크의 컨셉, 색상, 디자인 요소 등 원하는 내용을 적어주세요."
+                placeholder="케이크의 컨셉, 색상, 디자인, 원하는 문구 등 자세한 내용을 적어주세요."
                 className="user-audition-input-text"
                 rows="4"
               ></textarea>
@@ -237,21 +332,21 @@ const UserAuditionAdd = () => {
             {/* 탭 메뉴 */}
             <div className="user-audition-tabs">
               <button
-                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                type="button"
                 className={selectedTab === "찜한 도안" ? "active" : ""}
                 onClick={() => handleTabChange("찜한 도안")}
               >
                 찜한 도안
               </button>
               <button
-                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                type="button"
                 className={selectedTab === "사진 첨부" ? "active" : ""}
                 onClick={() => handleTabChange("사진 첨부")}
               >
                 사진 첨부
               </button>
               <button
-                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                type="button"
                 className={selectedTab === "사진 없음" ? "active" : ""}
                 onClick={() => handleTabChange("사진 없음")}
               >
@@ -279,7 +374,10 @@ const UserAuditionAdd = () => {
                   <input type="file" onChange={handleImageUpload} />
                   {uploadedImage && (
                     <div className="user-audition-uploaded-image-preview">
-                      <img src={uploadedImage} alt="Uploaded" />
+                      <img
+                        src={URL.createObjectURL(uploadedImage)}
+                        alt="Uploaded"
+                      />
                     </div>
                   )}
                 </div>
