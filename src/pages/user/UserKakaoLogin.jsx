@@ -20,36 +20,68 @@ function UserKakaoLogin() {
 
   const handleLogin = async (code) => {
     try {
-      // 1. Access Token 요청
-      const tokenResponse = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
-        { headers: { "Content-Type": "application/json" } }, // 헤더만 전달
-        {
-          params: { authorizeCode: code }, // Query Parameters로 전달
-        }
-      );
+      // 카카오 액세스 토큰 받아오기
+      const response = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        params: { authorizeCode: code },
+        responseType: "json",
+      });
 
-      const accessToken = tokenResponse.data.accessToken;
-      console.log("Access Token:", accessToken);
+      console.log(response);
+      console.log(response.data);
+      console.log(response.data.apiData);
 
-      // 2. 사용자 정보 요청
-      const userResponse = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/profile`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
+      const accessToken = response.data.apiData;
 
-      const userInfo = userResponse.data.result;
-      console.log("User Info:", userInfo);
+      // 카카오 유저 정보 가져오기
+      const userResponse = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/users/profile`,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        responseType: "json",
+      });
 
-      // 3. 상태 저장 및 리다이렉트
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      const userInfo = userResponse.data.apiData;
 
-      navigate("/"); // 메인 페이지로 이동
+      // 우리 사이트 회원인지 확인하고 결과 메세지로 체크
+      const userCheck = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_API_URL}/api/users/check`,
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        data: userInfo,
+        responseType: "json",
+      });
+      console.log(userCheck.data);
+
+      // userCheck 응답 확인
+      if (userCheck.data.message === "중복된 이메일") {
+        alert("이미 가입된 이메일입니다. 로그인을 진행합니다.");
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("authUser", JSON.stringify(userInfo));
+        navigate("/");
+      } else {
+        alert("처음 방문하시는 회원입니다. 회원가입 하시겠습니까?");
+        setTimeout(() => {
+          navigate("/user/social/signup");
+        }, 100); // 100ms 지연
+      }
+      // localStorage.setItem("token", accessToken);
+      // localStorage.setItem("authUser", JSON.stringify(userInfo));
+
+      if (userInfo !== null) {
+        navigate("/");
+      } else {
+        console.error(userResponse.data.message);
+        alert(userResponse.data.message || "로그인에 실패했습니다.");
+      }
     } catch (error) {
-      console.error("로그인 실패:", error);
-      setErrorMessage("로그인에 실패했습니다. 다시 시도해주세요.");
-    } finally {
+      console.error("카카오 로그인 오류:", error);
+      alert("카카오 로그인에 실패했습니다.");
       setLoading(false);
     }
   };
