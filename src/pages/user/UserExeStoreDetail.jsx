@@ -157,8 +157,12 @@ const UserStoreDetail = () => {
                                 </div>
                                 <div className="sd-map-info">
                                     <p className="sd-map-title">📍 매장 위치</p>
-                                    <p>매장주소를 입력해주세요</p>
-                                    <p></p>
+                                    {venderData.shopAddress ? (
+                                        <h2 className="sd-store-name">{venderData.shopAddress}</h2>
+                                    ) : (
+                                        <p className="sd-store-name">매장주소를 입력해주세요</p>)}
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
