@@ -6,10 +6,15 @@
     width: 100%;
     margin:0 auto;
     position: relative; /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
-    background-image: url(../../images/emptyIMG.png);
+    /*background-image: url(../../images/emptyIMG.png);*/
     overflow: hidden;
-    background-size: cover;
+
     background-position: center;
+}
+.vender-header-wrap img{
+    width: 1700px;
+    height: 100%;
+    object-fit: cover; /*이미지 비율을 유지하면서 부모 div를 꽉 채우도록 함*/
 }
 
 .vender-header-mainlogo{

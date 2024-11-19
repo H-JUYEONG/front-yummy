@@ -7,6 +7,7 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorder.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
+import WebRTCReceiver from "./WebRTCReceiver"; //실시간 방송
 
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
@@ -16,7 +17,24 @@ const UserOrder = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    
+    //실시간 방송
+    const [isBroadcastActive, setIsBroadcastActive] = useState(false);
+    const [offer, setOffer] = useState("");
+
+    useEffect(() => {
+        // 서버에서 방송 상태 및 Offer 정보 가져오기
+        const fetchBroadcastStatus = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/broadcast/${selectedOrder.id}`);
+                setIsBroadcastActive(response.data.isActive);
+                setOffer(response.data.offer);
+            } catch (error) {
+                console.error("방송 상태 가져오기 실패:", error);
+            }
+        };
+
+        fetchBroadcastStatus();
+    }, [selectedOrder]);
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -269,6 +287,7 @@ const UserOrder = () => {
                                         <div className="action-buttons">
                                             {order.actions.map((action, idx) => (
                                                 action === '주문상세보기' ? (
+
                                                     <ScrollToTopLink
                                                         key={idx}
                                                         to={`/user/mypage/orderdetail/${order.id}`}
@@ -277,19 +296,31 @@ const UserOrder = () => {
                                                         {action}
                                                     </ScrollToTopLink>
                                                 ) : action === '리뷰쓰기' ? (
+
                                                     <ScrollToTopLink
                                                         key={idx}
-                                                        to="/user/cakedetail"
-                                                        state={{ openReview: true }}
+                                                        to={`/user/mypage/orderdetail/${order.id}`} // 여기서 order.id 값 console.log로 확인
                                                         className="action-btn"
                                                     >
                                                         {action}
+                                                        {console.log("order id:", order.id)}
                                                     </ScrollToTopLink>
-                                                ) : (
-                                                    <button key={idx} className="action-btn">
-                                                        {action}
-                                                    </button>
                                                 )
+
+                                                    : action === '리뷰쓰기' ? (
+                                                        <ScrollToTopLink
+                                                            key={idx}
+                                                            to="/user/cakedetail"
+                                                            state={{ openReview: true }}
+                                                            className="action-btn"
+                                                        >
+                                                            {action}
+                                                        </ScrollToTopLink>
+                                                    ) : (
+                                                        <button key={idx} className="action-btn">
+                                                            {action}
+                                                        </button>
+                                                    )
                                             ))}
                                         </div>
                                     </td>
@@ -327,6 +358,13 @@ const UserOrder = () => {
                                 동영상을 재생할 수 없습니다.
                             </video>
                         </div>
+                    </div>
+                )}
+
+                {isBroadcastActive && offer && (
+                    <div className="live-stream">
+                        <h3>실시간 방송</h3>
+                        <WebRTCReceiver offer={offer} />
                     </div>
                 )}
 

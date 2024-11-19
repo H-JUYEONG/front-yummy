@@ -11,31 +11,31 @@
     color: #333;
 }
 
-.filter-container {
+.admin-approvallist-content .filter-container {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
 }
 
-.filter-container label {
+.admin-approvallist-content .filter-container label {
     margin-right: 10px;
     font-size: 16px;
     color: #555;
 }
 
-.approval-requests {
+.admin-approvallist-content .approval-requests {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.approval-items-container {
+.admin-approvallist-content .approval-items-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.approval-item {
+.admin-approvallist-content .approval-item {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -84,7 +84,7 @@
     width: 100%;
 }
 
-.horizontal-layout {
+.admin-approvallist-content .horizontal-layout {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,7 +109,7 @@
     gap: 15px;
 }
 
-.view-button {
+.admin-approvallist-content .view-button {
     padding: 8px 12px;
     background-color: #4CAF50;
     color: white;
@@ -119,7 +119,7 @@
     transition: background-color 0.3s ease;
 }
 
-.view-button:hover {
+.admin-approvallist-content .view-button:hover {
     background-color: #45a049;
 }
 
@@ -136,7 +136,7 @@
     background-color: #f44336; /* 승인 거절 상태는 빨간색 */
 }
 /* 모달 창 스타일 (신청 내역 보기 전용) */
-.modal-overlay {
+.admin-approvallist-content .modal-overlay {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -149,7 +149,7 @@
     z-index: 1000;
 }
 
-.modal-content {
+.admin-approvallist-content .modal-content {
     background: #fff;
     border-radius: 12px;
     max-width: 600px;
@@ -160,19 +160,19 @@
     z-index: 1010;
 }
 
-.modal-content h2 {
+.admin-approvallist-content .modal-content h2 {
     font-size: 20px;
     color: #333;
     margin-bottom: 15px;
 }
 
-.modal-content p {
+.admin-approvallist-content .modal-content p {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
 }
 
-.modal-buttons {
+.admin-approvallist-content .modal-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -196,20 +196,20 @@
     background-color: #45a049;
 }
 
-.reject-button {
+.admin-approvallist-content .reject-button {
     background-color: #f44336;
     color: #fff;
 }
 
-.reject-button:hover {
+.admin-approvallist-content .reject-button:hover {
     background-color: #e53935;
 }
 
-.close-modal-button {
+.admin-approvallist-content .close-modal-button {
     background-color: #ff9800;
     color: #fff;
 }
 
-.close-modal-button:hover {
+.admin-approvallist-content .close-modal-button:hover {
     background-color: #fb8c00;
 }
