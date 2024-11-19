@@ -517,46 +517,19 @@ const UserCakeDetail = () => {
             const response = await axios.get(
                 `${process.env.REACT_APP_API_URL}/api/reviews/stats/${productId}`
             );
-            console.log("[리뷰 통계 raw]:", response.data);
-
-            // 실제 리뷰의 평균과 카운트 계산
-            const reviews = response.data.apiData;
-            if (Array.isArray(reviews) && reviews.length > 0) {
-                // 평균 평점 계산
-                const totalRating = reviews.reduce((sum, review) => sum + review.reviewRating, 0);
-                const averageRating = totalRating / reviews.length;
-
-                // 각 평점별 카운트 계산
-                const ratingCounts = {
-                    5: reviews.filter(review => review.reviewRating === 5).length,
-                    4: reviews.filter(review => review.reviewRating === 4).length,
-                    3: reviews.filter(review => review.reviewRating === 3).length,
-                    2: reviews.filter(review => review.reviewRating === 2).length,
-                    1: reviews.filter(review => review.reviewRating === 1).length
-                };
-
+            console.log("[리뷰 통계 응답]:", response.data);
+    
+            if (response.data.result === "success") {
+                const stats = response.data.apiData;  // data 대신 apiData에서 추출
                 setReviewStats({
-                    averageRating: parseFloat(averageRating.toFixed(1)),
-                    totalReviews: reviews.length,
-                    ratingCounts
-                });
-
-                console.log("[리뷰 통계 계산 결과]:", {
-                    averageRating: parseFloat(averageRating.toFixed(1)),
-                    totalReviews: reviews.length,
-                    ratingCounts
-                });
-            } else {
-                // 리뷰가 없는 경우 초기값 설정
-                setReviewStats({
-                    averageRating: 0,
-                    totalReviews: 0,
+                    averageRating: stats.averageRating,
+                    totalReviews: stats.totalReviews,
                     ratingCounts: {
-                        5: 0,
-                        4: 0,
-                        3: 0,
-                        2: 0,
-                        1: 0
+                        5: stats.ratingCounts5,
+                        4: stats.ratingCounts4,
+                        3: stats.ratingCounts3,
+                        2: stats.ratingCounts2,
+                        1: stats.ratingCounts1
                     }
                 });
             }

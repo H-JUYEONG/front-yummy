@@ -106,19 +106,19 @@ const UserOrder = () => {
             if (confirmed) {
                 // API 요청 URL 확인을 위한 로그
                 console.log('Request URL:', `${process.env.REACT_APP_API_URL}/api/orders/${orderId}/status`);
-                
+
                 // 요청 데이터 확인을 위한 로그
                 const requestData = { status: "수령 완료" };
                 console.log('Request Data:', requestData);
-                
+
                 const response = await axios.put(
                     `${process.env.REACT_APP_API_URL}/api/orders/${orderId}/status`,
                     requestData
                 );
-                
+
                 // 응답 확인을 위한 로그
                 console.log('Response:', response.data);
-                
+
                 await Promise.all([
                     fetchOrderList(),
                     fetchStatusCounts()
@@ -255,8 +255,8 @@ const UserOrder = () => {
                                     <td>{order.productName}</td>
                                     <td>
                                         {order.orderStatus}
-                                        {order.orderStatus === "픽업 요청/배송 중" && (
-                                            <button 
+                                        {["픽업 요청", "배송 중"].includes(order.orderStatus) && (
+                                            <button
                                                 onClick={() => updateOrderStatus(order.id)}
                                                 className="confirm-receipt-btn"
                                                 style={{
