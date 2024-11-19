@@ -322,7 +322,7 @@
 }
 
 /* 모든 섹션에 공통으로 가운데 정렬을 적용할 수 있는 클래스 */
-.centered-section {
+.purchasedproductsDetail-preview-item .centered-section {
     display: flex;
     flex-direction: column;
     align-items: center; /* 수평 중앙 정렬 */
@@ -331,13 +331,52 @@
 }
 
 /* 버튼이 가운데 정렬되도록 추가 스타일 조정 */
-.centered-button {
+.purchasedproductsDetail-preview-item .centered-button {
     display: inline-block;
     width: 80%; /* 필요에 따라 너비 조정 */
     max-width: 200px;
     margin: 10px 0;
 }
 
+
+.product-list-main-content .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.product-list-main-content .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 500px;
+    max-width: 90%;
+}
+
+.product-list-main-content  .modal-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.product-list-main-content  .modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-list-main-content .modal-actions button:hover {
+    background-color: #f0f0f0;
+}
 /* 반응형 스타일 */
 @media (max-width: 768px) {
     /* 주문 정보 섹션 */

@@ -23,7 +23,7 @@ const AdminCompanyList = () => {
     const filteredCompanies = companies.filter(company => {
         const address = company.venderAddress || ""; // null 방지
         const name = company.venderName || ""; // null 방지
-    
+
         return (
             (selectedRegion === "전체" || address.includes(selectedRegion)) &&
             (searchQuery === "" || name.includes(searchQuery) || address.includes(searchQuery))
@@ -114,7 +114,7 @@ const AdminCompanyList = () => {
                 <tbody>
                     {currentCompanies.map((company, index) => (
                         <tr key={index}>
-                             <td>{company.venderId}</td>
+                            <td>{company.venderId}</td>
                             <td>{company.venderName}</td>
                             <td>{company.venderAddress}</td>
                             <td>{company.venderNumber}</td>

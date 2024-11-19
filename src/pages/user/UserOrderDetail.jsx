@@ -14,7 +14,7 @@ const UserOrderDetail = () => {
     const [orderDetail, setOrderDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+
     // localStorage에서 로그인한 사용자 정보 가져오기
     const [authUser] = useState(() => {
         const user = localStorage.getItem('authUser');
@@ -37,9 +37,9 @@ const UserOrderDetail = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`);
             console.log("API Response:", response);
             console.log("Response Data:", response.apiData);
-            
+
             // JsonResult 구조 확인
-            if(response.data.result === "success") {
+            if (response.data.result === "success") {
                 setOrderDetail(response.data.apiData);
                 console.log("Set Order Detail:", response.data.apiData);
             } else {
@@ -61,16 +61,16 @@ const UserOrderDetail = () => {
     return (
         <div id="user-wrap">
             <header id="user-wrap-head">
-                <Header/>
+                <Header />
             </header>
             <RightNavbar />
             <main id="user-wrap-body">
                 <UserSidebar />
-                
+
                 <section id="user-wrap-main">
                     <div className="order-detail-container">
                         <h2 className="order-title">주문 상세</h2>
-                        
+
                         {/* 주문 기본 정보 */}
                         <div className="order-basic-info">
                             <div className="order-date">{orderDetail.orderDate}</div>
@@ -80,7 +80,7 @@ const UserOrderDetail = () => {
                         {/* 주문 상품 정보 */}
                         <div className="order-product-info">
                             <div className="product-image-container">
-                                <img 
+                                <img
                                     src={orderDetail.productImage}
                                     alt={orderDetail.productName}
                                     className="product-image"
@@ -90,115 +90,115 @@ const UserOrderDetail = () => {
                                 />
                             </div>
                             <div className="product-details">
-    <h3>{orderDetail.productName}</h3>
-    <div className="detail-item">
-        <span className="label">배송방법: </span>
-        <span className="value">{orderDetail.deliveryMethod === 'pickup' ? '픽업' : '퀵배송'}</span>
-    </div>
-    
-    {/* 배송/픽업 정보 */}
-    {orderDetail.deliveryMethod === 'pickup' ? (
-        <>
-            <div className="detail-item">
-                <span className="label">픽업일시: </span>
-                <span className="value">
-                    {orderDetail.desiredPickupDatetime} {orderDetail.desiredPickupTime}
-                </span>
-            </div>
-        </>
-    ) : (
-        <>
-            <div className="detail-item">
-                <span className="label">배송일시: </span>
-                <span className="value">
-                    {orderDetail.desiredDeliveryDate} {orderDetail.desiredDeliveryTime}
-                </span>
-            </div>
-            <div className="detail-item">
-                <span className="label">배송주소: </span>
-                <span className="value">{orderDetail.deliveryAddress}</span>
-            </div>
-        </>
-    )}
+                                <h3>{orderDetail.productName}</h3>
+                                <div className="detail-item">
+                                    <span className="label">배송방법: </span>
+                                    <span className="value">{orderDetail.deliveryMethod === 'pickup' ? '픽업' : '퀵배송'}</span>
+                                </div>
 
-    {/* 동적으로 모든 옵션 표시 */}
-    {Object.entries(orderDetail).map(([key, value]) => {
-        // 옵션 필드 매핑
-        const optionLabels = {
-            productType: '상품 종류',
-            cakeSize: '케이크 크기',
-            flavorSheet: '시트 맛',
-            flavorCream: '크림 맛',
-            cakeBackgroundColor: '케이크 배경색',
-            creamPosition: '크림 위치',
-            creamColor: '크림 색상',
-            decorationType: '데코레이션 종류',
-            decorationColor: '데코레이션 색상',
-            category: '카테고리'
-        };
+                                {/* 배송/픽업 정보 */}
+                                {orderDetail.deliveryMethod === 'pickup' ? (
+                                    <>
+                                        <div className="detail-item">
+                                            <span className="label">픽업일시: </span>
+                                            <span className="value">
+                                                {orderDetail.desiredPickupDatetime} {orderDetail.desiredPickupTime}
+                                            </span>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="detail-item">
+                                            <span className="label">배송일시: </span>
+                                            <span className="value">
+                                                {orderDetail.desiredDeliveryDate} {orderDetail.desiredDeliveryTime}
+                                            </span>
+                                        </div>
+                                        <div className="detail-item">
+                                            <span className="label">배송주소: </span>
+                                            <span className="value">{orderDetail.deliveryAddress}</span>
+                                        </div>
+                                    </>
+                                )}
 
-        // 옵션 필드인 경우에만 표시
-        if (optionLabels[key] && value) {
-            return (
-                <div key={key} className="detail-item">
-                    <span className="label">{optionLabels[key]}: </span>
-                    <span className="value">{value}</span>
-                </div>
-            );
-        }
-        return null;
-    })}
+                                {/* 동적으로 모든 옵션 표시 */}
+                                {Object.entries(orderDetail).map(([key, value]) => {
+                                    // 옵션 필드 매핑
+                                    const optionLabels = {
+                                        productType: '상품 종류',
+                                        cakeSize: '케이크 크기',
+                                        flavorSheet: '시트 맛',
+                                        flavorCream: '크림 맛',
+                                        cakeBackgroundColor: '케이크 배경색',
+                                        creamPosition: '크림 위치',
+                                        creamColor: '크림 색상',
+                                        decorationType: '데코레이션 종류',
+                                        decorationColor: '데코레이션 색상',
+                                        category: '카테고리'
+                                    };
 
-    {/* 가격 정보 */}
-    <div className="detail-item">
-        <span className="label">가격: </span>
-        <span className="value price">{orderDetail.totalPrice?.toLocaleString()}원</span>
-    </div>
+                                    // 옵션 필드인 경우에만 표시
+                                    if (optionLabels[key] && value) {
+                                        return (
+                                            <div key={key} className="detail-item">
+                                                <span className="label">{optionLabels[key]}: </span>
+                                                <span className="value">{value}</span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })}
 
-    {/* 문구 정보 */}
-    {orderDetail.cakeLettering && (
-        <div className="detail-item">
-            <span className="label">케이크 문구: </span>
-            <span className="value">{orderDetail.cakeLettering}</span>
-        </div>
-    )}
-    {orderDetail.plateLettering && (
-        <div className="detail-item">
-            <span className="label">케이크 판 문구: </span>
-            <span className="value">{orderDetail.plateLettering}</span>
-        </div>
-    )}
+                                {/* 가격 정보 */}
+                                <div className="detail-item">
+                                    <span className="label">가격: </span>
+                                    <span className="value price">{orderDetail.totalPrice?.toLocaleString()}원</span>
+                                </div>
 
-    {/* 요청사항 */}
-    {orderDetail.additionalRequests && (
-        <div className="detail-item note">
-            <span className="label">요청사항: </span>
-            <span className="value">{orderDetail.additionalRequests}</span>
-        </div>
-    )}
+                                {/* 문구 정보 */}
+                                {orderDetail.cakeLettering && (
+                                    <div className="detail-item">
+                                        <span className="label">케이크 문구: </span>
+                                        <span className="value">{orderDetail.cakeLettering}</span>
+                                    </div>
+                                )}
+                                {orderDetail.plateLettering && (
+                                    <div className="detail-item">
+                                        <span className="label">케이크 판 문구: </span>
+                                        <span className="value">{orderDetail.plateLettering}</span>
+                                    </div>
+                                )}
 
-    {/* 주문상태 */}
-    <div className="product-status">
-        <span className="status-label">주문상태</span>
-        <span className="status-value">{orderDetail.orderStatus}</span>
-    </div>
-</div>
+                                {/* 요청사항 */}
+                                {orderDetail.additionalRequests && (
+                                    <div className="detail-item note">
+                                        <span className="label">요청사항: </span>
+                                        <span className="value">{orderDetail.additionalRequests}</span>
+                                    </div>
+                                )}
+
+                                {/* 주문상태 */}
+                                <div className="product-status">
+                                    <span className="status-label">주문상태</span>
+                                    <span className="status-value">{orderDetail.orderStatus}</span>
+                                </div>
+                            </div>
                         </div>
 
-                       {/* 보내는 사람 정보 수정 */}
-<div className="order-section">
-        <h3>보내는 사람 정보</h3>
-        <div className="info-content">
-            <p>
-                <span className="label">보내는 사람</span>
-                <span className="value">{authUser?.name}</span>
-            </p>
-            <p>
-                <span className="label">연락처</span>
-                <span className="value">{authUser?.phone_number}</span>
-            </p>
-        </div>
-    </div>
+                        {/* 보내는 사람 정보 수정 */}
+                        <div className="order-section">
+                            <h3>보내는 사람 정보</h3>
+                            <div className="info-content">
+                                <p>
+                                    <span className="label">보내는 사람</span>
+                                    <span className="value">{authUser?.name}</span>
+                                </p>
+                                <p>
+                                    <span className="label">연락처</span>
+                                    <span className="value">{authUser?.phone_number}</span>
+                                </p>
+                            </div>
+                        </div>
 
                         {/* 받는 사람 정보 */}
                         <div className="order-section">
@@ -248,7 +248,7 @@ const UserOrderDetail = () => {
                     </div>
                 </section>
             </main>
-            <Footer/>
+            <Footer />
         </div>
     );
 };
