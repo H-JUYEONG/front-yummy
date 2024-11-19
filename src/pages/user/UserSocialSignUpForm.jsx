@@ -219,6 +219,9 @@ const UserSocialSignUpForm = () => {
                   placeholder="'-' 제외하고 숫자만 입력해주세요."
                   onChange={handlePhoneNumber}
                 />
+                {/* <button type="button" className="request-code-btn">
+                  인증번호 요청
+                </button> */}
               </div>
             </div>
 
