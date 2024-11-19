@@ -65,6 +65,7 @@ const VenderInsertPage = () => {
         bannerFile: '',
         profileFile: ''
     })
+    
 
     //주소 검색
     
@@ -72,6 +73,9 @@ const VenderInsertPage = () => {
     const [address, setAddress] = useState('');
     const [extraAddress, setExtraAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
+
+    //구
+    const [district ,setDistrict] = useState("");
 
     //지도에 필요한 좌표
     const [latitude, setLatitude] = useState(null);
@@ -207,7 +211,7 @@ const VenderInsertPage = () => {
     
         // Daum 지도 API 로드
         const mapsScript = document.createElement('script');
-        mapsScript.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false&libraries=services"; // API Key를 입력하세요.
+        mapsScript.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false&libraries=services'; // API Key를 입력하세요.
         mapsScript.async = true;
     
         mapsScript.onload = () => {
@@ -272,8 +276,15 @@ const VenderInsertPage = () => {
                         setExtraAddress(extraAddr);
                         setDetailAddress(''); // 상세주소 입력 필드를 위한 초기화
                         
-                        console.log(shopAddress);
-                        
+                        const splitAddress = addr.split(" ");
+                        console.log(splitAddress)
+                        setDistrict(splitAddress[1]);
+
+                        console.log("---------")
+                        console.log(addr);
+                        console.log(splitAddress)
+                        console.log(district);
+                        console.log("---------")
                         
 
                         // 지도 API가 로드된 후에 Geocoder 사용
@@ -337,6 +348,7 @@ const VenderInsertPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+    
     }, []);
 
 
@@ -344,8 +356,8 @@ const VenderInsertPage = () => {
     //****** 업체정보 등록 *******
     const handleSubmit = (e)=>{
         e.preventDefault();
-
-
+        console.log("전송할때 구 들어가는지 확인")
+        console.log('ddddddddddd'+district);
         if (bannerFile instanceof File) {
             console.log('logoFile 파일입니다.');
         } else {
@@ -356,7 +368,7 @@ const VenderInsertPage = () => {
         
         formData.append('venderName', shopName || nonce.shopName);
         formData.append('venderAddress', shopAddress || nonce.shopAddress);
-        formData.append('district', '성동구' || nonce.district);
+        formData.append('district', district || nonce.district);
         formData.append('latitude', latitude || nonce.latitude);
         formData.append('longitude', longitude || nonce.longitude);
         formData.append('kakaoURL', kakaoURL || nonce.kakaoURL);
