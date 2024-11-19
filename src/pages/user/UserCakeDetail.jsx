@@ -230,13 +230,12 @@ const UserCakeDetail = () => {
     };
 
 
-    // 찜하기/취소 핸들러
     const handleLike = async () => {
         if (!authUser) {
             alert('로그인이 필요한 서비스입니다.');
             return;
         }
-    
+
         try {
             if (isLiked) {
                 // 찜 취소
@@ -249,6 +248,7 @@ const UserCakeDetail = () => {
                         }
                     }
                 );
+                setLikeCount(prev => prev - 1); // 카운트 즉시 감소
             } else {
                 // 찜하기
                 await axios.post(
@@ -258,51 +258,48 @@ const UserCakeDetail = () => {
                         memberId: authUser.member_id
                     }
                 );
+                setLikeCount(prev => prev + 1); // 카운트 즉시 증가
             }
-            
-            // UI 즉시 업데이트
-            setIsLiked(!isLiked);
-            setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
-            
-            // 서버에서 최신 정보 다시 가져오기
-            await fetchWishlistInfo();
+            setIsLiked(!isLiked); // 상태 토글
         } catch (error) {
             console.error('찜하기 처리 실패:', error);
             alert('처리 중 오류가 발생했습니다.');
-            // 에러 발생 시 UI 원상복구
+            // 에러 발생 시 원래 상태로 복구
             await fetchWishlistInfo();
         }
     };
-   // 찜 정보 조회 함수 수정
-const fetchWishlistInfo = async () => {
-    try {
-        // 총 찜 개수 조회
-        const countResponse = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/wishlist/count/${productId}`
-        );
-        console.log('찜 개수 응답:', countResponse.data);
-        // data.data로 접근하도록 수정
-        setLikeCount(countResponse.data.data);
-
-        // 로그인한 경우만 찜 상태 조회
-        if (authUser) {
-            const statusResponse = await axios.get(
-                `${process.env.REACT_APP_API_URL}/api/wishlist/check`,
-                {
-                    params: {
-                        productId: parseInt(productId),
-                        memberId: authUser.member_id
-                    }
-                }
+    // 찜 정보 조회 함수 수정
+    const fetchWishlistInfo = async () => {
+        try {
+            // 총 찜 개수 조회
+            const countResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/wishlist/count/${productId}`
             );
-            console.log('찜 상태 응답:', statusResponse.data);
-            setIsLiked(statusResponse.data.data > 0);
+            console.log('찜 개수 응답:', countResponse); // 응답 구조 확인용 로그
+    
+            // 응답 구조에 따라 적절한 방식으로 데이터 접근
+            const count = countResponse.data.apiData || countResponse.data.data || 0;
+            setLikeCount(count);
+    
+            // 로그인한 경우만 찜 상태 조회
+            if (authUser) {
+                const statusResponse = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/check`,
+                    {
+                        params: {
+                            productId: parseInt(productId),
+                            memberId: authUser.member_id
+                        }
+                    }
+                );
+                console.log('찜 상태 응답:', statusResponse); // 응답 구조 확인용 로그
+                setIsLiked(statusResponse.data.apiData > 0 || statusResponse.data.data > 0);
+            }
+        } catch (error) {
+            console.error('찜 정보 조회 실패:', error);
+            setLikeCount(0); // 에러 발생 시 기본값 설정
         }
-    } catch (error) {
-        console.error('찜 정보 조회 실패:', error);
-    }
-};
-
+    };
     const handleMouseDown = (e, ref) => {
         setIsDragging(true);
         const container = ref.current;
