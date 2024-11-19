@@ -104,17 +104,16 @@ const UserPersonalInfoEdit = () => {
       formData.append("profileImage", newProfilePicture);
     }
 
-    axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/update`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
+    axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/update`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+      responseType: "json",
+    })
       .then((response) => {
         if (response.data.result === "success") {
           alert("회원정보가 업데이트되었습니다.");
@@ -148,17 +147,19 @@ const UserPersonalInfoEdit = () => {
     setEventDate("");
   
     // Optionally, send a POST request to save the event on the server
-    axios
-      .post(
-        `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
-        newEvent,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: newEvent,
+      responseType: "json",
+    })
       .then((response) => {
         if (response.data.result === "success") {
           alert("기념일이 추가되었습니다.");
+          getUserPersonalInfo()
         } else {
           alert("기념일 추가 실패");
         }
@@ -173,13 +174,18 @@ const UserPersonalInfoEdit = () => {
     setUserEventList(userEventList.filter((event) => event.eventId !== eventId));
   
     // Optionally, send a DELETE request to remove the event from the server
-    axios
-      .delete(`${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${eventId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${eventId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      responseType: "json",
+    })
       .then((response) => {
         if (response.data.result === "success") {
           alert("기념일이 삭제되었습니다.");
+          getUserPersonalInfo()
         } else {
           alert("기념일 삭제 실패");
         }
@@ -197,28 +203,7 @@ const UserPersonalInfoEdit = () => {
     setIsWithdrawModalOpen(false);
   };
   
-  const handleConfirmWithdraw = () => {
-    console.log("User confirmed withdrawal");
-    setIsWithdrawModalOpen(false);
-  
-    // Add withdrawal logic here (e.g., API call)
-    axios
-      .delete(`${process.env.REACT_APP_API_URL}/api/user/mypage/withdraw`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        if (response.data.result === "success") {
-          alert("회원 탈퇴가 완료되었습니다.");
-          // Redirect user to another page (e.g., login or home)
-          window.location.href = "/login";
-        } else {
-          alert("회원 탈퇴 실패");
-        }
-      })
-      .catch((error) => {
-        console.error("Error processing withdrawal:", error);
-      });
-  };
+
 
   return (
     <div id="user-wrap">
@@ -372,7 +357,6 @@ const UserPersonalInfoEdit = () => {
       {isWithdrawModalOpen && (
         <UserWithdrawConfirm
           onClose={handleCloseWithdrawModal}
-          onConfirm={handleConfirmWithdraw}
         />
       )}
     </div>
