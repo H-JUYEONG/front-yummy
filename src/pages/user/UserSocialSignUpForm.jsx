@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 //css
 import "../../assets/css/all.css";
@@ -11,9 +12,36 @@ import "../../assets/css/user/userSocialSignUpForm.css";
 const UserSocialSignUpForm = () => {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [nikname, setNikname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [emailValid, setEmailValid] = useState(null); // 이메일 중복 여부
+
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+
+  // 이메일 입력 핸들러 및 중복 체크
+  const handleEmail = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    // 서버에 이메일 중복 체크 요청
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/check/email`, {
+        params: { email: newEmail },
+      })
+      .then((response) => {
+        // response.data.result가 'success'이면 이메일 사용 가능, 'fail'이면 중복
+        setEmailValid(response.data.result === "success"); // true면 사용 가능, false면 중복
+      })
+      .catch((error) => console.error(error));
+  };
+  const handleName = (e) => setName(e.target.value);
+  const handleNikname = (e) => setNikname(e.target.value);
+  const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
 
   const handleAllCheck = (e) => {
     const checked = e.target.checked;
@@ -34,6 +62,32 @@ const UserSocialSignUpForm = () => {
     }
   };
 
+  const handleSocialSignUp = (e) => {
+    e.preventDefault();
+
+    const userVo = {
+      email: email,
+      name: name,
+      user_nickname: nikname,
+      phone_number: phoneNumber,
+    };
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/users/kakao`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: userVo,
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          navigate("/user/signup/succ");
+        } else {
+          alert("회원가입 실패");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div id="user-wrap" className="user-text-center">
       {/* Header */}
@@ -47,7 +101,7 @@ const UserSocialSignUpForm = () => {
 
         <h2>필수사항</h2>
         <div className="userSocialSignUpForm-social-signup-area">
-          <form>
+          <form onSubmit={handleSocialSignUp}>
             <div className="userSocialSignUpForm-input-group">
               <div className="social-guide">
                 <p>※ 아래의 정보는 최초 1회 입력이 필요하며,</p>
@@ -60,11 +114,16 @@ const UserSocialSignUpForm = () => {
               <input
                 id="user-id"
                 type="text"
-                value=""
+                value={email}
                 placeholder="이메일 주소를 입력해주세요."
+                onChange={handleEmail}
               />
-              <p className="user-social-id-ok">사용가능</p>
-              <p className="user-social-id-ok">중복된 이메일 입니다.</p>
+              {emailValid === true && (
+                <p className="user-social-id-ok">사용 가능한 이메일 입니다.</p>
+              )}
+              {emailValid === false && (
+                <p className="user-social-id-ok">중복된 이메일 입니다.</p>
+              )}
             </div>
 
             <div className="userSocialSignUpForm-input-group">
@@ -80,8 +139,9 @@ const UserSocialSignUpForm = () => {
               <input
                 id="user-name"
                 type="text"
-                value=""
+                value={name}
                 placeholder="이름을 입력해주세요."
+                onChange={handleName}
               />
             </div>
 
@@ -90,8 +150,9 @@ const UserSocialSignUpForm = () => {
               <input
                 id="user-nikname"
                 type="text"
-                value=""
+                value={nikname}
                 placeholder="닉네임을 입력해주세요."
+                onChange={handleNikname}
               />
             </div>
 
@@ -101,12 +162,15 @@ const UserSocialSignUpForm = () => {
                 <input
                   id="user-phone"
                   type="text"
-                  value=""
+                  value={phoneNumber}
                   placeholder="'-' 제외하고 숫자만 입력해주세요."
+                  onChange={handlePhoneNumber}
                 />
+                {/*
                 <button type="button" className="request-code-btn">
                   인증번호 요청
                 </button>
+                */}
               </div>
             </div>
 
@@ -148,7 +212,6 @@ const UserSocialSignUpForm = () => {
             <div className="user-social-signup-btn">
               <button
                 type="submit"
-                onClick={() => navigate("/user/signup/succ")}
                 disabled={!(isTermsChecked && isPrivacyChecked)} // 필수 약관 미동의 시 버튼 비활성화
               >
                 회원가입
