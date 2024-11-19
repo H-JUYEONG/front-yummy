@@ -185,20 +185,22 @@ const UserOrderDetail = () => {
                             </div>
                         </div>
 
-                        {/* 보내는 사람 정보 수정 */}
-                        <div className="order-section">
-                            <h3>보내는 사람 정보</h3>
-                            <div className="info-content">
-                                <p>
-                                    <span className="label">보내는 사람</span>
-                                    <span className="value">{authUser?.name}</span>
-                                </p>
-                                <p>
-                                    <span className="label">연락처</span>
-                                    <span className="value">{authUser?.phone_number}</span>
-                                </p>
-                            </div>
-                        </div>
+
+                       {/* 보내는 사람 정보 수정 */}
+<div className="order-section">
+        <h3>보내는 사람 정보</h3>
+        <div className="info-content">
+            <p>
+                <span className="label">보내는 사람</span>
+                <span className="value">{authUser?.name}</span>
+            </p>
+            <p>
+                <span className="label">연락처</span>
+                <span className="value">{orderDetail.senderPhone}</span>
+            </p>
+        </div>
+    </div>
+
 
                         {/* 받는 사람 정보 */}
                         <div className="order-section">
