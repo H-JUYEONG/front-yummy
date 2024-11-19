@@ -234,14 +234,57 @@ const UserAuditionAdd = () => {
               ></textarea>
             </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="uploadedImage">사진 첨부</label>
-              <input
-                type="file"
-                id="uploadedImage"
-                onChange={handleImageUpload}
-                className="user-audition-input-text"
-              />
+            {/* 탭 메뉴 */}
+            <div className="user-audition-tabs">
+              <button
+                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                className={selectedTab === "찜한 도안" ? "active" : ""}
+                onClick={() => handleTabChange("찜한 도안")}
+              >
+                찜한 도안
+              </button>
+              <button
+                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                className={selectedTab === "사진 첨부" ? "active" : ""}
+                onClick={() => handleTabChange("사진 첨부")}
+              >
+                사진 첨부
+              </button>
+              <button
+                type="button" // 추가: type="button"으로 설정하여 새로고침 방지
+                className={selectedTab === "사진 없음" ? "active" : ""}
+                onClick={() => handleTabChange("사진 없음")}
+              >
+                사진 없음
+              </button>
+            </div>
+
+            {/* 탭에 따른 내용 */}
+            <div className="user-audition-design-preview">
+              {selectedTab === "찜한 도안" && (
+                <div className="user-audition-liked-designs">
+                  {likedDesigns.map((design) => (
+                    <div
+                      key={design.id}
+                      className="user-audition-liked-design-card"
+                    >
+                      <img src={design.image} alt={design.title} />
+                      <p>{design.title}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {selectedTab === "사진 첨부" && (
+                <div className="user-audition-upload-section">
+                  <input type="file" onChange={handleImageUpload} />
+                  {uploadedImage && (
+                    <div className="user-audition-uploaded-image-preview">
+                      <img src={uploadedImage} alt="Uploaded" />
+                    </div>
+                  )}
+                </div>
+              )}
+              {selectedTab === "사진 없음" && <p>첨부된 사진이 없습니다.</p>}
             </div>
 
             <div className="user-audition-add">
