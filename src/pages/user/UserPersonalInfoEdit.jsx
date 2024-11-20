@@ -1,7 +1,6 @@
 // Import libraries
-import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userPersonalInfoEdit.css";
@@ -11,28 +10,32 @@ import UserSidebar from "./include/UserSidebar";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 
-
-
 const UserPersonalInfoEdit = () => {
-  /*---일반 변수 --------------------------------------------*/
+  /*--- State Variables --------------------------------------------*/
   const token = localStorage.getItem("token");
 
+  const [memberId, setMemberID ]= useState("");
+  
   const [profilePicture, setProfilePicture] = useState("");
-  const [newProfilePicture, setNewProfilePicture] = useState(null); // For new profile image
+  const [ppUrl, setPpUrl] = useState("");
+  
   const [email, setEmail] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userName, setUserName] = useState("");
   const [userNickName, setUserNickName] = useState("");
   const [userHp, setUserHp] = useState("");
-  const [userEventList, setUserEventList] = useState([]); // 이벤트 리스트
+
+
   const [newPassword, setNewPassword] = useState(""); // 새 비밀번호
   const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인
 
+  const [userEventList, setUserEventList] = useState([]); // 이벤트 리스트
   const [eventName, setEventName] = useState(""); // Name of the event
   const [eventDate, setEventDate] = useState(""); // Date of the event
 
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false);
 
+  /*--- Fetch User Data --------------------------------------------*/
   const getUserPersonalInfo = () => {
     axios({
       method: "get",
@@ -40,23 +43,24 @@ const UserPersonalInfoEdit = () => {
       headers: { Authorization: `Bearer ${token}` },
       responseType: "json",
     })
-    .then((response) => {
-      if (response.data.result === "success") {
-        const combinedData = response.data.apiData || {}; // Use apiData instead of data
-        const userProfile = combinedData.userProfile || {};
-        setUserPw(userProfile.passwordHash || "");
-        setEmail(userProfile.email || "");
-        setUserName(userProfile.name || "");
-        setUserNickName(userProfile.userNickname || "");
-        setUserHp(userProfile.phoneNumber || "");
-        setProfilePicture(userProfile.userProfileImageUrl || "");
-    
-        const userEvents = combinedData.userEvents || [];
-        setUserEventList(userEvents);
-      } else {
-        alert("회원정보 가져오기 실패");
-      }
-    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          const combinedData = response.data.apiData || {};
+          const userProfile = combinedData.userProfile;
+          setMemberID(userProfile.memberId);
+          setEmail(userProfile.email);
+          setUserHp(userProfile.phoneNumber);
+          setUserName(userProfile.name);
+          setUserNickName(userProfile.userNickname);
+          setPpUrl(userProfile.userProfileImageUrl);
+          setUserPw(userProfile.passwordHash);
+
+          const userEvents = combinedData.userEvents || [];
+          setUserEventList(userEvents);
+        } else {
+          alert("회원정보 가져오기 실패");
+        }
+      })
       .catch((error) => {
         console.error("Error fetching user personal info:", error);
       });
@@ -66,48 +70,81 @@ const UserPersonalInfoEdit = () => {
     getUserPersonalInfo();
   }, []);
 
+  /*--- Handlers for Input Changes ---------------------------------*/
+  const handleUserNickName = (e) => {
+    setUserNickName(e.target.value);
+  };
+
+  const handleNewPassword = (e) => {
+    setNewPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handleUserHp = (e) => {
+    setUserHp(e.target.value);
+  };
+
   const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setNewProfilePicture(file); // Save the new image file
-      setProfilePicture(URL.createObjectURL(file)); // Preview the new image
+    if (e.target.files[0]) {
+      
+
+      setProfilePicture(e.target.files[0]); // Save the new image file
+      setPpUrl(URL.createObjectURL(e.target.files[0])); // Preview the new image
+
+
+
     }
   };
 
+  /*--- Save Changes ---------------------------------------------*/
   const handleSave = (e) => {
     e.preventDefault();
 
-    if (newPassword !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
-    // Create updated profile data
-    const updatedProfile = {
-      userNickname: userNickName,
-      phoneNumber: userHp,
-    };
-
-    // Create FormData for multipart data
     const formData = new FormData();
-    formData.append("userProfileData", JSON.stringify(updatedProfile));
-
-    // Include new password if provided
-    if (newPassword) {
-      formData.append("password", newPassword);
+    if (profilePicture) {
+      setPpUrl(null);
+      console.log(profilePicture);
+    } else {
+      setPpUrl(null);
     }
-
-    // Include new profile picture if updated
-    if (newProfilePicture) {
-      formData.append("profileImage", newProfilePicture);
+    
+      // Add passwordHash logic
+    if (newPassword && confirmPassword && newPassword === confirmPassword) {
+      console.log("Updating passwordHash with newPassword");
+      console.log(newPassword);
+      setUserPw(newPassword);
+    } else if (userPw) {
+      setUserPw(userPw);
+    } else {
+      console.error("PasswordHash is null or undefined");
     }
+    console.log(memberId);
+    formData.append("memberId", memberId);
+    console.log(email);
+    formData.append("email", email);
+    console.log(userHp);
+    formData.append("phoneNumber", userHp);
+    console.log(userName);
+    formData.append("name", userName);
+    console.log(userNickName);
+    formData.append("userNickname", userNickName);
+    
+    console.log(profilePicture);
+    formData.append("profilePicture", profilePicture);
+
+    console.log(newPassword);
+    formData.append("passwordHash", newPassword);
+    
+
 
     axios({
       method: "put",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/update`,
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`, // Only include this header
       },
       data: formData,
       responseType: "json",
@@ -124,40 +161,35 @@ const UserPersonalInfoEdit = () => {
         console.error("Error updating user info:", error);
       });
   };
+
+  /*--- Event Management -----------------------------------------*/
   const handleAddEvent = () => {
     if (!eventName || !eventDate) {
       alert("기념일 이름과 날짜를 입력하세요.");
       return;
     }
-  
-    // Create a new event object
+
     const newEvent = {
-      eventId: Date.now(), // Temporary unique ID; replace with actual ID from backend
+      eventId: Date.now(),
       eventName,
       eventDate,
     };
-  
-    // Update the local state
+
     setUserEventList([...userEventList, newEvent]);
-  
-    // Reset input fields
     setEventName("");
     setEventDate("");
-  
-    // Optionally, send a POST request to save the event on the server
+
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       data: newEvent,
       responseType: "json",
     })
       .then((response) => {
         if (response.data.result === "success") {
           alert("기념일이 추가되었습니다.");
-          getUserPersonalInfo()
+          getUserPersonalInfo();
         } else {
           alert("기념일 추가 실패");
         }
@@ -168,22 +200,18 @@ const UserPersonalInfoEdit = () => {
   };
 
   const handleDeleteEvent = (eventId) => {
-    // Update the state to remove the event
     setUserEventList(userEventList.filter((event) => event.eventId !== eventId));
-  
-    // Optionally, send a DELETE request to remove the event from the server
+
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${eventId}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       responseType: "json",
     })
       .then((response) => {
         if (response.data.result === "success") {
           alert("기념일이 삭제되었습니다.");
-          getUserPersonalInfo()
+          getUserPersonalInfo();
         } else {
           alert("기념일 삭제 실패");
         }
@@ -192,16 +220,15 @@ const UserPersonalInfoEdit = () => {
         console.error("Error deleting event:", error);
       });
   };
-  
+
+  /*--- Modal Handlers ------------------------------------------*/
   const handleOpenWithdrawModal = () => {
     setIsWithdrawModalOpen(true);
   };
-  
+
   const handleCloseWithdrawModal = () => {
     setIsWithdrawModalOpen(false);
   };
-  
-
 
   return (
     <div id="user-wrap">
@@ -219,68 +246,65 @@ const UserPersonalInfoEdit = () => {
         <div className="main-content">
           <h2>회원정보 수정</h2>
 
-          {/* Profile Picture Edit Section */}
-          <div className="profile-picture-section">
-            <div className="profile-picture-preview">
-              {profilePicture ? (
-                <img src={profilePicture} alt="Profile Preview" />
-              ) : (
-                <span>프로필 사진 없음</span>
-              )}
-            </div>
-            <label className="profile-picture-button">
-              프로필 사진 업로드
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleProfilePictureChange}
-                className="profile-picture-input"
-              />
-            </label>
-          </div>
-
-          {/* User Information Form */}
           <form className="user-edit-form" onSubmit={handleSave}>
+            {/* Profile Picture Edit Section */}
+            <div className="profile-picture-section">
+              <div className="profile-picture-preview">
+                {ppUrl ? (
+                  <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} />
+                ) : (
+                  
+                  <span>프로필 사진 없음</span>
+                )}
+              </div>
+              <label className="profile-picture-button">
+                프로필 사진 업로드
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfilePictureChange}
+                  className="profile-picture-input"
+                />
+              </label>
+            </div>
+
+            {/* User Information Form */}
             <label>아이디</label>
             <input type="text" value={email} readOnly />
 
             <label>이름</label>
-            <input
-              type="text"
-              value={userName}
-              readOnly
-            />
+            <input type="text" value={userName} readOnly />
 
             <label>유저네임</label>
             <input
               type="text"
               value={userNickName}
-              onChange={(e) => setUserNickName(e.target.value)}
+              onChange={handleUserNickName}
             />
 
             <label>새 비밀번호</label>
             <input
               type="password"
               placeholder="새 비밀번호"
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={handleNewPassword}
             />
 
             <label>비밀번호 확인</label>
             <input
               type="password"
               placeholder="비밀번호 확인"
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={handleConfirmPassword}
             />
 
             <label>휴대폰 번호</label>
             <input
               type="tel"
               value={userHp}
-              onChange={(e) => setUserHp(e.target.value)}
+              onChange={handleUserHp}
               pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
             />
 
-                      {/* Event List Section */}
+            {/* Event List Section */}
             <label>기념일 조회</label>
             <section className="j-add-event-section">
               <input
@@ -294,13 +318,12 @@ const UserPersonalInfoEdit = () => {
                 value={eventDate}
                 onChange={(e) => setEventDate(e.target.value)}
               />
-              <button onClick={handleAddEvent}>기념일 추가하기</button>
+              <button type="button" onClick={handleAddEvent}>
+                기념일 추가하기
+              </button>
             </section>
 
-          
-
-
-                    {/* Display Event List */}
+            {/* Display Event List */}
             <section className="j-event-list-section">
               {userEventList.length > 0 ? (
                 userEventList.map((event, index) => (
@@ -324,27 +347,27 @@ const UserPersonalInfoEdit = () => {
               )}
             </section>
 
-          {/* Action Buttons */}
-          <div className="user-edit-buttons">
-            <button type="button" className="user-cancel-button">
-              취소
-            </button>
-            <button type="submit" className="user-save-button">
-              저장하기
-            </button>
-          </div>
-        </form>
-          {/* 탈퇴 버튼 Section */}
+            {/* Action Buttons */}
+            <div className="user-edit-buttons">
+              <button type="button" className="user-cancel-button">
+                취소
+              </button>
+              <button type="submit" className="user-save-button">
+                저장하기
+              </button>
+            </div>
+          </form>
+
+          {/* Withdrawal Section */}
           <div className="j-user-withdrawal-section">
             <button
               type="button"
               className="j-user-withdrawal-button"
-              onClick={handleOpenWithdrawModal} // Open modal on click
+              onClick={handleOpenWithdrawModal}
             >
               회원 탈퇴
             </button>
           </div>
-
         </div>
       </main>
 
@@ -355,13 +378,10 @@ const UserPersonalInfoEdit = () => {
 
       {/* Withdrawal Confirmation Modal */}
       {isWithdrawModalOpen && (
-        <UserWithdrawConfirm
-          onClose={handleCloseWithdrawModal}
-        />
+        <UserWithdrawConfirm onClose={handleCloseWithdrawModal} />
       )}
     </div>
   );
 };
 
 export default UserPersonalInfoEdit;
-
