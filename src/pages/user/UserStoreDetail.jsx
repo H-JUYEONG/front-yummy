@@ -7,28 +7,68 @@ import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const {venderId} = useParams();
+    //const {venderId} = useParams();
+    //venderId
+    // ** user또는 비회원 > product에있는 venderId값 넣기   // vender > authUser에있는 값 넣기
+    const [venderId, setVenderId] = useState('');
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
+    
+    
+        
+    
+
+    
+    
+
+
+    //업체 플렛폼 부분
     const [detailVo, setDetailVo] = useState('');
+
+    //map
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     
+    const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
 
-     // 위치 데이터를 저장할 상태
-    const [location, setLocation] = useState(null);
-    const kakaoMapApiKey = process.env.REACT_APP_MAP_REST_API_KEY;
+    useEffect(()=>{
+        if (authUser && authUser.vender_id) {
+            setVenderId(authUser.vender_id);
+        } else {
+            setVenderId(null); 
+        }
+    },[authUser])
+    
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getdetails();
+        
+        if(venderId != null){
+            console.log("venderId ok")
+            getdetails();
+            goodsList();
+        }else{
+            console.log("venderId no")
+        }
+        
         console.log('로케잇션은222???'+latitude)
         console.log('로케잇션은222???'+longitude)
 
-    }, []);
+        
+        console.log('authUser값확인',authUser)
+
+        console.log('venderId알려줘요',venderId)
+
+    }, [venderId]);
 
 
 
 
     const getdetails = ()=>{
+        console.log('*********//////////////',venderId)
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
@@ -60,9 +100,12 @@ const UserStoreDetail = () => {
     useEffect(() => {
         console.log('로케잇션은???'+longitude)
         console.log('로케잇션은???'+latitude)
+        console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
+
+
         if (longitude,latitude) {
         const script = document.createElement("script");
-        script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false'; // 여기에 발급받은 카카오 API 키 입력
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`; // 여기에 발급받은 카카오 API 키 입력
         script.async = true;
         script.onload = () => {
             window.kakao.maps.load(() => {
@@ -85,12 +128,32 @@ const UserStoreDetail = () => {
         document.body.appendChild(script); // script 태그로 카카오맵 API 로드
         }
         return () => {
-            const scriptTag = document.querySelector('script[src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false"]');
+            const scriptTag = document.querySelector(`script[src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false"]`);
             if (scriptTag) {
             document.body.removeChild(scriptTag); // 컴포넌트가 언마운트 될 때 script 태그를 제거
             }
         };
-        },[longitude, latitude]); // latitude, longitude 값이 바뀔 때마다 실행되도록 설정]);
+    },[longitude, latitude]); // latitude, longitude 값이 바뀔 때마다 실행되도록 설정]);
+
+
+    //상품 가져오기
+    const goodsList = ()=>{
+        //console.log(venderId,'no값 있나요 상품')
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/veder/goodsList/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+
+    }
 
 
     
@@ -148,7 +211,7 @@ const UserStoreDetail = () => {
     };
 
     const handleKakaoChat = () => {
-        window.open(`http://pf.kakao.com/${detailVo.kakaoURL}`, '_blank');
+        window.open(`${detailVo.kakaoURL}`, '_blank');
 
     };
 

@@ -26,6 +26,8 @@ import { AlignRight } from 'lucide-react';
 
 const VenderInsertPage = () => {
 
+    const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
+
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(() => {
         const storedUser = localStorage.getItem('authUser');
@@ -89,6 +91,7 @@ const VenderInsertPage = () => {
 
     const firstList = async ()=>{
         console.log('시작')
+        
         try {
             const response = await axios({
             method: 'get',          // put, post, delete                   
@@ -111,8 +114,8 @@ const VenderInsertPage = () => {
             // bannerURL과 profileURL을 File로 변환
             const bannerFile = data.bannerURL ? await convertUrlToFile(data.bannerURL, "banner.jpg") : null;
             const logoFile = data.profileURL ? await convertUrlToFile(data.profileURL, "profile.jpg") : null;
-
-            
+            //console.log('///')
+            //console.log(data.district)
             setNonce({
                 venderName: data.shopName || '',
                 shopAddress:data.venderAddress || '',
@@ -211,7 +214,7 @@ const VenderInsertPage = () => {
     
         // Daum 지도 API 로드
         const mapsScript = document.createElement('script');
-        mapsScript.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=6b812f78ce9508fcc788afd21fa76b3b&autoload=false&libraries=services'; // API Key를 입력하세요.
+        mapsScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false&libraries=services`; // API Key를 입력하세요.
         mapsScript.async = true;
     
         mapsScript.onload = () => {
