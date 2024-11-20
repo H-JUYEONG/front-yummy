@@ -39,7 +39,7 @@ const UserAuditionAdd = () => {
         }
 
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/user/liked-designs`,
+          `${process.env.REACT_APP_API_URL}/api/user/cakeDesign/myLikes`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const UserAuditionAdd = () => {
         );
 
         if (response.data.result === "success") {
-          setLikedDesigns(response.data.data); // 서버에서 받은 도안 리스트 설정
+          setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
         } else {
           alert("찜한 도안 데이터를 불러오는데 실패했습니다.");
         }
@@ -193,7 +193,9 @@ const UserAuditionAdd = () => {
                 onChange={(e) => setRegion(e.target.value)}
                 className="user-audition-input-text"
               >
-                <option value="">케이크를 수령할 지역(구)을 선택해주세요.</option>
+                <option value="">
+                  케이크를 수령할 지역(구)을 선택해주세요.
+                </option>
                 <option value="강남구">강남구</option>
                 <option value="종로구">종로구</option>
                 <option value="중구">중구</option>
@@ -358,13 +360,16 @@ const UserAuditionAdd = () => {
             <div className="user-audition-design-preview">
               {selectedTab === "찜한 도안" && (
                 <div className="user-audition-liked-designs">
-                  {likedDesigns.map((design) => (
+                  {likedDesigns.map((design, index) => (
                     <div
-                      key={design.id}
+                      key={index}
                       className="user-audition-liked-design-card"
                     >
-                      <img src={design.image} alt={design.title} />
-                      <p>{design.title}</p>
+                      <img
+                        src={design.cakeDesignImageUrl}
+                        alt={design.cakeDesignTitle}
+                      />
+                      <p>{design.cakeDesignTitle}</p>
                     </div>
                   ))}
                 </div>
