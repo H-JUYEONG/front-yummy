@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "../../assets/css/user/userWebRTCReceiver.css";
+
 const WebRTCReceiver = () => {
     const { orderId } = useParams(); // URL에서 orderId 가져오기
     const videoRef = useRef(null);
@@ -83,16 +85,20 @@ const WebRTCReceiver = () => {
     };
 
     return (
-        <div>
-            <h3>WebRTC Receiver</h3>
-            <video
-                ref={videoRef}
-                autoPlay
-                muted
-                playsInline
-                style={{ width: "400px" }}
-            />
+        <div className="receiver-container">
+            <h3 className="receiver-header">Live Stream Receiver</h3>
+            <div className="receiver-video-wrapper">
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    style={{ width: "800px" }}
+                />
+            </div>
+            <div className="receiver-button-container">
             <button onClick={stopConnection}>Stop and Delete Session</button>
+            </div>
         </div>
     );
 };
