@@ -153,7 +153,7 @@ function App() {
           <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
           <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
-          <Route path='/webrtcreceiver' element={<WebRTCReceiver />} />
+          <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
 
           {/* Main and Admin */}
           <Route path='/' element={<Main />} />
