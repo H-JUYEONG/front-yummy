@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
-import Main from './pages/main/main';
+
 
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -153,9 +153,6 @@ function App() {
           <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
           <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
-
-          {/* Main and Admin */}
-          <Route path='/' element={<Main />} />
 
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard />} />
