@@ -46,11 +46,19 @@ const WebRTCSender = () => {
                 }
             };
             peerConnectionRef.current.oniceconnectionstatechange = () => {
-                console.log("ICE connection state (Sender):", peerConnectionRef.current.iceConnectionState); // 로그 추가
+                if (!peerConnectionRef.current) {
+                    console.error("ICE connection state change called after PeerConnection was closed.");
+                    return;
+                }
+                console.log("ICE connection state (Receiver):", peerConnectionRef.current.iceConnectionState);
             };
             
             peerConnectionRef.current.onconnectionstatechange = () => {
-                console.log("Connection state (Sender):", peerConnectionRef.current.connectionState); // 로그 추가
+                if (!peerConnectionRef.current) {
+                    console.error("Connection state change called after PeerConnection was closed.");
+                    return;
+                }
+                console.log("Connection state (Receiver):", peerConnectionRef.current.connectionState);
             };
             const offer = await peerConnectionRef.current.createOffer();
             console.log("Offer created (Sender):", offer); // 로그 추가
