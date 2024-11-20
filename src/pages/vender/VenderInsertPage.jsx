@@ -26,6 +26,8 @@ import { AlignRight } from 'lucide-react';
 
 const VenderInsertPage = () => {
 
+    const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
+
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(() => {
         const storedUser = localStorage.getItem('authUser');
@@ -65,15 +67,31 @@ const VenderInsertPage = () => {
         bannerFile: '',
         profileFile: ''
     })
+    
 
+    //주소 검색
+    
+    const [postcode, setPostcode] = useState('');
+    const [address, setAddress] = useState('');
+    const [extraAddress, setExtraAddress] = useState('');
+    const [detailAddress, setDetailAddress] = useState('');
 
+    //구
+    const [district ,setDistrict] = useState("");
 
+    //지도에 필요한 좌표
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
 
+    //API 로딩 관리
+    const [postcodeLoaded, setPostcodeLoaded] = useState(false); // 주소검색
+    const [mapsLoaded, setMapsLoaded] = useState(false); // 지도 API 로드 상태  
 
     //수정폼
 
     const firstList = async ()=>{
         console.log('시작')
+        
         try {
             const response = await axios({
             method: 'get',          // put, post, delete                   
@@ -96,8 +114,8 @@ const VenderInsertPage = () => {
             // bannerURL과 profileURL을 File로 변환
             const bannerFile = data.bannerURL ? await convertUrlToFile(data.bannerURL, "banner.jpg") : null;
             const logoFile = data.profileURL ? await convertUrlToFile(data.profileURL, "profile.jpg") : null;
-
-            
+            //console.log('///')
+            //console.log(data.district)
             setNonce({
                 venderName: data.shopName || '',
                 shopAddress:data.venderAddress || '',
@@ -116,13 +134,14 @@ const VenderInsertPage = () => {
             setShopAddress(data.venderAddress || "");
             setKakaoURL(data.kakaoURL || "");
             setContent(data.venderDescription || "");
-            console.log(data.venderName)
+            //.log(data.venderName)
 
             updateVenderData({
                 venderName: data.venderName,
                 content: data.venderDescription,
                 logoPreview:data.profileURL,
-                bannerPreview: data.bannerURL
+                bannerPreview: data.bannerURL,
+                shopAddress: data.venderAddress
             })
 
             console.log(updateVenderData)
@@ -134,30 +153,17 @@ const VenderInsertPage = () => {
     }
 
     useEffect(()=>{
+        console.log("555555555 랜더링")
         firstList();
+        console.log("566655555555 랜더링")
 
     },[])
+
     useEffect(()=>{
         console.log(venderData)
 
     },[venderData])
 
-
-
-
-    //주소검색 api연결
-    
-    
-    //로드확인
-    // const openPostcode = (e) => {
-    //     setShopAddress(e.target.value)
-    // };
-    // useEffect(() => {
-        // Daum Postcode API가 로드되었는지 확인
-    //     if (!window.daum || !window.daum.Postcode) {
-    //         console.error("Daum Postcode API가 로드되지 않았습니다.");
-    //     }
-    // }, []);
 
     const handleLogoImageChange = (e, setPreview) => {
         const logoFile = e.target.files[0];
@@ -192,11 +198,134 @@ const VenderInsertPage = () => {
         setKakaoURL(e.target.value);
     }
 
+    //주소검색
+    //Daum 우편번호 API 스크립트를 동적으로 로드
+    useEffect(() => {
+        // Daum 우편번호 API 로드
+        const postcodeScript = document.createElement('script');
+        postcodeScript.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        postcodeScript.async = true;
+    
+        postcodeScript.onload = () => {
+            console.log('Daum Postcode API 로드 완료');
+            setPostcodeLoaded(true); // 우편번호 API 로드 완료
+        };
+    
+        postcodeScript.onerror = () => {
+            console.error('Daum Postcode API 로드 실패');
+        };
+    
+        // Daum 지도 API 로드
+        const mapsScript = document.createElement('script');
+        mapsScript.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false&libraries=services`; // API Key를 입력하세요.
+        mapsScript.async = true;
+    
+        mapsScript.onload = () => {
+            console.log('Daum Maps API 로드 완료');
+            window.daum.maps.load(() => {
+                console.log('Daum 지도 API 로드 완료 후 처리');
+                setMapsLoaded(true);  // 지도 API 로드 후 mapsLoaded를 true로 설정
+            });
+        };
+    
+        mapsScript.onerror = () => {
+            console.error('Daum Maps API 로드 실패');
+        };
+    
+        // 스크립트들을 head에 추가
+        document.head.appendChild(postcodeScript);
+        document.head.appendChild(mapsScript);
+    
+        // Cleanup: 컴포넌트가 unmount될 때 스크립트 제거
+        return () => {
+            document.head.removeChild(postcodeScript);
+            document.head.removeChild(mapsScript);
+        };
+    }, []);
+    
+    const openPostcode = () => {
+        // 두 API가 모두 로드되었을 때만 실행
+        if (postcodeLoaded && mapsLoaded) { 
+            // 우편번호 API가 로드되었는지 확인
+            if (window.daum && window.daum.Postcode) {
+                // 우편번호 API 실행
+                new window.daum.Postcode({
+                    oncomplete: function (data) {
+                        let addr = '';  // 최종 주소
+                        let extraAddr = '';  // 참고 항목
+    
+                        // 주소 유형에 따라 주소를 선택
+                        if (data.userSelectedType === 'R') { // 도로명 주소를 선택한 경우
+                            addr = data.roadAddress;
+                        } else { // 지번 주소를 선택한 경우
+                            addr = data.jibunAddress;
+                        }
+    
+                        // 도로명 주소 선택 시 추가 정보 처리
+                        if (data.userSelectedType === 'R') {
+                            // 법정동명이 있을 경우 추가
+                            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                extraAddr += data.bname;
+                            }
+                            // 건물명이 있고 공동주택일 경우 추가
+                            if (data.buildingName !== '' && data.apartment === 'Y') {
+                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                            }
+                            if (extraAddr !== '') {
+                                extraAddr = ' (' + extraAddr + ')';
+                            }
+                        }
+    
+                        // 상태 업데이트
+                        setPostcode(data.zonecode);
+                        setShopAddress(addr);
+                        setExtraAddress(extraAddr);
+                        setDetailAddress(''); // 상세주소 입력 필드를 위한 초기화
+                        
+                        const splitAddress = addr.split(" ");
+                        console.log(splitAddress)
+                        setDistrict(splitAddress[1]);
+
+                        console.log("---------")
+                        console.log(addr);
+                        console.log(splitAddress)
+                        console.log(district);
+                        console.log("---------")
+                        
+
+                        // 지도 API가 로드된 후에 Geocoder 사용
+                        if (window.daum && window.daum.maps) {
+                            console.log("jw!")
+                            const geocoder = new window.daum.maps.services.Geocoder();
+                            geocoder.addressSearch(addr, function (results, status) {
+                                if (status === window.daum.maps.services.Status.OK) {
+                                    const result = results[0];
+                                    setLatitude(result.y);  // 위도
+                                    setLongitude(result.x);  // 경도
+                                    console.log("Latitude: ", result.y, "Longitude: ", result.x);
+                                } else {
+                                    console.error('주소 검색 실패');
+                                }
+                            });
+                        } else {
+                            console.error('Daum 지도 API가 완전히 로드되지 않았습니다.');
+                        }
+    
+                        // 팝업에서 검색결과 항목 클릭 후 상세주소로 포커스 이동
+                        document.getElementById("shop-area").focus();
+                    }
+                }).open();
+            } else {
+                console.error('Daum Postcode API가 로드되지 않았습니다.');
+            }
+        } else {
+            console.error('Daum 지도 API 또는 우편번호 API가 로드되지 않았습니다.');
+        }
+    };
 
 
 
-
-
+    
      // 미리보기 버튼 클릭 시 새로운 웹 창 열기
     const openPreviewInNewWindow = (e) => {
         e.preventDefault();
@@ -212,6 +341,8 @@ const VenderInsertPage = () => {
         }
     };
 
+
+
     // venderData가 변경될 때마다 새 창에 데이터를 전송
     useEffect(() => {
         if (previewWindowRef.current) {
@@ -223,6 +354,7 @@ const VenderInsertPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0); // 페이지 로드 시 최상단으로 스크롤
+    
     }, []);
 
 
@@ -230,21 +362,29 @@ const VenderInsertPage = () => {
     //****** 업체정보 등록 *******
     const handleSubmit = (e)=>{
         e.preventDefault();
-
-
+        console.log("전송할때 구 들어가는지 확인")
+        console.log('ddddddddddd'+district);
         if (bannerFile instanceof File) {
+            console.log('bannerFile 파일입니다.');
+        } else {
+            console.log('bannerFile 파일이 아닙니다.');
+        }
+        if (logoFile instanceof File) {
             console.log('logoFile 파일입니다.');
         } else {
             console.log('logoFile 파일이 아닙니다.');
         }
+        console.log('5555556+33333')
         
+        console.log(nonce.logoFile)
+
         const formData = new FormData();
         
         formData.append('venderName', shopName || nonce.shopName);
         formData.append('venderAddress', shopAddress || nonce.shopAddress);
-        formData.append('district', '성동구' || nonce.district);
-        formData.append('latitude', 1.1 || nonce.latitude);
-        formData.append('longitude', 2.2 || nonce.longitude);
+        formData.append('district', district || nonce.district);
+        formData.append('latitude', latitude || nonce.latitude);
+        formData.append('longitude', longitude || nonce.longitude);
         formData.append('kakaoURL', kakaoURL || nonce.kakaoURL);
         formData.append('venderDescription', content || nonce.content);
 
@@ -356,8 +496,8 @@ const VenderInsertPage = () => {
 
                                 
                                 <div className="create-sy-section">
-                                    <h3><label htmlFor='shop-area' >업체위치 [주소첨부]</label></h3>
-                                    <input className='long-input-txt' id='shop-area' type="text" placeholder="" name='' onChange={handleAddress} value={shopAddress}  />
+                                    <h3><label htmlFor='shop-area' onClick={openPostcode} >업체위치 [주소검색]</label></h3>
+                                    <input className='long-input-txt' id='shop-area'  type="text" placeholder="" name='' onChange={handleAddress} value={shopAddress}  />
                                 </div>
                                 
                                 
@@ -390,6 +530,6 @@ const VenderInsertPage = () => {
 
         </>
     );
-};
+}
 
 export default VenderInsertPage;

@@ -7,6 +7,7 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorder.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
+import WebRTCReceiver from "./WebRTCReceiver"; //실시간 방송
 
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
@@ -16,7 +17,24 @@ const UserOrder = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    
+    //실시간 방송
+    const [isBroadcastActive, setIsBroadcastActive] = useState(false);
+    const [offer, setOffer] = useState("");
+
+    useEffect(() => {
+        // 서버에서 방송 상태 및 Offer 정보 가져오기
+        const fetchBroadcastStatus = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/broadcast/${selectedOrder.id}`);
+                setIsBroadcastActive(response.data.isActive);
+                setOffer(response.data.offer);
+            } catch (error) {
+                console.error("방송 상태 가져오기 실패:", error);
+            }
+        };
+
+        fetchBroadcastStatus();
+    }, [selectedOrder]);
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -82,29 +100,65 @@ const UserOrder = () => {
         }
     };
 
+    const updateOrderStatus = async (orderId) => {
+        try {
+            const confirmed = window.confirm("물품을 수령하신게 맞으신가요? 확인 버튼을 누르면 수령이 완료된 것으로 처리됩니다!");
+            if (confirmed) {
+                // API 요청 URL 확인을 위한 로그
+                console.log('Request URL:', `${process.env.REACT_APP_API_URL}/api/orders/${orderId}/status`);
+
+                // 요청 데이터 확인을 위한 로그
+                const requestData = { status: "수령 완료" };
+                console.log('Request Data:', requestData);
+
+                const response = await axios.put(
+                    `${process.env.REACT_APP_API_URL}/api/orders/${orderId}/status`,
+                    requestData
+                );
+
+                // 응답 확인을 위한 로그
+                console.log('Response:', response.data);
+
+                await Promise.all([
+                    fetchOrderList(),
+                    fetchStatusCounts()
+                ]);
+            }
+        } catch (error) {
+            // 에러 상세 정보 출력
+            console.error('Error details:', {
+                status: error.response?.status,
+                statusText: error.response?.statusText,
+                data: error.response?.data,
+                config: error.config
+            });
+            alert('상태 업데이트 중 오류가 발생했습니다.');
+        }
+    };
+
     const orderStatuses = [
         {
-            label: '결제완료',
+            label: '결제 완료',
             count: statusCounts?.paymentCompletedCount || 0,
             description: '결제가 완료되었습니다'
         },
         {
-            label: '제작중',
+            label: '제작 중',
             count: statusCounts?.inProductionCount || 0,
             description: '케이크를 제작중입니다'
         },
         {
-            label: '제작완료',
+            label: '제작 완료',
             count: statusCounts?.productionCompletedCount || 0,
             description: '케이크 제작이 완료되었습니다'
         },
         {
-            label: '배송중/픽업대기',
+            label: '픽업 요청/배송 중',
             count: statusCounts?.deliveryCount || 0,
             description: '배송중이거나 픽업 대기중입니다'
         },
         {
-            label: '수령완료',
+            label: '수령 완료',
             count: statusCounts?.completedCount || 0,
             description: '주문이 완료되었습니다'
         }
@@ -143,11 +197,11 @@ const UserOrder = () => {
                 <h3>주문상태 안내</h3>
                 <table className="description-table">
                     <tbody>
-                        <tr><td>결제대기</td><td>결제가 완료되었습니다.</td></tr>
-                        <tr><td>결제완료</td><td>케이크를 제작중입니다.</td></tr>
-                        <tr><td>제작중</td><td>케이크 제작이 완료되었습니다.</td></tr>
-                        <tr><td>배송중/픽업대기</td><td>배송중이거나 픽업 대기중입니다.</td></tr>
-                        <tr><td>수령완료</td><td>수령이 완료되었습니다</td></tr>
+                        <tr><td>결제 완료</td><td>결제가 완료되었습니다.</td></tr>
+                        <tr><td>제작 중</td><td>케이크를 제작중입니다.</td></tr>
+                        <tr><td>제작 완료</td><td>케이크 제작이 완료되었습니다.</td></tr>
+                        <tr><td>픽업 요청/배송 중</td><td>배송중이거나 픽업 대기중입니다.</td></tr>
+                        <tr><td>수령 완료</td><td>수령이 완료되었습니다</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -199,7 +253,28 @@ const UserOrder = () => {
                                 <tr key={order.id}>
                                     <td>{order.date}</td>
                                     <td>{order.productName}</td>
-                                    <td>{order.orderStatus}</td>
+                                    <td>
+                                        {order.orderStatus}
+                                        {["픽업 요청", "배송 중"].includes(order.orderStatus) && (
+                                            <button
+                                                onClick={() => updateOrderStatus(order.id)}
+                                                className="confirm-receipt-btn"
+                                                style={{
+                                                    display: 'block',
+                                                    marginTop: '5px',
+                                                    padding: '5px 10px',
+                                                    fontSize: '12px',
+                                                    backgroundColor: '#ff6f61',
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    borderRadius: '4px',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                수령 확인
+                                            </button>
+                                        )}
+                                    </td>
                                     <td>
                                         <span
                                             className={order.statusMessage === '업로드 완료' ? 'clickable-status' : ''}
@@ -211,31 +286,41 @@ const UserOrder = () => {
                                     <td>
                                         <div className="action-buttons">
                                             {order.actions.map((action, idx) => (
-                                              action === '주문상세보기' ? (
-                                                <ScrollToTopLink
-                                                    key={idx}
-                                                    to={`/user/mypage/orderdetail/${order.id}`} // 여기서 order.id 값 console.log로 확인
-                                                    className="action-btn"
-                                                >
-                                                    {action}
-                                                    {console.log("order id:", order.id)} 
-                                                </ScrollToTopLink>
-                                            )
-                                                
-                                                 : action === '리뷰쓰기' ? (
+                                                action === '주문상세보기' ? (
+
                                                     <ScrollToTopLink
                                                         key={idx}
-                                                        to="/user/cakedetail"
-                                                        state={{ openReview: true }}
+                                                        to={`/user/mypage/orderdetail/${order.id}`}
                                                         className="action-btn"
                                                     >
                                                         {action}
                                                     </ScrollToTopLink>
-                                                ) : (
-                                                    <button key={idx} className="action-btn">
+                                                ) : action === '리뷰쓰기' ? (
+
+                                                    <ScrollToTopLink
+                                                        key={idx}
+                                                        to={`/user/mypage/orderdetail/${order.id}`} // 여기서 order.id 값 console.log로 확인
+                                                        className="action-btn"
+                                                    >
                                                         {action}
-                                                    </button>
+                                                        {console.log("order id:", order.id)}
+                                                    </ScrollToTopLink>
                                                 )
+
+                                                    : action === '리뷰쓰기' ? (
+                                                        <ScrollToTopLink
+                                                            key={idx}
+                                                            to="/user/cakedetail"
+                                                            state={{ openReview: true }}
+                                                            className="action-btn"
+                                                        >
+                                                            {action}
+                                                        </ScrollToTopLink>
+                                                    ) : (
+                                                        <button key={idx} className="action-btn">
+                                                            {action}
+                                                        </button>
+                                                    )
                                             ))}
                                         </div>
                                     </td>
@@ -273,6 +358,13 @@ const UserOrder = () => {
                                 동영상을 재생할 수 없습니다.
                             </video>
                         </div>
+                    </div>
+                )}
+
+                {isBroadcastActive && offer && (
+                    <div className="live-stream">
+                        <h3>실시간 방송</h3>
+                        <WebRTCReceiver offer={offer} />
                     </div>
                 )}
 

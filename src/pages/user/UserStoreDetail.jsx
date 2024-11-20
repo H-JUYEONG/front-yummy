@@ -7,10 +7,62 @@ import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const {venderId} = useParams();
+    //const {venderId} = useParams();
+    //venderId
+    // ** user또는 비회원 > product에있는 venderId값 넣기   // vender > authUser에있는 값 넣기
+    const [venderId, setVenderId] = useState('');
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
+    //상품 리스트
+    const [productList, setProductList] = useState([]);
+
+    //업체 플렛폼 부분
     const [detailVo, setDetailVo] = useState('');
 
+    //map
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    
+    const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
+
+    useEffect(()=>{
+        if (authUser && authUser.vender_id) {
+            setVenderId(authUser.vender_id);
+        } else {
+            setVenderId(null); 
+        }
+    },[authUser])
+    
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        
+        if(venderId != null){
+            console.log("venderId ok")
+            getdetails();
+            goodsList();
+        }else{
+            console.log("venderId no")
+        }
+        
+        console.log('로케잇션은222???'+latitude)
+        console.log('로케잇션은222???'+longitude)
+
+        
+        console.log('authUser값확인',authUser)
+
+        console.log('venderId알려줘요',venderId)
+
+    }, [venderId]);
+
+
+
+
     const getdetails = ()=>{
+        console.log('*********//////////////',venderId)
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
@@ -22,24 +74,86 @@ const UserStoreDetail = () => {
             console.log(response); //수신데이타
             console.log(response.data.apiData);
             setDetailVo(response.data.apiData);
-            //console.log(detailVo)
-
-
+            
+            
+            setLatitude(response.data.apiData.latitude) //위도
+            setLongitude(response.data.apiData.longitude) //경도
+            
+            console.log('**'+latitude);
+            console.log('**'+longitude)
+            
     
             }).catch(error => {
             console.log(error);
             });
     }
 
-    
 
-
-    
+    //위도, 경도로 지도 표시
+    // 카카오맵 API 로드 및 지도 표시
     useEffect(() => {
-        window.scrollTo(0, 0);
-        getdetails();
+        console.log('로케잇션은???'+longitude)
+        console.log('로케잇션은???'+latitude)
+        console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
 
-    }, []);
+
+        if (longitude,latitude) {
+        const script = document.createElement("script");
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`; // 여기에 발급받은 카카오 API 키 입력
+        script.async = true;
+        script.onload = () => {
+            window.kakao.maps.load(() => {
+            const container = document.getElementById('map'); // 지도 표시할 DOM 요소
+            const options = {
+                center: new window.kakao.maps.LatLng(latitude, longitude), // DB에서 가져온 위도, 경도를 지도 중심으로 설정
+                level: 3, // 줌 레벨 (3: 보통, 1: 가까운 거리, 14: 더 멀리)
+            };
+
+            const map = new window.kakao.maps.Map(container, options); // 지도 객체 생성
+
+            // 마커 생성
+            const markerPosition = new window.kakao.maps.LatLng(latitude,longitude);
+            const marker = new window.kakao.maps.Marker({
+                position: markerPosition,
+            });
+            marker.setMap(map); // 지도에 마커 표시
+            });
+        };
+        document.body.appendChild(script); // script 태그로 카카오맵 API 로드
+        }
+        return () => {
+            const scriptTag = document.querySelector(`script[src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false"]`);
+            if (scriptTag) {
+            document.body.removeChild(scriptTag); // 컴포넌트가 언마운트 될 때 script 태그를 제거
+            }
+        };
+    },[longitude, latitude]); // latitude, longitude 값이 바뀔 때마다 실행되도록 설정]);
+
+
+    //상품 가져오기
+    const goodsList = ()=>{
+        //console.log(venderId,'no값 있나요 상품')
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/veder/goodsList/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            console.log('ddddddddddd',response.data.apiData)
+            setProductList(response.data.apiData)
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+
+    }
+
+
+    
+    
 
     // 상품 데이터
     const categoryProducts = {
@@ -93,7 +207,7 @@ const UserStoreDetail = () => {
     };
 
     const handleKakaoChat = () => {
-        window.open(`http://pf.kakao.com/${detailVo.kakaoURL}`, '_blank');
+        window.open(`${detailVo.kakaoURL}`, '_blank');
 
     };
 
@@ -146,13 +260,21 @@ const UserStoreDetail = () => {
                             <div className="sd-section sd-map-section">
                                 <div className="sd-map-container">
                                     <div className="map-placeholder">
-                                        <p>지도 영역</p>
-                                        <p>Kakao Maps API</p>
+                                        {{latitude} ? (
+                                            <div id="map" style={{ width: '100%', height: '100%', backgroundColor: 'red' }}></div> 
+                                        ):(
+                                            <>
+                                            <p>지도 영역</p>
+                                            <p>Kakao Maps </p>
+                                            </>
+                                        )}
+                                        
+                                        
                                     </div>
                                 </div>
                                 <div className="sd-map-info">
                                     <p className="sd-map-title">📍 매장 위치</p>
-                                    <p>매장주소를 입력해주세요</p>
+                                    {detailVo.venderAddress}
                                     <p></p>
                                 </div>
                             </div>
@@ -180,18 +302,17 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {getProducts().map((product) => (
+                        {productList.map((product)=>(
                             <Link
-                                to={`/user/cakedetail`}
-                                key={product.id}
+                                to={`/user/cakedetail/${product.productId}`}
                                 className="sd-product-item"
                             >
                                 <div className="sd-product-image">
-                                    <img src={product.image} alt={product.name} />
+                                    <img src={product.productURL} alt='' />
                                 </div>
                                 <div className="sd-price-info">
-                                    <p className="sd-product-name">{product.name}</p>
-                                    <p className="sd-price">{product.price}</p>
+                                    <p className="sd-product-name">{product.productName}</p>
+                                    <p className="sd-price">{product.productPrice}</p>
                                 </div>
                             </Link> 
                         ))}
