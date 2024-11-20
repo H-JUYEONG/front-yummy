@@ -24,8 +24,9 @@ const UserLoginForm = () => {
   };
 
   // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
-  const code = new URL(window.location.href).searchParams.get("code");
-  // console.log(code);
+  // const code = new URL(window.location.href).searchParams.get("code");
+
+  
 
   const navigate = useNavigate();
 

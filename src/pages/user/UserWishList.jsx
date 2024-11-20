@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import UserSidebar from '../../pages/user/include/UserSidebar';
@@ -6,60 +6,79 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userwishlist.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
+import axios from 'axios';
 
 const UserWishList = () => {
+    const token = localStorage.getItem("token");
+    
     const [selectedStyle, setSelectedStyle] = useState('');
     const [selectedTarget, setSelectedTarget] = useState('');
+    const [wishlistProducts, setWishlistProducts] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     // 카테고리 옵션
     const styleOptions = ['귀여운', '화려한', '아기자기한', '만화같은', '웃긴', '깔끔한'];
     const targetOptions = ['친구생일', '웃어른생신', '애기 생일', '기념일', '파티'];
 
-    // 샘플 상품 데이터
-    const products = [
-        {
-            id: 1,
-            image: '/images/2호_일반케이크.jpg',
-            name: '초코 케이크 A',
-            price: '60,000원',
-            style: '만화같은',
-            target: '친구생일'
-        },
-        {
-            id: 2,
-            image: '/images/4호_골프장 케이크.png',
-            name: '초코 케이크 A',
-            price: '40,000원',
-            style: '화려한',
-            target: '친구생일'
-        },
-        {
-            id: 3,
-            image: '/images/4호_달걀 한판 케이크.png',
-            name: '초코 케이크 A',
-            price: '60,000원',
-            style: '귀여운',
-            target: '친구생일'
-        },
-        {
-            id: 4,
-            image: '/images/3호_특별한케이크(달력).jpg',
-            name: '초코 케이크 A',
-            price: '60,000원',
-            style: '귀여운',
-            target: '친구생일'
-        },
-        // ... 더 많은 상품 데이터
-    ];
+    // 데이터 가져오기
+    const fetchWishlistProducts = async (page = 1) => {
+        try {
+            const response = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/api/wishlist/products`,
+                headers: { 
+                    Authorization: `Bearer ${token}` 
+                },
+                params: {
+                    page: page,
+                    size: 6,
+                    style: selectedStyle,
+                    target: selectedTarget,
+                    keyword: searchKeyword
+                },
+                responseType: 'json'
+            });
+
+            if (response.data.result === "success") {
+                console.log("위시리스트 데이터:", response.data.apiData);
+                const products = response.data.apiData.content || [];
+                const validProducts = products.filter(
+                    (product) => product && product.productId
+                );
+                setWishlistProducts(validProducts);
+                setTotalPages(response.data.apiData.totalPages || 1);
+            } else {
+                alert(response.data.message || "상품 목록 가져오기 실패");
+            }
+        } catch (error) {
+            console.error('API Error:', error);
+            alert('데이터를 불러오는 중 오류가 발생했습니다.');
+        }
+    };
+
+    // 컴포넌트 마운트 시와 필터 변경 시 데이터 로드
+    useEffect(() => {
+        fetchWishlistProducts(currentPage);
+    }, [currentPage, selectedStyle, selectedTarget]);
+
+    // 검색 핸들러
+    const handleSearch = () => {
+        setCurrentPage(1);
+        fetchWishlistProducts(1);
+    };
 
     // 스타일 카테고리 선택/해제 핸들러
     const handleStyleSelect = (style) => {
         setSelectedStyle(prevStyle => prevStyle === style ? '' : style);
+        setCurrentPage(1);
     };
 
     // 대상 카테고리 선택/해제 핸들러
     const handleTargetSelect = (target) => {
         setSelectedTarget(prevTarget => prevTarget === target ? '' : target);
+        setCurrentPage(1);
     };
 
     return (
@@ -78,9 +97,17 @@ const UserWishList = () => {
                             <input
                                 type="text"
                                 placeholder="찜한 상품 검색"
+                                value={searchKeyword}
+                                onChange={(e) => setSearchKeyword(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();
+                                        handleSearch();
+                                    }
+                                }}
                                 className="search-input"
                             />
-                            <button className="search-button">
+                            <button className="search-button" onClick={handleSearch}>
                                 <Search size={20} />
                             </button>
                         </div>
@@ -117,47 +144,74 @@ const UserWishList = () => {
                             </div>
                         </div>
 
-                        {/* 상품 그리드 - 필터링 적용 */}
+                        {/* 상품 그리드 */}
                         <div className="products-grid">
-                            {products
-                                .filter(product =>
-                                    (!selectedStyle || product.style === selectedStyle) &&
-                                    (!selectedTarget || product.target === selectedTarget)
-                                )
-                                .map((product) => (
+                            {wishlistProducts.length > 0 ? (
+                                wishlistProducts.map((product) => (
                                     <Link
-                                        to={`/user/cakedetail`}
-                                        key={product.id}
+                                        to={`/user/cakedetail/${product.productId}`}
+                                        key={product.productId}
                                         className="product-card"
                                     >
                                         <div className="product-image">
-                                            <img src={product.image} alt={product.name} />
+                                            <img src={product.productImage1Url} alt={product.productName} />
                                         </div>
                                         <div className="product-info">
-                                            <h3>{product.name}</h3>
-                                            <p>{product.price}</p>
+                                            <h3>{product.productName}</h3>
+                                            <p>{product.productPrice?.toLocaleString()}원</p>
                                         </div>
                                     </Link>
                                 ))
-                            }
+                            ) : (
+                                <p>찜한 상품이 없습니다.</p>
+                            )}
                         </div>
-
-                       
 
                         {/* 페이지네이션 */}
                         <div className="pagination">
-                            <button className="prev-page">{'<'}</button>
+                            <button 
+                                className="prev-page"
+                                disabled={currentPage === 1}
+                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                style={{ opacity: currentPage === 1 ? 0 : 1 }}
+                            >
+                                {'<'}
+                            </button>
+
                             <div className="page-numbers">
-                                {[1, 2, 3, '...', 67, 68].map((page, index) => (
-                                    <button
-                                        key={index}
-                                        className={`page-number ${page === 1 ? 'active' : ''}`}
-                                    >
-                                        {page}
-                                    </button>
-                                ))}
+                                {(() => {
+                                    const pageNumbers = [];
+                                    const maxPages = 5;
+                                    let startPage = Math.max(1, currentPage - 2);
+                                    let endPage = Math.min(totalPages, startPage + maxPages - 1);
+
+                                    if (endPage - startPage + 1 < maxPages) {
+                                        startPage = Math.max(1, endPage - maxPages + 1);
+                                    }
+
+                                    for (let i = startPage; i <= endPage; i++) {
+                                        pageNumbers.push(
+                                            <button
+                                                key={i}
+                                                className={`page-number ${currentPage === i ? 'active' : ''}`}
+                                                onClick={() => setCurrentPage(i)}
+                                            >
+                                                {i}
+                                            </button>
+                                        );
+                                    }
+                                    return pageNumbers;
+                                })()}
                             </div>
-                            <button className="next-page">{'>'}</button>
+
+                            <button
+                                className="next-page"
+                                disabled={currentPage === totalPages}
+                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                style={{ opacity: currentPage === totalPages ? 0 : 1 }}
+                            >
+                                {'>'}
+                            </button>
                         </div>
                     </div>
                 </section>

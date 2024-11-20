@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "../../assets/css/admin/adminCompanyList.css";
 
 const AdminCompanyList = () => {
+    const [companies, setCompanies] = useState([]);
     const [selectedRegion, setSelectedRegion] = useState("전체");
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1); // currentPage 상태 추가
     const itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수 정의
     const seoulDistricts = ["강남구", "종로구", "중구", "용산구", "성동구", "광진구", "동대문구", "중랑구", "성북구", "강북구", "도봉구", "노원구", "은평구", "서대문구", "마포구", "양천구", "강서구", "구로구", "금천구", "영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구"];
-    const companies = [
-        { name: "케이크 공방 A", address: "경기 부천시 부흥로 258", businessNumber: "123-45-67890", manager: "김철수", email: "cakea@gmail.com", phone: "031-123-4567", joinDate: "2024-01-15" },
-        { name: "베이커리 B", address: "서울 강남구 상대로 123", businessNumber: "987-65-43210", manager: "이영희", email: "bakeryb@gmail.com", phone: "02-345-6789", joinDate: "2024-02-01" }
-    ];
-
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/admin/venders`)
+            .then(response => {
+                setCompanies(response.data);
+            })
+            .catch(error => {
+                alert("데이터를 불러오는 중 문제가 발생했습니다.");
+                console.error("Error fetching companies:", error);
+            });
+    }, []);
     // 필터링 로직
-    const filteredCompanies = companies.filter(company =>
-        (selectedRegion === "전체" || company.address.includes(selectedRegion)) &&
-        (searchQuery === "" || company.name.includes(searchQuery) || company.address.includes(searchQuery))
-    );
+    const filteredCompanies = companies.filter(company => {
+        const address = company.venderAddress || ""; // null 방지
+        const name = company.venderName || ""; // null 방지
+
+        return (
+            (selectedRegion === "전체" || address.includes(selectedRegion)) &&
+            (searchQuery === "" || name.includes(searchQuery) || address.includes(searchQuery))
+        );
+    });
 
     // 페이징 관련 계산
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -89,10 +101,11 @@ const AdminCompanyList = () => {
             <table className="company-table">
                 <thead>
                     <tr>
+                        <th>업체번호</th>
                         <th>업체명</th>
                         <th>주소</th>
                         <th>사업자 번호</th>
-                        <th>담당자 이름</th>
+                        <th>대표자 이름</th>
                         <th>이메일</th>
                         <th>전화번호</th>
                         <th>가입일</th>
@@ -101,13 +114,14 @@ const AdminCompanyList = () => {
                 <tbody>
                     {currentCompanies.map((company, index) => (
                         <tr key={index}>
-                            <td>{company.name}</td>
-                            <td>{company.address}</td>
-                            <td>{company.businessNumber}</td>
-                            <td>{company.manager}</td>
+                            <td>{company.venderId}</td>
+                            <td>{company.venderName}</td>
+                            <td>{company.venderAddress}</td>
+                            <td>{company.venderNumber}</td>
+                            <td>{company.representativeName}</td>
                             <td>{company.email}</td>
-                            <td>{company.phone}</td>
-                            <td>{company.joinDate}</td>
+                            <td>{company.phoneNumber}</td>
+                            <td>{company.createdAt}</td>
                         </tr>
                     ))}
                 </tbody>
