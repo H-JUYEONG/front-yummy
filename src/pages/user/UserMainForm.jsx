@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import axios from "axios";
 import Header from './include/Header';
 import Footer from './include/Footer';
 
@@ -18,9 +18,22 @@ const UserMainForm = () => {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [sortOrder, setSortOrder] = useState("rating");
     const [sortDirection, setSortDirection] = useState("desc");
-
+    const [products, setProducts] = useState([]); // 상품 데이터를 저장할 상태
+    const API_URL = process.env.REACT_APP_API_URL;
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // 상품 데이터를 가져오는 API 호출
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/allList`);
+                setProducts(response.data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        fetchProducts();
     }, []);
     const Banner = () => (
         <div className="banner">
@@ -35,19 +48,6 @@ const UserMainForm = () => {
         "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구",
         "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구",
         "은평구", "종로구", "중구", "중랑구"
-    ];
-
-    const productList = [
-        { id: 1, store: "Sweet Delight", product: "초코 케이크", price: 15000, rating: 4.5, region: "강남구", category: "일반 케이크", image: "/images/doconghoa.gif" },
-        { id: 2, store: "Cake House", product: "레드벨벳 케이크", price: 20000, rating: 4.8, region: "관악구", category: "도시락 케이크", image: "/images/goodcake.png"  },
-        { id: 3, store: "Bake & Bite", product: "블루베리 치즈 케이크", price: 18000, rating: 4.2, region: "강서구", category: "일반 케이크", image: "/images/happy-birthday-birthday-cake.gif"  },
-        { id: 4, store: "Dreamy Dessert", product: "초콜릿 무스 케이크", price: 22000, rating: 4.7, region: "동작구", category: "떡 케이크", image: "/images/peach-cat-goma.gif" },
-        { id: 5, store: "Sugar Rush", product: "티라미수", price: 16000, rating: 4.6, region: "마포구", category: "일반 케이크", image: "/images/pusheen-cake.gif"  },
-        { id: 6, store: "Lovely Layers", product: "스트로베리 케이크", price: 25000, rating: 4.9, region: "성동구", category: "반려동물 케이크", image: "/images/강아지_특별한케이크.jpg"  },
-        { id: 7, store: "Bake Heaven", product: "카라멜 프라푸치노 케이크", price: 21000, rating: 4.3, region: "광진구", category: "도시락 케이크", image: "/images/스폰지밥 케이크.jpg"  },
-        { id: 8, store: "Cake Magic", product: "라즈베리 케이크", price: 19000, rating: 4.4, region: "강남구", category: "일반 케이크", image: "/images/4호_일반케이크.jpg"  },
-        { id: 9, store: "Sugar Bliss", product: "레몬 치즈 케이크", price: 17000, rating: 4.1, region: "강남구", category: "일반 케이크", image: "/images/3호_떡케이크.png"  },
-        { id: 10, store: "Dessert Palace", product: "화이트 초콜릿 케이크", price: 23000, rating: 4.5, region: "서초구", category: "떡 케이크", image: "/images/강아지_미니케이크.jpg"  }
     ];
 
     const renderStars = (rating) => {
@@ -65,7 +65,7 @@ const UserMainForm = () => {
         );
     };
 
-    const filteredProducts = productList
+    const filteredProducts = products
         .filter((product) => {
             return (
                 (selectedRegion ? product.region === selectedRegion : true) &&
@@ -147,30 +147,32 @@ const UserMainForm = () => {
                     <span>총 상품 | {filteredProducts.length}개</span>
                 </div>
 
-                <div className='allList-box'>
+                <div className="allList-box">
                     {filteredProducts.map((item) => (
-                        <div className="all-product-item" key={item.id}>
-                            {/* 상품 이미지 클릭 시 링크 추가 */}
-                            <Link to="/user/cakedetail/21" className="list_hover_img">
-                                <img src={item.image} alt={item.product} /> {/* 각 상품의 이미지 */}
+                        <div className="all-product-item" key={item.productId}>
+                            <Link to={`/user/cakedetail/${item.productId}`} className="list_hover_img">
+                                <img src={item.productImage1Url} alt={item.productName} />
                                 <div className="store-info">
-                                    {/* 업체 로고와 업체명 클릭 시 /user/storedetail로 이동 */}
-                                    <Link to="/user/storedetail">
-                                        <img src={storeLogo} alt="매장 로고 이미지" className="store-logo" />
+                                    {/* 매장 로고 */}
+                                    <Link to={`/user/storedetail/${item.venderId}`}>
+                                        <img
+                                            src={item.venderProfileImageUrl || storeLogo}
+                                            alt={`${item.venderName} 로고`}
+                                            className="store-logo"
+                                        />
                                     </Link>
-                                    <Link to="/user/storedetail">
-                                        <b>{item.store}</b>
+                                    {/* 매장 이름 */}
+                                    <Link to={`/user/storedetail/${item.venderId}`}>
+                                        <b>{item.venderName}</b>
                                     </Link>
                                 </div>
                             </Link>
-
-                            {/* 상품명 클릭 시 링크 추가 */}
                             <div className="product-info">
-                                <Link to="/user/cakedetail">
-                                    <p>{item.product}</p>
+                                <Link to={`/user/cakedetail/${item.productId}`}>
+                                    <p>{item.productName}</p>
                                 </Link>
                                 <p>가격: {item.price.toLocaleString()}원</p>
-                                <p>평점: {renderStars(item.rating)} ({item.rating})</p>
+                                <p>평점: {renderStars(item.reviewRating)} ({item.reviewRating})</p>
                             </div>
                         </div>
                     ))}

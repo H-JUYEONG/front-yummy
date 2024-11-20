@@ -858,13 +858,23 @@ const UserCakeDetail = () => {
                                         })}
                                     </span>
                                 </div>
-                                <button
-                                    className="report-button"
-                                    onClick={() => handleReportReview(review.reviewId)}
-                                >
-                                    <span className="report-icon">⚠️</span>
-                                    신고
-                                </button>
+                                <div className="review-header-actions">
+                                    <button
+                                        className="report-button"
+                                        onClick={() => handleReportReview(review.reviewId)}
+                                    >
+                                        <span className="report-icon">⚠️</span>
+                                        신고
+                                    </button>
+                                    {authUser && review.reviewUserId === authUser.member_id && (
+                                        <button
+                                            className="delete-button"
+                                            onClick={() => handleDeleteReview(review.reviewId)}
+                                        >
+                                            삭제
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                             <div className="review-content">
                                 {review.reviewContent && (

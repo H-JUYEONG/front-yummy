@@ -1,101 +1,104 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "../../assets/css/user/userWebRTCReceiver.css";
 
 const WebRTCReceiver = () => {
+    const { orderId } = useParams(); // URL에서 orderId 가져오기
     const videoRef = useRef(null);
     const peerConnectionRef = useRef(null);
-    const [offer, setOffer] = useState("");
-    const [answer, setAnswer] = useState("");
-    const [iceCandidates, setIceCandidates] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL;
 
-    const servers = {
-        iceServers: [
-            { urls: "stun:stun.l.google.com:19302" },
-            { urls: "turn:openrelay.metered.ca:80", username: "openrelayproject", credential: "openrelayproject" }
-        ]
+    useEffect(() => {
+        const startConnection = async () => {
+            try {
+                const response = await fetch(`${API_URL}/signaling/${orderId}/offer`);
+                const offer = await response.json();
+
+                peerConnectionRef.current = new RTCPeerConnection({
+                    iceServers: [
+                        { urls: "stun:stun.l.google.com:19302" },
+                        { urls: "turn:openrelay.metered.ca:80", username: "openrelayproject", credential: "openrelayproject" },
+                    ],
+                });
+
+                peerConnectionRef.current.ontrack = (event) => {
+                    console.log("Received remote track:", event.streams[0]); // 로그 추가
+                    if (event.streams && event.streams[0]) {
+                        videoRef.current.srcObject = event.streams[0];
+                        console.log("Video element srcObject set to remote stream"); // 로그 추가
+                        videoRef.current.play().catch((error) => {
+                            console.log("Video element srcObject set to remote stream"); // 로그 추가
+                        });
+                        console.log("Video stream set to video element");
+                    } else {
+                        console.error("No stream available in ontrack event");
+                    }
+                };
+
+                peerConnectionRef.current.oniceconnectionstatechange = () => {
+                    console.log("ICE connection state (Sender):", peerConnectionRef.current.iceConnectionState); // 로그 추가
+                };
+
+                peerConnectionRef.current.onconnectionstatechange = () => {
+                    console.log("Connection state (Sender):", peerConnectionRef.current.connectionState); // 로그 추가
+                };
+                await peerConnectionRef.current.setRemoteDescription(offer);
+
+                const answer = await peerConnectionRef.current.createAnswer();
+                await peerConnectionRef.current.setLocalDescription(answer);
+
+                await fetch(`${API_URL}/signaling/${orderId}/answer`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(answer),
+                });
+
+                console.log("Connection established with Answer:", answer);
+
+                const responseIce = await fetch(`${API_URL}/signaling/${orderId}/ice-candidate`);
+                const candidates = await responseIce.json();
+                candidates.forEach((candidate) => {
+                    try {
+                        console.log("Adding ICE Candidate (Receiver):", candidate); // 로그 추가
+                        peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(JSON.parse(candidate)));
+                    } catch (error) {
+                        console.error("Failed to add ICE Candidate:", error);
+                    }
+                });
+            } catch (error) {
+                console.error("Error establishing connection:", error);
+            }
+        };
+
+        startConnection();
+    }, [API_URL, orderId]);
+
+    const stopConnection = async () => {
+        if (peerConnectionRef.current) {
+            peerConnectionRef.current.close();
+            peerConnectionRef.current = null;
+        }
+        videoRef.current.srcObject = null;
+
+        await fetch(`${API_URL}/signaling/${orderId}`, { method: "DELETE" });
+        console.log("Connection stopped and session deleted");
     };
 
-    const handleOffer = async () => {
-        if (!offer) {
-            alert("Offer를 입력하세요.");
-            return;
-        }
-
-        try {
-            const parsedOffer = JSON.parse(offer);
-
-            // PeerConnection 생성
-            peerConnectionRef.current = new RTCPeerConnection(servers);
-
-            // Remote stream 처리
-            peerConnectionRef.current.ontrack = (event) => {
-                if (event.streams && event.streams[0]) {
-                    console.log("Remote stream received.");
-                    videoRef.current.srcObject = event.streams[0];
-                }
-            };
-
-            // ICE Candidate 로깅 및 저장
-            peerConnectionRef.current.onicecandidate = (event) => {
-                if (event.candidate) {
-                    console.log("ICE Candidate (Receiver):", event.candidate);
-                    // 송신자에게 ICE Candidate를 전달
-                }
-            };
-            peerConnectionRef.current.ontrack = (event) => {
-                if (event.streams && event.streams[0]) {
-                    console.log("Remote stream received.");
-                    videoRef.current.srcObject = event.streams[0];
-                    console.log(videoRef.current.srcObject);
-                }
-            };
-
-            // Offer 설정
-            await peerConnectionRef.current.setRemoteDescription(parsedOffer);
-
-            // Answer 생성
-            const answer = await peerConnectionRef.current.createAnswer();
-            await peerConnectionRef.current.setLocalDescription(answer);
-
-            setAnswer(JSON.stringify(answer));
-            console.log("Answer created:", answer);
-        } catch (error) {
-            console.error("Handle offer failed:", error);
-        }
-    };
-
-    const handleIceCandidate = (candidate) => {
-        try {
-            const parsedCandidate = new RTCIceCandidate(JSON.parse(candidate));
-            peerConnectionRef.current.addIceCandidate(parsedCandidate);
-            console.log("ICE Candidate added:", parsedCandidate);
-        } catch (error) {
-            console.error("Failed to add ICE Candidate:", error);
-        }
-    };
-    
     return (
-        <div>
-            <h3>WebRTC Receiver</h3>
-            <video ref={videoRef} autoPlay playsInline style={{ width: "400px" }} />
-    
-            <textarea
-                value={offer}
-                onChange={(e) => setOffer(e.target.value)}
-                placeholder="Offer 입력"
-                style={{ width: "100%", height: "100px" }}
-            />
-            <button onClick={handleOffer}>Offer 처리</button>
-            <textarea
-                value={answer}
-                readOnly
-                placeholder="Answer"
-                style={{ width: "100%", height: "100px" }}
-            />
-            <textarea
-                placeholder="ICE Candidate 입력"
-                onBlur={(e) => handleIceCandidate(e.target.value)}
-                style={{ width: "100%", height: "50px" }}
-            />
+        <div className="receiver-container">
+            <h3 className="receiver-header">Live Stream Receiver</h3>
+            <div className="receiver-video-wrapper">
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    style={{ width: "800px" }}
+                />
+            </div>
+            <div className="receiver-button-container">
+            <button onClick={stopConnection}>Stop and Delete Session</button>
+            </div>
         </div>
     );
 };
