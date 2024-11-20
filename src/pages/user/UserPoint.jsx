@@ -43,7 +43,7 @@ const UserPoint = () => {
             
             console.log("Total points response:", response.data);
             if(response.data.result === "success") {
-                setTotalPoints(response.data.data || 0);
+                setTotalPoints(response.data.apiData || 0);
             }
         } catch (error) {
             console.error('포인트 조회 실패:', error);
@@ -66,7 +66,7 @@ const UserPoint = () => {
             
             console.log("Point history response:", response.data);
             if(response.data.result === "success") {
-                setPointHistory(response.data.data || []);
+                setPointHistory(response.data.apiData || []);
             }
         } catch (error) {
             console.error('포인트 내역 조회 실패:', error);
