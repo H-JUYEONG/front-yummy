@@ -103,7 +103,7 @@
 }
 
 .user-cake-designs-detail-sub-imgs img {
-   width: 80px;
+  width: 80px;
   max-width: 80px; /* 서브 이미지 개별 크기 설정 */
   height: auto;
   cursor: pointer;
