@@ -222,7 +222,7 @@
 }
 
 /* 상품 리스트 */
-.sd-products-container {
+.sd-products-container  {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
@@ -231,6 +231,9 @@
     max-width: 1200px;
     min-height: 800px;
     margin: 0 auto;
+    
+}
+.sd-products-containerTwo{
     background-image: url(../../images/exListIMG.png);
     background-size: cover;
     overflow: hidden;
@@ -240,7 +243,7 @@
 .sd-product-item {
     position: relative;
     background: #fff;
-    width: 100%;
+    width: 270px;
     aspect-ratio: 1;
     text-decoration: none;
     transition: transform 0.2s ease;

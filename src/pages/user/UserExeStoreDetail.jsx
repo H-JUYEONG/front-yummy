@@ -176,7 +176,7 @@ const UserStoreDetail = () => {
 
                     <hr className="sd-divider" />
 
-                    <div className="sd-products-container">
+                    <div className="sd-products-container sd-products-containerTwo">
                         
                     </div>
                 </section>
