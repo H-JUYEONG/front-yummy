@@ -33,6 +33,7 @@ import UserMain from './pages/user/include/UserMain';
 import UserSidebar from './pages/user/include/UserSidebar';
 import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/UserLoginForm';
+import UserKakaoLogin from './pages/user/UserKakaoLogin'; // 화면 아님
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -79,103 +80,101 @@ import AdminShopManage from './pages/admin/AdminShopManage';
 import AdminShopAdd from './pages/admin/AdminShopAdd';
 import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
+import WebRTCReceiver from './pages/user/WebRTCReceiver';
 
 function App() {
   return (
     <div>
-      
+
 
       <BrowserRouter>
-          <Routes>
+        <Routes>
 
-          
-            <Route path='/vender/:venderId' element={<VenderDashboard />} />
-            <Route path='/vender/productlist' element={<VenderProductList />} />
-            <Route path='/vender/option' element={<VenderOption />} />
-            <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
-            <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
-            <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
-            <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
-            <Route path='/vender/statistics' element={<VenderStatistics />} />
-            <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
-            <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
-            <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
-            <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList />} />
-            <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList />} />
-            <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd />} />
-            <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit />} />
-            <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail />} />
-            <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails />} />
-            
-            {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
-            <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
-            <Route path='/vender/signup' element={<VenderSignUpForm />} />
-            <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
-            <Route path="/vender/review" element={<VenderReview />} />
-            <Route path="/vender/VenderHeader" element={<VenderHeader />} />
-            
-              <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
-            
-            <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition />} />
-            <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
-            <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
-            <Route path='/vender/registrationformedit/:productId' element={<VenderProductRegistrationFormEdit />} />
 
-            {/* User Routes */}
-            <Route path='/user/test' element={<UserMain />} />
-            <Route path='/user/login' element={<UserLoginForm />} />
-            <Route path='/user/signup/type' element={<UserSignupType />} />
-            <Route path='/user/signup' element={<UserSignUpForm />} />
-            <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
-            <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
-            <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
-            <Route path='/user/sidebar' element={<UserSidebar />} />
-            <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
-            <Route path='/user/orderlist' element={<UserOrderList />} />
-            <Route path='/user/mypage/orderdetail' element={<UserOrderDetail />} />
-            <Route path='/user/mypage/order' element={<UserOrder />} />
-            <Route path='/user/mypage/wishlist' element={<UserWishList />} />
-            <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard />} />
-            <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail />} />
-            <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd />} />
-            <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit />} />
-            <Route path='/user/mypage/point' element={<UserPoint />} />
-            <Route path='/user/storedetail/:venderId' element={<UserStoreDetail />} />
-            <Route path='/user/paymentdetail' element={<UserPaymentDetail />} />
-            <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList />} />
-            <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
-            <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
-            <Route path='/' element={<UserMainForm />} />
-            <Route path='/user/audition' element={<UserAuditionBoard />} />
-            <Route path='/user/audition/add' element={<UserAuditionAdd />} />
-            <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
-            <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
-            <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
-            
-              <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
+          <Route path='/vender/:venderId' element={<VenderDashboard />} />
+          <Route path='/vender/productlist' element={<VenderProductList />} />
+          <Route path='/vender/option' element={<VenderOption />} />
+          <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
+          <Route path='/vender/productpreview/' element={<VenderProductPreview />} />
+          <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+          <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
+          <Route path='/vender/statistics' element={<VenderStatistics />} />
+          <Route path='/vender/venderCreatePage' element={<VenderCreatePage />} />
+          <Route path='/vender/supervisionList' element={<VenderSupervisionList />} />
+          <Route path='/vender/auditionAllList' element={<VenderAuditionAllList />} />
+          <Route path='/vender/cakeDesign/like/list' element={<VenderCakeDesignLikeList />} />
+          <Route path='/vender/cakeDesign/list' element={<VenderCakeDesignList />} />
+          <Route path='/vender/cakeDesign/add' element={<VenderCakeDesignAdd />} />
+          <Route path='/vender/cakeDesign/edit/:cakeDesignId' element={<VenderCakeDesignEdit />} />
+          <Route path='/vender/cakeDesign/detail/:cakeDesignId' element={<VenderCakeDesignDetail />} />
+          <Route path='/vender/venderAppealDesignDetails' element={<VenderAppealDesignDetails />} />
 
-            
+          {/* <Route path='/vender/venderMain' element={<VenderMain />} /> */}
+          <Route path='/vender/VenderCreatePage' element={<VenderCreatePage />} />
+          <Route path='/vender/signup' element={<VenderSignUpForm />} />
+          <Route path='/vender/signup/succ' element={<VenderSignUpSuccess />} />
+          <Route path="/vender/review" element={<VenderReview />} />
+          <Route path="/vender/VenderHeader" element={<VenderHeader />} />
+          <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
+          <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
+          <Route path="/vender/venderInsertAudition" element={<VenderInsertAudition />} />
+          <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
+          <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
+          <Route path='/vender/registrationformedit/:productId' element={<VenderProductRegistrationFormEdit />} />
 
-            {/* Main and Admin */}
-            <Route path='/' element={<Main />} />
+          {/* User Routes */}
+          <Route path='/user/test' element={<UserMain />} />
+          <Route path='/user/login' element={<UserLoginForm />} />
+          <Route path='/auth/login/kakao' element={<UserKakaoLogin />} />
+          <Route path='/user/signup/type' element={<UserSignupType />} />
+          <Route path='/user/signup' element={<UserSignUpForm />} />
+          <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
+          <Route path='/user/signup/succ' element={<UserSignUpSuccess />} />
+          <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
+          <Route path='/user/sidebar' element={<UserSidebar />} />
+          <Route path='/user/cakedetail/:productId' element={<UserCakeDetail />} />
+          <Route path='/user/orderlist' element={<UserOrderList />} />
+          <Route path='/user/mypage/orderdetail/:orderId' element={<UserOrderDetail />} />
+          <Route path='/user/mypage/order' element={<UserOrder />} />
+          <Route path='/user/mypage/wishlist' element={<UserWishList />} />
+          <Route path='/user/cakeDesign/board' element={<UserCakeDesignBoard />} />
+          <Route path='/user/cakeDesign/detail/:cakeDesignId' element={<UserCakeDesignDetail />} />
+          <Route path='/user/cakeDesign/add' element={<UserCakeDesignAdd />} />
+          <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit />} />
+          <Route path='/user/mypage/point' element={<UserPoint />} />
+          <Route path='/user/storedetail/:venderId' element={<UserStoreDetail />} />
+          <Route path='/user/paymentdetail' element={<UserPaymentDetail />} />
+          <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList />} />
+          <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
+          <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
+          <Route path='/' element={<UserMainForm />} />
+          <Route path='/user/audition' element={<UserAuditionBoard />} />
+          <Route path='/user/audition/add' element={<UserAuditionAdd />} />
+          <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
+          <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
+          <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
+          <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
 
-            {/*Admin Routes */}
-            <Route path='/admin' element={<AdminDashboard />} />
-            <Route path='/admin/member' element={<AdminMemberManagement />} />
-            <Route path='/admin/status' element={<AdminStatus />} />
-            <Route path='/admin/content' element={<AdminContent />} />
-            <Route path='/admin/shopproducts' element={<AdminShopProduct />} />
-            <Route path='/admin/shopproductsdetail' element={<AdminShopProductDetail />} />
-            <Route path='/admin/shoporders' element={<AdminShopOrder />} />
-            <Route path='/admin/venderorder' element={<AdminVenderOrder />} />
-            <Route path='/admin/shopmanage' element={<AdminShopManage />} />
-            <Route path='/admin/shopadd' element={<AdminShopAdd />} />
-            {/* Board Routes */}
-            <Route path='/board' element={<UserDebateList />} />
-            <Route path='/board/debateinsert' element={<UserDebateInsert />} />
-            <Route path='/board/boardview' element={<UserDebateView />} />
-            <Route path="/board/debateedit" element={<UserDebateEdit />} />
-          </Routes>
+          {/* Main and Admin */}
+          <Route path='/' element={<Main />} />
+
+          {/*Admin Routes */}
+          <Route path='/admin' element={<AdminDashboard />} />
+          <Route path='/admin/member' element={<AdminMemberManagement />} />
+          <Route path='/admin/status' element={<AdminStatus />} />
+          <Route path='/admin/content' element={<AdminContent />} />
+          <Route path='/admin/shopproducts' element={<AdminShopProduct />} />
+          <Route path='/admin/shopproductsdetail' element={<AdminShopProductDetail />} />
+          <Route path='/admin/shoporders' element={<AdminShopOrder />} />
+          <Route path='/admin/venderorder' element={<AdminVenderOrder />} />
+          <Route path='/admin/shopmanage' element={<AdminShopManage />} />
+          <Route path='/admin/shopadd' element={<AdminShopAdd />} />
+          {/* Board Routes */}
+          <Route path='/board' element={<UserDebateList />} />
+          <Route path='/board/debateinsert' element={<UserDebateInsert />} />
+          <Route path='/board/boardview' element={<UserDebateView />} />
+          <Route path="/board/debateedit" element={<UserDebateEdit />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

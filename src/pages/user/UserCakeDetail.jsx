@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
-import "../../assets/css/user/CakeOrder.css"
+import "../../assets/css/user/CakeOrder.css";
 import '../../assets/css/user/usermain.css';
+import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
@@ -33,7 +34,24 @@ const UserCakeDetail = () => {
     const [mainImage, setMainImage] = useState('');
     const [selectedOptions, setSelectedOptions] = useState({});
     const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(128);
+    const [likeCount, setLikeCount] = useState(0);
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+    const [reviews, setReviews] = useState([]); // 하드코딩된 데이터 대신 빈 배열로 시작
+    const [reviewStats, setReviewStats] = useState({
+        averageRating: 0,
+        totalReviews: 0,
+        ratingCounts: {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+        }
+    });
+
     const [deliveryType, setDeliveryType] = useState('pickup');
 
     // 스크롤 관련 상태
@@ -60,40 +78,21 @@ const UserCakeDetail = () => {
     const [selectedOptionNames, setSelectedOptionNames] = useState({});
     const [deliveryAddress, setDeliveryAddress] = useState('');
 
-    // 리뷰 관련 상태
     const [newReview, setNewReview] = useState({
-        rating: 5,
+        rating: 1, // 초기값을 5에서 1로 변경
         content: '',
         image: null
     });
     const [imagePreview, setImagePreview] = useState(null);
-    const [reviews] = useState([
-        {
-            id: 1,
-            rating: 5,
-            author: 'cara0929',
-            date: '2022.10.04',
-            content: '아버님 환갑이셔서 컵케이크로 준비했어요! 보내드렸더니 너무너무 좋아하셨어요! 그려고 전에 맛보니깐 아직도잊 못하겠음요~',
-            image: '/images/review1.jpg'
-        },
-        {
-            id: 2,
-            rating: 5,
-            author: 'gika',
-            date: '2022.05.14',
-            content: '예쁘게 잘 만들어주셔서 감사합니당 >_<',
-            image: '/images/review2.jpg'
-        }
-    ]);
-    // 별점 통계 데이터
-    const ratingStats = {
-        5: 12,
-        4: 0,
-        3: 0,
-        2: 0,
-        1: 0,
-        average: 5
-    };
+    const [canReview, setCanReview] = useState(false); // 리뷰 작성 가능 여부
+    const [reviewSort, setReviewSort] = useState('recommend'); // 'recommend', 'latest', 'rating'
+    const [showPhotoOnly, setShowPhotoOnly] = useState(false);
+    const [hasWrittenReview, setHasWrittenReview] = useState(false);
+    const [hoveredRating, setHoveredRating] = useState(null);
+
+    const detailSectionRef = useRef(null);
+    const reviewSectionRef = useRef(null);
+
     // 시간 옵션 상수 추가
     const TIME_OPTIONS = [
         { value: '09:00:00', label: '09:00' },
@@ -107,10 +106,20 @@ const UserCakeDetail = () => {
         { value: '17:00:00', label: '17:00' },
         { value: '18:00:00', label: '18:00' }
     ];
+
+
     // useEffect
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // 컴포넌트 마운트 시 찜 상태 조회
+    useEffect(() => {
+        if (productId) {
+            fetchWishlistInfo();
+        }
+    }, [productId, authUser]);
+
 
     useEffect(() => {
         if (productDetail?.productImage1Url) {
@@ -126,13 +135,15 @@ const UserCakeDetail = () => {
                 const selectedId = selectedOptions[OPTION_TYPES[type].stateKey];
                 const selectedOption = options.find(opt => opt.optionValueId === selectedId);
                 if (selectedOption) {
-                    optionNames[type] = selectedOption.optionValueName;
+                    // 여기를 수정: 영어 키 대신 한글 키 사용
+                    optionNames[OPTION_TYPES[type].title] = selectedOption.optionValueName;
                 }
             });
             setSelectedOptionNames(optionNames);
         }
     }, [selectedOptions, productOptions]);
     // API 호출
+
     const getProductDetail = () => {
         setIsLoading(true);
         axios({
@@ -148,6 +159,40 @@ const UserCakeDetail = () => {
             setIsLoading(false);
         });
     };
+
+    // 찜 정보 조회 함수 수정
+    const fetchWishlistInfo = async () => {
+        try {
+            // 총 찜 개수 조회
+            const countResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/wishlist/count/${productId}`
+            );
+            console.log('찜 개수 응답:', countResponse); // 응답 구조 확인용 로그
+
+            // 응답 구조에 따라 적절한 방식으로 데이터 접근
+            const count = countResponse.data.apiData || countResponse.data.data || 0;
+            setLikeCount(count);
+
+            // 로그인한 경우만 찜 상태 조회
+            if (authUser) {
+                const statusResponse = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/check`,
+                    {
+                        params: {
+                            productId: parseInt(productId),
+                            memberId: authUser.member_id
+                        }
+                    }
+                );
+                console.log('찜 상태 응답:', statusResponse); // 응답 구조 확인용 로그
+                setIsLiked(statusResponse.data.apiData > 0 || statusResponse.data.data > 0);
+            }
+        } catch (error) {
+            console.error('찜 정보 조회 실패:', error);
+            setLikeCount(0); // 에러 발생 시 기본값 설정
+        }
+    };
+
     const getProductOptions = () => {
         axios({
             method: 'get',
@@ -211,9 +256,52 @@ const UserCakeDetail = () => {
         setMainImage(imagePath);
     };
 
-    const handleLike = () => {
-        setIsLiked(!isLiked);
-        setLikeCount(prevCount => isLiked ? prevCount - 1 : prevCount + 1);
+
+    const handleStarHover = (rating) => {
+        setHoveredRating(rating);
+    };
+
+    const handleStarLeave = () => {
+        setHoveredRating(null);
+    };
+
+    const handleLike = async () => {
+        if (!authUser) {
+            alert('로그인이 필요한 서비스입니다.');
+            return;
+        }
+
+        try {
+            if (isLiked) {
+                // 찜 취소
+                await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/remove`,
+                    {
+                        data: {
+                            productId: parseInt(productId),
+                            memberId: authUser.member_id
+                        }
+                    }
+                );
+                setLikeCount(prev => prev - 1); // 카운트 즉시 감소
+            } else {
+                // 찜하기
+                await axios.post(
+                    `${process.env.REACT_APP_API_URL}/api/wishlist/add`,
+                    {
+                        productId: parseInt(productId),
+                        memberId: authUser.member_id
+                    }
+                );
+                setLikeCount(prev => prev + 1); // 카운트 즉시 증가
+            }
+            setIsLiked(!isLiked); // 상태 토글
+        } catch (error) {
+            console.error('찜하기 처리 실패:', error);
+            alert('처리 중 오류가 발생했습니다.');
+            // 에러 발생 시 원래 상태로 복구
+            await fetchWishlistInfo();
+        }
     };
 
     const handleMouseDown = (e, ref) => {
@@ -316,30 +404,49 @@ const UserCakeDetail = () => {
     const renderTabContent = () => (
         <div className="full-content">
             <div className="content-sections">
-                <div id="상품상세" className="content-section">
-                    <img src="/images/제품 설명 1.png" alt="상품 상세 정보" />
-                    <img src="/images/픽업 방법.png" alt="상품 상세 정보" />
-                    <img src="/images/상품문의.png" alt="상품 상세 정보" />
+                <div
+                    id="상품 상세정보"
+                    className="content-section"
+                    ref={detailSectionRef}
+                >
+                    {productDetail?.description ? (
+                        <div
+                            className="product-description ql-editor"
+                            dangerouslySetInnerHTML={{ __html: productDetail.description }}
+                        />
+                    ) : (
+                        <div className="no-description">
+                            <p>상품 상세 정보가 없습니다.</p>
+                        </div>
+                    )}
+                    <img src="/images/픽업 방법.png" alt="픽업 방법" />
+                    <img src="/images/상품문의.png" alt="상품 문의" />
                 </div>
-                <div id="리뷰" className="content-section">
+                <div
+                    id="후기"
+                    className="content-section"
+                    ref={reviewSectionRef}
+                >
                     {renderReviewSection()}
                 </div>
             </div>
         </div>
     );
 
+
+    // 탭 클릭 핸들러 수정
     const handleTabClick = (tab) => {
         setSelectedTab(tab);
         if (tab === '후기') {
-            const reviewSection = document.getElementById('리뷰');
-            if (reviewSection) {
-                reviewSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        } else {
-            const detailSection = document.getElementById('상품상세');
-            if (detailSection) {
-                detailSection.scrollIntoView({ behavior: 'smooth' });
-            }
+            reviewSectionRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        } else if (tab === '상품상세') {
+            detailSectionRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         }
     };
 
@@ -347,6 +454,7 @@ const UserCakeDetail = () => {
     const handleRatingChange = (rating) => {
         setNewReview(prev => ({ ...prev, rating }));
     };
+
 
     const handleReviewContent = (e) => {
         setNewReview(prev => ({ ...prev, content: e.target.value }));
@@ -364,13 +472,188 @@ const UserCakeDetail = () => {
         }
     };
 
-    const handleReviewSubmit = (e) => {
-        e.preventDefault();
-        console.log('리뷰 제출:', newReview);
-        setNewReview({ rating: 5, content: '', image: null });
-        setImagePreview(null);
+    useEffect(() => {
+        if (productId) {
+            fetchReviews();
+            fetchReviewStats();
+            checkReviewEligibility();
+        }
+    }, [productId, authUser, reviewSort, showPhotoOnly]);
+
+    // 리뷰 필터 핸들러
+    const handleSortChange = (sort) => {
+        setReviewSort(sort);
     };
 
+    const handlePhotoOnlyToggle = (e) => {
+        setShowPhotoOnly(e.target.checked);
+    };
+    // 리뷰 데이터 조회
+    const fetchReviews = async () => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/reviews/product/${productId}`,
+                {
+                    params: {
+                        sort: reviewSort,
+                        photoOnly: showPhotoOnly
+                    }
+                }
+            );
+
+            console.log("리뷰 목록 전체 응답:", response);
+            console.log("리뷰 목록 데이터:", response.data.apiData);
+
+            if (response.data.result === "success" && response.data.apiData) {
+                setReviews(response.data.apiData);
+            }
+        } catch (error) {
+            console.error('리뷰 조회 실패:', error);
+            setReviews([]);
+        }
+    };
+    // 리뷰 통계 조회 함수
+    const fetchReviewStats = async () => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/reviews/stats/${productId}`
+            );
+            console.log("[리뷰 통계 응답]:", response.data);
+    
+            if (response.data.result === "success") {
+                const stats = response.data.apiData;  // data 대신 apiData에서 추출
+                setReviewStats({
+                    averageRating: stats.averageRating,
+                    totalReviews: stats.totalReviews,
+                    ratingCounts: {
+                        5: stats.ratingCounts5,
+                        4: stats.ratingCounts4,
+                        3: stats.ratingCounts3,
+                        2: stats.ratingCounts2,
+                        1: stats.ratingCounts1
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('[리뷰 통계 조회 실패]:', error);
+            // 에러 시 초기값 설정
+            setReviewStats({
+                averageRating: 0,
+                totalReviews: 0,
+                ratingCounts: {
+                    5: 0,
+                    4: 0,
+                    3: 0,
+                    2: 0,
+                    1: 0
+                }
+            });
+        }
+    };
+    // 리뷰 작성 가능 여부 확인
+    const checkReviewEligibility = async () => {
+        if (!authUser) {
+            setCanReview(false);
+            setHasWrittenReview(false);
+            return;
+        }
+
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/reviews/check-eligibility`,
+                {
+                    params: {
+                        productId: productId,
+                        userId: authUser.member_id
+                    }
+                }
+            );
+
+            console.log("리뷰 자격 전체 응답:", response);
+            console.log("리뷰 자격 데이터:", response.data.apiData);
+
+            // JsonResult 형식에 맞게 apiData에서 데이터 추출
+            if (response.data.result === "success" && response.data.apiData) {
+                const { hasPurchased, hasReviewed, canReview } = response.data.apiData;
+                console.log("처리된 리뷰 자격 데이터:", {
+                    hasPurchased, hasReviewed, canReview
+                });
+                setCanReview(canReview);
+                setHasWrittenReview(hasReviewed);
+            } else {
+                console.log("리뷰 자격 데이터 없음", response.data);
+                setCanReview(false);
+                setHasWrittenReview(false);
+            }
+        } catch (error) {
+            console.error('리뷰 자격 확인 실패:', error);
+            setCanReview(false);
+            setHasWrittenReview(false);
+        }
+    };
+
+
+    // 리뷰 제출 핸들러 수정
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        if (!authUser || !canReview) {
+            alert('리뷰를 작성할 수 없습니다.');
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('reviewUserId', authUser.member_id);
+            formData.append('productId', productId);
+            formData.append('reviewRating', newReview.rating);
+            formData.append('reviewContent', newReview.content);
+
+            if (newReview.image) {
+                formData.append('image', newReview.image);
+            }
+
+            console.log('리뷰 제출 데이터:', {
+                reviewUserId: authUser.member_id,
+                productId: productId,
+                reviewRating: newReview.rating,
+                reviewContent: newReview.content,
+                hasImage: !!newReview.image
+            });
+
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/reviews`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            );
+
+            console.log('리뷰 제출 응답:', response.data);
+
+            if (response.data.result === 'success') {
+                alert('리뷰가 등록되었습니다.');
+
+                // 폼 초기화
+                setNewReview({ rating: 5, content: '', image: null });
+                setImagePreview(null);
+                setHasWrittenReview(true);
+                setCanReview(false);
+
+                // 리뷰 목록과 통계 새로고침
+                await fetchReviews();
+                await fetchReviewStats();
+                console.log("받은 리뷰 데이터:", reviews);
+
+            } else {
+                alert(response.data.message || '리뷰 등록에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('리뷰 등록 실패:', error);
+            alert('리뷰 등록 중 오류가 발생했습니다.');
+        }
+    };
     const handleReportReview = (reviewId) => {
         const confirmed = window.confirm('이 리뷰를 신고하시겠습니까?');
         if (confirmed) {
@@ -379,146 +662,221 @@ const UserCakeDetail = () => {
         }
     };
 
+
     // 리뷰 섹션 렌더링
     const renderReviewSection = () => (
         <div className="reviews-container">
-            <div className="review-form-container">
-                <h3>리뷰 작성</h3>
-                <form onSubmit={handleReviewSubmit} className="review-form">
-                    <div className="rating-select">
-                        <p>별점을 선택해주세요</p>
-                        <div className="stars-input">
-                            {[5, 4, 3, 2, 1].map((star) => (
-                                <button
-                                    key={star}
-                                    type="button"
-                                    className={`star-button ${newReview.rating <= star ? 'filled' : ''}`}
-                                    onClick={() => handleRatingChange(star)}
-                                >
-                                    ★
-                                </button>
-                            ))}
+            {/* 로그인하지 않은 경우 */}
+            {!authUser && (
+                <div className="review-login-message">
+                    <p>리뷰를 작성하려면 로그인이 필요합니다.</p>
+                </div>
+            )}
+
+            {/* 로그인했지만 구매하지 않은 경우 */}
+            {authUser && !canReview && !hasWrittenReview && (
+                <div className="review-purchase-message">
+                    <p>이 상품을 구매한 고객만 리뷰를 작성할 수 있습니다.</p>
+                </div>
+            )}
+
+            {/* 리뷰를 작성할 수 있는 경우 */}
+            {canReview && (
+                <div className="review-form-container">
+                    <h3>리뷰 작성</h3>
+                    <form onSubmit={handleReviewSubmit} className="review-form">
+                        <div className="rating-select">
+                            <p>별점을 선택해주세요</p>
+                            <div className="stars-input">
+                                {[1, 2, 3, 4, 5].map((star) => (  // 1부터 5까지로 변경
+                                    <button
+                                        key={star}
+                                        type="button"
+                                        className={`star-button ${newReview.rating >= star ? 'filled' : ''}`}
+                                        onClick={() => handleRatingChange(star)}
+                                        onMouseEnter={() => handleStarHover(star)}
+                                        onMouseLeave={handleStarLeave}
+                                    >
+                                        ★
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    <div className="review-text-input">
-                        <textarea
-                            value={newReview.content}
-                            onChange={handleReviewContent}
-                            placeholder="리뷰를 작성해주세요 (최소 10자 이상)"
-                            rows="4"
-                        />
-                    </div>
-                    <div className="review-image-input">
-                        <label className="image-upload-button">
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageUpload}
-                                style={{ display: 'none' }}
+                        <div className="review-text-input">
+                            <textarea
+                                value={newReview.content}
+                                onChange={handleReviewContent}
+                                placeholder="리뷰를 작성해주세요 (최소 10자 이상)"
+                                rows="4"
                             />
-                            사진 첨부하기
-                        </label>
-                        {imagePreview && (
-                            <div className="image-preview">
-                                <img src={imagePreview} alt="Preview" />
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setImagePreview(null);
-                                        setNewReview(prev => ({ ...prev, image: null }));
-                                    }}
-                                    className="remove-image"
-                                >
-                                    ×
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        className="submit-review-button"
-                        disabled={newReview.content.length < 10}
-                    >
-                        리뷰 등록하기
-                    </button>
-                </form>
-            </div>
-
-            <div className="rating-stats">
-                <div className="rating-average">
-                    <div className="stars">
-                        {[...Array(5)].map((_, index) => (
-                            <span key={index} className="star-filled">★</span>
-                        ))}
-                    </div>
-                    <div className="average-score">
-                        <span className="current-score">5</span>
-                        <span className="total-score">/5</span>
-                    </div>
-                </div>
-                <div className="rating-bars">
-                    {[1, 2, 3, 4, 5].map((score) => (
-                        <div key={score} className="rating-bar-row">
-                            <span className="score">{score}점</span>
-                            <div className="bar-container">
-                                <div
-                                    className="bar-fill"
-                                    style={{
-                                        width: `${(ratingStats[score] / 12) * 100}%`,
-                                        background: score === 5 ? '#FF3B85' : '#e0e0e0'
-                                    }}
-                                ></div>
-                            </div>
-                            <span className="count">{ratingStats[score]}</span>
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className="review-list">
-                <div className="review-filters">
-                    <button className="active">추천순</button>
-                    <button>최신순</button>
-                    <button>평점순</button>
-                    <label className="photo-only">
-                        <input type="checkbox" /> 포토 리뷰만
-                    </label>
-                </div>
-
-                {reviews.map((review) => (
-                    <div key={review.id} className="review-item">
-                        <div className="review-header">
-                            <div className="review-header-info">
-                                <div className="stars">
-                                    {[...Array(review.rating)].map((_, index) => (
-                                        <span key={index} className="star-filled">★</span>
-                                    ))}
-                                </div>
-                                <span className="author">{review.author}</span>
-                                <span className="date">{review.date}</span>
-                            </div>
-                            <button
-                                className="report-button"
-                                onClick={() => handleReportReview(review.id)}
-                            >
-                                <span className="report-icon">⚠️</span>
-                                신고
-                            </button>
-                        </div>
-                        <div className="review-content">
-                            <p>{review.content}</p>
-                            {review.image && (
-                                <div className="review-image">
-                                    <img src={review.image} alt="리뷰 이미지" />
+                        <div className="review-image-input">
+                            <label className="image-upload-button">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
+                                    style={{ display: 'none' }}
+                                />
+                                사진 첨부하기
+                            </label>
+                            {imagePreview && (
+                                <div className="image-preview">
+                                    <img src={imagePreview} alt="Preview" />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setImagePreview(null);
+                                            setNewReview(prev => ({ ...prev, image: null }));
+                                        }}
+                                        className="remove-image"
+                                    >
+                                        ×
+                                    </button>
                                 </div>
                             )}
                         </div>
+                        <button
+                            type="submit"
+                            className="submit-review-button"
+                            disabled={newReview.content.length < 10}
+                        >
+                            리뷰 등록하기
+                        </button>
+                    </form>
+                </div>
+            )}
+
+            {/* 리뷰 통계 */}
+            {reviewStats && (
+                // 리뷰 통계 표시 부분 수정
+                <div className="rating-stats">
+                    <div className="rating-average">
+                        <div className="stars">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <span
+                                    key={star}
+                                    className={`star ${star <= Math.round(reviewStats.averageRating) ? 'filled' : ''}`}
+                                >
+                                    ★
+                                </span>
+                            ))}
+                        </div>
+                        <div className="average-score">
+                            <span className="current-score">
+                                {reviewStats.averageRating.toFixed(1)}
+                            </span>
+                            <span className="total-score">/5</span>
+                        </div>
+                        <div className="total-reviews">
+                            총 {reviewStats.totalReviews}개의 리뷰
+                        </div>
                     </div>
-                ))}
+                    <div className="rating-bars">
+                        {[5, 4, 3, 2, 1].map((score) => (
+                            <div key={score} className="rating-bar-row">
+                                <span className="score">{score}점</span>
+                                <div className="bar-container">
+                                    <div
+                                        className="bar-fill"
+                                        style={{
+                                            width: `${reviewStats.totalReviews ? (reviewStats.ratingCounts[score] / reviewStats.totalReviews) * 100 : 0}%`,
+                                            background: score === 5 ? '#FF3B85' : '#e0e0e0'
+                                        }}
+                                    />
+                                </div>
+                                <span className="count">{reviewStats.ratingCounts[score]}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* 리뷰 목록 */}
+            <div className="review-list">
+                <div className="review-filters">
+                    <button
+                        className={`filter-button ${reviewSort === 'recommend' ? 'active' : ''}`}
+                        onClick={() => handleSortChange('recommend')}
+                    >
+                        추천순
+                    </button>
+                    <button
+                        className={`filter-button ${reviewSort === 'latest' ? 'active' : ''}`}
+                        onClick={() => handleSortChange('latest')}
+                    >
+                        최신순
+                    </button>
+                    <button
+                        className={`filter-button ${reviewSort === 'rating' ? 'active' : ''}`}
+                        onClick={() => handleSortChange('rating')}
+                    >
+                        평점순
+                    </button>
+                    <label className="photo-only">
+                        <input
+                            type="checkbox"
+                            checked={showPhotoOnly}
+                            onChange={handlePhotoOnlyToggle}
+                        />
+                        포토 리뷰만
+                    </label>
+                </div>
+
+                {reviews && reviews.length > 0 ? (
+                    reviews.map((review) => (
+                        <div key={review.reviewId} className="review-item">
+                            <div className="review-header">
+                                <div className="review-header-info">
+                                    <div className="stars">
+                                        {[...Array(parseInt(review.reviewRating))].map((_, index) => (
+                                            <span key={index} className="star-filled">★</span>
+                                        ))}
+                                    </div>
+                                    <span className="author">{review.author}</span>
+                                    <span className="date">
+                                        {new Date(review.reviewCreatedAt).toLocaleDateString('ko-KR', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit'
+                                        })}
+                                    </span>
+                                </div>
+                                <button
+                                    className="report-button"
+                                    onClick={() => handleReportReview(review.reviewId)}
+                                >
+                                    <span className="report-icon">⚠️</span>
+                                    신고
+                                </button>
+                            </div>
+                            <div className="review-content">
+                                {review.reviewContent && (
+                                    <p>{review.reviewContent}</p>
+                                )}
+                                {review.reviewImageUrl && (
+                                    <div className="review-image">
+                                        <img
+                                            src={review.reviewImageUrl}
+                                            alt="리뷰 이미지"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = "/images/no-image.png"; // 기본 이미지 경로
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="no-reviews">
+                        <p>아직 작성된 리뷰가 없습니다.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
-
     // 메인 렌더링
     return (
         <div id="user-wrap" className="text-center">
@@ -743,12 +1101,16 @@ const UserCakeDetail = () => {
                                     plateLetter: letters.plateLetter,
                                     additionalRequest: letters.additionalRequest,
                                     selectedOptions: selectedOptionNames
+                                    
                                 }
+                                
                             }}
                             className="submit-button"
                         >
                             요청사항 확인
+                            
                         </Link>
+                     
                     </div>
                 </div>
             </main>

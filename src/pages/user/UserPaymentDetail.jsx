@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userpaymentdetail.css';
@@ -12,15 +12,11 @@ const UserPaymentDetail = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        
-        // localStorage에서 인증 정보 가져오기
         const userStr = localStorage.getItem('authUser');
         if (userStr) {
             const user = JSON.parse(userStr);
             setAuthUser(user);
         }
-
-        // orderData나 인증 정보가 없으면 메인으로 리다이렉트
         if (!orderData || !userStr) {
             alert('잘못된 접근입니다.');
             navigate('/');
@@ -28,37 +24,36 @@ const UserPaymentDetail = () => {
         }
     }, [orderData, navigate]);
 
+    // DB 컬럼명에 맞게 매핑 (한글 -> 영어)
+    const columnMapping = {
+        '상품 종류': 'product_type',
+        '케이크 크기': 'cake_size',
+        '시트 맛': 'flavor_sheet',
+        '크림 맛': 'flavor_cream',
+        '케이크 배경색': 'cake_background_color',
+        '크림 위치': 'cream_position',
+        '크림 색상': 'cream_color',
+        '데코레이션 종류': 'decoration_type',
+        '데코레이션 색상': 'decoration_color',
+        '카테고리': 'category'
+    };
+
     const handlePayment = async () => {
         try {
-            // 로그인 확인
             if (!authUser) {
                 alert('로그인이 필요한 서비스입니다.');
                 navigate('/user/login');
                 return;
             }
 
-            // 1. 옵션 데이터 포맷팅 (기존과 동일)
             const formattedOptions = {};
             Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
-                const mappedKey = {
-                    'Product Type': 'productType',
-                    'Cake Size': 'cakeSize',
-                    'Flavor - Sheet': 'flavorSheet',
-                    'Flavor - Cream': 'flavorCream',
-                    'Cake Background Color': 'cakeBackgroundColor',
-                    'Cream Position': 'creamPosition',
-                    'Cream Color': 'creamColor',
-                    'Decoration Type': 'decorationType',
-                    'Decoration Color': 'decorationColor',
-                    'Category': 'category'
-                }[key];
-
-                if (mappedKey) {
-                    formattedOptions[mappedKey] = value;
+                const dbColumn = columnMapping[key];
+                if (dbColumn) {
+                    formattedOptions[dbColumn] = value;
                 }
             });
 
-            // 2. 날짜/시간 데이터 구성 (기존과 동일)
             const dateTimeData = orderData.orderInfo.deliveryType === 'pickup'
                 ? {
                     desiredPickupDatetime: orderData.orderInfo.selectedDate,
@@ -73,10 +68,9 @@ const UserPaymentDetail = () => {
                     desiredDeliveryTime: orderData.orderInfo.selectedTime
                 };
 
-            // 3. API 요청 데이터 구성
             const requestData = {
                 productId: Number(orderData.productInfo.productId),
-                userId: authUser.user_id, // 로그인한 사용자의 ID 사용
+                userId: authUser.user_id,
                 deliveryMethod: orderData.orderInfo.deliveryType,
                 deliveryAddress: orderData.orderInfo.address?.toString() || '',
                 recipientName: orderData.orderInfo.recipientName,
@@ -89,27 +83,23 @@ const UserPaymentDetail = () => {
                 ...formattedOptions
             };
 
-            // 토큰 가져오기
             const token = localStorage.getItem('token');
             if (!token) {
                 throw new Error('인증 토큰이 없습니다.');
             }
 
-            // 4. API 요청 (토큰 포함)
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/orders`,
                 requestData,
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` // 토큰 추가
+                        'Authorization': `Bearer ${token}`
                     }
                 }
             );
 
-            // 5. 응답 처리 (기존과 동일)
             if (response.data && response.data.result === "success") {
-                // 현재 날짜/시간 포맷팅
                 const now = new Date();
                 const formattedDateTime = now.toLocaleString('ko-KR', {
                     year: 'numeric',
@@ -120,7 +110,6 @@ const UserPaymentDetail = () => {
                     hour12: false
                 }).replace(/\. /g, '.').replace(',', '');
 
-                // 주문 완료 페이지로 이동
                 navigate('/user/ordercomplete', {
                     state: {
                         orderId: response.data.orderId,
@@ -180,6 +169,19 @@ const UserPaymentDetail = () => {
                                     <span className="value">{orderData.orderInfo.recipientPhone}</span>
                                 </div>
 
+                                {/* 옵션 표시 (키가 이미 한글) */}
+                                {Object.entries(orderData.orderInfo.selectedOptions || {}).map(([key, value]) => {
+                                    if (value) {
+                                        return (
+                                            <div key={key} className="detail-item">
+                                                <span className="label">{key}: </span>
+                                                <span className="value">{value}</span>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })}
+
                                 <div className="detail-item">
                                     <span className="label">가격: </span>
                                     <span className="value price">
@@ -209,9 +211,7 @@ const UserPaymentDetail = () => {
                                 )}
                             </div>
                         </div>
-                        <button
-                            onClick={handlePayment}
-                            className="payment-button">
+                        <button onClick={handlePayment} className="payment-button">
                             결제하기
                         </button>
                     </div>
