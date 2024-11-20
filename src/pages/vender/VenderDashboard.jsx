@@ -22,7 +22,7 @@ const VenderDashboard = () => {
             setAuthUser(JSON.parse(user));
         } else {
             alert('로그인이 필요합니다.');
-            navigate('/login'); // 로그인 페이지로 리디렉션
+            navigate('/user/login'); // 로그인 페이지로 리디렉션
         }
     }, [navigate]);
 
