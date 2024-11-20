@@ -1085,6 +1085,7 @@ const UserCakeDetail = () => {
                             state={{
                                 productInfo: {
                                     productId: productDetail?.productId,
+                                    venderId: productDetail?.venderId,
                                     productName: productDetail?.productName,
                                     productPrice: productDetail?.productPrice,
                                     productImage: productDetail?.productImage1Url,
