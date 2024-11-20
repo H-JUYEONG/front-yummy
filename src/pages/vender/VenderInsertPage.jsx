@@ -153,9 +153,12 @@ const VenderInsertPage = () => {
     }
 
     useEffect(()=>{
+        console.log("555555555 랜더링")
         firstList();
+        console.log("566655555555 랜더링")
 
     },[])
+
     useEffect(()=>{
         console.log(venderData)
 
@@ -362,11 +365,19 @@ const VenderInsertPage = () => {
         console.log("전송할때 구 들어가는지 확인")
         console.log('ddddddddddd'+district);
         if (bannerFile instanceof File) {
+            console.log('bannerFile 파일입니다.');
+        } else {
+            console.log('bannerFile 파일이 아닙니다.');
+        }
+        if (logoFile instanceof File) {
             console.log('logoFile 파일입니다.');
         } else {
             console.log('logoFile 파일이 아닙니다.');
         }
+        console.log('5555556+33333')
         
+        console.log(nonce.logoFile)
+
         const formData = new FormData();
         
         formData.append('venderName', shopName || nonce.shopName);
