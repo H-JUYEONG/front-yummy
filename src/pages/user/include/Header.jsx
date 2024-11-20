@@ -12,7 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
   const venderId = authUser?.vender_id || null;
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL; 
 
   // 로그아웃 처리
   const handleLogout = () => {

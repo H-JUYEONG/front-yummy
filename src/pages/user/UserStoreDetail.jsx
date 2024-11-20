@@ -16,14 +16,8 @@ const UserStoreDetail = () => {
         return user ? JSON.parse(user) : null;
     });
 
-    
-    
-        
-    
-
-    
-    
-
+    //상품 리스트
+    const [productList, setProductList] = useState([]);
 
     //업체 플렛폼 부분
     const [detailVo, setDetailVo] = useState('');
@@ -146,6 +140,8 @@ const UserStoreDetail = () => {
             responseType: 'json' //수신타입
         }).then(response => {
             console.log(response); //수신데이타
+            console.log('ddddddddddd',response.data.apiData)
+            setProductList(response.data.apiData)
         
         }).catch(error => {
             console.log(error);
@@ -306,18 +302,17 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {getProducts().map((product) => (
+                        {productList.map((product)=>(
                             <Link
-                                to={`/user/cakedetail`}
-                                key={product.id}
+                                to={`/user/cakedetail/${product.productId}`}
                                 className="sd-product-item"
                             >
                                 <div className="sd-product-image">
-                                    <img src={product.image} alt={product.name} />
+                                    <img src={product.productURL} alt='' />
                                 </div>
                                 <div className="sd-price-info">
-                                    <p className="sd-product-name">{product.name}</p>
-                                    <p className="sd-price">{product.price}</p>
+                                    <p className="sd-product-name">{product.productName}</p>
+                                    <p className="sd-price">{product.productPrice}</p>
                                 </div>
                             </Link> 
                         ))}
