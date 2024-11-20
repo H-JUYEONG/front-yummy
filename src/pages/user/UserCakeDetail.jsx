@@ -519,7 +519,7 @@ const UserCakeDetail = () => {
                 `${process.env.REACT_APP_API_URL}/api/reviews/stats/${productId}`
             );
             console.log("[리뷰 통계 응답]:", response.data);
-    
+
             if (response.data.result === "success") {
                 const stats = response.data.apiData;  // data 대신 apiData에서 추출
                 setReviewStats({
@@ -662,6 +662,22 @@ const UserCakeDetail = () => {
         }
     };
 
+    const handleDeleteReview = async (reviewId) => {
+        const confirmed = window.confirm('정말로 이 리뷰를 삭제하시겠습니까?');
+        if (confirmed) {
+            try {
+                await axios.delete(`${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`);
+                alert('리뷰가 삭제되었습니다.');
+                setHasWrittenReview(false);
+                setCanReview(true);
+                await fetchReviews();
+                await fetchReviewStats();
+            } catch (error) {
+                console.error('리뷰 삭제 실패:', error);
+                alert('리뷰 삭제 중 오류가 발생했습니다.');
+            }
+        }
+    };
 
     // 리뷰 섹션 렌더링
     const renderReviewSection = () => (
@@ -842,13 +858,23 @@ const UserCakeDetail = () => {
                                         })}
                                     </span>
                                 </div>
-                                <button
-                                    className="report-button"
-                                    onClick={() => handleReportReview(review.reviewId)}
-                                >
-                                    <span className="report-icon">⚠️</span>
-                                    신고
-                                </button>
+                                <div className="review-header-actions">
+                                    <button
+                                        className="report-button"
+                                        onClick={() => handleReportReview(review.reviewId)}
+                                    >
+                                        <span className="report-icon">⚠️</span>
+                                        신고
+                                    </button>
+                                    {authUser && review.reviewUserId === authUser.member_id && (
+                                        <button
+                                            className="delete-button"
+                                            onClick={() => handleDeleteReview(review.reviewId)}
+                                        >
+                                            삭제
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                             <div className="review-content">
                                 {review.reviewContent && (
@@ -1102,16 +1128,16 @@ const UserCakeDetail = () => {
                                     plateLetter: letters.plateLetter,
                                     additionalRequest: letters.additionalRequest,
                                     selectedOptions: selectedOptionNames
-                                    
+
                                 }
-                                
+
                             }}
                             className="submit-button"
                         >
                             요청사항 확인
-                            
+
                         </Link>
-                     
+
                     </div>
                 </div>
             </main>
