@@ -14,12 +14,12 @@ const UserPersonalInfoEdit = () => {
   /*--- State Variables --------------------------------------------*/
   const token = localStorage.getItem("token");
 
-  const [memberId, setMemberID ]= useState("");
-  
+  const [memberId, setMemberID] = useState("");
+
   const [profilePicture, setProfilePicture] = useState("");
   const [ppUrl, setPpUrl] = useState("");
   const [tempPp, setTempPp] = useState("");
-  
+
   const [email, setEmail] = useState("");
   const [userPw, setUserPw] = useState("");
   const [userName, setUserName] = useState("");
@@ -105,31 +105,31 @@ const UserPersonalInfoEdit = () => {
       setTempPp(previewUrl);
     }
   };
-  
+
 
   /*--- Save Changes ---------------------------------------------*/
   const handleSave = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-  // Validation for newPassword and confirmPassword
+    // Validation for newPassword and confirmPassword
 
 
-  if (newPassword && confirmPassword) {
-    if (newPassword === confirmPassword) {
-      console.log("Updating passwordHash with newPassword");
-      formData.append("passwordHash", newPassword);
+    if (newPassword && confirmPassword) {
+      if (newPassword === confirmPassword) {
+        console.log("Updating passwordHash with newPassword");
+        formData.append("passwordHash", newPassword);
+      } else {
+        alert("비밀번호가 일치하지 않습니다."); // Passwords do not match
+        return; // Stop the save process if validation fails
+      }
+    } else if (!newPassword && !confirmPassword) {
+      // If both newPassword and confirmPassword are null or empty, use the existing user password
+      formData.append("passwordHash", userPw);
     } else {
-      alert("비밀번호가 일치하지 않습니다."); // Passwords do not match
-      return; // Stop the save process if validation fails
+      alert("새 비밀번호와 비밀번호 확인란을 모두 입력해주세요."); // Please fill in both the new password and confirm password fields
+      return; // Stop the save process if one field is empty
     }
-  } else if (!newPassword && !confirmPassword) {
-    // If both newPassword and confirmPassword are null or empty, use the existing user password
-    formData.append("passwordHash", userPw);
-  } else {
-    alert("새 비밀번호와 비밀번호 확인란을 모두 입력해주세요."); // Please fill in both the new password and confirm password fields
-    return; // Stop the save process if one field is empty
-  } 
 
     console.log(memberId);
     formData.append("memberId", memberId);
@@ -141,18 +141,18 @@ const UserPersonalInfoEdit = () => {
     formData.append("name", userName);
     console.log(userNickName);
     formData.append("userNickname", userNickName);
-    
+
     console.log(ppUrl);
     formData.append("userProfileImageUrl", ppUrl);
 
     console.log(profilePicture);
     formData.append("profilePicture", profilePicture);
 
-    
+
     setNewPassword("");
     setConfirmPassword("");
 
-    axios({ 
+    axios({
       method: "put",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/update`,
       headers: {
@@ -182,38 +182,40 @@ const UserPersonalInfoEdit = () => {
       alert("기념일 이름과 날짜를 입력하세요.");
       return;
     }
-  const formattedDate = `${eventDate}T00:00:00`; // Example: "2024-11-21T00:00:00"
-  const JeffUserEventVo = {
-    userId: memberId,
-    eventName:eventName,
-    eventDate: formattedDate,
-    notificationEnabled: true
-  };
-  console.log(memberId);
-  console.log(eventName);
-  console.log(eventDate);
-/*
-    const formData = new FormData();
+    const formattedDate = `${eventDate}T00:00:00`; // Example: "2024-11-21T00:00:00"
+    const JeffUserEventVo = {
+      userId: memberId,
+      eventName: eventName,
+      eventDate: formattedDate,
+      notificationEnabled: true
+    };
     console.log(memberId);
-    formData.append("userId", memberId);
     console.log(eventName);
-    formData.append("eventName", eventName);
     console.log(eventDate);
-    formData.append("eventDate", eventDate);
-
-
+    /*
+        const formData = new FormData();
+        console.log(memberId);
+        formData.append("userId", memberId);
+        console.log(eventName);
+        formData.append("eventName", eventName);
+        console.log(eventDate);
+        formData.append("eventDate", eventDate);
     
-    setUserEventList([...userEventList, newEvent]);
+    
+        
+        setUserEventList([...userEventList, newEvent]);
+        setEventName("");
+        setEventDate("");
+    */
     setEventName("");
     setEventDate("");
-*/
-setEventName("");
-setEventDate("");
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
-      headers: { "Content-Type": "application/json; charset=utf-8",
-                  "Authorization": `Bearer ${token}` },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": `Bearer ${token}`
+      },
       data: JeffUserEventVo,
       responseType: "json",
     })
@@ -231,12 +233,12 @@ setEventDate("");
   };
 
   const handleDeleteEvent = (anniversaryId) => {
-    
-  
+
+
     console.log("Deleting event with ID:", anniversaryId);
 
 
-  
+
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${anniversaryId}`,
@@ -258,7 +260,7 @@ setEventDate("");
         console.error("Error deleting event:", error);
       });
   };
-  
+
 
   /*--- Modal Handlers ------------------------------------------*/
   const handleOpenWithdrawModal = () => {
@@ -289,17 +291,17 @@ setEventDate("");
             {/* Profile Picture Edit Section */}
             <div className="profile-picture-section">
               <div className="profile-picture-preview">
-              <div className="profile-picture-preview">
-                {(() => {
-                  if (ppUrl && !tempPp) {
-                    return <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} alt="Profile Preview" />;
-                  } else if (tempPp) {
-                    return <img src={tempPp} alt="Profile Preview" />;
-                  } else{
-                    return <span>프로필 사진 없음</span>;
-                  }
-                })()}
-              </div>
+                <div className="profile-picture-preview">
+                  {(() => {
+                    if (ppUrl && !tempPp) {
+                      return <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} alt="Profile Preview" />;
+                    } else if (tempPp) {
+                      return <img src={tempPp} alt="Profile Preview" />;
+                    } else {
+                      return <span>프로필 사진 없음</span>;
+                    }
+                  })()}
+                </div>
               </div>
               <label className="profile-picture-button">
                 프로필 사진 업로드
@@ -367,37 +369,37 @@ setEventDate("");
                 기념일 추가하기
               </button>
             </section>
-            </form>
-           
+          </form>
 
-            {/* Action Buttons */}
 
-           {/* Display Event List */}
-           <section className="j-event-list-section">
-              {userEventList.length > 0 ? (
-                userEventList.map((event, index) => (
-                  <div key={index} className="j-event-item">
-                    <div className="j-event-info">
-                      <span className="j-event-name">{event.eventName}</span>
-                      <span className="j-event-date">
-                        {new Date(event.eventDate).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <button
-                      className="j-event-delete"
-                      onClick={() => handleDeleteEvent(event.anniversaryId)}
-                    >
-                      삭제
-                    </button>
+          {/* Action Buttons */}
+
+          {/* Display Event List */}
+          <section className="j-event-list-section">
+            {userEventList.length > 0 ? (
+              userEventList.map((event, index) => (
+                <div key={index} className="j-event-item">
+                  <div className="j-event-info">
+                    <span className="j-event-name">{event.eventName}</span>
+                    <span className="j-event-date">
+                      {new Date(event.eventDate).toLocaleDateString()}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <p className="no-events-message">등록된 기념일이 없습니다.</p>
-              )}
-            </section>
+                  <button
+                    className="j-event-delete"
+                    onClick={() => handleDeleteEvent(event.anniversaryId)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="no-events-message">등록된 기념일이 없습니다.</p>
+            )}
+          </section>
 
 
-            <form className="user-edit-form" onSubmit={handleSave}>
+          <form className="user-edit-form" onSubmit={handleSave}>
             <div className="user-edit-buttons">
               <button type="button" className="user-cancel-button">
                 취소
