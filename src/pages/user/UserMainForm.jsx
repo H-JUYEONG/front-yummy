@@ -200,7 +200,7 @@ const UserMainForm = () => {
                 <div className="allList-box">
                     {filteredProducts.map((item) => (
                         <div className="all-product-item" key={item.productId}>
-                            <Link to={`/user/cakedetail/${item.productId}`} className="list_hover_img">
+                            <Link to={`/user/cakedetail/${item.productId}/${item.venderId}`} className="list_hover_img">
                                 <img src={item.productImage1Url} alt={item.productName} />
                                 <div className="store-info">
                                     {/* 매장 로고 */}
