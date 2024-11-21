@@ -13,8 +13,8 @@ const UserAuditionOngoing = () => {
 
   const [auditionDetail, setAuditionDetail] = useState([]); // 오디션 상세 정보 리스트
   const [auditionVenders, setauditionVenders] = useState([]); // 오디션 참가 업체 리스트
-  const [auditionVendersReviews, setauditionVendersReviews] = useState([]); // 오디션 참가 업체 리스트
-  const [isEnded, setIsEnded] = useState(false); // 오디션 상태 (기본값: 진행 중)
+  const [auditionVendersEnd, setauditionVendersEnd] = useState([]); // 오디션 참가 업체 리스트
+  const [auditionVendersReviews, setauditionVendersReviews] = useState([]); // 오디션 종료 업체 + 리뷰
   const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
   // 오디션 상세 정보 가져오기
@@ -26,6 +26,7 @@ const UserAuditionOngoing = () => {
       responseType: "json", //수신타입
     })
       .then((response) => {
+        console.log("상세정보");
         console.log(response.data); //수신데이타
         if (response.data.result === "success") {
           setAuditionDetail(response.data.apiData);
@@ -48,12 +49,10 @@ const UserAuditionOngoing = () => {
       responseType: "json", //수신타입
     })
       .then((response) => {
-        console.log("업체");
-        console.log(response.data); //수신데이타
+        console.log(response.data.apiData); //수신데이타
 
         if (response.data.result === "success") {
           setauditionVenders(response.data.apiData);
-          console.log(response.data.apiData);
         } else {
           alert("오디션 참가 업체 내용 가져오기 실패");
         }
@@ -64,6 +63,29 @@ const UserAuditionOngoing = () => {
   };
 
   // 오디션 종료된 내용 가져오기
+  const getAuditionVendersEnd = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/users/audition/venders/end/${auditionApplicationId}`,
+
+      responseType: "json", //수신타입
+    })
+      .then((response) => {
+        console.log("하");
+        console.log(response.data); //수신데이타
+
+        if (response.data.result === "success") {
+          setauditionVendersEnd(response.data.apiData);
+        } else {
+          alert("오디션 참가 업체 내용 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // 리뷰 내용 가져오기
   const getAuditionVendersReviews = () => {
     axios({
       method: "get",
@@ -72,12 +94,12 @@ const UserAuditionOngoing = () => {
       responseType: "json", //수신타입
     })
       .then((response) => {
-        console.log("종료");
-        console.log(response.data); //수신데이타
+        console.log("리뷰");
+        console.log(response.data.apiData); //수신데이타
+        console.log(response.data.apiData.productImage1Url); //수신데이타
 
         if (response.data.result === "success") {
           setauditionVendersReviews(response.data.apiData);
-          console.log(response.data.apiData);
         } else {
           alert("오디션 참가 업체 내용 가져오기 실패");
         }
@@ -94,70 +116,9 @@ const UserAuditionOngoing = () => {
 
     getAuditionDetail();
     getAuditionVenders();
+    getAuditionVendersEnd();
     getAuditionVendersReviews();
   }, [auditionApplicationId]);
-
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, index) => (
-      <FaStar key={index} color={index < rating ? "#FFD700" : "#ddd"} />
-    ));
-  };
-
-  // 선택된 업체 정보
-  const selectedCompany = {
-    id: 1,
-    name: "주영공주 베이커리",
-    rating: 4,
-    bidAmount: "39,000원",
-    image: "/images/goodcake.png",
-  };
-
-  // 선택된 업체 리뷰
-  const selectedCompanyReviews = [
-    {
-      id: 1,
-      user: "김철수",
-      rating: 4,
-      comment: "케이크가 아주 맛있었어요!",
-      imageUrl: "/images/4.png",
-    },
-  ];
-  const renderReview = (review) => (
-    <div key={review.id} className="review-item">
-      {review.imageUrl && (
-        <img
-          src={review.imageUrl}
-          alt={`${review.user}의 리뷰 이미지`}
-          className="review-image"
-        />
-      )}
-      <div className="review-text">
-        <p>
-          <strong>{review.user}</strong>
-        </p>
-        <div className="review-rating">{renderStars(review.rating)}</div>
-        <p>{review.comment}</p>
-      </div>
-    </div>
-  );
-
-  // 오디션 참가 업체 리스트
-  const participatingCompanies = [
-    {
-      id: 1,
-      name: "주영공주 베이커리",
-      rating: 4,
-      bidAmount: "39,000원",
-      image: "/images/goodcake.png",
-    },
-    {
-      id: 2,
-      name: "황후의 베이커리",
-      rating: 5,
-      bidAmount: "45,000원",
-      image: "/images/goodcake.png",
-    },
-  ];
 
   return (
     <div id="user-wrap" className="text-center ongoing-audition">
@@ -179,22 +140,7 @@ const UserAuditionOngoing = () => {
             <p className="user-cake-design-author">
               작성자 {auditionDetail.userNickname}
             </p>
-            <div className="user-control-section">
-              <button
-                className="user-cake-edit-button"
-                onClick={() => navigate("/user/mypage/audition")}
-              >
-                수정
-              </button>
-              <button
-                className="user-cake-delete-button"
-                onClick={() => alert("삭제 기능")}
-              >
-                삭제
-              </button>
-            </div>
-{/* 
-            {authUser && cakeDesignDetail.memberId === authUser.member_id && (
+            {authUser && auditionDetail.memberId === authUser.member_id && (
               <div className="user-control-section">
                 <button
                   className="user-cake-edit-button"
@@ -209,7 +155,7 @@ const UserAuditionOngoing = () => {
                   삭제
                 </button>
               </div>
-            )} */}
+            )}
           </div>
         </div>
 
@@ -229,7 +175,6 @@ const UserAuditionOngoing = () => {
             <div className="ongoing-design-preview">
               <h3>예시도안</h3>
               <img src={auditionDetail.imageUrl} alt="예시 도안" />
-              {/* <p>친구야 생일 축하해!</p> */}
             </div>
           </div>
 
@@ -241,35 +186,57 @@ const UserAuditionOngoing = () => {
               <div className="audition-vender-name">
                 <h2>오디션 참가 업체</h2>
               </div>
-              <div className="toggles-status-container">
-                <button
-                  className={isEnded ? "ended-button" : "ongoing-button"}
-                  onClick={() => setIsEnded(!isEnded)}
-                >
-                  {isEnded ? "진행 중 보기" : "종료 상태 보기"}
-                </button>
-              </div>
             </div>
-            {isEnded ? (
+            {auditionDetail.status === "종료" ? (
               // 오디션 종료 상태에서는 선택된 업체만 표시
               <div className="ongoing-company-wrapper">
                 <div className="ongoing-company">
-                  <img src={selectedCompany.image} alt="선택된 케이크 이미지" />
+                  <img
+                    src={auditionVendersEnd.productImage1Url}
+                    alt="선택된 케이크 이미지"
+                  />
                   <div className="ongoing-company-info">
                     <p className="ongoing-vender-name">
-                      {selectedCompany.name}
+                      {auditionVendersEnd.venderName}
                     </p>
                     <div className="ongoing-company-rating">
-                      {renderStars(selectedCompany.rating)}
+                      {auditionVendersEnd.productName}
                     </div>
-                    <p>제시금액: {selectedCompany.bidAmount}</p>
+                    <p>
+                      제시금액:{" "}
+                      {auditionVendersEnd.proposedAmount.toLocaleString()}원
+                    </p>
                   </div>
                 </div>
 
                 {/* 리뷰 섹션을 아래로 이동 */}
                 <div className="review-section">
                   <h3>구매자 리뷰</h3>
-                  {selectedCompanyReviews.map((review) => renderReview(review))}
+                  {auditionVendersReviews.map((review, index) => (
+                    <div key={index} className="review-item">
+                      <img
+                        src={review.productImage1Url}
+                        alt={`${review.productName}의 리뷰 이미지`}
+                        className="review-image"
+                      />
+                      <div className="review-text">
+                        <p>
+                          <strong>{review.userNickname}</strong>
+                        </p>
+                        <div className="reviews-rating">
+                          {[...Array(review.reviewRating)].map(
+                            (_, starIndex) => (
+                              <FaStar
+                                key={starIndex}
+                                className="audition-review-star-icon"
+                              />
+                            )
+                          )}
+                        </div>
+                        <p>{review.reviewContent}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ) : (
@@ -293,7 +260,7 @@ const UserAuditionOngoing = () => {
                       {company.venderName}
                     </p>
                     <div className="ongoing-company-rating">
-                      {renderStars(company.reviewRating)}
+                      {company.productName}
                     </div>
                     <p>제시금액: {company.proposedAmount.toLocaleString()}원</p>
                   </div>
