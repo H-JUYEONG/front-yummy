@@ -221,16 +221,17 @@ setEventDate("");
       });
   };
 
-  const handleDeleteEvent = (eventId) => {
-
+  const handleDeleteEvent = (anniversaryId) => {
+    
   
-    console.log("Deleting event with ID:", eventId);
+    console.log("Deleting event with ID:", anniversaryId);
+
+
   
     axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${eventId}`,
+      url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${anniversaryId}`,
       headers: {
-        "Content-Type": "application/json; charset=utf-8",
         Authorization: `Bearer ${token}`,
       },
       responseType: "json",
@@ -375,7 +376,7 @@ setEventDate("");
                     </div>
                     <button
                       className="j-event-delete"
-                      onClick={() => handleDeleteEvent(event.eventId)}
+                      onClick={() => handleDeleteEvent(event.anniversaryId)}
                     >
                       삭제
                     </button>
