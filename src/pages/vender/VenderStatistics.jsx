@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // 리디렉션을 위해 react-router-dom 사용
+import axios from 'axios'; // HTTP 요청 라이브러리
 import { Helmet } from 'react-helmet';
 import { Line, Doughnut } from 'react-chartjs-2';
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
@@ -9,7 +10,7 @@ import '../../assets/css/vender/statistics.css'; // 대시보드 전용 스타�
 
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
-
+const API_URL = process.env.REACT_APP_API_URL;
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -23,6 +24,43 @@ ChartJS.register(
 
 const VenderStatistics = () => {
     const navigate = useNavigate(); // useNavigate 훅 선언
+    const [authUser, setAuthUser] = useState(null);
+    const [monthlyOrderCount, setMonthlyOrderCount] = useState(0);
+
+    // 유저 정보 가져오기
+    useEffect(() => {
+        const user = localStorage.getItem('authUser');
+        if (user) {
+            setAuthUser(JSON.parse(user));
+        } else {
+            alert('로그인이 필요합니다.');
+            navigate('/user/login');
+        }
+    }, [navigate]);
+
+
+    // 현재 월 계산 (예: 11월)
+    const currentMonth = new Date().toLocaleString('ko-KR', { month: 'long' });
+    // 월별 주문 건수 가져오기
+    useEffect(() => {
+        const fetchMonthlyOrderCount = async () => {
+            if (authUser) {
+                try {
+                    const response = await axios.get(`${API_URL}/api/vender/monthlyCount`, {
+                        params: { venderId: authUser.vender_id },
+                    });
+                    setMonthlyOrderCount(response.data);
+                } catch (error) {
+                    console.error('Error fetching monthly order count:', error);
+                }
+            }
+        };
+
+        fetchMonthlyOrderCount();
+    }, [authUser]);
+
+
+
 
     // 그래프 데이터 설정
     const salesData = {
@@ -99,17 +137,17 @@ const VenderStatistics = () => {
                     <VenderSidebar />
                     {/* 콘텐츠 영역 */}
                     <div className="vender-content">
-                    <header className="vender-header ">
-                                <VenderHeader />
-                            </header>
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
                         {/* 통계 요약 카드 섹션 */}
                         <div className="summary-card-section">
                             <div className="summary-card">
-                                <h3>주문 건수 (11월)</h3>
-                                <p>120건</p>
+                                <h3>주문 건수 ({currentMonth}) </h3>
+                                <p>{monthlyOrderCount}건</p>
                             </div>
                             <div className="summary-card">
-                                <h3>매출 (11월)</h3>
+                                <h3>매출 ({currentMonth})</h3>
                                 <p>3,200,000원</p>
                             </div>
                             <div className="summary-card">

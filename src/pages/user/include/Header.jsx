@@ -44,9 +44,15 @@ const Header = () => {
   // 네비게이션 메뉴 렌더링
   const renderNavMenu = () => (
     <ul>
-      <li><Link to="/user/audition">케이크 요청</Link></li>
-      <li><Link to="/user/cakeDesign/board">디자인 공유</Link></li>
-      <li><Link to="/board">케이크 토크</Link></li>
+      <li>
+        <Link to="/user/audition/board">케이크 요청</Link>
+      </li>
+      <li>
+        <Link to="/user/cakeDesign/board">디자인 공유</Link>
+      </li>
+      <li>
+        <Link to="/board">케이크 토크</Link>
+      </li>
     </ul>
   );
 

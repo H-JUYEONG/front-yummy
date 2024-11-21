@@ -10,54 +10,54 @@
     color: #333;
 }
 
-.member-table {
+.admin-memberlist-content .member-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.member-table th,
-.member-table td {
+.admin-memberlist-content .member-table th,
+.admin-memberlist-content .member-table td {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
 }
 
-.member-table th {
+.admin-memberlist-content .admin-memberlist-content .member-table th {
     background-color: #f2f2f2;
     font-weight: bold;
     color: #333;
 }
 
-.member-table tbody tr:nth-child(even) {
+.admin-memberlist-content .member-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.member-table .status-label {
+.admin-memberlist-content .member-table .status-label {
     font-weight: bold;
     padding: 5px;
     border-radius: 4px;
 }
 
-.status-label.활성 {
+.admin-memberlist-content .status-label.활성 {
     color: #fff;
     background-color: #4caf50;
 }
 
-.status-label.비활성 {
+.admin-memberlist-content .status-label.비활성 {
     color: #fff;
     background-color: #ff9800;
 }
 
-.status-label.정지 {
+.admin-memberlist-content .status-label.정지 {
     color: #fff;
     background-color: #f44336;
 }
 
-.search-filter {
+.admin-memberlist-content .search-filter {
     margin-bottom: 20px;
 }
 
-.search-filter input {
+.admin-memberlist-content .search-filter input {
     width: 20%;
     padding: 10px;
     font-size: 16px;
@@ -65,12 +65,12 @@
     border-radius: 4px;
 }
 
-.pagination {
+.admin-memberlist-content .pagination {
     margin-top: 20px;
     text-align: center;
 }
 
-.pagination-button {
+.admin-memberlist-content .pagination-button {
     margin: 0 5px;
     padding: 8px 12px;
     font-size: 14px;
@@ -80,12 +80,12 @@
     transition: background-color 0.3s;
 }
 
-.pagination-button.active {
+.admin-memberlist-content .pagination-button.active {
     background-color: #4caf50;
     color: #fff;
     font-weight: bold;
 }
 
-.pagination-button:hover {
+.admin-memberlist-content .pagination-button:hover {
     background-color: #d4d4d4;
 }
