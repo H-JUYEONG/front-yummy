@@ -11,56 +11,104 @@ const WebRTCReceiver = () => {
     useEffect(() => {
         const startConnection = async () => {
             try {
+                console.log("Fetching offer from server...");
                 const response = await fetch(`${API_URL}/signaling/${orderId}/offer`);
-                const offer = await response.json();
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch offer: ${response.statusText}`);
+                }
 
+                const offer = await response.json();
+                console.log("Offer received:", offer);
+
+                // Create PeerConnection
                 peerConnectionRef.current = new RTCPeerConnection({
                     iceServers: [
                         { urls: "stun:stun.l.google.com:19302" },
-                        { urls: "turn:openrelay.metered.ca:80", username: "openrelayproject", credential: "openrelayproject" },
+                        {
+                            urls: "turn:openrelay.metered.ca:80",
+                            username: "openrelayproject",
+                            credential: "openrelayproject",
+                        },
                     ],
                 });
 
-                peerConnectionRef.current.ontrack = (event) => {
-                    console.log("Received remote track:", event.streams[0]); // 로그 추가
-                    if (event.streams && event.streams[0]) {
-                        videoRef.current.srcObject = event.streams[0];
-                        console.log("Video element srcObject set to remote stream"); // 로그 추가
-                        videoRef.current.play().catch((error) => {
-                            console.log("Video element srcObject set to remote stream"); // 로그 추가
+                // Handle incoming ICE candidates
+                peerConnectionRef.current.onicecandidate = (event) => {
+                    if (event.candidate) {
+                        console.log("Local ICE Candidate:", event.candidate);
+                        fetch(`${API_URL}/signaling/${orderId}/ice-candidate`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(event.candidate),
+                        }).catch((error) => {
+                            console.error("Error sending ICE Candidate:", error);
                         });
-                        console.log("Video stream set to video element");
-                    } else {
-                        console.error("No stream available in ontrack event");
                     }
                 };
 
+                // Set remote stream to video element
+                peerConnectionRef.current.ontrack = (event) => {
+                    console.log("Received remote track:", event.streams[0]);
+                    if (event.streams && event.streams[0]) {
+                        videoRef.current.srcObject = event.streams[0];
+                        videoRef.current.play().catch((error) => {
+                            console.error("Error playing video:", error);
+                        });
+                        console.log("Video stream set to video element.");
+                    } else {
+                        console.error("No stream available in ontrack event.");
+                    }
+                };
+
+                // Debug connection states
                 peerConnectionRef.current.oniceconnectionstatechange = () => {
-                    console.log("ICE connection state (Sender):", peerConnectionRef.current.iceConnectionState); // 로그 추가
+                    console.log(
+                        "ICE connection state:",
+                        peerConnectionRef.current.iceConnectionState
+                    );
                 };
 
                 peerConnectionRef.current.onconnectionstatechange = () => {
-                    console.log("Connection state (Sender):", peerConnectionRef.current.connectionState); // 로그 추가
+                    console.log(
+                        "Connection state:",
+                        peerConnectionRef.current.connectionState
+                    );
                 };
+
+                // Set the remote description with the received offer
                 await peerConnectionRef.current.setRemoteDescription(offer);
 
+                // Create and send answer
                 const answer = await peerConnectionRef.current.createAnswer();
                 await peerConnectionRef.current.setLocalDescription(answer);
 
+                console.log("Answer created and set locally:", answer);
+
+                // Send answer to signaling server
                 await fetch(`${API_URL}/signaling/${orderId}/answer`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(answer),
                 });
 
-                console.log("Connection established with Answer:", answer);
+                console.log("Answer sent to server.");
 
+                // Fetch and add ICE candidates from server
+                console.log("Fetching ICE candidates...");
                 const responseIce = await fetch(`${API_URL}/signaling/${orderId}/ice-candidate`);
+                if (!responseIce.ok) {
+                    throw new Error(`Failed to fetch ICE candidates: ${responseIce.statusText}`);
+                }
+
                 const candidates = await responseIce.json();
+                console.log("ICE candidates received:", candidates);
+
                 candidates.forEach((candidate) => {
                     try {
-                        console.log("Adding ICE Candidate (Receiver):", candidate); // 로그 추가
-                        peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(JSON.parse(candidate)));
+                        console.log("Adding ICE Candidate:", candidate);
+                        peerConnectionRef.current.addIceCandidate(
+                            new RTCIceCandidate(JSON.parse(candidate))
+                        );
                     } catch (error) {
                         console.error("Failed to add ICE Candidate:", error);
                     }
@@ -71,17 +119,32 @@ const WebRTCReceiver = () => {
         };
 
         startConnection();
+
+        // Cleanup on unmount
+        return () => {
+            stopConnection();
+        };
     }, [API_URL, orderId]);
 
     const stopConnection = async () => {
         if (peerConnectionRef.current) {
+            console.log("Closing PeerConnection...");
             peerConnectionRef.current.close();
             peerConnectionRef.current = null;
         }
-        videoRef.current.srcObject = null;
 
-        await fetch(`${API_URL}/signaling/${orderId}`, { method: "DELETE" });
-        console.log("Connection stopped and session deleted");
+        if (videoRef.current) {
+            console.log("Clearing video source...");
+            videoRef.current.srcObject = null;
+        }
+
+        console.log("Deleting session on signaling server...");
+        try {
+            await fetch(`${API_URL}/signaling/${orderId}`, { method: "DELETE" });
+            console.log("Session deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting session on server:", error);
+        }
     };
 
     return (
@@ -97,7 +160,7 @@ const WebRTCReceiver = () => {
                 />
             </div>
             <div className="receiver-button-container">
-            <button onClick={stopConnection}>Stop and Delete Session</button>
+                <button onClick={stopConnection}>Stop and Delete Session</button>
             </div>
         </div>
     );
