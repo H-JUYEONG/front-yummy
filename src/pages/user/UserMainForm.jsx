@@ -116,7 +116,7 @@ const UserMainForm = () => {
                     <h3 className="sy-user-main-title">위치 찾기</h3>
                     <div className='map-img-box'>
                         <div className='map-img'>
-                            <p>원하시는 '구'를 클릭해주세요!</p>
+                            <p>지도에서 원하시는 '구'를 클릭해주세요!</p>
                             <img src={mapImg} alt="지도" usemap='#seoulMap' />
                         </div>
                         <map name="seoulMap">
