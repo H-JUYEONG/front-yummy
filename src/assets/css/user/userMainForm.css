@@ -44,7 +44,8 @@
 }
 
 .userMainFormContainer .map-img img {
-    max-width: 400px;
+    max-width: 550px;
+    height: 80%;
 }
 
 .userMainFormContainer .userMain-map-search select {

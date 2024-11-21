@@ -21,6 +21,8 @@ const UserAuditionBoard = () => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
   // 데이터 가져오기 함수
   const fetchData = async (url, page = 1, search = "") => {
     try {
@@ -28,8 +30,8 @@ const UserAuditionBoard = () => {
         method: "get",
         url: `${process.env.REACT_APP_API_URL}${url}`,
         params: {
-          page: page, // 서버에 현재 페이지 전달
-          size: itemsPerPage, // 서버에 요청 크기 전달
+          page: page,
+          size: itemsPerPage,
           search: search,
         },
         responseType: "json",
@@ -63,7 +65,6 @@ const UserAuditionBoard = () => {
     fetchData(url, page, searchTerm);
   };
 
-
   // 페이지 변경 핸들러
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -74,11 +75,21 @@ const UserAuditionBoard = () => {
 
   // 페이지네이션 생성
   const totalPages = Math.ceil(totalAllCount / itemsPerPage);
+
   const generatePagination = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const pageGroupSize = 10; // 한 번에 보여줄 페이지 번호 개수
+
+    // 현재 페이지가 속한 그룹의 시작과 끝 페이지 계산
+    const currentGroup = Math.ceil(currentPage / pageGroupSize);
+    const startPage = (currentGroup - 1) * pageGroupSize + 1;
+    const endPage = Math.min(currentGroup * pageGroupSize, totalPages);
+
+    // 페이지 번호 생성
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
+
     return pages;
   };
 
@@ -156,7 +167,7 @@ const UserAuditionBoard = () => {
             </div>
           </div>
           <div className="user-cake-audition-list-grid">
-            {userAuditionBoard.slice(startIndex, endIndex).map((card, index) => (
+            {userAuditionBoard.map((card, index) => (
               <div key={index} className="user-cake-audition-card">
                 <div className="user-cake-audition-card-image">
                   <img
@@ -165,10 +176,11 @@ const UserAuditionBoard = () => {
                     alt="케이크 도안"
                   />
                   <div
-                    className={`user-cake-audition-status ${card.status === "진행중"
-                      ? "status-in-progress"
-                      : "status-completed"
-                      }`}
+                    className={`user-cake-audition-status ${
+                      card.status === "진행중"
+                        ? "status-in-progress"
+                        : "status-completed"
+                    }`}
                   >
                     <span>{card.status}</span>
                   </div>
