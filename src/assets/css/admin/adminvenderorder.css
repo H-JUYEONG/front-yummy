@@ -96,7 +96,7 @@
 }
 
 
-.pagination {
+.admin-venderorder-page .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +104,7 @@
     gap: 8px;
 }
 
-.pagination button {
+.admin-venderorder-page .pagination button {
     padding: 8px 12px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
@@ -114,11 +114,11 @@
     transition: background-color 0.3s ease;
 }
 
-.pagination button:hover {
+.admin-venderorder-page .pagination button:hover {
     background-color: #ddd;
 }
 
-.pagination button.active {
+.admin-venderorder-page .pagination button.active {
     background-color: #1e40af;
     color: white;
     font-weight: bold;

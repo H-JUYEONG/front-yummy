@@ -5,25 +5,28 @@ import AdminSidebar from './include/AdminSidebar';
 
 const AdminVenderOrder = () => {
     const [orders, setOrders] = useState([]);
-
+    const [filteredOrders, setFilteredOrders] = useState([]);
     const [filter, setFilter] = useState({
         venderName: "",
         recipientName: "",
         startDate: "",
         endDate: ""
     });
+
     // 페이징 상태 관리
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10); // 페이지당 데이터 개수
-    // 필터 입력값 변경 핸들러
-
 
     useEffect(() => {
         // API 호출
         axios.get(`${process.env.REACT_APP_API_URL}/api/admin/allOrders`)
-            .then(response => setOrders(response.data))
+            .then(response => {
+                setOrders(response.data);
+                setFilteredOrders(response.data); // 초기 상태로 모든 데이터 설정
+            })
             .catch(error => console.error("Error fetching orders:", error));
     }, []);
+
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilter({
@@ -32,14 +35,18 @@ const AdminVenderOrder = () => {
         });
     };
 
-    // 필터된 주문 리스트
-    const filteredOrders = orders.filter((order) => {
-        const isVenderNameMatch = filter.venderName === "" || order.venderName.includes(filter.venderName);
-        const isUserNameMatch = filter.recipientName === "" || order.recipientName.includes(filter.recipientName);
-        const isStartDateMatch = filter.startDate === "" || new Date(order.orderDate) >= new Date(filter.startDate);
-        const isEndDateMatch = filter.endDate === "" || new Date(order.orderDate) <= new Date(filter.endDate);
-        return isVenderNameMatch && isUserNameMatch && isStartDateMatch && isEndDateMatch;
-    });
+    // 검색 버튼 클릭 핸들러
+    const handleSearch = () => {
+        const filtered = orders.filter((order) => {
+            const isVenderNameMatch = filter.venderName === "" || order.venderName.includes(filter.venderName);
+            const isUserNameMatch = filter.recipientName === "" || order.recipientName.includes(filter.recipientName);
+            const isStartDateMatch = filter.startDate === "" || new Date(order.orderDate) >= new Date(filter.startDate);
+            const isEndDateMatch = filter.endDate === "" || new Date(order.orderDate) <= new Date(filter.endDate);
+            return isVenderNameMatch && isUserNameMatch && isStartDateMatch && isEndDateMatch;
+        });
+        setFilteredOrders(filtered);
+        setCurrentPage(1); // 검색 후 페이지를 1로 초기화
+    };
 
     // 현재 페이지에 해당하는 데이터 계산
     const indexOfLastOrder = currentPage * pageSize;
@@ -48,6 +55,18 @@ const AdminVenderOrder = () => {
 
     // 페이지 변경 핸들러
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // "이전" 페이지 이동
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+
+    // "다음" 페이지 이동
+    const handleNextPage = () => {
+        if (currentPage < Math.ceil(filteredOrders.length / pageSize)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     return (
         <div className="admin-container">
@@ -90,7 +109,7 @@ const AdminVenderOrder = () => {
                             onChange={handleFilterChange}
                             className="filter-input"
                         />
-                        <button className="filter-button">검색</button>
+                        <button className="filter-button" onClick={handleSearch}>검색</button>
                     </div>
 
                     <table className="order-table">
@@ -105,8 +124,8 @@ const AdminVenderOrder = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredOrders.length > 0 ? (
-                                filteredOrders.map((order) => (
+                            {currentOrders.length > 0 ? (
+                                currentOrders.map((order) => (
                                     <tr key={order.orderId}>
                                         <td>{order.orderId}</td>
                                         <td>{order.venderName}</td>
@@ -124,9 +143,11 @@ const AdminVenderOrder = () => {
                         </tbody>
                     </table>
 
-
                     {/* 페이징 버튼 */}
                     <div className="pagination">
+                        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                            이전
+                        </button>
                         {Array.from({ length: Math.ceil(filteredOrders.length / pageSize) }, (_, index) => (
                             <button
                                 key={index + 1}
@@ -136,6 +157,9 @@ const AdminVenderOrder = () => {
                                 {index + 1}
                             </button>
                         ))}
+                        <button onClick={handleNextPage} disabled={currentPage === Math.ceil(filteredOrders.length / pageSize)}>
+                            다음
+                        </button>
                     </div>
                 </section>
             </div>
