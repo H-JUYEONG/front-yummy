@@ -142,7 +142,7 @@ const UserCakeDetail = () => {
             setSelectedOptionNames(optionNames);
         }
     }, [selectedOptions, productOptions]);
-    
+
     // API 호출
 
     const getProductDetail = () => {
@@ -239,7 +239,7 @@ const UserCakeDetail = () => {
             setSelectedTab('후기');
             // 약간의 지연을 주어 리뷰 섹션이 마운트된 후 스크롤
             setTimeout(() => {
-                reviewSectionRef.current?.scrollIntoView({ 
+                reviewSectionRef.current?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
@@ -434,8 +434,6 @@ const UserCakeDetail = () => {
                             <p>상품 상세 정보가 없습니다.</p>
                         </div>
                     )}
-                    <img src="/images/픽업 방법.png" alt="픽업 방법" />
-                    <img src="/images/상품문의.png" alt="상품 문의" />
                 </div>
                 <div
                     id="후기"
@@ -566,8 +564,8 @@ const UserCakeDetail = () => {
         }
     };
     // 리뷰 작성 가능 여부 확인
-   
-     const checkReviewEligibility = async () => {
+
+    const checkReviewEligibility = async () => {
         if (!authUser) {
             setCanReview(false);
             setHasWrittenReview(false);
@@ -807,7 +805,7 @@ const UserCakeDetail = () => {
                                         className="bar-fill"
                                         style={{
                                             width: `${reviewStats.totalReviews ? (reviewStats.ratingCounts[score] / reviewStats.totalReviews) * 100 : 0}%`,
-                                            background: score === 5 ? '#FF3B85' : '#e0e0e0'
+                                            backgroundColor: `hsl(${(score / 5) * 120}, 100%, 50%)`
                                         }}
                                     />
                                 </div>
@@ -855,9 +853,19 @@ const UserCakeDetail = () => {
                             <div className="review-header">
                                 <div className="review-header-info">
                                     <div className="stars">
-                                        {[...Array(parseInt(review.reviewRating))].map((_, index) => (
-                                            <span key={index} className="star-filled">★</span>
-                                        ))}
+                                        {[...Array(5)].map((_, index) => {
+                                            const starValue = index + 1;
+                                            const isFilled = starValue <= Math.floor(reviewStats.averageRating);
+                                            const isHalfFilled = starValue === Math.ceil(reviewStats.averageRating) && reviewStats.averageRating % 1 !== 0;
+                                            return (
+                                                <span
+                                                    key={starValue}
+                                                    className={`star ${isFilled ? 'filled' : ''} ${isHalfFilled ? 'half-filled' : ''}`}
+                                                >
+                                                    {isFilled || isHalfFilled ? '★' : '☆'}
+                                                </span>
+                                            );
+                                        })}
                                     </div>
                                     <span className="author">{review.author}</span>
                                     <span className="date">
