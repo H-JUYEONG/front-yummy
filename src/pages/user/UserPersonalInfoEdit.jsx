@@ -115,16 +115,21 @@ const UserPersonalInfoEdit = () => {
   // Validation for newPassword and confirmPassword
 
 
-  if (newPassword !== confirmPassword) {
-    alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    return;
-  }
-  if (newPassword === confirmPassword && newPassword !== null) {
-    setUserPw(newPassword);
-  }
-
-
-
+  if (newPassword && confirmPassword) {
+    if (newPassword === confirmPassword) {
+      console.log("Updating passwordHash with newPassword");
+      formData.append("passwordHash", newPassword);
+    } else {
+      alert("비밀번호가 일치하지 않습니다."); // Passwords do not match
+      return; // Stop the save process if validation fails
+    }
+  } else if (!newPassword && !confirmPassword) {
+    // If both newPassword and confirmPassword are null or empty, use the existing user password
+    formData.append("passwordHash", userPw);
+  } else {
+    alert("새 비밀번호와 비밀번호 확인란을 모두 입력해주세요."); // Please fill in both the new password and confirm password fields
+    return; // Stop the save process if one field is empty
+  } 
 
     console.log(memberId);
     formData.append("memberId", memberId);
@@ -143,8 +148,6 @@ const UserPersonalInfoEdit = () => {
     console.log(profilePicture);
     formData.append("profilePicture", profilePicture);
 
-    console.log(newPassword);
-    formData.append("passwordHash", userPw);
     
     setNewPassword("");
     setConfirmPassword("");
@@ -161,6 +164,8 @@ const UserPersonalInfoEdit = () => {
       .then((response) => {
         if (response.data.result === "success") {
           alert("회원정보가 업데이트되었습니다.");
+          setNewPassword(""); // Reset the password fields
+          setConfirmPassword("");
           getUserPersonalInfo(); // Reload the updated user data
         } else {
           alert("업데이트 실패");
