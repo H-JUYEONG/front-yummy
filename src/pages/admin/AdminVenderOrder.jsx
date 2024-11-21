@@ -1,35 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../../assets/css/admin/adminvenderorder.css";
 import AdminSidebar from './include/AdminSidebar';
 
 const AdminVenderOrder = () => {
-    const [orders, setOrders] = useState([
-        {
-            orderId: "1001",
-            venderName: "케이크 공방 A",
-            userName: "유저123",
-            orderDate: "2024-11-01",
-            totalAmount: "150,000원",
-            status: "배송 중"
-        },
-        {
-            orderId: "1002",
-            venderName: "베이커리 B",
-            userName: "유저456",
-            orderDate: "2024-11-02",
-            totalAmount: "200,000원",
-            status: "배송 준비 중"
-        }
-    ]);
+    const [orders, setOrders] = useState([]);
 
     const [filter, setFilter] = useState({
         venderName: "",
-        userName: "",
+        recipientName: "",
         startDate: "",
         endDate: ""
     });
-
+    // 페이징 상태 관리
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize] = useState(10); // 페이지당 데이터 개수
     // 필터 입력값 변경 핸들러
+
+
+    useEffect(() => {
+        // API 호출
+        axios.get(`${process.env.REACT_APP_API_URL}/api/admin/allOrders`)
+            .then(response => setOrders(response.data))
+            .catch(error => console.error("Error fetching orders:", error));
+    }, []);
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilter({
@@ -41,11 +35,19 @@ const AdminVenderOrder = () => {
     // 필터된 주문 리스트
     const filteredOrders = orders.filter((order) => {
         const isVenderNameMatch = filter.venderName === "" || order.venderName.includes(filter.venderName);
-        const isUserNameMatch = filter.userName === "" || order.userName.includes(filter.userName);
+        const isUserNameMatch = filter.recipientName === "" || order.recipientName.includes(filter.recipientName);
         const isStartDateMatch = filter.startDate === "" || new Date(order.orderDate) >= new Date(filter.startDate);
         const isEndDateMatch = filter.endDate === "" || new Date(order.orderDate) <= new Date(filter.endDate);
         return isVenderNameMatch && isUserNameMatch && isStartDateMatch && isEndDateMatch;
     });
+
+    // 현재 페이지에 해당하는 데이터 계산
+    const indexOfLastOrder = currentPage * pageSize;
+    const indexOfFirstOrder = indexOfLastOrder - pageSize;
+    const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+    // 페이지 변경 핸들러
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <div className="admin-container">
@@ -68,8 +70,8 @@ const AdminVenderOrder = () => {
                         />
                         <input
                             type="text"
-                            name="userName"
-                            value={filter.userName}
+                            name="recipientName"
+                            value={filter.recipientName}
                             onChange={handleFilterChange}
                             placeholder="유저명으로 검색"
                             className="filter-input"
@@ -96,25 +98,45 @@ const AdminVenderOrder = () => {
                             <tr>
                                 <th>주문 번호</th>
                                 <th>업체 이름</th>
-                                <th>유저 이름</th>
                                 <th>주문 날짜</th>
-                                <th>총 금액</th>
                                 <th>상태</th>
+                                <th>총 금액</th>
+                                <th>유저 이름</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredOrders.map((order) => (
-                                <tr key={order.orderId}>
-                                    <td>{order.orderId}</td>
-                                    <td>{order.venderName}</td>
-                                    <td>{order.userName}</td>
-                                    <td className="date">{order.orderDate}</td> {/* 주문 날짜를 오른쪽 정렬 */}
-                                    <td className="amount">{order.totalAmount}</td> {/* 총 금액을 오른쪽 정렬 */}
-                                    <td className="status">{order.status}</td> {/* 상태 값을 수평, 수직 가운데 정렬 */}
+                            {filteredOrders.length > 0 ? (
+                                filteredOrders.map((order) => (
+                                    <tr key={order.orderId}>
+                                        <td>{order.orderId}</td>
+                                        <td>{order.venderName}</td>
+                                        <td>{order.orderDate}</td>
+                                        <td>{order.orderStatus}</td>
+                                        <td>{order.totalPrice}</td>
+                                        <td>{order.recipientName}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6">검색 결과가 없습니다.</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
+
+
+                    {/* 페이징 버튼 */}
+                    <div className="pagination">
+                        {Array.from({ length: Math.ceil(filteredOrders.length / pageSize) }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => paginate(index + 1)}
+                                className={currentPage === index + 1 ? "active" : ""}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
                 </section>
             </div>
         </div>
