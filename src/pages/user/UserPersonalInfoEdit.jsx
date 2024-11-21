@@ -18,6 +18,7 @@ const UserPersonalInfoEdit = () => {
   
   const [profilePicture, setProfilePicture] = useState("");
   const [ppUrl, setPpUrl] = useState("");
+  const [tempPp, setTempPp] = useState("");
   
   const [email, setEmail] = useState("");
   const [userPw, setUserPw] = useState("");
@@ -54,6 +55,7 @@ const UserPersonalInfoEdit = () => {
           setUserNickName(userProfile.userNickname);
           setPpUrl(userProfile.userProfileImageUrl);
           setUserPw(userProfile.passwordHash);
+          setTempPp(null);
 
           const userEvents = combinedData.userEvents || [];
           setUserEventList(userEvents);
@@ -88,28 +90,30 @@ const UserPersonalInfoEdit = () => {
   };
 
   const handleProfilePictureChange = (e) => {
-    if (e.target.files[0]) {
-      
-
-      setProfilePicture(e.target.files[0]); // Save the new image file
-      setPpUrl(URL.createObjectURL(e.target.files[0])); // Preview the new image
-
-
-
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      // Update the profile picture file
+      setProfilePicture(file);
+      // Generate a preview URL for the image
+      const previewUrl = URL.createObjectURL(file);
+      setTempPp(previewUrl);
     }
   };
+  
 
   /*--- Save Changes ---------------------------------------------*/
   const handleSave = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    if (profilePicture) {
+/*
+    if (!profilePicture) {
       setPpUrl(null);
       console.log(profilePicture);
     } else {
       setPpUrl(null);
     }
+      */
     
       // Add passwordHash logic
     if (newPassword && confirmPassword && newPassword === confirmPassword) {
@@ -138,9 +142,10 @@ const UserPersonalInfoEdit = () => {
     console.log(newPassword);
     formData.append("passwordHash", newPassword);
     
+    setNewPassword("");
+    setConfirmPassword("");
 
-
-    axios({
+    axios({ 
       method: "put",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userpersonalinfoedit/update`,
       headers: {
@@ -193,7 +198,8 @@ const UserPersonalInfoEdit = () => {
     setEventName("");
     setEventDate("");
 */
-
+setEventName("");
+setEventDate("");
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
@@ -216,17 +222,23 @@ const UserPersonalInfoEdit = () => {
   };
 
   const handleDeleteEvent = (eventId) => {
-    setUserEventList(userEventList.filter((event) => event.eventId !== eventId));
 
+  
+    console.log("Deleting event with ID:", eventId);
+  
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/delete/${eventId}`,
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        Authorization: `Bearer ${token}`,
+      },
       responseType: "json",
     })
       .then((response) => {
         if (response.data.result === "success") {
           alert("기념일이 삭제되었습니다.");
+          // Refresh user personal info to reflect deletion
           getUserPersonalInfo();
         } else {
           alert("기념일 삭제 실패");
@@ -236,6 +248,7 @@ const UserPersonalInfoEdit = () => {
         console.error("Error deleting event:", error);
       });
   };
+  
 
   /*--- Modal Handlers ------------------------------------------*/
   const handleOpenWithdrawModal = () => {
@@ -266,12 +279,17 @@ const UserPersonalInfoEdit = () => {
             {/* Profile Picture Edit Section */}
             <div className="profile-picture-section">
               <div className="profile-picture-preview">
-                {ppUrl ? (
-                  <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} />
-                ) : (
-                  
-                  <span>프로필 사진 없음</span>
-                )}
+              <div className="profile-picture-preview">
+                {(() => {
+                  if (ppUrl && !tempPp) {
+                    return <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} alt="Profile Preview" />;
+                  } else if (tempPp) {
+                    return <img src={tempPp} alt="Profile Preview" />;
+                  } else{
+                    return <span>프로필 사진 없음</span>;
+                  }
+                })()}
+              </div>
               </div>
               <label className="profile-picture-button">
                 프로필 사진 업로드
@@ -283,6 +301,7 @@ const UserPersonalInfoEdit = () => {
                 />
               </label>
             </div>
+
 
             {/* User Information Form */}
             <label>아이디</label>
@@ -338,9 +357,13 @@ const UserPersonalInfoEdit = () => {
                 기념일 추가하기
               </button>
             </section>
+            </form>
+           
 
-            {/* Display Event List */}
-            <section className="j-event-list-section">
+            {/* Action Buttons */}
+
+           {/* Display Event List */}
+           <section className="j-event-list-section">
               {userEventList.length > 0 ? (
                 userEventList.map((event, index) => (
                   <div key={index} className="j-event-item">
@@ -363,7 +386,8 @@ const UserPersonalInfoEdit = () => {
               )}
             </section>
 
-            {/* Action Buttons */}
+
+            <form className="user-edit-form" onSubmit={handleSave}>
             <div className="user-edit-buttons">
               <button type="button" className="user-cancel-button">
                 취소
