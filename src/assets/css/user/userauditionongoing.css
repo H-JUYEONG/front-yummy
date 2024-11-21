@@ -93,6 +93,7 @@
     height: 60px;
     margin-right: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .ongoing-company-info {
@@ -104,6 +105,13 @@
     color: #555;
     font-size: 0.9em;
 }
+
+.ongoing-vender-name:hover {
+    text-decoration: underline;
+    color: #0056b3;
+    cursor: pointer;
+}
+
 
 .ongoing-company-rating {
     display: flex;
