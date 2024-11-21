@@ -24,7 +24,7 @@ const VenderHeader = () => {
         const storedUser = localStorage.getItem('authUser');
         return storedUser ? JSON.parse(storedUser) : null;
     });
-    const venderId = authUser?.vender_id || null;
+    const {venderId} = useParams();
 
     const bnnerImg = ()=>{
         axios({
