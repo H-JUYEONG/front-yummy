@@ -12,7 +12,14 @@ const UserDebateInsert = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [leftImage, setLeftImage] = useState(null);
+  const [leftType, setLeftType] = useState("");
+  const [leftImgUrl, setLeftImgType] = useState("");
+
+
   const [rightImage, setRightImage] = useState(null);
+  const [rightType, setRightType] = useState("");
+  const [rightImgUrl, setRightImgType] = useState("");
+
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageSide, setSelectedImageSide] = useState("");
@@ -20,18 +27,24 @@ const UserDebateInsert = () => {
 
   const handleLeftImageUpload = (event) => {
     setLeftImage(URL.createObjectURL(event.target.files[0]));
+    setLeftType("Image");
+
   };
 
   const handleRightImageUpload = (event) => {
     setRightImage(URL.createObjectURL(event.target.files[0]));
+    setLeftType("Image");
   };
 
   const handleLeftImageDelete = () => {
     setLeftImage(null);
+    setLeftType(null);
+
   };
 
   const handleRightImageDelete = () => {
     setRightImage(null);
+    setLeftType(null);
   };
 
   const openModal = (side) => {
@@ -51,10 +64,12 @@ const UserDebateInsert = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !category || !content) {
+    if (!title || !category || !content || !leftImage || !rightImage) {
       alert("모든 필드를 입력해주세요.");
       return;
     }
+
+
 
     const debateData = {
       debate_title: title,
