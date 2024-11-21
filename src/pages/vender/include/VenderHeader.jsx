@@ -53,7 +53,7 @@ const VenderHeader = () => {
     return (
         <>
             <div className='vender-header-wrap'>
-                <Link to='/user/storedetail'>
+                <Link to={`/user/storedetail/${venderId}`}>
                     <img src={bannerURL} />
                 </Link>
                 {{venderId}!=null ? 

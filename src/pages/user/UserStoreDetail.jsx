@@ -19,6 +19,10 @@ const UserStoreDetail = () => {
     //상품 리스트
     const [productList, setProductList] = useState([]);
 
+    //카테고리
+    const [categoryList, setCategoryList] = useState([]);
+
+    
     //업체 플렛폼 부분
     const [detailVo, setDetailVo] = useState('');
 
@@ -44,6 +48,7 @@ const UserStoreDetail = () => {
             console.log("venderId ok")
             getdetails();
             goodsList();
+            getOptions();
         }else{
             console.log("venderId no")
         }
@@ -141,70 +146,55 @@ const UserStoreDetail = () => {
         }).then(response => {
             console.log(response); //수신데이타
             console.log('ddddddddddd',response.data.apiData)
+
+            //상품 넣기
             setProductList(response.data.apiData)
         
         }).catch(error => {
             console.log(error);
         });
         
-
-
     }
 
+    //옵션 가져오기
+    const getOptions = ()=>{
+        //console.log(venderId,'no값 있나요 옵션')
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/options/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            setCategoryList(response.data.apiData)
+            console.log('==============',response.data.apiData)
+            
+
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleCategoryClick = (optionValueName) => {
+        // 카테고리 클릭 시 선택된 카테고리 상태 업데이트
+        setSelectedCategory(optionValueName);
+    };
+
+    // 선택된 카테고리에 맞는 상품 필터링
+    const filteredProducts = selectedCategory
+        ? productList.filter(product => product.optionValueName === selectedCategory)
+        : productList;
+
 
     
     
 
-    // 상품 데이터
-    const categoryProducts = {
-        '카테고리 1': [
-            { id: 1, image: '/images/1호_일반케이크.jpg', name: '블랙 레터링 케이크', price: '35,000원' },
-            { id: 2, image: '/images/1호_일반케이크.jpg', name: '레터링 케이크', price: '45,000원' },
-            { id: 3, image: '/images/1호_일반케이크.jpg', name: '생일 케이크', price: '38,000원' },
-            { id: 4, image: '/images/1호_일반케이크.jpg', name: '파티 케이크', price: '42,000원' }
-        ],
-        '카테고리 2': [
-            { id: 5, image: '/images/2호_일반케이크.jpg', name: '비건 초콜릿 케이크', price: '48,000원' },
-            { id: 6, image: '/images/2호_일반케이크.jpg', name: '비건 바닐라 케이크', price: '46,000원' },
-            { id: 7, image: '/images/2호_일반케이크.jpg', name: '비건 생크림 케이크', price: '44,000원' },
-            { id: 8, image: '/images/2호_일반케이크.jpg', name: '비건 당근 케이크', price: '42,000원' }
-        ],
-        '카테고리 3': [
-            { id: 9, image: '/images/3호_떡케이크.png', name: '떡 케이크 1호', price: '40,000원' },
-            { id: 10, image: '/images/3호_떡케이크.png', name: '떡 케이크 2호', price: '50,000원' },
-            { id: 11, image: '/images/3호_떡케이크.png', name: '떡 케이크 3호', price: '60,000원' },
-            { id: 12, image: '/images/3호_떡케이크.png', name: '떡 케이크 4호', price: '70,000원' }
-        ],
-        '카테고리 4': [
-            { id: 13, image: '/images/3호_특별한케이크(달력).jpg', name: '포토 케이크', price: '55,000원' },
-            { id: 14, image: '/images/3호_특별한케이크(달력).jpg', name: '캐릭터 케이크', price: '60,000원' },
-            { id: 15, image: '/images/3호_특별한케이크(달력).jpg', name: '웨딩 케이크', price: '150,000원' },
-            { id: 16, image: '/images/3호_특별한케이크(달력).jpg', name: '기업 케이크', price: '100,000원' }
-        ],
-        '카테고리 5': [
-            { id: 17, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 1', price: '25,000원' },
-            { id: 18, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 2', price: '28,000원' },
-            { id: 19, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 3', price: '20,000원' },
-            { id: 20, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 4', price: '30,000원' }
-        ]
-    };
+    
 
-    const allProducts = Object.values(categoryProducts).flat();
+    
 
-    const getProducts = () => {
-        if (!selectedCategory) {
-            return allProducts;
-        }
-        return categoryProducts[selectedCategory] || [];
-    };
-
-    const handleCategoryClick = (category) => {
-        if (selectedCategory === category) {
-            setSelectedCategory(null);
-        } else {
-            setSelectedCategory(category);
-        }
-    };
+    
+    
 
     const handleKakaoChat = () => {
         window.open(`${detailVo.kakaoURL}`, '_blank');
@@ -284,28 +274,34 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-category-container">
-                        {Object.keys(categoryProducts).map((category) => (
+                    {categoryList && categoryList.length > 0 ? (
+                        categoryList.map((category, index) => (
                             <div
-                                key={category}
-                                className={`sd-category-item ${selectedCategory === category ? 'active' : ''}`}
-                                onClick={() => handleCategoryClick(category)}
+                                key={index}  // categoryId를 고유 키로 사용
+                                className={`sd-category-item ${selectedCategory === category.optionValueName ? 'active' : ''}`}
+                                onClick={() => handleCategoryClick(category.optionValueName)} // 클릭 시 카테고리 이름을 설정
                             >
                                 <img
-                                    src={`/images/category-${category.slice(-1)}.jpg`}
-                                    alt={category}
+                                    src={category.option_value_image_url}  // 카테고리 이미지 경로
+                                    alt={category.optionValueName}  // alt를 카테고리 이름으로 설정
                                 />
-                                <p>{category}</p>
+                                <p>{category.optionValueName}</p>  {/* 카테고리 이름 표시 */}
                             </div>
-                        ))}
+                        ))
+                    ) : (
+                        <p>카테고리가 없습니다.</p>  // 카테고리가 없을 경우 메시지 표시
+                    )}
                     </div>
 
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {productList.map((product)=>(
+                    {filteredProducts && filteredProducts.length > 0 ? (
+                        filteredProducts.map((product) => (
                             <Link
                                 to={`/user/cakedetail/${product.productId}`}
                                 className="sd-product-item"
+                                key={product.productId}
                             >
                                 <div className="sd-product-image">
                                     <img src={product.productURL} alt='' />
@@ -314,8 +310,11 @@ const UserStoreDetail = () => {
                                     <p className="sd-product-name">{product.productName}</p>
                                     <p className="sd-price">{product.productPrice}</p>
                                 </div>
-                            </Link> 
-                        ))}
+                            </Link>
+                        ))
+                    ) : (
+                        <p>상품이 없습니다.</p>  // 필터링된 상품이 없을 때 보여줄 메시지
+                    )}
                     </div>
                 </section>
             </main>
