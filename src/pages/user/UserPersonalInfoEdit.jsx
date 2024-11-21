@@ -55,7 +55,7 @@ const UserPersonalInfoEdit = () => {
           setUserNickName(userProfile.userNickname);
           setPpUrl(userProfile.userProfileImageUrl);
           setUserPw(userProfile.passwordHash);
-          setTempPp(null);
+          setTempPp("");
 
           const userEvents = combinedData.userEvents || [];
           setUserEventList(userEvents);
