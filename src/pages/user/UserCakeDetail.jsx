@@ -142,6 +142,7 @@ const UserCakeDetail = () => {
             setSelectedOptionNames(optionNames);
         }
     }, [selectedOptions, productOptions]);
+    
     // API 호출
 
     const getProductDetail = () => {
@@ -231,7 +232,7 @@ const UserCakeDetail = () => {
             setProductOptions({});
         });
     };
-    
+
     useEffect(() => {
         // location.state로 전달된 openReview 확인
         if (location.state?.openReview) {
