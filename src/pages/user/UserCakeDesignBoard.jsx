@@ -190,6 +190,7 @@ const UserCakeDesignBoard = () => {
             ))}
           </div>
 
+          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
             {/* 이전 페이지 버튼 */}
             {currentPage > 1 ? (
