@@ -20,13 +20,36 @@ const VenderHeader = () => {
 
     const [bannerURL, setBannerURL] = useState('');
 
-    const [authUser, setAuthUser] = useState(() => {
-        const storedUser = localStorage.getItem('authUser');
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
+    const [authUser, setAuthUser] = useState('');
+    const [venderNo, setVenderNo] = useState('');
+
     const {venderId} = useParams();
+    
+    useEffect(() => {
+        const storedUser = localStorage.getItem('authUser');
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setAuthUser(parsedUser); 
+        }
+
+        bnnerImg();
+    }, []);
+
+    useEffect(() => {
+        if (authUser && authUser.vender_id) {
+            setVenderNo(authUser.vender_id);
+        }
+    }, [authUser]);
+
+    
+    useEffect(() => {
+        console.log("venderId:", venderId);
+        console.log("venderNo:", venderNo);
+    }, [venderId, venderNo]);
+
 
     const bnnerImg = ()=>{
+
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/getBanner/${venderId}`,
@@ -43,10 +66,6 @@ const VenderHeader = () => {
         
     }
 
-    useEffect(()=>{
-        bnnerImg();
-    },[])
-
     
 
 
@@ -56,10 +75,13 @@ const VenderHeader = () => {
                 <Link to={`/user/storedetail/${venderId}`}>
                     <img src={bannerURL} />
                 </Link>
-                {{venderId}!=null ? 
-                <Link to={`/vender/${venderId}`}>
-                    <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
-                </Link>: <p></p>}
+                {venderId && venderNo && venderId == venderNo ?  (
+                    <Link to={`/vender/${venderId}`}>
+                        <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
+                    </Link>
+                ) : (
+                    <p></p>
+                )}
             </div>
 
 

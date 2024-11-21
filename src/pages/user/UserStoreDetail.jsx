@@ -5,6 +5,8 @@ import VenderHeader from '../vender/include/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 
+import allProductCarIMG from '../../assets/images/업체카테고리 all.webp';
+
 const UserStoreDetail = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     //const {venderId} = useParams();
@@ -158,7 +160,7 @@ const UserStoreDetail = () => {
 
     //옵션 가져오기
     const getOptions = ()=>{
-        //console.log(venderId,'no값 있나요 옵션')
+        console.log(venderId,'no값 있나요 옵션')
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/options/${venderId}`,
@@ -274,6 +276,17 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-category-container">
+                    <div
+                        key="all"  // 고유 키는 "all"
+                        className={`sd-category-item ${selectedCategory === "" ? 'active' : ''}`} // selectedCategory가 빈 문자열일 때 활성화
+                        onClick={() => handleCategoryClick("")}  // 클릭 시 빈 문자열을 설정하여 "전체"를 선택
+                    >
+                        <img
+                            src={allProductCarIMG}  // "전체" 카테고리 이미지 경로
+                            alt="전체"  // alt를 "전체"로 설정
+                        />
+                        <p>ALL</p>  {/* 전체 텍스트 표시 */}
+                    </div>
                     {categoryList && categoryList.length > 0 ? (
                         categoryList.map((category, index) => (
                             <div
