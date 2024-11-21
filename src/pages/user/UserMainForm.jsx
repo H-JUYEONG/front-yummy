@@ -15,6 +15,7 @@ AOS.init();
 const UserMainForm = () => {
     const navigate = useNavigate();
 
+
     //구 카테고리
     const [selectedRegion, setSelectedRegion] = useState(""); 
 
