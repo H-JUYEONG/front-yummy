@@ -37,9 +37,10 @@ const AdminSidebar = () => {
 
             <ul className="menu">
                 <li><Link to="/admin">대시보드</Link></li>
-                <li><Link to="/admin/status">통계</Link></li>
                 <li><Link to="/admin/member">회원 관리</Link></li>
                 <li><Link to="/admin/content">컨텐츠 관리</Link></li>
+                <li><Link to="/admin/venderorder">업체-주문 관리</Link></li>
+                <li><Link to="/admin/status">통계</Link></li>
             </ul>
 
             {/* 회원 관리와 쇼핑몰 관리 사이의 구분선 */}
@@ -52,15 +53,8 @@ const AdminSidebar = () => {
                 <li><Link to="/admin/shoporders">쇼핑몰-주문 관리</Link></li>
             </ul>
 
-            {/* 쇼핑몰 관리와 업체 관리 사이의 구분선 */}
-            <hr className="menu-divider" />
-
-            <ul className="menu">
-                <li><Link to="/admin/venderorder">업체-주문 관리</Link></li>
-            </ul>
-
             <button className="exit-button" onClick={handleLogout}>
-              로그아웃
+                로그아웃
             </button>
         </aside>
     );
