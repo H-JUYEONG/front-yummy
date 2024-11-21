@@ -218,6 +218,7 @@ const UserMainForm = () => {
                                 </Link>
                                 <p>가격: {item.price.toLocaleString()}원</p>
                                 <p>평점: {renderStars(item.reviewRating)} ({item.reviewRating})</p>
+                                <p>지역: {item.district} </p>
                             </div>
                         </div>
                     ))}
