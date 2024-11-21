@@ -26,7 +26,7 @@ const VenderStatistics = () => {
     const navigate = useNavigate(); // useNavigate 훅 선언
     const [authUser, setAuthUser] = useState(null);
     const [monthlyOrderCount, setMonthlyOrderCount] = useState(0);
-
+    const [revenue, setRevenue] = useState(0);
     // 유저 정보 가져오기
     useEffect(() => {
         const user = localStorage.getItem('authUser');
@@ -59,8 +59,22 @@ const VenderStatistics = () => {
         fetchMonthlyOrderCount();
     }, [authUser]);
 
-
-
+    useEffect(() => {
+        const fetchRevenue = async () => {
+            if (authUser && authUser.vender_id) { // authUser와 vender_id가 유효한지 확인
+                try {
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/vender/revenue`, {
+                        params: { venderId: authUser.vender_id },
+                    });
+                    setRevenue(response.data.totalRevenue || 0); // 기본값 설정
+                } catch (error) {
+                    console.error('Error fetching revenue:', error);
+                }
+            }
+        };
+    
+        fetchRevenue();
+    }, [authUser]);
 
     // 그래프 데이터 설정
     const salesData = {
@@ -148,7 +162,7 @@ const VenderStatistics = () => {
                             </div>
                             <div className="summary-card">
                                 <h3>매출 ({currentMonth})</h3>
-                                <p>3,200,000원</p>
+                                <p>{Number(revenue).toLocaleString()}원</p>
                             </div>
                             <div className="summary-card">
                                 <h3>새로운 리뷰</h3>

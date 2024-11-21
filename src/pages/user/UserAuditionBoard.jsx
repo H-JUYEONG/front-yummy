@@ -19,6 +19,8 @@ const UserAuditionBoard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 12;
 
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
   // 데이터 가져오기 함수
   const fetchData = async (url, page = 1, search = "") => {
     try {
@@ -26,15 +28,15 @@ const UserAuditionBoard = () => {
         method: "get",
         url: `${process.env.REACT_APP_API_URL}${url}`,
         params: {
-          page: page,
-          size: itemsPerPage,
+          page: page, // 서버에 현재 페이지 전달
+          size: itemsPerPage, // 서버에 요청 크기 전달
           search: search,
         },
         responseType: "json",
       });
       if (response.data.result === "success") {
         const data = response.data.apiData;
-        console.log(data);
+        console.log(`Page ${page}:`, data); // 페이지별 데이터 확인
         setUserAuditionBoard(data.data || []);
         setTotalAllCount(data.totalCount || 0);
       } else {
@@ -45,7 +47,6 @@ const UserAuditionBoard = () => {
       alert("서버 요청 중 오류가 발생했습니다.");
     }
   };
-
   // 데이터 로드 함수
   const loadAuditions = (page = 1) => {
     let url = "/api/user/audition/board";
@@ -155,7 +156,7 @@ const UserAuditionBoard = () => {
             </div>
           </div>
           <div className="user-cake-audition-list-grid">
-            {userAuditionBoard.map((card, index) => (
+            {userAuditionBoard.slice(startIndex, endIndex).map((card, index) => (
               <div key={index} className="user-cake-audition-card">
                 <div className="user-cake-audition-card-image">
                   <img
@@ -164,11 +165,10 @@ const UserAuditionBoard = () => {
                     alt="케이크 도안"
                   />
                   <div
-                    className={`user-cake-audition-status ${
-                      card.status === "진행중"
-                        ? "status-in-progress"
-                        : "status-completed"
-                    }`}
+                    className={`user-cake-audition-status ${card.status === "진행중"
+                      ? "status-in-progress"
+                      : "status-completed"
+                      }`}
                   >
                     <span>{card.status}</span>
                   </div>
@@ -211,9 +211,8 @@ const UserAuditionBoard = () => {
             {generatePagination().map((page) => (
               <button
                 key={page}
-                className={`user-audition-page-number ${
-                  currentPage === page ? "active" : ""
-                }`}
+                className={`user-audition-page-number ${currentPage === page ? "active" : ""
+                  }`}
                 onClick={() => handlePageChange(page)}
               >
                 {page}
