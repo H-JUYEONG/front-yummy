@@ -59,6 +59,11 @@ const UserPersonalInfoEdit = () => {
 
           const userEvents = combinedData.userEvents || [];
           setUserEventList(userEvents);
+
+
+          console.log(ppUrl);
+
+          console.log(userPw);
         } else {
           alert("회원정보 가져오기 실패");
         }
@@ -70,6 +75,7 @@ const UserPersonalInfoEdit = () => {
 
   useEffect(() => {
     getUserPersonalInfo();
+    console.log("마운트 됨");
   }, []);
 
   /*--- Handlers for Input Changes ---------------------------------*/
@@ -106,25 +112,20 @@ const UserPersonalInfoEdit = () => {
     e.preventDefault();
 
     const formData = new FormData();
-/*
-    if (!profilePicture) {
-      setPpUrl(null);
-      console.log(profilePicture);
-    } else {
-      setPpUrl(null);
-    }
-      */
-    
-      // Add passwordHash logic
-    if (newPassword && confirmPassword && newPassword === confirmPassword) {
-      console.log("Updating passwordHash with newPassword");
-      console.log(newPassword);
-      setUserPw(newPassword);
-    } else if (userPw) {
-      setUserPw(userPw);
-    } else {
-      console.error("PasswordHash is null or undefined");
-    }
+  // Validation for newPassword and confirmPassword
+
+
+  if (newPassword !== confirmPassword) {
+    alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+    return;
+  }
+  if (newPassword === confirmPassword && newPassword !== null) {
+    setUserPw(newPassword);
+  }
+
+
+
+
     console.log(memberId);
     formData.append("memberId", memberId);
     console.log(email);
@@ -136,11 +137,14 @@ const UserPersonalInfoEdit = () => {
     console.log(userNickName);
     formData.append("userNickname", userNickName);
     
+    console.log(ppUrl);
+    formData.append("userProfileImageUrl", ppUrl);
+
     console.log(profilePicture);
     formData.append("profilePicture", profilePicture);
 
     console.log(newPassword);
-    formData.append("passwordHash", newPassword);
+    formData.append("passwordHash", userPw);
     
     setNewPassword("");
     setConfirmPassword("");
