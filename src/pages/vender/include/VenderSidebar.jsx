@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
+
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
@@ -14,6 +19,10 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         return user ? JSON.parse(user) : null;
     });
     const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
+
+    const {venderNo} = useParams("");
+
+
     const handleLogout = () => {
         console.log('로그아웃');
 
@@ -28,6 +37,33 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         // 메인 페이지로 이동
         navigate('/');
     };
+
+    //업체별 로고사진 가져오기
+
+    const getLogo = ()=>{
+
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderNo}`,
+            responseType: 'json' //수신타입
+
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+    }
+
+    useEffect(()=>{
+        getLogo();
+    },[])
+
+
+
+
+
 
     return (
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
