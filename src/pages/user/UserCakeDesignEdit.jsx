@@ -18,7 +18,7 @@ const UserCakeDesignEdit = () => {
   const [cakeDesignShape, setCakeDesignShape] = useState("");
   const [cakeDesignPrefer, setCakeDesignPrefer] = useState("");
   const [cakeDesignEvent, setCakeDesignEvent] = useState("");
-  const [registeredImages, setRegisteredImages] = useState([]); // 등록된 이미지 리스트
+  const [registeredImages, setRegisteredImages] = useState([]); // 등록된 이미지 리스1트
   const [files, setFiles] = useState([]); // 새로 추가된 이미지 리스트
   const [deletedImages, setDeletedImages] = useState([]); // 삭제된 이미지 추적
 
