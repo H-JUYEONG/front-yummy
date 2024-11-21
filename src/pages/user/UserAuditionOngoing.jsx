@@ -13,6 +13,7 @@ const UserAuditionOngoing = () => {
 
   const [auditionDetail, setAuditionDetail] = useState([]); // 오디션 상세 정보 리스트
   const [auditionVenders, setauditionVenders] = useState([]); // 오디션 참가 업체 리스트
+  const [auditionVendersReviews, setauditionVendersReviews] = useState([]); // 오디션 참가 업체 리스트
   const [isEnded, setIsEnded] = useState(false); // 오디션 상태 (기본값: 진행 중)
   const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
@@ -47,11 +48,35 @@ const UserAuditionOngoing = () => {
       responseType: "json", //수신타입
     })
       .then((response) => {
-        console.log('업체');
+        console.log("업체");
         console.log(response.data); //수신데이타
 
         if (response.data.result === "success") {
           setauditionVenders(response.data.apiData);
+          console.log(response.data.apiData);
+        } else {
+          alert("오디션 참가 업체 내용 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // 오디션 종료된 내용 가져오기
+  const getAuditionVendersReviews = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/users/audition/venders/reviews/${auditionApplicationId}`,
+
+      responseType: "json", //수신타입
+    })
+      .then((response) => {
+        console.log("종료");
+        console.log(response.data); //수신데이타
+
+        if (response.data.result === "success") {
+          setauditionVendersReviews(response.data.apiData);
           console.log(response.data.apiData);
         } else {
           alert("오디션 참가 업체 내용 가져오기 실패");
@@ -69,6 +94,7 @@ const UserAuditionOngoing = () => {
 
     getAuditionDetail();
     getAuditionVenders();
+    getAuditionVendersReviews();
   }, [auditionApplicationId]);
 
   const renderStars = (rating) => {
@@ -167,6 +193,23 @@ const UserAuditionOngoing = () => {
                 삭제
               </button>
             </div>
+{/* 
+            {authUser && cakeDesignDetail.memberId === authUser.member_id && (
+              <div className="user-control-section">
+                <button
+                  className="user-cake-edit-button"
+                  onClick={() => navigate("/user/mypage/audition")}
+                >
+                  수정
+                </button>
+                <button
+                  className="user-cake-delete-button"
+                  onClick={() => alert("삭제 기능")}
+                >
+                  삭제
+                </button>
+              </div>
+            )} */}
           </div>
         </div>
 
