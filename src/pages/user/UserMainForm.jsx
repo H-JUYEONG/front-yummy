@@ -14,7 +14,11 @@ AOS.init();
 
 const UserMainForm = () => {
     const navigate = useNavigate();
-    const [selectedRegion, setSelectedRegion] = useState("");
+
+    //구 카테고리
+    const [selectedRegion, setSelectedRegion] = useState(""); 
+
+    //상품 카테고리
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const [sortOrder, setSortOrder] = useState("rating");
@@ -80,10 +84,11 @@ const UserMainForm = () => {
 
     const filteredProducts = productList
         .filter((product) => {
-            return (
-                (selectedRegion ? product.region === selectedRegion : true) &&
-                (selectedCategory ? product.category === selectedCategory : true)
-            );
+            
+            const matchesRegion = selectedRegion ? product.district === selectedRegion : true;
+            const matchesCategory = selectedCategory ? product.optionValueName === selectedCategory : true;
+            return matchesRegion && matchesCategory;
+            
         })
         .sort((a, b) => {
             if (sortOrder === "rating") {
@@ -189,7 +194,7 @@ const UserMainForm = () => {
                             가격순 {sortOrder === "price" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
                         </button>
                     </div>
-                    <span>총 상품 | {filteredProducts.length}개</span>
+                    <span>총 상품  {filteredProducts.length}개</span>
                 </div>
 
                 <div className="allList-box">
