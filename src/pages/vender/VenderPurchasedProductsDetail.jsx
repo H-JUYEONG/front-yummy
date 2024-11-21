@@ -24,6 +24,8 @@ const PurchasedProductsDetail = () => {
     const [isWebcamModalOpen, setIsWebcamModalOpen] = useState(false);
     const [isVideoModalOpen, setIsVideoModalOpen] = useState(false); // 모달 상태
     const [isLiveModalOpen, setIsLiveModalOpen] = useState(false);
+    const [recordedBlob, setRecordedBlob] = useState(null); // 녹화된 Blob 데이터 저장
+    const [isVideoReady, setIsVideoReady] = useState(false); // 업로드 가능 여부
     // 사진 촬영 모달 열기/닫기 함수
     const openWebcamModal = () => setIsWebcamModalOpen(true);
     const closeWebcamModal = () => setIsWebcamModalOpen(false);
@@ -36,8 +38,14 @@ const PurchasedProductsDetail = () => {
     const openLiveModal = () => setIsLiveModalOpen(true);
     const closeLiveModal = () => setIsLiveModalOpen(false);
     const webcamRef = useRef(null);
-
+    const blobToFile = (blob, filename) => {
+        return new File([blob], filename, { type: blob.type });
+    };
     const dataURLtoFile = (dataurl, filename) => {
+        if (!dataurl) {
+            console.error("Invalid dataURL provided: ", dataurl);
+            return null; // 또는 적절한 기본 동작
+        }
         const arr = dataurl.split(',');
         const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
@@ -48,7 +56,6 @@ const PurchasedProductsDetail = () => {
         }
         return new File([u8arr], filename, { type: mime });
     };
-
     //업로드
     const uploadMedia = async (orderId, videoFile, photoFile) => {
         const formData = new FormData();
@@ -135,29 +142,36 @@ const PurchasedProductsDetail = () => {
 
     useEffect(() => {
         if (webcamRef.current) {
-            console.log("Webcam 초기화 완료:", webcamRef.current);
+            console.log("Webcam initialized successfully.");
         } else {
-            console.error("Webcam 초기화 실패");
+            console.error("Webcam failed to initialize.");
         }
     }, []);
 
     // 사진 촬영
     const takePhoto = () => {
         if (!webcamRef.current) {
-            console.error("Webcam이 초기화되지 않았습니다.");
+            console.error("Webcam reference is null.");
             return;
         }
 
         const imageSrc = webcamRef.current.getScreenshot();
         if (!imageSrc) {
-            console.error("스크린샷을 가져올 수 없습니다. 카메라가 활성화되지 않았을 수 있습니다.");
+            console.error("Failed to capture screenshot. Make sure the webcam is active.");
             return;
         }
 
-        setImageUrl(imageSrc);
+        const blob = dataURLtoFile(imageSrc, "photo.png");
+        if (!blob) {
+            console.error("Failed to create file from screenshot.");
+            return;
+        }
+
+        uploadMedia(orderId, null, blob);
     };
     // 동영상 녹화 시작
     const startRecording = () => {
+
         if (!webcamRef.current) return;
 
         const stream = webcamRef.current.stream; // Webcam의 비디오 스트림 가져오기
@@ -171,15 +185,25 @@ const PurchasedProductsDetail = () => {
 
         mediaRecorderRef.current.onstop = () => {
             const blob = new Blob(chunks.current, { type: "video/webm" });
-            const url = URL.createObjectURL(blob);
-            setVideoUrl(url);
-            chunks.current = [];
+            setRecordedBlob(blob); // Blob 상태 저장
+            setVideoUrl(URL.createObjectURL(blob)); // Blob URL 설정
+            setIsRecording(false); // 녹화 상태 비활성화
+            setIsVideoReady(true); // 업로드 가능 상태로 변경
+            chunks.current = []; // chunks 초기화
         };
 
         mediaRecorderRef.current.start(); // 녹화 시작
         setIsRecording(true);
     };
+    const handleUpload = () => {
+        if (!recordedBlob) {
+            alert("녹화된 동영상이 없습니다.");
+            return;
+        }
 
+        const file = blobToFile(recordedBlob, "video.webm"); // Blob을 File로 변환
+        uploadMedia(orderId, file, null); // 동영상 업로드
+    };
     // 동영상 녹화 중지
     const stopRecording = () => {
         if (mediaRecorderRef.current) {
@@ -364,14 +388,11 @@ const PurchasedProductsDetail = () => {
                                                 {videoUrl && (
                                                     <div className="purchasedproductsDetail-preview">
                                                         <video src={videoUrl} controls />
-                                                        <button
-                                                            onClick={() => {
-                                                                const blob = dataURLtoFile(videoUrl, "video.webm");
-                                                                uploadMedia(orderId, blob, null); // 동영상 업로드
-                                                            }}
-                                                        >
-                                                            업로드
-                                                        </button>
+                                                        {isVideoReady && (
+                                                            <div>
+                                                                <button onClick={handleUpload}>업로드</button>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 )}
                                             </div>
