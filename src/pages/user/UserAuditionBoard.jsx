@@ -34,6 +34,7 @@ const UserAuditionBoard = () => {
       });
       if (response.data.result === "success") {
         const data = response.data.apiData;
+        console.log(data);
         setUserAuditionBoard(data.data || []);
         setTotalAllCount(data.totalCount || 0);
       } else {
@@ -60,6 +61,7 @@ const UserAuditionBoard = () => {
     }
     fetchData(url, page, searchTerm);
   };
+
 
   // 페이지 변경 핸들러
   const handlePageChange = (page) => {
@@ -145,7 +147,7 @@ const UserAuditionBoard = () => {
             </div>
           </div>
           <div id="user-cake-audition-add" className="clearfix">
-            <div className="user-cake-audition-all">ALL 7</div>
+            <div className="user-cake-audition-all">ALL {totalAllCount}</div>
             <div className="user-cake-audition-add-btn">
               <button onClick={() => navigate("/user/audition/add")}>
                 제작 요청하기
@@ -153,11 +155,11 @@ const UserAuditionBoard = () => {
             </div>
           </div>
           <div className="user-cake-audition-list-grid">
-            {userAuditionBoard.map((card) => (
-              <div key={card.id} className="user-cake-audition-card">
+            {userAuditionBoard.map((card, index) => (
+              <div key={index} className="user-cake-audition-card">
                 <div className="user-cake-audition-card-image">
                   <img
-                    src={card.src}
+                    src={card.imageUrl}
                     onClick={handleImageClick}
                     alt="케이크 도안"
                   />
@@ -173,13 +175,13 @@ const UserAuditionBoard = () => {
                 </div>
                 <div className="user-cake-audition-card-info">
                   <h3 className="user-cake-audition-card-title">
-                    {card.title}
+                    {card.auditionApplicationTitle}
                   </h3>
                   <p className="user-cake-audition-card-subtitle">
-                    {card.nickname}
+                    {card.userNickname}
                   </p>
                   <div className="user-cake-audition-card-status">
-                    <span>참여: {card.author}</span>
+                    <span>참여: {card.participationCount}</span>
                   </div>
                 </div>
               </div>
@@ -188,35 +190,52 @@ const UserAuditionBoard = () => {
 
           {/* 페이지네이션 */}
           <div className="user-audition-pagination">
-            <button
-              className="user-audition-prev-page"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              {"<"}
-            </button>
-            <div className="user-audition-page-numbers">
-              {[1, 2, 3, "...", 67, 68].map((page, index) => (
-                <button
-                  key={index}
-                  className={`user-audition-page-number ${
-                    currentPage === page ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    typeof page === "number" && handlePageChange(page)
-                  }
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-            <button
-              className="user-audition-next-page"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              {">"}
-            </button>
+            {/* 이전 페이지 버튼 */}
+            {currentPage > 1 ? (
+              <button
+                className="user-audition-prev-page"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &lt;
+              </button>
+            ) : (
+              <button
+                className="user-audition-prev-page"
+                style={{ visibility: "hidden" }}
+              >
+                &lt;
+              </button>
+            )}
+
+            {/* 페이지 번호 */}
+            {generatePagination().map((page) => (
+              <button
+                key={page}
+                className={`user-audition-page-number ${
+                  currentPage === page ? "active" : ""
+                }`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
+
+            {/* 다음 페이지 버튼 */}
+            {currentPage < totalPages ? (
+              <button
+                className="user-audition-next-page"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &gt;
+              </button>
+            ) : (
+              <button
+                className="user-audition-next-page"
+                style={{ visibility: "hidden" }}
+              >
+                &gt;
+              </button>
+            )}
           </div>
         </div>
       </main>
