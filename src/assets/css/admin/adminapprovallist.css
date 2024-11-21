@@ -136,7 +136,7 @@
     background-color: #f44336; /* 승인 거절 상태는 빨간색 */
 }
 /* 모달 창 스타일 (신청 내역 보기 전용) */
-.admin-approvallist-content .modal-overlay {
+.admin-modal-overlay {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -149,7 +149,7 @@
     z-index: 1000;
 }
 
-.admin-approvallist-content .modal-content {
+.admin-modal-content {
     background: #fff;
     border-radius: 12px;
     max-width: 600px;
@@ -160,26 +160,26 @@
     z-index: 1010;
 }
 
-.admin-approvallist-content .modal-content h2 {
+.admin-modal-content h2 {
     font-size: 20px;
     color: #333;
     margin-bottom: 15px;
 }
 
-.admin-approvallist-content .modal-content p {
+.admin-modal-content p {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
 }
 
-.admin-approvallist-content .modal-buttons {
+.admin-modal-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
 }
 
-.approve-button, .reject-button, .close-modal-button {
+.approve-button,.close-modal-button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -196,20 +196,11 @@
     background-color: #45a049;
 }
 
-.admin-approvallist-content .reject-button {
-    background-color: #f44336;
-    color: #fff;
-}
-
-.admin-approvallist-content .reject-button:hover {
-    background-color: #e53935;
-}
-
-.admin-approvallist-content .close-modal-button {
+.close-modal-button {
     background-color: #ff9800;
     color: #fff;
 }
 
-.admin-approvallist-content .close-modal-button:hover {
+.close-modal-button:hover {
     background-color: #fb8c00;
 }

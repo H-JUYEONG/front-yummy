@@ -20,6 +20,7 @@ const UserOrder = () => {
     //실시간 방송
     const [isBroadcastActive, setIsBroadcastActive] = useState(false);
     const [offer, setOffer] = useState("");
+    const [reviewStatus, setReviewStatus] = useState({});
 
     useEffect(() => {
         // 서버에서 방송 상태 및 Offer 정보 가져오기
@@ -64,10 +65,44 @@ const UserOrder = () => {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders`, {
                 params: { userId: authUser.user_id }
             });
+
+            // 주문 목록 가져오기
             const formattedOrders = response.data.map(order => ({
                 ...order,
                 actions: order.actions ? order.actions.split(',') : []
             }));
+
+            // 각 주문별 리뷰 상태 체크
+            const reviewStatuses = await Promise.all(
+                formattedOrders.map(async (order) => {
+                    try {
+                        const reviewCheckResponse = await axios.get(
+                            `${process.env.REACT_APP_API_URL}/api/reviews/check-eligibility`,
+                            {
+                                params: {
+                                    productId: order.productId,
+                                    userId: authUser.member_id
+                                }
+                            }
+                        );
+                        return {
+                            orderId: order.id,
+                            canReview: reviewCheckResponse.data.apiData.canReview
+                        };
+                    } catch (error) {
+                        console.error('리뷰 상태 체크 실패:', error);
+                        return { orderId: order.id, canReview: false };
+                    }
+                })
+            );
+
+            // reviewStatus 상태 업데이트
+            const statusObj = {};
+            reviewStatuses.forEach(status => {
+                statusObj[status.orderId] = status.canReview;
+            });
+            setReviewStatus(statusObj);
+
             setOrderList(formattedOrders);
         } catch (error) {
             console.error('Error fetching order list:', error);
@@ -286,8 +321,15 @@ const UserOrder = () => {
                                     <td>
                                         <div className="action-buttons">
                                             {order.actions.map((action, idx) => (
-                                                action === '주문상세보기' ? (
-
+                                                action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
+                                                    <ScrollToTopLink
+                                                        key={idx}
+                                                        to={`/user/cakedetail/${order.productId}`}
+                                                        className="action-btn"
+                                                    >
+                                                        리뷰쓰기
+                                                    </ScrollToTopLink>
+                                                ) : action === '주문상세보기' ? (
                                                     <ScrollToTopLink
                                                         key={idx}
                                                         to={`/user/mypage/orderdetail/${order.id}`}
@@ -295,32 +337,7 @@ const UserOrder = () => {
                                                     >
                                                         {action}
                                                     </ScrollToTopLink>
-                                                ) : action === '리뷰쓰기' ? (
-
-                                                    <ScrollToTopLink
-                                                        key={idx}
-                                                        to={`/user/mypage/orderdetail/${order.id}`} // 여기서 order.id 값 console.log로 확인
-                                                        className="action-btn"
-                                                    >
-                                                        {action}
-                                                        {console.log("order id:", order.id)}
-                                                    </ScrollToTopLink>
-                                                )
-
-                                                    : action === '리뷰쓰기' ? (
-                                                        <ScrollToTopLink
-                                                            key={idx}
-                                                            to="/user/cakedetail"
-                                                            state={{ openReview: true }}
-                                                            className="action-btn"
-                                                        >
-                                                            {action}
-                                                        </ScrollToTopLink>
-                                                    ) : (
-                                                        <button key={idx} className="action-btn">
-                                                            {action}
-                                                        </button>
-                                                    )
+                                                ) : null
                                             ))}
                                         </div>
                                     </td>

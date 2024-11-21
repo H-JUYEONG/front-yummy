@@ -131,8 +131,8 @@ const AdminApprovalList = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="신청 내역 모달"
-                className="modal-content"
-                overlayClassName="modal-overlay"
+                className="admin-modal-content"
+                overlayClassName="admin-modal-overlay"
             >
                 {selectedRequest && (
                     <div>
@@ -149,7 +149,7 @@ const AdminApprovalList = () => {
                         >
                             사업자등록증 보기
                         </a>
-                        <div className="modal-buttons">
+                        <div className="admin-modal-buttons">
                             <button className="approve-button" onClick={() => handleApproval('승인완료')}>승인완료</button>
                             <button className="close-modal-button" onClick={closeModal}>닫기</button>
                         </div>

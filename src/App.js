@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
-import Main from './pages/main/main';
+
 
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -89,9 +89,8 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-
-
           <Route path='/vender/:venderId' element={<VenderDashboard />} />
+          <Route path='/vender/' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
           <Route path='/vender/option' element={<VenderOption />} />
           <Route path='/vender/registrationform' element={<VenderProductRegistrationForm />} />
@@ -148,15 +147,12 @@ function App() {
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
           <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
           <Route path='/' element={<UserMainForm />} />
-          <Route path='/user/audition' element={<UserAuditionBoard />} />
+          <Route path='/user/audition/board' element={<UserAuditionBoard />} />
           <Route path='/user/audition/add' element={<UserAuditionAdd />} />
-          <Route path='/user/audition/ongoing' element={<UserAuditionOngoing />} />
+          <Route path='/user/audition/ongoing/:auditionApplicationId' element={<UserAuditionOngoing />} />
           <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
           <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
-
-          {/* Main and Admin */}
-          <Route path='/' element={<Main />} />
 
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard />} />
