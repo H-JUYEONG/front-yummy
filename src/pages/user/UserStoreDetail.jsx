@@ -10,7 +10,7 @@ const UserStoreDetail = () => {
     //const {venderId} = useParams();
     //venderId
     // ** user또는 비회원 > product에있는 venderId값 넣기   // vender > authUser에있는 값 넣기
-    const [venderId, setVenderId] = useState('');
+    const {venderId} = useParams();
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -32,13 +32,13 @@ const UserStoreDetail = () => {
     
     const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
 
-    useEffect(()=>{
-        if (authUser && authUser.vender_id) {
-            setVenderId(authUser.vender_id);
-        } else {
-            setVenderId(null); 
-        }
-    },[authUser])
+    // useEffect(()=>{
+    //     if (authUser && authUser.vender_id) {
+    //         setVenderId(authUser.vender_id);
+    //     } else {
+    //         setVenderId(null); 
+    //     }
+    // },[authUser])
     
 
     useEffect(() => {
