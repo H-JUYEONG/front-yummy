@@ -41,10 +41,16 @@
 
 .userMainFormContainer .map-img {
     padding-right: 50px;
+    cursor: pointer;
+}
+map area {
+    cursor: pointer;
 }
 
 .userMainFormContainer .map-img img {
-    max-width: 400px;
+    max-width: 550px;
+    height: 80%;
+    
 }
 
 .userMainFormContainer .userMain-map-search select {
@@ -138,6 +144,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 60px;
+    margin-top: 15px;
 }
 
 .userMainFormContainer .all-product-item {

@@ -24,7 +24,7 @@ const VenderHeader = () => {
         const storedUser = localStorage.getItem('authUser');
         return storedUser ? JSON.parse(storedUser) : null;
     });
-    const venderId = authUser?.vender_id || null;
+    const {venderId} = useParams();
 
     const bnnerImg = ()=>{
         axios({
@@ -53,7 +53,7 @@ const VenderHeader = () => {
     return (
         <>
             <div className='vender-header-wrap'>
-                <Link to='/user/storedetail'>
+                <Link to={`/user/storedetail/${venderId}`}>
                     <img src={bannerURL} />
                 </Link>
                 {{venderId}!=null ? 

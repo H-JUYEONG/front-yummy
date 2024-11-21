@@ -113,7 +113,7 @@ const UserAuditionAdd = () => {
       );
 
       if (response.data.result === "success") {
-        navigate("/user/audition");
+        navigate("/user/audition/board");
       } else {
         alert("등록 실패");
       }

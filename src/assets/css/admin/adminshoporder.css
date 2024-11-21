@@ -72,7 +72,7 @@
 }
 
 /* 상태 업데이트 버튼을 가운데 정렬하기 위한 스타일 */
-.order-table td:last-child {
+.admin-shoporder-page .order-table td:last-child {
     padding: 0; /* 셀의 여백을 제거 */
 }
 

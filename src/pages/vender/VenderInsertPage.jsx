@@ -128,12 +128,12 @@ const VenderInsertPage = () => {
                 logoFile:logoFile || ''
             })
 
-            setShopName(data.venderName || "");
-            setLogoPreview(data.profileURL || "");
-            setBannerPreview(data.bannerURL || "");
-            setShopAddress(data.venderAddress || "");
+            setShopName(data.venderName );
+            setLogoPreview(data.profileURL);
+            setBannerPreview(data.bannerURL);
+            setShopAddress(data.venderAddress);
             setKakaoURL(data.kakaoURL || "");
-            setContent(data.venderDescription || "");
+            setContent(data.venderDescription);
             //.log(data.venderName)
 
             updateVenderData({
@@ -153,6 +153,7 @@ const VenderInsertPage = () => {
     }
 
     useEffect(()=>{
+        console.log("555555555 랜더링")
         firstList();
 
     },[])

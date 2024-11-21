@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useParams } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import RightNavbar from './include/RightNavbar';
@@ -66,31 +66,56 @@ const UserOrder = () => {
                 params: { userId: authUser.user_id }
             });
 
+            // 응답 데이터 로깅
+            console.log('주문 목록 응답:', response.data);
+
             // 주문 목록 가져오기
-            const formattedOrders = response.data.map(order => ({
-                ...order,
-                actions: order.actions ? order.actions.split(',') : []
-            }));
+            const formattedOrders = response.data.map(order => {
+                console.log('개별 주문 데이터:', order); // 각 주문 데이터 확인
+                return {
+                    ...order,
+                    // product_id도 있을 수 있으므로 둘 다 확인
+                    productId: order.productId || order.product_id,
+                    actions: order.actions ? order.actions.split(',') : []
+                };
+            });
 
             // 각 주문별 리뷰 상태 체크
             const reviewStatuses = await Promise.all(
                 formattedOrders.map(async (order) => {
+                    // productId 존재 여부 확인
+                    if (!order.productId) {
+                        console.error('주문에 productId가 없음:', order);
+                        return { orderId: order.id, canReview: false };
+                    }
+
                     try {
+                        console.log('리뷰 자격 확인 요청 데이터:', {
+                            orderId: order.id,
+                            productId: order.productId,
+                            userId: authUser.member_id
+                        });
+
                         const reviewCheckResponse = await axios.get(
                             `${process.env.REACT_APP_API_URL}/api/reviews/check-eligibility`,
                             {
                                 params: {
                                     productId: order.productId,
-                                    userId: authUser.member_id
+                                    userId: parseInt(authUser.member_id)
                                 }
                             }
                         );
+
                         return {
                             orderId: order.id,
-                            canReview: reviewCheckResponse.data.apiData.canReview
+                            canReview: reviewCheckResponse.data.apiData?.canReview || false
                         };
                     } catch (error) {
-                        console.error('리뷰 상태 체크 실패:', error);
+                        console.error('리뷰 상태 체크 실패:', error, {
+                            orderId: order.id,
+                            productId: order.productId,
+                            userId: authUser.member_id
+                        });
                         return { orderId: order.id, canReview: false };
                     }
                 })
@@ -111,7 +136,6 @@ const UserOrder = () => {
             setLoading(false);
         }
     };
-
     const fetchStatusCounts = async () => {
         try {
             const response = await axios.get(
@@ -199,13 +223,42 @@ const UserOrder = () => {
         }
     ];
 
-    const handleStatusClick = (order) => {
+    const handleStatusClick = async (order) => {
         if (order.statusMessage === '업로드 완료') {
-            window.scrollTo(0, 0);
-            fetchOrderDetail(order.id);
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/detail/media/${order.id}`);
+                console.log("미디어 상세 응답:", response.data);
+    
+                // apiData 안의 데이터를 사용하도록 수정
+                const mediaData = response.data.apiData;  // apiData 내부의 데이터 추출
+                
+                setSelectedOrder({
+                    ...order,
+                    ...mediaData,  // apiData의 내용을 풀어서 넣기
+                    id: mediaData.id,
+                    date: mediaData.date,
+                    productName: mediaData.productName,
+                    orderVideoUrl: mediaData.orderVideoUrl,
+                    orderPhotoUrl: mediaData.orderPhotoUrl,
+                    orderStatus: order.orderStatus,
+                    statusMessage: order.statusMessage
+                });
+                
+                console.log("Updated selectedOrder:", {
+                    ...order,
+                    ...mediaData,
+                    orderStatus: order.orderStatus,
+                    statusMessage: order.statusMessage
+                });
+                
+                setShowDetail(true);
+                window.scrollTo(0, 0);
+            } catch (error) {
+                console.error('미디어 상세정보 조회 실패:', error);
+                alert('상세 정보를 불러오는 중 오류가 발생했습니다.');
+            }
         }
     };
-
     const handleBackToList = () => {
         window.scrollTo(0, 0);
         setShowDetail(false);
@@ -294,17 +347,6 @@ const UserOrder = () => {
                                             <button
                                                 onClick={() => updateOrderStatus(order.id)}
                                                 className="confirm-receipt-btn"
-                                                style={{
-                                                    display: 'block',
-                                                    marginTop: '5px',
-                                                    padding: '5px 10px',
-                                                    fontSize: '12px',
-                                                    backgroundColor: '#ff6f61',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer'
-                                                }}
                                             >
                                                 수령 확인
                                             </button>
@@ -320,12 +362,22 @@ const UserOrder = () => {
                                     </td>
                                     <td>
                                         <div className="action-buttons">
-                                            {order.actions.map((action, idx) => (
-                                                action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
+                                            {order.actions.map((action, idx) => {
+                                                // 디버깅을 위한 로깅
+                                                console.log('주문 및 리뷰 상태:', {
+                                                    orderId: order.id,
+                                                    productId: order.productId,
+                                                    action,
+                                                    orderStatus: order.orderStatus,
+                                                    canReview: reviewStatus[order.id]
+                                                });
+
+                                                return action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
                                                     <ScrollToTopLink
                                                         key={idx}
                                                         to={`/user/cakedetail/${order.productId}`}
                                                         className="action-btn"
+                                                        state={{ openReview: true }}
                                                     >
                                                         리뷰쓰기
                                                     </ScrollToTopLink>
@@ -337,8 +389,8 @@ const UserOrder = () => {
                                                     >
                                                         {action}
                                                     </ScrollToTopLink>
-                                                ) : null
-                                            ))}
+                                                ) : null;
+                                            })}
                                         </div>
                                     </td>
                                 </tr>
@@ -350,67 +402,51 @@ const UserOrder = () => {
         </div>
     );
 
-    const OrderDetail = () => (
-        <div className="order-detail-container">
-            <div className="header-actions">
-                <h2 className="order-title">제작 과정 상세</h2>
-                <button onClick={handleBackToList} className="back-to-list">
-                    주문목록으로
-                </button>
-            </div>
 
-            <div className="order-info">
-                <p>주문번호: {selectedOrder.id}</p>
-                <p>주문일자: {selectedOrder.date}</p>
-                <p>상품명: {selectedOrder.productName}</p>
-            </div>
-
-            <div className="cake-media-section">
-                {selectedOrder.video && (
-                    <div className="video-container">
-                        <h3>제작 영상</h3>
-                        <div className="video-wrapper">
-                            <video controls className="cake-video">
-                                <source src={selectedOrder.video} type="video/mp4" />
-                                동영상을 재생할 수 없습니다.
-                            </video>
-                        </div>
-                    </div>
-                )}
-
-                {isBroadcastActive && offer && (
-                    <div className="live-stream">
-                        <h3>실시간 방송</h3>
-                        <WebRTCReceiver offer={offer} />
-                    </div>
-                )}
-
-                {selectedOrder.image1 && (
-                    <div className="photo-container">
-                        <h3>제작 사진</h3>
-                        <div className="photo-gallery">
-                            {[
-                                selectedOrder.image1,
-                                selectedOrder.image2,
-                                selectedOrder.image3,
-                                selectedOrder.image4
-                            ].filter(Boolean).map((image, index) => (
+    const OrderDetail = () => {
+        console.log("OrderDetail 렌더링 - selectedOrder:", selectedOrder);  // 상태 확인을 위한 로그
+    
+        return (
+            <div className="order-detail-container">
+                <div className="header-actions">
+                    <h2 className="order-title">제작 과정 상세</h2>
+                    <button onClick={handleBackToList} className="back-to-list">
+                        주문목록으로
+                    </button>
+                </div>
+    
+                <div className="order-info">
+                    <p>주문번호: {selectedOrder?.id}</p>
+                    <p>주문일자: {selectedOrder?.date}</p>
+                    <p>상품명: {selectedOrder?.productName}</p>
+                </div>
+    
+                <div className="cake-media-section">
+                    {/* 사진 섹션 */}
+                    {selectedOrder?.orderPhotoUrl && (  // photoUrl이 아닌 orderPhotoUrl로 수정
+                        <div className="photo-container">
+                            <h3>제작 사진</h3>
+                            <div className="photo-gallery">
                                 <img
-                                    key={index}
-                                    src={image}
-                                    alt={`케이크 제작 과정 ${index + 1}`}
+                                    src={selectedOrder.orderPhotoUrl}  // photoUrl이 아닌 orderPhotoUrl로 수정
+                                    alt="케이크 제작 과정"
                                     className="cake-photo"
                                     onError={(e) => {
+                                        console.log("이미지 로드 에러:", e);
                                         e.target.src = '/images/케이크 제작 1.jpg';
                                     }}
+                                    style={{ maxWidth: '100%', height: 'auto' }}  // 스타일 추가
                                 />
-                            ))}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
-        </div>
-    );
+        );
+    };
+    
+
+
 
     return (
         <div id="user-wrap">
