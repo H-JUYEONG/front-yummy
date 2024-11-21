@@ -6,7 +6,7 @@ import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOut
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
-    
+
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [authUser, setAuthUser] = useState(() => {
@@ -44,7 +44,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
             </div>
             <ul className="vender-menu">
                 <li>
-                    <Link to="/vender" onClick={toggleMenu}>
+                    <Link to="/vender/" onClick={toggleMenu}>
                         <FaChartBar /> 대시보드
                     </Link>
                 </li>

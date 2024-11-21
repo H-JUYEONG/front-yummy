@@ -74,11 +74,21 @@ const UserCakeDesignBoard = () => {
 
   // 페이지네이션 생성
   const totalPages = Math.ceil(totalAllCount / itemsPerPage);
+
   const generatePagination = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const pageGroupSize = 10; // 한 번에 보여줄 페이지 번호 개수
+
+    // 현재 페이지가 속한 그룹의 시작과 끝 페이지 계산
+    const currentGroup = Math.ceil(currentPage / pageGroupSize);
+    const startPage = (currentGroup - 1) * pageGroupSize + 1;
+    const endPage = Math.min(currentGroup * pageGroupSize, totalPages);
+
+    // 페이지 번호 생성
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
+
     return pages;
   };
 
@@ -190,6 +200,7 @@ const UserCakeDesignBoard = () => {
             ))}
           </div>
 
+          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
             {/* 이전 페이지 버튼 */}
             {currentPage > 1 ? (

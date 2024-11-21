@@ -18,10 +18,6 @@ const UserWishList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    // 카테고리 옵션
-    const styleOptions = ['귀여운', '화려한', '아기자기한', '만화같은', '웃긴', '깔끔한'];
-    const targetOptions = ['친구생일', '웃어른생신', '애기 생일', '기념일', '파티'];
-
     // 데이터 가져오기
     const fetchWishlistProducts = async (page = 1) => {
         try {
@@ -112,37 +108,7 @@ const UserWishList = () => {
                             </button>
                         </div>
 
-                        {/* 카테고리 필터 */}
-                        <div className="category-filters">
-                            <div className="filter-group">
-                                <h3>스타일</h3>
-                                <div className="filter-options">
-                                    {styleOptions.map((style) => (
-                                        <button
-                                            key={style}
-                                            className={`filter-btn ${selectedStyle === style ? 'active' : ''}`}
-                                            onClick={() => handleStyleSelect(style)}
-                                        >
-                                            {style}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="filter-group">
-                                <h3>대상</h3>
-                                <div className="filter-options">
-                                    {targetOptions.map((target) => (
-                                        <button
-                                            key={target}
-                                            className={`filter-btn ${selectedTarget === target ? 'active' : ''}`}
-                                            onClick={() => handleTargetSelect(target)}
-                                        >
-                                            {target}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    
 
                         {/* 상품 그리드 */}
                         <div className="products-grid">

@@ -8,6 +8,7 @@ const UserPaymentDetail = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const orderData = location.state;
+    const venderId = orderData.productInfo.venderId;
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
