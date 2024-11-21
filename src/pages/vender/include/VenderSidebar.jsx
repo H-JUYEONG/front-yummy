@@ -10,17 +10,18 @@ import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
-    const API_URL = process.env.REACT_APP_API_URL;
+    //업체 프로필사진
+    const [logo, setLogo] = useState("");
 
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
+
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
     });
     const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
 
-    const {venderNo} = useParams("");
 
 
     const handleLogout = () => {
@@ -44,12 +45,13 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
         axios({
             method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderNo}`,
+            url: `${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderId}`,
             responseType: 'json' //수신타입
 
         }).then(response => {
             console.log(response); //수신데이타
-        
+
+            setLogo(response.data.apiData)
         }).catch(error => {
             console.log(error);
         });
@@ -58,6 +60,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
     useEffect(()=>{
         getLogo();
+        
     },[])
 
 
@@ -69,7 +72,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
                 <Link to={`/user/storedetail/${venderId}`}>
-                    <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
+                    <img className="profile-img" src={logo} alt="프로필 이미지" />
                 </Link>
                 <h3>CakeLines</h3>
                 <p>
