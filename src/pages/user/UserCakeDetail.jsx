@@ -51,7 +51,7 @@ const UserCakeDetail = () => {
             5: 0
         }
     });
-
+    const { venderId } = useParams();
     const [deliveryType, setDeliveryType] = useState('pickup');
 
     // 스크롤 관련 상태
@@ -924,7 +924,7 @@ const UserCakeDetail = () => {
     // 메인 렌더링
     return (
         <div id="user-wrap" className="text-center">
-            <VenderHeader />
+            <VenderHeader venderId={venderId} />
             <main id="user-wrap-body" className="clearfix">
 
                 <div className="cake-order-container">

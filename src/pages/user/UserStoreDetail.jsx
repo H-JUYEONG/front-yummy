@@ -12,7 +12,6 @@ const UserStoreDetail = () => {
     //const {venderId} = useParams();
     //venderId
     // ** user또는 비회원 > product에있는 venderId값 넣기   // vender > authUser에있는 값 넣기
-   
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -250,8 +249,6 @@ const UserStoreDetail = () => {
                                                 <p>Kakao Maps </p>
                                             </>
                                         )}
-
-
                                     </div>
                                 </div>
                                 <div className="sd-map-info">
