@@ -66,31 +66,56 @@ const UserOrder = () => {
                 params: { userId: authUser.user_id }
             });
 
+            // 응답 데이터 로깅
+            console.log('주문 목록 응답:', response.data);
+
             // 주문 목록 가져오기
-            const formattedOrders = response.data.map(order => ({
-                ...order,
-                actions: order.actions ? order.actions.split(',') : []
-            }));
+            const formattedOrders = response.data.map(order => {
+                console.log('개별 주문 데이터:', order); // 각 주문 데이터 확인
+                return {
+                    ...order,
+                    // product_id도 있을 수 있으므로 둘 다 확인
+                    productId: order.productId || order.product_id,
+                    actions: order.actions ? order.actions.split(',') : []
+                };
+            });
 
             // 각 주문별 리뷰 상태 체크
             const reviewStatuses = await Promise.all(
                 formattedOrders.map(async (order) => {
+                    // productId 존재 여부 확인
+                    if (!order.productId) {
+                        console.error('주문에 productId가 없음:', order);
+                        return { orderId: order.id, canReview: false };
+                    }
+
                     try {
+                        console.log('리뷰 자격 확인 요청 데이터:', {
+                            orderId: order.id,
+                            productId: order.productId,
+                            userId: authUser.member_id
+                        });
+
                         const reviewCheckResponse = await axios.get(
                             `${process.env.REACT_APP_API_URL}/api/reviews/check-eligibility`,
                             {
                                 params: {
                                     productId: order.productId,
-                                    userId: authUser.member_id
+                                    userId: parseInt(authUser.member_id)
                                 }
                             }
                         );
+
                         return {
                             orderId: order.id,
-                            canReview: reviewCheckResponse.data.apiData.canReview
+                            canReview: reviewCheckResponse.data.apiData?.canReview || false
                         };
                     } catch (error) {
-                        console.error('리뷰 상태 체크 실패:', error);
+                        console.error('리뷰 상태 체크 실패:', error, {
+                            orderId: order.id,
+                            productId: order.productId,
+                            userId: authUser.member_id
+                        });
                         return { orderId: order.id, canReview: false };
                     }
                 })
@@ -111,7 +136,6 @@ const UserOrder = () => {
             setLoading(false);
         }
     };
-
     const fetchStatusCounts = async () => {
         try {
             const response = await axios.get(
@@ -294,17 +318,6 @@ const UserOrder = () => {
                                             <button
                                                 onClick={() => updateOrderStatus(order.id)}
                                                 className="confirm-receipt-btn"
-                                                style={{
-                                                    display: 'block',
-                                                    marginTop: '5px',
-                                                    padding: '5px 10px',
-                                                    fontSize: '12px',
-                                                    backgroundColor: '#ff6f61',
-                                                    color: 'white',
-                                                    border: 'none',
-                                                    borderRadius: '4px',
-                                                    cursor: 'pointer'
-                                                }}
                                             >
                                                 수령 확인
                                             </button>
@@ -320,12 +333,22 @@ const UserOrder = () => {
                                     </td>
                                     <td>
                                         <div className="action-buttons">
-                                            {order.actions.map((action, idx) => (
-                                                action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
+                                            {order.actions.map((action, idx) => {
+                                                // 디버깅을 위한 로깅
+                                                console.log('주문 및 리뷰 상태:', {
+                                                    orderId: order.id,
+                                                    productId: order.productId,
+                                                    action,
+                                                    orderStatus: order.orderStatus,
+                                                    canReview: reviewStatus[order.id]
+                                                });
+
+                                                return action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
                                                     <ScrollToTopLink
                                                         key={idx}
                                                         to={`/user/cakedetail/${order.productId}`}
                                                         className="action-btn"
+                                                        state={{ openReview: true }}
                                                     >
                                                         리뷰쓰기
                                                     </ScrollToTopLink>
@@ -337,8 +360,8 @@ const UserOrder = () => {
                                                     >
                                                         {action}
                                                     </ScrollToTopLink>
-                                                ) : null
-                                            ))}
+                                                ) : null;
+                                            })}
                                         </div>
                                     </td>
                                 </tr>

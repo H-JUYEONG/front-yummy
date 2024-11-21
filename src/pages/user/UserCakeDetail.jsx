@@ -231,6 +231,20 @@ const UserCakeDetail = () => {
             setProductOptions({});
         });
     };
+    
+    useEffect(() => {
+        // location.state로 전달된 openReview 확인
+        if (location.state?.openReview) {
+            setSelectedTab('후기');
+            // 약간의 지연을 주어 리뷰 섹션이 마운트된 후 스크롤
+            setTimeout(() => {
+                reviewSectionRef.current?.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+    }, [location.state]);
 
     useEffect(() => {
         if (productId) {
@@ -551,7 +565,8 @@ const UserCakeDetail = () => {
         }
     };
     // 리뷰 작성 가능 여부 확인
-    const checkReviewEligibility = async () => {
+   
+     const checkReviewEligibility = async () => {
         if (!authUser) {
             setCanReview(false);
             setHasWrittenReview(false);
@@ -569,21 +584,16 @@ const UserCakeDetail = () => {
                 }
             );
 
-            console.log("리뷰 자격 전체 응답:", response);
-            console.log("리뷰 자격 데이터:", response.data.apiData);
-
-            // JsonResult 형식에 맞게 apiData에서 데이터 추출
             if (response.data.result === "success" && response.data.apiData) {
-                const { hasPurchased, hasReviewed, canReview } = response.data.apiData;
-                console.log("처리된 리뷰 자격 데이터:", {
-                    hasPurchased, hasReviewed, canReview
+                const { hasPurchased, hasReceived, hasReviewed, canReview } = response.data.apiData;
+                console.log("리뷰 자격 확인 결과:", {
+                    hasPurchased,
+                    hasReceived,
+                    hasReviewed,
+                    canReview
                 });
                 setCanReview(canReview);
                 setHasWrittenReview(hasReviewed);
-            } else {
-                console.log("리뷰 자격 데이터 없음", response.data);
-                setCanReview(false);
-                setHasWrittenReview(false);
             }
         } catch (error) {
             console.error('리뷰 자격 확인 실패:', error);
@@ -591,7 +601,6 @@ const UserCakeDetail = () => {
             setHasWrittenReview(false);
         }
     };
-
 
     // 리뷰 제출 핸들러 수정
     const handleReviewSubmit = async (e) => {
