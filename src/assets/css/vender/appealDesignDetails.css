@@ -1,28 +1,31 @@
 @charset "UTF-8";
 
 /*예시글씨*/
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text{
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-texts{
     padding: 10px;
 
    
 }
+.appeal-design-texts li{
+    padding-bottom: 5px;
+}
 /*요청사항*/
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm{
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-texts .appeal-design-text-RequestedTerm{
     /* border: 1px solid #000000; */
     border-radius: 4px;
-    background-color: #dedede;
+    background-color: #fffcfc;
     margin-top: 5px;
     padding: 5px;
     height: 180px;
     overflow-y: auto;
 }
 /*스크롤*/
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1); /* 트랙 색상: 옅은 회색, 반투명 */
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-texts .appeal-design-text-RequestedTerm::-webkit-scrollbar-thumb {
+    background: rgba(207, 207, 207, 0.1); /* 트랙 색상: 옅은 회색, 반투명 */
     
 }
 /* 스크롤바 위아래 화살표 숨기기 */
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-text .appeal-design-text-RequestedTerm::-webkit-scrollbar-button {
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-text .appeal-design-texts .appeal-design-text-RequestedTerm::-webkit-scrollbar-button {
     display: none;
 }
 /*예시도안*/
@@ -35,7 +38,19 @@
     align-items: center;
 
 }
+.appeal-design-photoo{
+    height: 80%;
+    margin-top: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content .modal-user-input-img .appeal-design-photo img{
+    width: 90%;
+    height: 90%;
+}
+.appeal-design-photoo{
     width: 90%;
     height: 90%;
 }

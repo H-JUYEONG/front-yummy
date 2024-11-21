@@ -1,6 +1,7 @@
 //import 라이브러리
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate,  Link } from 'react-router-dom';
+import axios from 'axios';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -23,6 +24,14 @@ const VenderAudirionAllList = () => {
     const navigate = useNavigate();
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
+    const venderId = authUser.vender_id;
+
 
     // 상품 리스트 데이터 예시
     const products = [
@@ -55,9 +64,36 @@ const VenderAudirionAllList = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    // 1.이벤트 잡기
-    //2. 데이터 잡기 + 묶기(배열)
-    //3. 전송 (ajax 사용)
+    
+
+    //실시간 리스트 가져오기
+    const allList = ()=>{
+        console.log("오디션 리스트 가져오기준비 완료")
+
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/auditionList/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+    }
+
+
+
+    useEffect(()=>{
+        console.log("화면 렌더링 되었을 때 오디션 아이디"+venderId)
+        allList();
+    },[])
+
+
+
     return (
         <>
             <div className="vender-container">

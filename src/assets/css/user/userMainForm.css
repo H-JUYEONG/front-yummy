@@ -46,6 +46,9 @@
 map area {
     cursor: pointer;
 }
+.map-img p{
+    margin-top: 10px;
+}
 
 .userMainFormContainer .map-img img {
     max-width: 550px;

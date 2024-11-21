@@ -25,9 +25,13 @@ const VenderInsertAudition = () => {
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const openNewWindow = () => {
         window.open('/vender/venderauditonrequest', '_blank');
     };
+
+
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -105,7 +109,7 @@ const VenderInsertAudition = () => {
                     
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>상품선택</h2>
-                            <button onClick={openModal}>선택하러가기</button>
+                            <button onClick={openModal}>상품선택하기</button>
                         </div>
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>옵션선택</h2>
@@ -124,9 +128,10 @@ const VenderInsertAudition = () => {
                     </div>
                 </div>
                 {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
-            {isModalOpen && <VenderProductModalInsert onClose={closeModal} />}
-            
-            </main>
+                {isModalOpen && (
+                    <VenderProductModalInsert isOpen={isModalOpen} onClose={closeModal} />
+                )}
+                </main>
                     </div>
                 </div>
             </div>
