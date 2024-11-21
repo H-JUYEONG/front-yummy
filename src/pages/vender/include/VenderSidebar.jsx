@@ -32,7 +32,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
     return (
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
-                <Link to="/user/storedetail">
+                <Link to={`/user/storedetail/${venderId}`}>
                     <img className="profile-img" src={cakeLogo} alt="프로필 이미지" />
                 </Link>
                 <h3>CakeLines</h3>
