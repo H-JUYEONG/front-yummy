@@ -451,7 +451,7 @@ const UserCakeDetail = () => {
                 
                 setReviews(updatedReviews);  // 화면 즉시 업데이트
                 
-                // fetchReviews();  // 이 부분은 주석처리하거나 제거
+                fetchReviews();  // 이 부분은 주석처리하거나 제거
             } else {
                 alert('답글 작성에 실패했습니다.');
             }
