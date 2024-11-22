@@ -19,8 +19,6 @@ const UserAuditionBoard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 12;
 
-  // const startIndex = (currentPage - 1) * itemsPerPage;
-  // const endIndex = startIndex + itemsPerPage;
   // 데이터 가져오기 함수
   const fetchData = async (url, page = 1, search = "") => {
     try {
@@ -166,36 +164,42 @@ const UserAuditionBoard = () => {
           </div>
           <div className="user-cake-audition-list-grid">
             {userAuditionBoard.map((card, index) => (
-                <div key={index} className="user-cake-audition-card">
-                  <div className="user-cake-audition-card-image">
-                    <img
-                      src={card.imageUrl}
-                      onClick={handleImageClick}
-                      alt="케이크 도안"
-                    />
-                    <div
-                      className={`user-cake-audition-status ${
-                        card.status === "진행중"
-                          ? "status-in-progress"
-                          : "status-completed"
-                      }`}
-                    >
-                      <span>{card.status}</span>
-                    </div>
-                  </div>
-                  <div className="user-cake-audition-card-info">
-                    <h3 className="user-cake-audition-card-title">
-                      {card.auditionApplicationTitle}
-                    </h3>
-                    <p className="user-cake-audition-card-subtitle">
-                      {card.userNickname}
-                    </p>
-                    <div className="user-cake-audition-card-status">
-                      <span>참여: {card.participationCount}</span>
-                    </div>
+              <div key={index} className="user-cake-audition-card">
+                <div className="user-cake-audition-card-image">
+                  <img
+                    src={card.imageUrl}
+                    onClick={() => handleImageClick(card.auditionApplicationId)}
+                    alt="케이크 도안"
+                  />
+                  <div
+                    className={`user-cake-audition-status ${
+                      card.status === "진행중"
+                        ? "status-in-progress"
+                        : "status-completed"
+                    }`}
+                  >
+                    <span>{card.status}</span>
                   </div>
                 </div>
-              ))}
+                <div className="user-cake-audition-card-info">
+                  <h3 className="user-cake-audition-card-title">
+                    {card.auditionApplicationTitle}
+                  </h3>
+                  <p className="user-cake-audition-card-subtitle">
+                    {card.userNickname}
+                  </p>
+                  <div className="user-cake-audition-card-status">
+                    <span>
+                      참여: {card.participationCount} 조회수:
+                      {card.auditionViewCount}
+                    </span>
+                  </div>
+                  {/* <div className="user-cake-audition-card-hit">
+                    <span>조회수: {card.participationCount}</span>
+                  </div> */}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* 페이지네이션 */}
