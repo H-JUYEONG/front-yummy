@@ -3,8 +3,8 @@ import '../../assets/css/vender/venderProductModalInsert.css'; // 모달 스타�
 
 const VenderProductModalInsert = ({ onClose }) => {
     return (
-        <div className="modal-overlay">
-            <div className="ssso-modal-content">
+        <div className="vender-sso-modal-overlay">
+            <div className="vender-sso-modal-content">
                 <div className='ssso-title-box'>
                     <h2>상품 선택</h2>
                 </div>

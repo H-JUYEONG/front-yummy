@@ -25,7 +25,7 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
                         <div className="sso-modal-body-flex">
                             <div className='modal-user-input-text'>
                                 <p className='sy-modal-sub-title'>주문정보</p>
-                                <div className='appeal-design-text'>
+                                <div className='appeal-design-texts'>
                                     <ul>
                                         <li>주문번호 : 1</li>
                                         <li>주문이름: 생일케이크</li>
@@ -65,7 +65,7 @@ const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
 
                             <div className='modal-user-input-img'>
                                 <p className='sy-modal-sub-title'>예시도안</p>
-                                <div className='appeal-design-photo'><img src='../../assets/images/cake-logo1.png' alt='예시도안' /></div>
+                                <div className='appeal-design-photoo'><img src='../../assets/images/cake-logo1.png' alt='예시도안' /></div>
                             </div>
                             
                         </div>
