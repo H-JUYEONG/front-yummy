@@ -1,82 +1,107 @@
 //import 라이브러리
-import React from 'react';
-
-//import 컴포넌트
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 //import css
-import '../../assets/css/vender/appealDesignDetails.css';
-import '../../assets/css/vender/syModal.css';
+import "../../assets/css/vender/appealDesignDetails.css";
+import "../../assets/css/vender/syModal.css";
+import "../../assets/css/user/userAuditionModal.css";
 
+const UserAuditionModal = ({ isOpen, onClose, company }) => {
+const navigate = useNavigate();
+  if (!isOpen || !company) return null; // isOpen이 false이거나 company가 없으면 렌더링하지 않음
 
+  const auditionSelect = () => {
+    axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}/api/users/audition/select`,
+      params: {auditionApplicationId: company.auditionApplicationId, auditionCartId: company.auditionCartId},
+      responseType: "json", // 수신타입
+    })
+      .then((response) => {
 
+        console.log(response.data.apiData); // 객체 자체를 출력
+        if (response.data.result === "success") {
+            alert("신청이 완료되었습니다.");
+            navigate("/user/audition/board");
+        } else {
+          alert("신청 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-const VenderAppealDesignDetails = ({ isOpen, onClose, children }) => {
-    if (!isOpen) return null; // isOpen이 false일 경우 모달을 렌더링하지 않음
-    return (
-        <div className="vender-sso-modal-overlay">
-            <div className="vender-sso-modal-content" onClick={(e) => e.stopPropagation()}>
-                <div className='sso-modal-head'>
-                    <button className="vender-sso-modal-close-button" onClick={onClose}>X</button>
-                    <h2 className='vender-appeal-title-name'>신청내역 상세</h2>
-                </div>
-                <div className='sso-modal-body'>
-                    <div className='sso-modal-body-content'>
-                        <div className="sso-modal-body-flex">
-                            <div className='modal-user-input-text'>
-                                <p className='sy-modal-sub-title'>주문정보</p>
-                                <div className='appeal-design-text'>
-                                    <ul>
-                                        <li>주문번호 : 1</li>
-                                        <li>주문이름: 생일케이크</li>
-                                        <li>제시금액 : 60,000원</li>
-                                        <li>사이즈 : 12cm</li>
-                                        <li>수령방식 : 픽업</li>
-                                        <li>희망지역:  강남구</li>
-                                        <li>수령일자 : 2024-11-10</li>
-                                        <li>요청사항</li>
-                                        <li>
-                                            <div className='appeal-design-text-RequestedTerm'>
-                                                1.예쁘게 만들어주세요!<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-                                                2.맛도있게요~~<br />
-
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div className='modal-user-input-img'>
-                                <p className='sy-modal-sub-title'>예시도안</p>
-                                <div className='appeal-design-photo'><img src='../../assets/images/cake-logo1.png' alt='예시도안' /></div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    
-                </div>
-                {children}
-            </div>
+  return (
+    <div className="vender-sso-modal-overlay">
+      <div
+        className="vender-sso-modal-content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sso-modal-head">
+          <button className="vender-sso-modal-close-button" onClick={onClose}>
+            X
+          </button>
+          <h2 className="vender-appeal-title-name">신청 내역 상세</h2>
         </div>
-    );
+        <div className="sso-modal-body">
+          <div className="sso-modal-body-content">
+            <div className="sso-modal-body-flex">
+              <div className="modal-user-input-text">
+                <p className="sy-modal-sub-title">업체 신청 내역</p>
+                <div className="appeal-design-text">
+                  <ul>
+                    <li>
+                      주문번호 : {company.auditionApplicationId || "정보 없음"}
+                    </li>
+                    <li>업체명: {company.venderName || "없음"}</li>
+                    <li>상품명 : {company.productName || "없음"}</li>
+                    <li>상품 타입 : {company.productType || "없음"}</li>
+                    <li>사이즈 : {company.cakeSize || "없음"}</li>
+                    <li>시트 맛: {company.flavorSheet || "없음"}</li>
+                    <li>크림 맛 : {company.flavorCream || "없음"}</li>
+                    <li>크림 색상 : {company.creamColor || "없음"}</li>
+                    <li>크림 위치 : {company.creamPosition || "없음"}</li>
+                    <li>케이크 배경색 : {company.backgroundColor || "없음"}</li>
+                    <li>데코레이션 타입 : {company.decorationType || "없음"}</li>
+                    <li>데코레이션 색상 : {company.decorationColor || "없음"}</li>
+                    <li>카테고리 : {company.category || "없음"}</li>
+                    <li>케이크 레터링 : {company.cakeLettering || "없음"}</li>
+                    <li>케이크판 레터링 : {company.plateLettering || "없음"}</li>
+                    <li>제시금액 : {`${company.proposedAmount.toLocaleString()}원` || "없음"}</li>
+                    <li>요청사항</li>
+                    <li>
+                      <div className="appeal-design-text-RequestedTerm">
+                        {company.additionalRequests || "요청사항이 없습니다."}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="modal-user-input-img">
+                <p className="sy-modal-sub-title">제안된 상품 이미지</p>
+                <div className="appeal-design-photo">
+                  <img
+                    src={
+                      company.productImage1Url || "../../assets/images/cake-logo1.png"
+                    }
+                    alt="예시도안"
+                  />
+                </div>
+                <div>
+                <button className="user-ongoing-select-button" onClick={auditionSelect}>신청하기</button>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-
-export default VenderAppealDesignDetails;
+export default UserAuditionModal;
