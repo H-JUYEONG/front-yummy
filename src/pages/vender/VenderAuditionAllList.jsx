@@ -50,6 +50,9 @@ const VenderAudirionAllList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    //오디션리스트
+    const [auditionAllList, setAuditionAllList] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
 
     // 페이지 수 계산
@@ -76,8 +79,9 @@ const VenderAudirionAllList = () => {
         
             responseType: 'json' //수신타입
         }).then(response => {
-            console.log(response); //수신데이타
-        
+            //console.log(response); //수신데이타
+            //console.log(response.data.apiData)
+            setAuditionAllList(response.data.apiData)
         }).catch(error => {
             console.log(error);
         });
@@ -121,42 +125,40 @@ const VenderAudirionAllList = () => {
                                 <table className="product-table">
                                     <thead>
                                         <tr>
-                                            <th>오디션번호</th>
+                                            <th>번호</th>
                                             <th>예약자명</th>
                                             <th>수령일자</th>
-                                            <th>픽업방식</th>
+                                            <th>수령방식</th>
                                             <th>요청도안</th>
                                             <th>상품보유여부</th>
+                                            <th>희망지역</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>2024-11-15</td>
-                                            <td>픽업</td>
-                                            <td>3번도안</td>
-                                            <td>보유중</td>
-                                            <td>
-                                                <Link to='/vender/venderInsertAudition'>
-                                                    <button className="supervision-read-button">참여하러가기</button>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>2024-11-15</td>
-                                            <td>픽업</td>
-                                            <td>3번도안</td>
-                                            <td>미보유</td>
-                                            <td>
-                                                <Link to='/user/cakeDesign/detail'>
-                                                    <button className="supervision-read-button" >도안 추가하러가기</button>
-                                                </Link>
-                                            </td>
-                                        </tr>
+                                        {auditionAllList.map((audition)=>{
+                                            return(
+                                                <tr>
+                                                    <td>{audition.auditionId}</td>
+                                                    <td>{audition.userName}</td>
+                                                    <td>{audition.date}</td>
+                                                    <td>{audition.deliveryMethod}</td>
+                                                    <td>{audition.designId} 번도안</td>
+                                                    <td>{audition.designStatus}</td>
+                                                    <td>{audition.region}</td>
+                                                    <td>
+                                                        {audition.designStatus != "미보유" && (
+                                                            <Link to={`/vender/venderInsertAudition/${audition.auditionId}`}>
+                                                                <button className="supervision-read-button">참여하러가기</button>
+                                                            </Link>
+                                                        )}
+                                                        
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                        
+                                        
 
                                     </tbody>
                                 </table>

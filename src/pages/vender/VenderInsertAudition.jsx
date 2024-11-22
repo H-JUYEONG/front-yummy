@@ -1,6 +1,7 @@
 //import 라이브러리
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 //import 컴포넌트
 import VenderProductModalInsert from './VenderProductModalInsert';
@@ -13,24 +14,13 @@ import '../../assets/css/vender/venderInsertAudition.css';
 
 
 const VenderInsertAudition = () => {
-
-    /* ---라우터 관련 ------ */
-
-
-    /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
-
-
-    /*---일반 메소드 --------------------------------------------*/
-
-
-    /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
+    const {auditionId} = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    //모달, 옵션 창 
     const openNewWindow = () => {
         window.open('/vender/venderauditonrequest', '_blank');
     };
-
-
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -39,18 +29,32 @@ const VenderInsertAudition = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    //주문정보,상품정보 가져오기
+    
+    const getOrder = ()=>{
+        //console.log('주문정보 가져오기 준')
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/order/${auditionId}`,
+
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+    }
     
 
     
 
-
-
-
-    // 1.이벤트 잡기
-
-    //2. 데이터 잡기 + 묶기(배열)
-
-    //3. 전송 (ajax 사용)
+    useEffect(()=>{
+        getOrder();
+    },[])
 
 
 
