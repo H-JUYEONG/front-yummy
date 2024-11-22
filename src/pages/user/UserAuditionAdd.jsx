@@ -133,7 +133,7 @@ const UserAuditionAdd = () => {
         <div className="user-cake-audition-board-list">
           <form className="user-cake-audition-main" onSubmit={handleFormSubmit}>
             <h1 className="user-cake-audition-title">
-              케이크 정보를 입력해주세요!
+              달콤한 케이크 부탁해요!
             </h1>
 
             <div className="user-cake-audition-form-group">
@@ -149,7 +149,7 @@ const UserAuditionAdd = () => {
             </div>
 
             <div className="user-cake-audition-form-group">
-              <label htmlFor="price">가격</label>
+              <label htmlFor="price">희망 가격</label>
               <input
                 type="text"
                 id="price"
