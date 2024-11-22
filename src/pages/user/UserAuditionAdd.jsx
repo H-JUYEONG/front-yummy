@@ -26,8 +26,6 @@ const UserAuditionAdd = () => {
 
   const [selectedTab, setSelectedTab] = useState("찜한 도안");
   const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
-  const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
-  const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
 
   // 찜한 도안 데이터 가져오기
   useEffect(() => {
@@ -76,12 +74,6 @@ const UserAuditionAdd = () => {
     }
   };
 
-  // 선택된 도안 번호, 이미지
-  const handleSelectDesign = (designId, designImgUrl) => {
-    setSelectedDesignId(designId); // 선택된 도안 번호 설정
-    setSelectedDesignImgUrl(designImgUrl); // 선택된 도안 이미지 설정
-  };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -103,15 +95,9 @@ const UserAuditionAdd = () => {
     formData.append("region", region);
     formData.append("requests", requests);
     formData.append("deliveryAddress", deliveryAddress);
-    // 현재 선택된 탭 추가
-    formData.append("selectedTab", selectedTab);
 
-    // 탭에 따른 데이터 처리
-    if (selectedTab === "찜한 도안" && selectedDesignId) {
-      formData.append("designId", selectedDesignId); // 선택된 도안 번호 추가
-      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 선택된 도안 번호 추가
-    } else if (selectedTab === "사진 첨부" && uploadedImage) {
-      formData.append("uploadedImage", uploadedImage); // 업로드된 이미지 추가
+    if (uploadedImage) {
+      formData.append("uploadedImage", uploadedImage);
     }
 
     try {
@@ -125,8 +111,6 @@ const UserAuditionAdd = () => {
           },
         }
       );
-
-      console.log(response.data);
 
       if (response.data.result === "success") {
         navigate("/user/audition/board");
@@ -149,7 +133,7 @@ const UserAuditionAdd = () => {
         <div className="user-cake-audition-board-list">
           <form className="user-cake-audition-main" onSubmit={handleFormSubmit}>
             <h1 className="user-cake-audition-title">
-              케이크 정보를 입력해주세요!
+              달콤한 케이크 부탁해요!
             </h1>
 
             <div className="user-cake-audition-form-group">
@@ -165,7 +149,7 @@ const UserAuditionAdd = () => {
             </div>
 
             <div className="user-cake-audition-form-group">
-              <label htmlFor="price">가격</label>
+              <label htmlFor="price">희망 가격</label>
               <input
                 type="text"
                 id="price"
@@ -379,17 +363,7 @@ const UserAuditionAdd = () => {
                   {likedDesigns.map((design, index) => (
                     <div
                       key={index}
-                      className={`user-audition-liked-design-card ${
-                        selectedDesignId === design.cakeDesignId
-                          ? "selected"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        handleSelectDesign(
-                          design.cakeDesignId,
-                          design.cakeDesignImageUrl
-                        )
-                      } // 선택 이벤트 추가
+                      className="user-audition-liked-design-card"
                     >
                       <img
                         src={design.cakeDesignImageUrl}

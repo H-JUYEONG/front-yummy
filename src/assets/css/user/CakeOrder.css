@@ -661,6 +661,120 @@
     background-color:  #ff6f61;
 }
 
+.reviews-container .review-item .review-replies {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid #f0f0f0;
+}
+
+.reviews-container .review-item .review-reply {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-container .review-item .reply-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.reviews-container .review-item .vendor-badge {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.reviews-container .review-item .vendor-name {
+    font-weight: 600;
+    color: #333;
+    margin-right: auto;
+}
+
+.reviews-container .review-item .reply-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.reviews-container .review-item .reply-content {
+    margin: 0;
+    line-height: 1.5;
+    color: #444;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.reviews-container .review-item .reply-form {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.reviews-container .review-item .reply-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.reviews-container .review-item .reply-form textarea:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+}
+
+.reviews-container .review-item .reply-form button {
+    padding: 0.5rem 1rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.reviews-container .review-item .reply-form button:hover {
+    background-color: #ff5252;
+}
+
+.reviews-container .review-item .reply-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.reviews-container .review-item .delete-reply-button {
+    padding: 4px 8px;
+    background-color: transparent;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.reviews-container .review-item .delete-reply-button:hover {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+
 /* 주문 버튼 */
 #user-wrap .cake-order-container .submit-button {
     width: 200px;
@@ -878,7 +992,7 @@
     z-index: 2;
 }
 
-/* ::before 가상 요소 제거 */
+
 #user-wrap .cake-order-container .color-options {
     display: flex;
     gap: 45px;
@@ -1035,6 +1149,22 @@
 
     #user-wrap .cake-order-container .tab-button {
         flex: 0 0 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .reviews-container .review-item .review-replies {
+        padding-left: 1rem;
+    }
+
+    .reviews-container .review-item .reply-header {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .reviews-container .review-item .vendor-name {
+        width: 100%;
+        margin-bottom: 4px;
     }
 }
 
