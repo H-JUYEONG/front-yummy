@@ -57,7 +57,9 @@ import UserOrderComplete from './pages/user/UserOrderComplete';
 import UserWritingList from "./pages/user/UserWritingList";
 import UserAuditionBoard from './pages/user/UserAuditionBoard';
 import UserAuditionAdd from './pages/user/UserAuditionAdd';
+import UserAuditionEdit from './pages/user/UserAuditionEdit';
 import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
+import UserAuditionModal from './pages/user/UserAuditionModal.jsx';
 import UserMyAudtion from './pages/user/UserMyAudtion';
 import UserExeStoreDetail from './pages/user/UserExeStoreDetail';
 
@@ -149,7 +151,9 @@ function App() {
           <Route path='/' element={<UserMainForm />} />
           <Route path='/user/audition/board' element={<UserAuditionBoard />} />
           <Route path='/user/audition/add' element={<UserAuditionAdd />} />
+          <Route path='/user/audition/edit/:auditionApplicationId' element={<UserAuditionEdit />} />
           <Route path='/user/audition/ongoing/:auditionApplicationId' element={<UserAuditionOngoing />} />
+          <Route path='/user/audition/modal' element={<UserAuditionModal />} />
           <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
           <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
