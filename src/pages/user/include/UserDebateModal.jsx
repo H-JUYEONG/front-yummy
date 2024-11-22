@@ -13,17 +13,62 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
   const [likedID, setLikedID] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // For category filter
 
+
+/* commonly used const for list */
   const [searchKeyword, setSearchKeyword] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const [likedProducts, setWishlistProducts] = useState([]);
 
-
   const [likedDesigns, setUserCakeDesignList] = useState([]);
 
 
-  const categories = ["전체", "케이크", "초콜릿", "쿠키"]; // Sample categories
+  const getWishLists = async (page = 1) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/modal`,
+            headers: { 
+                Authorization: `Bearer ${token}` 
+            },
+            params: {
+                page: page,
+                size: 8,
+                keyword: searchKeyword
+            },
+            responseType: 'json'
+        });
+
+        if (response.data.result === "success") {
+            console.log("위시리스트 데이터:", response.data.apiData);
+            const products = response.data.apiData.content || [];
+            const validProducts = products.filter(
+                (product) => product && product.productId
+            );
+            setWishlistProducts(validProducts);
+            setTotalPages(response.data.apiData.totalPages || 1);
+        } else {
+            alert(response.data.message || "상품 목록 가져오기 실패");
+        }
+    } catch (error) {
+        console.error('API Error:', error);
+        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+    }
+};
+
+useEffect(() => {
+  getWishLists(currentPage);
+}, [currentPage]);
+
+// 검색 핸들러
+const handleSearch = () => {
+  setCurrentPage(1);
+  getWishLists(1);
+};
+  
+
+
 
   const handleImageClick = (imageUrl, likedType, likedID) => {
     onSelectImage(imageUrl);
@@ -64,6 +109,7 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
 
         {/* Search and Category Dropdown */}
         <div className="j-search-category-container">
+          {/*
           <select
             className="j-category-select"
             value={selectedCategory}
@@ -75,7 +121,7 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
               </option>
             ))}
           </select>
-
+          */}
           <div className="j-search-bar">
             <input
               type="text"
