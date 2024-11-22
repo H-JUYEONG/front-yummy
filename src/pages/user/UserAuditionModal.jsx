@@ -12,27 +12,26 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
 const navigate = useNavigate();
   if (!isOpen || !company) return null; // isOpen이 false이거나 company가 없으면 렌더링하지 않음
 
-  const auditionSelect = () => {
-    axios({
-      method: "put",
-      url: `${process.env.REACT_APP_API_URL}/api/users/audition/select`,
-      params: {auditionApplicationId: company.auditionApplicationId, auditionCartId: company.auditionCartId},
-      responseType: "json", // 수신타입
-    })
-      .then((response) => {
+  // const auditionSelect = () => {
+  //   axios({
+  //     method: "put",
+  //     url: `${process.env.REACT_APP_API_URL}/api/users/audition/select`,
+  //     params: {auditionApplicationId: company.auditionApplicationId, auditionCartId: company.auditionCartId},
+  //     responseType: "json", // 수신타입
+  //   })
+  //     .then((response) => {
 
-        console.log(response.data.apiData); // 객체 자체를 출력
-        if (response.data.result === "success") {
-            alert("신청이 완료되었습니다.");
-            navigate("/user/audition/board");
-        } else {
-          alert("신청 실패");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //       console.log(response.data.apiData); // 객체 자체를 출력
+  //       if (response.data.result === "success") {
+  //           navigate("/user/paymentdetail");
+  //       } else {
+  //         alert("신청 실패");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div className="vender-sso-modal-overlay">
@@ -92,7 +91,7 @@ const navigate = useNavigate();
                   />
                 </div>
                 <div>
-                <button className="user-ongoing-select-button" onClick={auditionSelect}>신청하기</button>
+                <button className="user-ongoing-select-button" onClick={()=>navigate("/user/paymentdetail")}>주문하기</button>
               </div>
               </div>
 
