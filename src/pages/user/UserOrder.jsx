@@ -228,10 +228,10 @@ const UserOrder = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/detail/media/${order.id}`);
                 console.log("미디어 상세 응답:", response.data);
-    
+
                 // apiData 안의 데이터를 사용하도록 수정
                 const mediaData = response.data.apiData;  // apiData 내부의 데이터 추출
-                
+
                 setSelectedOrder({
                     ...order,
                     ...mediaData,  // apiData의 내용을 풀어서 넣기
@@ -243,14 +243,14 @@ const UserOrder = () => {
                     orderStatus: order.orderStatus,
                     statusMessage: order.statusMessage
                 });
-                
+
                 console.log("Updated selectedOrder:", {
                     ...order,
                     ...mediaData,
                     orderStatus: order.orderStatus,
                     statusMessage: order.statusMessage
                 });
-                
+
                 setShowDetail(true);
                 window.scrollTo(0, 0);
             } catch (error) {
@@ -405,7 +405,7 @@ const UserOrder = () => {
 
     const OrderDetail = () => {
         console.log("OrderDetail 렌더링 - selectedOrder:", selectedOrder);  // 상태 확인을 위한 로그
-    
+
         return (
             <div className="order-detail-container">
                 <div className="header-actions">
@@ -414,13 +414,13 @@ const UserOrder = () => {
                         주문목록으로
                     </button>
                 </div>
-    
+
                 <div className="order-info">
                     <p>주문번호: {selectedOrder?.id}</p>
                     <p>주문일자: {selectedOrder?.date}</p>
                     <p>상품명: {selectedOrder?.productName}</p>
                 </div>
-    
+
                 <div className="cake-media-section">
                     {/* 사진 섹션 */}
                     {selectedOrder?.orderPhotoUrl && (  // photoUrl이 아닌 orderPhotoUrl로 수정
@@ -444,7 +444,7 @@ const UserOrder = () => {
             </div>
         );
     };
-    
+
 
 
 

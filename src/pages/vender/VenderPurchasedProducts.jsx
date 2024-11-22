@@ -19,7 +19,6 @@ const VenderPurchasedProducts = () => {
     const navigate = useNavigate();
     const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
     const [sortOrder, setSortOrder] = useState("asc"); // 정렬 상태 추가 ("asc" 또는 "desc")
-
     const [authUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -88,10 +87,19 @@ const VenderPurchasedProducts = () => {
     // 페이지 번호 계산
     const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
 
+    // 현재 페이지에 표시할 번호의 범위 계산
+    const maxPageNumbersToShow = 5; // 최대 표시할 페이지 번호 수
+    const currentGroup = Math.ceil(currentPage / maxPageNumbersToShow); // 현재 그룹 계산
+    const startPage = (currentGroup - 1) * maxPageNumbersToShow + 1;
+    const endPage = Math.min(startPage + maxPageNumbersToShow - 1, totalPages);
+
+    // 현재 그룹의 페이지 번호 배열 생성
+    const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+    // 페이지 변경 핸들러
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-
     if (isLoading) {
         return <div className="loading">데이터를 불러오는 중...</div>;
     }
@@ -162,15 +170,21 @@ const VenderPurchasedProducts = () => {
                             </table>
                             {/* 페이지네이션 영역 */}
                             <div className="pagination">
-                                {Array.from({ length: totalPages }, (_, index) => (
+                                {startPage > 1 && (
+                                    <button onClick={() => handlePageChange(startPage - 1)}>이전</button>
+                                )}
+                                {pageNumbers.map((pageNumber) => (
                                     <button
-                                        key={index + 1}
-                                        className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-                                        onClick={() => handlePageChange(index + 1)}
+                                        key={pageNumber}
+                                        className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
+                                        onClick={() => handlePageChange(pageNumber)}
                                     >
-                                        {index + 1}
+                                        {pageNumber}
                                     </button>
                                 ))}
+                                {endPage < totalPages && (
+                                    <button onClick={() => handlePageChange(endPage + 1)}>다음</button>
+                                )}
                             </div>
                         </section>
                     </main>
