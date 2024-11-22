@@ -182,33 +182,33 @@ const UserPersonalInfoEdit = () => {
       alert("기념일 이름과 날짜를 입력하세요.");
       return;
     }
-    const formattedDate = `${eventDate}T00:00:00`; // Example: "2024-11-21T00:00:00"
-    const JeffUserEventVo = {
-      userId: memberId,
-      eventName: eventName,
-      eventDate: formattedDate,
-      notificationEnabled: true
-    };
+  const formattedDate = `${eventDate}`; // Example: "2024-11-21T00:00:00"
+  const JeffUserEventVo = {
+    userId: memberId,
+    eventName:eventName,
+    eventDate: formattedDate,
+    notificationEnabled: true
+  };
+  console.log(memberId);
+  console.log(eventName);
+  console.log(eventDate);
+/*
+    const formData = new FormData();
     console.log(memberId);
+    formData.append("userId", memberId);
     console.log(eventName);
+    formData.append("eventName", eventName);
     console.log(eventDate);
-    /*
-        const formData = new FormData();
-        console.log(memberId);
-        formData.append("userId", memberId);
-        console.log(eventName);
-        formData.append("eventName", eventName);
-        console.log(eventDate);
-        formData.append("eventDate", eventDate);
+    formData.append("eventDate", eventDate);
+
+
     
-    
-        
-        setUserEventList([...userEventList, newEvent]);
-        setEventName("");
-        setEventDate("");
-    */
+    setUserEventList([...userEventList, newEvent]);
     setEventName("");
     setEventDate("");
+*/
+setEventName("");
+setEventDate("");
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,

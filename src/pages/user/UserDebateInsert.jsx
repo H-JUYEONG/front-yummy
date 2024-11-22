@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../assets/css/all.css";
@@ -9,29 +9,53 @@ import Footer from "./include/Footer";
 import UserDebateModal from "./include/UserDebateModal";
 
 const UserDebateInsert = () => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [leftImage, setLeftImage] = useState(null);
-  const [rightImage, setRightImage] = useState(null);
-  const [content, setContent] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImageSide, setSelectedImageSide] = useState("");
   const token = localStorage.getItem("token");
 
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+
+  const [leftImage, setLeftImage] = useState(null);
+  const [leftType, setLeftType] = useState("");
+  const [leftImgID, setLeftImgID] = useState("");
+  const [leftImgUrl, setLeftImgUrl] = useState("");
+
+
+  const [rightImage, setRightImage] = useState(null);
+  const [rightType, setRightType] = useState("");
+  const [rightImgID, setRightImgID] = useState("");
+  const [rightImgUrl, setRightImgUrl] = useState("");
+
+  const [content, setContent] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImageSide, setSelectedImageSide] = useState("");
+
   const handleLeftImageUpload = (event) => {
-    setLeftImage(URL.createObjectURL(event.target.files[0]));
+    setLeftImage(event.target.files[0]);
+    setLeftImgUrl(URL.createObjectURL(event.target.files[0]));
+    setLeftType("Image");
+    setLeftImgID("");
   };
 
   const handleRightImageUpload = (event) => {
-    setRightImage(URL.createObjectURL(event.target.files[0]));
+    setRightImage(event.target.files[0]);
+    setRightImgUrl(URL.createObjectURL(event.target.files[0]));
+    setRightType("Image");
+    setRightImgID("");
   };
 
   const handleLeftImageDelete = () => {
     setLeftImage(null);
+    setLeftImgUrl("");
+    setLeftType("");
+    setLeftImgID("");
   };
 
   const handleRightImageDelete = () => {
     setRightImage(null);
+    setRightImgUrl("");
+    setRightType("");
+    setRightImgID("");
   };
 
   const openModal = (side) => {
@@ -50,30 +74,33 @@ const UserDebateInsert = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!title || !category || !content) {
+    const formData = new FormData();
+    if (!title || !category || !content || !leftImgUrl || !rightImgUrl) {
       alert("모든 필드를 입력해주세요.");
       return;
     }
+    formData.append("debate_title", title);
+    formData.append("debate_category", category);
+    formData.append("debate_left_item_type", leftType);
+    formData.append("debate_left_item_id", leftImgID);
+    formData.append("debate_left_image_url", leftImgUrl);
+    formData.append("debate_right_item_type", rightType);
+    formData.append("debate_right_item_id", rightImgID);
+    formData.append("debate_right_image_url", rightImgUrl);
+    formData.append("debate_content", content);
 
-    const debateData = {
-      debate_title: title,
-      debate_category: category,
-      debate_left_item_type: leftImage ? "Image" : null, // Example
-      debate_left_image_url: leftImage,
-      debate_right_item_type: rightImage ? "Image" : null, // Example
-      debate_right_image_url: rightImage,
-      debate_content: content,
-    };
+    formData.append("leftImage", leftImage);
+    formData.append("rightImage", rightImage);
 
+
+    
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/debate/debateinsert/post`,
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
-      data: debateData,
+      data: formData,
       responseType: "json",
     })
       .then((response) => {
@@ -123,8 +150,8 @@ const UserDebateInsert = () => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">카테고리 선택</option>
-                <option value="design">도안 토론</option>
-                <option value="vendor">업체 토론</option>
+                <option value="design">케이크 디자인 토크</option>
+                <option value="vendor">업체  토론</option>
               </select>
             </div>
 
@@ -163,7 +190,7 @@ const UserDebateInsert = () => {
                   {leftImage && (
                     <div className="debate-insert-image-container">
                       <img
-                        src={leftImage}
+                        src={leftImgUrl}
                         alt="Left"
                         className="debate-insert-inserted-image"
                       />
@@ -181,10 +208,16 @@ const UserDebateInsert = () => {
                 <div className="debate-insert-image-option">
                   {!rightImage && (
                     <>
-                      <button className="debate-insert-upload-btn">
+                      <button className="debate-insert-upload-btn"
+                        onClick={() =>
+                          document.getElementById("right-image-upload").click()
+                        }
+                        type="button"
+                        >
                         내PC에서 추가
                         <input
                           type="file"
+                          id="right-image-upload"
                           accept="image/*"
                           onChange={handleRightImageUpload}
                           className="debate-insert-image-upload-input"
@@ -202,7 +235,7 @@ const UserDebateInsert = () => {
                   {rightImage && (
                     <div className="debate-insert-image-container">
                       <img
-                        src={rightImage}
+                        src={rightImgUrl}
                         alt="Right"
                         className="debate-insert-inserted-image"
                       />

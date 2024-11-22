@@ -51,7 +51,10 @@ const UserCakeDetail = () => {
             5: 0
         }
     });
+
     const [newReply, setNewReply] = useState({});  // 리뷰 ID를 키로 사용
+
+    const { venderId } = useParams();
 
     const [deliveryType, setDeliveryType] = useState('pickup');
 
@@ -1052,7 +1055,7 @@ const UserCakeDetail = () => {
     // 메인 렌더링
     return (
         <div id="user-wrap" className="text-center">
-            <VenderHeader />
+            <VenderHeader venderId={venderId} />
             <main id="user-wrap-body" className="clearfix">
 
                 <div className="cake-order-container">
