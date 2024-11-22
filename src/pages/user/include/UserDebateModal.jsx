@@ -1,34 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Search } from 'lucide-react';
 import "../../../assets/css/user/userdebatemodal.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 
 const UserDebateModal = ({ onSelectImage, onClose }) => {
-  const [selectedTab, setSelectedTab] = useState("찜한 상품"); // Track selected tab
+  const token = localStorage.getItem("token");
+
+  const [selectedTab, setSelectedTab] = useState("찜한 상품"); // Track selected tab default to 찜한 상품
+  const [likedType, setLikedType] = useState("Product");// track the type and default to 찜한 상품 as well
+  const [likedID, setLikedID] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(""); // For category filter
-  const [currentPage, setCurrentPage] = useState(1); // For pagination
 
-  const likedProducts = [
-    { id: 1, image: "/images/2호_일반케이크.jpg", name: "초코 도안", type: "product" },
-    { id: 2, image: "/images/4호_골프장 케이크.png", name: "골프장 도안", type: "product" },
-    { id: 3, image: "/images/4호_달걀 한판 케이크.png", name: "달걀 도안", type: "design" },
-    { id: 4, image: "/images/3호_특별한케이크(달력).jpg", name: "달력 도안", type: "design" },
-    { id: 5, image: "/images/2호_일반케이크.jpg", name: "도안 5", type: "design" },
-    { id: 6, image: "/images/2호_일반케이크.jpg", name: "도안 6", type: "product" },
-    { id: 7, image: "/images/2호_일반케이크.jpg", name: "도안 7", type: "product" },
-    { id: 8, image: "/images/2호_일반케이크.jpg", name: "도안 8", type: "design" },
-  ];
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const likedDesigns = [
-    { id: 1, image: "/images/2호_일반케이크.jpg", name: "초코 도안", type: "product" },
-    { id: 2, image: "/images/4호_골프장 케이크.png", name: "골프장 도안", type: "product" },
-    { id: 3, image: "/images/4호_달걀 한판 케이크.png", name: "달걀 도안", type: "design" },
-    { id: 4, image: "/images/3호_특별한케이크(달력).jpg", name: "달력 도안", type: "design" },
+  const [likedProducts, setWishlistProducts] = useState([]);
 
-  ];
+
+  const [likedDesigns, setUserCakeDesignList] = useState([]);
+
 
   const categories = ["전체", "케이크", "초콜릿", "쿠키"]; // Sample categories
 
-  const handleImageClick = (imageUrl) => {
+  const handleImageClick = (imageUrl, likedType, likedID) => {
     onSelectImage(imageUrl);
     onClose();
   };
@@ -47,13 +44,19 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
         <div className="j-tab-container">
           <button
             className={`j-tab ${selectedTab === "찜한 상품" ? "active" : ""}`}
-            onClick={() => setSelectedTab("찜한 상품")}
+            onClick={() => {
+              setSelectedTab("찜한 상품");
+              setLikedType("Product");
+            }}
           >
             찜한 상품
           </button>
           <button
             className={`j-tab ${selectedTab === "찜한 도안" ? "active" : ""}`}
-            onClick={() => setSelectedTab("찜한 도안")}
+            onClick={() => {
+              setSelectedTab("찜한 도안");
+              setLikedType("Design");
+            }}
           >
             찜한 도안
           </button>
