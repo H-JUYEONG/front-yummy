@@ -6,13 +6,13 @@ import axios from 'axios';
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
-import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
+
 
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
     //업체 프로필사진
     const [logo, setLogo] = useState("");
-
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));
 
@@ -20,9 +20,40 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
     });
+
     const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
 
+    // 유저 정보 가져오기
+    useEffect(() => {
+        if (!authUser) {
+            alert('로그인이 필요합니다.');
+            navigate('/user/login');
+        }
+    }, [authUser, navigate]);
 
+
+    //업체별 로고사진 가져오기
+    const getLogo = () => {
+        if (!venderId) return;
+
+        setLoading(true);
+        axios
+            .get(`${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderId}`)
+            .then((response) => {
+                setLogo(response.data.apiData || '/path/to/default-image.jpg');
+            })
+            .catch((error) => {
+                console.error('Error fetching logo:', error);
+                setLogo('/path/to/default-image.jpg');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        getLogo();
+    }, [venderId]);
 
     const handleLogout = () => {
         console.log('로그아웃');
@@ -39,36 +70,12 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         navigate('/');
     };
 
-    //업체별 로고사진 가져오기
-
-    const getLogo = ()=>{
-
-        axios({
-            method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderId}`,
-            responseType: 'json' //수신타입
-
-        }).then(response => {
-            console.log(response); //수신데이타
-
-            setLogo(response.data.apiData)
-        }).catch(error => {
-            console.log(error);
-        });
-        
-    }
-
-    useEffect(()=>{
-        getLogo();
-        
-    },[])
-
 
     return (
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
                 <Link to={`/user/storedetail/${venderId}`}>
-                    <img className="profile-img" src={logo} alt="프로필 이미지" />
+                    {loading ? <p>로딩 중...</p> : <img className="profile-img" src={logo} alt="프로필 이미지" />}
                 </Link>
                 <h3>CakeLines</h3>
                 <p>
