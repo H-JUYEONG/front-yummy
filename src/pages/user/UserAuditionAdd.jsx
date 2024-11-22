@@ -74,6 +74,15 @@ const UserAuditionAdd = () => {
     }
   };
 
+
+  // 선택된 도안 번호, 이미지
+  const handleSelectDesign = (designId, designImgUrl) => {
+    setSelectedDesignId(designId); // 선택된 도안 번호 설정
+    setSelectedDesignImgUrl(designImgUrl); // 선택된 도안 이미지 설정
+  };
+
+  // 등록하기
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -153,9 +162,9 @@ const UserAuditionAdd = () => {
               <input
                 type="text"
                 id="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                placeholder="예: 35,000원"
+                value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
+                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
+                placeholder="예: 35000"
                 className="user-audition-input-text"
               />
             </div>

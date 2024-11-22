@@ -30,6 +30,7 @@ const UserAuditionOngoing = () => {
     })
       .then((response) => {
         const data = response.data.apiData; // API 데이터
+        console.log(response.data.apiData); // 객체 자체를 출력
         console.log("받아온 데이터:", data); // 객체 자체를 출력
         if (response.data.result === "success") {
           setAuditionDetail(data.auditionDetail);
