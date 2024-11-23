@@ -61,7 +61,7 @@ const UserDebateList = () => {
           <div id="user-debate-add" className="clearfix">
             <div className="user-debate-all-count">ALL 3</div>
             <div className="user-debate-add-btn">
-              <button onClick={() => navigate("/board/debateinsert")}>
+              <button onClick={() => navigate("/debate/debateinsert")}>
                 고민 등록하기
               </button>
             </div>

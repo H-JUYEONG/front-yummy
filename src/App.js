@@ -170,10 +170,10 @@ function App() {
           <Route path='/admin/shopmanage' element={<AdminShopManage />} />
           <Route path='/admin/shopadd' element={<AdminShopAdd />} />
           {/* Board Routes */}
-          <Route path='/board' element={<UserDebateList />} />
-          <Route path='/board/debateinsert' element={<UserDebateInsert />} />
-          <Route path='/board/boardview' element={<UserDebateView />} />
-          <Route path="/board/debateedit" element={<UserDebateEdit />} />
+          <Route path='/debate/board' element={<UserDebateList />} />
+          <Route path='/debate/debateinsert' element={<UserDebateInsert />} />
+          <Route path='/debate/boardview' element={<UserDebateView />} />
+          <Route path='/debate/debateedit' element={<UserDebateEdit />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -19,12 +19,12 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [likedProducts, setWishlistProducts] = useState([]);
+  const [likedProducts, setLikedProducts] = useState([]);
 
   const [likedDesigns, setUserCakeDesignList] = useState([]);
 
 
-  const getWishLists = async (page = 1) => {
+  const getLikedProducts = async (page = 1) => {
     try {
         const response = await axios({
             method: 'get',
@@ -46,7 +46,7 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
             const validProducts = products.filter(
                 (product) => product && product.productId
             );
-            setWishlistProducts(validProducts);
+            setLikedProducts(validProducts);
             setTotalPages(response.data.apiData.totalPages || 1);
         } else {
             alert(response.data.message || "상품 목록 가져오기 실패");
@@ -58,22 +58,23 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
 };
 
 useEffect(() => {
-  getWishLists(currentPage);
+  getLikedProducts(currentPage);
 }, [currentPage]);
 
 // 검색 핸들러
 const handleSearch = () => {
   setCurrentPage(1);
-  getWishLists(1);
+  getLikedProducts(1);
 };
   
 
 
 
-  const handleImageClick = (imageUrl, likedType, likedID) => {
-    onSelectImage(imageUrl);
-    onClose();
-  };
+const handleImageClick = (imageUrl, likedType, likedID) => {
+  console.log("Modal image click:", { imageUrl, likedType, likedID }); // Debugging log
+  onSelectImage(imageUrl, likedType, likedID);
+  onClose();
+};
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -125,10 +126,18 @@ const handleSearch = () => {
           <div className="j-search-bar">
             <input
               type="text"
-              placeholder="도안 검색"
+              placeholder="검색"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSearch();
+                  }
+              }}
               className="j-search-input"
             />
-            <button className="j-search-button">
+            <button className="j-search-button" onClick={handleSearch}>
               <Search size={20} />
             </button>
           </div>
@@ -136,34 +145,80 @@ const handleSearch = () => {
 
         {/* Product grid based on selected tab */}
         <div className="j-products-grid">
-          {(selectedTab === "찜한 상품" ? likedProducts : likedDesigns).map((item) => (
-            <div
-              key={item.id}
-              className="j-product-card"
-              onClick={() => handleImageClick(item.image)}
-            >
-              <div className="j-product-image">
-                <img src={item.image} alt={item.name} />
+          {likedProducts.length > 0 ? (
+            likedProducts.map((product) => (
+              <div
+                key={product.productId}
+                className="j-product-card"
+                onClick={() =>
+                  handleImageClick(
+                    product.productImageUrl,
+                    "Product",
+                    product.productId
+                  )
+                }
+              >
+                <div className="j-product-image">
+                  <img
+                    src={product.productImageUrl}
+                    alt={product.productName}
+                  />
+                </div>
+                <div className="j-product-info">
+                  <h3>{product.productName}</h3>
+                </div>
               </div>
-              <div className="j-product-info">
-                <h3>{item.name}</h3>
-              </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>찜한 상품이 없습니다.</p>
+          )}
         </div>
 
         {/* Pagination */}
         <div className="j-pagination">
-          {[1, 2, 3, 4].map((page) => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`j-page-number ${currentPage === page ? "active" : ""}`}
-            >
-              {page}
-            </button>
-          ))}
+          <button
+            className="j-prev-page"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
+          >
+            {'<'}
+          </button>
+
+          {(() => {
+            const pageNumbers = [];
+            const maxPages = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + maxPages - 1);
+
+            if (endPage - startPage + 1 < maxPages) {
+              startPage = Math.max(1, endPage - maxPages + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+              pageNumbers.push(
+                <button
+                  key={i}
+                  onClick={() => handlePageChange(i)}
+                  className={`j-page-number ${currentPage === i ? 'active' : ''}`}
+                >
+                  {i}
+                </button>
+              );
+            }
+            return pageNumbers;
+          })()}
+
+          <button
+            className="j-next-page"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            style={{ opacity: currentPage === totalPages ? 0.5 : 1 }}
+          >
+            {'>'}
+          </button>
         </div>
+
       </div>
     </div>
   );
