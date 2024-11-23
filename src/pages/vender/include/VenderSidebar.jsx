@@ -11,7 +11,7 @@ import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
     //업체 프로필사진
-    const [logo, setLogo] = useState("");
+    const [logo, setLogo] = useState(cakeLogo); // 기본값을 케이크 로고로 설정
 
     const navigate = useNavigate(); // 페이지 이동
     const [token, setToken] = useState(localStorage.getItem('token'));

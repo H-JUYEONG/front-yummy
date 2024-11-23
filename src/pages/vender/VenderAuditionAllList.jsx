@@ -1,6 +1,7 @@
 //import 라이브러리
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate,  Link } from 'react-router-dom';
+import axios from 'axios';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -24,6 +25,14 @@ const VenderAudirionAllList = () => {
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
 
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+
+    const venderId = authUser.vender_id;
+
+
     // 상품 리스트 데이터 예시
     const products = [
         { name: '초콜릿 케이크', type: '일반 케이크', price: '30,000원', description: '촉촉, 풍부한 초콜릿 맛', status: '노출' },
@@ -41,6 +50,9 @@ const VenderAudirionAllList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
+    //오디션리스트
+    const [auditionAllList, setAuditionAllList] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
 
     // 페이지 수 계산
@@ -55,9 +67,37 @@ const VenderAudirionAllList = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    // 1.이벤트 잡기
-    //2. 데이터 잡기 + 묶기(배열)
-    //3. 전송 (ajax 사용)
+    
+
+    //실시간 리스트 가져오기
+    const allList = ()=>{
+        console.log("오디션 리스트 가져오기준비 완료")
+
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/auditionList/${venderId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            //console.log(response); //수신데이타
+            //console.log(response.data.apiData)
+            setAuditionAllList(response.data.apiData)
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+    }
+
+
+
+    useEffect(()=>{
+        console.log("화면 렌더링 되었을 때 오디션 아이디"+venderId)
+        allList();
+    },[])
+
+
+
     return (
         <>
             <div className="vender-container">
@@ -85,42 +125,40 @@ const VenderAudirionAllList = () => {
                                 <table className="product-table">
                                     <thead>
                                         <tr>
-                                            <th>오디션번호</th>
+                                            <th>번호</th>
                                             <th>예약자명</th>
                                             <th>수령일자</th>
-                                            <th>픽업방식</th>
+                                            <th>수령방식</th>
                                             <th>요청도안</th>
                                             <th>상품보유여부</th>
+                                            <th>희망지역</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>2024-11-15</td>
-                                            <td>픽업</td>
-                                            <td>3번도안</td>
-                                            <td>보유중</td>
-                                            <td>
-                                                <Link to='/vender/venderInsertAudition'>
-                                                    <button className="supervision-read-button">참여하러가기</button>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>2024-11-15</td>
-                                            <td>픽업</td>
-                                            <td>3번도안</td>
-                                            <td>미보유</td>
-                                            <td>
-                                                <Link to='/user/cakeDesign/detail'>
-                                                    <button className="supervision-read-button" >도안 추가하러가기</button>
-                                                </Link>
-                                            </td>
-                                        </tr>
+                                        {auditionAllList.map((audition)=>{
+                                            return(
+                                                <tr>
+                                                    <td>{audition.auditionId}</td>
+                                                    <td>{audition.userName}</td>
+                                                    <td>{audition.date}</td>
+                                                    <td>{audition.deliveryMethod}</td>
+                                                    <td>{audition.designId} 번도안</td>
+                                                    <td>{audition.designStatus}</td>
+                                                    <td>{audition.region}</td>
+                                                    <td>
+                                                        {audition.designStatus != "미보유" && (
+                                                            <Link to={`/vender/venderInsertAudition/${audition.auditionId}`}>
+                                                                <button className="supervision-read-button">참여하러가기</button>
+                                                            </Link>
+                                                        )}
+                                                        
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                        
+                                        
 
                                     </tbody>
                                 </table>

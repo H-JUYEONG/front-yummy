@@ -27,6 +27,7 @@ const VenderStatistics = () => {
     const [authUser, setAuthUser] = useState(null);
     const [monthlyOrderCount, setMonthlyOrderCount] = useState(0);
     const [revenue, setRevenue] = useState(0);
+    const [newReviews, setNewReviews] = useState(0); // 신규 리뷰 상태 추가
     // 유저 정보 가져오기
     useEffect(() => {
         const user = localStorage.getItem('authUser');
@@ -75,6 +76,23 @@ const VenderStatistics = () => {
     
         fetchRevenue();
     }, [authUser]);
+
+        // 신규 리뷰 데이터 가져오기
+        useEffect(() => {
+            const fetchNewReviews = async () => {
+                try {
+                    const response = await axios.get(`${API_URL}/api/vender/newreviews`, {
+                        params: { venderId: authUser.vender_id },
+                    });
+                    setNewReviews(response.data.length); // 신규 리뷰 수 설정
+                } catch (error) {
+                    console.error('Error fetching new reviews:', error);
+                }
+            };
+    
+            fetchNewReviews();
+        }, [authUser]);
+    
 
     // 그래프 데이터 설정
     const salesData = {
@@ -166,7 +184,7 @@ const VenderStatistics = () => {
                             </div>
                             <div className="summary-card">
                                 <h3>새로운 리뷰</h3>
-                                <p>8건</p>
+                                <p>{newReviews}건</p>
                             </div>
                         </div>
 

@@ -123,6 +123,7 @@ const UserMainForm = () => {
                     <div className='map-img-box'>
                         <div className='map-img'>
                             <p>지도에서 원하시는 '구'를 클릭해주세요!</p>
+                            <p>선택된 지역: ' {selectedRegion} '</p>
                             <img src={mapImg} alt="지도" usemap='#seoulMap' />
                         </div>
                         <map name="seoulMap">

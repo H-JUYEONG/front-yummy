@@ -51,7 +51,11 @@ const UserCakeDetail = () => {
             5: 0
         }
     });
+
+    const [newReply, setNewReply] = useState({});  // 리뷰 ID를 키로 사용
+
     const { venderId } = useParams();
+
     const [deliveryType, setDeliveryType] = useState('pickup');
 
     // 스크롤 관련 상태
@@ -318,7 +322,48 @@ const UserCakeDetail = () => {
             await fetchWishlistInfo();
         }
     };
+    const handleDeleteReview = async (reviewId) => {
+        if (!authUser) return;
 
+        const confirmed = window.confirm('리뷰를 삭제하시겠습니까?\n관련된 모든 답글도 함께 삭제됩니다.');
+        if (!confirmed) return;
+
+        try {
+            // 요청 정보 로깅
+            console.log('삭제 요청 정보:', {
+                reviewId,
+                userId: authUser.member_id,
+                url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`
+            });
+
+            const response = await axios.delete(
+                `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`,
+                {
+                    params: { userId: authUser.member_id }
+                }
+            );
+
+            // 응답 로깅
+            console.log('삭제 응답:', response);
+
+            if (response.data.result === 'success') {
+                alert('리뷰가 삭제되었습니다.');
+                await Promise.all([
+                    fetchReviews(),
+                    fetchReviewStats()
+                ]);
+                setHasWrittenReview(false);
+                setCanReview(true);
+            } else {
+                console.error('삭제 실패 응답:', response.data);
+                alert(response.data.message || '리뷰 삭제에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('삭제 요청 실패:', error);
+            console.error('에러 상세:', error.response?.data);
+            alert('리뷰 삭제 중 오류가 발생했습니다.');
+        }
+    };
     const handleMouseDown = (e, ref) => {
         setIsDragging(true);
         const container = ref.current;
@@ -360,6 +405,89 @@ const UserCakeDetail = () => {
             ...prev,
             [name]: value
         }));
+    };
+
+    const handleReplyChange = (reviewId, content) => {
+        setNewReply(prev => ({
+            ...prev,
+            [reviewId]: content
+        }));
+    };
+    const handleAddReply = async (reviewId) => {
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/reviews/reply`,
+                {
+                    reviewId: reviewId,
+                    replyVenderId: authUser.vender_id,
+                    replyContent: newReply[reviewId]
+                }
+            );
+    
+            if(response.data.result === 'success') {
+                setNewReply(prev => ({
+                    ...prev,
+                    [reviewId]: ''
+                }));
+                
+                // reviews 배열 안에서 해당 리뷰를 찾아 replies 업데이트
+                const updatedReviews = reviews.map(review => {
+                    if(review.reviewId === reviewId) {
+                        return {
+                            ...review,
+                            // 기존 replies 배열이 없으면 새 배열 생성
+                            replies: [...(review.replies || []), {
+                                replyId: response.data.data, // 새로 생성된 replyId
+                                reviewId: reviewId,
+                                replyVenderId: authUser.vender_id,
+                                replyContent: newReply[reviewId],
+                                replyCreatedAt: new Date(),
+                                venderName: authUser.vender_name
+                            }]
+                        };
+                    }
+                    return review;
+                });
+                
+                setReviews(updatedReviews);  // 화면 즉시 업데이트
+                
+                fetchReviews(); //혹시 몰라서 한번 더 새로고침 해볼게요
+            } else {
+                alert('답글 작성에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('답글 작성 실패:', error);
+            alert('답글 작성 중 오류가 발생했습니다.');
+        }
+    };
+    const handleDeleteReply = async (replyId) => {
+        if (!authUser?.vender_id) {
+            alert('업체 로그인이 필요합니다.');
+            return;
+        }
+    
+        const confirmed = window.confirm('답글을 삭제하시겠습니까?');
+        if (!confirmed) return;
+    
+        try {
+            const response = await axios.delete(
+                `${process.env.REACT_APP_API_URL}/api/reviews/reply/${replyId}/${authUser.vender_id}`
+            );
+    
+            if (response.data.result === 'success') {
+                // 화면에서 즉시 삭제 반영
+                const updatedReviews = reviews.map(review => ({
+                    ...review,
+                    replies: (review.replies || []).filter(reply => reply.replyId !== replyId)
+                }));
+                setReviews(updatedReviews);
+            } else {
+                alert('답글 삭제에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('답글 삭제 실패:', error);
+            alert('답글 삭제 중 오류가 발생했습니다.');
+        }
     };
 
     // 옵션 렌더링 컴포넌트
@@ -670,41 +798,22 @@ const UserCakeDetail = () => {
         }
     };
 
-    const handleDeleteReview = async (reviewId) => {
-        const confirmed = window.confirm('정말로 이 리뷰를 삭제하시겠습니까?');
-        if (confirmed) {
-            try {
-                await axios.delete(`${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`);
-                alert('리뷰가 삭제되었습니다.');
-                setHasWrittenReview(false);
-                setCanReview(true);
-                await fetchReviews();
-                await fetchReviewStats();
-            } catch (error) {
-                console.error('리뷰 삭제 실패:', error);
-                alert('리뷰 삭제 중 오류가 발생했습니다.');
-            }
-        }
-    };
 
     // 리뷰 섹션 렌더링
     const renderReviewSection = () => (
         <div className="reviews-container">
-            {/* 로그인하지 않은 경우 */}
             {!authUser && (
                 <div className="review-login-message">
                     <p>리뷰를 작성하려면 로그인이 필요합니다.</p>
                 </div>
             )}
-
-            {/* 로그인했지만 구매하지 않은 경우 */}
+    
             {authUser && !canReview && !hasWrittenReview && (
                 <div className="review-purchase-message">
                     <p>이 상품을 구매한 고객만 리뷰를 작성할 수 있습니다.</p>
                 </div>
             )}
-
-            {/* 리뷰를 작성할 수 있는 경우 */}
+    
             {canReview && (
                 <div className="review-form-container">
                     <h3>리뷰 작성</h3>
@@ -712,7 +821,7 @@ const UserCakeDetail = () => {
                         <div className="rating-select">
                             <p>별점을 선택해주세요</p>
                             <div className="stars-input">
-                                {[1, 2, 3, 4, 5].map((star) => (  // 1부터 5까지로 변경
+                                {[1, 2, 3, 4, 5].map((star) => (
                                     <button
                                         key={star}
                                         type="button"
@@ -770,10 +879,8 @@ const UserCakeDetail = () => {
                     </form>
                 </div>
             )}
-
-            {/* 리뷰 통계 */}
+    
             {reviewStats && (
-                // 리뷰 통계 표시 부분 수정
                 <div className="rating-stats">
                     <div className="rating-average">
                         <div className="stars">
@@ -815,8 +922,7 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
             )}
-
-            {/* 리뷰 목록 */}
+    
             <div className="review-list">
                 <div className="review-filters">
                     <button
@@ -846,34 +952,26 @@ const UserCakeDetail = () => {
                         포토 리뷰만
                     </label>
                 </div>
-
+    
                 {reviews && reviews.length > 0 ? (
                     reviews.map((review) => (
                         <div key={review.reviewId} className="review-item">
                             <div className="review-header">
                                 <div className="review-header-info">
                                     <div className="stars">
-                                        {[...Array(5)].map((_, index) => {
-                                            const starValue = index + 1;
-                                            const isFilled = starValue <= Math.floor(reviewStats.averageRating);
-                                            const isHalfFilled = starValue === Math.ceil(reviewStats.averageRating) && reviewStats.averageRating % 1 !== 0;
-                                            return (
-                                                <span
-                                                    key={starValue}
-                                                    className={`star ${isFilled ? 'filled' : ''} ${isHalfFilled ? 'half-filled' : ''}`}
-                                                >
-                                                    {isFilled || isHalfFilled ? '★' : '☆'}
-                                                </span>
-                                            );
-                                        })}
+                                        {[...Array(review.reviewRating)].map((_, index) => (
+                                            <span key={index} className="star-filled">★</span>
+                                        ))}
                                     </div>
-                                    <span className="author">{review.author}</span>
+                                    <span className="author">
+                                        {review.authorType === 'user' ? (
+                                            <span className="user-nickname">{review.authorNickname}</span>
+                                        ) : (
+                                            <span className="vender-name">{review.authorNickname}</span>
+                                        )}
+                                    </span>
                                     <span className="date">
-                                        {new Date(review.reviewCreatedAt).toLocaleDateString('ko-KR', {
-                                            year: 'numeric',
-                                            month: '2-digit',
-                                            day: '2-digit'
-                                        })}
+                                        {new Date(review.reviewCreatedAt).toLocaleDateString('ko-KR')}
                                     </span>
                                 </div>
                                 <div className="review-header-actions">
@@ -895,9 +993,7 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
                             <div className="review-content">
-                                {review.reviewContent && (
-                                    <p>{review.reviewContent}</p>
-                                )}
+                                {review.reviewContent && <p>{review.reviewContent}</p>}
                                 {review.reviewImageUrl && (
                                     <div className="review-image">
                                         <img
@@ -905,9 +1001,50 @@ const UserCakeDetail = () => {
                                             alt="리뷰 이미지"
                                             onError={(e) => {
                                                 e.target.onerror = null;
-                                                e.target.src = "/images/no-image.png"; // 기본 이미지 경로
+                                                e.target.src = "/images/no-image.png";
                                             }}
                                         />
+                                    </div>
+                                )}
+                            </div>
+    
+                            <div className="review-replies">
+                                {review.replies?.map((reply) => (
+                                    <div key={reply.replyId} className="review-reply">
+                                        <div className="reply-header">
+                                            <span className="vendor-badge">판매자</span>
+                                            <span className="vendor-name">{reply.venderName}</span>
+                                            <span className="reply-date">
+                                                {new Date(reply.replyCreatedAt).toLocaleDateString('ko-KR')}
+                                            </span>
+                                            {authUser?.vender_id === reply.replyVenderId && (
+                                                <button
+                                                    className="delete-reply-button"
+                                                    onClick={() => handleDeleteReply(reply.replyId)}
+                                                >
+                                                    삭제
+                                                </button>
+                                            )}
+                                        </div>
+                                        <p className="reply-content">{reply.replyContent}</p>
+                                    </div>
+                                ))}
+    
+                                {authUser?.vender_id === productDetail?.venderId && 
+                                 !review.replies?.some(reply => reply.replyVenderId === authUser.vender_id) && (
+                                    <div className="reply-form">
+                                        <textarea
+                                            value={newReply[review.reviewId] || ''}
+                                            onChange={(e) => handleReplyChange(review.reviewId, e.target.value)}
+                                            placeholder="답글을 작성해주세요"
+                                            rows="2"
+                                        />
+                                        <button
+                                            onClick={() => handleAddReply(review.reviewId)}
+                                            disabled={!newReply[review.reviewId]?.trim()}
+                                        >
+                                            답글 작성
+                                        </button>
                                     </div>
                                 )}
                             </div>
