@@ -63,7 +63,27 @@ const UserAuditionEdit = () => {
           setRegion(response.data.apiData.region);
           setRequests(response.data.apiData.additionalRequests);
           setDeliveryAddress(response.data.apiData.deliveryAddress);
-          setSelectedImage(response.data.apiData.imageUrl);
+
+          // 여기만 수정: designId가 없을 때만 selectedImage 설정
+          if (!response.data.apiData.designId) {
+            setSelectedImage(response.data.apiData.imageUrl);
+          }
+
+          // 나머지 탭 선택 로직은 그대로 유지
+          if (response.data.apiData.designId) {
+            setSelectedTab("찜한 도안");
+            setSelectedDesignId(response.data.apiData.designId);
+          } else if (
+            !response.data.apiData.designId &&
+            response.data.apiData.imageUrl
+          ) {
+            setSelectedTab("사진 첨부");
+          } else if (
+            !response.data.apiData.designId &&
+            !response.data.apiData.imageUrl
+          ) {
+            setSelectedTab("사진 없음");
+          }
         } else {
           alert("오디션 글 내용 가져오기 실패");
         }
@@ -291,7 +311,9 @@ const UserAuditionEdit = () => {
                 onChange={(e) => setRegion(e.target.value)}
                 className="user-audition-input-text"
               >
-                <option value="">케이크를 수령할 지역(구)을 선택해주세요.</option>
+                <option value="">
+                  케이크를 수령할 지역(구)을 선택해주세요.
+                </option>
                 <option value="강남구">강남구</option>
                 <option value="종로구">종로구</option>
                 <option value="중구">중구</option>
