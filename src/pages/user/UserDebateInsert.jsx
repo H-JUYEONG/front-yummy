@@ -16,13 +16,13 @@ const UserDebateInsert = () => {
 
   const [leftImage, setLeftImage] = useState(null);
   const [leftType, setLeftType] = useState("");
-  const [leftImgID, setLeftImgID] = useState("");
+  const [leftImgID, setLeftImgID] = useState(null);
   const [leftImgUrl, setLeftImgUrl] = useState("");
 
 
   const [rightImage, setRightImage] = useState(null);
   const [rightType, setRightType] = useState("");
-  const [rightImgID, setRightImgID] = useState("");
+  const [rightImgID, setRightImgID] = useState(null);
   const [rightImgUrl, setRightImgUrl] = useState("");
 
   const [content, setContent] = useState("");
@@ -34,28 +34,28 @@ const UserDebateInsert = () => {
     setLeftImage(event.target.files[0]);
     setLeftImgUrl(URL.createObjectURL(event.target.files[0]));
     setLeftType("Image");
-    setLeftImgID("");
+    setLeftImgID(null);
   };
 
   const handleRightImageUpload = (event) => {
     setRightImage(event.target.files[0]);
     setRightImgUrl(URL.createObjectURL(event.target.files[0]));
     setRightType("Image");
-    setRightImgID("");
+    setRightImgID(null);
   };
 
   const handleLeftImageDelete = () => {
     setLeftImage(null);
     setLeftImgUrl("");
     setLeftType("");
-    setLeftImgID("");
+    setLeftImgID(null);
   };
 
   const handleRightImageDelete = () => {
     setRightImage(null);
     setRightImgUrl("");
     setRightType("");
-    setRightImgID("");
+    setRightImgID(null);
   };
 
   const openModal = (side) => {
@@ -80,18 +80,37 @@ const UserDebateInsert = () => {
       return;
     }
     formData.append("debate_title", title);
+    console.log("debate_title:", title);
+    
     formData.append("debate_category", category);
+    console.log("debate_category:", category);
+    
     formData.append("debate_left_item_type", leftType);
-    formData.append("debate_left_item_id", leftImgID);
+    console.log("debate_left_item_type:", leftType);
+    
+    formData.append("debate_left_item_id", leftImgID !== null ? leftImgID : -1);
+    console.log("debate_left_item_id:", leftImgID);
+    
     formData.append("debate_left_image_url", leftImgUrl);
+    console.log("debate_left_image_url:", leftImgUrl);
+    
     formData.append("debate_right_item_type", rightType);
-    formData.append("debate_right_item_id", rightImgID);
+    console.log("debate_right_item_type:", rightType);
+    
+    formData.append("debate_right_item_id", rightImgID !== null ? rightImgID : -1);
+    console.log("debate_right_item_id:", rightImgID);
+    
     formData.append("debate_right_image_url", rightImgUrl);
+    console.log("debate_right_image_url:", rightImgUrl);
+    
     formData.append("debate_content", content);
+    console.log("debate_content:", content);
+    
 
     formData.append("leftImage", leftImage);
     formData.append("rightImage", rightImage);
 
+    
 
     
     axios({
@@ -103,17 +122,16 @@ const UserDebateInsert = () => {
       data: formData,
       responseType: "json",
     })
-      .then((response) => {
-        if (response.data.result === "success") {
-          alert("토론이 성공적으로 등록되었습니다.");
-          // Optionally redirect or reset form
-        } else {
-          alert("토론 등록 실패");
-        }
-      })
-      .catch((error) => {
-        console.error("Error submitting debate:", error);
-      });
+    .then((response) => {
+      if (response.data.result === "success") {
+        alert("토론이 성공적으로 등록되었습니다.");
+      } else {
+        alert("토론 등록 실패");
+      }
+    })
+    .catch((error) => {
+      console.error("Error submitting debate:", error);
+    });
   };
 
   return (

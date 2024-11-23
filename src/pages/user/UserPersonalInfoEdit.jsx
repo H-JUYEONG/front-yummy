@@ -182,7 +182,7 @@ const UserPersonalInfoEdit = () => {
       alert("기념일 이름과 날짜를 입력하세요.");
       return;
     }
-  const formattedDate = `${eventDate}`; 
+  const formattedDate = `${eventDate}`; // Example: "2024-11-21T00:00:00"
   const JeffUserEventVo = {
     userId: memberId,
     eventName:eventName,
