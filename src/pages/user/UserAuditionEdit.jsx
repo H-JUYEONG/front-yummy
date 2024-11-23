@@ -172,7 +172,8 @@ const UserAuditionEdit = () => {
         return;
       }
     } else if (selectedTab === "사진 첨부") {
-      if (!uploadedImage) {
+      if (!uploadedImage && !selectedImage) {
+        // 새로운 파일도 없고 기존 이미지도 없는 경우 경고
         alert("첨부할 사진을 선택해주세요.");
         return;
       }
@@ -211,11 +212,16 @@ const UserAuditionEdit = () => {
       formData.append("deliveryAddress", deliveryAddress);
     }
 
+    // 선택된 탭에 따라 처리
     if (selectedTab === "찜한 도안" && selectedDesignId) {
-      formData.append("designId", selectedDesignId);
-      formData.append("cakeDesignImageUrl", selectedDesignImgUrl);
-    } else if (selectedTab === "사진 첨부" && uploadedImage) {
-      formData.append("uploadedImage", uploadedImage);
+      formData.append("designId", selectedDesignId); // 선택된 도안 ID
+      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 도안 이미지 URL
+    } else if (selectedTab === "사진 첨부") {
+      if (uploadedImage) {
+        formData.append("uploadedImage", uploadedImage); // 새로 업로드된 이미지
+      } else if (selectedImage) {
+        formData.append("existingImage", selectedImage); // 기존 등록된 이미지 URL
+      }
     }
 
     try {
