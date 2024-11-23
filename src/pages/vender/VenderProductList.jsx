@@ -52,8 +52,13 @@ const VenderProductList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
-    // 페이지 수 계산
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    // 페이지 네비게이션 로직
+    const maxPageNumbersToShow = 10; // 한 번에 표시할 페이지 번호 수
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // 전체 페이지 수 계산
+    const currentGroup = Math.ceil(currentPage / maxPageNumbersToShow); // 현재 그룹 계산
+    const startPage = (currentGroup - 1) * maxPageNumbersToShow + 1; // 현재 그룹의 시작 페이지
+    const endPage = Math.min(startPage + maxPageNumbersToShow - 1, totalPages); // 현재 그룹의 끝 페이지
+    const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
 
     // 상품 노출 상태 변경 함수
     const toggleProductStatus = async (productId) => {
@@ -173,19 +178,30 @@ const VenderProductList = () => {
                                             ))}
                                         </tbody>
                                     </table>
-
                                     {/* 페이징 네비게이션 */}
                                     <div className="pagination">
-                                        {Array.from({ length: totalPages }, (_, index) => (
+                                        {/* 이전 그룹 버튼 */}
+                                        {startPage > 1 && (
+                                            <button onClick={() => setCurrentPage(startPage - 1)}>이전</button>
+                                        )}
+
+                                        {/* 현재 그룹의 페이지 번호 */}
+                                        {pageNumbers.map((pageNumber) => (
                                             <button
-                                                key={index}
-                                                className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
-                                                onClick={() => setCurrentPage(index + 1)}
+                                                key={pageNumber}
+                                                className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
+                                                onClick={() => setCurrentPage(pageNumber)}
                                             >
-                                                {index + 1}
+                                                {pageNumber}
                                             </button>
                                         ))}
+
+                                        {/* 다음 그룹 버튼 */}
+                                        {endPage < totalPages && (
+                                            <button onClick={() => setCurrentPage(endPage + 1)}>다음</button>
+                                        )}
                                     </div>
+
                                 </>
                             )}
                         </section>

@@ -17,10 +17,13 @@ const VenderInsertAudition = () => {
     const {auditionId} = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+
     //모달, 옵션 창 
+
     const openNewWindow = () => {
         window.open('/vender/venderauditonrequest', '_blank');
     };
+
 
     const openModal = () => {
         setIsModalOpen(true);
