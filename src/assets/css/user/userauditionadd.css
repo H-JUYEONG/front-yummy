@@ -188,6 +188,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .user-audition-liked-design-card img {
@@ -196,6 +197,12 @@
   border-radius: 4px;
   margin-bottom: 10px;
   object-fit: cover;
+}
+
+/* 선택된 카드에 효과 추가 */
+.user-audition-liked-design-card.selected {
+  border: 2px solid #ff6f61;
+  transform: scale(1.03); /* 약간 확대 효과 */
 }
 
 /* 사진 업로드 섹션 */

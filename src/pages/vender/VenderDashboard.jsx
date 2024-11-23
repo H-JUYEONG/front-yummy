@@ -13,11 +13,13 @@ import koLocale from '@fullcalendar/core/locales/ko';
 import VenderHeader from './include/VenderHeader';
 import VenderSidebar from './include/VenderSidebar';
 const API_URL = process.env.REACT_APP_API_URL;
+
 const VenderDashboard = () => {
     const navigate = useNavigate(); // 페이지 이동에 사용
     const [authUser, setAuthUser] = useState(null);
     const [events, setEvents] = useState([]); // FullCalendar에서 사용할 이벤트 데이터
-
+    const [monthlyOrderCount, setMonthlyOrderCount] = useState(0);
+    const [points, setPoints] = useState(0);
     // 유저 정보 가져오기
     useEffect(() => {
         const user = localStorage.getItem('authUser');
@@ -28,6 +30,8 @@ const VenderDashboard = () => {
             navigate('/user/login');
         }
     }, [navigate]);
+
+
 
     // 예약 데이터 가져오기
     useEffect(() => {
@@ -57,7 +61,40 @@ const VenderDashboard = () => {
             fetchEvents();
         }
     }, [authUser]);
+    // 월별 주문 건수 가져오기
+    useEffect(() => {
+        const fetchMonthlyOrderCount = async () => {
+            if (authUser) {
+                try {
+                    const response = await axios.get(`${API_URL}/api/vender/monthlyCount`, {
+                        params: { venderId: authUser.vender_id },
+                    });
+                    setMonthlyOrderCount(response.data);
+                } catch (error) {
+                    console.error('Error fetching monthly order count:', error);
+                }
+            }
+        };
 
+        fetchMonthlyOrderCount();
+    }, [authUser]);
+
+    useEffect(() => {
+        const fetchPoints = async () => {
+            if (authUser) {
+                try {
+                    const response = await axios.get(`${API_URL}/api/vender/points`, {
+                        params: { memberId: authUser.member_id },
+                    });
+                    setPoints(response.data.memberPoints || 0); // undefined 방지
+                } catch (error) {
+                    console.error("Error fetching points:", error);
+                }
+            }
+        };
+
+        fetchPoints();
+    }, [authUser]);
     // FullCalendar 옵션 설정
     const calendarOptions = {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -81,6 +118,8 @@ const VenderDashboard = () => {
         return null; // authUser가 없으면 아무것도 렌더링하지 않음
     }
 
+    // 현재 월 계산 (예: 11월)
+    const currentMonth = new Date().toLocaleString('ko-KR', { month: 'long' });
     return (
         <>
             <div className="vender-container">
@@ -94,12 +133,8 @@ const VenderDashboard = () => {
                             <section className="dashboard-summary">
                                 <div className="summary-cards">
                                     <div className="card">
-                                        <h3>총 주문 건수</h3>
-                                        <p>120건</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3>총 매출</h3>
-                                        <p>3,200,000원</p>
+                                        <h3>{currentMonth} 주문 건수</h3>
+                                        <p>{monthlyOrderCount}건</p>
                                     </div>
                                     <div className="card">
                                         <h3>새로운 리뷰</h3>
@@ -107,7 +142,7 @@ const VenderDashboard = () => {
                                     </div>
                                     <div className="card">
                                         <h3>포인트</h3>
-                                        <p>2,000</p>
+                                        <p>{points.toLocaleString()}</p>
                                     </div>
                                 </div>
                             </section>
