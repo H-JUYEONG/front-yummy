@@ -116,7 +116,7 @@ const UserAuditionOngoing = () => {
                 <>
                   <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3>
                   <p>
-                    희망 가격: {auditionDetail.expectedPrice || "정보 없음"}
+                    희망 가격: {`${auditionDetail.expectedPrice.toLocaleString()}원` || "정보 없음"}
                   </p>
                   <p>
                     사이즈:{" "}

@@ -106,10 +106,8 @@ const UserAuditionEdit = () => {
       }
     };
 
-    if (selectedTab === "찜한 도안") {
-      fetchLikedDesigns();
-    }
-  }, [selectedTab, navigate]);
+    fetchLikedDesigns();
+  }, [navigate]);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -132,6 +130,7 @@ const UserAuditionEdit = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // 1. 필수 입력값 검증
     if (
       !title ||
       !price ||
@@ -139,13 +138,31 @@ const UserAuditionEdit = () => {
       !size ||
       !desiredDate ||
       !desiredTime ||
-      !recipient ||
-      !region ||
-      !requests ||
-      !deliveryAddress
+      !region
     ) {
       alert("필수 항목을 모두 입력해주세요.");
       return;
+    }
+
+    // 2. 선택된 탭에 따른 검증
+    if (selectedTab === "찜한 도안") {
+      if (!selectedDesignId) {
+        alert("찜한 도안을 선택해주세요.");
+        return;
+      }
+    } else if (selectedTab === "사진 첨부") {
+      if (!uploadedImage) {
+        alert("첨부할 사진을 선택해주세요.");
+        return;
+      }
+    }
+
+    // 3. 배송 방식에 따른 검증
+    if (deliveryMethod === "배송") {
+      if (!recipient || !deliveryAddress) {
+        alert("배송 정보를 모두 입력해주세요.");
+        return;
+      }
     }
 
     const token = localStorage.getItem("token");
@@ -155,6 +172,7 @@ const UserAuditionEdit = () => {
       return;
     }
 
+    // 5. FormData 구성
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -162,19 +180,20 @@ const UserAuditionEdit = () => {
     formData.append("deliveryMethod", deliveryMethod);
     formData.append("desiredDate", desiredDate);
     formData.append("desiredTime", desiredTime);
-    formData.append("recipient", recipient);
     formData.append("region", region);
     formData.append("requests", requests);
-    formData.append("deliveryAddress", deliveryAddress);
-    // 현재 선택된 탭 추가
     formData.append("selectedTab", selectedTab);
 
-    // 탭에 따른 데이터 처리
+    if (deliveryMethod === "배송") {
+      formData.append("recipient", recipient);
+      formData.append("deliveryAddress", deliveryAddress);
+    }
+
     if (selectedTab === "찜한 도안" && selectedDesignId) {
-      formData.append("designId", selectedDesignId); // 선택된 도안 번호 추가
-      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 선택된 도안 번호 추가
+      formData.append("designId", selectedDesignId);
+      formData.append("cakeDesignImageUrl", selectedDesignImgUrl);
     } else if (selectedTab === "사진 첨부" && uploadedImage) {
-      formData.append("uploadedImage", uploadedImage); // 업로드된 이미지 추가
+      formData.append("uploadedImage", uploadedImage);
     }
 
     try {
@@ -232,8 +251,8 @@ const UserAuditionEdit = () => {
               <input
                 type="text"
                 id="price"
-                value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
-                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
+                value={price ? Number(price).toLocaleString() : ""}
+                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))}
                 placeholder="예: 35000"
                 className="user-audition-input-text"
               />
@@ -272,9 +291,7 @@ const UserAuditionEdit = () => {
                 onChange={(e) => setRegion(e.target.value)}
                 className="user-audition-input-text"
               >
-                <option value="">
-                  케이크를 수령할 지역(구)을 선택해주세요.
-                </option>
+                <option value="">케이크를 수령할 지역(구)을 선택해주세요.</option>
                 <option value="강남구">강남구</option>
                 <option value="종로구">종로구</option>
                 <option value="중구">중구</option>
@@ -298,7 +315,6 @@ const UserAuditionEdit = () => {
                 <option value="동작구">동작구</option>
                 <option value="관악구">관악구</option>
                 <option value="서초구">서초구</option>
-                <option value="강남구">강남구</option>
                 <option value="송파구">송파구</option>
                 <option value="강동구">강동구</option>
               </select>
