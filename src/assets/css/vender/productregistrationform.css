@@ -526,3 +526,94 @@
     text-align: center;
 }
 
+.venderregistrationform-design-modal {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.venderregistrationform-design-modal-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-registration .design-search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.product-registration .design-list {
+    margin-bottom: 30px;
+}
+
+.product-registration .design-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    background: #f9f9f9;
+    transition: box-shadow 0.3s;
+}
+
+.product-registration .design-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-registration .design-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.product-registration .design-item .design-name {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-registration .design-item button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-registration .design-item button:hover {
+    background-color: #45a049;
+}
+
+.product-registration .close-modal-button {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    float: right;
+}
