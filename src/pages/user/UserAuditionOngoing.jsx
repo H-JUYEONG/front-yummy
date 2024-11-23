@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
@@ -59,6 +59,40 @@ const UserAuditionOngoing = () => {
     setSelectedCompany(null); // 선택된 업체 데이터 초기화
   };
 
+  // 글 삭제 요청 함수
+  const deleteAudition = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("토큰이 없습니다. 로그인하세요.");
+      navigate("/user/login");
+      return;
+    }
+
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      axios({
+        method: "delete",
+        url: `${process.env.REACT_APP_API_URL}/api/user/audition/delete/${auditionApplicationId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      })
+        .then((response) => {
+          if (response.data.result === "success") {
+            alert("게시글이 성공적으로 삭제되었습니다.");
+            navigate("/user/audition/board"); // 삭제 후 리스트로 이동
+          } else {
+            alert(
+              response.data.message || "게시글을 삭제하는 데 실패했습니다."
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("게시글 삭제 실패", error);
+          alert("게시글을 삭제하는 중 문제가 발생했습니다.");
+        });
+    }
+  };
+
   useEffect(() => {
     // 로그인된 사용자 정보 가져오기
     const user = JSON.parse(localStorage.getItem("authUser"));
@@ -93,13 +127,15 @@ const UserAuditionOngoing = () => {
               <div className="user-control-section">
                 <button
                   className="user-cake-edit-button"
-                  onClick={() => navigate(`/user/audition/edit/${auditionApplicationId}`)}
+                  onClick={() =>
+                    navigate(`/user/audition/edit/${auditionApplicationId}`)
+                  }
                 >
                   수정
                 </button>
                 <button
                   className="user-cake-delete-button"
-                  onClick={() => alert("삭제 기능")}
+                  onClick={deleteAudition}
                 >
                   삭제
                 </button>
@@ -116,7 +152,9 @@ const UserAuditionOngoing = () => {
                 <>
                   <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3>
                   <p>
-                    희망 가격: {`${auditionDetail.expectedPrice.toLocaleString()}원` || "정보 없음"}
+                    희망 가격:{" "}
+                    {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
+                      "정보 없음"}
                   </p>
                   <p>
                     사이즈:{" "}
@@ -166,9 +204,19 @@ const UserAuditionOngoing = () => {
                   <img
                     src={auditionVendersEnd.productImage1Url || ""}
                     alt="선택된 케이크 이미지"
+                    onClick={() =>
+                      navigate(
+                        `/user/cakedetail/${auditionVendersEnd.productId}/${auditionVendersEnd.venderId}`
+                      )
+                    }
                   />
                   <div className="ongoing-company-info">
-                    <p className="ongoing-vender-name">
+                    <p
+                      className="ongoing-vender-name"
+                      onClick={() =>
+                        navigate(`/user/storedetail/${auditionVendersEnd.venderId}`)
+                      }
+                    >
                       {auditionVendersEnd.venderName || "업체 이름 없음"}
                     </p>
                     <p>
@@ -181,39 +229,41 @@ const UserAuditionOngoing = () => {
                 </div>
                 <div className="review-section">
                   <h3>구매자 리뷰</h3>
-                  {auditionVendersReviews.length > 0 ? (
-                    auditionVendersReviews.map((review, index) => (
-                      <div key={index} className="review-item">
-                        <img
-                          src={review.productImage1Url || ""}
-                          alt={`${
-                            review.productName || "리뷰 이미지 없음"
-                          }의 리뷰 이미지`}
-                          className="review-image"
-                        />
-                        <div className="review-text">
-                          <p>
-                            <strong>
-                              {review.userNickname || "닉네임 없음"}
-                            </strong>
-                          </p>
-                          <div className="reviews-rating">
-                            {[...Array(review.reviewRating || 0)].map(
-                              (_, starIndex) => (
-                                <FaStar
-                                  key={starIndex}
-                                  className="audition-review-star-icon"
-                                />
-                              )
-                            )}
+                  <div className="review-list">
+                    {auditionVendersReviews.length > 0 ? (
+                      auditionVendersReviews.map((review, index) => (
+                        <div key={index} className="review-item">
+                          <img
+                            src={review.productImage1Url || ""}
+                            alt={`${
+                              review.productName || "리뷰 이미지 없음"
+                            }의 리뷰 이미지`}
+                            className="review-image"
+                          />
+                          <div className="review-text">
+                            <p>
+                              <strong>
+                                {review.userNickname || "닉네임 없음"}
+                              </strong>
+                            </p>
+                            <div className="reviews-rating">
+                              {[...Array(review.reviewRating || 0)].map(
+                                (_, starIndex) => (
+                                  <FaStar
+                                    key={starIndex}
+                                    className="audition-review-star-icon"
+                                  />
+                                )
+                              )}
+                            </div>
+                            <p>{review.reviewContent || "리뷰 내용 없음"}</p>
                           </div>
-                          <p>{review.reviewContent || "리뷰 내용 없음"}</p>
                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p>리뷰가 없습니다.</p>
-                  )}
+                      ))
+                    ) : (
+                      <p>리뷰가 없습니다.</p>
+                    )}
+                  </div>
                 </div>
               </div>
             ) : auditionVenders.length > 0 ? (
@@ -222,16 +272,28 @@ const UserAuditionOngoing = () => {
                   <img
                     src={company.productImage1Url || ""}
                     alt="케이크 이미지"
+                    onClick={() =>
+                      navigate(
+                        `/user/cakedetail/${company.productId}/${company.venderId}`
+                      )
+                    }
                   />
                   <div className="ongoing-company-info">
-                    <p className="ongoing-vender-name">{company.venderName}</p>
+                    <p
+                      className="ongoing-vender-name"
+                      onClick={() =>
+                        navigate(`/user/storedetail/${company.venderId}`)
+                      }
+                    >
+                      {company.venderName}
+                    </p>
                     <p>제시금액: {company.proposedAmount.toLocaleString()}원</p>
                   </div>
                   <button
                     className="ongoing-select-button"
                     onClick={() => openModal(company)}
                   >
-                    내용보기
+                    선택하기
                   </button>
                 </div>
               ))
