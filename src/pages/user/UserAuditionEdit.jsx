@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 // css
@@ -9,8 +11,9 @@ import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userauditionadd.css";
 
-const UserAuditionAdd = () => {
+const UserAuditionEdit = () => {
   const navigate = useNavigate();
+  const { auditionApplicationId } = useParams(); // URL 경로에서 값 가져오기
 
   const [title, setTitle] = useState(""); // 글 제목
   const [price, setPrice] = useState(""); // 희망 가격
@@ -22,6 +25,7 @@ const UserAuditionAdd = () => {
   const [region, setRegion] = useState(""); // 지역 구
   const [requests, setRequests] = useState(""); // 요청사항
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
+  const [selectedImage, setSelectedImage] = useState(""); // 이미 등록되어있던 이미지
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
   const [selectedTab, setSelectedTab] = useState("찜한 도안");
@@ -29,8 +33,50 @@ const UserAuditionAdd = () => {
   const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
   const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
 
+  const formatDate = (date) => {
+    if (!date) return ""; // null 체크
+    const d = new Date(date);
+    return d.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
+  };
+
+  // 오디션 상세 정보 가져오기
+  const getAuditionContent = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/users/audition/content/${auditionApplicationId}`,
+      responseType: "json", // 수신타입
+    })
+      .then((response) => {
+        console.log(response.data.apiData); // 객체 자체를 출력
+        if (response.data.result === "success") {
+          setTitle(response.data.apiData.auditionApplicationTitle);
+          setPrice(response.data.apiData.expectedPrice);
+          setSize(response.data.apiData.auditionApplicationSize);
+          setDeliveryMethod(response.data.apiData.deliveryMethod);
+          setDesiredDate(formatDate(response.data.apiData.desiredDate));
+          setDesiredTime(
+            response.data.apiData.desiredTime
+              ? response.data.apiData.desiredTime.slice(0, 5)
+              : ""
+          );
+          setRecipient(response.data.apiData.recipientName);
+          setRegion(response.data.apiData.region);
+          setRequests(response.data.apiData.additionalRequests);
+          setDeliveryAddress(response.data.apiData.deliveryAddress);
+          setSelectedImage(response.data.apiData.imageUrl);
+        } else {
+          alert("오디션 글 내용 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // 찜한 도안 데이터 가져오기
   useEffect(() => {
+    getAuditionContent();
+
     const fetchLikedDesigns = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -48,8 +94,6 @@ const UserAuditionAdd = () => {
             },
           }
         );
-        console.log('내가 찜한 도안리스트');
-        console.log(response.data.apiData);
 
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
@@ -84,9 +128,25 @@ const UserAuditionAdd = () => {
     setSelectedDesignImgUrl(designImgUrl); // 선택된 도안 이미지 설정
   };
 
-  // 등록하기
+  // 수정하기
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !title ||
+      !price ||
+      !deliveryMethod ||
+      !size ||
+      !desiredDate ||
+      !desiredTime ||
+      !recipient ||
+      !region ||
+      !requests ||
+      !deliveryAddress
+    ) {
+      alert("필수 항목을 모두 입력해주세요.");
+      return;
+    }
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -119,7 +179,7 @@ const UserAuditionAdd = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/user/add/audition`,
+        `${process.env.REACT_APP_API_URL}/api/user/edit/audition/${auditionApplicationId}`,
         formData,
         {
           headers: {
@@ -132,9 +192,9 @@ const UserAuditionAdd = () => {
       console.log(response.data);
 
       if (response.data.result === "success") {
-        navigate("/user/audition/board");
+        navigate(`/user/audition/ongoing/${auditionApplicationId}`);
       } else {
-        alert("등록 실패");
+        alert("수정 실패");
       }
     } catch (error) {
       console.error(error);
@@ -406,11 +466,16 @@ const UserAuditionAdd = () => {
               {selectedTab === "사진 첨부" && (
                 <div className="user-audition-upload-section">
                   <input type="file" onChange={handleImageUpload} />
-                  {uploadedImage && (
+                  {/* 기존 등록된 이미지 또는 새로 업로드된 이미지 미리보기 */}
+                  {(selectedImage || uploadedImage) && (
                     <div className="user-audition-uploaded-image-preview">
                       <img
-                        src={URL.createObjectURL(uploadedImage)}
-                        alt="Uploaded"
+                        src={
+                          uploadedImage
+                            ? URL.createObjectURL(uploadedImage)
+                            : selectedImage
+                        }
+                        alt="Preview"
                       />
                     </div>
                   )}
@@ -421,7 +486,7 @@ const UserAuditionAdd = () => {
 
             <div className="user-audition-add">
               <button type="submit" className="user-cake-audition-add-button">
-                등록하기
+                수정하기
               </button>
             </div>
           </form>
@@ -435,4 +500,4 @@ const UserAuditionAdd = () => {
   );
 };
 
-export default UserAuditionAdd;
+export default UserAuditionEdit;

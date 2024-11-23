@@ -70,7 +70,7 @@
 }
 
 /* 로그아웃 버튼 */
-.exit-button {
+.vender-sidebar .exit-button {
     margin-top: 30px;
     background: #ff7777;
     color: #ffffff;
@@ -82,7 +82,7 @@
     transition: background 0.3s;
 }
 
-.exit-button:hover {
+.vender-sidebar .exit-button:hover {
     background: #e74c3c;
 }
 
