@@ -48,6 +48,8 @@ const UserAuditionAdd = () => {
             },
           }
         );
+        console.log('내가 찜한 도안리스트');
+        console.log(response.data.apiData);
 
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
