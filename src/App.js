@@ -172,7 +172,7 @@ function App() {
           {/* Board Routes */}
           <Route path='/debate/board' element={<UserDebateList />} />
           <Route path='/debate/debateinsert' element={<UserDebateInsert />} />
-          <Route path='/debate/boardview' element={<UserDebateView />} />
+          <Route path='/debate/debateview/:debateId' element={<UserDebateView />} />
           <Route path='/debate/debateedit' element={<UserDebateEdit />} />
         </Routes>
       </BrowserRouter>

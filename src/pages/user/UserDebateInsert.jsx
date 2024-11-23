@@ -176,8 +176,8 @@ const UserDebateInsert = () => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">카테고리 선택</option>
-                <option value="design">케이크 디자인 토크</option>
-                <option value="vendor">업체  토론</option>
+                <option value="design">디자인 토크</option>
+                <option value="vendor">업체 토론</option>
               </select>
             </div>
 
