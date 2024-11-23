@@ -7,6 +7,7 @@ import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import UserDebateModal from "./include/UserDebateModal";
+import { useNavigate } from "react-router-dom";
 
 const UserDebateInsert = () => {
   const token = localStorage.getItem("token");
@@ -29,6 +30,8 @@ const UserDebateInsert = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageSide, setSelectedImageSide] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLeftImageUpload = (event) => {
     setLeftImage(event.target.files[0]);
@@ -133,6 +136,7 @@ const UserDebateInsert = () => {
     .then((response) => {
       if (response.data.result === "success") {
         alert("토론이 성공적으로 등록되었습니다.");
+        navigate("/debate/board");
       } else {
         alert("토론 등록 실패");
       }
