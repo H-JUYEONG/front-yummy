@@ -134,7 +134,7 @@ const UserPaymentDetail = () => {
 
     return (
         <div id="user-wrap" className="text-center">
-            <VenderHeader />
+            <VenderHeader venderId={venderId} />
             <main id="d-user-wrap-body">
                 <div className="payment-container">
                     <div className="payment-content">

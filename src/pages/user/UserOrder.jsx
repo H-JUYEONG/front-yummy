@@ -93,7 +93,7 @@ const UserOrder = () => {
                         console.log('리뷰 자격 확인 요청 데이터:', {
                             orderId: order.id,
                             productId: order.productId,
-                            userId: authUser.member_id
+                            userId: authUser.user_id
                         });
 
                         const reviewCheckResponse = await axios.get(
@@ -101,7 +101,7 @@ const UserOrder = () => {
                             {
                                 params: {
                                     productId: order.productId,
-                                    userId: parseInt(authUser.member_id)
+                                    userId: parseInt(authUser.user_id)
                                 }
                             }
                         );
@@ -114,7 +114,7 @@ const UserOrder = () => {
                         console.error('리뷰 상태 체크 실패:', error, {
                             orderId: order.id,
                             productId: order.productId,
-                            userId: authUser.member_id
+                            userId: authUser.user_id
                         });
                         return { orderId: order.id, canReview: false };
                     }

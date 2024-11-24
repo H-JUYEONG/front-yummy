@@ -145,7 +145,7 @@ function App() {
           <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit />} />
           <Route path='/user/mypage/point' element={<UserPoint />} />
           <Route path='/user/storedetail/:venderId' element={<UserStoreDetail />} />
-          <Route path='/user/paymentdetail' element={<UserPaymentDetail />} />
+          <Route path="/user/paymentdetail/:venderId" element={<UserPaymentDetail />} />
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList />} />
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
           <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
