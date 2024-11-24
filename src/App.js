@@ -85,6 +85,9 @@ import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 import WebRTCReceiver from './pages/user/WebRTCReceiver';
 
+//GPT
+import ChatGPTApp from './pages/main/ChatGPTApp.jsx';
+
 function App() {
   return (
     <div>
@@ -176,6 +179,9 @@ function App() {
           <Route path='/debate/debateinsert' element={<UserDebateInsert />} />
           <Route path='/debate/debateview/:debateId' element={<UserDebateView />} />
           <Route path='/debate/debateedit' element={<UserDebateEdit />} />
+
+          {/* GPT Routes */}
+          <Route path='/gpt' element={<ChatGPTApp />} />
         </Routes>
       </BrowserRouter>
     </div>
