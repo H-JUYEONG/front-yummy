@@ -51,7 +51,7 @@ const Header = () => {
         <Link to="/user/cakeDesign/board">디자인 공유</Link>
       </li>
       <li>
-        <Link to="/board">케이크 토크</Link>
+        <Link to="/debate/board">케이크 토크</Link>
       </li>
     </ul>
   );
