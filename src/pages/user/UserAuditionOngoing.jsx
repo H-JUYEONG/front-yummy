@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import "../../assets/css/user/userauditionongoing.css";
@@ -13,37 +12,39 @@ const UserAuditionOngoing = () => {
   const { auditionApplicationId } = useParams(); // URL 경로에서 값 가져오기
 
   const [auditionDetail, setAuditionDetail] = useState(null); // 오디션 상세 정보 리스트
-  const [auditionVenders, setauditionVenders] = useState([]); // 오디션 참가 업체 리스트
-  const [auditionVendersEnd, setauditionVendersEnd] = useState(null); // 오디션 종료 업체 정보
-  const [auditionVendersReviews, setauditionVendersReviews] = useState([]); // 오디션 종료 업체 리뷰
+  const [auditionVenders, setAuditionVenders] = useState([]); // 오디션 참가 업체 리스트
+  const [auditionVendersEnd, setAuditionVendersEnd] = useState(null); // 오디션 종료 업체 정보
+  const [auditionVendersReviews, setAuditionVendersReviews] = useState([]); // 오디션 종료 업체 리뷰
   const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태
   const [selectedCompany, setSelectedCompany] = useState(null); // 선택된 업체 데이터
 
   // 오디션 상세 정보 가져오기
-  const getAuditionDetail = () => {
-    axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}/api/users/audition/detail/${auditionApplicationId}`,
-      responseType: "json", // 수신타입
-    })
-      .then((response) => {
-        const data = response.data.apiData; // API 데이터
-        console.log(response.data.apiData); // 객체 자체를 출력
-        console.log("받아온 데이터:", data); // 객체 자체를 출력
-        if (response.data.result === "success") {
-          setAuditionDetail(data.auditionDetail);
-          setauditionVenders(data.auditionVenders || []);
-          setauditionVendersEnd(data.auditionVendersEnd || null);
-          setauditionVendersReviews(data.auditionVendersReviews || []);
-        } else {
-          alert("오디션 상세정보 가져오기 실패");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const getAuditionDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/users/audition/detail/${auditionApplicationId}`
+      );
+
+      const data = response.data.apiData; // API 데이터
+      console.log("받아온 전체 데이터:", data);
+      console.log("글 디테일:", data.auditionDetail);
+      console.log("참가업체:", data.auditionVenders);
+      console.log("종료:", data.auditionVendersEnd);
+      console.log("리뷰:", data.auditionVendersReviews);
+
+      if (response.data.result === "success") {
+        setAuditionDetail(data.auditionDetail || {});
+        setAuditionVenders(data.auditionVenders || []);
+        setAuditionVendersEnd(data.auditionVendersEnd || {});
+        setAuditionVendersReviews(data.auditionVendersReviews || []);
+      } else {
+        alert("데이터를 가져오는데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("API 요청 오류:", error);
+    }
   };
 
   // 모달 열기
@@ -100,6 +101,7 @@ const UserAuditionOngoing = () => {
 
     getAuditionDetail();
   }, [auditionApplicationId]);
+
 
   return (
     <div id="user-wrap" className="text-center ongoing-audition">
@@ -214,7 +216,9 @@ const UserAuditionOngoing = () => {
                     <p
                       className="ongoing-vender-name"
                       onClick={() =>
-                        navigate(`/user/storedetail/${auditionVendersEnd.venderId}`)
+                        navigate(
+                          `/user/storedetail/${auditionVendersEnd.venderId}`
+                        )
                       }
                     >
                       {auditionVendersEnd.venderName || "업체 이름 없음"}
