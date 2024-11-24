@@ -78,7 +78,7 @@ const Header = () => {
       case '어드민':
         return (
           <>
-            <Link to="/admin/" className="header-link">관리 페이지</Link>
+            <Link to="/admin/member" className="header-link">관리 페이지</Link>
             <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
           </>
         );

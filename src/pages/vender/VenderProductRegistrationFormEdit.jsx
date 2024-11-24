@@ -459,63 +459,78 @@ function VenderProductRegistrationFormEdit() {
             setPreview(updatedPreview);
         }
     };
-    // 옵션 페이지로 이동
-    const handleAddOptions = () => {
-        navigate('/vender/option');  // VenderOption 페이지 경로
+
+    const handleProductSubmit = async () => {
+        try {
+            const productFormData = new FormData();
+            productFormData.append("venderId", venderId || "");
+            productFormData.append("productName", productName || "");
+            productFormData.append("price", price || 0);
+            productFormData.append("description", description || "");
+            productFormData.append("isVisible", 1);
+
+            if (selectedDesign?.cakeDesignId) {
+                productFormData.append("cakeDesignId", selectedDesign.cakeDesignId);
+            }
+
+            // 메인 이미지 추가 (있을 경우에만)
+            if (images.main) {
+                productFormData.append("mainImage", images.main);
+            }
+
+            // 서브 이미지 추가 (있을 경우에만)
+            images.subs.forEach((subImage, index) => {
+                if (subImage) {
+                    productFormData.append(`subImages`, subImage);
+                }
+            });
+
+            // 상품 데이터 전송
+            const response = await axios.put(
+                `${API_URL}/api/vender/products/${productId}`,
+                productFormData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+            );
+
+            console.log("상품 수정 성공:", response.data);
+            alert("상품이 성공적으로 수정되었습니다!");
+        } catch (error) {
+            console.error("상품 수정 실패:", error.response || error.message);
+            alert("상품 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
     };
 
+    const handleOptionsSubmit = async () => {
+        try {
+            // selectedOptions 자체를 payload로 전송
+            const optionsPayload = Object.fromEntries(
+                Object.entries(selectedOptions).map(([key, value]) => [Number(key), value])
+            );
+    
+            const optionsResponse = await axios.put(
+                `${API_URL}/api/vender/products/${productId}/options`,
+                optionsPayload, // selectedOptions 키 제거
+                { headers: { "Content-Type": "application/json" } }
+            );
+    
+            console.log("옵션 수정 성공:", optionsResponse.data);
+            alert("옵션이 성공적으로 수정되었습니다!");
+        } catch (error) {
+            console.error("옵션 수정 실패:", error.response || error.message);
+            alert("옵션 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
+        // 상품 데이터 전송
+        await handleProductSubmit();
 
-        // 상품 데이터 추가
-        formData.append("venderId", venderId || ""); // 로그인된 사용자 ID
-        formData.append("productName", productName || ""); // 상품 이름
-        formData.append("price", price || 0); // 가격
-        formData.append("description", description || ""); // 상품 설명
-        formData.append("isVisible", 1); // 예: 1 = true, 0 = false
-        // 도안 데이터 추가 (없으면 기존 값 유지)
-        if (selectedDesign?.cakeDesignId) {
-            formData.append("cakeDesignId", selectedDesign.cakeDesignId); // 도안 ID
-        } else {
-            console.warn("도안 ID가 없습니다. 기존 도안 데이터를 유지합니다.");
-        }
-
-        // 기존 또는 변경된 이미지 추가
-        if (images.main) {
-            formData.append("mainImage", images.main); // 메인 이미지
-        }
-        images.subs.forEach((subImage, index) => {
-            if (subImage) {
-                formData.append(`subImage${index + 1}`, subImage); // 서브 이미지
-            }
-        });
-
-        // 옵션 데이터 추가 (없으면 기존 값 유지)
-        // 옵션 데이터 추가 (중첩된 JSON으로 감싸기)
-        if (Object.keys(selectedOptions).length > 0) {
-            const optionsString = JSON.stringify({
-                selectedOptions: selectedOptions, // 중첩 객체로 감싸기
-            });
-            formData.append("selectedOptionsString", optionsString);
-        } else {
-            console.warn("선택된 옵션이 없습니다. 기존 옵션 데이터를 유지합니다.");
-        }
-
-        try {
-            // 서버로 데이터 전송
-            const response = await axios.put(`${API_URL}/api/vender/products/${productId}`, formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-            console.log("상품 및 옵션 수정 성공:", response.data);
-            alert("상품 및 옵션이 성공적으로 수정되었습니다!");
-            navigate("/vender/productslist"); // 수정 후 목록 페이지로 이동
-        } catch (error) {
-            console.error("상품 및 옵션 수정 실패:", error.response || error.message);
-            alert("상품 및 옵션 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
-        }
+        // 옵션 데이터 전송
+        await handleOptionsSubmit();
     };
+
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">
@@ -599,13 +614,6 @@ function VenderProductRegistrationFormEdit() {
 
                             <div className="form-group">
                                 <h3>상품 옵션 선택</h3>
-                                <button
-                                    type="button"
-                                    className="add-options-button"
-                                    onClick={handleAddOptions}
-                                >
-                                    옵션 추가하기
-                                </button>
                                 {visibleOptions.map((option) => (
                                     <OptionSelector
                                         key={option.optionTypeId}
