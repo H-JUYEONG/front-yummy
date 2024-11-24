@@ -332,14 +332,14 @@ const UserCakeDetail = () => {
             // 요청 정보 로깅
             console.log('삭제 요청 정보:', {
                 reviewId,
-                userId: authUser.member_id,
+                userId: authUser.user_id,
                 url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`
             });
 
             const response = await axios.delete(
                 `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`,
                 {
-                    params: { userId: authUser.member_id }
+                    params: { userId: authUser.user_id }
                 }
             );
 
@@ -706,7 +706,7 @@ const UserCakeDetail = () => {
                 {
                     params: {
                         productId: productId,
-                        userId: authUser.member_id
+                        userId: authUser.user_id
                     }
                 }
             );
@@ -739,7 +739,7 @@ const UserCakeDetail = () => {
 
         try {
             const formData = new FormData();
-            formData.append('reviewUserId', authUser.member_id);
+            formData.append('reviewUserId', authUser.user_id);
             formData.append('productId', productId);
             formData.append('reviewRating', newReview.rating);
             formData.append('reviewContent', newReview.content);
@@ -749,7 +749,7 @@ const UserCakeDetail = () => {
             }
 
             console.log('리뷰 제출 데이터:', {
-                reviewUserId: authUser.member_id,
+                reviewUserId: authUser.user_id,
                 productId: productId,
                 reviewRating: newReview.rating,
                 reviewContent: newReview.content,
