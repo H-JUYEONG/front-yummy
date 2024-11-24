@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './assets/css/App.css'; // 스타일 적용
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
-
 
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -89,10 +90,13 @@ import WebRTCReceiver from './pages/user/WebRTCReceiver';
 import ChatGPTApp from './pages/main/ChatGPTApp.jsx';
 
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
   return (
-    <div>
-
-
+    <div className="app-container">
       <BrowserRouter>
         <Routes>
           <Route path='/vender/:venderId' element={<VenderDashboard />} />
@@ -184,6 +188,24 @@ function App() {
           <Route path='/gpt' element={<ChatGPTApp />} />
         </Routes>
       </BrowserRouter>
+   
+      {/* 오른쪽 하단 플로팅 버튼 */}
+      <div className="floating-chat-button" onClick={toggleChat}>
+        🍰
+      </div>
+
+      {/* 플로팅 버튼에서 열리는 ChatGPTApp */}
+      {isChatOpen && (
+        <div className="chat-bot-container">
+          <div className="chat-header">
+            <span>🍰 YUMMY 상담 봇</span>
+            <button className="close-chat" onClick={toggleChat}>
+              ×
+            </button>
+          </div>
+          <ChatGPTApp />
+        </div>
+      )}
     </div>
   );
 }
