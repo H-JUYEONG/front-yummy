@@ -9,6 +9,8 @@ import Footer from "./include/Footer";
 import { FaEye } from "react-icons/fa";
 
 const UserDebateView = () => {
+  const token = localStorage.getItem("token");
+
   const { debateId } = useParams(); // Extract debateId from URL
   const [debateDetails, setDebateDetails] = useState(null);
   const [leftVoteCount, setLeftVoteCount] = useState(10); // Placeholder vote counts
@@ -20,6 +22,8 @@ const UserDebateView = () => {
 
   const handleLeftVote = () => setLeftVoteCount(leftVoteCount + 1);
   const handleRightVote = () => setRightVoteCount(rightVoteCount + 1);
+
+  const [commentList, setCommentList] = useState([]); // 이벤트 리스트
 
   const fetchDebateDetails = async () => {
     try {
@@ -43,16 +47,33 @@ const UserDebateView = () => {
     }
   };
 
+  
+
+  const getCommentList = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/debate/getComment/${debateId}`,
+      headers: { Authorization: `Bearer ${token}` },
+      responseType: "json",
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          setCommentList(response.data.apiData || {});
+        } else {
+          alert("댓글 가져오기 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user personal info:", error);
+      });
+  };
+
   useEffect(() => {
     if (debateId) {
       fetchDebateDetails();
+      getCommentList();
     }
   }, [debateId]);
-
-  if (!debateDetails) {
-    // Render a loading message until debateDetails is populated
-    return <p>로딩 중... 모든 정보를 확인하는 중입니다.</p>;
-  }
 
   return (
     <div id="user-wrap" className="text-center">
