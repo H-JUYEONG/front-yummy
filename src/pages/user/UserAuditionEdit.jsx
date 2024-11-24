@@ -35,8 +35,9 @@ const UserAuditionEdit = () => {
 
   const formatDate = (date) => {
     if (!date) return ""; // null 체크
-    const d = new Date(date);
-    return d.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
+    const utcDate = new Date(date); // 가져온 데이터(UTC 기준)
+    const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000); // KST로 변환
+    return kstDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
   };
 
   // 오디션 상세 정보 가져오기

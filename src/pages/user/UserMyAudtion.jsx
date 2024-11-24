@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import UserSidebar from "../../pages/user/include/UserSidebar";
-import "../../assets/css/user/usermyaudtion.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import axios from "axios";
 import UserAuditionModal from "./UserAuditionMypageModal"; // 모달 컴포넌트 가져오기
+
+import "../../assets/css/user/usermyaudtion.css";
 
 const UserMyAudtion = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const UserMyAudtion = () => {
     setselectedAudition(null); // 선택된 업체 데이터 초기화
   };
 
-  const itemsPerPage = 5; // 페이지당 항목 수
+  const itemsPerPage = 10; // 페이지당 항목 수
 
   // 현재 필터 상태에 맞는 데이터 필터링
   const filteredAuditions =
@@ -104,13 +105,17 @@ const UserMyAudtion = () => {
           <h2>케이크 요청 내역</h2>
           <div className="audition-filter">
             <button
-              className={`filter-button ${filter === "진행중" ? "active" : ""}`}
+              className={`filter-button ${
+                filter === "진행중" ? "active-ongoing" : ""
+              }`}
               onClick={() => handleFilterChange("진행중")}
             >
               진행중
             </button>
             <button
-              className={`filter-button ${filter === "종료" ? "active" : ""}`}
+              className={`filter-button ${
+                filter === "종료" ? "active-end" : ""
+              }`}
               onClick={() => handleFilterChange("종료")}
             >
               종료
@@ -134,7 +139,16 @@ const UserMyAudtion = () => {
                 currentAuditions.map((audition, index) => (
                   <tr key={index}>
                     <td>{audition.auditionApplicationId}</td>
-                    <td>{audition.auditionApplicationTitle}</td>
+                    <td
+                      onClick={() =>
+                        navigate(
+                          `/user/audition/ongoing/${audition.auditionApplicationId}`
+                        )
+                      }
+                      className="go-to-ongoing-detail"
+                    >
+                      {audition.auditionApplicationTitle}
+                    </td>
                     <td>{audition.expectedPrice.toLocaleString()}원</td>
                     <td>{audition.deliveryMethod}</td>
                     <td>{audition.region}</td>
@@ -166,18 +180,39 @@ const UserMyAudtion = () => {
           </table>
 
           {/* 페이지 네이션 */}
-          <div className="pagination">
+          <div className="user-audition-mypage-pagination">
+            {/* 이전 버튼 */}
+            {currentPage > 1 && (
+              <button
+                className="user-audition-mypage-prev-button"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                &lt;
+              </button>
+            )}
+
+            {/* 페이지 번호 버튼 */}
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
-                className={`page-button ${
+                className={`user-audition-mypage-page-button ${
                   currentPage === index + 1 ? "active" : ""
                 }`}
               >
                 {index + 1}
               </button>
             ))}
+
+            {/* 다음 버튼 */}
+            {currentPage < totalPages && (
+              <button
+                className="user-audition-mypage-next-button"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                &gt;
+              </button>
+            )}
           </div>
         </div>
       </main>
