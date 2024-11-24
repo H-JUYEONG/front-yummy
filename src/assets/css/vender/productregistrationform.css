@@ -617,3 +617,20 @@
     margin-top: 20px;
     float: right;
 }
+
+.selected-design {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.selected-design-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.no-image-placeholder {
+    font-size: 14px;
+    color: gray;
+}
