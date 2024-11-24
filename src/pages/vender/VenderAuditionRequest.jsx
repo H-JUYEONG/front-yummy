@@ -71,7 +71,7 @@ const VerticalCakeOrder = () => {
 
     return (
         <div id="user-wrap">
-           
+        
             <div className="vertical-cake-order">
                 {/* 제품명과 가격 입력 영역 */}
                 <div className="product-info-input">

@@ -92,9 +92,12 @@
 .insert-recipt-box .insert-audition-left-box{
     width: 50%;
     
-    
-
 }
+.Sso-order-img{
+    width: 100%;
+    height: 100%;
+}
+
 /*요청사항박스*/
 .appeal-design-text-RequestedTerm{
     border: 2px solid #ddd;

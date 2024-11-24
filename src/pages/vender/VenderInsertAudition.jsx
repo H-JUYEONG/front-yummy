@@ -17,10 +17,21 @@ const VenderInsertAudition = () => {
     const {auditionId} = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+    const venderId = authUser.vender_id;
+
+    const [userOrder, setUserOrder] = useState("");
+    const [productList, setProductList] = useState([]);
+
     //모달, 옵션 창 
     const openNewWindow = () => {
-        window.open('/vender/venderauditonrequest', '_blank');
+        window.open(`/vender/venderauditonrequest/${selectProductId}`, '_blank');
     };
+
+    const [selectProductId, setSelectProductId] = useState("");
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -30,17 +41,29 @@ const VenderInsertAudition = () => {
         setIsModalOpen(false);
     };
 
+    //선택된 상품의 번호 가져오기
+    const handleProductSelect = (productId)=>{
+        setSelectProductId(productId)
+        console.log('선택된 상품 번호:', productId);
+    }
+
     //주문정보,상품정보 가져오기
     
     const getOrder = ()=>{
         //console.log('주문정보 가져오기 준')
         axios({
             method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/order/${auditionId}`,
+            url: `${process.env.REACT_APP_API_URL}/api/vender/order/${auditionId}/${venderId}`,
 
             responseType: 'json' //수신타입
         }).then(response => {
             console.log(response); //수신데이타
+            console.log("실시간전체리스트")
+            console.log(response.data)
+
+            setUserOrder(response.data.apiData.userOrder);
+            //console.log(userOrder)
+            setProductList(response.data.apiData.productList);
         
         }).catch(error => {
             console.log(error);
@@ -80,18 +103,16 @@ const VenderInsertAudition = () => {
                             </div>
                             <div className='appeal-design-text'>
                                 <ul>
-                                    <li>주문번호: 1 </li>
-                                    <li>주문이름: </li>
-                                    <li>제시금액 : 60,000원</li>
-                                    <li>사이즈 : 12cm</li>
-                                    <li>수령방식 : 픽업</li>
-                                    <li>희망지역: 강남구</li>
-                                    <li>수령일자 : 2024-11-10</li>
+                                    <li>주문번호: {userOrder.auditionId} </li>
+                                    <li>제목: {userOrder.auditionTitle}</li>
+                                    <li>제시금액 : {userOrder.expectedPrice} 원</li>
+                                    <li>사이즈 : {userOrder.auditionApplicationSize}</li>
+                                    <li>수령방식 : {userOrder.deliveryMethod}</li>
+                                    <li>수령일자 : {userOrder.date}</li>
                                     <li>요청사항</li>
                                     <li>
                                         <div className='appeal-design-text-RequestedTerm'>
-                                            1.예쁘게 만들어주세요!<br />
-                                            2.맛도있게요~~<br />
+                                            {userOrder.additionalRequests}
                                         </div>
                                     </li>
                                 </ul>
@@ -103,7 +124,7 @@ const VenderInsertAudition = () => {
                             </div>
                             <div className='input-photo-box'>
                                 <div className='input-photo-box-line'>
-                                    <img src='#' />
+                                    <img className="Sso-order-img" src={userOrder.userimgURL} />
                                 </div>
                             </div>
                         </div>
@@ -113,6 +134,7 @@ const VenderInsertAudition = () => {
                     
                         <div className='insert-h2-box choose-flex-box'>
                             <h2>상품선택</h2>
+                            <span>선택된 상품번호:{selectProductId}</span>
                             <button onClick={openModal}>상품선택하기</button>
                         </div>
                         <div className='insert-h2-box choose-flex-box'>
@@ -133,7 +155,7 @@ const VenderInsertAudition = () => {
                 </div>
                 {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
                 {isModalOpen && (
-                    <VenderProductModalInsert isOpen={isModalOpen} onClose={closeModal} />
+                    <VenderProductModalInsert isOpen={isModalOpen} onClose={closeModal} productList={productList} onProductSelect={handleProductSelect} />
                 )}
                 </main>
                     </div>

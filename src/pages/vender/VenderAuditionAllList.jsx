@@ -80,7 +80,7 @@ const VenderAudirionAllList = () => {
             responseType: 'json' //수신타입
         }).then(response => {
             //console.log(response); //수신데이타
-            //console.log(response.data.apiData)
+            console.log(response.data.apiData)
             setAuditionAllList(response.data.apiData)
         }).catch(error => {
             console.log(error);
