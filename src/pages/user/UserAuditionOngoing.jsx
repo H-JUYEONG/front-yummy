@@ -21,33 +21,30 @@ const UserAuditionOngoing = () => {
   const [selectedCompany, setSelectedCompany] = useState(null); // 선택된 업체 데이터
 
   // 오디션 상세 정보 가져오기
-  const getAuditionDetail = () => {
-    axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}/api/users/audition/detail/${auditionApplicationId}`,
-      responseType: "json", // 수신타입
-    })
-      .then((response) => {
-        const data = response.data.apiData; // API 데이터
-        console.log("받아온 전체 데이터:", data);
-        console.log("데이터 구조 확인:", JSON.stringify(data, null, 2));
-        console.log("글 디테일:", data.auditionDetail);
-        console.log("참가업체:", data.auditionVenders);
-        console.log("종료:", data.auditionVendersEnd);
-        console.log("리뷰:", data.auditionVendersReviews);
-        
-        if (response.data.result === "success") {
-          setAuditionDetail(data.auditionDetail || null);
-          setAuditionVenders(data.auditionVenders || []);
-          setAuditionVendersEnd(data.auditionVendersEnd || null);
-          setAuditionVendersReviews(data.auditionVendersReviews || []);
-        } else {
-          alert("오디션 상세정보 가져오기 실패");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const getAuditionDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/users/audition/detail/${auditionApplicationId}`
+      );
+
+      const data = response.data.apiData; // API 데이터
+      console.log("받아온 전체 데이터:", data);
+      console.log("글 디테일:", data.auditionDetail);
+      console.log("참가업체:", data.auditionVenders);
+      console.log("종료:", data.auditionVendersEnd);
+      console.log("리뷰:", data.auditionVendersReviews);
+
+      if (response.data.result === "success") {
+        setAuditionDetail(data.auditionDetail || {});
+        setAuditionVenders(data.auditionVenders || []);
+        setAuditionVendersEnd(data.auditionVendersEnd || {});
+        setAuditionVendersReviews(data.auditionVendersReviews || []);
+      } else {
+        alert("데이터를 가져오는데 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("API 요청 오류:", error);
+    }
   };
 
   // 모달 열기
@@ -104,6 +101,7 @@ const UserAuditionOngoing = () => {
 
     getAuditionDetail();
   }, [auditionApplicationId]);
+
 
   return (
     <div id="user-wrap" className="text-center ongoing-audition">
