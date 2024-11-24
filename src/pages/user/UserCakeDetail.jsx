@@ -414,11 +414,6 @@ const UserCakeDetail = () => {
         }));
     };
     const handleAddReply = async (reviewId) => {
-        if (!authUser?.vender_id) {
-            alert('업체 로그인이 필요합니다.');
-            return;
-        }
-
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/reviews/reply`,
@@ -428,16 +423,35 @@ const UserCakeDetail = () => {
                     replyContent: newReply[reviewId]
                 }
             );
-
-            if (response.data.result === 'success') {
-                // 대댓글 입력창 초기화
+    
+            if(response.data.result === 'success') {
                 setNewReply(prev => ({
                     ...prev,
                     [reviewId]: ''
                 }));
-
-                // 리뷰 목록 새로고침
-                await fetchReviews();
+                
+                // reviews 배열 안에서 해당 리뷰를 찾아 replies 업데이트
+                const updatedReviews = reviews.map(review => {
+                    if(review.reviewId === reviewId) {
+                        return {
+                            ...review,
+                            // 기존 replies 배열이 없으면 새 배열 생성
+                            replies: [...(review.replies || []), {
+                                replyId: response.data.data, // 새로 생성된 replyId
+                                reviewId: reviewId,
+                                replyVenderId: authUser.vender_id,
+                                replyContent: newReply[reviewId],
+                                replyCreatedAt: new Date(),
+                                venderName: authUser.vender_name
+                            }]
+                        };
+                    }
+                    return review;
+                });
+                
+                setReviews(updatedReviews);  // 화면 즉시 업데이트
+                
+                fetchReviews(); //혹시 몰라서 한번 더 새로고침 해볼게요
             } else {
                 alert('답글 작성에 실패했습니다.');
             }
@@ -446,26 +460,27 @@ const UserCakeDetail = () => {
             alert('답글 작성 중 오류가 발생했습니다.');
         }
     };
-    // 대댓글 삭제 핸들러
     const handleDeleteReply = async (replyId) => {
         if (!authUser?.vender_id) {
             alert('업체 로그인이 필요합니다.');
             return;
         }
-
+    
         const confirmed = window.confirm('답글을 삭제하시겠습니까?');
         if (!confirmed) return;
-
+    
         try {
             const response = await axios.delete(
-                `${process.env.REACT_APP_API_URL}/api/reviews/reply/${replyId}`,
-                {
-                    params: { venderId: authUser.vender_id }
-                }
+                `${process.env.REACT_APP_API_URL}/api/reviews/reply/${replyId}/${authUser.vender_id}`
             );
-
+    
             if (response.data.result === 'success') {
-                await fetchReviews();
+                // 화면에서 즉시 삭제 반영
+                const updatedReviews = reviews.map(review => ({
+                    ...review,
+                    replies: (review.replies || []).filter(reply => reply.replyId !== replyId)
+                }));
+                setReviews(updatedReviews);
             } else {
                 alert('답글 삭제에 실패했습니다.');
             }
@@ -474,9 +489,6 @@ const UserCakeDetail = () => {
             alert('답글 삭제 중 오류가 발생했습니다.');
         }
     };
-
-
-
 
     // 옵션 렌더링 컴포넌트
     const renderOptionGroup = (optionType, options) => {
@@ -790,21 +802,18 @@ const UserCakeDetail = () => {
     // 리뷰 섹션 렌더링
     const renderReviewSection = () => (
         <div className="reviews-container">
-            {/* 로그인하지 않은 경우 */}
             {!authUser && (
                 <div className="review-login-message">
                     <p>리뷰를 작성하려면 로그인이 필요합니다.</p>
                 </div>
             )}
-
-            {/* 로그인했지만 구매하지 않은 경우 */}
+    
             {authUser && !canReview && !hasWrittenReview && (
                 <div className="review-purchase-message">
                     <p>이 상품을 구매한 고객만 리뷰를 작성할 수 있습니다.</p>
                 </div>
             )}
-
-            {/* 리뷰를 작성할 수 있는 경우 */}
+    
             {canReview && (
                 <div className="review-form-container">
                     <h3>리뷰 작성</h3>
@@ -812,7 +821,7 @@ const UserCakeDetail = () => {
                         <div className="rating-select">
                             <p>별점을 선택해주세요</p>
                             <div className="stars-input">
-                                {[1, 2, 3, 4, 5].map((star) => (  // 1부터 5까지로 변경
+                                {[1, 2, 3, 4, 5].map((star) => (
                                     <button
                                         key={star}
                                         type="button"
@@ -870,10 +879,8 @@ const UserCakeDetail = () => {
                     </form>
                 </div>
             )}
-
-            {/* 리뷰 통계 */}
+    
             {reviewStats && (
-                // 리뷰 통계 표시 부분 수정
                 <div className="rating-stats">
                     <div className="rating-average">
                         <div className="stars">
@@ -915,8 +922,7 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
             )}
-
-            {/* 리뷰 목록 */}
+    
             <div className="review-list">
                 <div className="review-filters">
                     <button
@@ -946,6 +952,7 @@ const UserCakeDetail = () => {
                         포토 리뷰만
                     </label>
                 </div>
+    
                 {reviews && reviews.length > 0 ? (
                     reviews.map((review) => (
                         <div key={review.reviewId} className="review-item">
@@ -956,11 +963,13 @@ const UserCakeDetail = () => {
                                             <span key={index} className="star-filled">★</span>
                                         ))}
                                     </div>
-                                    <span className="author"> {review.authorType === 'user' ? (
-                                        <span className="user-nickname">{review.authorNickname}</span>
-                                    ) : (
-                                        <span className="vender-name">{review.authorNickname}</span>
-                                    )}</span>
+                                    <span className="author">
+                                        {review.authorType === 'user' ? (
+                                            <span className="user-nickname">{review.authorNickname}</span>
+                                        ) : (
+                                            <span className="vender-name">{review.authorNickname}</span>
+                                        )}
+                                    </span>
                                     <span className="date">
                                         {new Date(review.reviewCreatedAt).toLocaleDateString('ko-KR')}
                                     </span>
@@ -973,7 +982,6 @@ const UserCakeDetail = () => {
                                         <span className="report-icon">⚠️</span>
                                         신고
                                     </button>
-                                    {/* 리뷰 삭제 버튼은 작성자만 볼 수 있음 */}
                                     {authUser && review.reviewUserId === authUser.member_id && (
                                         <button
                                             className="delete-button"
@@ -999,8 +1007,7 @@ const UserCakeDetail = () => {
                                     </div>
                                 )}
                             </div>
-
-                            {/* 대댓글 섹션 추가 */}
+    
                             <div className="review-replies">
                                 {review.replies?.map((reply) => (
                                     <div key={reply.replyId} className="review-reply">
@@ -1010,7 +1017,6 @@ const UserCakeDetail = () => {
                                             <span className="reply-date">
                                                 {new Date(reply.replyCreatedAt).toLocaleDateString('ko-KR')}
                                             </span>
-                                            {/* 대댓글 삭제 버튼은 해당 업체만 볼 수 있음 */}
                                             {authUser?.vender_id === reply.replyVenderId && (
                                                 <button
                                                     className="delete-reply-button"
@@ -1023,9 +1029,9 @@ const UserCakeDetail = () => {
                                         <p className="reply-content">{reply.replyContent}</p>
                                     </div>
                                 ))}
-
-                                {/* 업체만 볼 수 있는 대댓글 작성 폼 */}
-                                {authUser?.vender_id === productDetail?.venderId && (
+    
+                                {authUser?.vender_id === productDetail?.venderId && 
+                                 !review.replies?.some(reply => reply.replyVenderId === authUser.vender_id) && (
                                     <div className="reply-form">
                                         <textarea
                                             value={newReply[review.reviewId] || ''}

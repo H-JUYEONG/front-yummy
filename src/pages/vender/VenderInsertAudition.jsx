@@ -27,8 +27,9 @@ const VenderInsertAudition = () => {
     const [productList, setProductList] = useState([]);
 
     //모달, 옵션 창 
+
     const openNewWindow = () => {
-        window.open(`/vender/venderauditonrequest/${selectProductId}`, '_blank');
+        window.open(`/vender/venderauditonrequest/${venderId}/${selectProductId}`, '_blank');
     };
 
     const [selectProductId, setSelectProductId] = useState("");
