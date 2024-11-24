@@ -1,5 +1,5 @@
 //import 라이브러리
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,12 +26,11 @@ const UserLoginForm = () => {
   // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
   // const code = new URL(window.location.href).searchParams.get("code");
 
-  
-
   const navigate = useNavigate();
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [isRemembered, setIsRemembered] = useState(false); // 아이디 저장 여부
 
   const handleUserEmail = (e) => {
     setUserEmail(e.target.value);
@@ -39,6 +38,10 @@ const UserLoginForm = () => {
 
   const handleUserPassword = (e) => {
     setUserPassword(e.target.value);
+  };
+
+  const handleCheckboxChange = (e) => {
+    setIsRemembered(e.target.checked);
   };
 
   // 로그인 버튼 클릭
@@ -78,6 +81,14 @@ const UserLoginForm = () => {
         localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
 
         if (response.data.apiData !== null) {
+          if (isRemembered) {
+            // 체크박스가 체크된 경우 이메일 저장
+            localStorage.setItem("savedEmail", userEmail);
+          } else {
+            // 체크박스가 체크되지 않은 경우 이메일 삭제
+            localStorage.removeItem("savedEmail");
+          }
+
           //리다이렉트
           navigate("/");
         } else {
@@ -91,6 +102,14 @@ const UserLoginForm = () => {
         alert("입력하신 아이디 또는 비밀번호가 잘못 되었습니다.");
       });
   };
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    if (savedEmail) {
+      setUserEmail(savedEmail); // 저장된 이메일을 입력 필드에 설정
+      setIsRemembered(true); // 체크박스를 체크 상태로 설정
+    }
+  }, []);
 
   return (
     <div id="user-wrap" className="user-text-center">
@@ -149,7 +168,12 @@ const UserLoginForm = () => {
         <div className="user-login-id-save">
           <div className="user-input-chk-left">
             <label htmlFor="user-id-save"></label>
-            <input type="checkbox" id="user-id-save" name="" value="" />
+            <input
+              type="checkbox"
+              id="user-id-save"
+              checked={isRemembered}
+              onChange={handleCheckboxChange}
+            />
             <span>아이디 저장</span>
           </div>
           <div className="user-txt-chk-right">
