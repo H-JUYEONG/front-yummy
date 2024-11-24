@@ -28,15 +28,16 @@ const UserAuditionEdit = () => {
   const [selectedImage, setSelectedImage] = useState(""); // 이미 등록되어있던 이미지
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
-  const [selectedTab, setSelectedTab] = useState("찜한 도안");
-  const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
+  const [selectedTab, setSelectedTab] = useState("My 도안");
+  const [likedDesigns, setLikedDesigns] = useState([]); // My 도안 리스트(나의 도안 + 찜 포함)
   const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
   const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
 
   const formatDate = (date) => {
     if (!date) return ""; // null 체크
-    const d = new Date(date);
-    return d.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
+    const utcDate = new Date(date); // 가져온 데이터(UTC 기준)
+    const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000); // KST로 변환
+    return kstDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
   };
 
   // 오디션 상세 정보 가져오기
@@ -72,7 +73,7 @@ const UserAuditionEdit = () => {
 
           // 나머지 탭 선택 로직은 그대로 유지
           if (response.data.apiData.designId) {
-            setSelectedTab("찜한 도안");
+            setSelectedTab("My 도안");
             setSelectedDesignId(response.data.apiData.designId);
           } else if (
             !response.data.apiData.designId &&
@@ -94,7 +95,7 @@ const UserAuditionEdit = () => {
       });
   };
 
-  // 찜한 도안 데이터 가져오기
+  // My 도안 데이터 가져오기
   useEffect(() => {
     getAuditionContent();
 
@@ -119,10 +120,10 @@ const UserAuditionEdit = () => {
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
         } else {
-          alert("찜한 도안 데이터를 불러오는데 실패했습니다.");
+          alert("My 도안 데이터를 불러오는데 실패했습니다.");
         }
       } catch (error) {
-        console.error("찜한 도안 데이터를 가져오는 중 오류 발생:", error);
+        console.error("My 도안 데이터를 가져오는 중 오류 발생:", error);
         alert("서버와 통신 중 문제가 발생했습니다.");
       }
     };
@@ -166,9 +167,9 @@ const UserAuditionEdit = () => {
     }
 
     // 2. 선택된 탭에 따른 검증
-    if (selectedTab === "찜한 도안") {
+    if (selectedTab === "My 도안") {
       if (!selectedDesignId) {
-        alert("찜한 도안을 선택해주세요.");
+        alert("My 도안을 선택해주세요.");
         return;
       }
     } else if (selectedTab === "사진 첨부") {
@@ -213,7 +214,7 @@ const UserAuditionEdit = () => {
     }
 
     // 선택된 탭에 따라 처리
-    if (selectedTab === "찜한 도안" && selectedDesignId) {
+    if (selectedTab === "My 도안" && selectedDesignId) {
       formData.append("designId", selectedDesignId); // 선택된 도안 ID
       formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 도안 이미지 URL
     } else if (selectedTab === "사진 첨부") {
@@ -473,10 +474,10 @@ const UserAuditionEdit = () => {
             <div className="user-audition-tabs">
               <button
                 type="button"
-                className={selectedTab === "찜한 도안" ? "active" : ""}
-                onClick={() => handleTabChange("찜한 도안")}
+                className={selectedTab === "My 도안" ? "active" : ""}
+                onClick={() => handleTabChange("My 도안")}
               >
-                찜한 도안
+                My 도안
               </button>
               <button
                 type="button"
@@ -496,7 +497,7 @@ const UserAuditionEdit = () => {
 
             {/* 탭에 따른 내용 */}
             <div className="user-audition-design-preview">
-              {selectedTab === "찜한 도안" && (
+              {selectedTab === "My 도안" && (
                 <div className="user-audition-liked-designs">
                   {likedDesigns.map((design, index) => (
                     <div
