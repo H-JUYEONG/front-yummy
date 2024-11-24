@@ -94,9 +94,21 @@ const UserAuditionBoard = () => {
     loadAuditions(currentPage);
   }, [currentPage, selectedStyle]);
 
-  // 이미지 클릭시 상세페이지로 이동
-  const handleImageClick = (auditionApplicationId) => {
-    navigate(`/user/audition/ongoing/${auditionApplicationId}`);
+  // 클릭시 상세페이지로 이동
+  const handleAuditionClick = (auditionApplicationId) => {
+    axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}/api/audition/views/${auditionApplicationId}`,
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          console.log("조회수 증가 성공:", response.data);
+          navigate(`/user/audition/ongoing/${auditionApplicationId}`);
+        }
+      })
+      .catch((error) => {
+        console.error("조회수 증가 실패:", error);
+      });
   };
 
   // 검색 핸들러
@@ -164,13 +176,13 @@ const UserAuditionBoard = () => {
           </div>
           <div className="user-cake-audition-list-grid">
             {userAuditionBoard.map((card, index) => (
-              <div key={index} className="user-cake-audition-card">
+              <div
+                key={index}
+                className="user-cake-audition-card"
+                onClick={() => handleAuditionClick(card.auditionApplicationId)}
+              >
                 <div className="user-cake-audition-card-image">
-                  <img
-                    src={card.imageUrl}
-                    onClick={() => handleImageClick(card.auditionApplicationId)}
-                    alt="케이크 도안"
-                  />
+                  <img src={card.imageUrl} alt="케이크 도안" />
                   <div
                     className={`user-cake-audition-status ${
                       card.status === "진행중"

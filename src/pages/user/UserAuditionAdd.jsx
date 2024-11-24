@@ -19,17 +19,18 @@ const UserAuditionAdd = () => {
   const [desiredDate, setDesiredDate] = useState(""); // 희망 날짜
   const [desiredTime, setDesiredTime] = useState(""); // 희망 시간
   const [recipient, setRecipient] = useState(""); // 받는 사람
+  const [recipientPhone, setRecipientPhone] = useState(""); // 받는 사람 연락처
   const [region, setRegion] = useState(""); // 지역 구
   const [requests, setRequests] = useState(""); // 요청사항
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
-  const [selectedTab, setSelectedTab] = useState("찜한 도안");
-  const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
+  const [selectedTab, setSelectedTab] = useState("My 도안");
+  const [likedDesigns, setLikedDesigns] = useState([]); // My 도안 리스트(나의도안/찜 포함)
   const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
   const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
 
-  // 찜한 도안 데이터 가져오기
+  // My 도안 데이터 가져오기
   useEffect(() => {
     const fetchLikedDesigns = async () => {
       try {
@@ -48,21 +49,19 @@ const UserAuditionAdd = () => {
             },
           }
         );
-        console.log('내가 찜한 도안리스트');
-        console.log(response.data.apiData);
 
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
         } else {
-          alert("찜한 도안 데이터를 불러오는데 실패했습니다.");
+          alert("My 도안 데이터를 불러오는데 실패했습니다.");
         }
       } catch (error) {
-        console.error("찜한 도안 데이터를 가져오는 중 오류 발생:", error);
+        console.error("My 도안 데이터를 가져오는 중 오류 발생:", error);
         alert("서버와 통신 중 문제가 발생했습니다.");
       }
     };
 
-    if (selectedTab === "찜한 도안") {
+    if (selectedTab === "My 도안") {
       fetchLikedDesigns();
     }
   }, [selectedTab, navigate]);
@@ -103,6 +102,7 @@ const UserAuditionAdd = () => {
     formData.append("desiredDate", desiredDate);
     formData.append("desiredTime", desiredTime);
     formData.append("recipient", recipient);
+    formData.append("recipientPhone", recipientPhone);
     formData.append("region", region);
     formData.append("requests", requests);
     formData.append("deliveryAddress", deliveryAddress);
@@ -110,7 +110,7 @@ const UserAuditionAdd = () => {
     formData.append("selectedTab", selectedTab);
 
     // 탭에 따른 데이터 처리
-    if (selectedTab === "찜한 도안" && selectedDesignId) {
+    if (selectedTab === "My 도안" && selectedDesignId) {
       formData.append("designId", selectedDesignId); // 선택된 도안 번호 추가
       formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 선택된 도안 번호 추가
     } else if (selectedTab === "사진 첨부" && uploadedImage) {
@@ -314,17 +314,6 @@ const UserAuditionAdd = () => {
                   </select>
                 </div>
                 <div className="user-cake-audition-form-group">
-                  <label htmlFor="recipient">받는 사람</label>
-                  <input
-                    type="text"
-                    id="recipient"
-                    value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
-                    placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
-                    className="user-audition-input-text"
-                  />
-                </div>
-                <div className="user-cake-audition-form-group">
                   <label htmlFor="deliveryAddress">배송 주소</label>
                   <input
                     type="text"
@@ -337,6 +326,30 @@ const UserAuditionAdd = () => {
                 </div>
               </>
             )}
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient">받는 사람</label>
+              <input
+                type="text"
+                id="recipient"
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+                placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient-phone">받는 사람 연락처</label>
+              <input
+                type="text"
+                id="recipient-phone"
+                value={recipientPhone}
+                onChange={(e) => setRecipientPhone(e.target.value)}
+                placeholder="'-' 없이 숫자만 입력해주세요"
+                className="user-audition-input-text"
+              />
+            </div>
 
             <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>
@@ -354,10 +367,10 @@ const UserAuditionAdd = () => {
             <div className="user-audition-tabs">
               <button
                 type="button"
-                className={selectedTab === "찜한 도안" ? "active" : ""}
-                onClick={() => handleTabChange("찜한 도안")}
+                className={selectedTab === "My 도안" ? "active" : ""}
+                onClick={() => handleTabChange("My 도안")}
               >
-                찜한 도안
+                My 도안
               </button>
               <button
                 type="button"
@@ -377,7 +390,7 @@ const UserAuditionAdd = () => {
 
             {/* 탭에 따른 내용 */}
             <div className="user-audition-design-preview">
-              {selectedTab === "찜한 도안" && (
+              {selectedTab === "My 도안" && (
                 <div className="user-audition-liked-designs">
                   {likedDesigns.map((design, index) => (
                     <div

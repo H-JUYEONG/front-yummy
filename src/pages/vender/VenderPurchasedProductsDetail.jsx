@@ -36,6 +36,21 @@ const PurchasedProductsDetail = () => {
     const openLiveModal = () => setIsLiveModalOpen(true);
     const closeLiveModal = () => setIsLiveModalOpen(false);
     const webcamRef = useRef(null);
+    // Kakao 초기화
+    useEffect(() => {
+        if (!window.Kakao) {
+            const script = document.createElement("script");
+            script.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
+            script.onload = () => {
+                if (!window.Kakao.isInitialized()) {
+                    window.Kakao.init("1937eee4549e776d0e64b081a992004a"); // 카카오 JavaScript 키 입력
+                }
+            };
+            document.head.appendChild(script);
+        } else if (!window.Kakao.isInitialized()) {
+            window.Kakao.init("1937eee4549e776d0e64b081a992004a");
+        }
+    }, []);
 
     const dataURLtoFile = (dataurl, filename) => {
         const arr = dataurl.split(',');
@@ -59,11 +74,20 @@ const PurchasedProductsDetail = () => {
             const response = await axios.post(`${API_URL}/api/vender/${orderId}/upload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-            alert("파일 업로드 성공!");
+
+            // S3에 업로드된 URL을 상태로 저장
+            if (response.data?.url) {
+                const uploadedUrl = response.data.url; // 서버에서 반환된 URL
+                alert("파일 업로드 성공!");
+                setImageUrl(uploadedUrl); // URL 저장
+            } else {
+                alert("URL을 가져오지 못했습니다.");
+            }
         } catch (error) {
             alert("파일 업로드 실패: " + error.response?.data || error.message);
         }
     };
+
     // 주문 상세 정보를 가져오는 함수
     const fetchOrderDetails = async () => {
         try {
@@ -127,12 +151,6 @@ const PurchasedProductsDetail = () => {
     }, []);
 
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!isSidebarOpen);
-    };
-
-
-
     useEffect(() => {
         if (webcamRef.current) {
             console.log("Webcam 초기화 완료:", webcamRef.current);
@@ -194,6 +212,31 @@ const PurchasedProductsDetail = () => {
         };
     }, [notificationTimeout]);
 
+      const sendLinkToCustomer = async () => {
+        if (!imageUrl) {
+            alert("파일을 먼저 업로드하세요!");
+            return;
+        }
+
+        try {
+            window.Kakao.Link.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '주문 제작이 완료된 파일입니다.',
+                    description: '아래 링크를 눌러 확인해주세요.',
+                    imageUrl: imageUrl, // 업로드된 URL 사용
+                    link: {
+                        mobileWebUrl: imageUrl,
+                        webUrl: imageUrl,
+                    },
+                },
+            });
+            alert("링크가 고객에게 전송되었습니다!");
+        } catch (error) {
+            console.error("전송 실패:", error);
+            alert("전송에 실패했습니다.");
+        }
+    };
 
     if (loading) {
         return <div>로딩 중...</div>;
@@ -334,7 +377,11 @@ const PurchasedProductsDetail = () => {
                                                         >
                                                             업로드
                                                         </button>
+                                                        <button onClick={sendLinkToCustomer} disabled={!imageUrl}>
+                                                            전송하기
+                                                        </button>
                                                     </div>
+
                                                 )}
                                             </div>
                                         </div>
@@ -371,6 +418,9 @@ const PurchasedProductsDetail = () => {
                                                             }}
                                                         >
                                                             업로드
+                                                        </button>
+                                                        <button onClick={sendLinkToCustomer} disabled={!imageUrl}>
+                                                            전송하기
                                                         </button>
                                                     </div>
                                                 )}

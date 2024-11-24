@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './assets/css/App.css'; // 스타일 적용
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
-
 
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -60,6 +61,7 @@ import UserAuditionAdd from './pages/user/UserAuditionAdd';
 import UserAuditionEdit from './pages/user/UserAuditionEdit';
 import UserAuditionOngoing from './pages/user/UserAuditionOngoing';
 import UserAuditionModal from './pages/user/UserAuditionModal.jsx';
+import UserAuditionComplete from './pages/user/UserAuditionComplete.jsx';
 import UserMyAudtion from './pages/user/UserMyAudtion';
 import UserExeStoreDetail from './pages/user/UserExeStoreDetail';
 
@@ -84,11 +86,17 @@ import VenderInsertAudition from './pages/vender/VenderInsertAudition';
 import VenderProductRegistrationFormEdit from './pages/vender/VenderProductRegistrationFormEdit';
 import WebRTCReceiver from './pages/user/WebRTCReceiver';
 
+//GPT
+import ChatGPTApp from './pages/main/ChatGPTApp.jsx';
+
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
   return (
-    <div>
-
-
+    <div className="app-container">
       <BrowserRouter>
         <Routes>
           <Route path='/vender/:venderId' element={<VenderDashboard />} />
@@ -144,7 +152,7 @@ function App() {
           <Route path='/user/cakeDesign/edit/:cakeDesignId' element={<UserCakeDesignEdit />} />
           <Route path='/user/mypage/point' element={<UserPoint />} />
           <Route path='/user/storedetail/:venderId' element={<UserStoreDetail />} />
-          <Route path='/user/paymentdetail' element={<UserPaymentDetail />} />
+          <Route path="/user/paymentdetail/:venderId" element={<UserPaymentDetail />} />
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList />} />
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
           <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
@@ -154,6 +162,7 @@ function App() {
           <Route path='/user/audition/edit/:auditionApplicationId' element={<UserAuditionEdit />} />
           <Route path='/user/audition/ongoing/:auditionApplicationId' element={<UserAuditionOngoing />} />
           <Route path='/user/audition/modal' element={<UserAuditionModal />} />
+          <Route path='/user/audition/complete' element={<UserAuditionComplete />} />
           <Route path='/user/mypage/audition' element={<UserMyAudtion />} />
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
           <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
@@ -174,8 +183,29 @@ function App() {
           <Route path='/debate/debateinsert' element={<UserDebateInsert />} />
           <Route path='/debate/debateview/:debateId' element={<UserDebateView />} />
           <Route path='/debate/debateedit' element={<UserDebateEdit />} />
+
+          {/* GPT Routes */}
+          <Route path='/gpt' element={<ChatGPTApp />} />
         </Routes>
       </BrowserRouter>
+   
+      {/* 오른쪽 하단 플로팅 버튼 */}
+      <div className="floating-chat-button" onClick={toggleChat}>
+        🍰
+      </div>
+
+      {/* 플로팅 버튼에서 열리는 ChatGPTApp */}
+      {isChatOpen && (
+        <div className="chat-bot-container">
+          <div className="chat-header">
+            <span>🍰 YUMMY 상담 봇</span>
+            <button className="close-chat" onClick={toggleChat}>
+              ×
+            </button>
+          </div>
+          <ChatGPTApp />
+        </div>
+      )}
     </div>
   );
 }

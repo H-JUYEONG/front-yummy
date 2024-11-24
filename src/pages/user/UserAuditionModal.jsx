@@ -9,29 +9,61 @@ import "../../assets/css/vender/syModal.css";
 import "../../assets/css/user/userAuditionModal.css";
 
 const UserAuditionModal = ({ isOpen, onClose, company }) => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   if (!isOpen || !company) return null; // isOpen이 false이거나 company가 없으면 렌더링하지 않음
 
-  // const auditionSelect = () => {
-  //   axios({
-  //     method: "put",
-  //     url: `${process.env.REACT_APP_API_URL}/api/users/audition/select`,
-  //     params: {auditionApplicationId: company.auditionApplicationId, auditionCartId: company.auditionCartId},
-  //     responseType: "json", // 수신타입
-  //   })
-  //     .then((response) => {
+  // 업체가 신청한 내용 가져오기
+  const auditionSelect = () => {
+    const token = localStorage.getItem("token");
 
-  //       console.log(response.data.apiData); // 객체 자체를 출력
-  //       if (response.data.result === "success") {
-  //           navigate("/user/paymentdetail");
-  //       } else {
-  //         alert("신청 실패");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+    const auditionApplicationId = company.auditionApplicationId
+
+    const JuAuditionVendorCartVo = {
+      auditionApplicationId: company.auditionApplicationId, // 경매 주문 ID
+      auditionCartId: company.auditionCartId, // 경매 장바구니 ID
+      productId: company.productId,
+      deliveryMethod: company.deliveryMethod, // 수령 방법 (픽업, 퀵배송)
+      deliveryAddress: company.deliveryAddress, // 배송 주소
+      recipientName: company.recipientName, // 받는 사람 이름
+      recipientPhone: company.recipientPhone, // 받는 사람 연락처
+      desiredDate: company.desiredDate, // 희망 날짜(픽업, 배송 공통부분이므로 한개 사용)
+      desiredTime: company.desiredTime, // 희망 날짜(픽업, 배송 공통부분이므로 한개 사용)
+      productType: company.productType, // 상품 종류
+      cakeSize: company.cakeSize, // 케이크 사이즈
+      flavorSheet: company.flavorSheet, // 맛 - 시트
+      flavorCream: company.flavorCream, // 맛 - 크림
+      backgroundColor: company.backgroundColor, // 케이크 배경 색상
+      creamPosition: company.creamPosition, // 크림 위치
+      creamColor: company.creamColor, // 크림 색상
+      decorationType: company.decorationType, // 데코 종류
+      decorationColor: company.decorationColor, // 데코 색상
+      category: company.category, // 카테고리
+      orderAmount: company.orderAmount, // 총 주문 금액
+      cakeLettering: company.cakeLettering, // 케이크 레터링
+      plateLettering: company.plateLettering, // 판위 레터링
+      additionalRequests: company.additionalRequests, // 기타 요청 사항
+    };
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/users/audition/select`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: JuAuditionVendorCartVo,
+      responseType: "json", // 수신타입
+    })
+      .then((response) => {
+        console.log('모야?'); // 객체 자체를 출력
+        console.log(response.data.apiData); // 객체 자체를 출력
+        if (response.data.result === "success") {
+          navigate(`/user/audition/complete?auditionApplicationId=${auditionApplicationId}`);
+        } else {
+          alert("신청 실패");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="vender-sso-modal-overlay">
@@ -64,12 +96,21 @@ const navigate = useNavigate();
                     <li>크림 색상 : {company.creamColor || "없음"}</li>
                     <li>크림 위치 : {company.creamPosition || "없음"}</li>
                     <li>케이크 배경색 : {company.backgroundColor || "없음"}</li>
-                    <li>데코레이션 타입 : {company.decorationType || "없음"}</li>
-                    <li>데코레이션 색상 : {company.decorationColor || "없음"}</li>
+                    <li>
+                      데코레이션 타입 : {company.decorationType || "없음"}
+                    </li>
+                    <li>
+                      데코레이션 색상 : {company.decorationColor || "없음"}
+                    </li>
                     <li>카테고리 : {company.category || "없음"}</li>
                     <li>케이크 레터링 : {company.cakeLettering || "없음"}</li>
-                    <li>케이크판 레터링 : {company.plateLettering || "없음"}</li>
-                    <li>제시금액 : {`${company.proposedAmount.toLocaleString()}원` || "없음"}</li>
+                    <li>
+                      케이크판 레터링 : {company.plateLettering || "없음"}
+                    </li>
+                    <li>
+                      제시금액 :{" "}
+                      {`${company.proposedAmount.toLocaleString()}원` || "없음"}
+                    </li>
                     <li>요청사항</li>
                     <li>
                       <div className="appeal-design-text-RequestedTerm">
@@ -85,16 +126,21 @@ const navigate = useNavigate();
                 <div className="appeal-design-photo">
                   <img
                     src={
-                      company.productImage1Url || "../../assets/images/cake-logo1.png"
+                      company.productImage1Url ||
+                      "../../assets/images/cake-logo1.png"
                     }
                     alt="예시도안"
                   />
                 </div>
                 <div>
-                <button className="user-ongoing-select-button" onClick={()=>navigate("/user/paymentdetail")}>주문하기</button>
+                  <button
+                    className="user-ongoing-select-button"
+                    onClick={auditionSelect}
+                  >
+                    결제하기
+                  </button>
+                </div>
               </div>
-              </div>
-
             </div>
           </div>
         </div>

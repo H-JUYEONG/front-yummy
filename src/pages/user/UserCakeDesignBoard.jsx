@@ -97,9 +97,22 @@ const UserCakeDesignBoard = () => {
     loadCakeDesigns(currentPage);
   }, [currentPage, selectedStyle]);
 
-  // 이미지 클릭 핸들러
-  const handleImageClick = (cakeDesignId) => {
-    navigate(`/user/cakeDesign/detail/${cakeDesignId}`);
+  // 클릭시 상세페이지로 이동
+  const handleCakeDesignClick = (cakeDesignId) => {
+    axios({
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}/api/cakeDesign/views/${cakeDesignId}`,
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          console.log("조회수 증가 성공:", response.data);
+          navigate(`/user/cakeDesign/detail/${cakeDesignId}`);
+        }
+      })
+      .catch((error) => {
+        console.error("조회수 증가 실패:", error);
+      });
+
   };
 
   // 검색 핸들러
@@ -170,13 +183,13 @@ const UserCakeDesignBoard = () => {
           </div>
           <div className="user-cake-design-list-grid">
             {userCakeDesignBoard.map((card, index) => (
-              <div key={index} className="user-cake-design-card">
+              <div
+                key={index}
+                className="user-cake-design-card"
+                onClick={() => handleCakeDesignClick(card.cakeDesignId)}
+              >
                 <div className="user-cake-design-card-image">
-                  <img
-                    src={card.cakeDesignImageUrl}
-                    onClick={() => handleImageClick(card.cakeDesignId)}
-                    alt="케이크 도안"
-                  />
+                  <img src={card.cakeDesignImageUrl} alt="케이크 도안" />
                   <div className="user-cake-design-card-likes">
                     <FaHeart className="heart-icon" />
                     <span>{card.cakeDesignWishlistCount}</span>

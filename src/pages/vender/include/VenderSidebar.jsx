@@ -65,6 +65,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
 
 
     return (
+        
         <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
             <div className="vender-profile">
                 <Link to={`/user/storedetail/${venderId}`}>

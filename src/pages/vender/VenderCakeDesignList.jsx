@@ -115,10 +115,7 @@ const VenderCakeDesignList = () => {
               <div className="cake-design-list-imgs">
                 {currentProducts.length > 0 ? (
                   currentProducts.map((design, index) => (
-                    <div
-                      key={index}
-                      className="vender-cake-design-list-box"
-                    >
+                    <div key={index} className="vender-cake-design-list-box">
                       <img
                         src={design.cakeDesignImageUrl}
                         alt={design.cakeDesignTitle}
@@ -126,6 +123,15 @@ const VenderCakeDesignList = () => {
                       />
                       <p className="vender-cake-design-title">
                         {design.cakeDesignTitle}
+                      </p>
+                      <p
+                        className={
+                          design.cakeDesignVisibility
+                            ? "visibility-public"
+                            : "visibility-private"
+                        }
+                      >
+                        {design.cakeDesignVisibility ? "공개" : "비공개"}
                       </p>
                     </div>
                   ))
