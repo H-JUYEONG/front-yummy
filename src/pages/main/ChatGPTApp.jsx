@@ -53,7 +53,7 @@ function ChatGPTApp() {
                     key={index}
                     className={msg.role === "user" ? "chat-user-message" : "chat-gpt-message"}
                 >
-                    <strong>{msg.role === "user" ? "" : "🍰 YUMMY :"}</strong>{" "}
+                    <strong>{msg.role === "user" ? "" : ""}</strong>{" "}
                     {msg.content}
                 </p>
             ))}
