@@ -9,6 +9,7 @@
     overflow: hidden;          
     text-overflow: ellipsis;   
     width: 250px;               /* 그리드 셀 너비에 맞춤 */
+    font-weight: bold;
 }
 
 .cake-design-list-imgs {
@@ -38,3 +39,13 @@
     text-align: center;
     font-size: 18px;
 }
+
+.visibility-public {
+    color: #0056b3;
+    font-size: 1.0em !important; 
+  }
+  
+  .visibility-private {
+    color: #EA4335;
+    font-size: 1.0em !important; 
+  }
