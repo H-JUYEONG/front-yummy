@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import "../../assets/css/user/userauditionongoing.css";
