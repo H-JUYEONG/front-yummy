@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-
 import axios from "axios";
 
 // css
@@ -22,6 +21,7 @@ const UserAuditionEdit = () => {
   const [desiredDate, setDesiredDate] = useState(""); // 희망 날짜
   const [desiredTime, setDesiredTime] = useState(""); // 희망 시간
   const [recipient, setRecipient] = useState(""); // 받는 사람
+  const [recipientPhone, setRecipientPhone] = useState(""); // 받는 사람 연락처
   const [region, setRegion] = useState(""); // 지역 구
   const [requests, setRequests] = useState(""); // 요청사항
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
@@ -60,10 +60,31 @@ const UserAuditionEdit = () => {
               : ""
           );
           setRecipient(response.data.apiData.recipientName);
+          setRecipientPhone(response.data.apiData.recipientPhone);
           setRegion(response.data.apiData.region);
           setRequests(response.data.apiData.additionalRequests);
           setDeliveryAddress(response.data.apiData.deliveryAddress);
-          setSelectedImage(response.data.apiData.imageUrl);
+
+          // 여기만 수정: designId가 없을 때만 selectedImage 설정
+          if (!response.data.apiData.designId) {
+            setSelectedImage(response.data.apiData.imageUrl);
+          }
+
+          // 나머지 탭 선택 로직은 그대로 유지
+          if (response.data.apiData.designId) {
+            setSelectedTab("찜한 도안");
+            setSelectedDesignId(response.data.apiData.designId);
+          } else if (
+            !response.data.apiData.designId &&
+            response.data.apiData.imageUrl
+          ) {
+            setSelectedTab("사진 첨부");
+          } else if (
+            !response.data.apiData.designId &&
+            !response.data.apiData.imageUrl
+          ) {
+            setSelectedTab("사진 없음");
+          }
         } else {
           alert("오디션 글 내용 가져오기 실패");
         }
@@ -106,10 +127,8 @@ const UserAuditionEdit = () => {
       }
     };
 
-    if (selectedTab === "찜한 도안") {
-      fetchLikedDesigns();
-    }
-  }, [selectedTab, navigate]);
+    fetchLikedDesigns(); // 도안 가져오기
+  }, [navigate]);
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);
@@ -132,6 +151,7 @@ const UserAuditionEdit = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // 1. 필수 입력값 검증
     if (
       !title ||
       !price ||
@@ -139,13 +159,32 @@ const UserAuditionEdit = () => {
       !size ||
       !desiredDate ||
       !desiredTime ||
-      !recipient ||
-      !region ||
-      !requests ||
-      !deliveryAddress
+      !region
     ) {
       alert("필수 항목을 모두 입력해주세요.");
       return;
+    }
+
+    // 2. 선택된 탭에 따른 검증
+    if (selectedTab === "찜한 도안") {
+      if (!selectedDesignId) {
+        alert("찜한 도안을 선택해주세요.");
+        return;
+      }
+    } else if (selectedTab === "사진 첨부") {
+      if (!uploadedImage && !selectedImage) {
+        // 새로운 파일도 없고 기존 이미지도 없는 경우 경고
+        alert("첨부할 사진을 선택해주세요.");
+        return;
+      }
+    }
+
+    // 3. 배송 방식에 따른 검증
+    if (deliveryMethod === "배송") {
+      if (!recipient || !deliveryAddress) {
+        alert("배송 정보를 모두 입력해주세요.");
+        return;
+      }
     }
 
     const token = localStorage.getItem("token");
@@ -155,6 +194,7 @@ const UserAuditionEdit = () => {
       return;
     }
 
+    // 5. FormData 구성
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -162,19 +202,26 @@ const UserAuditionEdit = () => {
     formData.append("deliveryMethod", deliveryMethod);
     formData.append("desiredDate", desiredDate);
     formData.append("desiredTime", desiredTime);
-    formData.append("recipient", recipient);
     formData.append("region", region);
+    formData.append("recipient", recipient);
+    formData.append("recipientPhone", recipientPhone);
     formData.append("requests", requests);
-    formData.append("deliveryAddress", deliveryAddress);
-    // 현재 선택된 탭 추가
     formData.append("selectedTab", selectedTab);
 
-    // 탭에 따른 데이터 처리
+    if (deliveryMethod === "배송") {
+      formData.append("deliveryAddress", deliveryAddress);
+    }
+
+    // 선택된 탭에 따라 처리
     if (selectedTab === "찜한 도안" && selectedDesignId) {
-      formData.append("designId", selectedDesignId); // 선택된 도안 번호 추가
-      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 선택된 도안 번호 추가
-    } else if (selectedTab === "사진 첨부" && uploadedImage) {
-      formData.append("uploadedImage", uploadedImage); // 업로드된 이미지 추가
+      formData.append("designId", selectedDesignId); // 선택된 도안 ID
+      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 도안 이미지 URL
+    } else if (selectedTab === "사진 첨부") {
+      if (uploadedImage) {
+        formData.append("uploadedImage", uploadedImage); // 새로 업로드된 이미지
+      } else if (selectedImage) {
+        formData.append("existingImage", selectedImage); // 기존 등록된 이미지 URL
+      }
     }
 
     try {
@@ -232,8 +279,8 @@ const UserAuditionEdit = () => {
               <input
                 type="text"
                 id="price"
-                value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
-                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
+                value={price ? Number(price).toLocaleString() : ""}
+                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))}
                 placeholder="예: 35000"
                 className="user-audition-input-text"
               />
@@ -298,7 +345,6 @@ const UserAuditionEdit = () => {
                 <option value="동작구">동작구</option>
                 <option value="관악구">관악구</option>
                 <option value="서초구">서초구</option>
-                <option value="강남구">강남구</option>
                 <option value="송파구">송파구</option>
                 <option value="강동구">강동구</option>
               </select>
@@ -374,17 +420,6 @@ const UserAuditionEdit = () => {
                   </select>
                 </div>
                 <div className="user-cake-audition-form-group">
-                  <label htmlFor="recipient">받는 사람</label>
-                  <input
-                    type="text"
-                    id="recipient"
-                    value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
-                    placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
-                    className="user-audition-input-text"
-                  />
-                </div>
-                <div className="user-cake-audition-form-group">
                   <label htmlFor="deliveryAddress">배송 주소</label>
                   <input
                     type="text"
@@ -397,6 +432,30 @@ const UserAuditionEdit = () => {
                 </div>
               </>
             )}
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient">받는 사람</label>
+              <input
+                type="text"
+                id="recipient"
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+                placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient-phone">받는 사람 연락처</label>
+              <input
+                type="text"
+                id="recipient-phone"
+                value={recipientPhone}
+                onChange={(e) => setRecipientPhone(e.target.value)}
+                placeholder="'-' 없이 숫자만 입력해주세요"
+                className="user-audition-input-text"
+              />
+            </div>
 
             <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>

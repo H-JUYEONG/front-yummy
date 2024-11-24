@@ -19,6 +19,7 @@ const UserAuditionAdd = () => {
   const [desiredDate, setDesiredDate] = useState(""); // 희망 날짜
   const [desiredTime, setDesiredTime] = useState(""); // 희망 시간
   const [recipient, setRecipient] = useState(""); // 받는 사람
+  const [recipientPhone, setRecipientPhone] = useState(""); // 받는 사람 연락처
   const [region, setRegion] = useState(""); // 지역 구
   const [requests, setRequests] = useState(""); // 요청사항
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
@@ -48,8 +49,6 @@ const UserAuditionAdd = () => {
             },
           }
         );
-        console.log('내가 찜한 도안리스트');
-        console.log(response.data.apiData);
 
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
@@ -103,6 +102,7 @@ const UserAuditionAdd = () => {
     formData.append("desiredDate", desiredDate);
     formData.append("desiredTime", desiredTime);
     formData.append("recipient", recipient);
+    formData.append("recipientPhone", recipientPhone);
     formData.append("region", region);
     formData.append("requests", requests);
     formData.append("deliveryAddress", deliveryAddress);
@@ -314,17 +314,6 @@ const UserAuditionAdd = () => {
                   </select>
                 </div>
                 <div className="user-cake-audition-form-group">
-                  <label htmlFor="recipient">받는 사람</label>
-                  <input
-                    type="text"
-                    id="recipient"
-                    value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
-                    placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
-                    className="user-audition-input-text"
-                  />
-                </div>
-                <div className="user-cake-audition-form-group">
                   <label htmlFor="deliveryAddress">배송 주소</label>
                   <input
                     type="text"
@@ -337,6 +326,30 @@ const UserAuditionAdd = () => {
                 </div>
               </>
             )}
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient">받는 사람</label>
+              <input
+                type="text"
+                id="recipient"
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+                placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="recipient-phone">받는 사람 연락처</label>
+              <input
+                type="text"
+                id="recipient-phone"
+                value={recipientPhone}
+                onChange={(e) => setRecipientPhone(e.target.value)}
+                placeholder="'-' 없이 숫자만 입력해주세요"
+                className="user-audition-input-text"
+              />
+            </div>
 
             <div className="user-cake-audition-form-group">
               <label htmlFor="requests">요청사항</label>
