@@ -21,14 +21,14 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
 
   const [likedProducts, setLikedProducts] = useState([]);
 
-  const [likedDesigns, setUserCakeDesignList] = useState([]);
+  const [likedDesigns, setLikedDesigns] = useState([]);
 
 
   const getLikedProducts = async (page = 1) => {
     try {
         const response = await axios({
             method: 'get',
-            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/modal`,
+            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/productmodal`,
             headers: { 
                 Authorization: `Bearer ${token}` 
             },
@@ -57,8 +57,46 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
     }
 };
 
+const getLikedDesign = async (page = 1) => {
+  try {
+      const response = await axios({
+          method: 'get',
+          url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/designmodal`,
+          headers: { 
+              Authorization: `Bearer ${token}` 
+          },
+          params: {
+              page: page,
+              size: 8,
+              keyword: searchKeyword
+          },
+          responseType: 'json'
+      });
+
+      if (response.data.result === "success") {
+          console.log("위시리스트 데이터:", response.data.apiData);
+          const design = response.data.apiData.content || [];
+          const validDesign = design.filter(
+              (design) => design && design.cake_design_id
+          );
+          setLikedDesigns(validDesign);
+          setTotalPages(response.data.apiData.totalPages || 1);
+      } else {
+          alert(response.data.message || "상품 목록 가져오기 실패");
+      }
+  } catch (error) {
+      console.error('API Error:', error);
+      alert('데이터를 불러오는 중 오류가 발생했습니다.');
+  }
+};
+
+
+
 useEffect(() => {
   getLikedProducts(currentPage);
+  getLikedDesign(currentPage);
+  console.log(likedDesigns,toString());
+  
 }, [currentPage]);
 
 // 검색 핸들러
@@ -145,32 +183,54 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
 
         {/* Product grid based on selected tab */}
         <div className="j-products-grid">
-          {likedProducts.length > 0 ? (
-            likedProducts.map((product) => (
+          {selectedTab === "찜한 상품" ? (
+            likedProducts.length > 0 ? (
+              likedProducts.map((product) => (
+                <div
+                  key={product.productId}
+                  className="j-product-card"
+                  onClick={() =>
+                    handleImageClick(
+                      product.productImageUrl,
+                      "Product",
+                      product.productId
+                    )
+                  }
+                >
+                  <div className="j-product-image">
+                    <img src={product.productImageUrl} alt={product.productName} />
+                  </div>
+                  <div className="j-product-info">
+                    <h3>{product.productName}</h3>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>찜한 상품이 없습니다.</p>
+            )
+          ) : likedDesigns.length > 0 ? (
+            likedDesigns.map((design) => (
               <div
-                key={product.productId}
+                key={design.cake_design_id}
                 className="j-product-card"
                 onClick={() =>
                   handleImageClick(
-                    product.productImageUrl,
-                    "Product",
-                    product.productId
+                    design.cake_design_image_url,
+                    "Design",
+                    design.cake_design_id
                   )
                 }
               >
                 <div className="j-product-image">
-                  <img
-                    src={product.productImageUrl}
-                    alt={product.productName}
-                  />
+                  <img src={design.cake_design_image_url} alt="Design Image" />
                 </div>
                 <div className="j-product-info">
-                  <h3>{product.productName}</h3>
+                  <h3>{design.cake_design_title || "Untitled Design"}</h3>
                 </div>
               </div>
             ))
           ) : (
-            <p>찜한 상품이 없습니다.</p>
+            <p>찜한 도안이 없습니다.</p>
           )}
         </div>
 

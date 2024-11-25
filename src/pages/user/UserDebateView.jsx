@@ -26,29 +26,36 @@ const UserDebateView = () => {
   const [commentList, setCommentList] = useState([]); // 이벤트 리스트
 
   const fetchDebateDetails = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+  
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/debate/debateview/${debateId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Add token if needed
-          },
-        }
-      );
-
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/debate/debateview/${debateId}`,
+        headers: { Authorization: `Bearer ${token}` },
+        responseType: "json",
+      });
+  
+      console.log("Debate Details Response:", response.data);
       if (response.data.result === "success") {
-        setDebateDetails(response.data.apiData); // Set debate details
+        setDebateDetails(response.data.apiData || {});
       } else {
-        alert("토론 정보를 가져오는 데 실패했습니다.");
+        alert(response.data.message || "Failed to fetch debate details.");
       }
     } catch (error) {
       console.error("Error fetching debate details:", error);
-      alert("데이터를 가져오는 중 오류가 발생했습니다.");
+      if (error.response && error.response.status === 401) {
+        alert("Unauthorized access. Please log in again.");
+      } else {
+        alert("An error occurred while fetching the data.");
+      }
     }
   };
-
   
-
   const getCommentList = () => {
     axios({
       method: "get",
@@ -69,10 +76,19 @@ const UserDebateView = () => {
   };
 
   useEffect(() => {
-    if (debateId) {
-      fetchDebateDetails();
-      getCommentList();
-    }
+    console.log("마운트 됨");
+  
+    const fetchData = async () => {
+      try {
+        console.log("Fetching debate details...");
+        await fetchDebateDetails();
+        await getCommentList();
+      } catch (error) {
+        console.error("Error in useEffect:", error);
+      }
+    };
+  
+    fetchData();
   }, [debateId]);
 
   return (
@@ -85,14 +101,14 @@ const UserDebateView = () => {
         <div className="debate-view-container">
           <div className="debate-view-header">
             <div className="user-debate-title">
-              <span>{debateDetails.debate_title}</span>
+              <span>{debateDetails.debate_title || ""}</span>
             </div>
 
             <div className="debate-meta-info">
               <span>
                 <FaEye /> {debateDetails.debate_view_count || "0"}
               </span>
-              <span>작성자: {debateDetails.user_nickname || "익명"}</span>
+              <span>작성자: {debateDetails.user_nickname }</span>
               <span>
                 {debateDetails.debate_created_at
                   ? new Date(debateDetails.debate_created_at).toLocaleDateString()
