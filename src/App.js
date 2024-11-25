@@ -188,7 +188,7 @@ function App() {
           <Route path='/gpt' element={<ChatGPTApp />} />
         </Routes>
       </BrowserRouter>
-   
+
       {/* 오른쪽 하단 플로팅 버튼 */}
       <div className="floating-chat-button" onClick={toggleChat}>
         🍰
