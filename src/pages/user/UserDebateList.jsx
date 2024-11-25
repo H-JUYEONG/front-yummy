@@ -56,6 +56,7 @@ const UserDebateList = () => {
 
   // Navigate to Debate Detail
   const handleRowClick = (debateId) => {
+    console.log(debateId);
     navigate(`/debate/debateview/${debateId}`);
   };
 
