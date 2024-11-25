@@ -25,8 +25,10 @@ const UserAuditionAdd = () => {
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
-  const [selectedTab, setSelectedTab] = useState("찜한 도안");
-  const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
+  const [selectedTab, setSelectedTab] = useState("My 도안");
+  const [likedDesigns, setLikedDesigns] = useState([]); // My 도안 리스트(나의도안/찜 포함)
+  const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
+  const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
 
   // My 도안 데이터 가져오기
   useEffect(() => {
@@ -47,8 +49,6 @@ const UserAuditionAdd = () => {
             },
           }
         );
-        console.log('내가 찜한 도안리스트');
-        console.log(response.data.apiData);
 
         if (response.data.result === "success") {
           setLikedDesigns(response.data.apiData); // 서버에서 받은 도안 리스트 설정
@@ -106,9 +106,15 @@ const UserAuditionAdd = () => {
     formData.append("region", region);
     formData.append("requests", requests);
     formData.append("deliveryAddress", deliveryAddress);
+    // 현재 선택된 탭 추가
+    formData.append("selectedTab", selectedTab);
 
-    if (uploadedImage) {
-      formData.append("uploadedImage", uploadedImage);
+    // 탭에 따른 데이터 처리
+    if (selectedTab === "My 도안" && selectedDesignId) {
+      formData.append("designId", selectedDesignId); // 선택된 도안 번호 추가
+      formData.append("cakeDesignImageUrl", selectedDesignImgUrl); // 선택된 도안 번호 추가
+    } else if (selectedTab === "사진 첨부" && uploadedImage) {
+      formData.append("uploadedImage", uploadedImage); // 업로드된 이미지 추가
     }
 
     try {
