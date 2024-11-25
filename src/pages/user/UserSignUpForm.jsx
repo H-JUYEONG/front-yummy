@@ -96,15 +96,51 @@ const UserSignUpForm = () => {
   };
 
   // 인증번호 요청
-  // const requestVerificationCode = () => {
-  //   // 서버로 인증번호 요청
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/api/request-verification`, {
-  //       phoneNumber,
-  //     })
-  //     .then((response) => setVerificationCode(response.data.code)) // 인증번호 저장
-  //     .catch((error) => console.error(error));
-  // };
+  const handleRequestCode = () => {
+    if (!phoneNumber) {
+      alert("휴대폰 번호를 입력해주세요.");
+      return;
+    }
+    console.log('전화번호');
+    console.log(phoneNumber);
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/send/code`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: { phone_number: phoneNumber },
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          alert("인증번호가 발송되었습니다. 입력한 번호를 확인해주세요.");
+        } else {
+          alert("인증번호 발송에 실패했습니다. 다시 시도해주세요.");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // 인증번호 검증
+  const handleVerifyCode = () => {
+    if (!inputCode) {
+      alert("인증번호를 입력해주세요.");
+      return;
+    }
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/verify/code`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: { phone_number: phoneNumber, code: inputCode },
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          alert("인증이 완료되었습니다!");
+        } else {
+          alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
 
   // 회원가입 요청
   const handleSignUp = (e) => {
@@ -244,23 +280,30 @@ const UserSignUpForm = () => {
                   placeholder="'-' 제외하고 숫자만 입력해주세요."
                   onChange={handlePhoneNumber}
                 />
-                {/* <button
+                <button
                   type="button"
                   className="request-code-btn"
-                  onClick={requestVerificationCode}
+                  onClick={handleRequestCode} // 인증번호 요청 핸들러
                 >
                   인증번호 요청
-                </button> */}
+                </button>
               </div>
-              {/* {verificationCode && (
+              {/* 인증번호 입력창 */}
+              <div className="verification-code-wrapper">
                 <input
                   type="text"
                   value={inputCode}
+                  placeholder="인증번호를 입력해주세요."
                   onChange={handleCodeInput}
-                  placeholder="인증번호 입력"
-                  className="verification-input"
                 />
-              )} */}
+                <button
+                  type="button"
+                  className="verify-code-btn"
+                  onClick={handleVerifyCode} // 인증번호 확인 핸들러
+                >
+                  인증번호 확인
+                </button>
+              </div>
             </div>
 
             {/* 약관 동의 */}
