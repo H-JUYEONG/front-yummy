@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import '../../assets/css/vender/venderauditionrequest.css';
 
 const VerticalCakeOrder = () => {
@@ -8,21 +10,49 @@ const VerticalCakeOrder = () => {
     const [selectedFlavor, setSelectedFlavor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const [requestText, setRequestText] = useState('');
-    const [price, setPrice] = useState('');
+    
+    const {venderId} = useParams();
+    const {productId} = useParams();
 
-    // 숫자만 입력되도록 처리하는 함수
-    const handlePriceChange = (e) => {
-        const value = e.target.value.replace(/[^0-9]/g, '');
-        setPrice(value);
-    };
+    const [cake, setCake] = useState('');
+    const [creamList, setCreamList] = useState([]);
+    const [sizeList, setSizeList] = useState([]);
+    const [tasteList, setTasteList] = useState([]);
+
+    const [context, setContext] = useState("");
+
+    const getOptionList = ()=>{
+
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/getOptions/${venderId}/${productId}`,
+            responseType: 'json' //수신타입
+
+        }).then(response => {
+            console.log(response); //수신데이타
+            console.log("옵션 리스트요")
+            console.log(response.data)
+            setCake(response.data.apiData.cake);
+            setCreamList(response.data.apiData.creamList);
+            setSizeList(response.data.apiData.sizeList);
+            setTasteList(response.data.apiData.tasteList);
+            
+        
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleContext = (e)=>{
+        setContext(e.target.value)
+    }
+
+
+
+    
 
     // 이미지 데이터
-    const images = [
-        '/images/2호_일반케이크.jpg',
-        '/images/3호_특별한케이크(달력).jpg',
-        '/images/1호_일반케이크 1.jpg',
-        '/images/4호_달걀 한판 케이크.png'
-    ];
+    
 
     // 색상 옵션 데이터
     const colorOptions = [
@@ -61,7 +91,6 @@ const VerticalCakeOrder = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({
-            price,
             selectedColor,
             selectedFlavor,
             selectedSize,
@@ -69,29 +98,25 @@ const VerticalCakeOrder = () => {
         });
     };
 
+
+    useEffect(()=>{
+        console.log("옵션 가져오기 랜더링")
+        getOptionList();
+    },[])
+
     return (
         <div id="user-wrap">
-           
+        
             <div className="vertical-cake-order">
                 {/* 제품명과 가격 입력 영역 */}
                 <div className="product-info-input">
-                    <h2 className="product-title">Lettering 맛있는 레터링 크림케이크 (1호,2호)</h2>
+                    <h2 className="product-title">{cake.cakeName}</h2>
                 </div>
 
                 {/* 메인 이미지 및 썸네일 */}
                 <div className="product-image-section">
-                    <img src={mainImage} alt="메인 케이크 이미지" className="main-image" />
-                    <div className="thumbnail-container">
-                        {images.map((image, index) => (
-                            <div
-                                key={index}
-                                className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                                onClick={() => handleThumbnailClick(image)}
-                            >
-                                <img src={image} alt={`썸네일 ${index + 1}`} className="thumbnail-image" />
-                            </div>
-                        ))}
-                    </div>
+                    <img src={cake.cakeURL} alt="메인 케이크 이미지" className="main-image" />
+                    
                 </div>
 
                 {/* 옵션 선택 영역 */}
@@ -100,13 +125,13 @@ const VerticalCakeOrder = () => {
                     <div className="option-group">
                         <h3>크림 색상</h3>
                         <div className="color-options">
-                            {colorOptions.map((color) => (
+                            {creamList.map((color) => (
                                 <button
-                                    key={color.id}
-                                    className={`color-option ${color.className} ${selectedColor === color.id ? 'active' : ''}`}
-                                    onClick={() => setSelectedColor(color.id)}
-                                    aria-label={`${color.name} 색상 선택`}
-                                    title={color.name}
+                                    key={color.CreamColor}
+                                    className={`color-option ${color.CreamColor} ${selectedColor === color.CreamColor ? 'active' : ''}`}
+                                    onClick={() => setSelectedColor(color.CreamColor)}
+                                    aria-label={`${color.CreamColor} 색상 선택`}
+                                    title={color.CreamColor}
                                 />
                             ))}
                         </div>
@@ -116,16 +141,16 @@ const VerticalCakeOrder = () => {
                     <div className="option-group">
                         <h3>맛</h3>
                         <div className="option-grid">
-                            {flavorOptions.map((flavor) => (
+                            {tasteList.map((taste) => (
                                 <button
-                                    key={flavor.id}
-                                    className={`option-item ${selectedFlavor === flavor.id ? 'active' : ''}`}
-                                    onClick={() => setSelectedFlavor(flavor.id)}
+                                    key={taste.taste}
+                                    className={`option-item ${selectedFlavor === taste.taste ? 'active' : ''}`}
+                                    onClick={() => setSelectedFlavor(taste.taste)}
                                 >
                                     <div className="option-image">
-                                        <img src={flavor.image} alt={flavor.name} />
+                                        <img src={taste.optionURL} />
                                     </div>
-                                    <span>{flavor.name}</span>
+                                    <span>{taste.taste}</span>
                                 </button>
                             ))}
                         </div>
@@ -135,16 +160,16 @@ const VerticalCakeOrder = () => {
                     <div className="option-group">
                         <h3>케이크 호수</h3>
                         <div className="option-grid">
-                            {sizeOptions.map((size) => (
+                            {sizeList.map((size) => (
                                 <button
-                                    key={size.id}
-                                    className={`option-item ${selectedSize === size.id ? 'active' : ''}`}
-                                    onClick={() => setSelectedSize(size.id)}
+                                    key={size.size}
+                                    className={`option-item ${selectedSize === size.size ? 'active' : ''}`}
+                                    onClick={() => setSelectedSize(size.size)}
                                 >
                                     <div className="option-image">
-                                        <img src={size.image} alt={size.name} />
+                                        <img src={size.optionURL} alt={size.name} />
                                     </div>
-                                    <span>{size.name}</span>
+                                    <span>{size.size}</span>
                                 </button>
                             ))}
                         </div>
@@ -155,8 +180,8 @@ const VerticalCakeOrder = () => {
                 <div className="request-section">
                     <h3>금액 측정</h3>
                     <textarea
-                        value={requestText}
-                        onChange={(e) => setRequestText(e.target.value)}
+                        value={context}
+                        onChange={handleContext}
                         placeholder="금액에 관련된 사항들을 측정해 주세요."
                         className="request-textarea"
                     />

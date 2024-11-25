@@ -127,7 +127,7 @@ function App() {
           <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
           <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
           <Route path="/vender/venderInsertAudition/:auditionId" element={<VenderInsertAudition />} />
-          <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
+          <Route path="/vender/venderauditonrequest/:venderId/:productId" element={<VenderAuditionRequest />} />
           <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
           <Route path='/vender/registrationformedit/:productId' element={<VenderProductRegistrationFormEdit />} />
 
