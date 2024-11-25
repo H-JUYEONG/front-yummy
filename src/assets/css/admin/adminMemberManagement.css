@@ -5,10 +5,13 @@
 }
 
 .admin-container .admin-member-content {
-    flex: 1;
-    padding: 40px;
-    background-color: #d8d8d8;
-    border-radius: 5px;
+    flex: 1; /* 사이드바를 제외한 나머지 공간 채우기 */
+    padding: 20px;
+    margin: 0; /* 불필요한 마진 제거 */
+    background-color: #ffffff;
+    overflow: auto; /* 내부 콘텐츠 스크롤 가능 */
+    box-sizing: border-box; /* 패딩 포함한 사이즈 계산 */
+    max-width: calc(100% - 240px); /* 사이드바 크기를 제외한 너비 */
 }
 
 /* 탭 메뉴 */

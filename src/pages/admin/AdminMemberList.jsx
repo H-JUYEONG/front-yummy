@@ -7,7 +7,7 @@ const AdminMemberList = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/admin/members`)

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../../assets/css/user/CakeOrder.css"; // 케이크 주문 페이지 스타일
-import "../../assets/css/user/usermain.css"; // 공통 사용자 페이지 스타일
 import VenderHeader from '../vender/include/VenderHeader'; // 커스텀 헤더 컴포넌트
 import axios from 'axios';
 
@@ -113,15 +112,20 @@ const VenderProductPreview = () => {
                     {/* 왼쪽 섹션 */}
                     <div className="left-section">
                         <div className="product-image">
-                            <img src={mainImage} alt="메인 이미지" className="main-image" />
+                            <img
+                                src={mainImage || images.main}
+                                alt="메인 이미지"
+                                className="main-image"
+                                onClick={() => setMainImage(images.main)} // 메인 이미지를 클릭하면 기본 메인 이미지로 복구
+                            />
                             <div className="thumbnail-container">
-                                {images.subs.map((image, index) => (
+                                {[images.main, ...images.subs].map((image, index) => (
                                     <div
                                         key={index}
                                         className={`thumbnail-wrapper ${mainImage === image ? 'active' : ''}`}
-                                        onClick={() => setMainImage(image)}
+                                        onClick={() => setMainImage(image)} // 모든 썸네일 이미지를 클릭 가능
                                     >
-                                        <img src={image} alt={`서브 이미지 ${index + 1}`} className="thumbnail-image" />
+                                        <img src={image} alt={`썸네일 ${index + 1}`} className="thumbnail-image" />
                                     </div>
                                 ))}
                             </div>
@@ -144,44 +148,67 @@ const VenderProductPreview = () => {
 
                     {/* 오른쪽 섹션 */}
                     <div className="right-section">
-                        <h2>{productName}</h2>
-                        <p className="price">{price} 원</p>
-
-                        {/* 선택한 옵션들을 표시 */}
-                        <div className="selected-options">
-                            <h3>선택한 옵션</h3>
-                            {Object.entries(selectedOptions).map(([optionTypeId, optionValueId]) => {
-                                // optionTypeId를 숫자로 변환 (string으로 전달될 가능성 처리)
-                                const typeId = parseInt(optionTypeId, 10);
-
-                                // 한글 옵션 유형 이름 가져오기
-                                const optionTypeName = OPTION_TYPE_NAME_KO[typeId] || '알 수 없는 옵션';
-
-                                return (
-                                    <div key={optionTypeId} className="option-group">
-                                        <h4>{optionTypeName}</h4> {/* 한글 옵션 유형 이름 출력 */}
-                                        {Array.isArray(optionValueId) ? (
-                                            // optionValueId가 배열인 경우 모든 값을 렌더링
-                                            optionValueId.map(valueId => renderOptionItem(typeId, valueId))
-                                        ) : (
-                                            // optionValueId가 단일 값인 경우
-                                            renderOptionItem(typeId, optionValueId)
-                                        )}
-                                    </div>
-                                );
-                            })}
+                        <div className="product-info">
+                            <h2>{productName}</h2>
+                            <p className="price">{price} 원</p>
                         </div>
+                        <div className="preview-cake-options">
+                            <div className="preview-cake-option-group">
+                                {/* 선택한 옵션들을 표시 */}
+                                <h3>선택한 옵션</h3>
 
-                        <Link
-                            to="/user/paymentdetail"
-                            className="submit-button"
-                        >
-                            요청사항 확인
-                        </Link>
+                                {Object.entries(selectedOptions).map(([optionTypeId, optionValueId]) => {
+                                    // optionTypeId를 숫자로 변환 (string으로 전달될 가능성 처리)
+                                    const typeId = parseInt(optionTypeId, 10);
+
+                                    // 한글 옵션 유형 이름 가져오기
+                                    const optionTypeName = OPTION_TYPE_NAME_KO[typeId] || '알 수 없는 옵션';
+
+                                    return (
+                                        <div className="preview-cake-option-group">
+                                            <h4>{optionTypeName}</h4> {/* 한글 옵션 유형 이름 출력 */}
+                                            <div className="preview-cake-container">
+                                                {Array.isArray(optionValueId) ? (
+                                                    // optionValueId가 배열인 경우 모든 값을 렌더링
+                                                    optionValueId.map(valueId => renderOptionItem(typeId, valueId))
+                                                ) : (
+                                                    // optionValueId가 단일 값인 경우
+                                                    renderOptionItem(typeId, optionValueId)
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                                <div className="option-group">
+                                    <h3>배송 방식</h3>
+                                    <div className="delivery-type-buttons">
+                                        <button
+                                            className="delivery-option-button"
+
+                                        >
+                                            픽업
+                                        </button>
+                                        <button
+                                            className="delivery-option-button"
+
+                                        >
+                                            퀵
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <Link
+                                to="/user/paymentdetail"
+                                className="submit-button"
+                            >
+                                요청사항 확인
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 };
 

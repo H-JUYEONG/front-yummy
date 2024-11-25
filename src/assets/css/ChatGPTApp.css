@@ -1,0 +1,171 @@
+/* 전체 챗봇 창 */
+.chat-bot-container {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: linear-gradient(135deg, #ffe4ec, #ffdce5); /* 부드러운 핑크 그라데이션 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 헤더 */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #ffaad4; /* 진한 핑크 */
+    color: white;
+}
+  
+/* 닫기 버튼 */
+.close-chat {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #ff6f91;
+}
+
+.close-chat:hover {
+    color: #ff3b6f;
+}
+
+/* 챗봇 내부 */
+.chat-gpt-app {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.chat-title {
+    text-align: center;
+    font-size: 1.8em;
+    color: #ff6f91;
+    margin-bottom: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-title:before {
+    content: "🍰";
+    margin-right: 8px;
+}
+
+/* 메시지 스타일 */
+.chat-messages {
+    flex: 1; /* 메시지 영역이 남은 공간을 차지 */
+    overflow-y: auto; /* 스크롤 활성화 */
+    margin-bottom: 5px; /* 입력창과 간격 */
+    border-radius: 0 0 15px 15px;
+}
+
+.chat-user-message {
+    text-align: right;
+    background-color: #ffdce5; /* 파스텔 핑크 */
+    padding: 10px;
+    border-radius: 15px 0 15px 15px;
+    margin: 5px;
+    display: inline-block;
+    max-width: 80%;
+    font-size: 1em;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-gpt-message {
+    text-align: left;
+    background-color: #fff5f8; /* 밝은 핑크 */
+    padding: 10px;
+    border-radius: 0 15px 15px 15px;
+    margin: 5px;
+    display: inline-block;
+    max-width: 80%;
+    font-size: 1em;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-gpt-message::before {
+    content: "🍰 YUMMY 봇: ";
+    font-weight: bold;
+    color: #ff6f91;
+}
+
+/* 입력 영역 */
+.chat-input-container {
+    display: flex;
+    gap: 10px;
+    background-color: #ffe4ec; /* 입력창 배경 */
+    padding: 10px;
+    border-top: 1px solid #ffdce5;
+    border-radius: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+.chat-send-button {
+    background: linear-gradient(135deg, #ff6f91, #ff85a2); /* 버튼 그라데이션 */
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-send-button:hover {
+    background: linear-gradient(135deg, #ff3b6f, #ff6f91); /* 더 진한 핑크 */
+}
+.chat-user-message, .chat-gpt-message {
+    animation: fadeInMessage 0.3s ease-in-out;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #ff6f91; /* 핑크 톤 */
+    border-radius: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #ffe4ec;
+}

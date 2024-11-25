@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
@@ -33,36 +33,41 @@ const translateOptionTypeName = (options) => {
 };
 
 // 옵션 선택 컴포넌트 (체크 박스 버전)
-const OptionSelector = ({ optionName, options, selectedOptions, onSelect }) => {
+const OptionSelector = ({ optionTypeId, optionName, options, selectedOptions = [], onSelect }) => {
     return (
         <div className="option-selector">
             <label>{optionName}</label>
             <div className="option-items">
-                {options.map((option, index) => {
-                    const isSelected = selectedOptions.includes(option.optionValueId); // 선택 여부 확인
-                    return (
-                        <div key={index} className={`option-item ${isSelected ? 'selected' : ''}`}>
-                            <input
-                                type="checkbox"
-                                id={`${optionName}-${index}`}
-                                checked={isSelected}
-                                onChange={() => onSelect(option.optionValueId)}
-                            />
-                            <label htmlFor={`${optionName}-${index}`}>
+                {options.map((option) => (
+                    <div
+                        key={option.optionValueId}
+                        className={`option-item ${selectedOptions.includes(option.optionValueId) ? 'selected' : ''}`}
+                    >
+                        <input
+                            type="checkbox"
+                            id={`${optionName}-${option.optionValueId}`}
+                            checked={option.isSelected} // isSelected 값 사용
+                            onChange={() => onSelect(optionTypeId, option.optionValueId)} // 옵션 선택
+                        />
+                        <label htmlFor={`${optionName}-${option.optionValueId}`}>
+                            {option.optionValueImageUrl && (
                                 <img
                                     src={option.optionValueImageUrl}
                                     alt={option.optionValueName}
                                     className="option-image"
                                 />
-                                <span className="option-name">{option.optionValueName}</span>
-                            </label>
-                        </div>
-                    );
-                })}
+
+                            )}
+
+                            <span className="option-name">{option.optionValueName}</span>
+                        </label>
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
+
 
 
 const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [], onSelectDesign }) => {
@@ -102,7 +107,12 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [],
                             <div className="design-image-placeholder">이미지 없음</div>
                         )}
                         <span className="design-name">{design.cakeDesignTitle}</span>
-                        <button onClick={() => onSelectDesign(design)}>선택</button>
+                        <button onClick={() => {
+                            console.log("도안 선택 버튼 클릭됨:", design); // 클릭 로그
+                            onSelectDesign(design);
+                        }}>
+                            선택
+                        </button>
                     </div>
                 ))}
             </div>
@@ -187,6 +197,7 @@ const ProductEditor = ({ description, setDescription }) => {
         <div className="form-group">
             <label htmlFor="description">상품 설명</label>
             <ReactQuill
+                key={description} // 상태가 바뀔 때마다 키를 변경하여 강제 업데이트
                 ref={quillRef}
                 id="description"
                 value={description}
@@ -196,7 +207,6 @@ const ProductEditor = ({ description, setDescription }) => {
                 theme="snow"
                 modules={modules}
                 formats={formats}
-                preserveWhitespace
             />
         </div>
     );
@@ -226,7 +236,84 @@ function VenderProductRegistrationFormEdit() {
     const [isLoadingOptions, setIsLoadingOptions] = useState(true);
     const [selectedOptions, setSelectedOptions] = useState({});
 
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [productResponse, myDesignsResponse, wishlistDesignsResponse, optionsResponse] = await Promise.all([
+                    axios.get(`${API_URL}/api/vender/products/${productId}`),
+                    axios.get(`${API_URL}/api/my-designs`, { params: { memberId } }),
+                    axios.get(`${API_URL}/api/wishlist-designs`, { params: { memberId } }),
+                    axios.get(`${API_URL}/api/vender/products/${productId}/options`, { params: { venderId } }),
+                ]);
+
+                const { product } = productResponse.data;
+                const myDesigns = myDesignsResponse.data;
+                const wishlistDesigns = wishlistDesignsResponse.data;
+                const availableOptionsData = optionsResponse.data.options;
+
+                console.log("Product 데이터:", product);
+
+                // 상태 초기화
+                if (product) {
+                    setProductName(product.productName || '');
+                    setPrice(product.price || '');
+                    setDescription(product.description || '');
+                    setImages({
+                        main: product.productImage1Url || null,
+                        subs: [
+                            product.productImage2Url || null,
+                            product.productImage3Url || null,
+                            product.productImage4Url || null,
+                        ],
+                    });
+                    setPreview({
+                        main: product.productImage1Url || null,
+                        subs: [
+                            product.productImage2Url || null,
+                            product.productImage3Url || null,
+                            product.productImage4Url || null,
+                        ],
+                    });
+
+                    if (product.cakeDesignTitle || product.cakeDesignImageUrl) {
+                        setSelectedDesign({
+                            cakeDesignId: product.cakeDesignId, // 유지
+                            cakeDesignTitle: product.cakeDesignTitle,
+                            cakeDesignImageUrl: product.cakeDesignImageUrl,
+                        });
+                    }
+                    if (product.selectedOptions) {
+                        const mappedOptions = availableOptions.map(option => ({
+                            ...option,
+                            optionValues: option.optionValues.map(value => ({
+                                ...value,
+                                isSelected: (product.selectedOptions[option.optionTypeId] || []).includes(value.optionValueId),
+                            })),
+                        }));
+                        setAvailableOptions(mappedOptions);
+                    }
+                }
+
+                const formattedOptions = availableOptionsData.map(option => ({
+                    ...option,
+                    optionTypeName: OPTION_TYPE_NAME_KO[option.optionTypeId] || option.optionTypeName,
+                    optionValues: option.optionValues.map(value => ({
+                        ...value,
+                        isSelected: (product.selectedOptions[option.optionTypeId] || []).includes(value.optionValueId),
+                    })),
+                }));
+
+                setAvailableOptions(formattedOptions);
+                setAvailableDesigns(wishlistDesigns);
+                setMyDesigns(myDesigns);
+            } catch (error) {
+                console.error("데이터 로드 실패:", error);
+            }
+        };
+
+        fetchData();
+    }, [productId, memberId]);
+
     const openDesignModal = useCallback(() => {
         setIsDesignModalOpen(true);
     }, []);
@@ -236,7 +323,8 @@ function VenderProductRegistrationFormEdit() {
     }, []);
 
     const handleDesignSelect = (design) => {
-        setSelectedDesign(design); // 선택한 도안 저장
+        console.log("선택된 도안 데이터:", design); // 디버깅용 로그
+        setSelectedDesign(design); // 선택된 도안을 상태로 설정
         closeDesignModal(); // 모달 닫기
     };
     useEffect(() => {
@@ -279,199 +367,79 @@ function VenderProductRegistrationFormEdit() {
     }, []);
 
 
-    useEffect(() => {
-        const fetchProductDetails = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/vender/products/${productId}`);
-                const { product, options } = response.data;
-                console.log("Fetched product:", product);
-
-                if (!product || !options) {
-                    console.error("Invalid product or options data:", response.data);
-                    return;
-                }
-
-                // 데이터 설정
-                setProductName(product.productName || '');
-                setPrice(product.price || '');
-                setDescription(product.description || '');
-                setImages({
-                    main: product.productImage1Url || null,
-                    subs: [
-                        product.productImage2Url || null,
-                        product.productImage3Url || null,
-                        product.productImage4Url || null,
-                    ],
-                });
-
-                const formattedOptions = options.reduce((acc, option) => {
-                    const { optionTypeId, optionTypeName, optionValueId, optionValueName, isSelected } = option;
-                    if (!acc[optionTypeId]) {
-                        acc[optionTypeId] = {
-                            optionTypeName: OPTION_TYPE_NAME_KO[optionTypeId] || optionTypeName,
-                            values: [],
-                        };
-                    }
-                    acc[optionTypeId].values.push({
-                        optionValueId,
-                        optionValueName,
-                        isSelected,
-                    });
-                    return acc;
-                }, {});
-                setAvailableOptions(formattedOptions);
-
-                const selected = options.filter(opt => opt.isSelected).reduce((acc, opt) => {
-                    if (!acc[opt.optionTypeId]) {
-                        acc[opt.optionTypeId] = [];
-                    }
-                    acc[opt.optionTypeId].push(opt.optionValueId);
-                    return acc;
-                }, {});
-                setSelectedOptions(selected);
-            } catch (error) {
-                console.error("Failed to fetch product details:", error);
-            }
-        };
-
-        fetchProductDetails();
-    }, [productId]);
-
-
-
-    useEffect(() => {
-        const fetchProductData = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/products/${productId}`);
-                const data = response.data;
-
-                // apiData 유효성 검사
-                if (!data || data.result !== "success" || !data.apiData) {
-                    console.error("Invalid product data", data);
-                    return;
-                }
-
-                const product = data.apiData;
-
-                setProductName(product.productName || "");
-                setPrice(product.productPrice || 0);
-                setDescription(""); // API 응답에 description이 없으므로 기본값 설정
-
-                setImages({
-                    main: product.productImage1Url || null,
-                    subs: [
-                        product.productImage2Url || null,
-                        product.productImage3Url || null,
-                        product.productImage4Url || null,
-                    ],
-                });
-
-                setPreview({
-                    main: product.productImage1Url || null,
-                    subs: [
-                        product.productImage2Url || null,
-                        product.productImage3Url || null,
-                        product.productImage4Url || null,
-                    ],
-                });
-            } catch (error) {
-                console.error("Failed to fetch product data:", error);
-            }
-        };
-
-        fetchProductData();
-    }, [productId]);
-
-
-    useEffect(() => {
-        const fetchProductOptions = async () => {
-            try {
-                const response = await axios.get(`${API_URL}/api/vender/products/${productId}/options`);
-                const options = response.data.options;
-
-                // 옵션 데이터가 없을 경우 기본값 설정
-                if (!options || !Array.isArray(options)) {
-                    setAvailableOptions({});
-                    return;
-                }
-
-                const formattedOptions = options.reduce((acc, option) => {
-                    const { optionTypeId, optionTypeName, optionValueId, optionValueName, isSelected } = option;
-
-                    if (!acc[optionTypeId]) {
-                        acc[optionTypeId] = {
-                            optionTypeName,
-                            values: []
-                        };
-                    }
-
-                    acc[optionTypeId].values.push({
-                        optionValueId,
-                        optionValueName,
-                        isSelected: Boolean(isSelected) // 선택 여부를 Boolean으로 변환
-                    });
-
-                    return acc;
-                }, {});
-
-                setAvailableOptions(formattedOptions);
-
-                // 초기 선택된 옵션 설정
-                const initialSelected = Object.entries(formattedOptions).reduce((acc, [typeId, { values }]) => {
-                    acc[typeId] = values.filter(value => value.isSelected).map(value => value.optionValueId);
-                    return acc;
-                }, {});
-                setSelectedOptions(initialSelected);
-            } catch (error) {
-                console.error("옵션 데이터 로드 실패:", error);
-                setAvailableOptions({}); // 에러 발생 시 기본값 설정
-            }
-        };
-
-        fetchProductOptions();
-    }, [productId]);
-
-
 
     useEffect(() => {
         const fetchOptions = async () => {
-            setIsLoadingOptions(true); // 로딩 시작
             try {
-                const response = await axios.get(`${API_URL}/api/options/${venderId}`);
-                const translatedOptions = translateOptionTypeName(response.data);
-                setAvailableOptions(translatedOptions);
+                const response = await axios.get(`${API_URL}/api/vender/products/${productId}/options`, {
+                    params: { venderId },
+                });
+
+                const optionsData = response.data.options || [];
+
+                // 선택된 옵션 데이터 초기화
+                const initialSelectedOptions = optionsData.reduce((acc, option) => {
+                    const selectedValues = option.optionValues
+                        .filter(value => value.isSelected) // isSelected가 true인 경우만 선택
+                        .map(value => value.optionValueId);
+
+                    if (selectedValues.length > 0) {
+                        acc[option.optionTypeId] = selectedValues;
+                    }
+
+                    return acc;
+                }, {});
+
+                setAvailableOptions(optionsData); // 옵션 데이터 설정
+                setSelectedOptions(initialSelectedOptions); // 선택된 옵션 상태 설정
             } catch (error) {
-                console.error("옵션 데이터 로드 중 에러 발생:", error);
-            } finally {
-                setIsLoadingOptions(false); // 로딩 완료
+                console.error("옵션 데이터 로드 실패:", error);
             }
         };
 
         fetchOptions();
-    }, [venderId]);
+    }, [productId, venderId]);
+
+
+
     // 필터링된 옵션
-    const visibleOptions = Array.isArray(availableOptions)
-        ? availableOptions.filter(option => option.optionValues && option.optionValues.length > 0)
-        : [];
+    const visibleOptions = useMemo(() => {
+        if (!availableOptions.length) return [];
+        return availableOptions.map(option => ({
+            ...option,
+            optionValues: option.optionValues.map(value => ({
+                ...value,
+                isSelected: value.isSelected, // isSelected 값 유지
+            })),
+        }));
+    }, [availableOptions]);
     // 옵션 선택 핸들러
-    const handleOptionSelect = (optionTypeId, valueId) => {
-        setSelectedOptions(prevState => {
+    const handleOptionSelect = useCallback((optionTypeId, valueId) => {
+        setSelectedOptions((prevState) => {
             const currentValues = prevState[optionTypeId] || [];
-            if (currentValues.includes(valueId)) {
-                // 선택 해제
-                return {
-                    ...prevState,
-                    [optionTypeId]: currentValues.filter(id => id !== valueId)
-                };
-            } else {
-                // 선택 추가
-                return {
-                    ...prevState,
-                    [optionTypeId]: [...currentValues, valueId]
-                };
-            }
+            const updatedValues = currentValues.includes(valueId)
+                ? currentValues.filter((id) => id !== valueId) // 선택 해제
+                : [...currentValues, valueId]; // 새로 선택
+
+            console.log(`옵션 유형 ${optionTypeId} 업데이트:`, updatedValues); // 디버깅 로그
+
+            // isSelected 값을 동기화
+            const updatedOptions = availableOptions.map(option => ({
+                ...option,
+                optionValues: option.optionValues.map(value => ({
+                    ...value,
+                    isSelected: updatedValues.includes(value.optionValueId),
+                })),
+            }));
+            setAvailableOptions(updatedOptions);
+
+            return {
+                ...prevState,
+                [optionTypeId]: updatedValues,
+            };
         });
-    };
+    }, [availableOptions]);
+
     // 이미지 업로드 핸들러
     const handleImageChange = (e, index) => {
         const file = e.target.files[0];
@@ -491,58 +459,76 @@ function VenderProductRegistrationFormEdit() {
             setPreview(updatedPreview);
         }
     };
-    // 옵션 페이지로 이동
-    const handleAddOptions = () => {
-        navigate('/vender/option');  // VenderOption 페이지 경로
+
+    const handleProductSubmit = async () => {
+        try {
+            const productFormData = new FormData();
+            productFormData.append("venderId", venderId || "");
+            productFormData.append("productName", productName || "");
+            productFormData.append("price", price || 0);
+            productFormData.append("description", description || "");
+            productFormData.append("isVisible", 1);
+
+            if (selectedDesign?.cakeDesignId) {
+                productFormData.append("cakeDesignId", selectedDesign.cakeDesignId);
+            }
+
+            // 메인 이미지 추가 (있을 경우에만)
+            if (images.main) {
+                productFormData.append("mainImage", images.main);
+            }
+
+            // 서브 이미지 추가 (있을 경우에만)
+            images.subs.forEach((subImage, index) => {
+                if (subImage) {
+                    productFormData.append(`subImages`, subImage);
+                }
+            });
+
+            // 상품 데이터 전송
+            const response = await axios.put(
+                `${API_URL}/api/vender/products/${productId}`,
+                productFormData,
+                { headers: { "Content-Type": "multipart/form-data" } }
+            );
+
+            console.log("상품 수정 성공:", response.data);
+            alert("상품이 성공적으로 수정되었습니다!");
+        } catch (error) {
+            console.error("상품 수정 실패:", error.response || error.message);
+            alert("상품 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
     };
 
+    const handleOptionsSubmit = async () => {
+        try {
+            // selectedOptions 자체를 payload로 전송
+            const optionsPayload = Object.fromEntries(
+                Object.entries(selectedOptions).map(([key, value]) => [Number(key), value])
+            );
+    
+            const optionsResponse = await axios.put(
+                `${API_URL}/api/vender/products/${productId}/options`,
+                optionsPayload, // selectedOptions 키 제거
+                { headers: { "Content-Type": "application/json" } }
+            );
+    
+            console.log("옵션 수정 성공:", optionsResponse.data);
+            alert("옵션이 성공적으로 수정되었습니다!");
+        } catch (error) {
+            console.error("옵션 수정 실패:", error.response || error.message);
+            alert("옵션 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
+        // 상품 데이터 전송
+        await handleProductSubmit();
 
-        // 상품 데이터 추가
-        formData.append("venderId", venderId);
-        formData.append("productName", productName);
-        formData.append("price", price);
-        formData.append("description", description);
-        console.log([...formData.entries()]); // formData 확인
-        // 선택한 도안 정보 추가
-        if (selectedDesign) {
-            formData.append("cakeDesignId", selectedDesign.cakeDesignId);
-        }
-
-        // 메인 이미지 추가
-        if (images.main) {
-            formData.append("mainImage", images.main);
-        }
-
-        // 서브 이미지 추가
-        images.subs.forEach((subImage, index) => {
-            if (subImage) {
-                formData.append("subImages", subImage);
-            }
-        });
-
-        // **선택된 옵션 데이터를 JSON 문자열로 추가**
-        if (Object.keys(selectedOptions).length > 0) {
-            formData.append("selectedOptions", JSON.stringify(selectedOptions));
-        }
-
-        try {
-            // PUT 요청으로 상품 및 옵션 수정
-            const response = await axios.put(`${API_URL}/api/vender/products/${productId}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            console.log("상품 및 옵션 수정 성공:", response.data);
-            alert("상품 및 옵션이 성공적으로 수정되었습니다!");
-            navigate("/vender/productslist"); // 수정 후 목록 페이지로 이동 (필요 시 경로 수정)
-        } catch (error) {
-            console.error("상품 및 옵션 수정 실패:", error.response || error.message);
-            alert("상품 및 옵션 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
-        }
+        // 옵션 데이터 전송
+        await handleOptionsSubmit();
     };
 
     return (
@@ -567,6 +553,7 @@ function VenderProductRegistrationFormEdit() {
                                 />
                             </div>
 
+                            {/* 상품 설명 작성 */}
                             <ProductEditor
                                 description={description}
                                 setDescription={setDescription}
@@ -627,20 +614,14 @@ function VenderProductRegistrationFormEdit() {
 
                             <div className="form-group">
                                 <h3>상품 옵션 선택</h3>
-                                <button
-                                    type="button"
-                                    className="add-options-button"
-                                    onClick={handleAddOptions}
-                                >
-                                    옵션 추가하기
-                                </button>
-                                {visibleOptions.map(option => (
+                                {visibleOptions.map((option) => (
                                     <OptionSelector
                                         key={option.optionTypeId}
+                                        optionTypeId={option.optionTypeId}
                                         optionName={option.optionTypeName}
-                                        options={option.optionValues}
-                                        selectedOptions={selectedOptions[option.optionTypeId] || []}
-                                        onSelect={(value) => handleOptionSelect(option.optionTypeId, value)}
+                                        options={option.optionValues} // 옵션 값 전달
+                                        selectedOptions={selectedOptions[option.optionTypeId] || []} // 선택된 옵션 전달
+                                        onSelect={handleOptionSelect}
                                     />
                                 ))}
                             </div>
@@ -659,11 +640,14 @@ function VenderProductRegistrationFormEdit() {
                                 </div>
                                 {selectedDesign && (
                                     <div className="selected-design">
-                                        <img src={selectedDesign.cakeDesignImageUrl} alt={selectedDesign.cakeDesignTitle} className="selected-design-image" />
-                                        <span className="selected-design-name">{selectedDesign.cakeDesignTitle}</span>
+                                        {selectedDesign.cakeDesignImageUrl ? (
+                                            <img src={selectedDesign.cakeDesignImageUrl} alt={selectedDesign.cakeDesignTitle || "선택된 도안"} />
+                                        ) : (
+                                            <span>이미지 없음</span>
+                                        )}
+                                        <span>{selectedDesign.cakeDesignTitle || "도안 제목 없음"}</span>
                                     </div>
                                 )}
-
                             </div>
 
                             {/* 도안 모달 */}
@@ -672,18 +656,12 @@ function VenderProductRegistrationFormEdit() {
                                 onRequestClose={closeDesignModal}
                                 designs={availableDesigns}
                                 myDesigns={myDesigns} // 내가 그린 도안 전달
-                                onSelectDesign={handleDesignSelect}
+                                onSelectDesign={handleDesignSelect} // 함수 연결
                             />
                             <div className="form-group centered-button-group">
                                 <button type="submit" className="add-button">수정하기</button>
                             </div>
                         </form>
-                        <button
-                            className="floating-preview-button"
-                            onClick={() => window.open('/vender/productpreview', '_blank')}
-                        >
-                            미리보기
-                        </button>
                     </div>
                 </div>
             </div>

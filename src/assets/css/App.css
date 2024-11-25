@@ -1,0 +1,43 @@
+/* 전체 앱 스타일 */
+.app-container {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+}
+
+/* 오른쪽 하단 플로팅 버튼 */
+.floating-chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #ffaad4; /* 파스텔 핑크 */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.floating-chat-button:hover {
+    transform: scale(1.2);
+    background-color: #f56aa1; /* 조금 더 진한 핑크 */
+}
+
+
+/* 애니메이션 */
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

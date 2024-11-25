@@ -1,91 +1,144 @@
+/* 전체 레이아웃 */
 .admin-memberlist-content {
     padding: 20px;
-    background-color: #f9fafb;
+    background-color: #f5f5f7; /* 애플 스타일의 밝은 회색 */
     width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1d1d1f; /* 어두운 회색 */
 }
 
 .admin-memberlist-content h2 {
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    color: #333;
+    color: #1d1d1f;
+    font-weight: 600;
 }
 
+/* 검색 필터 */
+.admin-memberlist-content .search-filter {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-memberlist-content .search-filter input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.admin-memberlist-content .search-filter input:focus {
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.3); /* 포커스 효과 */
+    border-color: #007aff; /* 애플 파란색 */
+}
+
+/* 테이블 스타일 */
 .admin-memberlist-content .member-table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
 
 .admin-memberlist-content .member-table th,
 .admin-memberlist-content .member-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 15px;
     text-align: left;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.admin-memberlist-content .admin-memberlist-content .member-table th {
-    background-color: #f2f2f2;
+.admin-memberlist-content .member-table th {
+    background-color: #f1f5f9;
     font-weight: bold;
     color: #333;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.admin-memberlist-content .member-table tbody tr:hover {
+    background-color: #f9fafb; /* 행 강조 효과 */
 }
 
 .admin-memberlist-content .member-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f8f9fa;
 }
 
-.admin-memberlist-content .member-table .status-label {
+/* 상태 라벨 */
+.admin-memberlist-content .status-label {
     font-weight: bold;
-    padding: 5px;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
 }
 
 .admin-memberlist-content .status-label.활성 {
-    color: #fff;
-    background-color: #4caf50;
+    background-color: #34c759; /* 초록색 */
+    color: #ffffff;
 }
 
 .admin-memberlist-content .status-label.비활성 {
-    color: #fff;
-    background-color: #ff9800;
+    background-color: #ffcc00; /* 노란색 */
+    color: #ffffff;
 }
 
 .admin-memberlist-content .status-label.정지 {
-    color: #fff;
-    background-color: #f44336;
+    background-color: #ff3b30; /* 빨간색 */
+    color: #ffffff;
 }
 
-.admin-memberlist-content .search-filter {
-    margin-bottom: 20px;
-}
-
-.admin-memberlist-content .search-filter input {
-    width: 20%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
+/* 페이징 버튼 */
 .admin-memberlist-content .pagination {
     margin-top: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .admin-memberlist-content .pagination-button {
-    margin: 0 5px;
-    padding: 8px 12px;
+    padding: 10px 15px;
     font-size: 14px;
-    border: none;
-    background-color: #f0f0f0;
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    background-color: #f5f5f7;
+    color: #1d1d1f;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .admin-memberlist-content .pagination-button.active {
-    background-color: #4caf50;
-    color: #fff;
+    background-color: #007aff; /* 애플 파란색 */
+    color: #ffffff;
     font-weight: bold;
+    border-color: #007aff;
 }
 
 .admin-memberlist-content .pagination-button:hover {
-    background-color: #d4d4d4;
+    background-color: #e5e5ea; /* 밝은 회색 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .admin-memberlist-content .search-filter {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .admin-memberlist-content .search-filter input {
+        width: 100%;
+    }
+
+    .admin-memberlist-content .member-table th, .admin-memberlist-content .member-table td {
+        font-size: 14px;
+        padding: 10px;
+    }
 }

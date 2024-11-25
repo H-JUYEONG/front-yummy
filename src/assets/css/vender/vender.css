@@ -9,6 +9,8 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
     position: relative;
     padding: 20px;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    
 }
 
 /* 내부 콘텐츠 래퍼 */
@@ -18,23 +20,26 @@
     width: 100%;
     position: relative;
     margin: 0 auto;
+    overflow-x: hidden; /* 내부 콘텐츠 초과 방지 */
 }
 
 /* 사이드바 스타일 */
+/* 사이드바 스타일 */
 .vender-sidebar {
-    width: 250px;
-    background-color:black;
+    width: 250px; /* 기존 250px에서 300px로 크기 조정 */
+    background-color: black;
     color: #ffffff;
-    height: calc(100vh - 40px);
+    height: 100vh;
     padding: 20px;
     position: sticky;
-    top: 20px;
+    top: 0;
     box-shadow: 2px 0 5px rgba(141, 138, 123, 0.1);
     overflow-y: auto;
     border-radius: 16px;
     z-index: 10;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
+
 
 /* 사이드바 프로필 영역 */
 .vender-profile {
@@ -70,7 +75,7 @@
 }
 
 /* 로그아웃 버튼 */
-.exit-button {
+.vender-sidebar .exit-button {
     margin-top: 30px;
     background: #ff7777;
     color: #ffffff;
@@ -82,7 +87,7 @@
     transition: background 0.3s;
 }
 
-.exit-button:hover {
+.vender-sidebar .exit-button:hover {
     background: #e74c3c;
 }
 
@@ -93,6 +98,7 @@
     border-radius: 16px;
     font-family: 'IBM Plex Sans KR', sans-serif;
     min-height: calc(100vh - 40px);
+    overflow-x: hidden; /* 내부 콘텐츠 초과 방지 */
 }
 
 /* 햄버거 메뉴 버튼 */
@@ -109,31 +115,3 @@
     cursor: pointer;
 }
 
-/* 모바일 스타일 */
-@media (max-width: 768px) {
-    .content-wrapper {
-        flex-direction: column;
-    }
-
-    .vender-content {
-        margin-left: 0;
-        width: 100%;
-        border-radius: 0;
-        padding: 15px;
-        margin-top: 60px;
-    }
-
-    .hamburger-menu {
-        display: block;
-    }
-
-    .vender-sidebar {
-        position: fixed;
-        left: -250px;
-        transition: left 0.3s ease;
-    }
-
-    .vender-sidebar.open {
-        left: 20px;
-    }
-}
