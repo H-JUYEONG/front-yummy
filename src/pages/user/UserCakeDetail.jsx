@@ -504,7 +504,7 @@ const UserCakeDetail = () => {
                     <button
                         key={option.optionValueId}
                         className={`${isColorOption ? 'color-option' : 'option-item'} 
-                             ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
+                            ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
                         onClick={() => handleOptionSelect(optionType, option.optionValueId)}
                         aria-label={`${option.optionValueName} 선택`}
                         title={option.optionValueName}
@@ -1031,7 +1031,7 @@ const UserCakeDetail = () => {
                                 ))}
     
                                 {authUser?.vender_id === productDetail?.venderId && 
-                                 !review.replies?.some(reply => reply.replyVenderId === authUser.vender_id) && (
+                                !review.replies?.some(reply => reply.replyVenderId === authUser.vender_id) && (
                                     <div className="reply-form">
                                         <textarea
                                             value={newReply[review.reviewId] || ''}
