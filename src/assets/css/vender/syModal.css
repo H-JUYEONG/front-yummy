@@ -58,9 +58,9 @@
 .vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content{
     width: 90%;
     margin: 0 auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 1, 0.1); /* 수평, 수직, 흐림 정도, 색상 */
+    box-shadow: 0 4px 6px rgba(0, 0, 1, 0.5); /* 수평, 수직, 흐림 정도, 색상 */
     padding: 20px;
-    background: #fff;
+    background: #ffffff;
     
 }
 /*2공간 띄우기*/

@@ -20,6 +20,7 @@ const VenderDashboard = () => {
     const [events, setEvents] = useState([]); // FullCalendar에서 사용할 이벤트 데이터
     const [monthlyOrderCount, setMonthlyOrderCount] = useState(0);
     const [points, setPoints] = useState(0);
+    const [newReviews, setNewReviews] = useState(0); // 신규 리뷰 상태 추가
     // 유저 정보 가져오기
     useEffect(() => {
         const user = localStorage.getItem('authUser');
@@ -113,6 +114,21 @@ const VenderDashboard = () => {
             alert(`주문 ID: ${info.event.extendedProps.orderId}\n시간: ${info.event.extendedProps.time}`);
         },
     };
+    // 신규 리뷰 데이터 가져오기
+    useEffect(() => {
+        const fetchNewReviews = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/vender/newreviews`, {
+                    params: { venderId: authUser.vender_id },
+                });
+                setNewReviews(response.data.length); // 신규 리뷰 수 설정
+            } catch (error) {
+                console.error('Error fetching new reviews:', error);
+            }
+        };
+
+        fetchNewReviews();
+    }, [authUser]);
 
     if (!authUser) {
         return null; // authUser가 없으면 아무것도 렌더링하지 않음
@@ -138,7 +154,7 @@ const VenderDashboard = () => {
                                     </div>
                                     <div className="card">
                                         <h3>새로운 리뷰</h3>
-                                        <p>12건</p>
+                                        <p>{newReviews}건</p>
                                     </div>
                                     <div className="card">
                                         <h3>포인트</h3>
