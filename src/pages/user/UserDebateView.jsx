@@ -133,6 +133,7 @@ const UserDebateView = () => {
 
         setLeftVote(leftVotes);
         setRightVote(rightVotes);
+
       } else {
         alert("투표 데이터 가져오기 실패");
       }
@@ -149,7 +150,13 @@ const UserDebateView = () => {
     }
 
     try {
+
+      console.log(userId);
+
       const userVote = voteList.find((vote) => vote.member_id === userId);
+
+      console.log(userVote);
+
 
       if (!userVote) {
         // Cast a new vote
@@ -180,6 +187,9 @@ const UserDebateView = () => {
       console.error("Error handling vote:", error);
       alert("투표 처리 중 오류가 발생했습니다.");
     }
+    getVoteList(); // Refresh the vote list
+    getCommentList();
+    console.log(commentList.toString());
   };
 
   const handleLeftVote = () => handleVote("left");
