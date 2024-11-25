@@ -333,14 +333,12 @@ const UserCakeDetail = () => {
             console.log('삭제 요청 정보:', {
                 reviewId,
                 userId: authUser.user_id,
-                url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`
+                url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}/${authUser.user_id}`
             });
 
+            // DELETE 요청
             const response = await axios.delete(
-                `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`,
-                {
-                    params: { userId: authUser.user_id }
-                }
+                `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}/${authUser.user_id}`
             );
 
             // 응답 로깅
@@ -504,7 +502,7 @@ const UserCakeDetail = () => {
                     <button
                         key={option.optionValueId}
                         className={`${isColorOption ? 'color-option' : 'option-item'} 
-                             ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
+                            ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
                         onClick={() => handleOptionSelect(optionType, option.optionValueId)}
                         aria-label={`${option.optionValueName} 선택`}
                         title={option.optionValueName}
@@ -888,6 +886,9 @@ const UserCakeDetail = () => {
                                 <span
                                     key={star}
                                     className={`star ${star <= Math.round(reviewStats.averageRating) ? 'filled' : ''}`}
+                                    style={{
+                                        color: star <= reviewStats.averageRating ? '#FFD700' : '#E0E0E0', // 별 색상
+                                    }}
                                 >
                                     ★
                                 </span>

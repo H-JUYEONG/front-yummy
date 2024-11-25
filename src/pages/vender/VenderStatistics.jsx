@@ -403,12 +403,16 @@ const VenderStatistics = () => {
                                     <Doughnut data={ratingData} />
                                 </div>
                             </div>
-                            <div className="word-cloud-placeholder">
-                                {wordCloudData.map((word, index) => (
-                                    <span key={index} className="word-cloud-word">
-                                        {word}
-                                    </span>
-                                ))}
+                            <div className="review-management-section">
+                                <h4>리뷰 관리</h4>
+                                <div className="review-management-button">
+                                    <button
+                                        onClick={() => navigate('/vender/review')}
+                                        className="action-btn"
+                                    >
+                                        리뷰 관리로 이동
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
