@@ -1,25 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/css/vender/venderauditionrequest.css';
 
-const VerticalCakeOrder = () => {
-    // 상태 관리
-    const [mainImage, setMainImage] = useState('/images/2호_일반케이크.jpg');
-    const [selectedColor, setSelectedColor] = useState('');
-    const [selectedFlavor, setSelectedFlavor] = useState('');
-    const [selectedSize, setSelectedSize] = useState('');
-    const [requestText, setRequestText] = useState('');
-    
-    const {venderId} = useParams();
-    const {productId} = useParams();
+const VerticalCakeOrder = ({ onClose, productId, venderId, onOptionSelect}) => {
+    const navigate = useNavigate();
 
+    // 선택된 항목들
+    const [selectCakeType, setSelectCakeType] = useState('');
+    const [selectCar, setSelectCar] = useState('');
+    const [selectBackgroundColor, setSelectBackgroundColor] = useState('');
+
+        //크림
+    const [selectCreamPosition, setSelectCreamPosition] = useState('');
+    const [selectCreamTaste, setSelectCreamTaste] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');     //크림색상
+
+    const [selectDecoration, setSelectDecoration] = useState('');
+    const [selectDecorationType, setSelectDecorationType] = useState('');
+
+
+    const [selectedFlavor, setSelectedFlavor] = useState('');   //시트맛
+    const [selectedSize, setSelectedSize] = useState('');
+
+    
+    //db에서 가져온 옵션 리스트들
     const [cake, setCake] = useState('');
+    const [cakeType, setCakeType] = useState('');
+    const [cakeCarList, setCakeCarList] = useState([]);
+    const [backgroundColorList, setBackgroundColorList] = useState([]);
+
     const [creamList, setCreamList] = useState([]);
+    const [creamPositionList, setCreamPositionList] = useState([]);
+    const [creamTasteList, setCreamTasteList] = useState([]);
+
     const [sizeList, setSizeList] = useState([]);
     const [tasteList, setTasteList] = useState([]);
 
+    const [decorationTypeList, setDecorationTypeList] = useState([]);
+    const [decorationColorList, setDecorationColorList] = useState([]);
+
     const [context, setContext] = useState("");
+
+    //모달 닫기
+    const handleClose = ()=>{
+        //선택된 옵션값들 모아주기
+        
+        const sendVo = {
+            cakeType: selectCakeType,
+            category: selectCar,
+            backgroundColor: selectBackgroundColor,
+
+            creamColor: selectedColor,
+            creamTaste: selectCreamTaste,
+            creamPosition: selectCreamPosition,
+
+            decorationType: selectDecorationType,
+            decorationColor: selectDecoration,
+
+            taste: selectedFlavor,
+            size: selectedSize,
+
+            content: context
+        }
+        //부모에서 보내준 함수로 선택된 값들 받아주기
+        onOptionSelect(sendVo);
+
+        onClose();
+    }
 
     const getOptionList = ()=>{
 
@@ -32,80 +80,44 @@ const VerticalCakeOrder = () => {
             console.log(response); //수신데이타
             console.log("옵션 리스트요")
             console.log(response.data)
+
             setCake(response.data.apiData.cake);
+            setCakeType(response.data.apiData.cakeType);
+            setCakeCarList(response.data.apiData.cakeCar);
+            setBackgroundColorList(response.data.apiData.backgroundColor);
+
             setCreamList(response.data.apiData.creamList);
+            setCreamPositionList(response.data.apiData.creamPosition);
+            setCreamTasteList(response.data.apiData.creamTaste);
+
             setSizeList(response.data.apiData.sizeList);
             setTasteList(response.data.apiData.tasteList);
-            
+
+            setDecorationTypeList(response.data.apiData.decorationType);
+            setDecorationColorList(response.data.apiData.decorationColor);
         
         }).catch(error => {
             console.log(error);
         });
     }
 
+    //context 작성
     const handleContext = (e)=>{
         setContext(e.target.value)
     }
 
-
-
-    
-
-    // 이미지 데이터
-    
-
-    // 색상 옵션 데이터
-    const colorOptions = [
-        { id: 'pink', name: '핑크', className: 'pink' },
-        { id: 'yellow', name: '노랑', className: 'yellow' },
-        { id: 'orange', name: '오렌지', className: 'orange' },
-        { id: 'blue', name: '파랑', className: 'blue' },
-        { id: 'green', name: '초록', className: 'green' },
-        { id: 'purple', name: '보라', className: 'purple' },
-        { id: 'brown', name: '갈색', className: 'brown' }
-    ];
-
-    // 맛 옵션 데이터
-    const flavorOptions = [
-        { id: 'choco', name: '초코', image: '/images/기브미 쪼꼬레또.jpg' },
-        { id: 'vanilla', name: '바닐라', image: '/images/바닐라.jpg' },
-        { id: 'strawberry', name: '딸기', image: '/images/딸기.jpg' },
-        { id: 'matcha', name: '말차', image: '/images/말차.png' },
-        { id: 'cheese', name: '치즈', image: '/images/치즈.jpg' },
-        { id: 'redvelvet', name: '레드벨벳', image: '/images/레드벨벳.jpg' }
-    ];
-
-    // 사이즈 옵션 데이터
-    const sizeOptions = [
-        { id: 'size1', name: '1호', image: '/images/1호.jpg' },
-        { id: 'size2', name: '2호', image: '/images/2호.jpg' },
-        { id: 'size3', name: '3호', image: '/images/size-3.jpg' }
-    ];
-
-    // 썸네일 클릭 핸들러
-    const handleThumbnailClick = (imagePath) => {
-        setMainImage(imagePath);
-    };
-
-    // 제출 핸들러
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log({
-            selectedColor,
-            selectedFlavor,
-            selectedSize,
-            requestText
-        });
-    };
-
-
     useEffect(()=>{
-        console.log("옵션 가져오기 랜더링")
         getOptionList();
+        console.log("옵션페이지벤더아이디:"+venderId);
+        console.log("옵션페이지상품아이디:"+productId);
     },[])
 
+
+
+    
+
     return (
-        <div id="user-wrap">
+        <div id="option-madal-wrap">
         
             <div className="vertical-cake-order">
                 {/* 제품명과 가격 입력 영역 */}
@@ -121,25 +133,65 @@ const VerticalCakeOrder = () => {
 
                 {/* 옵션 선택 영역 */}
                 <div className="options-section">
-                    {/* 색상 선택 */}
+
+                    {/* 상품타입 선택 */}
                     <div className="option-group">
-                        <h3>크림 색상</h3>
-                        <div className="color-options">
-                            {creamList.map((color) => (
+                        <h3>상품타입</h3>
+                        <div className="option-grid">
+                            <button
+                                key={cakeType.productType}
+                                className={`option-item ${selectCakeType === cakeType.productType ? 'active' : ''}`}
+                                onClick={() => setSelectCakeType(cakeType.productType)}
+                            >
+                                <div className="option-image">
+                                    <img src={cakeType.optionURL} alt='상품타입사진'/>
+                                </div>
+                                <span>{cakeType.productType}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* 카테고리 선택 */}
+                    <div className="option-group">
+                        <h3>카테고리</h3>
+                        <div className="option-grid">
+                            {cakeCarList.map((car) => (
+                                    <button
+                                        key={car.category}
+                                        className={`option-item ${selectCar === car.category ? 'active' : ''}`}
+                                        onClick={() => setSelectCar(car.category)}
+                                    >
+                                        <div className="option-image">
+                                            <img src={car.optionURL} />
+                                        </div>
+                                        <span>{car.category}</span>
+                                    </button>
+                                ))}
+                        </div>
+                    </div>
+
+                    {/* 사이즈 선택 */}
+                    <div className="option-group">
+                        <h3>케이크 호수</h3>
+                        <div className="option-grid">
+                            {sizeList.map((size) => (
                                 <button
-                                    key={color.CreamColor}
-                                    className={`color-option ${color.CreamColor} ${selectedColor === color.CreamColor ? 'active' : ''}`}
-                                    onClick={() => setSelectedColor(color.CreamColor)}
-                                    aria-label={`${color.CreamColor} 색상 선택`}
-                                    title={color.CreamColor}
-                                />
+                                    key={size.size}
+                                    className={`option-item ${selectedSize === size.size ? 'active' : ''}`}
+                                    onClick={() => setSelectedSize(size.size)}
+                                >
+                                    <div className="option-image">
+                                        <img src={size.optionURL}/>
+                                    </div>
+                                    <span>{size.size}</span>
+                                </button>
                             ))}
                         </div>
                     </div>
 
-                    {/* 맛 선택 */}
+                    {/* 시트맛 선택 */}
                     <div className="option-group">
-                        <h3>맛</h3>
+                        <h3>시트맛</h3>
                         <div className="option-grid">
                             {tasteList.map((taste) => (
                                 <button
@@ -156,24 +208,120 @@ const VerticalCakeOrder = () => {
                         </div>
                     </div>
 
-                    {/* 사이즈 선택 */}
+                    {/* 케이크배경색상 선택 */}
                     <div className="option-group">
-                        <h3>케이크 호수</h3>
-                        <div className="option-grid">
-                            {sizeList.map((size) => (
+                        <h3>케이크배경 색</h3>
+                        <div className="color-options">
+                            {backgroundColorList.map((backgroundColor) => (
                                 <button
-                                    key={size.size}
-                                    className={`option-item ${selectedSize === size.size ? 'active' : ''}`}
-                                    onClick={() => setSelectedSize(size.size)}
+                                    key={backgroundColor.cakeColor}
+                                    className={`color-option  ${selectBackgroundColor === backgroundColor.cakeColor ? 'active' : ''}`}
+                                    onClick={() => setSelectBackgroundColor(backgroundColor.cakeColor)}
+                                    
+                                    title={backgroundColor.cakeColor}
                                 >
-                                    <div className="option-image">
-                                        <img src={size.optionURL} alt={size.name} />
-                                    </div>
-                                    <span>{size.size}</span>
+                                    <img src={backgroundColor.imageURL} />
                                 </button>
                             ))}
                         </div>
                     </div>
+
+                    {/* 크림위치 선택 */}
+                    <div className="option-group">
+                        <h3>크림위치</h3>
+                        <div className="option-grid">
+                            {creamPositionList.map((creamPosition) => (
+                                <button
+                                    key={creamPosition.creamPosition}
+                                    className={`option-item ${selectCreamPosition === creamPosition.creamPosition ? 'active' : ''}`}
+                                    onClick={() => setSelectCreamPosition(creamPosition.creamPosition)}
+                                >
+                                    <div className="option-image">
+                                        <img src={creamPosition.optionURL} />
+                                    </div>
+                                    <span>{creamPosition.creamPosition}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 크림맛 선택 */}
+                    <div className="option-group">
+                        <h3>크림맛</h3>
+                        <div className="option-grid">
+                            {creamTasteList.map((creamTaste) => (
+                                <button
+                                    key={creamTaste.flavorCream}
+                                    className={`option-item ${selectCreamTaste === creamTaste.flavorCream ? 'active' : ''}`}
+                                    onClick={() => setSelectCreamTaste(creamTaste.flavorCream)}
+                                >
+                                    <div className="option-image">
+                                        <img src={creamTaste.optionURL} />
+                                    </div>
+                                    <span>{creamTaste.flavorCream}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 크림색상 선택 */}
+                    <div className="option-group">
+                        <h3>크림 색상</h3>
+                        <div className="color-options">
+                            {creamList.map((color) => (
+                                <button
+                                    key={color.creamColor}
+                                    className={`color-option  ${selectedColor === color.creamColor ? 'active' : ''}`}
+                                    onClick={() => setSelectedColor(color.creamColor)}
+                                    
+                                    title={color.creamColor}
+                                >
+                                    <img src={color.imageURL} />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 데코레이션 타입 선택 */}
+                    <div className="option-group">
+                        <h3>데코레이션</h3>
+                        <div className="option-grid">
+                            {decorationTypeList.map((decotationType) => (
+                                <button
+                                    key={decotationType.decorationType}
+                                    className={`option-item ${selectDecorationType === decotationType.decorationType ? 'active' : ''}`}
+                                    onClick={() => setSelectDecorationType(decotationType.decorationType)}
+                                >
+                                    <div className="option-image">
+                                        <img src={decotationType.optionURL} />
+                                    </div>
+                                    <span>{decotationType.decorationType}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+
+                    {/* 데코레이션색상 선택 */}
+                    <div className="option-group">
+                        <h3>데코레이션색상</h3>
+                        <div className="color-options">
+                            {decorationColorList.map((decorationColor) => (
+                                <button
+                                    key={decorationColor.decorationColor}
+                                    className={`color-option  ${selectDecoration === decorationColor.decorationColor ? 'active' : ''}`}
+                                    onClick={() => setSelectDecoration(decorationColor.decorationColor)}
+                                    
+                                    title={decorationColor.decorationColor}
+                                >
+                                    <img src={decorationColor.imageURL} />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    
+                    
                 </div>
 
                 {/* 금액 측정*/}
@@ -188,8 +336,8 @@ const VerticalCakeOrder = () => {
                 </div>
 
                 {/* 신청 버튼 */}
-                <button className="submit-button" onClick={handleSubmit}>
-                    신청하기
+                <button className="submit-button" onClick={handleClose}>
+                    선택하기
                 </button>
             </div>
         </div>

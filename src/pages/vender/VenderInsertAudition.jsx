@@ -1,10 +1,12 @@
 //import 라이브러리
 import React, {useEffect, useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 //import 컴포넌트
 import VenderProductModalInsert from './VenderProductModalInsert';
+import VenderAuditionRequest from './VenderAuditionRequest';
+
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
 //import css
@@ -15,32 +17,41 @@ import '../../assets/css/vender/venderInsertAudition.css';
 
 const VenderInsertAudition = () => {
     const {auditionId} = useParams();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAuditionRequestModalOpen, setIsAuditionRequestModalOpen] = useState(false); 
 
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
     });
     const venderId = authUser.vender_id;
+    
 
     const [userOrder, setUserOrder] = useState("");
     const [productList, setProductList] = useState([]);
+    const [selectProductId, setSelectProductId] = useState(""); //선택된 상품번호
 
-    //모달, 옵션 창 
+    const [finalPrice, setFinalPrice] = useState('');
 
-    const openNewWindow = () => {
-        window.open(`/vender/venderauditonrequest/${venderId}/${selectProductId}`, '_blank');
-    };
-
-    const [selectProductId, setSelectProductId] = useState("");
-
+        //상품모달관리
     const openModal = () => {
         setIsModalOpen(true);
     };
-
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+   // 옵션 모달 관리
+    const openAuditionRequestModal = () => {
+        setIsAuditionRequestModalOpen(true);
+    };
+    const closeAuditionRequestModal = () => {
+        setIsAuditionRequestModalOpen(false);
+    };
+
+    //선택된 옵션들 관리
+    const [selectedOptions, setSelectedOptions] = useState([]); 
 
     //선택된 상품의 번호 가져오기
     const handleProductSelect = (productId)=>{
@@ -69,16 +80,32 @@ const VenderInsertAudition = () => {
         }).catch(error => {
             console.log(error);
         });
-        
+    }
 
+    //가격받기
+    const handlePrice = (e)=>{
+        setFinalPrice(e.target.value)
+    }
+
+    //선택된 옵션들 받기
+    const handleOptionSelect = (options) => {
+        setSelectedOptions(options);
+        console.log('선택된 옵션들:', options); 
+    };
+
+    //최종정보 보내기
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        
     }
     
-
-    
-
     useEffect(()=>{
         getOrder();
     },[])
+
+    
+
+
 
 
 
@@ -132,31 +159,36 @@ const VenderInsertAudition = () => {
                     </div>
 
 
-                    
-                        <div className='insert-h2-box choose-flex-box'>
-                            <h2>상품선택</h2>
-                            <span>선택된 상품번호:{selectProductId}</span>
-                            <button onClick={openModal}>상품선택하기</button>
-                        </div>
-                        <div className='insert-h2-box choose-flex-box'>
-                            <h2>옵션선택</h2>
-                            <button type='button' onClick={openNewWindow}>선택하러가기</button>
-                        </div>
-                        <div className='insert-h2-box choose-flex-box'>
-                            <h2><label htmlFor='insert-price-txt'>신청금액</label></h2>
-                            <input id='insert-price-txt' type='text' name='' value=''/>원
-                        </div>
-                        <div className='insert-btn-box'>
-                            <Link to='/user/audition/ongoing'>
-                                <button type='button' className='insert-btn'>신청하기</button>
-                            </Link>
-                        </div>
-                        
+                        <form onSubmit={handleSubmit}>
+                            <div className='insert-h2-box choose-flex-box'>
+                                <h2>상품선택</h2>
+                                <span>선택된 상품번호:{selectProductId}</span>
+                                <button type='button' onClick={openModal}>상품선택하기</button>
+                            </div>
+                            <div className='insert-h2-box choose-flex-box'>
+                                <h2>옵션선택</h2>
+                                {selectedOptions.cakeType != null && (
+                                    <span>옵션이 선택되었습니다</span>
+                                )}
+                                <button type='button' onClick={openAuditionRequestModal}>선택하러가기</button>
+                            </div>
+                            <div className='insert-h2-box choose-flex-box'>
+                                <h2><label htmlFor='insert-price-txt'>신청금액</label></h2>
+                                <input id='insert-price-txt' type='text' name='' value={finalPrice} onChange={handlePrice}/>원
+                            </div>
+                            <div className='insert-btn-box'>
+                                <button type='submit' className='insert-btn'>신청하기</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
                 {isModalOpen && (
                     <VenderProductModalInsert isOpen={isModalOpen} onClose={closeModal} productList={productList} onProductSelect={handleProductSelect} />
+                )}
+                {/* 모달이 열려 있을 때만 VenderProductModalInsert 렌더링 */}
+                {isAuditionRequestModalOpen && (
+                    <VenderAuditionRequest isOpen={isAuditionRequestModalOpen} onClose={closeAuditionRequestModal} venderId={venderId} productId={selectProductId}  onOptionSelect={handleOptionSelect} />
                 )}
                 </main>
                     </div>

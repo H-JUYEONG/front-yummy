@@ -1051,10 +1051,31 @@ const UserCakeDetail = () => {
                                                 >
                                                     답글 작성
                                                 </button>
-                                            </div>
-                                        )}
-                                </div>
-                            )}
+
+                                            )}
+                                        </div>
+                                        <p className="reply-content">{reply.replyContent}</p>
+                                    </div>
+                                ))}
+    
+                                {authUser?.vender_id === productDetail?.venderId && 
+                                !review.replies?.some(reply => reply.replyVenderId === authUser.vender_id) && (
+                                    <div className="reply-form">
+                                        <textarea
+                                            value={newReply[review.reviewId] || ''}
+                                            onChange={(e) => handleReplyChange(review.reviewId, e.target.value)}
+                                            placeholder="답글을 작성해주세요"
+                                            rows="2"
+                                        />
+                                        <button
+                                            onClick={() => handleAddReply(review.reviewId)}
+                                            disabled={!newReply[review.reviewId]?.trim()}
+                                        >
+                                            답글 작성
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     ))
                 ) : (
