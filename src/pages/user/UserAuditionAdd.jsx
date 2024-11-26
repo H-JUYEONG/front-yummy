@@ -156,8 +156,9 @@ const UserAuditionAdd = () => {
             </h1>
 
             <div className="user-cake-audition-form-group">
-            <p class="audition-info-notice">
-                ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만 공개됩니다.
+              <p class="audition-info-notice">
+                ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
+                공개됩니다.
               </p>
               <label htmlFor="title">제목</label>
               <input
@@ -177,7 +178,7 @@ const UserAuditionAdd = () => {
                 id="price"
                 value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
                 onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
-                placeholder="예: 35000"
+                placeholder="숫자만 입력해주세요. (예: 35000)"
                 className="user-audition-input-text"
               />
             </div>
@@ -349,7 +350,7 @@ const UserAuditionAdd = () => {
                 id="recipient-phone"
                 value={recipientPhone}
                 onChange={(e) => setRecipientPhone(e.target.value)}
-                placeholder="'-' 없이 숫자만 입력해주세요"
+                placeholder="'-' 없이 숫자만 입력해주세요."
                 className="user-audition-input-text"
               />
             </div>
