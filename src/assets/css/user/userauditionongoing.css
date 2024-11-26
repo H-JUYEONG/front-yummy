@@ -43,7 +43,7 @@
 
 .ongoing-cake-info h3,
 .ongoing-design-preview h3 {
-    font-size: 1.1em;
+    font-size: 1.3em;
     margin-bottom: 8px;
     color: #333;
     font-weight: bold;
@@ -51,7 +51,8 @@
 
 .ongoing-cake-info p,
 .ongoing-design-preview p {
-    font-size: 0.95em;
+    font-size: 1.2em;
+    line-height: 1.2; /* 줄 간격 조정 (기본값은 1.2~1.5 정도) */
     color: #666;
     margin-bottom: 6px;
 }

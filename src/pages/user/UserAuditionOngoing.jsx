@@ -148,11 +148,11 @@ const UserAuditionOngoing = () => {
 
         <div className="ongoing-main-content">
           <div className="ongoing-auction-info">
-            <h2>달콤한 케이크 부탁해요!</h2>
+            <h2>요청 정보</h2>
             <div className="ongoing-cake-info">
               {auditionDetail ? (
                 <>
-                  <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3>
+                  {/* <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3> */}
                   <p>
                     희망 가격:{" "}
                     {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
@@ -196,7 +196,7 @@ const UserAuditionOngoing = () => {
               className="audition-header-container"
             >
               <div className="audition-vender-name">
-                <h2>오디션 참가 업체</h2>
+                <h2>참가 업체</h2>
               </div>
             </div>
 
