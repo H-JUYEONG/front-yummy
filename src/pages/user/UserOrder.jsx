@@ -190,22 +190,22 @@ const UserOrder = () => {
         {
             label: '결제 완료',
             count: statusCounts?.paymentCompletedCount || 0,
-            description: '결제가 완료되었습니다'
+            description: '결제가 완료되었습니다.'
         },
         {
             label: '제작 중',
             count: statusCounts?.inProductionCount || 0,
-            description: '케이크를 제작중입니다'
+            description: '케이크를 제작중입니다.'
         },
         {
             label: '제작 완료',
             count: statusCounts?.productionCompletedCount || 0,
-            description: '케이크 제작이 완료되었습니다'
+            description: '케이크 제작이 완료되었습니다.'
         },
         {
             label: '픽업 요청/배송 중',
             count: statusCounts?.deliveryCount || 0,
-            description: '배송중이거나 픽업 대기중입니다'
+            description: '배송중이거나 픽업 대기중입니다.'
         },
         {
             label: '수령 완료',

@@ -1,20 +1,35 @@
+/* 핑크톤 컬러 변수 추가 */
+:root {
+    --main-pink: #FF7292;
+    --light-pink: #ffe9ee;
+    --hover-pink: #ff85a1;
+}
+
 /* Order List Styles */
 #user-wrap .order-list .order-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;  /* 변경 */
+    border-spacing: 0;         /* 추가 */
     margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);  /* 추가 */
 }
 
 #user-wrap .order-table th,
 #user-wrap .order-table td {
     padding: 16px;
-    border: 2px solid #ddd;
-    text-align: left;
+    border-bottom: 1px solid #eee;  /* 변경 */
+    border-right: none;             /* 변경 */
+    border-left: none;              /* 변경 */
+    text-align: center;
     vertical-align: middle;
 }
 
+#user-wrap .order-table tr:last-child td {  /* 추가 */
+    border-bottom: none;
+}
+
 #user-wrap .order-table th {
-    background: #f8f9fa;
+    background: var(--light-pink);
     font-weight: bold;
     color: #333;
 }
@@ -25,36 +40,50 @@
 }
 
 #user-wrap .order-table .clickable-status {
-    color:  #ff6f61;
+    color: var(--main-pink);
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.2s;
 }
 
 #user-wrap .order-table .clickable-status:hover {
-    color:  #ff6f61;;
+    color: var(--hover-pink);
+}
+
+/* 관리 열의 스타일 수정 */
+#user-wrap .order-table td:last-child {
+    text-align: left;        /* 왼쪽 정렬로 변경 */
+    padding: 12px 16px;
+    position: relative;
+    min-width: 200px;
 }
 
 #user-wrap .order-table .action-buttons {
     display: flex;
-    gap: 8px;
+    justify-content: flex-start;  /* 왼쪽 정렬로 변경 */
+    gap: 10px;
     align-items: center;
 }
 
+/* 버튼 기본 스타일 */
 #user-wrap .action-btn {
-    padding: 10px 2px;
-    font-size: 10px;
-    background-color:#f9f9f9;;
-    color: #333;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 12px;
+    background-color: white;
+    color: var(--main-pink);
+    border: 1px solid var(--main-pink);
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    box-shadow: none;
 }
 
+#user-wrap .order-table th:last-child {
+    width: 150px;  /* 또는 원하는 너비값으로 조정 가능 */
+ }
+
 #user-wrap .action-btn:hover {
-    background:  #ff6f61;
+    background: var(--main-pink);
     color: white;
 }
 
@@ -81,9 +110,9 @@
 }
 
 #user-wrap .status-count {
-    font-size: 1.5em;
+    font-size: 1.8em;           /* 변경 */
     font-weight: bold;
-    color:  #ff6f61;
+    color: var(--main-pink);
     margin-bottom: 8px;
 }
 
@@ -114,17 +143,34 @@
 
 #user-wrap .status-overview .description-table th,
 #user-wrap .status-overview .description-table td {
-    padding: 12px 16px;
-    border: 1px solid #ddd;
+    padding: 16px;
     text-align: center;
     vertical-align: middle;
+    border: 1px solid #ddd;  /* 모든 셀에 테두리 추가 */
+    background: white;
 }
 
-
 #user-wrap .status-overview .description-table th {
-    background: #f8f9fa;
-    font-weight: bold;
-    color: #374151;
+    background: #ffe9ee;  /* 연한 핑크 배경 */
+    color: #333;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;    /* 회색으로 변경 */
+    border-bottom: 1px solid #ddd;  /* 회색으로 변경 */
+}
+
+/* 숫자 행 스타일 */
+#user-wrap .status-overview .description-table tr:nth-child(1) td {
+    font-size: 2em;
+    color: var(--main-pink);
+    border-bottom: 1px solid #ddd;  /* 추가: 숫자 아래 구분선 */
+}
+
+/* 설명 텍스트 행 스타일 */
+#user-wrap .status-overview .description-table tr:nth-child(2) td {
+    color: #4B5563;
+    font-size: 0.9em;
+    padding: 12px 0px;
+    border-bottom: 1px solid #ddd;  /* 회색으로 변경 */
 }
 
 /* Search Section Styles */
@@ -141,32 +187,42 @@
 }
 
 #user-wrap .date-filter input[type="date"] {
-    padding: 8px 12px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    padding: 10px 14px;         /* 변경 */
+    border: 1px solid #ddd;     /* 변경 */
+    border-radius: 4px;
     font-size: 0.9em;
+    background-color: white;    /* 추가 */
+}
+
+#user-wrap .date-filter input[type="date"]:focus {
+    border-color: var(--main-pink);
+    outline: none;
 }
 
 #user-wrap .period-btn {
     padding: 8px 14px;
-    background: #f8f9fa;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    background: white;          /* 변경 */
+    border: 1px solid #ddd;     /* 변경 */
+    border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
     font-size: 0.9em;
 }
 
 #user-wrap .period-btn:hover {
-    background:  #ff6f61;
+    background: var(--main-pink);
     color: white;
-    border-color: #ff6f61;
+    border-color: var(--main-pink);
 }
 
 #user-wrap .notice {
     font-size: 0.9em;
     color: #6B7280;
-    margin-top: 10px;
+    margin-top: 15px;            /* 변경 */
+    padding: 15px;               /* 추가 */
+    background: #f8f9fa;         /* 추가 */
+    border-radius: 8px;          /* 추가 */
+    border-left: 4px solid var(--main-pink);  /* 추가 */
 }
 
 #user-wrap .notice p {
@@ -198,6 +254,7 @@
         font-size: 0.85em;
     }
 }
+
 /* Order Detail Styles */
 .order-detail-container {
     padding: 20px;
@@ -221,24 +278,26 @@
 }
 
 .back-to-list {
-    padding: 8px 16px;
-    background: #f8f9fa;
-    border: 2px solid #333;
+    padding: 10px 20px;            /* 변경 */
+    background: white;             /* 변경 */
+    border: 1px solid var(--main-pink);  /* 변경 */
+    color: var(--main-pink);       /* 추가 */
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .back-to-list:hover {
-    background: #ff6f61;
+    background: var(--main-pink);
     color: white;
 }
 
 .order-info {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
+    background: var(--light-pink);  /* 변경 */
+    padding: 20px;                  /* 변경 */
+    border-radius: 8px;
     margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);  /* 추가 */
 }
 
 .order-info p {
