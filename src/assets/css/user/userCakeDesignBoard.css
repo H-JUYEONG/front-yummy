@@ -14,7 +14,7 @@
 }
 
 #user-cake-design-tip strong {
-  color: #ff6f61;
+  color: #FF7292;
 }
 
 /* 텍스트 영역 애니메이션 적용 */
@@ -53,14 +53,14 @@
   color: #fff;
   border: 2px solid #ddd;
   border-radius: 25px;
-  background-color: #ff6f61;
+  background-color: #FF7292;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 18px;
 }
 
 #user-cake-design-add button:hover {
-  background-color: #fc5343;
+  background-color: #ff4b87;
 }
 
 .user-cake-design-all {
@@ -101,7 +101,7 @@
 }
 
 .user-cake-design-select-option button:hover {
-  background-color: #ff6f61;
+  background-color: #FF7292;
   color: white;
 }
 
@@ -250,13 +250,13 @@
 .user-cake-design-page-number:hover,
 .user-cake-design-prev-page:hover,
 .user-cake-design-next-page:hover {
-    background: #ff6f61;
+    background: #FF7292;
+    color: white;
 }
 
 .user-cake-design-page-number.active {
-    background: #ff6f61;
+    background: #FF7292;
     color: white;
-    border-color: #ff6f61;
 }
 
 .user-cake-design-prev-page:disabled,

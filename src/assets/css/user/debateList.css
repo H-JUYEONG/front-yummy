@@ -15,6 +15,10 @@
   font-size: 28px;
 }
 
+#user-debate-tip strong {
+  color: #FF7292;
+}
+
 
 
 .user-debate-board-list {

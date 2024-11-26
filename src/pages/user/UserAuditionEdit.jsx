@@ -264,6 +264,10 @@ const UserAuditionEdit = () => {
             </h1>
 
             <div className="user-cake-audition-form-group">
+              <p class="audition-info-notice">
+                ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
+                공개됩니다.
+              </p>
               <label htmlFor="title">제목</label>
               <input
                 type="text"
@@ -453,7 +457,7 @@ const UserAuditionEdit = () => {
                 id="recipient-phone"
                 value={recipientPhone}
                 onChange={(e) => setRecipientPhone(e.target.value)}
-                placeholder="'-' 없이 숫자만 입력해주세요"
+                placeholder="'-' 없이 숫자만 입력해주세요."
                 className="user-audition-input-text"
               />
             </div>
