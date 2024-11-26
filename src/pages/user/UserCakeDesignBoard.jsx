@@ -55,11 +55,11 @@ const UserCakeDesignBoard = () => {
       case "조회수순":
         url = "/api/user/cakeDesign/board/views";
         break;
-      case "찜순":
-        url = "/api/user/cakeDesign/board/likes";
-        break;
+      // case "찜순":
+      //   url = "/api/user/cakeDesign/board/likes";
+      //   break;
       default:
-        url = "/api/user/cakeDesign/board";
+        url = "/api/user/cakeDesign/board/likes";
     }
     fetchData(url, page, searchTerm);
   };
@@ -144,7 +144,7 @@ const UserCakeDesignBoard = () => {
           </div>
           <div id="user-cake-design-select-option-list">
             <div className="user-cake-design-select-option">
-              {["전체", "최신순", "조회수순", "찜순"].map((style) => (
+              {["최신순", "조회수순", "찜순"].map((style) => (
                 <button
                   key={style}
                   onClick={() => {
