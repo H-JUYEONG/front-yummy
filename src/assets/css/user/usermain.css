@@ -113,18 +113,18 @@
 }
 
 /* 주문 상태 설명 테이블 */
-.description-table {
+#user-wrap-main .description-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 30px;
 }
 
-.description-table td {
+#user-wrap-main .description-table td {
     padding: 12px;
     border: 1px solid #e5e7eb;
 }
 
-.description-table td:first-child {
+#user-wrap-main .description-table td:first-child {
     width: 120px;
     background: #f8f9fa;
     font-weight: bold;

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useParams } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserSidebar from '../../pages/user/include/UserSidebar';
 import RightNavbar from './include/RightNavbar';
@@ -7,7 +7,7 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorder.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
-import WebRTCReceiver from "./WebRTCReceiver";
+
 
 const UserOrder = () => {
     const [showDetail, setShowDetail] = useState(false);
@@ -17,24 +17,7 @@ const UserOrder = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [isBroadcastActive, setIsBroadcastActive] = useState(false);
-    const [offer, setOffer] = useState("");
     const [reviewStatus, setReviewStatus] = useState({});
-
-    useEffect(() => {
-        const fetchBroadcastStatus = async () => {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/broadcast/${selectedOrder.id}`);
-                setIsBroadcastActive(response.data.isActive);
-                setOffer(response.data.offer);
-            } catch (error) {
-                console.error("방송 상태 가져오기 실패:", error);
-            }
-        };
-
-        fetchBroadcastStatus();
-    }, [selectedOrder]);
-
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -44,6 +27,44 @@ const UserOrder = () => {
         window.scrollTo(0, 0);
         checkAuthAndFetchData();
     }, []);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; // 페이지당 항목 수
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentOrders = orderList.slice(indexOfFirstItem, indexOfLastItem); // 현재 페이지에 표시할 데이터
+    const totalPages = Math.ceil(orderList.length / itemsPerPage); // 총 페이지 수
+    const maxPageButtons = 5; // 최대 표시할 페이지 버튼 개수
+
+    // 페이지 버튼 범위 계산
+    const startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+    const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+
+    const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx);
+    const Pagination = () => (
+        <div className="pagination">
+            <button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(currentPage - 1)}
+            >
+                이전
+            </button>
+            {pageNumbers.map((pageNumber) => (
+                <button
+                    key={pageNumber}
+                    className={pageNumber === currentPage ? 'active' : ''}
+                    onClick={() => setCurrentPage(pageNumber)}
+                >
+                    {pageNumber}
+                </button>
+            ))}
+            <button
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+            >
+                다음
+            </button>
+        </div>
+    );
 
     const checkAuthAndFetchData = async () => {
         if (!authUser || !authUser.user_id) {
@@ -65,60 +86,42 @@ const UserOrder = () => {
                 params: { userId: authUser.user_id }
             });
 
-            console.log('주문 목록 응답:', response.data);
+            const formattedOrders = response.data.map(order => ({
+                ...order,
+                productId: order.productId || order.product_id,
+                venderId: order.venderId || order.vender_id, // 기본값 설정
+                actions: order.actions ? order.actions.split(',') : []
 
-            const formattedOrders = response.data.map(order => {
-                console.log('개별 주문 데이터:', order);
-                return {
-                    ...order,
-                    productId: order.productId || order.product_id,
-                    venderId: order.venderId || order.vender_id,
-                    actions: order.actions ? order.actions.split(',') : []
-                };
-            });
-
+            }));
+            console.log("formattedOrders 응답:", response.data);
             const reviewStatuses = await Promise.all(
                 formattedOrders.map(async (order) => {
-                    if (!order.productId) {
-                        console.error('주문에 productId가 없음:', order);
-                        return { orderId: order.id, canReview: false };
-                    }
+                    if (!order.productId) return { orderId: order.id, canReview: false, hasReviewed: false };
 
                     try {
-                        console.log('리뷰 자격 확인 요청 데이터:', {
-                            orderId: order.id,
-                            productId: order.productId,
-                            userId: authUser.user_id
-                        });
-
                         const reviewCheckResponse = await axios.get(
                             `${process.env.REACT_APP_API_URL}/api/reviews/check-eligibility`,
-                            {
-                                params: {
-                                    productId: order.productId,
-                                    userId: parseInt(authUser.user_id)
-                                }
-                            }
+                            { params: { productId: order.productId, userId: parseInt(authUser.user_id) } }
                         );
 
                         return {
                             orderId: order.id,
-                            canReview: reviewCheckResponse.data.apiData?.canReview || false
+                            canReview: reviewCheckResponse.data.apiData?.canReview || false,
+                            hasReviewed: reviewCheckResponse.data.apiData?.hasReviewed || false
                         };
                     } catch (error) {
-                        console.error('리뷰 상태 체크 실패:', error, {
-                            orderId: order.id,
-                            productId: order.productId,
-                            userId: authUser.user_id
-                        });
-                        return { orderId: order.id, canReview: false };
+                        console.error('리뷰 상태 체크 실패:', error);
+                        return { orderId: order.id, canReview: false, hasReviewed: false };
                     }
                 })
             );
 
             const statusObj = {};
             reviewStatuses.forEach(status => {
-                statusObj[status.orderId] = status.canReview;
+                statusObj[status.orderId] = {
+                    canReview: status.canReview,
+                    hasReviewed: status.hasReviewed
+                };
             });
             setReviewStatus(statusObj);
 
@@ -130,6 +133,7 @@ const UserOrder = () => {
             setLoading(false);
         }
     };
+
 
     const fetchStatusCounts = async () => {
         try {
@@ -206,7 +210,7 @@ const UserOrder = () => {
         {
             label: '수령 완료',
             count: statusCounts?.completedCount || 0,
-            description: '주문이 완료되었습니다'
+            description: '케이크를 수령했습니다.'
         }
     ];
 
@@ -214,7 +218,6 @@ const UserOrder = () => {
         if (order.statusMessage === '업로드 완료') {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/mypage/orders/detail/media/${order.id}`);
-                console.log("미디어 상세 응답:", response.data);
                 const mediaData = response.data.apiData;
                 setSelectedOrder({
                     ...order,
@@ -264,30 +267,32 @@ const UserOrder = () => {
         <div className="main-content">
             <h2>주문조회</h2>
 
-            <section className="status-description">
+
+            <section className="status-overview">
                 <h3>주문상태 안내</h3>
                 <table className="description-table">
+                    <thead>
+                        <tr>
+                            {orderStatuses.map((status, index) => (
+                                <th key={index} className="status-label">{status.label}</th>
+                            ))}
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td>결제 완료</td><td>결제가 완료되었습니다.</td></tr>
-                        <tr><td>제작 중</td><td>케이크를 제작중입니다.</td></tr>
-                        <tr><td>제작 완료</td><td>케이크 제작이 완료되었습니다.</td></tr>
-                        <tr><td>픽업 요청/배송 중</td><td>배송중이거나 픽업 대기중입니다.</td></tr>
-                        <tr><td>수령 완료</td><td>수령이 완료되었습니다</td></tr>
+                        <tr>
+                            {orderStatuses.map((status, index) => (
+                                <td key={index} className="status-count">{status.count}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            {orderStatuses.map((status, index) => (
+                                <td key={index}>{status.description}</td>
+                            ))}
+                        </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section className="order-status-container">
-                {orderStatuses.map((status, index) => (
-                    <div key={index} className="status-item">
-                        <div className="status-count">{status.count}</div>
-                        <div className="status-label">{status.label}</div>
-                        {index < orderStatuses.length - 1 && (
-                            <div className="status-arrow">▶</div>
-                        )}
-                    </div>
-                ))}
-            </section>
 
             <section className="order-search">
                 <div className="date-filter">
@@ -306,80 +311,91 @@ const UserOrder = () => {
             </section>
 
             <section className="order-list">
+
                 {loading && <div>로딩 중...</div>}
+
                 {error && <div className="error-message">{error}</div>}
                 {!loading && !error && (
-                    <table className="order-table">
-                        <thead>
-                            <tr>
-                                <th>등록 날짜</th>
-                                <th>제품명</th>
-                                <th>주문상태</th>
-                                <th>제작영상/사진</th>
-                                <th>관리</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {orderList.map((order) => (
-                                <tr key={order.id}>
-                                    <td>{order.date}</td>
-                                    <td>{order.productName}</td>
-                                    <td>
-                                        {order.orderStatus}
-                                        {["픽업 요청", "배송 중"].includes(order.orderStatus) && (
-                                            <button
-                                                onClick={() => updateOrderStatus(order.id)}
-                                                className="confirm-receipt-btn"
-                                            >
-                                                수령 확인
-                                            </button>
-                                        )}
-                                    </td>
-                                    <td>
-                                        <span
-                                            className={order.statusMessage === '업로드 완료' ? 'clickable-status' : ''}
-                                            onClick={() => handleStatusClick(order)}
-                                        >
-                                            {order.statusMessage}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div className="action-buttons">
-                                            {order.actions.map((action, idx) => {
-                                                console.log('주문 및 리뷰 상태:', {
-                                                    orderId: order.id,
-                                                    productId: order.productId,
-                                                    venderId: order.venderId,
-                                                    action,
-                                                    orderStatus: order.orderStatus,
-                                                    canReview: reviewStatus[order.id]
-                                                });
+                    <>
+                        <table className="order-table">
 
-                                                return action === '리뷰쓰기' && order.orderStatus === '수령 완료' && reviewStatus[order.id] ? (
-                                                    <ScrollToTopLink
-                                                        key={idx}
-                                                        to={`/user/cakedetail/${order.productId}/${order.venderId}`}
-                                                        className="action-btn"
-                                                        state={{ openReview: true }}
-                                                    >
-                                                        리뷰쓰기
-                                                    </ScrollToTopLink>
-                                                ) : action === '주문상세보기' ? (
-                                                    <ScrollToTopLink
-                                                        key={idx}
-                                                        to={`/user/mypage/orderdetail/${order.id}`}
-                                                        className="action-btn"
-                                                    >
-                                                        {action}
-                                                    </ScrollToTopLink>
-                                                ) : null;
-                                            })}
-                                        </div>
-                                    </td>
+                            <thead>
+                                <tr>
+                                    <th>등록 날짜</th>
+                                    <th>제품명</th>
+                                    <th>주문상태</th>
+                                    <th>제작영상/사진</th>
+                                    <th>관리</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {currentOrders.map((order) => (
+                                    <tr key={order.id}>
+                                        <td>{order.date}</td>
+                                        <td>{order.productName}</td>
+                                        <td>
+                                            {order.orderStatus}
+                                            {["픽업 요청", "배송 중"].includes(order.orderStatus) && (
+                                                <button
+                                                    onClick={() => updateOrderStatus(order.id)}
+                                                    className="confirm-receipt-btn"
+                                                >
+                                                    수령 확인
+                                                </button>
+                                            )}
+                                        </td>
+                                        <td>
+                                            <span
+                                                className={order.statusMessage === '업로드 완료' ? 'clickable-status' : ''}
+                                                onClick={() => handleStatusClick(order)}
+                                            >
+                                                {order.statusMessage}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="action-buttons">
+                                                {order.actions.map((action, idx) => {
+                                                    const reviewState = reviewStatus[order.id] || { canReview: false, hasReviewed: false };
+                                                    const { canReview, hasReviewed } = reviewState;
+
+                                                    return action === '리뷰쓰기' && order.orderStatus === '수령 완료' ? (
+                                                        hasReviewed ? (
+                                                            <ScrollToTopLink
+                                                                key={idx}
+                                                                to={`/user/cakedetail/${order.productId}/${order.venderId}`}
+                                                                className="action-btn"
+                                                            >
+                                                                리뷰 보기
+                                                            </ScrollToTopLink>
+                                                        ) : canReview ? (
+                                                            <ScrollToTopLink
+                                                                key={idx}
+                                                                to={`/user/cakedetail/${order.productId}/${order.venderId}`}
+                                                                className="action-btn"
+                                                                state={{ openReview: true }}
+                                                            >
+                                                                리뷰쓰기
+                                                            </ScrollToTopLink>
+                                                        ) : null
+                                                    ) : action === '주문상세보기' ? (
+                                                        <ScrollToTopLink
+                                                            key={idx}
+                                                            to={`/user/mypage/orderdetail/${order.id}`}
+                                                            className="action-btn"
+                                                        >
+                                                            {action}
+                                                        </ScrollToTopLink>
+                                                    ) : null;
+                                                })}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {/* Pagination 컴포넌트 추가 */}
+                        <Pagination />
+                    </>
                 )}
             </section>
         </div>

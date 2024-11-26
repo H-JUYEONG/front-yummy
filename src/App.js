@@ -40,7 +40,6 @@ import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
-import UserOrderList from './pages/user/UserOrderList';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserOrderDetail from './pages/user/UserOrderDetail';
 import UserOrder from './pages/user/UserOrder';
@@ -127,7 +126,7 @@ function App() {
           <Route path="/vender/VenderInsertPage/:venderId" element={<VenderProvider><VenderInsertPage /></VenderProvider>} />
           <Route path='/vender/exeStoreDetail/:venderId' element={<VenderProvider><UserExeStoreDetail /></VenderProvider>} />
           <Route path="/vender/venderInsertAudition/:auditionId" element={<VenderInsertAudition />} />
-          <Route path="/vender/venderauditonrequest" element={<VenderAuditionRequest />} />
+          <Route path="/vender/venderauditonrequest/:venderId/:productId" element={<VenderAuditionRequest />} />
           <Route path='/vender/venderauditionrequestmodal' element={<VenderAuditionRequestModal />} />
           <Route path='/vender/registrationformedit/:productId' element={<VenderProductRegistrationFormEdit />} />
 
@@ -142,7 +141,6 @@ function App() {
           <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar />} />
           <Route path='/user/cakedetail/:productId/:venderId' element={<UserCakeDetail />} />
-          <Route path='/user/orderlist' element={<UserOrderList />} />
           <Route path='/user/mypage/orderdetail/:orderId' element={<UserOrderDetail />} />
           <Route path='/user/mypage/order' element={<UserOrder />} />
           <Route path='/user/mypage/wishlist' element={<UserWishList />} />
@@ -188,7 +186,7 @@ function App() {
           <Route path='/gpt' element={<ChatGPTApp />} />
         </Routes>
       </BrowserRouter>
-   
+
       {/* 오른쪽 하단 플로팅 버튼 */}
       <div className="floating-chat-button" onClick={toggleChat}>
         🍰

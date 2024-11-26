@@ -1,7 +1,13 @@
 import React from 'react';
 import '../../assets/css/vender/venderProductModalInsert.css'; // 모달 스타일
 
-const VenderProductModalInsert = ({ onClose }) => {
+const VenderProductModalInsert = ({ onClose, productList, onProductSelect}) => {
+
+    const handleProductSelect = (product)=>{
+        onProductSelect(product.productId);
+        onClose();
+    }
+
     return (
         <div className="vender-sso-modal-overlay">
             <div className="vender-sso-modal-content">
@@ -13,41 +19,22 @@ const VenderProductModalInsert = ({ onClose }) => {
                     <input className='sso-insert-txt' placeholder='상품명을 검색해주세요'></input>
                 </div>
                 <div className='ssso-productlist-box'>
-                    <div className='ssso-product-one-box'>
-                        <div className='ssso-img-box'>
-                            <img src='#' />
-                        </div>
-                        <p>상품명</p>
-                    </div>
-                    <div className='ssso-product-one-box'>
-                        <div className='ssso-img-box'>
-                            <img src='#' />
-                        </div>
-                        <p>상품명</p>
-                    </div>
-                    <div className='ssso-product-one-box'>
-                        <div className='ssso-img-box'>
-                            <img src='#' />
-                        </div>
-                        <p>상품명</p>
-                    </div>
-                    <div className='ssso-product-one-box'>
-                        <div className='ssso-img-box'>
-                            <img src='#' />
-                        </div>
-                        <p>상품명</p>
-                    </div>
-                    <div className='ssso-product-one-box'>
-                        <div className='ssso-img-box'>
-                            <img src='#' />
-                        </div>
-                        <p>상품명</p>
-                    </div>
+                    {productList    .filter((product) => product.selectProduct == '일치')
+                                    .map((product)=>{
+                        return (
+                            <div className='ssso-product-one-box' onClick={() => handleProductSelect(product)}>
+                                <div className='ssso-img-box'>
+                                    <img src={product.productURL} />
+                                </div>
+                                <p>{product.productName}</p>
+                            </div>
+                        )
+                    })}
+                    
+                    
                 </div>
 
-                <div className='ssso-pick-btn-box'>
-                    <button onClick={onClose}>선택하기</button>
-                </div>
+                    
                 
             </div>
         </div>

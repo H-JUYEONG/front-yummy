@@ -1,74 +1,98 @@
-import React from 'react';
-import '../../assets/css/vender/venderreview.css'; // 업체 페이지 전용 스타일
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
-const VenderReview = () => {
-    const reviews = [
-        {
-            rating: '★★★★☆',
-            author: '네이버아이디 구슬자',
-            content: '케이크가 정말 맛있었어요! 배송도 매우 빨랐습니다.',
-            date: '2024-06-22 13:00:52',
-        },
-        {
-            rating: '★★★★★',
-            author: '네이버아이디 구슬자',
-            content: '너무 예쁜 디자인으로 만족스러웠습니다.',
-            date: '2023-08-02 14:00:00',
-        },
-        {
-            rating: '★★★★☆',
-            author: '김소희',
-            content: '배송 빠르고, 맛도 최고였어요.',
-            date: '2022-12-13 17:30:10',
-        }
-    ];
+import '../../assets/css/all.css'; // 전역 css
+import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
+import '../../assets/css/vender/statistics.css'; // 대시보드 전용 스타일
+const API_URL = process.env.REACT_APP_API_URL;
+
+const ReviewList = () => {
+    const [reviews, setReviews] = useState([]);
+
+    useEffect(() => {
+        // API 호출
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(`${API_URL}/api/vender/reviews`, {
+                    params: { venderId: 39 }, // venderId는 동적으로 변경 가능
+                });
+                setReviews(response.data);
+            } catch (error) {
+                console.error("리뷰 데이터를 불러오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchReviews();
+    }, []);
 
     return (
-        <>
-            <div className="vender-container">
-                <div className="vender-content-wrapper">
-                    <VenderSidebar />
-                    <div className="vender-content">
-                        <header className="vender-header ">
-                            <VenderHeader />
-                        </header>
-                        <main>
-                            <section className="review-management-section">
-                                <h2 className="review-info-text">
-                                    리뷰 관리
-                                </h2>
-                                <table className="review-table">
-                                    <thead>
-                                        <tr>
-                                            <th>별점</th>
-                                            <th>작성자 아이디</th>
-                                            <th>리뷰 내용</th>
-                                            <th>작성 날짜</th>
-                                            <th>관리</th>
+        <div className="vender-container">
+            <div className="vender-content-wrapper">
+                {/* 사이드바 */}
+                <VenderSidebar />
+                {/* 콘텐츠 영역 */}
+                <div className="vender-content">
+                    <header className="vender-header">
+                        <VenderHeader />
+                    </header>
+                    <div>
+                        <h1>리뷰 관리</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>리뷰 ID</th>
+                                    <th>상품 ID</th>
+                                    <th>상품 이름</th>
+                                    <th>리뷰 내용</th>
+                                    <th>별점</th>
+                                    <th>상태</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {reviews.map((review) => {
+                                    const hasReviewed = !!review.reply_status; // 답글 여부
+                                    return (
+                                        <tr key={review.review_id}>
+                                            <td>{review.review_id}</td>
+                                            <td>
+                                                <Link to={`/user/cakedetail/${review.product_id}/${review.vender_id}`}>
+                                                    {review.product_id}
+                                                </Link>
+                                            </td>
+                                            <td>{review.product_name}</td>
+                                            <td>{review.review_content}</td>
+                                            <td>{review.review_rating}</td>
+                                            <td>{hasReviewed ? "답글 있음" : "답글 없음"}</td>
+                                            <td>
+                                                {hasReviewed ? (
+                                                    <Link
+                                                        to={`/user/cakedetail/${review.product_id}/${review.vender_id}`}
+                                                        className="action-btn"
+                                                    >
+                                                        리뷰 보기
+                                                    </Link>
+                                                ) : (
+                                                    <Link
+                                                        to={`/user/cakedetail/${review.product_id}/${review.vender_id}`}
+                                                        className="action-btn"
+                                                    >
+                                                        리뷰 쓰기
+                                                    </Link>
+                                                )}
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {reviews.map((review, index) => (
-                                            <tr key={index}>
-                                                <td>{review.rating}</td>
-                                                <td>{review.author}</td>
-                                                <td>{review.content}</td>
-                                                <td>{review.date}</td>
-                                                <td>
-                                                    <button className="delete-button">삭제</button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </section>
-                        </main>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
-export default VenderReview;
+export default ReviewList;
