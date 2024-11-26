@@ -15,6 +15,8 @@ const UserAuditionAdd = () => {
   const [title, setTitle] = useState(""); // 글 제목
   const [price, setPrice] = useState(""); // 희망 가격
   const [size, setSize] = useState(""); // 희망 사이즈
+  const [cakeLettering, setCakeLettering] = useState(""); // 케이크 위 레터링
+  const [plateLettering, setPlateLettering] = useState(""); // 케이크 판 레터링
   const [deliveryMethod, setDeliveryMethod] = useState("픽업"); // 수령 방식
   const [desiredDate, setDesiredDate] = useState(""); // 희망 날짜
   const [desiredTime, setDesiredTime] = useState(""); // 희망 시간
@@ -98,6 +100,8 @@ const UserAuditionAdd = () => {
     formData.append("title", title);
     formData.append("price", price);
     formData.append("size", size);
+    formData.append("cakeLettering", cakeLettering);
+    formData.append("plateLettering", plateLettering);
     formData.append("deliveryMethod", deliveryMethod);
     formData.append("desiredDate", desiredDate);
     formData.append("desiredTime", desiredTime);
@@ -191,6 +195,30 @@ const UserAuditionAdd = () => {
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
                 placeholder="예: 12cm"
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="cake-lettering">케이크 위 레터링</label>
+              <input
+                type="text"
+                id="cake-lettering"
+                value={cakeLettering}
+                onChange={(e) => setCakeLettering(e.target.value)}
+                placeholder="케이크에 들어갈 메시지를 작성해주세요."
+                className="user-audition-input-text"
+              />
+            </div>
+
+            <div className="user-cake-audition-form-group">
+              <label htmlFor="plate-lettering">케이크 판 레터링</label>
+              <input
+                type="text"
+                id="plate-lettering"
+                value={plateLettering}
+                onChange={(e) => setPlateLettering(e.target.value)}
+                placeholder="케이크 판에 들어갈 메시지를 작성해주세요."
                 className="user-audition-input-text"
               />
             </div>
@@ -361,7 +389,7 @@ const UserAuditionAdd = () => {
                 id="requests"
                 value={requests}
                 onChange={(e) => setRequests(e.target.value)}
-                placeholder="케이크의 컨셉, 색상, 디자인, 원하는 문구 등 자세한 내용을 적어주세요."
+                placeholder="케이크의 컨셉, 색상, 디자인 등 자세한 내용을 적어주세요."
                 className="user-audition-input-text"
                 rows="4"
               ></textarea>

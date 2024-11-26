@@ -17,7 +17,8 @@ const UserSocialSignUpForm = () => {
   const {
     email: kakaoEmail,
     user_profile_image_url: userProfileImageUrl,
-  } = location.state || {}; // user_nickname: kakaoNikname은 제외(사용자가 입력)
+    provider: provider, // '카카오', '네이버' 라는 값 추출
+  } = location.state || {};
 
   const [email, setEmail] = useState(kakaoEmail || ""); // 초기값으로 카카오 이메일 설정
   const [name, setName] = useState("");
@@ -89,23 +90,20 @@ const UserSocialSignUpForm = () => {
 
   const handleSocialSignUp = (e) => {
     e.preventDefault();
-
-    console.log("Aaa");
+  
     const userVo = {
       email: email,
       name: name,
       user_nickname: nickname,
       phone_number: phoneNumber,
       user_profile_image_url: userProfileImageUrl,
+      user_provider: provider
     };
+    console.log("userVo:", userVo);
 
-    console.log("테테스트트");
-    console.log(userVo);
-
-    console.log(userVo);
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_API_URL}/api/users/kakao`,
+      url: `${process.env.REACT_APP_API_URL}/api/users/social/signup`,
       headers: { "Content-Type": "application/json; charset=utf-8" },
       data: userVo,
     })

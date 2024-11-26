@@ -34,6 +34,7 @@
     font-weight: bold;
     font-size: 14px;
     color:#686868;
+    border-radius: 8px;
 }
 
 .login-type-item p {
@@ -59,9 +60,10 @@
     height: 55px;
     padding: 10px 15px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 16px;
-     margin-top: -1px;
+    margin-top: -1px;
 }
 
 /* 첫 번째 input에는 margin-top을 주지 않습니다 */
@@ -88,11 +90,13 @@
 
 .user-login-btn button {
     width: 100%;
+    height: 53px;
     padding: 15px;
     border: none;
     color: #ffffff;
     background-color: #000000;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 .user-login-id-save {
@@ -150,8 +154,14 @@
     background-color: rgb(148, 175, 255);
 }
 
-#kakaoIdLogin img{
+#kakaoIdLogin img {
     width: 100%;
-    height: 60px;
+    height: 55px;
+    cursor: pointer;
+}
+
+#naverIdLogin img {
+    width: 100%;
+    height: 55px;
     cursor: pointer;
 }

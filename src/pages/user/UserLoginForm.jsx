@@ -11,20 +11,28 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
-  // 앱 정보 넣어두기
-  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  // 카카오 앱 정보 넣어두기
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+  // 네이버 앱 정보 넣어두기
+  const NAVER_REST_API_KEY = process.env.REACT_APP_NAVER_REST_API_KEY;
+  const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
+  const STATE = Math.random().toString(36).substr(2) + Date.now().toString(36);
 
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&state=${STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
+  
   // 카카오 동의 항목
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
   };
 
-  // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
-  // const code = new URL(window.location.href).searchParams.get("code");
+  // 카카오 동의 항목
+  const handleNaverLogin = () => {
+    window.location.href = naverURL;
+  };
 
   const navigate = useNavigate();
 
@@ -191,14 +199,19 @@ const UserLoginForm = () => {
           {/* <div id="googleIdLogin">
             <button>구글 로그인</button>
           </div>
-          <div id="naverIdLogin">
-            <button>네이버 로그인</button>
-          </div> */}
+           */}
           <div id="kakaoIdLogin">
             <img
               src="/images/kakao_login_large_wide.png"
               alt="카카오 로그인 버튼"
               onClick={handleKakaoLogin}
+            />
+          </div>
+          <div id="naverIdLogin">
+          <img
+              src="/images/btnG_완성형.png"
+              alt="네이버 로그인 버튼"
+              onClick={handleNaverLogin}
             />
           </div>
         </div>

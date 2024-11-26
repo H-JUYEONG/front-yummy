@@ -2,43 +2,46 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function UserKakaoLogin() {
+function UserNaverLogin() {
   const navigate = useNavigate();
   const PARAMS = new URL(document.location).searchParams;
-  const KAKAO_CODE = PARAMS.get("code");
+  const NAVER_CODE = PARAMS.get("code");
+  const NAVER_STATE = PARAMS.get("state");
 
-  console.log("KAKAO_CODE:", KAKAO_CODE);
+  console.log("NAVER_CODE:", NAVER_CODE);
+  console.log("NAVER_STATE:", NAVER_STATE);
 
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (KAKAO_CODE) {
-      handleLogin(KAKAO_CODE);
+    if (NAVER_CODE) {
+      handleLogin(NAVER_CODE, NAVER_STATE);
     }
-  }, [KAKAO_CODE]);
+  }, [NAVER_CODE]);
 
-  const handleLogin = async (code) => {
+  const handleLogin = async (code, state) => {
     try {
-      // 카카오 액세스 토큰 받아오기
+      // 네이버 액세스 토큰 받아오기
       const response = await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}/api/auth/kakao`,
+        url: `${process.env.REACT_APP_API_URL}/api/auth/naver`,
         headers: { "Content-Type": "application/json; charset=utf-8" },
-        params: { authorizeCode: code },
+        params: { authorizeCode: code, state: state },
         responseType: "json",
       });
 
+      console.log('네이버 액세스토큰');
       console.log(response);
       console.log(response.data);
       console.log(response.data.apiData);
 
       const accessToken = response.data.apiData;
 
-      // 카카오 유저 정보 가져오기
+      // 네이버 유저 정보 가져오기
       const userResponse = await axios({
         method: "get",
-        url: `${process.env.REACT_APP_API_URL}/api/users/profile`,
+        url: `${process.env.REACT_APP_API_URL}/api/users/naver/profile`,
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
@@ -72,9 +75,8 @@ function UserKakaoLogin() {
           // 확인을 누른 경우
           const userInfoWithProvider = {
             ...userInfo, // 기존 사용자 정보
-            provider: "카카오", // '카카오' 정보 추가
+            provider: "네이버", // '카카오' 정보 추가
           };
-
           setTimeout(() => {
             navigate("/user/social/signup", { state: userInfoWithProvider }); // 상태로 사용자 정보 전달
           }, 100); // 100ms 지연
@@ -93,8 +95,8 @@ function UserKakaoLogin() {
         alert(userResponse.data.message || "로그인에 실패했습니다.");
       }
     } catch (error) {
-      console.error("카카오 로그인 오류:", error);
-      alert("카카오 로그인에 실패했습니다.");
+      console.error("네이버 로그인 오류:", error);
+      alert("네이버 로그인에 실패했습니다.");
       setLoading(false);
     }
   };
@@ -102,7 +104,7 @@ function UserKakaoLogin() {
   if (loading) {
     return (
       <div>
-        <p>카카오 로그인 처리 중...</p>
+        <p>네이버 로그인 처리 중...</p>
       </div>
     );
   }
@@ -119,4 +121,4 @@ function UserKakaoLogin() {
   return null; // 처리 후 리다이렉트되므로 화면 표시 없음
 }
 
-export default UserKakaoLogin;
+export default UserNaverLogin;

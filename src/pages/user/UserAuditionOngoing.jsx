@@ -163,6 +163,12 @@ const UserAuditionOngoing = () => {
                     {auditionDetail.auditionApplicationSize || "정보 없음"}
                   </p>
                   <p>
+                    케이크 위 레터링: {auditionDetail.cakeLettering || "정보 없음"}
+                  </p>
+                  <p>
+                    케이크 판 레터링: {auditionDetail.plateLettering || "정보 없음"}
+                  </p>
+                  <p>
                     수령 방식: {auditionDetail.deliveryMethod || "정보 없음"}
                   </p>
                   <p>수령 지역(구): {auditionDetail.region || "정보 없음"}</p>
