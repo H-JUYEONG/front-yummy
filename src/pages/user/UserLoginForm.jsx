@@ -132,7 +132,7 @@ const UserLoginForm = () => {
           <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
           <h1>로그인</h1>
         </div>
-        <div>
+        {/* <div>
           <div className="user-login-type">
             <div className="login-type-item">
               <Link to="/user/signup" rel="noreferrer noopener">
@@ -146,7 +146,7 @@ const UserLoginForm = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* 로그인폼 */}
         <div className="user-loginform">
@@ -158,6 +158,7 @@ const UserLoginForm = () => {
               value={userEmail}
               placeholder="이메일을 입력해주세요."
               onChange={handleUserEmail}
+              className="user-input-email"
             />
             <label></label>
             <input
@@ -165,6 +166,7 @@ const UserLoginForm = () => {
               value={userPassword}
               placeholder="비밀번호를 입력해주세요."
               onChange={handleUserPassword}
+              className="user-input-password"
             />
             <div className="user-login-btn">
               <button type="submit">로그인</button>
@@ -190,6 +192,9 @@ const UserLoginForm = () => {
             </Link>
             <Link to="#" rel="noreferrer noopener">
               비밀번호찾기
+            </Link>
+            <Link to="/user/signup/type" rel="noreferrer noopener">
+              회원가입
             </Link>
           </div>
         </div>
