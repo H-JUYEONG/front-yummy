@@ -24,9 +24,13 @@ const UserSocialSignUpForm = () => {
   const [name, setName] = useState("");
   const [nickname, setNikname] = useState(""); // 초기값으로 카카오 닉네임 설정
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [inputCode, setInputCode] = useState("");
 
   const [emailValid, setEmailValid] = useState(null); // 이메일 중복 여부
   const [nicknameValid, setNicknameValid] = useState(null); // 닉네임 중복 여부
+
+  const [isVerificationInputVisible, setIsVerificationInputVisible] =
+    useState(false); // 인증 번호 입력 유무
 
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -81,6 +85,7 @@ const UserSocialSignUpForm = () => {
 
   const handleName = (e) => setName(e.target.value);
   const handlePhoneNumber = (e) => setPhoneNumber(e.target.value);
+  const handleCodeInput = (e) => setInputCode(e.target.value);
 
   const handleAllCheck = (e) => {
     const checked = e.target.checked;
@@ -101,8 +106,84 @@ const UserSocialSignUpForm = () => {
     }
   };
 
+  // 인증번호 요청
+  const handleRequestCode = () => {
+    if (!phoneNumber) {
+      alert("휴대폰 번호를 입력해주세요.");
+      return;
+    }
+
+    // 전화번호 중복 확인
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/check/phonenumber`, {
+        params: { phone_number: phoneNumber },
+      })
+      .then((response) => {
+        const isValid = response.data.result === "success";
+
+        if (!isValid) {
+          // 중복된 전화번호
+          alert("이미 사용 중인 전화번호입니다.");
+          return;
+        }
+
+        // 전화번호 중복이 없으면 인증번호 요청
+        axios({
+          method: "post",
+          url: `${process.env.REACT_APP_API_URL}/api/auth/send/code`,
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+          data: { phone_number: phoneNumber },
+        })
+          .then((response) => {
+            if (response.data.result === "success") {
+              alert("인증번호가 발송되었습니다. 입력한 번호를 확인해주세요.");
+              setIsVerificationInputVisible(true); // 인증번호 입력칸 보이도록 설정
+            } else {
+              alert("인증번호 발송에 실패했습니다. 다시 시도해주세요.");
+            }
+          })
+          .catch((error) => console.error("인증번호 요청 실패:", error));
+      })
+      .catch((error) => console.error("전화번호 중복 확인 실패:", error));
+  };
+
+  // 인증번호 검증
+  const handleVerifyCode = () => {
+    if (!inputCode) {
+      alert("인증번호를 입력해주세요.");
+      return;
+    }
+
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/verify/code`,
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: { phone_number: phoneNumber, code: inputCode },
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          alert("인증이 완료되었습니다!");
+        } else {
+          alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  // 회원가입 요청
   const handleSocialSignUp = (e) => {
     e.preventDefault();
+
+    if (!isTermsChecked || !isPrivacyChecked) {
+      alert("서비스 약관 및 개인정보 처리방침에 동의해주세요.");
+      return;
+    }
+
+    // 필수 입력 사항과 약관 동의 확인
+    if (!email || !name || !nickname || !phoneNumber) {
+      alert("필수 입력 사항을 모두 입력하고 약관에 동의해주세요.");
+      return;
+    }
 
     const userVo = {
       email: email,
@@ -229,10 +310,32 @@ const UserSocialSignUpForm = () => {
                   placeholder="'-' 제외하고 숫자만 입력해주세요."
                   onChange={handlePhoneNumber}
                 />
-                {/* <button type="button" className="request-code-btn">
+                <button
+                  type="button"
+                  className="request-code-btn"
+                  onClick={handleRequestCode} // 인증번호 요청 핸들러
+                >
                   인증번호 요청
-                </button> */}
+                </button>
               </div>
+              {/* 인증번호 입력창 */}
+              {isVerificationInputVisible && (
+                <div className="verification-code-wrapper">
+                  <input
+                    type="text"
+                    value={inputCode}
+                    placeholder="인증번호를 입력해주세요."
+                    onChange={handleCodeInput}
+                  />
+                  <button
+                    type="button"
+                    className="verify-code-btn"
+                    onClick={handleVerifyCode} // 인증번호 확인 핸들러
+                  >
+                    인증번호 확인
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* 약관 동의 */}
