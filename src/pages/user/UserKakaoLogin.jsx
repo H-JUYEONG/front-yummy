@@ -43,6 +43,7 @@ function UserKakaoLogin() {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
         },
+        params: {provider: "카카오"},
         responseType: "json",
       });
 

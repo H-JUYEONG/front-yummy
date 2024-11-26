@@ -208,11 +208,10 @@ const UserLoginForm = () => {
             />
           </div>
           <div id="naverIdLogin">
-          <img
-              src="/images/btnG_완성형.png"
-              alt="네이버 로그인 버튼"
-              onClick={handleNaverLogin}
-            />
+            <button onClick={handleNaverLogin}>
+            <img src="/images/btnG_아이콘사각.png" alt="N" />
+            <span>네이버 로그인</span>
+            </button>
           </div>
         </div>
         {/* //로그인 종류 리스트 */}

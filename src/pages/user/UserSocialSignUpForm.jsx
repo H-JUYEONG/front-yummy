@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { useNavigate, useLocation } from "react-router-dom"; // useLocation 추가
@@ -15,12 +15,12 @@ const UserSocialSignUpForm = () => {
 
   // 전달된 사용자 정보
   const {
-    email: kakaoEmail,
+    email: socialEmail,
     user_profile_image_url: userProfileImageUrl,
     provider: provider, // '카카오', '네이버' 라는 값 추출
   } = location.state || {};
 
-  const [email, setEmail] = useState(kakaoEmail || ""); // 초기값으로 카카오 이메일 설정
+  const [email, setEmail] = useState(socialEmail || ""); // 초기값으로 카카오 이메일 설정
   const [name, setName] = useState("");
   const [nickname, setNikname] = useState(""); // 초기값으로 카카오 닉네임 설정
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -32,15 +32,21 @@ const UserSocialSignUpForm = () => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
 
-  // 이메일 입력 핸들러 및 중복 체크
+  // 이메일 입력 핸들러
   const handleEmail = (e) => {
     const newEmail = e.target.value;
     setEmail(newEmail);
+    checkEmailDuplicate(newEmail); // 이메일 변경 시 중복 체크 실행
+  };
+
+  // 이메일 중복 체크
+  const checkEmailDuplicate = (emailToCheck) => {
+    if (!emailToCheck) return;
 
     // 서버에 이메일 중복 체크 요청
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/check/email`, {
-        params: { email: newEmail },
+        params: { email: emailToCheck },
       })
       .then((response) => {
         // response.data.result가 'success'이면 이메일 사용 가능, 'fail'이면 중복
@@ -48,6 +54,13 @@ const UserSocialSignUpForm = () => {
       })
       .catch((error) => console.error(error));
   };
+
+  // useEffect에서 초기 이메일 값으로 중복 체크 실행
+  useEffect(() => {
+    if (email) {
+      checkEmailDuplicate(email);
+    }
+  }, [email]); // email 값이 변경될 때만 실행
 
   // 닉네임 입력 핸들러 및 중복 체크
   const handleNickname = (e) => {
@@ -90,14 +103,14 @@ const UserSocialSignUpForm = () => {
 
   const handleSocialSignUp = (e) => {
     e.preventDefault();
-  
+
     const userVo = {
       email: email,
       name: name,
       user_nickname: nickname,
       phone_number: phoneNumber,
       user_profile_image_url: userProfileImageUrl,
-      user_provider: provider
+      user_provider: provider,
     };
     console.log("userVo:", userVo);
 

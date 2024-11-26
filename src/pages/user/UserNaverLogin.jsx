@@ -46,6 +46,7 @@ function UserNaverLogin() {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
         },
+        params: {provider: "네이버"},
         responseType: "json",
       });
 
