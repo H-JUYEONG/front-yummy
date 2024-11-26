@@ -101,7 +101,7 @@
 }
 
 .user-cake-audition-select-option button:hover {
-  background-color: #ff6f61;
+  background-color: #FF7292;
   color: white;
 }
 
@@ -262,13 +262,13 @@
 .user-audition-page-number:hover,
 .user-audition-prev-page:hover,
 .user-audition-next-page:hover {
-    background: #ff6f61;
+    background: #FF7292;
+    color: white;
 }
 
 .user-audition-page-number.active {
-    background: #ff6f61;
+    background: #FF7292;
     color: white;
-    border-color: #ff6f61;
 }
 
 /* 텍스트 페이드 인 애니메이션 */
