@@ -29,10 +29,6 @@ const UserDebateView = () => {
   // Fetch debate details
   const fetchDebateDetails = async () => {
     try {
-      if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-      }
 
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/debateview/${debateId}`,
@@ -93,10 +89,6 @@ const UserDebateView = () => {
   // Fetch comments
   const getCommentList = async () => {
     try {
-      if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-      }
 
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/getComment/${debateId}`,
@@ -116,10 +108,6 @@ const UserDebateView = () => {
   // Fetch votes
   const getVoteList = async () => {
     try {
-      if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-      }
 
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/vote/${debateId}`,
@@ -187,8 +175,8 @@ const UserDebateView = () => {
       console.error("Error handling vote:", error);
       alert("투표 처리 중 오류가 발생했습니다.");
     }
-    getVoteList(); // Refresh the vote list
-    getCommentList();
+    await getVoteList(); // Refresh the vote list
+    await getCommentList();
     console.log(commentList.toString());
   };
 
