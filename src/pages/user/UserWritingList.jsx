@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import UserSidebar from "../../pages/user/include/UserSidebar";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userwritinglist.css";
@@ -9,38 +10,99 @@ import { Search } from 'lucide-react';
 
 const UserWritingList = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   const [searchText, setSearchText] = useState(''); // State for search input
-  const [selectedStyle, setSelectedStyle] = useState('리뷰'); // Default to "리뷰"
-  const [selectedTab, setSelectedTab] = useState("글"); // Default to "글" on load
+  const [selectedStyle, setSelectedStyle] = useState('게시글'); // Default to "리뷰"
+  const [selectedTab, setSelectedTab] = useState("게시글"); // Default to "글" on load
 
-  const writingList = [
-    {
-      id: 13,
-      title: "스폰지밥 케이크 골라주세요",
-      likes: 5,
-      date: "2024-11-01",
-      actions: ["수정", "삭제"],
-    },
-    {
-      id: 12,
-      title: "둘중 어떤게 좋을까요?",
-      likes: 2,
-      date: "2024-10-25",
-      actions: ["수정", "삭제"],
-    },
-  ];
+  const [debateList, setDebateList] = useState([]);
+  const [commentList, setCommentList] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const likedProducts = [
-    { id: 1, title: "상품 1", likes: 10, date: "2024-11-02" },
-    { id: 2, title: "상품 2", likes: 7, date: "2024-11-03" },
-  ];
+  const getDebateList = async (page = 1) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/user/mypage/mywriting/debatelist`, // Correct endpoint
+        headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
+        params: {
+          page, // Pass page number
+          size: 10, // Default size of 10
+          keyword: searchKeyword, // Search keyword
+        },
+      });
+  
+      if (response.data.result === "success") {
+        const debates = response.data.apiData.data || [];
+        setDebateList(debates); // Update debate list
+        setTotalPages(response.data.apiData.totalPages || 1); // Update total pages
+      } else {
+        alert(response.data.message || "토론 목록 가져오기 실패");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다.");
+    }
+  };
+  const getCommentList = async (page = 1) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/user/mypage/mywriting/commentlist`,
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          page,
+          size: 10,
+          keyword: searchKeyword,
+        },
+      });
+  
+      if (response.data.result === "success") {
+        const comments = response.data.apiData.data || []; // Ensure 'data' contains the list
+        setCommentList(comments); // Update the comment list state
+        setTotalPages(response.data.apiData.totalPages || 1); // Update total pages for pagination
+      } else {
+        alert(response.data.message || "댓글 목록 가져오기 실패");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다.");
+    }
+  };
 
-  const likedDesigns = [
-    { id: 3, title: "도안 1", likes: 12, date: "2024-11-04" },
-    { id: 4, title: "도안 2", likes: 9, date: "2024-11-05" },
-  ];
+  const getReviewList = async (page = 1) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/user/mypage/mywriting/reviewlist`,
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          page,
+          size: 10,
+          keyword: searchKeyword,
+        },
+      });
+  
+      if (response.data.result === "success") {
+        const reviews = response.data.apiData.data || []; // Extract data
+        setReviewList(reviews); // Update review list
+        setTotalPages(response.data.apiData.totalPages || 1); // Update pagination
+      } else {
+        alert(response.data.message || "리뷰 목록 가져오기 실패");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      alert("리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
+    }
+  };
+  
 
-  const writingTypeOption = ["리뷰", "게시글", "뎃글"]; // Options for 글 종류 filter
+
+  const writingTypeOption = ["게시글", "댓글", "리뷰"]; // Options for 글 종류 filter
 
   const handleRowClick = (id) => {
     navigate(`/board/boardview`);
@@ -57,7 +119,24 @@ const UserWritingList = () => {
   };
 
   // Display the list based on the selected tab
-  const displayList = selectedTab === "글" ? likedProducts : likedDesigns;
+
+  const handleSearch = () => {
+    setCurrentPage(1);
+    getDebateList(1);
+    getCommentList(1);
+
+    
+    getReviewList(1);
+  };
+
+  useEffect(() => {
+    getDebateList();
+    getCommentList();
+    getReviewList();
+    console.log(reviewList.toString());
+    console.log("마운트 됨");
+  }, []);
+
 
   return (
     <div id="user-wrap">
@@ -72,15 +151,21 @@ const UserWritingList = () => {
           <h2>내가 쓴 글 조회</h2>
 
           {/* Search Bar */}
-          <div className="search-bar">
+          <div className="j-search-bar">
             <input
               type="text"
-              placeholder="검색어를 입력하세요"
-              value={searchText}
-              onChange={handleSearchTextChange}
-              className="search-input"
+              placeholder="검색"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+              onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSearch();
+                  }
+              }}
+              className="j-search-input"
             />
-            <button className="search-button" onClick={handleSearchClick}>
+            <button className="j-search-button" onClick={handleSearch}>
               <Search size={20} />
             </button>
           </div>
@@ -108,31 +193,88 @@ const UserWritingList = () => {
             <table className="writing-table">
               <thead>
                 <tr>
-                  <th className="j-writing-table-num">번호</th>
-                  <th className="j-writing-table-title">제목</th>
-                  <th className="j-writing-table-date">작성일시</th>
-                  <th className="j-writing-table-btn">관리</th>
+                  {selectedStyle === "게시글" && (
+                    <>
+                      <th className="j-writing-table-num">번호</th>
+                      <th className="j-writing-table-title">제목</th>
+                      <th className="j-writing-table-date">작성일시</th>
+                      <th className="j-writing-table-btn">관리</th>
+                    </>
+                  )}
+                  {selectedStyle === "댓글" && (
+                    <>
+                      <th className="j-writing-table-num">번호</th>
+                      <th className="j-writing-table-title">댓글 내용</th>
+                      <th className="j-writing-table-date">작성일시</th>
+                      <th className="j-writing-table-btn">관리</th>
+                    </>
+                  )}
+                  {selectedStyle === "리뷰" && (
+                    <>
+                      <th className="j-writing-table-num">번호</th>
+                      <th className="j-writing-table-title">리뷰 상품</th>
+                      <th className="j-writing-table-date">작성일시</th>
+                      <th className="j-writing-table-btn">관리</th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
-                {displayList.map((item) => (
+              {selectedStyle === "게시글" &&
+                debateList.map((item) => (
                   <tr
-                    key={item.id}
-                    onClick={() => handleRowClick(item.id)}
+                    key={item.debate_id} // Ensure `debate_id` is unique
+                    onClick={() => handleRowClick(`/debate/debateview/${item.debate_id}`)}
                     className="clickable-row"
                   >
-                    <td>{item.id}</td>
-                    <td>{item.title}</td>
-                    <td>{item.date}</td>
+                    <td>{item.debate_id}</td>
+                    <td>{item.debate_title}</td>
+                    <td>{item.debate_created_at}</td>
                     <td>
                       <button className="j-action-btn">수정</button>
                       <button className="j-action-btn delete-btn">삭제</button>
                     </td>
                   </tr>
                 ))}
+
+                {selectedStyle === "댓글" &&
+                  commentList.map((item) => (
+                    <tr
+                      key={item.debate_comment_id} // Ensure `debate_comment_id` is unique
+                      onClick={() => handleRowClick(`/debate/debateview/${item.debate_id}`)}
+                      className="clickable-row"
+                    >
+                      <td>{item.debate_comment_id}</td>
+                      <td>{item.debate_comment_content.slice(0, 10)}...</td>
+                      <td>{item.debate_comment_created_at}</td>
+                      <td>
+                        <button className="j-action-btn">수정</button>
+                        <button className="j-action-btn delete-btn">삭제</button>
+                      </td>
+                    </tr>
+                  ))}
+
+                  {selectedStyle === "리뷰" &&
+                    reviewList.map((item) => (
+                      <tr
+                        key={item.reviewId} // Ensure `reviewId` is unique
+                        onClick={() => handleRowClick(`/board/review/${item.reviewId}`)}
+                        className="clickable-row"
+                      >
+                        <td>{item.reviewId}</td>
+                        <td>{item.productName}</td>
+                        <td>{item.reviewCreatedAt}</td>
+                        <td>
+                          <button className="j-action-btn">수정</button>
+                          <button className="j-action-btn delete-btn">삭제</button>
+                        </td>
+                      </tr>
+                    ))}
+
               </tbody>
             </table>
           </section>
+
         </section>
       </main>
 
