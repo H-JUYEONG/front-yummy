@@ -15,6 +15,7 @@ import '../../assets/css/vender/venderInsertAudition.css';
 
 
 
+
 const VenderInsertAudition = () => {
     const {auditionId} = useParams();
 
@@ -96,6 +97,54 @@ const VenderInsertAudition = () => {
     //최종정보 보내기
     const handleSubmit = (e)=>{
         e.preventDefault();
+        const insertDataVo = {
+            auditionId: auditionId,
+            venderId: venderId,
+            productId: selectProductId,
+
+            deliveryMethod: userOrder.deliveryMethod,
+            deliveryDate: userOrder.date,
+
+            orderAmount: userOrder.expectedPrice,
+            cakeLettering: userOrder.lettering,
+            plateLettering: userOrder.plateLettering,
+            applicationRequests: userOrder.additionalRequests,
+
+            productType: selectedOptions.cakeType,
+            category: selectedOptions.category,
+            cakeSize: selectedOptions.size,
+            cakeTaste: selectedOptions.taste,
+
+            creamTaste: selectedOptions.creamTaste,
+            creamColor: selectedOptions.creamColor,
+            creamPosition: selectedOptions.creamPosition,
+
+            backgroundColor: selectedOptions.backgroundColor,
+
+            decorationType: selectedOptions.decorationType,
+            decorationColor: selectedOptions.decorationColor,
+
+            totalPrice: finalPrice
+        }
+        // console.log("최종 데이터는")
+        // console.log(insertDataVo);
+
+        axios({
+            method: 'put',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/insertAudition`,
+
+            headers: { "Content-Type": "application/json; charset=utf-8" },  // post put
+        
+            data: insertDataVo,     // put, post,  JSON(자동변환됨)
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
         
     }
     
@@ -129,15 +178,17 @@ const VenderInsertAudition = () => {
                             <div className='insert-h2-box'>
                                 <h2>주문정보</h2>
                             </div>
-                            <div className='appeal-design-text'>
+                            <div className='appeal-design-text insert-audition-order'>
                                 <ul>
-                                    <li>주문번호: {userOrder.auditionId} </li>
-                                    <li>제목: {userOrder.auditionTitle}</li>
-                                    <li>제시금액 : {userOrder.expectedPrice} 원</li>
-                                    <li>사이즈 : {userOrder.auditionApplicationSize}</li>
-                                    <li>수령방식 : {userOrder.deliveryMethod}</li>
-                                    <li>수령일자 : {userOrder.date}</li>
-                                    <li>요청사항</li>
+                                    <li><span className='orderTitle'>주문번호:</span> {userOrder.auditionId} </li>
+                                    <li><span className='orderTitle'>제목:</span> {userOrder.auditionTitle}</li>
+                                    <li><span className='orderTitle'>제시금액 :</span> {userOrder.expectedPrice} 원</li>
+                                    <li><span className='orderTitle'>사이즈 : </span>{userOrder.auditionApplicationSize}</li>
+                                    <li><span className='orderTitle'>수령방식 :</span> {userOrder.deliveryMethod}</li>
+                                    <li><span className='orderTitle'>수령일자 :</span> {userOrder.date}</li>
+                                    <li><span className='orderTitle'>레터링 문구 :</span> {userOrder.lettering}</li>
+                                    <li><span className='orderTitle'>판레터링 문구 :</span> {userOrder.plateLettering}</li>
+                                    <li><span className='orderTitle'>요청사항</span></li>
                                     <li>
                                         <div className='appeal-design-text-RequestedTerm'>
                                             {userOrder.additionalRequests}
