@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
@@ -10,6 +11,7 @@ import Footer from "./include/Footer";
 import { FaEye } from "react-icons/fa";
 
 const UserDebateView = () => {
+  const navigate = useNavigate();
   const { debateId } = useParams();
   const [debateDetails, setDebateDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -18,14 +20,18 @@ const UserDebateView = () => {
   const [leftVote, setLeftVote] = useState([]);
   const [rightVote, setRightVote] = useState([]);
   const [content, setContent] = useState("");
+  const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
 
   const token = localStorage.getItem("token");
   const userId = token ? jwtDecode(token).member_id : null;
+
+  console.log(userId);
 
   const totalVotes = leftVote.length + rightVote.length;
   const leftVotePercentage = totalVotes > 0 ? (leftVote.length / totalVotes) * 100 : 0;
   const rightVotePercentage = totalVotes > 0 ? (rightVote.length / totalVotes) * 100 : 0;
 
+  
   // Fetch debate details
   const fetchDebateDetails = async () => {
     try {
@@ -37,6 +43,7 @@ const UserDebateView = () => {
 
       if (response.data.result === "success" && response.data.apiData) {
         setDebateDetails(response.data.apiData);
+        console.log("debateDetails.member_id;", debateDetails.member_id);
       } else {
         console.error("Invalid API response:", response.data);
         setDebateDetails({});
@@ -45,6 +52,35 @@ const UserDebateView = () => {
       console.error("Error fetching debate details:", error);
       alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
+  };
+
+  const deleteDebate = (debate_id) => {
+    if (!token) {
+      alert("로그인 후 이용하세요.");
+      return;
+    }
+  
+    const confirmDelete = window.confirm("정말로 이 게시글을 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+  
+    axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}/api/debate/debatedel/${debate_id}`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        if (response.data.result === "success") {
+          alert("게시글이 성공적으로 삭제되었습니다.");
+          // Refresh the debate list after deletion
+          navigate(`/debate/board`);
+        } else {
+          alert(response.data.message || "게시글 삭제 실패");
+        }
+      })
+      .catch((error) => {
+        console.error("API Error:", error);
+        alert("게시글 삭제 중 오류가 발생했습니다.");
+      });
   };
 
   const postCommentList = (e) => {
@@ -110,12 +146,13 @@ const UserDebateView = () => {
     try {
 
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/debate/vote/${debateId}`,
+        `${process.env.REACT_APP_API_URL}/api/debate/votelist/${debateId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data.result === "success") {
         setVoteList(response.data.apiData || []);
+        console.log(voteList);
         const leftVotes = response.data.apiData.filter((vote) => vote.side === "left");
         const rightVotes = response.data.apiData.filter((vote) => vote.side === "right");
 
@@ -141,7 +178,7 @@ const UserDebateView = () => {
 
       console.log(userId);
 
-      const userVote = voteList.find((vote) => vote.member_id === userId);
+      const userVote = voteList.find((vote) => vote.member_id === authUser.member_id);
 
       console.log(userVote);
 
@@ -162,12 +199,7 @@ const UserDebateView = () => {
         alert("투표가 취소되었습니다.");
       } else {
         // Update the vote
-        await axios.put(
-          `${process.env.REACT_APP_API_URL}/api/debate/updateVote`,
-          { debate_id: debateId, side },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        alert("투표가 성공적으로 변경되었습니다.");
+        alert("투표 했던 부분을 다시 눌러 취소 하시고 투표하세요.");
       }
 
       getVoteList(); // Refresh the vote list
@@ -184,6 +216,12 @@ const UserDebateView = () => {
   const handleRightVote = () => handleVote("right");
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("authUser"));
+    setAuthUser(user);
+
+    console.log("userId:", userId);
+    console.log("debateDetails.memberId:", debateDetails.memberId);
+
     const fetchData = async () => {
       setIsLoading(true);
       try {
@@ -218,17 +256,36 @@ const UserDebateView = () => {
               <span>{debateDetails.debate_title || "No Title Available"}</span>
             </div>
             <div className="debate-meta-info">
-              <span>
-                <FaEye /> {debateDetails.debate_view_count || "0"}
-              </span>
-              <span>작성자: {debateDetails.user_nickname || "Unknown"}</span>
-              <span>
+              <p>
                 {debateDetails.debate_created_at
                   ? new Date(debateDetails.debate_created_at).toLocaleDateString()
                   : "작성일 없음"}
-              </span>
-            </div>
+              </p>
+              <p>
+                <FaEye /> {debateDetails.debate_view_count || "0"}
+              </p>
+              <p>작성자: {debateDetails.user_nickname || "Unknown"}</p>
+              {authUser && debateDetails.member_id === authUser.member_id ? (
+              <div className="user-control-section">
+                <button
+                  className="user-debate-edit-button"
+                  onClick={(event) => {
+                    navigate(`/debate/debateedit/${debateDetails.debate_id}`);
+                  }}
+                >
+                  수정
+                </button>
+                <button
+                  className="user-debate-delete-button"
+                  onClick={deleteDebate}
+                >
+                  삭제
+                </button>
+              </div>
+            ) : null}
           </div>
+            </div>
+            
 
           {/* Images and Voting */}
           <div className="debate-images-progress-container">

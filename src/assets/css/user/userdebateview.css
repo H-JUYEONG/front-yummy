@@ -9,9 +9,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
     border-bottom: 1px solid #000000;
+    margin-bottom: 15px;
+    padding-bottom: 7px;
   }
   
   .user-debate-title {
@@ -26,13 +26,15 @@
   .user-debate-title span {
     font-size: 30px;
     font-weight: bold;
+    
   }
   
   .debate-meta-info {
     display: flex;
-    gap: 20px;
+    align-items: center;
     font-size: 15px;
     color: #666;
+    
   }
   
   /* Image and Progress Bar Section */
@@ -240,3 +242,28 @@
     color: #ff4b87;
   }
   
+  .user-debate-edit-button,
+  .user-debate-delete-button {
+    color: #333;
+}
+
+.user-debate-edit-button,
+.user-debate-delete-button {
+  margin: 0px 7px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 25px;
+  border: 1px solid #cacaca;
+  background-color: #f9f9f9;
+}
+
+.user-debate-edit-button:hover {
+  color: white;
+  background-color: #0056b3;
+}
+
+.user-debate-delete-button:hover {
+  color: white;
+  background-color: red;
+}

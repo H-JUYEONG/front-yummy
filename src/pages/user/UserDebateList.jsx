@@ -19,9 +19,12 @@ const UserDebateList = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
 
   // Fetch Debate List
-  const fetchData = async (page = 1, keyword = "") => {
+  const fetchData = async (page = 1, keyword = "", category = "" ) => {
     try {
       const response = await axios({
         method: "get",
@@ -30,15 +33,17 @@ const UserDebateList = () => {
           page,
           size: 10,
           keyword,
+          category,
         },
       });
 
       if (response.data.result === "success") {
         const data = response.data.apiData.data || [];
         setDebateList(data);
+        setTotalCount(response.data.apiData.totalCount || 0);
         setTotalPages(response.data.apiData.totalPages || 1);
       } else {
-        alert(response.data.message || "토론 목록 가져오기 실패");
+        alert(response.data.message || "토크 목록 가져오기 실패");
       }
     } catch (error) {
       console.error("API Error:", error);
@@ -63,10 +68,18 @@ const UserDebateList = () => {
     fetchData(pageNumber, searchKeyword);
   };
 
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to the first page for new category
+    fetchData(1, searchKeyword, category); // Fetch data for the selected category
+  };
+  
+
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
-    fetchData(currentPage, searchKeyword);
-  }, [currentPage]);
+    fetchData(currentPage, searchKeyword, selectedCategory);
+  }, [currentPage, searchKeyword, selectedCategory]);
+  
 
   return (
     <div id="user-wrap" className="text-center">
@@ -91,16 +104,31 @@ const UserDebateList = () => {
 
           {/* Search and Filter */}
           <div id="user-debate-select-option-list">
-            <div className="user-debate-select-option">
-              <button>전체</button>
-              <button>디자인 토크</button>
-              <button>업체 토론</button>
-            </div>
+          <div className="user-debate-select-option">
+            <button
+              className={selectedCategory === "" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("")}
+            >
+              전체 토크
+            </button>
+            <button
+              className={selectedCategory === "디자인 토크" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("design")}
+            >
+              디자인 토크
+            </button>
+            <button
+              className={selectedCategory === "베이커리 토크" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("vendor")}
+            >
+              베이커리 토크
+            </button>
+          </div>
             <div className="user-debate-search">
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="게시물 검색"
+                placeholder="게시물 검색 Enter를 누르세요"
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {
@@ -108,19 +136,24 @@ const UserDebateList = () => {
                 }}
                 className="search-input"
               />
-              <button className="search-button" onClick={handleSearch}>
-                검색
-              </button>
             </div>
           </div>
 
           {/* Add Button */}
           <div id="user-debate-add" className="clearfix">
-            <div className="user-debate-all-count">ALL {debateList.length}</div>
+            <div className="user-debate-all-count">ALL {totalCount}</div>
             <div className="user-debate-add-btn">
-              <button onClick={() => navigate("/debate/debateinsert")}>
-                토크 등록하기
-              </button>
+            <button
+              onClick={() => {
+                if (!token) {
+                  alert("로그인 후 사용하세요");
+                } else {
+                  navigate("/debate/debateinsert");
+                }
+              }}
+            >
+              토크 등록하기
+            </button>
             </div>
           </div>
 
@@ -146,7 +179,13 @@ const UserDebateList = () => {
                   >
                     <td className="column-id">{debate.debate_id}</td>
                     <td className="column-title">{debate.debate_title}</td>
-                    <td className="column-category">{debate.debate_category}</td>
+                    <td className="column-category">
+                      {debate.debate_category === "vendor"
+                        ? "베이커리 토크"
+                        : debate.debate_category === "design"
+                        ? "케이크 토크"
+                        : debate.debate_category}
+                    </td>
                     <td className="column-author">{debate.user_nickname}</td>
                     <td className="column-date">
                       {new Date(debate.debate_created_at).toLocaleDateString()}
@@ -157,7 +196,7 @@ const UserDebateList = () => {
               ) : (
                 <tr>
                   <td colSpan="6" className="no-data">
-                    등록된 토론이 없습니다.
+                    등록된 토크이 없습니다.
                   </td>
                 </tr>
               )}

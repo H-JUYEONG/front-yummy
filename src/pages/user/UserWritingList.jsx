@@ -45,15 +45,16 @@ const UserWritingList = () => {
         alert("데이터를 불러오는 중 오류가 발생했습니다.");
       });
   };
-
   const deleteDebate = (debate_id) => {
     if (!token) {
       alert("로그인 후 이용하세요.");
       return;
     }
   
-    const confirmDelete = window.confirm("정말로 이 게시글을 삭제하시겠습니까?");
-    if (!confirmDelete) return;
+    const confirmDelete = window.confirm(
+      "관련된 댓글들또한 삭제됩니다.\n정말로 이 게시글을 삭제하시겠습니까?"
+    );
+        if (!confirmDelete) return;
   
     axios({
       method: "delete",
@@ -74,7 +75,6 @@ const UserWritingList = () => {
         alert("게시글 삭제 중 오류가 발생했습니다.");
       });
   };
-  
 
   const handleSearch = () => {
     setCurrentPage(1);
