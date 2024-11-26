@@ -15,8 +15,8 @@ const AdminVenderOrder = () => {
 
     // 페이징 상태 관리
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize] = useState(10); // 페이지당 데이터 개수
-
+    const [pageSize] = useState(10); // 한 페이지당 데이터 개수
+    const [maxPageButtons] = useState(10); // 한 번에 표시할 페이지 버튼 개수
     useEffect(() => {
         // API 호출
         axios.get(`${process.env.REACT_APP_API_URL}/api/admin/allOrders`)
@@ -53,6 +53,14 @@ const AdminVenderOrder = () => {
     const indexOfFirstOrder = indexOfLastOrder - pageSize;
     const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
 
+    const totalPages = Math.ceil(filteredOrders.length / pageSize);
+    // 페이징 버튼 계산
+    const getPageNumbers = () => {
+        const startPage = Math.floor((currentPage - 1) / maxPageButtons) * maxPageButtons + 1;
+        const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+        return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+    };
+
     // 페이지 변경 핸들러
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -63,9 +71,7 @@ const AdminVenderOrder = () => {
 
     // "다음" 페이지 이동
     const handleNextPage = () => {
-        if (currentPage < Math.ceil(filteredOrders.length / pageSize)) {
-            setCurrentPage(currentPage + 1);
-        }
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
     return (
@@ -148,16 +154,16 @@ const AdminVenderOrder = () => {
                         <button onClick={handlePrevPage} disabled={currentPage === 1}>
                             이전
                         </button>
-                        {Array.from({ length: Math.ceil(filteredOrders.length / pageSize) }, (_, index) => (
+                        {getPageNumbers().map((pageNumber) => (
                             <button
-                                key={index + 1}
-                                onClick={() => paginate(index + 1)}
-                                className={currentPage === index + 1 ? "active" : ""}
+                                key={pageNumber}
+                                onClick={() => paginate(pageNumber)}
+                                className={currentPage === pageNumber ? "active" : ""}
                             >
-                                {index + 1}
+                                {pageNumber}
                             </button>
                         ))}
-                        <button onClick={handleNextPage} disabled={currentPage === Math.ceil(filteredOrders.length / pageSize)}>
+                        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
                             다음
                         </button>
                     </div>

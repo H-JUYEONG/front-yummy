@@ -7,28 +7,28 @@
     height: 100vh;
 }
 
-.vender-content-wrapper .left-panel,
-.vender-content-wrapper .right-panel {
+.option-selection-area .left-panel,
+.option-selection-area .right-panel {
     width: 50%;
     padding: 20px;
     overflow-y: auto;
     box-sizing: border-box;
 }
 
-.vender-content-wrapper .right-panel {
+.option-selection-area .right-panel {
     border-left: 1px solid #ddd;
     background-color: #f8f9fa;
 }
 
 /* 옵션 리스트 영역 */
-.vender-content-wrapper .option-list {
+.option-selection-area .option-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 /* 옵션 아이템 스타일 */
-.vender-content-wrapper .option-item {
+.option-selection-area .option-item {
     background-color: #f9fafb;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -38,13 +38,13 @@
     cursor: pointer;
 }
 
-.vender-content-wrapper .option-item:hover {
+.option-selection-area .option-item:hover {
     background-color: #eef2ff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 /* 옵션 헤더 */
-.vender-content-wrapper .option-header {
+.option-selection-area .option-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,7 +54,7 @@
 }
 
 /* 옵션 세부 사항 */
-.vender-content-wrapper .option-details {
+.option-selection-area .option-details {
     padding: 10px;
     margin-top: 10px;
     background-color: #ffffff;
@@ -63,7 +63,7 @@
 }
 
 /* 서브 옵션 아이템 */
-.vender-content-wrapper .option-sub-item {
+.option-selection-area .option-sub-item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
@@ -72,7 +72,7 @@
     border-radius: 4px;
 }
 
-.vender-content-wrapper .sub-option-image {
+.option-selection-area .sub-option-image {
     width: 50px;
     height: 50px;
     border-radius: 4px;
@@ -80,7 +80,7 @@
     object-fit: cover;
 }
 
-.vender-content-wrapper .sub-option-name {
+.option-selection-area .sub-option-name {
     flex: 1;
     font-size: 1em;
     color: #333;
@@ -88,19 +88,19 @@
 }
 
 /* 추가 옵션 입력 */
-.vender-content-wrapper .add-sub-option {
+.option-selection-area .add-sub-option {
     display: flex;
     align-items: center;
     margin-top: 10px;
 }
 
 /* 파일 업로드 버튼 및 미리보기 */
-.vender-content-wrapper .input-group {
+.option-selection-area .input-group {
     position: relative;
     margin-right: 20px;
 }
 
-.vender-content-wrapper .upload-label {
+.option-selection-area .upload-label {
     display: inline-block;
     cursor: pointer;
     padding: 8px;
@@ -112,16 +112,16 @@
     transition: background-color 0.3s;
 }
 
-.vender-content-wrapper .upload-label:hover {
+.option-selection-area .upload-label:hover {
     background-color: #e0e0e0;
 }
 
-.vender-content-wrapper .upload-placeholder {
+.option-selection-area .upload-placeholder {
     color: #888;
     font-size: 14px;
 }
 
-.vender-content-wrapper .preview-image {
+.option-selection-area .preview-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
@@ -129,13 +129,13 @@
     object-fit: cover;
 }
 
-.vender-content-wrapper .input-file {
+.option-selection-area .input-file {
     display: none;
     /* 숨겨진 파일 입력 */
 }
 
 /* 텍스트 입력 */
-.vender-content-wrapper .input-text {
+.option-selection-area .input-text {
     padding: 5px;
     width: 150px;
     border: 1px solid #ddd;
@@ -145,7 +145,7 @@
 }
 
 /* 등록 버튼 */
-.vender-content-wrapper .add-button {
+.option-selection-area .add-button {
     background-color: #4f46e5;
     color: #ffffff;
     padding: 8px 16px;
@@ -156,14 +156,14 @@
     margin-left: auto;
 }
 
-.vender-content-wrapper .add-button:hover {
+.option-selection-area .add-button:hover {
     background-color: #4338ca;
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
     transform: translateY(-3px);
 }
 
 /* 삭제 버튼 */
-.vender-content-wrapper .delete-button {
+.option-selection-area .delete-button {
     background-color: #f87171;
     color: #ffffff;
     padding: 5px 10px;
@@ -175,26 +175,26 @@
     margin-left: 5px;
 }
 
-.vender-content-wrapper .delete-button:hover {
+.option-selection-area .delete-button:hover {
     background-color: #e11d48;
     transform: translateY(-2px);
 }
 
 /* 오른쪽 패널 헤더 */
-.vender-content-wrapper .right-panel h3 {
+.option-selection-area .right-panel h3 {
     font-size: 1.5em;
     color: #4f46e5;
     margin-bottom: 20px;
 }
 
-.vender-content-wrapper .selected-options {
+.option-selection-area .selected-options {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 /* 오른쪽 패널의 옵션 그룹 스타일 */
-.vender-content-wrapper .selected-option-group {
+.option-selection-area .selected-option-group {
     margin-bottom: 20px;
     padding: 10px;
     background-color: #ffffff;
@@ -202,7 +202,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.vender-content-wrapper .option-group-title {
+.option-selection-area .option-group-title {
     font-size: 1.2em;
     color: #4f46e5;
     margin-bottom: 10px;
@@ -210,13 +210,13 @@
 }
 
 /* 템플릿 리스트 스타일 */
-.vender-content-wrapper .template-list {
+.option-selection-area .template-list {
     list-style: none;
     padding: 0;
     margin-bottom: 20px;
 }
 
-.vender-content-wrapper .template-button {
+.option-selection-area .template-button {
     width: 100%;
     padding: 8px 16px;
     background-color: #6b7280;
@@ -228,19 +228,19 @@
     margin-bottom: 10px;
 }
 
-.vender-content-wrapper .template-button:hover {
+.option-selection-area .template-button:hover {
     background-color: #4b5563;
 }
 
 
-.vender-content-wrapper .right-panel-header {
+.option-selection-area .right-panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
 }
 
-.vender-content-wrapper .register-product-button {
+.option-selection-area .register-product-button {
     background-color: #4f46e5;
     /* 세련된 보라색 계열 */
     color: #ffffff;
@@ -253,7 +253,7 @@
     margin-left: 10px;
 }
 
-.vender-content-wrapper .register-product-button:hover {
+.option-selection-area .register-product-button:hover {
     background-color: #4338ca;
     /* 호버 시 더 어두운 보라색 */
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);

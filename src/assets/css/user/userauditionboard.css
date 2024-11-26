@@ -147,6 +147,7 @@
   max-width: 250px; /* 카드 최대 너비 */
   margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
   height: 310px;
+  cursor: pointer;
 }
 
 .user-cake-audition-card {

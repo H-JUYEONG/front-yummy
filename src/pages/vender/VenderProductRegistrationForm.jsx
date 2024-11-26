@@ -69,14 +69,14 @@ const OptionSelector = ({ optionName, options, selectedOptions, onSelect, isSing
 };
 
 // 도안 모달 컴포넌트
-const CakeDesignModal = ({ isOpen, onRequestClose, designs, myDesigns, onSelectDesign }) => {
+const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [], onSelectDesign }) => {
     const [searchText, setSearchText] = useState('');
 
     // 검색된 도안 필터링
-    const filteredWishlistDesigns = designs.filter(design =>
+    const filteredWishlistDesigns = (designs || []).filter(design =>
         design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
     );
-    const filteredMyDesigns = myDesigns.filter(design =>
+    const filteredMyDesigns = (myDesigns || []).filter(design =>
         design.cakeDesignTitle?.toLowerCase().includes(searchText.toLowerCase())
     );
 
@@ -96,33 +96,37 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs, myDesigns, onSelectD
                 onChange={(e) => setSearchText(e.target.value)}
                 className="design-search-input"
             />
-            <div className="design-list">
+            <div>
                 <h3>찜한 도안</h3>
-                {filteredWishlistDesigns.map((design, index) => (
-                    <div key={index} className="design-item">
-                        {design.cakeDesignImageUrl ? (
-                            <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
-                        ) : (
-                            <div className="design-image-placeholder">이미지 없음</div>
-                        )}
-                        <span className="design-name">{design.cakeDesignTitle}</span>
-                        <button onClick={() => onSelectDesign(design)}>선택</button>
-                    </div>
-                ))}
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                    {filteredWishlistDesigns.map((design, index) => (
+                        <div key={index} className="design-item">
+                            {design.cakeDesignImageUrl ? (
+                                <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
+                            ) : (
+                                <div className="design-image-placeholder">이미지 없음</div>
+                            )}
+                            <span className="design-name">{design.cakeDesignTitle}</span>
+                            <button onClick={() => onSelectDesign(design)}>선택</button>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="design-list">
+            <div>
                 <h3>내가 그린 도안</h3>
-                {filteredMyDesigns.map((design, index) => (
-                    <div key={index} className="design-item">
-                        {design.cakeDesignImageUrl ? (
-                            <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
-                        ) : (
-                            <div className="design-image-placeholder">이미지 없음</div>
-                        )}
-                        <span className="design-name">{design.cakeDesignTitle}</span>
-                        <button onClick={() => onSelectDesign(design)}>선택</button>
-                    </div>
-                ))}
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                    {filteredMyDesigns.map((design, index) => (
+                        <div key={index} className="design-item">
+                            {design.cakeDesignImageUrl ? (
+                                <img src={design.cakeDesignImageUrl} alt={design.cakeDesignTitle} className="design-image" />
+                            ) : (
+                                <div className="design-image-placeholder">이미지 없음</div>
+                            )}
+                            <span className="design-name">{design.cakeDesignTitle}</span>
+                            <button onClick={() => onSelectDesign(design)}>선택</button>
+                        </div>
+                    ))}
+                </div>
             </div>
             <button onClick={onRequestClose} className="close-modal-button">닫기</button>
         </Modal>

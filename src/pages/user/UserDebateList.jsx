@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaSearch, FaHeart } from "react-icons/fa";
+import axios from "axios";
+import { FaSearch } from "react-icons/fa";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 
@@ -12,18 +13,63 @@ import bubuDuduGif from "../../assets/images/bubu-dudu-sseeyall.gif";
 
 const UserDebateList = () => {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 5; // 예시 페이지 수
+  const token = localStorage.getItem("token");
 
-  const handlePageChange = (page) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
+  const [debateList, setDebateList] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // Fetch Debate List
+  const getDebateList = async (page = 1) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/debate/board`,
+        params: {
+          page,
+          size: 10,
+          keyword: searchKeyword,
+        },
+      });
+      
+  
+      if (response.data.result === "success") {
+        const debates = response.data.apiData.data || []; // Use `data` instead of `content`
+        setDebateList(debates);
+        setTotalPages(response.data.apiData.totalPages || 1);
+      } else {
+        alert(response.data.message || "토론 목록 가져오기 실패");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
   };
+  
 
-  const handleRowClick = (id) => {
-    navigate(`/board/boardview`);
+  // Handle Search
+  const handleSearch = () => {
+    setCurrentPage(1);
+    getDebateList(1);
   };
+
+  // Navigate to Debate Detail
+  const handleRowClick = (debateId) => {
+    console.log(debateId);
+    navigate(`/debate/debateview/${debateId}`);
+  };
+
+  // Change Page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    getDebateList(pageNumber);
+  };
+
+  // Fetch Debate List on Mount and Pagination Change
+  useEffect(() => {
+    getDebateList(currentPage);
+  }, [currentPage]);
 
   return (
     <div id="user-wrap" className="text-center">
@@ -36,7 +82,7 @@ const UserDebateList = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-debate-board-list">
           <div id="user-debate-tip">
-            {/* 오른쪽에 GIF 추가 */}
+            {/* GIF */}
             <div className="gif-container">
               <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
             </div>
@@ -46,22 +92,36 @@ const UserDebateList = () => {
             </p>
           </div>
 
+          {/* Search and Filter */}
           <div id="user-debate-select-option-list">
             <div className="user-debate-select-option">
               <button>전체</button>
-              <button>도안 고민</button>
-              <button>결과물 고민</button>
+              <button>디자인 토크</button>
+              <button>업체 토론</button>
             </div>
             <div className="user-debate-search">
               <FaSearch className="search-icon" />
-              <input type="text" placeholder="게시물 검색" />
+              <input
+                type="text"
+                placeholder="게시물 검색"
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSearch();
+                }}
+                className="search-input"
+              />
+              <button className="search-button" onClick={handleSearch}>
+                검색
+              </button>
             </div>
           </div>
 
+          {/* Add Button */}
           <div id="user-debate-add" className="clearfix">
-            <div className="user-debate-all-count">ALL 3</div>
+            <div className="user-debate-all-count">ALL {debateList.length}</div>
             <div className="user-debate-add-btn">
-              <button onClick={() => navigate("/board/debateinsert")}>
+              <button onClick={() => navigate("/debate/debateinsert")}>
                 고민 등록하기
               </button>
             </div>
@@ -80,51 +140,57 @@ const UserDebateList = () => {
               </tr>
             </thead>
             <tbody>
-              <tr onClick={() => handleRowClick(1)} className="clickable-row">
-                <td className="column-id">1</td>
-                <td className="column-title">캐릭터 둘 중에 어떤 게 케이크로 만드는 게 좋을까요?</td>
-                <td className="column-category">도안 토론</td>
-                <td className="column-author">캣타워</td>
-                <td className="column-date">2024-11-01</td>
-                <td className="column-views">120</td>
-              </tr>
-              <tr onClick={() => handleRowClick(1)} className="clickable-row">
-                <td className="column-id">2</td>
-                <td className="column-title">제가 진상인가요?</td>
-                <td className="column-category">업체 토론</td>
-                <td className="column-author">진상왕</td>
-                <td className="column-date">2024-11-01</td>
-                <td className="column-views">85</td>
-              </tr>
-              <tr onClick={() => handleRowClick(1)} className="clickable-row">
-                <td className="column-id">3</td>
-                <td className="column-title">스폰지밥 케이크 무엇이 좋을까요?</td>
-                <td className="column-category">도안 토론</td>
-                <td className="column-author">뚱이</td>
-                <td className="column-date">2024-11-01</td>
-                <td className="column-views">300</td>
-              </tr>
+              {debateList.length > 0 ? (
+                debateList.map((debate, index) => (
+                  console.log(debate), // Debug each debate
+                  <tr key={debate.debate_id} onClick={() => handleRowClick(debate.debate_id)} className="clickable-row">
+                    <td className="column-id">{debate.debate_id}</td>
+                    <td className="column-title">{debate.debate_title}</td>
+                    <td className="column-category">{debate.debate_category}</td>
+                    <td className="column-author">{debate.user_nickname}</td>
+                    <td className="column-date">
+                      {new Date(debate.debate_created_at).toLocaleDateString()}
+                    </td>
+                    <td className="column-views">{debate.debate_view_count}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="no-data">
+                    등록된 토론이 없습니다.
+                  </td>
+                </tr>
+              )}
             </tbody>
+
           </table>
 
           {/* Pagination */}
-
           <div className="j-pagination">
-              <button className="j-prev-page">{"<"}</button>
-              <div className="j-page-numbers">
-                {[1, 2, 3, "...", 67, 68].map((page, index) => (
-                  <button
-                    key={index}
-                    className={`j-page-number ${page === 1 ? "active" : ""}`}
-                  >
-                    {page}
-                  </button>
-                ))}
-              </div>
-              <button className="j-next-page">{">"}</button>
-            </div>
-
- 
+            <button
+              className="j-prev-page"
+              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              {"<"}
+            </button>
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={`j-page-number ${currentPage === index + 1 ? "active" : ""}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className="j-next-page"
+              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              {">"}
+            </button>
+          </div>
         </div>
       </main>
 

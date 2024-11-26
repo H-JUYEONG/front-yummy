@@ -332,15 +332,13 @@ const UserCakeDetail = () => {
             // 요청 정보 로깅
             console.log('삭제 요청 정보:', {
                 reviewId,
-                userId: authUser.member_id,
-                url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`
+                userId: authUser.user_id,
+                url: `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}/${authUser.user_id}`
             });
 
+            // DELETE 요청
             const response = await axios.delete(
-                `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}`,
-                {
-                    params: { userId: authUser.member_id }
-                }
+                `${process.env.REACT_APP_API_URL}/api/reviews/${reviewId}/${authUser.user_id}`
             );
 
             // 응답 로깅
@@ -423,16 +421,16 @@ const UserCakeDetail = () => {
                     replyContent: newReply[reviewId]
                 }
             );
-    
-            if(response.data.result === 'success') {
+
+            if (response.data.result === 'success') {
                 setNewReply(prev => ({
                     ...prev,
                     [reviewId]: ''
                 }));
-                
+
                 // reviews 배열 안에서 해당 리뷰를 찾아 replies 업데이트
                 const updatedReviews = reviews.map(review => {
-                    if(review.reviewId === reviewId) {
+                    if (review.reviewId === reviewId) {
                         return {
                             ...review,
                             // 기존 replies 배열이 없으면 새 배열 생성
@@ -448,9 +446,9 @@ const UserCakeDetail = () => {
                     }
                     return review;
                 });
-                
+
                 setReviews(updatedReviews);  // 화면 즉시 업데이트
-                
+
                 fetchReviews(); //혹시 몰라서 한번 더 새로고침 해볼게요
             } else {
                 alert('답글 작성에 실패했습니다.');
@@ -465,15 +463,15 @@ const UserCakeDetail = () => {
             alert('업체 로그인이 필요합니다.');
             return;
         }
-    
+
         const confirmed = window.confirm('답글을 삭제하시겠습니까?');
         if (!confirmed) return;
-    
+
         try {
             const response = await axios.delete(
                 `${process.env.REACT_APP_API_URL}/api/reviews/reply/${replyId}/${authUser.vender_id}`
             );
-    
+
             if (response.data.result === 'success') {
                 // 화면에서 즉시 삭제 반영
                 const updatedReviews = reviews.map(review => ({
@@ -706,7 +704,7 @@ const UserCakeDetail = () => {
                 {
                     params: {
                         productId: productId,
-                        userId: authUser.member_id
+                        userId: authUser.user_id
                     }
                 }
             );
@@ -739,7 +737,7 @@ const UserCakeDetail = () => {
 
         try {
             const formData = new FormData();
-            formData.append('reviewUserId', authUser.member_id);
+            formData.append('reviewUserId', authUser.user_id);
             formData.append('productId', productId);
             formData.append('reviewRating', newReview.rating);
             formData.append('reviewContent', newReview.content);
@@ -749,7 +747,7 @@ const UserCakeDetail = () => {
             }
 
             console.log('리뷰 제출 데이터:', {
-                reviewUserId: authUser.member_id,
+                reviewUserId: authUser.user_id,
                 productId: productId,
                 reviewRating: newReview.rating,
                 reviewContent: newReview.content,
@@ -807,13 +805,13 @@ const UserCakeDetail = () => {
                     <p>리뷰를 작성하려면 로그인이 필요합니다.</p>
                 </div>
             )}
-    
+
             {authUser && !canReview && !hasWrittenReview && (
                 <div className="review-purchase-message">
                     <p>이 상품을 구매한 고객만 리뷰를 작성할 수 있습니다.</p>
                 </div>
             )}
-    
+
             {canReview && (
                 <div className="review-form-container">
                     <h3>리뷰 작성</h3>
@@ -879,7 +877,7 @@ const UserCakeDetail = () => {
                     </form>
                 </div>
             )}
-    
+
             {reviewStats && (
                 <div className="rating-stats">
                     <div className="rating-average">
@@ -888,6 +886,9 @@ const UserCakeDetail = () => {
                                 <span
                                     key={star}
                                     className={`star ${star <= Math.round(reviewStats.averageRating) ? 'filled' : ''}`}
+                                    style={{
+                                        color: star <= reviewStats.averageRating ? '#FFD700' : '#E0E0E0', // 별 색상
+                                    }}
                                 >
                                     ★
                                 </span>
@@ -922,7 +923,7 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
             )}
-    
+
             <div className="review-list">
                 <div className="review-filters">
                     <button
@@ -952,7 +953,7 @@ const UserCakeDetail = () => {
                         포토 리뷰만
                     </label>
                 </div>
-    
+
                 {reviews && reviews.length > 0 ? (
                     reviews.map((review) => (
                         <div key={review.reviewId} className="review-item">
@@ -1007,23 +1008,50 @@ const UserCakeDetail = () => {
                                     </div>
                                 )}
                             </div>
-    
-                            <div className="review-replies">
-                                {review.replies?.map((reply) => (
-                                    <div key={reply.replyId} className="review-reply">
-                                        <div className="reply-header">
-                                            <span className="vendor-badge">판매자</span>
-                                            <span className="vendor-name">{reply.venderName}</span>
-                                            <span className="reply-date">
-                                                {new Date(reply.replyCreatedAt).toLocaleDateString('ko-KR')}
-                                            </span>
-                                            {authUser?.vender_id === reply.replyVenderId && (
+                            {authUser && productDetail && (
+                                <div className="review-replies">
+                                    {/* 답글 목록 렌더링 */}
+                                    {review.replies?.map((reply) => (
+                                        <div key={reply.replyId} className="review-reply">
+                                            <div className="reply-header">
+                                                <span className="vendor-badge">판매자</span>
+                                                <span className="vendor-name">{reply.venderName || '판매자 이름 없음'}</span>
+                                                <span className="reply-date">
+                                                    {reply.replyCreatedAt
+                                                        ? new Date(reply.replyCreatedAt).toLocaleDateString('ko-KR')
+                                                        : '날짜 정보 없음'}
+                                                </span>
+                                                {/* 답글 삭제 버튼 */}
+                                                {authUser?.vender_id && authUser.vender_id === reply?.replyVenderId && (
+                                                    <button
+                                                        className="delete-reply-button"
+                                                        onClick={() => handleDeleteReply(reply.replyId)}
+                                                    >
+                                                        삭제
+                                                    </button>
+                                                )}
+                                            </div>
+                                            <p className="reply-content">{reply.replyContent || '내용 없음'}</p>
+                                        </div>
+                                    ))}
+
+                                    {/* 답글 작성 폼 렌더링 */}
+                                    {authUser?.vender_id === productDetail?.venderId &&
+                                        !(review.replies?.some((reply) => reply?.replyVenderId === authUser.vender_id)) && (
+                                            <div className="reply-form">
+                                                <textarea
+                                                    value={newReply[review.reviewId] || ''}
+                                                    onChange={(e) => handleReplyChange(review.reviewId, e.target.value)}
+                                                    placeholder="답글을 작성해주세요"
+                                                    rows="2"
+                                                />
                                                 <button
-                                                    className="delete-reply-button"
-                                                    onClick={() => handleDeleteReply(reply.replyId)}
+                                                    onClick={() => handleAddReply(review.reviewId)}
+                                                    disabled={!newReply[review.reviewId]?.trim()}
                                                 >
-                                                    삭제
+                                                    답글 작성
                                                 </button>
+
                                             )}
                                         </div>
                                         <p className="reply-content">{reply.replyContent}</p>
@@ -1261,38 +1289,36 @@ const UserCakeDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <Link
-                            to="/user/paymentdetail"
-                            state={{
-                                productInfo: {
-                                    productId: productDetail?.productId,
-                                    venderId: productDetail?.venderId,
-                                    productName: productDetail?.productName,
-                                    productPrice: productDetail?.productPrice,
-                                    productImage: productDetail?.productImage1Url,
-                                    cakeDesignId: productDetail?.cakeDesignId
-                                },
-                                orderInfo: {
-                                    deliveryType,
-                                    selectedDate: selectedDate, //  YYYY-MM-DD 형식
-                                    selectedTime: selectedTime, // HH:mm:ss 형식으로 전달
-                                    recipientName: recipientInfo.name,
-                                    recipientPhone: recipientInfo.phone,
-                                    address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress,
-                                    cakeLetter: letters.cakeLetter,
-                                    plateLetter: letters.plateLetter,
-                                    additionalRequest: letters.additionalRequest,
-                                    selectedOptions: selectedOptionNames
-
-                                }
-
-                            }}
-                            className="submit-button"
-                        >
-                            요청사항 확인
-
-                        </Link>
-
+                        {productDetail && (  // productDetail이 존재할 때만 렌더링
+                            <Link
+                                to={`/user/paymentdetail/${productDetail?.venderId || ''}`}
+                                state={{
+                                    productInfo: {
+                                        productId: productDetail?.productId,
+                                        venderId: productDetail?.venderId,
+                                        productName: productDetail?.productName,
+                                        productPrice: productDetail?.productPrice,
+                                        productImage: productDetail?.productImage1Url,
+                                        cakeDesignId: productDetail?.cakeDesignId
+                                    },
+                                    orderInfo: {
+                                        deliveryType,
+                                        selectedDate: selectedDate,
+                                        selectedTime: selectedTime,
+                                        recipientName: recipientInfo.name,
+                                        recipientPhone: recipientInfo.phone,
+                                        address: deliveryType === 'pickup' ? productDetail?.venderAddress : deliveryAddress,
+                                        cakeLetter: letters.cakeLetter,
+                                        plateLetter: letters.plateLetter,
+                                        additionalRequest: letters.additionalRequest,
+                                        selectedOptions: selectedOptionNames
+                                    }
+                                }}
+                                className="submit-button"
+                            >
+                                요청사항 확인
+                            </Link>
+                        )}
                     </div>
                 </div>
             </main>

@@ -110,10 +110,50 @@ const VenderDashboard = () => {
         selectable: true,
         editable: true,
         events: events, // 동적으로 가져온 이벤트 데이터
+        eventContent: (info) => {
+            const statusStyles = {
+                '결제 완료': { backgroundColor: '#4CAF50', color: '#fff', icon: '✔️' },
+                '픽업 요청': { backgroundColor: '#2196F3', color: '#fff', icon: '📦' },
+                '배송 중': { backgroundColor: '#FF9800', color: '#fff', icon: '🚚' },
+                '제작 중': { backgroundColor: '#E0E0E0', color: '#757575', icon: '⚙️' },
+                '수령 완료': { backgroundColor: '#F5F5F5', color: '#9E9E9E', icon: '🎉' },
+            };
+    
+            // 이벤트 상태에 따라 스타일 설정
+            const status = info.event.title.split('(')[1]?.split(')')[0]; // 상태 추출
+            const style = statusStyles[status] || { backgroundColor: '#ddd', color: '#000', icon: 'ℹ️' };
+    
+            return (
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '5px',
+                        borderRadius: '5px',
+                        fontSize: '12px',
+                        backgroundColor: style.backgroundColor,
+                        color: style.color,
+                    }}
+                >
+                    <span style={{ marginRight: '5px' }}>{style.icon}</span>
+                    <span
+                        style={{
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
+                    >
+                        {info.event.title}
+                    </span>
+                </div>
+            );
+        },
         eventClick: (info) => {
             alert(`주문 ID: ${info.event.extendedProps.orderId}\n시간: ${info.event.extendedProps.time}`);
         },
     };
+    
+    
     // 신규 리뷰 데이터 가져오기
     useEffect(() => {
         const fetchNewReviews = async () => {

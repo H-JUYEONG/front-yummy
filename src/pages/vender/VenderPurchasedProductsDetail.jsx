@@ -36,8 +36,28 @@ const PurchasedProductsDetail = () => {
     const openLiveModal = () => setIsLiveModalOpen(true);
     const closeLiveModal = () => setIsLiveModalOpen(false);
     const webcamRef = useRef(null);
+    const [videoBlob, setVideoBlob] = useState(null);
+
+    // Kakao 초기화
+    useEffect(() => {
+        if (!window.Kakao) {
+            const script = document.createElement("script");
+            script.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
+            script.onload = () => {
+                if (!window.Kakao.isInitialized()) {
+                    window.Kakao.init("1937eee4549e776d0e64b081a992004a"); // 카카오 JavaScript 키 입력
+                }
+            };
+            document.head.appendChild(script);
+        } else if (!window.Kakao.isInitialized()) {
+            window.Kakao.init("1937eee4549e776d0e64b081a992004a");
+        }
+    }, []);
 
     const dataURLtoFile = (dataurl, filename) => {
+        if (!dataurl) {
+            throw new Error("dataurl이 유효하지 않습니다.");
+        }
         const arr = dataurl.split(',');
         const mime = arr[0].match(/:(.*?);/)[1];
         const bstr = atob(arr[1]);
@@ -59,11 +79,27 @@ const PurchasedProductsDetail = () => {
             const response = await axios.post(`${API_URL}/api/vender/${orderId}/upload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-            alert("파일 업로드 성공!");
+
+            // 서버에서 반환된 URL을 상태로 저장
+            if (response.data) {
+                const { photoUrl, videoUrl } = response.data;
+                if (photoUrl) {
+                    setImageUrl(photoUrl); // 이미지 URL 업데이트
+                    alert("사진이 성공적으로 업로드되었습니다.");
+                }
+                if (videoUrl) {
+                    setVideoUrl(videoUrl); // 비디오 URL 업데이트
+                    alert("비디오가 성공적으로 업로드되었습니다.");
+                }
+            } else {
+                alert("업로드된 파일의 URL을 가져올 수 없습니다.");
+            }
         } catch (error) {
-            alert("파일 업로드 실패: " + error.response?.data || error.message);
+            alert("파일 업로드 실패: " + error.response?.data?.message || error.message);
         }
     };
+
+
     // 주문 상세 정보를 가져오는 함수
     const fetchOrderDetails = async () => {
         try {
@@ -127,12 +163,6 @@ const PurchasedProductsDetail = () => {
     }, []);
 
 
-    const toggleSidebar = () => {
-        setSidebarOpen(!isSidebarOpen);
-    };
-
-
-
     useEffect(() => {
         if (webcamRef.current) {
             console.log("Webcam 초기화 완료:", webcamRef.current);
@@ -179,14 +209,47 @@ const PurchasedProductsDetail = () => {
         mediaRecorderRef.current.start(); // 녹화 시작
         setIsRecording(true);
     };
-
-    // 동영상 녹화 중지
+    // 영상 녹화 중지
     const stopRecording = () => {
         if (mediaRecorderRef.current) {
             mediaRecorderRef.current.stop();
             setIsRecording(false);
+
+            mediaRecorderRef.current.onstop = () => {
+                const blob = new Blob(chunks.current, { type: "video/webm" });
+                chunks.current = []; // 기존 데이터를 초기화
+
+                // 로컬 Blob URL 생성
+                const localVideoUrl = URL.createObjectURL(blob);
+                setVideoUrl(localVideoUrl); // 로컬 URL 설정
+                setVideoBlob(blob); // Blob 데이터를 상태에 저장
+
+                console.log("녹화 중지됨, videoBlob 생성:", blob); // 디버깅 로그
+                console.log("녹화 중지됨, videoUrl 생성:", localVideoUrl); // 디버깅 로그
+            };
         }
     };
+
+    const handleVideoUpload = async () => {
+        console.log("handleVideoUpload 호출됨"); // 확인 로그
+        if (!videoBlob) {
+            alert("녹화된 영상이 없습니다. 녹화를 먼저 완료하세요.");
+            return;
+        }
+
+        try {
+            const response = await uploadMedia(orderId, videoBlob, null);
+            if (response && response.videoUrl) {
+                console.log("서버에서 반환된 videoUrl:", response.videoUrl); // 디버깅 로그
+                setVideoUrl(response.videoUrl); // 서버에서 반환된 URL로 업데이트
+                alert("영상이 성공적으로 업로드되었습니다.");
+            }
+        } catch (error) {
+            console.error("영상 업로드 실패:", error);
+            alert("업로드에 실패했습니다.");
+        }
+    };
+
     // 컴포넌트가 언마운트 될 때 타이머 정리
     useEffect(() => {
         return () => {
@@ -194,6 +257,55 @@ const PurchasedProductsDetail = () => {
         };
     }, [notificationTimeout]);
 
+    const sendLinkToCustomer = async () => {
+        if (!imageUrl) {
+            alert("파일을 먼저 업로드하세요!");
+            return;
+        }
+
+        try {
+            window.Kakao.Link.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '주문 제작이 완료되었습니다.',
+                    description: '아래 링크를 눌러 확인해주세요.',
+                    imageUrl: imageUrl, // 업로드된 URL 사용
+                    link: {
+                        mobileWebUrl: imageUrl,
+                        webUrl: imageUrl,
+                    },
+                },
+            });
+        } catch (error) {
+            console.error("전송 실패:", error);
+            alert("전송에 실패했습니다.");
+        }
+    };
+
+    const sendVideoLinkToCustomer = async () => {
+        if (!videoUrl || videoUrl.startsWith("blob:") || videoUrl.includes("localhost")) {
+            alert("업로드된 영상을 먼저 확인하세요!");
+            console.error("videoUrl이 올바르지 않습니다:", videoUrl);
+            return;
+        }
+        try {
+            window.Kakao.Link.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: '주문 제작이 완료되었습니다.',
+                    description: '아래 링크를 통해 영상을 확인하세요.',
+                    imageUrl: videoUrl, // 서버에서 반환된 URL 사용
+                    link: {
+                        mobileWebUrl: videoUrl,
+                        webUrl: videoUrl,
+                    },
+                },
+            });
+        } catch (error) {
+            console.error("전송 실패:", error);
+            alert("전송에 실패했습니다.");
+        }
+    };
 
     if (loading) {
         return <div>로딩 중...</div>;
@@ -334,7 +446,11 @@ const PurchasedProductsDetail = () => {
                                                         >
                                                             업로드
                                                         </button>
+                                                        <button onClick={sendLinkToCustomer} disabled={!imageUrl}>
+                                                            전송하기
+                                                        </button>
                                                     </div>
+
                                                 )}
                                             </div>
                                         </div>
@@ -364,13 +480,12 @@ const PurchasedProductsDetail = () => {
                                                 {videoUrl && (
                                                     <div className="purchasedproductsDetail-preview">
                                                         <video src={videoUrl} controls />
+                                                        <button onClick={handleVideoUpload}>업로드</button>
                                                         <button
-                                                            onClick={() => {
-                                                                const blob = dataURLtoFile(videoUrl, "video.webm");
-                                                                uploadMedia(orderId, blob, null); // 동영상 업로드
-                                                            }}
+                                                            onClick={sendVideoLinkToCustomer}
+                                                            disabled={!videoUrl || videoUrl.startsWith("blob:") || videoUrl.includes("localhost")}
                                                         >
-                                                            업로드
+                                                            전송하기
                                                         </button>
                                                     </div>
                                                 )}
