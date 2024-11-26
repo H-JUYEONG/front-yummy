@@ -240,7 +240,7 @@ const UserDebateView = () => {
                   <p>왼쪽 이미지 없음</p>
                 )}
                 <button className="vote-button vote-button-a" onClick={handleLeftVote}>
-                  케이크 A 버튼
+                  케이크 A 투표
                 </button>
               </div>
               <div className="vs-text">VS</div>
@@ -251,7 +251,7 @@ const UserDebateView = () => {
                   <p>오른쪽 이미지 없음</p>
                 )}
                 <button className="vote-button vote-button-b" onClick={handleRightVote}>
-                  케이크 B 버튼
+                  케이크 B 투표
                 </button>
               </div>
             </div>

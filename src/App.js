@@ -180,7 +180,7 @@ function App() {
           <Route path='/debate/board' element={<UserDebateList />} />
           <Route path='/debate/debateinsert' element={<UserDebateInsert />} />
           <Route path='/debate/debateview/:debateId' element={<UserDebateView />} />
-          <Route path='/debate/debateedit' element={<UserDebateEdit />} />
+          <Route path='/debate/debateedit/:debateId' element={<UserDebateEdit />} />
 
           {/* GPT Routes */}
           <Route path='/gpt' element={<ChatGPTApp />} />

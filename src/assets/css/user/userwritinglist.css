@@ -3,7 +3,9 @@
       margin-top: 20px;
       margin-bottom: 20px;
     }
-
+    .j-writinglist-container {
+      padding: 20px;
+  }
     .filter-group {
       margin-bottom: 20px;
     }
@@ -20,28 +22,30 @@
       gap: 10px;
     }
 
-    .filter-btn {
+    .j-filter-btn {
       padding: 8px 16px;
-      border: 1px solid #e5e7eb;
+      border: 2px solid #ddd;
       border-radius: 20px;
       background: white;
       color: #4B5563;
       cursor: pointer;
       transition: all 0.2s;
+      width: 75px;
     }
 
-    .filter-btn:hover {
+    .j-filter-btn:hover {
       background: #F3F4F6;
     }
 
-    .filter-btn.active {
-      background: #7C3AED;
+    .j-filter-btn.active {
+      background: #ff6f61;
       color: white;
-      border-color: #7C3AED;
+      border-color: #ff6f61;
     }
 
     /* Writing List Table Styling */
     .writing-table {
+      font-weight: bold;
       width: 100%;
       background: #fff;
       border-radius: 8px;
@@ -71,7 +75,7 @@
   .j-action-btn {
     padding: 8px 0; /* Adjust padding vertically for consistency with fixed width */
     font-size: 0.85rem;
-    background: #7C3AED;
+    background: #0056b3;;
     color: white;
     border: none;
     border-radius: 20px;
@@ -82,7 +86,7 @@
   }
   
   .j-action-btn.delete-btn {
-    background: #dc3545;
+    background: red;
     width: 60px; /* Match width for uniformity */
   }
 
@@ -95,9 +99,9 @@
     }
 
     .search-input {
-      flex: 1;
+      flex: 1 1;
       padding: 10px 15px;
-      border: 1px solid #e5e7eb;
+      border: 2px solid #ddd;
       border-radius: 20px 0 0 20px;
       font-size: 14px;
       outline: none;
@@ -105,7 +109,7 @@
 
     .search-button {
       padding: 10px 20px;
-      background: #7C3AED;
+      background: #ff6f61;
       border: none;
       border-radius: 0 20px 20px 0;
       color: white;
@@ -131,3 +135,43 @@
     .j-writing-table-date {
       width: 25%
     }
+
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+  }
+  
+   .j-pagination-button {
+      display: flex;
+      gap: 5px;
+  }
+  
+   .j-pagination-button,
+   .j-prev-page,
+   .j-next-page {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+  }
+  
+   .j-pagination-button:hover,
+   .j-prev-page:hover,
+   .j-next-page:hover {
+      background: #F3F4F6;
+  }
+  
+   .j-pagination-button.active {
+      background: #ff6f61;
+      color: white;
+      border-color: #ff6f61;
+  }

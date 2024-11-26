@@ -21,7 +21,7 @@ const UserDebateList = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   // Fetch Debate List
-  const getDebateList = async (page = 1) => {
+  const fetchData = async (page = 1, keyword = "") => {
     try {
       const response = await axios({
         method: "get",
@@ -29,14 +29,13 @@ const UserDebateList = () => {
         params: {
           page,
           size: 10,
-          keyword: searchKeyword,
+          keyword,
         },
       });
-      
-  
+
       if (response.data.result === "success") {
-        const debates = response.data.apiData.data || []; // Use `data` instead of `content`
-        setDebateList(debates);
+        const data = response.data.apiData.data || [];
+        setDebateList(data);
         setTotalPages(response.data.apiData.totalPages || 1);
       } else {
         alert(response.data.message || "토론 목록 가져오기 실패");
@@ -46,29 +45,27 @@ const UserDebateList = () => {
       alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
   };
-  
 
   // Handle Search
   const handleSearch = () => {
     setCurrentPage(1);
-    getDebateList(1);
+    fetchData(1, searchKeyword);
   };
 
   // Navigate to Debate Detail
   const handleRowClick = (debateId) => {
-    console.log(debateId);
     navigate(`/debate/debateview/${debateId}`);
   };
 
   // Change Page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    getDebateList(pageNumber);
+    fetchData(pageNumber, searchKeyword);
   };
 
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
-    getDebateList(currentPage);
+    fetchData(currentPage, searchKeyword);
   }, [currentPage]);
 
   return (
@@ -122,7 +119,7 @@ const UserDebateList = () => {
             <div className="user-debate-all-count">ALL {debateList.length}</div>
             <div className="user-debate-add-btn">
               <button onClick={() => navigate("/debate/debateinsert")}>
-                고민 등록하기
+                토크 등록하기
               </button>
             </div>
           </div>
@@ -141,9 +138,12 @@ const UserDebateList = () => {
             </thead>
             <tbody>
               {debateList.length > 0 ? (
-                debateList.map((debate, index) => (
-                  console.log(debate), // Debug each debate
-                  <tr key={debate.debate_id} onClick={() => handleRowClick(debate.debate_id)} className="clickable-row">
+                debateList.map((debate) => (
+                  <tr
+                    key={debate.debate_id}
+                    onClick={() => handleRowClick(debate.debate_id)}
+                    className="clickable-row"
+                  >
                     <td className="column-id">{debate.debate_id}</td>
                     <td className="column-title">{debate.debate_title}</td>
                     <td className="column-category">{debate.debate_category}</td>
@@ -162,34 +162,56 @@ const UserDebateList = () => {
                 </tr>
               )}
             </tbody>
-
           </table>
 
           {/* Pagination */}
           <div className="j-pagination">
-            <button
-              className="j-prev-page"
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              {"<"}
-            </button>
-            {[...Array(totalPages)].map((_, index) => (
+            {/* Previous Button */}
+            {currentPage > 1 && (
               <button
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-                className={`j-page-number ${currentPage === index + 1 ? "active" : ""}`}
+                className="j-prev-page"
+                onClick={() => handlePageChange(currentPage - 1)}
               >
-                {index + 1}
+                {"<"}
               </button>
-            ))}
-            <button
-              className="j-next-page"
-              disabled={currentPage === totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              {">"}
-            </button>
+            )}
+
+            {/* Page Numbers */}
+            {(() => {
+              const pageNumbers = [];
+              const maxPages = 5;
+              let startPage = Math.max(1, currentPage - 2);
+              let endPage = Math.min(totalPages, startPage + maxPages - 1);
+
+              if (endPage - startPage + 1 < maxPages) {
+                startPage = Math.max(1, endPage - maxPages + 1);
+              }
+
+              for (let i = startPage; i <= endPage; i++) {
+                pageNumbers.push(
+                  <button
+                    key={i}
+                    className={`j-pagination-button ${
+                      currentPage === i ? "active" : ""
+                    }`}
+                    onClick={() => handlePageChange(i)}
+                  >
+                    {i}
+                  </button>
+                );
+              }
+              return pageNumbers;
+            })()}
+
+            {/* Next Button */}
+            {currentPage < totalPages && (
+              <button
+                className="j-next-page"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                {">"}
+              </button>
+            )}
           </div>
         </div>
       </main>
