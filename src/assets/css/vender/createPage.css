@@ -9,6 +9,10 @@
 .sy-create-title{
     text-align: center;
     font-size: 35px;
+    color: #202020;
+    padding-bottom: 30px;
+    border-bottom: 2px inset #fcbdbd ;
+    margin-bottom: 10px;
 }
 
 #createPage-nav {
@@ -161,15 +165,15 @@
 }
 .page-insert-btn{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
+
 }
 .sy-apply-button {
     display: block;
-    width: 100%;
+    width: 30%;
     padding: 10px;
-    background-color: #ccc;
+    background-color: #fbe7fe;
     border: none;
     border-radius: 5px;
     font-size: 18px;
