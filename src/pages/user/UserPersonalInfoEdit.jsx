@@ -1,5 +1,6 @@
 // Import libraries
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
@@ -12,6 +13,7 @@ import Footer from "./include/Footer";
 
 const UserPersonalInfoEdit = () => {
   /*--- State Variables --------------------------------------------*/
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const [memberId, setMemberID] = useState("");
@@ -25,7 +27,6 @@ const UserPersonalInfoEdit = () => {
   const [userName, setUserName] = useState("");
   const [userNickName, setUserNickName] = useState("");
   const [userHp, setUserHp] = useState("");
-
 
   const [newPassword, setNewPassword] = useState(""); // 새 비밀번호
   const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인
@@ -59,7 +60,6 @@ const UserPersonalInfoEdit = () => {
 
           const userEvents = combinedData.userEvents || [];
           setUserEventList(userEvents);
-
 
           console.log(ppUrl);
 
@@ -106,14 +106,12 @@ const UserPersonalInfoEdit = () => {
     }
   };
 
-
   /*--- Save Changes ---------------------------------------------*/
   const handleSave = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     // Validation for newPassword and confirmPassword
-
 
     if (newPassword && confirmPassword) {
       if (newPassword === confirmPassword) {
@@ -148,7 +146,6 @@ const UserPersonalInfoEdit = () => {
     console.log(profilePicture);
     formData.append("profilePicture", profilePicture);
 
-
     setNewPassword("");
     setConfirmPassword("");
 
@@ -182,17 +179,17 @@ const UserPersonalInfoEdit = () => {
       alert("기념일 이름과 날짜를 입력하세요.");
       return;
     }
-  const formattedDate = `${eventDate}`; // Example: "2024-11-21T00:00:00"
-  const JeffUserEventVo = {
-    userId: memberId,
-    eventName:eventName,
-    eventDate: formattedDate,
-    notificationEnabled: true
-  };
-  console.log(memberId);
-  console.log(eventName);
-  console.log(eventDate);
-/*
+    const formattedDate = `${eventDate}`; // Example: "2024-11-21T00:00:00"
+    const JeffUserEventVo = {
+      userId: memberId,
+      eventName: eventName,
+      eventDate: formattedDate,
+      notificationEnabled: true,
+    };
+    console.log(memberId);
+    console.log(eventName);
+    console.log(eventDate);
+    /*
     const formData = new FormData();
     console.log(memberId);
     formData.append("userId", memberId);
@@ -207,14 +204,14 @@ const UserPersonalInfoEdit = () => {
     setEventName("");
     setEventDate("");
 */
-setEventName("");
-setEventDate("");
+    setEventName("");
+    setEventDate("");
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/user/mypage/userevent/add`,
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       data: JeffUserEventVo,
       responseType: "json",
@@ -233,11 +230,7 @@ setEventDate("");
   };
 
   const handleDeleteEvent = (anniversaryId) => {
-
-
     console.log("Deleting event with ID:", anniversaryId);
-
-
 
     axios({
       method: "delete",
@@ -260,7 +253,6 @@ setEventDate("");
         console.error("Error deleting event:", error);
       });
   };
-
 
   /*--- Modal Handlers ------------------------------------------*/
   const handleOpenWithdrawModal = () => {
@@ -285,7 +277,7 @@ setEventDate("");
 
         {/* Main Content */}
         <div className="main-content">
-          <h2>회원정보 수정</h2>
+          <h2 className="user-write-main-title">회원정보 수정</h2>
 
           <form className="user-edit-form" onSubmit={handleSave}>
             {/* Profile Picture Edit Section */}
@@ -294,7 +286,12 @@ setEventDate("");
                 <div className="profile-picture-preview">
                   {(() => {
                     if (ppUrl && !tempPp) {
-                      return <img src={ppUrl} alt="Profile Preview" />;
+                      return (
+                        <img
+                          src={`${ppUrl}`}
+                          alt="Profile Preview"
+                        />
+                      );
                     } else if (tempPp) {
                       return <img src={tempPp} alt="Profile Preview" />;
                     } else {
@@ -314,36 +311,35 @@ setEventDate("");
               </label>
             </div>
 
-
             {/* User Information Form */}
-            <label>아이디</label>
+            <label className="user-edit-txt">아이디</label>
             <input type="text" value={email} readOnly />
 
-            <label>이름</label>
+            <label className="user-edit-txt">이름</label>
             <input type="text" value={userName} readOnly />
 
-            <label>유저네임</label>
+            <label className="user-edit-txt">유저네임</label>
             <input
               type="text"
               value={userNickName}
               onChange={handleUserNickName}
             />
 
-            <label>새 비밀번호</label>
+            <label className="user-edit-txt">새 비밀번호</label>
             <input
               type="password"
               placeholder="새 비밀번호"
               onChange={handleNewPassword}
             />
 
-            <label>비밀번호 확인</label>
+            <label className="user-edit-txt">비밀번호 확인</label>
             <input
               type="password"
               placeholder="비밀번호 확인"
               onChange={handleConfirmPassword}
             />
 
-            <label>휴대폰 번호</label>
+            <label className="user-edit-txt">휴대폰 번호</label>
             <input
               type="tel"
               value={userHp}
@@ -352,7 +348,7 @@ setEventDate("");
             />
 
             {/* Event List Section */}
-            <label>기념일 조회</label>
+            <label className="user-edit-txt">기념일 조회</label>
             <section className="j-add-event-section">
               <input
                 type="text"
@@ -370,7 +366,6 @@ setEventDate("");
               </button>
             </section>
           </form>
-
 
           {/* Action Buttons */}
 
@@ -398,14 +393,19 @@ setEventDate("");
             )}
           </section>
 
-
           <form className="user-edit-form" onSubmit={handleSave}>
             <div className="user-edit-buttons">
-              <button type="button" className="user-cancel-button">
-                취소
-              </button>
               <button type="submit" className="user-save-button">
                 저장하기
+              </button>
+              <button
+                type="button"
+                className="user-cancel-button"
+                onClick={() =>
+                  navigate(`/user/mypage/order`)
+                }
+              >
+                취소
               </button>
             </div>
           </form>

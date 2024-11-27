@@ -1,177 +1,182 @@
-    /* Category Filters Styling */
-    .category-filters {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    .j-writinglist-container {
-      padding: 20px;
-  }
-    .filter-group {
-      margin-bottom: 20px;
-    }
+/* Category Filters Styling */
+.category-filters {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-    .filter-group h3 {
-      margin-bottom: 10px;
-      color: #374151;
-      font-weight: bold;
-    }
+.filter-group {
+  margin-bottom: 20px;
+}
+.user-write-main-title {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
 
-    .filter-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+.filter-group h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
 
-    .j-filter-btn {
-      padding: 8px 16px;
-      border: 2px solid #ddd;
-      border-radius: 20px;
-      background: white;
-      color: #4B5563;
-      cursor: pointer;
-      transition: all 0.2s;
-      width: 75px;
-    }
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-    .j-filter-btn:hover {
-      background: #F3F4F6;
-    }
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ff7292;
+  border-radius: 8px;
+  background: white;
+  color: #ff7292;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .j-filter-btn.active {
-      background: #ff6f61;
-      color: white;
-      border-color: #ff6f61;
-    }
+.filter-btn:hover {
+  background: #ff7292;
+  color: white;
+}
 
-    /* Writing List Table Styling */
-    .writing-table {
-      font-weight: bold;
-      width: 100%;
-      background: #fff;
-      border-radius: 8px;
-      border-collapse: collapse;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
+.filter-btn.active {
+  background: #ff7292;
+  color: white;
+  border-color: #ff7292;
+}
 
-    .writing-table th,
-    .writing-table td {
-      padding: 12px 8px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
-    }
+/* Writing List Table Styling */
+.writing-table {
+  width: 100%;
+  background: #fff;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
 
-    .writing-table th {
-      background: #f8f9fa;
-      font-weight: bold;
-      color: #333;
-      font-size: 15px;
-    }
+.writing-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
 
-    .clickable-row:hover {
-      background-color: #f1f1f1;
-    }
+.writing-table th,
+.writing-table td {
+  padding: 16px;
+  text-align: center;
+  border: none;
+}
 
-  /* Action Button Styling within Clickable Row */
-  .j-action-btn {
-    padding: 8px 0; /* Adjust padding vertically for consistency with fixed width */
-    font-size: 0.85rem;
-    background: #0056b3;;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 60px; /* Set fixed width for uniform button size */
-    text-align: center; /* Center text within the button */
-    margin-left: 10px;
-  }
-  
-  .j-action-btn.delete-btn {
-    background: red;
-    width: 60px; /* Match width for uniformity */
-  }
+.writing-table td {
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #4b5563;
+}
 
-    /* 검색 바 스타일 */
-    .search-bar {
-      display: flex;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      max-width: 400px;
-    }
+.writing-table thead tr {
+  border-top: none;
+  background-color: #ffe9ee;
+}
 
-    .search-input {
-      flex: 1 1;
-      padding: 10px 15px;
-      border: 2px solid #ddd;
-      border-radius: 20px 0 0 20px;
-      font-size: 14px;
-      outline: none;
-    }
+.writing-table th {
+  color: #333;
+  font-weight: normal;
+}
 
-    .search-button {
-      padding: 10px 20px;
-      background: #ff6f61;
-      border: none;
-      border-radius: 0 20px 20px 0;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+.user-write-title:hover {
+  text-decoration: underline;
+  color: #ff7292;
+  cursor: pointer;
+}
 
-    .search-button:hover {
-      background: #6D28D9;
-    }
+/* Action Button Styling */
+.j-action-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  background: white;
+  color: #ff7292;
+  border: 1px solid #ff7292;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 60px;
+  text-align: center;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
 
-    .j-writing-table-num {
-      width: 10%
-    }
+.j-action-btn:hover {
+  background: #ff7292;
+  color: white;
+}
 
-    .j-writing-table-title {
-      width: 40%
-    }
+.j-action-btn.delete-btn {
+  background: white;
+  border: 1px solid #ff85a1;
+  color: #ff85a1;
+}
 
-    .j-writing-table-btn{
-      width: 25%;
-    }
-    .j-writing-table-date {
-      width: 25%
-    }
+.j-action-btn.delete-btn:hover {
+  background: #ff85a1;
+  color: white;
+}
 
-    
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-  }
-  
-   .j-pagination-button {
-      display: flex;
-      gap: 5px;
-  }
-  
-   .j-pagination-button,
-   .j-prev-page,
-   .j-next-page {
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #ddd;
-      background: white;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-  }
-  
-   .j-pagination-button:hover,
-   .j-prev-page:hover,
-   .j-next-page:hover {
-      background: #F3F4F6;
-  }
-  
-   .j-pagination-button.active {
-      background: #ff6f61;
-      color: white;
-      border-color: #ff6f61;
-  }
+/* Search Bar Styling */
+.j-search-bar {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 400px;
+}
+
+.j-search-input2 {
+  flex: 1 1;
+  padding: 10px 15px;
+  height: 43px;
+  border: 1px solid #bbbbbb;
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  font-size: 14px;
+  outline: none;
+}
+
+.j-search-input2::placeholder {
+  color: #bbbbbb; /* 원하는 색상 코드 */
+  opacity: 1; /* 불투명도 설정 (기본값이 0.5일 수 있음) */
+}
+
+.j-search-input2:focus {
+  border-color: #ff85a1;
+}
+
+.j-search-button2 {
+  padding: 10px 20px;
+  height: 43px;
+  background: #ff7292;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.j-search-button2:hover {
+  background: #ff7292;
+}
+
+/* Table Column Widths */
+.j-writing-table-num {
+  width: 10%;
+}
+
+.j-writing-table-title {
+  width: 40%;
+}
+
+.j-writing-table-btn {
+  width: 25%;
+}
+
+.j-writing-table-date {
+  width: 25%;
+}

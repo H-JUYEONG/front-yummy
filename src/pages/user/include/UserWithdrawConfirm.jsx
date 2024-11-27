@@ -41,7 +41,7 @@ const UserWithdrawConfirm = ({ onClose }) => {
   return (
     <div className="withdraw-modal-overlay">
       <div className="withdraw-modal-content">
-        <h2>탈퇴하시다니 아쉬워요</h2>
+        <h2>회원 탈퇴를 진행하시겠습니까?</h2>
         <p className="withdraw-subtitle">유의사항을 확인해주세요</p>
 
         <div className="withdraw-info-box">
@@ -55,7 +55,7 @@ const UserWithdrawConfirm = ({ onClose }) => {
         </div>
 
         <button className="withdraw-confirm-btn" onClick={handleConfirmWithdraw}>
-          회원 삭제
+          탈퇴하기
         </button>
         <button className="withdraw-cancel-btn" onClick={onClose}>취소</button>
       </div>

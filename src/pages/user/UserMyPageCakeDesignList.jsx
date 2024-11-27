@@ -3,7 +3,6 @@ import Header from "./include/Header";
 import Footer from "./include/Footer";
 import UserSidebar from "./include/UserSidebar";
 import "../../assets/css/user/usermain.css";
-import "../../assets/css/user/userMyPageCakeDesignList.css";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
 import axios from "axios";
@@ -91,13 +90,13 @@ const UserMyPageCakeDesignList = () => {
       <main id="user-wrap-body">
         <UserSidebar />
         <section id="user-wrap-main">
-          <h2>내가 그린 도안</h2>
+          <h2 className="user-write-main-title">내가 그린 도안</h2>
           <div className="wishlist-container">
             {/* 검색 바 */}
             <div className="search-bar">
               <input
                 type="text"
-                placeholder="도안 검색"
+                placeholder="검색어를 입력해주세요."
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {

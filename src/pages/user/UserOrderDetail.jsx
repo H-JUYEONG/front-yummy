@@ -158,7 +158,7 @@ const UserOrderDetail = () => {
                                 {/* 문구 정보 */}
                                 {orderDetail.cakeLettering && (
                                     <div className="detail-item">
-                                        <span className="label">케이크 문구: </span>
+                                        <span className="label">케이크 위 문구: </span>
                                         <span className="value">{orderDetail.cakeLettering}</span>
                                     </div>
                                 )}
