@@ -115,18 +115,14 @@
     padding: 0px 15px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: white;
-    color: #666;
-    border: 1px solid #dddddd;
+    background-color: #FF7292;
+    color: white;
+    border: 1px solid #FF7292;
     border-radius: 8px;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     transition: all 0.3s ease;
-}
-
-.j-add-event-section button:hover {
-    background-color: #f8f8f8;
 }
 
 .j-event-item {
@@ -215,10 +211,6 @@
     background-color: #FF7292;
     border: 1px solid #FF7292;
     color: white;
-}
-
-.user-save-button:hover {
-    background-color: #ff85a1;
 }
 
 .j-user-withdrawal-section {
