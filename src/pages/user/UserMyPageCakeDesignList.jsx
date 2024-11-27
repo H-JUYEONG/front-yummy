@@ -147,7 +147,7 @@ const UserMyPageCakeDesignList = () => {
                         alt={cakeDesign.cakeDesignTitle}
                       />
                     </div>
-                    <div className="product-info">
+                    <div className="product-infos">
                       <h3>{cakeDesign.cakeDesignTitle}</h3>
                       <p>{cakeDesign.userNickname}</p>
                     </div>
