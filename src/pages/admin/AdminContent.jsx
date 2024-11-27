@@ -16,6 +16,7 @@ const AdminContent = () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/reports`);
                 setReports(response.data);
+
             } catch (error) {
                 console.error("신고 데이터 불러오기 실패:", error);
             } finally {
@@ -27,35 +28,53 @@ const AdminContent = () => {
     }, []);
 
     // 삭제 버튼 클릭 시 해당 항목 삭제 처리
-    const handleDelete = async (id) => {
+    const handleDelete = async (reviewId) => {
+        const confirmed = window.confirm('리뷰를 삭제하시겠습니까?');
+        if (!confirmed) return;
+
         try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/reports/${id}`);
-            setReports((prevReports) => prevReports.filter(report => report.id !== id));
+            const response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/reviews/${reviewId}`);
+            if (response.data === "삭제 성공") {
+                alert('리뷰가 삭제되었습니다.');
+                setReports((prevReports) => prevReports.filter(report => report.reviewId !== reviewId));
+            } else {
+                alert('삭제에 실패했습니다.');
+            }
         } catch (error) {
-            console.error("삭제 실패:", error);
-            alert("삭제 중 문제가 발생했습니다.");
+            console.error('리뷰 삭제 실패:', error);
+            alert('삭제 중 오류가 발생했습니다.');
         }
     };
 
     // 초기화 버튼 클릭 시 상태 초기화
-    const handleReset = async (id) => {
+    const handleReset = async (reviewId) => {
+        const confirmed = window.confirm('신고 상태를 초기화하시겠습니까?');
+        if (!confirmed) return;
+
         try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/reports/${id}/reset`);
-            setReports((prevReports) =>
-                prevReports.map((report) =>
-                    report.id === id ? { ...report, status: "초기화됨" } : report
-                )
-            );
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/reviews/${reviewId}/reset`);
+            if (response.data === "초기화 성공") {
+                alert('신고 상태가 초기화되었습니다.');
+                setReports((prevReports) =>
+                    prevReports.map(report =>
+                        report.reviewId === reviewId
+                            ? { ...report, isReported: 0, reason: null, reportDate: null }
+                            : report
+                    )
+                );
+            } else {
+                alert('초기화에 실패했습니다.');
+            }
         } catch (error) {
-            console.error("초기화 실패:", error);
-            alert("초기화 중 문제가 발생했습니다.");
+            console.error('신고 초기화 실패:', error);
+            alert('초기화 중 오류가 발생했습니다.');
         }
     };
 
     if (loading) {
         return <div>Loading...</div>;
     }
-
+    console.log("신고 데이터 불러오기:", reports);
     return (
         <div className="admin-container">
             {/* 사이드바 */}
@@ -72,7 +91,7 @@ const AdminContent = () => {
                             <tr>
                                 <th>번호</th>
                                 <th>게시글 제목</th>
-                                <th>작성자</th>
+                                <th>신고자</th>
                                 <th>신고 사유</th>
                                 <th>신고 일자</th>
                                 <th>게시물 링크</th>
@@ -82,12 +101,12 @@ const AdminContent = () => {
                         <tbody>
                             {reports.length > 0 ? (
                                 reports.map((report, index) => (
-                                    <tr key={report.id}>
+                                    <tr key={report.reviewId}>
                                         <td>{index + 1}</td>
                                         <td>{report.reviewContent}</td>
-                                        <td>{report.author}</td>
+                                        <td>{report.userNickname}</td>
                                         <td>{report.reason}</td>
-                                        <td>{report.date}</td>
+                                        <td>{report.reportCreatedAt ? new Date(report.reportCreatedAt).toLocaleString('ko-KR') : '날짜 없음'}</td>
                                         <td>
                                             <a
                                                 href={report.link}
@@ -99,18 +118,8 @@ const AdminContent = () => {
                                             </a>
                                         </td>
                                         <td>
-                                            <button
-                                                className="delete-button"
-                                                onClick={() => handleDelete(report.id)}
-                                            >
-                                                삭제
-                                            </button>
-                                            <button
-                                                className="delete-button"
-                                                onClick={() => handleReset(report.id)}
-                                            >
-                                                초기화
-                                            </button>
+                                            <button onClick={() => handleDelete(report.reviewId)}>삭제</button>
+                                            <button onClick={() => handleReset(report.reviewId)}>초기화</button>
                                         </td>
                                     </tr>
                                 ))
