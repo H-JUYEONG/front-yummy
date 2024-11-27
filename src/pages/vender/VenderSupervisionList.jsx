@@ -1,6 +1,7 @@
 //import 라이브러리
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 //import 컴포넌트
 import VenderSidebar from './include/VenderSidebar';
@@ -15,11 +16,10 @@ import VenderHeader from './include/VenderHeader';
 
 const VenderSupervisionList = () => {
 
-    /* ---라우터 관련 ------ */
-
-
-    /*---상태관리 변수들(값이 변화면 화면 랜더링)  ----------*/
     const navigate = useNavigate();
+
+    //진행중인 리스트
+    const [ingAuditionList, setIngAuditionList] = useState([]);
 
     const itemsPerPage = 5; // 페이지당 아이템 수 설정
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,8 +33,8 @@ const VenderSupervisionList = () => {
         { name: '바닐라 비건 케이크', type: '비건 케이크', price: '32,000원', description: '부드러운 비건 생크림, 클래식한 맛', status: '미노출' },
         // ... 더 많은 상품 데이터 추가 가능
     ];
+    
 
-    /*---일반 메소드 --------------------------------------------*/
     // 현재 페이지에 맞는 데이터 가져오기
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -44,6 +44,13 @@ const VenderSupervisionList = () => {
 
     // 페이지 수 계산
     const totalPages = Math.ceil(products.length / itemsPerPage);
+
+    //venderId 가져오기
+    const [authUser, setAuthUser] = useState(() => {
+        const user = localStorage.getItem('authUser');
+        return user ? JSON.parse(user) : null;
+    });
+    const venderId = authUser.vender_id;
 
 
     /*---생명주기 + 이벤트 관련 메소드 ----------------------*/
@@ -56,17 +63,50 @@ const VenderSupervisionList = () => {
         setIsModalOpen(false);
     };
 
+    const getAuditionList = ()=>{
+        console.log("참여중인 오디션 리스트 가져오기")
+
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/getAuditionList/${venderId}`,
+
+
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            setIngAuditionList(response.data.apiData);
+
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+    }
+
+    //신청취소하기
+    const handleDelete = (auditionCartId)=>{
+        console.log(auditionCartId)
+        
+        axios({
+            method: 'delete',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/ingAuditionDelete/${auditionCartId}`,
+        
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+        
+        }).catch(error => {
+            console.log(error);
+        });
+        
+    }
 
 
 
-
-
-
-    // 1.이벤트 잡기
-
-    //2. 데이터 잡기 + 묶기(배열)
-
-    //3. 전송 (ajax 사용)
+    //랜더링 될 때 리스트 가져오기
+    useEffect(()=>{
+        getAuditionList();
+    },[])
 
 
 
@@ -104,33 +144,37 @@ const VenderSupervisionList = () => {
                                             <th>수령방식</th>
                                             <th>수령일자</th>
                                             <th>진행현황</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>30,000원</td>
-                                            <td>픽업</td>
-                                            <td>2024-11-30</td>
-                                            <td>
-                                                <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
-                                                <button className="supervision-delete-button">취소하기</button>
+                                        {ingAuditionList.map((audition)=>{
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>진소영</td>
-                                            <td>30,000원</td>
-                                            <td>픽업</td>
-                                            <td>2024-11-30</td>
-                                            <td>
-                                                <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
-                                                <button className="supervision-delete-button">취소하기</button>
-                                            </td>
-                                        </tr>
+                                            let statusText = '';
+                                                
+                                            if (audition.isSelected == 1) {
+                                                statusText = '결제완료';
+                                            } else if (audition.isSelected == 0 && audition.auditionStatus == '진행중') {
+                                                statusText = '진행중';
+                                            }
 
+                                            return(
+                                                <tr>
+                                                    <td>{audition.auditionId}</td>
+                                                    <td>{audition.orderName}</td>
+                                                    <td>{audition.price}원</td>
+                                                    <td>{audition.deliveryMethod}</td>
+                                                    <td>{audition.deliveryDate}</td>
+                                                    <td>{statusText}</td>
+                                                    <td>
+                                                        <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
+                                                        <button className="supervision-delete-button" onClick={()=>handleDelete(audition.auditionCartId)}>취소하기</button>
+
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                        
                                     </tbody>
                                 </table>
                                 {/* 페이징 네비게이션 */}
