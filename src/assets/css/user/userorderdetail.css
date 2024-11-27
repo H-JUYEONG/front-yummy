@@ -1,28 +1,26 @@
-#user-wrap .order-detail-container2 .order-title {
-  font-size: 1.5em;
-  color: #ff7292;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #ffe9ee;
-}
-
 #user-wrap .order-detail-container2 .order-basic-info {
   margin-bottom: 30px;
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #ffe9ee;
+  border: 1px solid #dddddd;
+}
+
+.dot {
+  font-size: 1.4em;
 }
 
 #user-wrap .order-detail-container2 .order-date {
-  font-size: 1.2em;
+  font-size: 1.1em;
+  font-weight: bold;
   margin-bottom: 5px;
-  color: #ff7292;
+  color: #333;
 }
 
 #user-wrap .order-detail-container2 .order-number {
-  font-size: 1.0em;
+  font-size: 1.1em;
   padding-top: 3px;
+  margin-left: 5px;
   color: #666;
 }
 
@@ -31,7 +29,7 @@
   gap: 25px;
   padding: 25px;
   background-color: #fff;
-  border: 1px solid #ffe9ee;
+  border: 1px solid #dddddd;
   border-radius: 8px;
   margin-bottom: 30px;
   align-items: flex-start;
@@ -67,7 +65,7 @@
   color: #333;
   font-weight: bold;
   padding-bottom: 15px;
-  border-bottom: 1px solid #ffe9ee;
+  border-bottom: 1px solid #333;
 }
 
 #user-wrap .order-detail-container2 .detail-item {
@@ -125,7 +123,7 @@
   background: #fff;
   border-radius: 8px;
   padding: 25px 25px 10px 25px;
-  border: 1px solid #ffe9ee;
+  border: 1px solid #dddddd;
 }
 
 #user-wrap .order-detail-container2 .order-section h3 {
@@ -133,7 +131,7 @@
   font-weight: bold;
   color: #333;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ffe9ee;
+  border-bottom: 1px solid #333;
 }
 
 #user-wrap .order-detail-container2 .info-content p {
@@ -183,7 +181,7 @@
   color: #ff7292;
   margin-top: 15px;
   padding-top: 15px;
-  border-top: 1px solid #ffe9ee;
+  border-top: 1px solid #dddddd;
 }
 
 /* 반응형 스타일 */

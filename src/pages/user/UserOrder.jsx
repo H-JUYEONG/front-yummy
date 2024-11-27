@@ -274,7 +274,7 @@ const UserOrder = () => {
                     <thead>
                         <tr>
                             {orderStatuses.map((status, index) => (
-                                <th key={index} className="status-label">{status.label}</th>
+                                <th key={index} className="order-status-label">{status.label}</th>
                             ))}
                         </tr>
                     </thead>

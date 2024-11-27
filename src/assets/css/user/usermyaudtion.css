@@ -34,14 +34,14 @@
 
 .filter-button.active-ongoing {
   background-color: #ff7292;
+  border: 1px solid #ff7292;
   color: white;
-  border: none;
 }
 
 .filter-button.active-end {
   background-color: #ff85a1;
+  border: 1px solid #ff7292;
   color: white;
-  border: none;
 }
 
 .audition-table {
@@ -49,6 +49,7 @@
   border-collapse: collapse;
   margin-top: 10px;
   background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .audition-table tr {

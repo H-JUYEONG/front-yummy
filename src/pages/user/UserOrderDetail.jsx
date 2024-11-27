@@ -7,6 +7,7 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderdetail.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
+import { FaCircle } from "react-icons/fa";
 
 const UserOrderDetail = () => {
     const { orderId } = useParams();
@@ -73,8 +74,8 @@ const UserOrderDetail = () => {
 
                         {/* 주문 기본 정보 */}
                         <div className="order-basic-info">
-                            <div className="order-date">{orderDetail.orderDate}</div>
-                            <div className="order-number">주문번호: {orderDetail.orderId}</div>
+                            <span className="order-date">{orderDetail.orderDate} 주문</span>
+                            <span className="order-number"><span class="dot">·</span>  주문번호 {orderDetail.orderId}</span>
                         </div>
 
                         {/* 주문 상품 정보 */}

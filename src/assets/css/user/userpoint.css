@@ -1,42 +1,67 @@
 /* 포인트 조회 페이지 스타일 */
-
-
-.order-status-container .status-label {
-    margin-bottom: 5px;
-    font-size: 16px;
-    color: #666;
-    margin-right: 10px;
+.point-label {
+  color: #333;
+  padding-bottom: 5px;
 }
 
-/* 기간 선택 버튼 스타일 조정 */
-
-
-
-/* 테이블 헤더 스타일 */
-.order-table th {
-    background: #f8f9fa;
-    padding: 12px;
+.point-order-list {
+  width: 100%;
+  margin: 20px 0;
 }
 
-/* 반응형 스타일 */
-@media (max-width: 768px) {
-    .date-filter {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .date-filter input[type="date"] {
-        width: calc(50% - 10px);
-    }
-    
-    .period-btn {
-        width: calc(33.33% - 10px);
-        padding: 8px;
-        font-size: 0.9em;
-    }
-    
-    .order-table {
-        display: block;
-        overflow-x: auto;
-    }
+.point-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 테이블 헤더 스타일링 */
+.point-table thead {
+  background-color: #ffe9ee;
+}
+
+.point-table th {
+  padding: 15px;
+  text-align: center;
+  font-weight: 500;
+  color: #4b5563;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 테이블 바디 스타일링 */
+.point-table td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  color: #666;
+}
+
+/* 포인트 금액 스타일링 */
+.point-amount {
+  color: #ff4081;
+  font-weight: 500;
+}
+
+/* 로딩, 에러, 빈 상태 메시지 스타일링 */
+.point-loading,
+.point-error,
+.point-empty {
+  text-align: center;
+  padding: 30px !important;
+  color: #888 !important;
+}
+
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media screen and (max-width: 768px) {
+  .point-table {
+    font-size: 14px;
+  }
+
+  .point-table th,
+  .point-table td {
+    padding: 10px 8px;
+  }
 }
