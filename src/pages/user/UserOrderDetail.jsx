@@ -68,8 +68,8 @@ const UserOrderDetail = () => {
                 <UserSidebar />
 
                 <section id="user-wrap-main">
-                    <div className="order-detail-container">
-                        <h2 className="order-title">주문 상세</h2>
+                    <div className="order-detail-container2">
+                        <h2 className="user-write-main-title">주문 상세</h2>
 
                         {/* 주문 기본 정보 */}
                         <div className="order-basic-info">
@@ -179,7 +179,7 @@ const UserOrderDetail = () => {
 
                                 {/* 주문상태 */}
                                 <div className="product-status">
-                                    <span className="status-label">주문상태</span>
+                                    <span className="status-label">주문상태: </span>
                                     <span className="status-value">{orderDetail.orderStatus}</span>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ const UserOrderDetail = () => {
                                 </p>
                                 <div className="price-summary">
                                     <p>
-                                        <span>총 상품가격</span>
+                                        <span className="price">총 상품가격</span>
                                         <span className="price">
                                             {orderDetail.totalPrice?.toLocaleString()}원
                                         </span>
