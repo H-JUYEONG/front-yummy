@@ -52,7 +52,6 @@
   background: #fff;
   border-collapse: collapse;
   margin-top: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .writing-table tr {
@@ -134,7 +133,7 @@
   flex: 1 1;
   padding: 10px 15px;
   height: 43px;
-  border: 1px solid #999999;
+  border: 1px solid #bbbbbb;
   border-right: none;
   border-radius: 20px 0 0 20px;
   font-size: 14px;
@@ -146,16 +145,23 @@
   opacity: 1; /* 불투명도 설정 (기본값이 0.5일 수 있음) */
 }
 
+.j-search-input2:focus {
+  border-color: #ff85a1;
+}
+
 .j-search-button2 {
   padding: 10px 20px;
   height: 43px;
-  background-color: white;
-  border: 1px solid #999999;
-  border-left: none;  /* 왼쪽 테두리 제거 */
-  border-radius: 0 25px 25px 0;  /* 순서: 좌상 우상 우하 좌하 */
-  color: #999999;
+  background: #ff7292;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  color: white;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+.j-search-button2:hover {
+  background: #ff7292;
 }
 
 /* Table Column Widths */
@@ -173,4 +179,8 @@
 
 .j-writing-table-date {
   width: 25%;
+}
+
+.writing-list {
+  margin: 30px 0px;
 }
