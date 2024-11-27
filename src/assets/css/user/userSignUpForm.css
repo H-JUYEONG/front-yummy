@@ -133,3 +133,27 @@
     transform-origin: left;
     accent-color: #000000;
 }
+
+.verification-code-wrapper {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.verification-code-wrapper input {
+    flex: 1;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.verification-code-wrapper button {
+    padding: 12px;
+    font-size: 14px;
+    color: white;
+    background-color: #000000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

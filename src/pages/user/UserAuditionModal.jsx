@@ -10,13 +10,14 @@ import "../../assets/css/user/userAuditionModal.css";
 
 const UserAuditionModal = ({ isOpen, onClose, company }) => {
   const navigate = useNavigate();
+  const authUser = JSON.parse(localStorage.getItem("authUser")) || null;
   if (!isOpen || !company) return null; // isOpen이 false이거나 company가 없으면 렌더링하지 않음
 
   // 업체가 신청한 내용 가져오기
   const auditionSelect = () => {
     const token = localStorage.getItem("token");
 
-    const auditionApplicationId = company.auditionApplicationId
+    const auditionApplicationId = company.auditionApplicationId;
 
     const JuAuditionVendorCartVo = {
       auditionApplicationId: company.auditionApplicationId, // 경매 주문 ID
@@ -52,10 +53,11 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
       responseType: "json", // 수신타입
     })
       .then((response) => {
-        console.log('모야?'); // 객체 자체를 출력
         console.log(response.data.apiData); // 객체 자체를 출력
         if (response.data.result === "success") {
-          navigate(`/user/audition/complete?auditionApplicationId=${auditionApplicationId}`);
+          navigate(
+            `/user/audition/complete?auditionApplicationId=${auditionApplicationId}`
+          );
         } else {
           alert("신청 실패");
         }
@@ -132,14 +134,16 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
                     alt="예시도안"
                   />
                 </div>
-                <div>
-                  <button
-                    className="user-ongoing-select-button"
-                    onClick={auditionSelect}
-                  >
-                    결제하기
-                  </button>
-                </div>
+                {authUser && company?.userId === authUser.user_id && (
+                  <div>
+                    <button
+                      className="user-ongoing-select-button"
+                      onClick={auditionSelect}
+                    >
+                      결제하기
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

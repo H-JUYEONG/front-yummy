@@ -11,20 +11,28 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userLoginForm.css";
 
 const UserLoginForm = () => {
-  // 앱 정보 넣어두기
-  const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  // 카카오 앱 정보 넣어두기
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+
+  // 네이버 앱 정보 넣어두기
+  const NAVER_REST_API_KEY = process.env.REACT_APP_NAVER_REST_API_KEY;
+  const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
+  const STATE = Math.random().toString(36).substr(2) + Date.now().toString(36);
 
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&state=${STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
+  
   // 카카오 동의 항목
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
   };
 
-  // 인가 코드 추출(따로 파일하나 더 만들어서 처리하기)
-  // const code = new URL(window.location.href).searchParams.get("code");
+  // 카카오 동의 항목
+  const handleNaverLogin = () => {
+    window.location.href = naverURL;
+  };
 
   const navigate = useNavigate();
 
@@ -124,7 +132,7 @@ const UserLoginForm = () => {
           <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
           <h1>로그인</h1>
         </div>
-        <div>
+        {/* <div>
           <div className="user-login-type">
             <div className="login-type-item">
               <Link to="/user/signup" rel="noreferrer noopener">
@@ -138,7 +146,7 @@ const UserLoginForm = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* 로그인폼 */}
         <div className="user-loginform">
@@ -150,6 +158,7 @@ const UserLoginForm = () => {
               value={userEmail}
               placeholder="이메일을 입력해주세요."
               onChange={handleUserEmail}
+              className="user-input-email"
             />
             <label></label>
             <input
@@ -157,6 +166,7 @@ const UserLoginForm = () => {
               value={userPassword}
               placeholder="비밀번호를 입력해주세요."
               onChange={handleUserPassword}
+              className="user-input-password"
             />
             <div className="user-login-btn">
               <button type="submit">로그인</button>
@@ -183,6 +193,9 @@ const UserLoginForm = () => {
             <Link to="#" rel="noreferrer noopener">
               비밀번호찾기
             </Link>
+            <Link to="/user/signup/type" rel="noreferrer noopener">
+              회원가입
+            </Link>
           </div>
         </div>
 
@@ -191,15 +204,19 @@ const UserLoginForm = () => {
           {/* <div id="googleIdLogin">
             <button>구글 로그인</button>
           </div>
-          <div id="naverIdLogin">
-            <button>네이버 로그인</button>
-          </div> */}
+           */}
           <div id="kakaoIdLogin">
             <img
               src="/images/kakao_login_large_wide.png"
               alt="카카오 로그인 버튼"
               onClick={handleKakaoLogin}
             />
+          </div>
+          <div id="naverIdLogin">
+            <button onClick={handleNaverLogin}>
+            <img src="/images/btnG_아이콘사각.png" alt="N" />
+            <span>네이버 로그인</span>
+            </button>
           </div>
         </div>
         {/* //로그인 종류 리스트 */}

@@ -31,6 +31,7 @@
     padding: 30px 0px;
     min-height: 80px; /* 버튼 높이를 일정하게 유지 */
     border: 1px solid #cacaca;
+    border-radius: 8px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -59,6 +60,7 @@
     padding: 20px 0px;
     min-height: 80px; /* 버튼 높이를 일정하게 유지 */
     border: 1px solid #cacaca;
+    border-radius: 8px;
     text-align: center;
     display: flex;
     flex-direction: column;
