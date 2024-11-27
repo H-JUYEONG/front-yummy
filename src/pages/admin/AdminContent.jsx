@@ -1,26 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import "../../assets/css/admin/admincontent.css";
 import AdminSidebar from './include/AdminSidebar';
 
 const AdminContent = () => {
     // 신고 접수 내역 데이터 초기화
-    const [reports, setReports] = useState([
-        {
-            id: 1,
-            title: "문제 있는 게시물 제목",
-            author: "사용자123",
-            reason: "부적절한 내용",
-            date: "2024-11-01",
-            status: "검토 중",
-            link: "https://example.com/post/1" // 게시물 링크 추가
-        }
-    ]);
+    const [reports, setReports] = useState([]);
+
+    // 데이터 로드 상태 관리
+    const [loading, setLoading] = useState(true);
+
+    // 신고 데이터 불러오기
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/reports`);
+                setReports(response.data);
+            } catch (error) {
+                console.error("신고 데이터 불러오기 실패:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchReports();
+    }, []);
 
     // 삭제 버튼 클릭 시 해당 항목 삭제 처리
-    const handleDelete = (id) => {
-        const updatedReports = reports.filter(report => report.id !== id);
-        setReports(updatedReports);
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/api/admin/reports/${id}`);
+            setReports((prevReports) => prevReports.filter(report => report.id !== id));
+        } catch (error) {
+            console.error("삭제 실패:", error);
+            alert("삭제 중 문제가 발생했습니다.");
+        }
     };
+
+    // 초기화 버튼 클릭 시 상태 초기화
+    const handleReset = async (id) => {
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/reports/${id}/reset`);
+            setReports((prevReports) =>
+                prevReports.map((report) =>
+                    report.id === id ? { ...report, status: "초기화됨" } : report
+                )
+            );
+        } catch (error) {
+            console.error("초기화 실패:", error);
+            alert("초기화 중 문제가 발생했습니다.");
+        }
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="admin-container">
@@ -41,40 +75,50 @@ const AdminContent = () => {
                                 <th>작성자</th>
                                 <th>신고 사유</th>
                                 <th>신고 일자</th>
-                                <th>상태</th>
-                                <th>게시물 링크</th> {/* 새 열 추가 */}
+                                <th>게시물 링크</th>
                                 <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {reports.map((report, index) => (
-                                <tr key={report.id}>
-                                    <td>{index + 1}</td>
-                                    <td>{report.title}</td>
-                                    <td>{report.author}</td>
-                                    <td>{report.reason}</td>
-                                    <td>{report.date}</td>
-                                    <td>{report.status}</td>
-                                    <td>
-                                        <a
-                                            href={report.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="report-link"
-                                        >
-                                            게시물 보기
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button
-                                            className="delete-button"
-                                            onClick={() => handleDelete(report.id)}
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
+                            {reports.length > 0 ? (
+                                reports.map((report, index) => (
+                                    <tr key={report.id}>
+                                        <td>{index + 1}</td>
+                                        <td>{report.reviewContent}</td>
+                                        <td>{report.author}</td>
+                                        <td>{report.reason}</td>
+                                        <td>{report.date}</td>
+                                        <td>
+                                            <a
+                                                href={report.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="report-link"
+                                            >
+                                                게시물 보기
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="delete-button"
+                                                onClick={() => handleDelete(report.id)}
+                                            >
+                                                삭제
+                                            </button>
+                                            <button
+                                                className="delete-button"
+                                                onClick={() => handleReset(report.id)}
+                                            >
+                                                초기화
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="7">신고된 게시물이 없습니다.</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </section>
