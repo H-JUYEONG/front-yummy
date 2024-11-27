@@ -145,23 +145,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ddd;
+  border: 1px solid #ddd;
   background: white;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
+  color: #333;
 }
 
 #user-wrap .wishlist-container .page-number:hover,
 #user-wrap .wishlist-container .prev-page:hover,
 #user-wrap .wishlist-container .next-page:hover {
-  background: #f3f4f6;
+  background: #ff85a1;
 }
 
 #user-wrap .wishlist-container .page-number.active {
-  background: #ff7292;
+  background: #ff85a1;
   color: white;
-  border-color: #ff7292;
+  border-color: #ff85a1;
 }
 
 /* 반응형 디자인 */
