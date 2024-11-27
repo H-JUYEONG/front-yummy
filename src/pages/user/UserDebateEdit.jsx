@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateInsert.css";
@@ -8,27 +9,65 @@ import Footer from "./include/Footer";
 import UserDebateModal from "./include/UserDebateModal";
 
 const UserDebateEdit = () => {
-  const [leftImage, setLeftImage] = useState("path/to/leftImage.jpg");
-  const [rightImage, setRightImage] = useState("path/to/rightImage.jpg");
+  const { debateId } = useParams();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [leftImage, setLeftImage] = useState(null);
+  const [leftImgUrl, setLeftImgUrl] = useState("");
+  const [rightImage, setRightImage] = useState(null);
+  const [rightImgUrl, setRightImgUrl] = useState("");
+  const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageSide, setSelectedImageSide] = useState("");
-  const [title, setTitle] = useState("기존 제목을 입력하세요");
-  const [content, setContent] = useState("기존 글 내용을 작성하세요");
 
-  const handleLeftImageUpload = (event) => {
-    setLeftImage(URL.createObjectURL(event.target.files[0]));
+  // Fetch debate details to populate form
+  useEffect(() => {
+    const fetchDebateDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/debate/debateview/${debateId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (response.data.result === "success" && response.data.apiData) {
+          const data = response.data.apiData;
+          setTitle(data.debate_title || "");
+          setCategory(data.debate_category || "");
+          setContent(data.debate_content || "");
+          setLeftImgUrl(data.debate_left_image_url || "");
+          setRightImgUrl(data.debate_right_image_url || "");
+        } else {
+          alert("토론 정보를 불러오지 못했습니다.");
+        }
+      } catch (error) {
+        console.error("Error fetching debate details:", error);
+        alert("데이터를 불러오는 중 오류가 발생했습니다.");
+      }
+    };
+    fetchDebateDetails();
+  }, [debateId, token]);
+
+  const handleImageUpload = (side, event) => {
+    const file = event.target.files[0];
+    if (side === "left") {
+      setLeftImage(file);
+      setLeftImgUrl(URL.createObjectURL(file));
+    } else {
+      setRightImage(file);
+      setRightImgUrl(URL.createObjectURL(file));
+    }
   };
 
-  const handleRightImageUpload = (event) => {
-    setRightImage(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const handleLeftImageDelete = () => {
-    setLeftImage(null);
-  };
-
-  const handleRightImageDelete = () => {
-    setRightImage(null);
+  const handleImageDelete = (side) => {
+    if (side === "left") {
+      setLeftImage(null);
+      setLeftImgUrl("");
+    } else {
+      setRightImage(null);
+      setRightImgUrl("");
+    }
   };
 
   const openModal = (side) => {
@@ -38,11 +77,45 @@ const UserDebateEdit = () => {
 
   const handleModalImageSelect = (imageUrl) => {
     if (selectedImageSide === "left") {
-      setLeftImage(imageUrl);
+      setLeftImgUrl(imageUrl);
     } else if (selectedImageSide === "right") {
-      setRightImage(imageUrl);
+      setRightImgUrl(imageUrl);
     }
     setIsModalOpen(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title || !category || !content || !leftImgUrl || !rightImgUrl) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("debate_title", title);
+    formData.append("debate_category", category);
+    formData.append("debate_content", content);
+    formData.append("leftImage", leftImage || "");
+    formData.append("rightImage", rightImage || "");
+    formData.append("debate_left_image_url", leftImgUrl);
+    formData.append("debate_right_image_url", rightImgUrl);
+
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/debate/debateupdate/${debateId}`,
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.data.result === "success") {
+        alert("토론이 성공적으로 수정되었습니다.");
+        navigate(`/debate/view/${debateId}`);
+      } else {
+        alert("토론 수정 실패");
+      }
+    } catch (error) {
+      console.error("Error updating debate:", error);
+      alert("수정 중 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -53,7 +126,7 @@ const UserDebateEdit = () => {
 
       <main id="user-wrap-body" className="clearfix">
         <div className="debate-insert-list">
-          <form className="debate-insert-main">
+          <form className="debate-insert-main" onSubmit={handleSubmit}>
             <h1 className="debate-insert-title">고민 수정</h1>
 
             {/* Debate Title Section */}
@@ -72,9 +145,14 @@ const UserDebateEdit = () => {
             {/* Category Selection */}
             <div className="debate-insert-list-group">
               <label htmlFor="debate-insert-category">카테고리</label>
-              <select id="debate-insert-category" className="debate-insert-input-text">
-                <option value="all">카테고리 선택</option>
-                <option value="design">도안 토론</option>
+              <select
+                id="debate-insert-category"
+                className="debate-insert-input-text"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="">카테고리 선택</option>
+                <option value="design">디자인 토크</option>
                 <option value="vendor">업체 토론</option>
               </select>
             </div>
@@ -83,15 +161,16 @@ const UserDebateEdit = () => {
             <div className="debate-insert-list-group">
               <label htmlFor="debate-insert-content">이미지</label>
               <div className="debate-insert-image-section">
+                {/* Left Image */}
                 <div className="debate-insert-image-option">
-                  {!leftImage ? (
+                  {!leftImgUrl ? (
                     <>
                       <button className="debate-insert-upload-btn">
                         내PC에서 추가
                         <input
                           type="file"
                           accept="image/*"
-                          onChange={handleLeftImageUpload}
+                          onChange={(e) => handleImageUpload("left", e)}
                           className="debate-insert-image-upload-input"
                         />
                       </button>
@@ -105,11 +184,11 @@ const UserDebateEdit = () => {
                     </>
                   ) : (
                     <div className="debate-insert-image-container">
-                      <img src={leftImage} alt="Left" className="debate-insert-inserted-image" />
+                      <img src={leftImgUrl} alt="Left" className="debate-insert-inserted-image" />
                       <button
                         type="button"
                         className="debate-insert-delete-btn"
-                        onClick={handleLeftImageDelete}
+                        onClick={() => handleImageDelete("left")}
                       >
                         이미지 삭제
                       </button>
@@ -117,15 +196,16 @@ const UserDebateEdit = () => {
                   )}
                 </div>
 
+                {/* Right Image */}
                 <div className="debate-insert-image-option">
-                  {!rightImage ? (
+                  {!rightImgUrl ? (
                     <>
                       <button className="debate-insert-upload-btn">
                         내PC에서 추가
                         <input
                           type="file"
                           accept="image/*"
-                          onChange={handleRightImageUpload}
+                          onChange={(e) => handleImageUpload("right", e)}
                           className="debate-insert-image-upload-input"
                         />
                       </button>
@@ -139,11 +219,11 @@ const UserDebateEdit = () => {
                     </>
                   ) : (
                     <div className="debate-insert-image-container">
-                      <img src={rightImage} alt="Right" className="debate-insert-inserted-image" />
+                      <img src={rightImgUrl} alt="Right" className="debate-insert-inserted-image" />
                       <button
                         type="button"
                         className="debate-insert-delete-btn"
-                        onClick={handleRightImageDelete}
+                        onClick={() => handleImageDelete("right")}
                       >
                         이미지 삭제
                       </button>
@@ -166,7 +246,7 @@ const UserDebateEdit = () => {
               />
             </div>
 
-            {/* Submit and Cancel Buttons */}
+            {/* Submit Button */}
             <div className="debate-insert-list-group">
               <button type="submit" className="debate-insert-submit-button">
                 수정 완료

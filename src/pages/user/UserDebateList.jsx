@@ -19,9 +19,12 @@ const UserDebateList = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
 
   // Fetch Debate List
-  const getDebateList = async (page = 1) => {
+  const fetchData = async (page = 1, keyword = "", category = "" ) => {
     try {
       const response = await axios({
         method: "get",
@@ -29,47 +32,54 @@ const UserDebateList = () => {
         params: {
           page,
           size: 10,
-          keyword: searchKeyword,
+          keyword,
+          category,
         },
       });
-      
-  
+
       if (response.data.result === "success") {
-        const debates = response.data.apiData.data || []; // Use `data` instead of `content`
-        setDebateList(debates);
+        const data = response.data.apiData.data || [];
+        setDebateList(data);
+        setTotalCount(response.data.apiData.totalCount || 0);
         setTotalPages(response.data.apiData.totalPages || 1);
       } else {
-        alert(response.data.message || "토론 목록 가져오기 실패");
+        alert(response.data.message || "토크 목록 가져오기 실패");
       }
     } catch (error) {
       console.error("API Error:", error);
       alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
   };
-  
 
   // Handle Search
   const handleSearch = () => {
     setCurrentPage(1);
-    getDebateList(1);
+    fetchData(1, searchKeyword);
   };
 
   // Navigate to Debate Detail
   const handleRowClick = (debateId) => {
-    console.log(debateId);
     navigate(`/debate/debateview/${debateId}`);
   };
 
   // Change Page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    getDebateList(pageNumber);
+    fetchData(pageNumber, searchKeyword);
   };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1); // Reset to the first page for new category
+    fetchData(1, searchKeyword, category); // Fetch data for the selected category
+  };
+  
 
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
-    getDebateList(currentPage);
-  }, [currentPage]);
+    fetchData(currentPage, searchKeyword, selectedCategory);
+  }, [currentPage, searchKeyword, selectedCategory]);
+  
 
   return (
     <div id="user-wrap" className="text-center">
@@ -94,16 +104,31 @@ const UserDebateList = () => {
 
           {/* Search and Filter */}
           <div id="user-debate-select-option-list">
-            <div className="user-debate-select-option">
-              <button>전체</button>
-              <button>디자인 토크</button>
-              <button>업체 토론</button>
-            </div>
+          <div className="user-debate-select-option">
+            <button
+              className={selectedCategory === "" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("")}
+            >
+              전체 토크
+            </button>
+            <button
+              className={selectedCategory === "디자인 토크" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("design")}
+            >
+              디자인 토크
+            </button>
+            <button
+              className={selectedCategory === "베이커리 토크" ? "active-category" : ""}
+              onClick={() => handleCategoryChange("vendor")}
+            >
+              베이커리 토크
+            </button>
+          </div>
             <div className="user-debate-search">
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="게시물 검색"
+                placeholder="게시물 검색 Enter를 누르세요"
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {
@@ -111,19 +136,24 @@ const UserDebateList = () => {
                 }}
                 className="search-input"
               />
-              <button className="search-button" onClick={handleSearch}>
-                검색
-              </button>
             </div>
           </div>
 
           {/* Add Button */}
           <div id="user-debate-add" className="clearfix">
-            <div className="user-debate-all-count">ALL {debateList.length}</div>
+            <div className="user-debate-all-count">ALL {totalCount}</div>
             <div className="user-debate-add-btn">
-              <button onClick={() => navigate("/debate/debateinsert")}>
-                고민 등록하기
-              </button>
+            <button
+              onClick={() => {
+                if (!token) {
+                  alert("로그인 후 사용하세요");
+                } else {
+                  navigate("/debate/debateinsert");
+                }
+              }}
+            >
+              토크 등록하기
+            </button>
             </div>
           </div>
 
@@ -141,12 +171,21 @@ const UserDebateList = () => {
             </thead>
             <tbody>
               {debateList.length > 0 ? (
-                debateList.map((debate, index) => (
-                  console.log(debate), // Debug each debate
-                  <tr key={debate.debate_id} onClick={() => handleRowClick(debate.debate_id)} className="clickable-row">
+                debateList.map((debate) => (
+                  <tr
+                    key={debate.debate_id}
+                    onClick={() => handleRowClick(debate.debate_id)}
+                    className="clickable-row"
+                  >
                     <td className="column-id">{debate.debate_id}</td>
                     <td className="column-title">{debate.debate_title}</td>
-                    <td className="column-category">{debate.debate_category}</td>
+                    <td className="column-category">
+                      {debate.debate_category === "vendor"
+                        ? "베이커리 토크"
+                        : debate.debate_category === "design"
+                        ? "케이크 토크"
+                        : debate.debate_category}
+                    </td>
                     <td className="column-author">{debate.user_nickname}</td>
                     <td className="column-date">
                       {new Date(debate.debate_created_at).toLocaleDateString()}
@@ -157,39 +196,61 @@ const UserDebateList = () => {
               ) : (
                 <tr>
                   <td colSpan="6" className="no-data">
-                    등록된 토론이 없습니다.
+                    등록된 토크이 없습니다.
                   </td>
                 </tr>
               )}
             </tbody>
-
           </table>
 
           {/* Pagination */}
           <div className="j-pagination">
-            <button
-              className="j-prev-page"
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              {"<"}
-            </button>
-            {[...Array(totalPages)].map((_, index) => (
+            {/* Previous Button */}
+            {currentPage > 1 && (
               <button
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-                className={`j-page-number ${currentPage === index + 1 ? "active" : ""}`}
+                className="j-prev-page"
+                onClick={() => handlePageChange(currentPage - 1)}
               >
-                {index + 1}
+                {"<"}
               </button>
-            ))}
-            <button
-              className="j-next-page"
-              disabled={currentPage === totalPages}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              {">"}
-            </button>
+            )}
+
+            {/* Page Numbers */}
+            {(() => {
+              const pageNumbers = [];
+              const maxPages = 5;
+              let startPage = Math.max(1, currentPage - 2);
+              let endPage = Math.min(totalPages, startPage + maxPages - 1);
+
+              if (endPage - startPage + 1 < maxPages) {
+                startPage = Math.max(1, endPage - maxPages + 1);
+              }
+
+              for (let i = startPage; i <= endPage; i++) {
+                pageNumbers.push(
+                  <button
+                    key={i}
+                    className={`j-pagination-button ${
+                      currentPage === i ? "active" : ""
+                    }`}
+                    onClick={() => handlePageChange(i)}
+                  >
+                    {i}
+                  </button>
+                );
+              }
+              return pageNumbers;
+            })()}
+
+            {/* Next Button */}
+            {currentPage < totalPages && (
+              <button
+                className="j-next-page"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                {">"}
+              </button>
+            )}
           </div>
         </div>
       </main>

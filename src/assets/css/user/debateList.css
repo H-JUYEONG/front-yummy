@@ -58,7 +58,7 @@
 }
 
 .user-debate-select-option button:hover {
-  background-color: #ff6f61;
+  background-color: #FF7292;
   color: white;
 }
 
@@ -68,14 +68,14 @@
   color: #fff;
   border: 2px solid #ddd;
   border-radius: 25px;
-  background-color: #ff6f61;
+  background-color: #FF7292;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 18px;
 }
 
 .user-debate-add-btn button:hover{
-  background-color: #fc5343;
+  background-color: #FF7292;
   color: white;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .pagination-page-active {
-  background-color: #ffb3b3;
+  background-color: #FF7292;
 }
 
 .pagination-arrow {
@@ -151,7 +151,7 @@
 
 .pagination-page-number:hover,
 .pagination-arrow:hover {
-  color: #ff6f61;
+  color: #FF7292;
 }
 
 /* Table */
@@ -271,9 +271,9 @@
 }
 
 .j-page-number.active {
-  background: #ff6f61;
+  background: #FF7292;
   color: white;
-  border-color: #ff6f61;
+  border-color: #FF7292;
 
 }
 

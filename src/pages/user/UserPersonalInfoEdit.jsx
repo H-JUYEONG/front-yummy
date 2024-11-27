@@ -294,7 +294,7 @@ setEventDate("");
                 <div className="profile-picture-preview">
                   {(() => {
                     if (ppUrl && !tempPp) {
-                      return <img src={`${process.env.REACT_APP_API_URL}/upload/${ppUrl}`} alt="Profile Preview" />;
+                      return <img src={ppUrl} alt="Profile Preview" />;
                     } else if (tempPp) {
                       return <img src={tempPp} alt="Profile Preview" />;
                     } else {
