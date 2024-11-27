@@ -161,13 +161,13 @@ const UserMyAudtion = () => {
                       >
                         상세보기
                       </a>
-                      {audition.reviewLink && (
+                      {/* {audition.reviewLink && (
                         <Link to="/user/cakedetail">
                           <button className="review-button">
                             리뷰작성하러가기
                           </button>
                         </Link>
-                      )}
+                      )} */}
                     </td>
                   </tr>
                 ))

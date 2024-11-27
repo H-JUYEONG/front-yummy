@@ -41,12 +41,12 @@ const UserOrder = () => {
 
     const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx);
     const Pagination = () => (
-        <div className="pagination">
+        <div className="user-order-pagination">
             <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(currentPage - 1)}
             >
-                이전
+                &lt;
             </button>
             {pageNumbers.map((pageNumber) => (
                 <button
@@ -61,7 +61,7 @@ const UserOrder = () => {
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(currentPage + 1)}
             >
-                다음
+                &gt;
             </button>
         </div>
     );
@@ -317,7 +317,7 @@ const UserOrder = () => {
                 {error && <div className="error-message">{error}</div>}
                 {!loading && !error && (
                     <>
-                        <table className="order-table">
+                        <table className="mypage-order-table">
 
                             <thead>
                                 <tr>
