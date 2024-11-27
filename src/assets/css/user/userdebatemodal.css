@@ -178,3 +178,69 @@
     color: white;
     border-color: #7C3AED;
 }
+
+/*소영*/
+.appeal-design-photo-jw{
+    /* background-color: #0056b3; */
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    /* border: 1px solid #000; */
+}
+.appeal-design-photo-jw img{
+    width: 450px;
+    height: 500px;
+    margin-bottom: auto;
+
+}
+
+.appeal-design-text-jw{
+    /* border: 1px solid #000; */
+    margin-top: 20px;
+}
+
+.appeal-design-text-jw ul{
+    padding-left: 10px;
+}
+
+.appeal-design-text-jw ul li:not(:first-child) {
+    padding-top: 10px;
+}
+
+.sy-modal-sub-title-jw{
+    font-size: 23px;
+    border-bottom: 2px solid #ffc8c8;
+    padding-bottom: 10px;
+}
+.sso-modal-body-content-jw{
+    width: 90%;
+    margin: 0 auto;
+    box-shadow:  0 10px 20px rgba(0, 0, 0, 0.2); /* 수평, 수직, 흐림 정도, 색상 */
+    padding: 20px;
+    background: #ffffff;
+    height: 100%;
+    overflow-y: auto;
+}
+.orderTitle{
+    /* font-size: 16px; */
+    color: #333;
+    font-weight: bolder;
+}
+
+
+.appeal-design-text-jw li:not(:last-child) {
+    list-style: none; /* 기본 점을 없애고 */
+    position: relative; /* ::before를 사용할 수 있도록 설정 */
+    padding-left: 10px; /* 점과 텍스트 간격 조정 */
+}
+
+.appeal-design-text-jw li::before {
+    content: "•"; /* 분홍색 점을 추가 */
+    position: absolute;
+    left: 0; /* 리스트 항목의 왼쪽에 점을 배치 */
+    top: 0.6; /* 텍스트와 수평 정렬 */
+    color: #f78fb3; /* 분홍색 점 */
+    font-size: 20px; /* 점의 크기 */
+}

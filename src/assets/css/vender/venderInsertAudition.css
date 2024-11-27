@@ -9,13 +9,14 @@
     border: 3px solid #ddd;
     border-radius: 10px;
     background-color: #fff; /* 내부 콘텐츠 영역의 흰색 배경 */
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
     padding: 20px;
 }
 .insert-h1-box{
     width: 100%;
     padding:10px;
-    border-bottom: 1px solid #000;
+    border-bottom: 3px solid #000;
+    margin-bottom: 20px;
 }
 .vender-insert-audition-wrap h1{
     font-size: 40px;
@@ -31,10 +32,12 @@
 .insert-h2-box{
     width: 100%;
     padding: 10px;
+    border-bottom: 1px solid #393939;
     
 }
 .insert-h2-box h2{
     font-size: 20px;
+    font-weight: bold;
 }
 .insert-search-img-box h2{
     font-size: 20px;
@@ -49,7 +52,8 @@
 .insert-recipt-box{
     display: flex;
     justify-content: space-between;
-    border-bottom:1px solid #000 ;
+   /* border-bottom:1px solid #000 ;*/
+   margin-bottom: 20px;
 
 }
 .insert-recipt-box .insert-audition-right-box{
@@ -61,8 +65,9 @@
 }
 .appeal-design-text{
     padding: 5px 10px;
-    border: 1px solid #ddd;
+   /* border: 1px solid #ddd;*/
     border-right: none;
+    color: rgb(50, 50, 50);
 }
 
 
@@ -77,10 +82,10 @@
     height: 430px;
     overflow-y: auto;  /* 높이 초과 시 수직 스크롤 생김 */
 }
-.input-photo-box{
+.insert-vender-audition-input-photo-box{
     width: 100%;
     height: 300px;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     padding: 10px 15px;
     border-left: none;
     display: flex;
@@ -89,7 +94,7 @@
     
 }
 
-.input-photo-box .input-photo-box-line{
+.insert-vender-audition-input-photo-box .input-photo-box-line{
     border: hidden;
     height: 85%;
     width: 85%;
@@ -106,7 +111,7 @@
 
 /*요청사항박스*/
 .appeal-design-text-RequestedTerm{
-    border: 2px solid #ddd;
+    border: 2px solid #ffdbdb;
     border-radius: 10px;
     height: 150px;
     padding: 5px;
@@ -145,8 +150,19 @@
 .choose-flex-box{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
     
 }
+
+.choose-flex-box .insert-price-audition{
+    border-radius: 10px;
+    text-align: center;
+}
+
+.insert-price-won{
+    font-size: 20px;
+}
+
 .choose-flex-box button{
     padding: 5px 20px;
     border-radius: 10px;
@@ -164,16 +180,22 @@
 
     padding-top: 15px;
 }
-.insert-btn{
-    width: 800px;
+.audition-vender-insert-btn{
+    width: 300px;
     padding: 8px 15px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 30px;
     border: 1px solid #ddd;
+
     font-size: 20px;
     cursor: pointer;
-
+    background-color:black;
+    color: #fff;
     display: flex;
     justify-content: center;
     text-align: center;
+}
+
+.insert-audition-pick{
+    color: rgb(60, 64, 255);
 }

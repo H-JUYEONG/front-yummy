@@ -17,6 +17,7 @@ import VenderHeader from './include/VenderHeader';
 const VenderSupervisionList = () => {
 
     const navigate = useNavigate();
+    const [deleteCount, setDeleteCount] = useState(0);
 
     //진행중인 리스트
     const [ingAuditionList, setIngAuditionList] = useState([]);
@@ -94,6 +95,11 @@ const VenderSupervisionList = () => {
             responseType: 'json' //수신타입
         }).then(response => {
             console.log(response); //수신데이타
+            if(response.data.apiData > 0){
+                alert("신청이 취소되었습니다.")
+                setDeleteCount(deleteCount+1);
+                console.log(setDeleteCount)
+            }
         
         }).catch(error => {
             console.log(error);
@@ -106,7 +112,7 @@ const VenderSupervisionList = () => {
     //랜더링 될 때 리스트 가져오기
     useEffect(()=>{
         getAuditionList();
-    },[])
+    },[deleteCount])
 
 
 

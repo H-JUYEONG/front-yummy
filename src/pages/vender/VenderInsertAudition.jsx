@@ -1,6 +1,6 @@
 //import 라이브러리
 import React, {useEffect, useState} from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 //import 컴포넌트
@@ -18,6 +18,7 @@ import '../../assets/css/vender/venderInsertAudition.css';
 
 const VenderInsertAudition = () => {
     const {auditionId} = useParams();
+    const navigate = useNavigate();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAuditionRequestModalOpen, setIsAuditionRequestModalOpen] = useState(false); 
@@ -85,7 +86,13 @@ const VenderInsertAudition = () => {
 
     //가격받기
     const handlePrice = (e)=>{
-        setFinalPrice(e.target.value)
+
+        let inputValue = e.target.value;
+
+        // 숫자 외의 문자를 제거하고, 쉼표 추가
+        inputValue = inputValue.replace(/[^0-9]/g, ''); // 숫자만 허용
+        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        setFinalPrice(inputValue)
     }
 
     //선택된 옵션들 받기
@@ -140,6 +147,10 @@ const VenderInsertAudition = () => {
             responseType: 'json' //수신타입
         }).then(response => {
             console.log(response); //수신데이타
+            if(response.data.result == 'success'){
+                alert("신청이 완료되었습니다!")
+                navigate('/vender/supervisionList')
+            }
         
         }).catch(error => {
             console.log(error);
@@ -201,7 +212,7 @@ const VenderInsertAudition = () => {
                             <div className='insert-h2-box'>
                                 <h2>예시도안</h2>
                             </div>
-                            <div className='input-photo-box'>
+                            <div className='insert-vender-audition-input-photo-box'>
                                 <div className='input-photo-box-line'>
                                     <img className="Sso-order-img" src={userOrder.userimgURL} />
                                 </div>
@@ -213,22 +224,22 @@ const VenderInsertAudition = () => {
                         <form onSubmit={handleSubmit}>
                             <div className='insert-h2-box choose-flex-box'>
                                 <h2>상품선택</h2>
-                                <span>선택된 상품번호:{selectProductId}</span>
+                                <span className='insert-audition-pick'>선택된 상품번호:{selectProductId}</span>
                                 <button type='button' onClick={openModal}>상품선택하기</button>
                             </div>
                             <div className='insert-h2-box choose-flex-box'>
                                 <h2>옵션선택</h2>
                                 {selectedOptions.cakeType != null && (
-                                    <span>옵션이 선택되었습니다</span>
+                                    <span className='insert-audition-pick'>옵션이 선택되었습니다</span>
                                 )}
                                 <button type='button' onClick={openAuditionRequestModal}>선택하러가기</button>
                             </div>
                             <div className='insert-h2-box choose-flex-box'>
                                 <h2><label htmlFor='insert-price-txt'>신청금액</label></h2>
-                                <input id='insert-price-txt' type='text' name='' value={finalPrice} onChange={handlePrice}/>원
+                                <input className='insert-price-audition' id='insert-price-txt' type='text' name='' value={finalPrice} onChange={handlePrice}/><span className='insert-price-won'>원</span>
                             </div>
                             <div className='insert-btn-box'>
-                                <button type='submit' className='insert-btn'>신청하기</button>
+                                <button type='submit' className='audition-vender-insert-btn'>신청하기</button>
                             </div>
                         </form>
                     </div>
