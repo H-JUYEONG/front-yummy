@@ -115,3 +115,51 @@
     cursor: pointer;
 }
 
+
+/* 모바일 디바이스 스타일 */
+@media screen and (max-width: 768px) {
+    /* 전체 컨테이너 */
+    .vender-container {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    /* 사이드바 */
+    .vender-sidebar {
+        width: 250px;
+        height: 100%; /* 높이를 100%로 */
+        position: fixed; /* 모바일에서는 고정 */
+        left: -300px; /* 초기 위치: 화면 밖 */
+        top: 0;
+        transition: left 0.3s ease-in-out; /* 슬라이드 효과 */
+        z-index: 1000; /* 콘텐츠 위로 */
+    }
+
+    .vender-sidebar.open {
+        left: 0; /* 사이드바가 열리면 화면 안으로 이동 */
+    }
+
+    /* 메인 콘텐츠 */
+    .vender-content {
+        margin-left: 0; /* 모바일에서는 마진 제거 */
+    }
+
+    /* 햄버거 메뉴 버튼 */
+    .hamburger-menu {
+        display: block; /* 모바일에서만 보이도록 */
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1001; /* 사이드바보다 위 */
+        cursor: pointer;
+    }
+
+    .hamburger-menu:hover {
+        background-color: #555;
+    }
+}

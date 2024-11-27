@@ -21,3 +21,8 @@
     animation: moveUpAndDown 4s ease-in-out infinite alternate;
 }
 
+@media (max-width: 1650px) {
+    .cat-container {
+        display: none; /* 1200px 이하에서는 숨김 */
+    }
+}

@@ -17,7 +17,7 @@ const PurchasedProductsDetail = () => {
     const [videoUrl, setVideoUrl] = useState(null);
     const mediaRecorderRef = useRef(null);
     const chunks = useRef([]);
-    const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+    const [isSidebarOpen, setSidebarOpen] = useState(false); // 사이드바 열림/닫힘 상태 관리
     const [isRecording, setIsRecording] = useState(false);
     const [notificationTimeout, setNotificationTimeout] = useState(null);
     const [loading, setLoading] = useState(true); // 로딩 상태 추가
@@ -27,6 +27,8 @@ const PurchasedProductsDetail = () => {
     // 사진 촬영 모달 열기/닫기 함수
     const openWebcamModal = () => setIsWebcamModalOpen(true);
     const closeWebcamModal = () => setIsWebcamModalOpen(false);
+
+
 
     // 영상 촬영 모달 열기/닫기 함수
     const openVideoModal = () => { setIsVideoModalOpen(true); };
@@ -340,12 +342,17 @@ const PurchasedProductsDetail = () => {
         productImageUrl,
         cakeDesignImageUrl,
     } = orderDetails;
-
+    const toggleSidebar = () => {
+        setSidebarOpen(!isSidebarOpen);
+    };
     return (
         <div className="vender-container">
             <div class="vender-content-wrapper">
                 <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
-                <VenderSidebar />
+                <button className="hamburger-menu" onClick={toggleSidebar}>
+                    ☰
+                </button>
+                <VenderSidebar className={`vender-sidebar ${isSidebarOpen ? 'open' : ''}`} />
                 <div className="vender-content">
                     <main className="product-list-main-content">
                         <section className="purchasedproductsDetail-info">

@@ -47,7 +47,7 @@ const UserMainForm = () => {
         <div className="banner">
             <h1>세상에 하나뿐인 케이크</h1>
             <p>당신만의 특별한 순간을 케이크로 만들어 드립니다</p>
-            <button className="create-cake-btn" onClick={() => navigate('/user/audition')}>Let's GO</button>
+            <button className="create-cake-btn" onClick={() => navigate('user/audition/board')}>Let's GO</button>
         </div>
     );
 
