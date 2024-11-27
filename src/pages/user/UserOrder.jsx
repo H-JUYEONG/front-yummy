@@ -265,7 +265,7 @@ const UserOrder = () => {
 
     const OrderList = () => (
         <div className="main-content">
-            <h2>주문조회</h2>
+            <h2 className="user-write-main-title">주문조회</h2>
 
 
             <section className="status-overview">
