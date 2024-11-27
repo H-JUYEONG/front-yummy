@@ -12,9 +12,9 @@ const UserPoint = () => {
     const [pointHistory, setPointHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+
     const navigate = useNavigate();
-    
+
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
@@ -22,13 +22,13 @@ const UserPoint = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        
+
         if (!authUser || !authUser.member_id) {
             alert('로그인이 필요한 서비스입니다.');
             navigate('/user/login');
             return;
         }
-        
+
         fetchTotalPoints();
         fetchPointHistory();
     }, []);
@@ -40,9 +40,9 @@ const UserPoint = () => {
             const response = await axios.get(
                 `${process.env.REACT_APP_API_URL}/api/user/points/total/${authUser.member_id}`
             );
-            
+
             console.log("Total points response:", response.data);
-            if(response.data.result === "success") {
+            if (response.data.result === "success") {
                 setTotalPoints(response.data.apiData || 0);
             }
         } catch (error) {
@@ -59,13 +59,13 @@ const UserPoint = () => {
                 `${process.env.REACT_APP_API_URL}/api/user/points/history`,
                 {
                     params: {
-                        userId: authUser.member_id
+                        userId: authUser.member_id // 멤버 ID 전달
                     }
                 }
             );
-            
+
             console.log("Point history response:", response.data);
-            if(response.data.result === "success") {
+            if (response.data.result === "success") {
                 setPointHistory(response.data.apiData || []);
             }
         } catch (error) {
@@ -76,15 +76,16 @@ const UserPoint = () => {
         }
     };
 
+
     return (
         <div id="user-wrap">
             <header id="user-wrap-head">
-                <Header/>
+                <Header />
             </header>
 
             <main id="user-wrap-body">
                 <UserSidebar />
-                
+
                 <div className="user-main-content">
                     <h2>포인트 내역</h2>
 
@@ -123,7 +124,7 @@ const UserPoint = () => {
                                         <tr key={index}>
                                             <td>{item.date}</td>
                                             <td>{item.reason}</td>
-                                            <td>{item.designTitle}</td>
+                                            <td>{item.designTitle || '사용하지 않음'}</td>
                                             <td className="point-amount">
                                                 +{item.pointAmount?.toLocaleString()}P
                                             </td>
@@ -135,13 +136,14 @@ const UserPoint = () => {
                                     </tr>
                                 )}
                             </tbody>
+
                         </table>
                     </section>
                 </div>
             </main>
 
             <footer id="user-wrap-footer">
-                <Footer/>
+                <Footer />
             </footer>
         </div>
     );

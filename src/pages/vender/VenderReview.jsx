@@ -19,13 +19,13 @@ const ReviewList = () => {
     });
     const [loading, setLoading] = useState(true);
     const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
+
     // 필터링된 리뷰
     const filteredReviews = reviews.filter((review) => {
-        if (filter === "replied") return !!review.reply_status;
-        if (filter === "notReplied") return !review.reply_status;
+        if (filter === "replied") return review.reply_status === 'replied';
+        if (filter === "notReplied") return review.reply_status === 'notReplied';
         return true; // "all"
     });
-
     // 페이지 데이터 슬라이싱
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
@@ -105,7 +105,7 @@ const ReviewList = () => {
                             </thead>
                             <tbody>
                                 {currentReviews.map((review) => {
-                                    
+
                                     const hasReviewed = !!review.reply_status; // 답글 여부
                                     return (
                                         <tr key={review.review_id}>
@@ -119,12 +119,12 @@ const ReviewList = () => {
                                             <td>{review.review_content}</td>
                                             <td>{review.review_rating}</td>
                                             <td>
-                                                <span className={`status ${hasReviewed ? 'has-review' : 'no-review'}`}>
-                                                    {hasReviewed ? "답글 있음" : "답글 없음"}
+                                                <span className={`status ${review.reply_status === 'replied' ? 'has-review' : 'no-review'}`}>
+                                                    {review.reply_status === 'replied' ? "답글 있음" : "답글 없음"}
                                                 </span>
                                             </td>
                                             <td>
-                                                {hasReviewed ? (
+                                                {review.reply_status === 'replied' ?(
                                                     <Link
                                                         to={`/user/cakedetail/${review.product_id}/${review.vender_id}`}
                                                         className="action-btn"

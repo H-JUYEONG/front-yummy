@@ -788,6 +788,8 @@ const UserCakeDetail = () => {
             alert('리뷰 등록 중 오류가 발생했습니다.');
         }
     };
+
+    
     const handleReportReview = (reviewId) => {
         const confirmed = window.confirm('이 리뷰를 신고하시겠습니까?');
         if (confirmed) {

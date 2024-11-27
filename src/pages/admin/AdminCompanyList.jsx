@@ -9,17 +9,17 @@ const AdminCompanyList = () => {
     const [currentPage, setCurrentPage] = useState(1); // currentPage 상태 추가
     const itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수 정의
     const seoulDistricts = ["강남구", "종로구", "중구", "용산구", "성동구", "광진구", "동대문구", "중랑구", "성북구", "강북구", "도봉구", "노원구", "은평구", "서대문구", "마포구", "양천구", "강서구", "구로구", "금천구", "영등포구", "동작구", "관악구", "서초구", "강남구", "송파구", "강동구"];
-    
+    const [mapMessage, setMapMessage] = useState("주소를 클릭하세요");
     //지도
     const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/api/admin/venders`)
             .then(response => {
                 setCompanies(response.data);
-                console.log("~~~~~`"+response.data[0])
+                console.log("~~~~~`" + response.data[0])
             })
             .catch(error => {
                 alert("데이터를 불러오는 중 문제가 발생했습니다.");
@@ -28,9 +28,13 @@ const AdminCompanyList = () => {
     }, []);
 
     //업체 지도
-    const handleMap = (company)=>{
+    const handleMap = (company) => {
         setLatitude(company.latitude)
         setLongitude(company.longitude)
+
+        // 메시지 숨김 처리
+        setMapMessage("");
+
         if (longitude, latitude) {
             const script = document.createElement("script");
             script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`; // 여기에 발급받은 카카오 API 키 입력
@@ -84,7 +88,7 @@ const AdminCompanyList = () => {
     const goToPage = (page) => {
         setCurrentPage(page);
     };
-    
+
 
 
 
@@ -94,7 +98,7 @@ const AdminCompanyList = () => {
 
             <div className="filter-section">
                 <div className="map-placeholder" id="map">
-                    {/* 지도 이미지가 들어갈 자리 */}
+                    {mapMessage && <p className="map-message">{mapMessage}</p>}
                 </div>
                 <div className="region-filter">
                     <div className="region-buttons">
@@ -160,10 +164,10 @@ const AdminCompanyList = () => {
                 </thead>
                 <tbody>
                     {currentCompanies.map((company, index) => (
-                        <tr key={index} onClick={()=>{handleMap(company)}}>
+                        <tr key={index} onClick={() => { handleMap(company) }}>
                             <td>{company.venderId}</td>
                             <td>{company.venderName}</td>
-                            <td>{company.venderAddress}</td>
+                            <td className="clickable-address">{company.venderAddress}</td>
                             <td>{company.venderNumber}</td>
                             <td>{company.representativeName}</td>
                             <td>{company.email}</td>
