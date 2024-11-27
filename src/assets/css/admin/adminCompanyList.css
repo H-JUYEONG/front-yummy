@@ -34,7 +34,10 @@
     color: #666;
     font-size: 14px;
 }
-
+.admin-companylist-content .map-message {
+    font-size: 24px;
+    color: #666;
+}
 /* 지역 필터 */
 .admin-companylist-content .region-filter {
     flex: 2;
@@ -108,7 +111,7 @@
 }
 
 /* 업체 테이블 */
-.company-table {
+.admin-companylist-content .company-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -118,19 +121,19 @@
     overflow: hidden;
 }
 
-.company-table th, .company-table td {
+.admin-companylist-content .company-table th,.admin-companylist-content .company-table td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #e5e7eb;
 }
 
-.company-table th {
+.admin-companylist-content .company-table th {
     background-color: #f1f5f9;
     font-weight: 600;
     color: #333;
 }
 
-.company-table tr:hover {
+.admin-companylist-content .company-table tr:hover {
     background-color: #f9fafb;
 }
 
@@ -160,4 +163,9 @@
 
 .admin-companylist-content .pagination-button:hover {
     background-color: #e5e5ea;
+}
+
+
+.admin-companylist-content .clickable-address:hover {
+    cursor: pointer;
 }

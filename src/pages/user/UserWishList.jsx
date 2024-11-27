@@ -86,13 +86,13 @@ const UserWishList = () => {
             <main id="user-wrap-body">
                 <UserSidebar />
                 <section id="user-wrap-main">
-                    <h2>찜한 상품</h2>
+                    <h2 className="user-write-main-title">찜한 상품</h2>
                     <div className="wishlist-container">
                         {/* 검색 바 */}
                         <div className="search-bar">
                             <input
                                 type="text"
-                                placeholder="찜한 상품 검색"
+                                placeholder="검색어를 입력해주세요."
                                 value={searchKeyword}
                                 onChange={(e) => setSearchKeyword(e.target.value)}
                                 onKeyDown={(e) => {
