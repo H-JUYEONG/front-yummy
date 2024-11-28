@@ -2,51 +2,48 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function UserNaverLogin() {
+function UserGoogleLogin() {
   const navigate = useNavigate();
   const PARAMS = new URL(document.location).searchParams;
-  const NAVER_CODE = PARAMS.get("code");
-  const NAVER_STATE = PARAMS.get("state");
+  const GOOGLE_CODE = PARAMS.get("code");
 
-  console.log("NAVER_CODE:", NAVER_CODE);
-  console.log("NAVER_STATE:", NAVER_STATE);
+  console.log("GOOGLE_CODE:", GOOGLE_CODE);
 
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (NAVER_CODE) {
-      handleLogin(NAVER_CODE, NAVER_STATE);
+    if (GOOGLE_CODE) {
+      handleLogin(GOOGLE_CODE);
     }
-  }, [NAVER_CODE]);
+  }, [GOOGLE_CODE]);
 
-  const handleLogin = async (code, state) => {
+  const handleLogin = async (code) => {
     try {
-      // 네이버 액세스 토큰 받아오기
+      // 구글 액세스 토큰 받아오기
       const response = await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}/api/auth/naver`,
+        url: `${process.env.REACT_APP_API_URL}/api/auth/google`,
         headers: { "Content-Type": "application/json; charset=utf-8" },
-        params: { authorizeCode: code, state: state },
+        params: { authorizeCode: code },
         responseType: "json",
       });
 
-      console.log("네이버 액세스토큰");
       console.log(response);
       console.log(response.data);
       console.log(response.data.apiData);
 
       const accessToken = response.data.apiData;
 
-      // 네이버 유저 정보 가져오기
+      // 구글 유저 정보 가져오기
       const userResponse = await axios({
         method: "get",
-        url: `${process.env.REACT_APP_API_URL}/api/users/naver/profile`,
+        url: `${process.env.REACT_APP_API_URL}/api/users/google/profile`,
         headers: {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
         },
-        params: { provider: "네이버" },
+        params: { provider: "구글" },
         responseType: "json",
       });
 
@@ -78,7 +75,7 @@ function UserNaverLogin() {
         );
         if (proceed) {
           navigate("/user/social/signup", {
-            state: { ...userInfo, provider: "네이버" },
+            state: { ...userInfo, provider: "구글" },
           });
         } else {
           alert("회원가입이 취소되었습니다.");
@@ -86,8 +83,8 @@ function UserNaverLogin() {
         }
       }
     } catch (error) {
-      console.error("네이버 로그인 오류:", error);
-      alert("네이버 로그인에 실패했습니다.");
+      console.error("구글 로그인 오류:", error);
+      alert("구글 로그인에 실패했습니다.");
       setLoading(false);
     }
   };
@@ -95,7 +92,7 @@ function UserNaverLogin() {
   if (loading) {
     return (
       <div>
-        <p>네이버 로그인 처리 중...</p>
+        <p>구글 로그인 처리 중...</p>
       </div>
     );
   }
@@ -114,4 +111,4 @@ function UserNaverLogin() {
   return null; // 처리 후 리다이렉트되므로 화면 표시 없음
 }
 
-export default UserNaverLogin;
+export default UserGoogleLogin;

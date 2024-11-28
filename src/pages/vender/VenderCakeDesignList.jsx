@@ -10,7 +10,7 @@ import VenderHeader from "./include/VenderHeader";
 
 const VenderCakeDesignList = () => {
   const navigate = useNavigate();
-  const itemsPerPage = 5; // 한 페이지에 표시할 아이템 수
+  const itemsPerPage = 8; // 한 페이지에 표시할 아이템 수
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [venderCakeDesignList, setVenderCakeDesignList] = useState([]);

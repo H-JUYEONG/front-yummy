@@ -36,6 +36,7 @@ import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/UserLoginForm';
 import UserKakaoLogin from './pages/user/UserKakaoLogin'; // 화면 아님
 import UserNaverLogin from './pages/user/UserNaverLogin'; // 화면 아님
+import UserGoogleLogin from './pages/user/UserGoogleLogin'; // 화면 아님
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
@@ -136,6 +137,7 @@ function App() {
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/auth/login/kakao' element={<UserKakaoLogin />} />
           <Route path='/auth/login/naver' element={<UserNaverLogin />} />
+          <Route path='/auth/login/google' element={<UserGoogleLogin />} />
           <Route path='/user/signup/type' element={<UserSignupType />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
