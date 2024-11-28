@@ -79,6 +79,7 @@ function UserKakaoLogin() {
           });
         } else {
           alert("회원가입이 취소되었습니다.");
+          navigate("/user/login");
         }
       }
     } catch (error) {
