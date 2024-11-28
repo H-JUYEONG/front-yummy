@@ -103,6 +103,7 @@ const UserLoginForm = () => {
             member_id: response.data.apiData.member_id,
             user_id: response.data.apiData.user_id,
             vender_id: response.data.apiData.vender_id,
+            type: response.data.apiData.type,
           })
         );
 
