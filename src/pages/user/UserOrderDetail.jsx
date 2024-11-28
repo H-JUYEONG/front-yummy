@@ -7,6 +7,7 @@ import '../../assets/css/user/usermain.css';
 import '../../assets/css/user/userorderdetail.css';
 import Header from './include/Header';
 import Footer from './include/Footer';
+import { FaCircle } from "react-icons/fa";
 
 const UserOrderDetail = () => {
     const { orderId } = useParams();
@@ -68,13 +69,13 @@ const UserOrderDetail = () => {
                 <UserSidebar />
 
                 <section id="user-wrap-main">
-                    <div className="order-detail-container">
-                        <h2 className="order-title">주문 상세</h2>
+                    <div className="order-detail-container2">
+                        <h2 className="user-write-main-title">주문 상세</h2>
 
                         {/* 주문 기본 정보 */}
                         <div className="order-basic-info">
-                            <div className="order-date">{orderDetail.orderDate}</div>
-                            <div className="order-number">주문번호: {orderDetail.orderId}</div>
+                            <span className="order-date">{orderDetail.orderDate} 주문</span>
+                            <span className="order-number"><span class="dot">·</span>  주문번호 {orderDetail.orderId}</span>
                         </div>
 
                         {/* 주문 상품 정보 */}
@@ -179,7 +180,7 @@ const UserOrderDetail = () => {
 
                                 {/* 주문상태 */}
                                 <div className="product-status">
-                                    <span className="status-label">주문상태</span>
+                                    <span className="status-label">주문상태: </span>
                                     <span className="status-value">{orderDetail.orderStatus}</span>
                                 </div>
                             </div>
@@ -233,7 +234,7 @@ const UserOrderDetail = () => {
                                 </p>
                                 <div className="price-summary">
                                     <p>
-                                        <span>총 상품가격</span>
+                                        <span className="price">총 상품가격</span>
                                         <span className="price">
                                             {orderDetail.totalPrice?.toLocaleString()}원
                                         </span>
