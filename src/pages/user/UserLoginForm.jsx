@@ -19,7 +19,7 @@ const UserLoginForm = () => {
   const NAVER_REST_API_KEY = process.env.REACT_APP_NAVER_REST_API_KEY;
   const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
   const STATE = Math.random().toString(36).substr(2) + Date.now().toString(36);
-  
+
   // 구글 앱 정보 넣어두기
   const GOOGLE_REST_API_KEY = process.env.REACT_APP_GOOGLE_REST_API_KEY;
   const GOOGLE_REDIRECT_URI = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
@@ -28,7 +28,7 @@ const UserLoginForm = () => {
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_REST_API_KEY}&state=${STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
   const googleURL = `https://accounts.google.com/o/oauth2/auth?client_id=${GOOGLE_REST_API_KEY}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid email profile`;
-  
+
   // 카카오 동의 항목
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
@@ -39,8 +39,8 @@ const UserLoginForm = () => {
     window.location.href = naverURL;
   };
 
-   // 구글 동의 항목
-   const handleGoogleLogin = () => {
+  // 구글 동의 항목
+  const handleGoogleLogin = () => {
     window.location.href = googleURL;
   };
 
@@ -228,14 +228,16 @@ const UserLoginForm = () => {
           </div>
           <div id="naverIdLogin">
             <button onClick={handleNaverLogin}>
-            <img src="/images/btnG_아이콘사각.png" alt="N" />
-            <span>네이버 로그인</span>
+              <img src="/images/btnG_아이콘사각.png" alt="N" />
+              <span>네이버 로그인</span>
             </button>
           </div>
           <div id="googleIdLogin">
-            <button onClick={handleGoogleLogin}>구글 로그인</button>
+            <button onClick={handleGoogleLogin}>
+              <img src="/images/google-logo.png" alt="G" />
+              <span>Google 계정으로 로그인</span>
+            </button>
           </div>
-          
         </div>
         {/* //로그인 종류 리스트 */}
       </div>
