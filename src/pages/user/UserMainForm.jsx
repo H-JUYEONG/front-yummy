@@ -34,12 +34,15 @@ const UserMainForm = () => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/allList`);
-                setProductList(response.data);
-                console.log(response)
+                // 응답이 배열인지 확인
+                const data = Array.isArray(response.data) ? response.data : [];
+                setProductList(data); // 배열만 상태로 설정
             } catch (error) {
                 console.error("Error fetching products:", error);
+                setProductList([]); // 에러 발생 시 빈 배열로 초기화
             }
         };
+    
 
         fetchProducts();
     }, []);
