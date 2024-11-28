@@ -86,7 +86,15 @@ const UserLoginForm = () => {
         // 로컬스토리지에 authUser 저장
         /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
         JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
-        localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
+        // localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
+        localStorage.setItem(
+          "authUser",
+          JSON.stringify({
+            member_id: response.data.apiData.member_id,
+            user_id: response.data.apiData.user_id,
+            vender_id: response.data.apiData.vender_id,
+          })
+        );
 
         if (response.data.apiData !== null) {
           if (isRemembered) {

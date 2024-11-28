@@ -55,7 +55,15 @@ function UserKakaoLogin() {
         if (authUser) {
           const token = userResponse.headers["authorization"].split(" ")[1];
           localStorage.setItem("token", token);
-          localStorage.setItem("authUser", JSON.stringify(authUser));
+          // localStorage.setItem("authUser", JSON.stringify(authUser));
+          localStorage.setItem(
+            "authUser",
+            JSON.stringify({
+              member_id: authUser.member_id,
+              user_id: authUser.user_id,
+              user_provider: authUser.user_provider,
+            })
+          );
           navigate("/");
         } else {
           alert("이미 가입된 이메일입니다. 가입한 소셜 계정으로 로그인하세요.");
