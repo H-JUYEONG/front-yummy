@@ -31,7 +31,7 @@ function UserNaverLogin() {
         responseType: "json",
       });
 
-      console.log('네이버 액세스토큰');
+      console.log("네이버 액세스토큰");
       console.log(response);
       console.log(response.data);
       console.log(response.data.apiData);
@@ -46,7 +46,7 @@ function UserNaverLogin() {
           "Content-Type": "application/json; charset=utf-8",
           Authorization: `Bearer ${accessToken}`,
         },
-        params: {provider: "네이버"},
+        params: { provider: "네이버" },
         responseType: "json",
       });
 
@@ -54,46 +54,27 @@ function UserNaverLogin() {
       // 서버에서 받은 응답 데이터
       const { userInfo, message, authUser } = userResponse.data.apiData;
 
-      // userCheck 응답 확인
       if (message === "이미 가입된 이메일") {
-        // 헤더에서 토큰 꺼내기
-        const token = userResponse.headers["authorization"].split(" ")[1];
-        console.log(token);
-
-        // 로컬스토리지에 토큰 저장
-        localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
-
-        // 로컬스토리지에 authUser 저장
-        /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
-        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
-        localStorage.setItem("authUser", JSON.stringify(authUser));
-        navigate("/"); // 홈으로 이동
+        if (authUser) {
+          const token = userResponse.headers["authorization"].split(" ")[1];
+          localStorage.setItem("token", token);
+          localStorage.setItem("authUser", JSON.stringify(authUser));
+          navigate("/");
+        } else {
+          alert("이미 가입된 이메일입니다. 가입한 소셜 계정으로 로그인하세요.");
+          navigate("/user/login");
+        }
       } else if (message === "신규 회원") {
         const proceed = window.confirm(
           "처음 방문하시는 회원입니다. 회원가입 하시겠습니까?"
         );
         if (proceed) {
-          // 확인을 누른 경우
-          const userInfoWithProvider = {
-            ...userInfo, // 기존 사용자 정보
-            provider: "네이버", // '카카오' 정보 추가
-          };
-          setTimeout(() => {
-            navigate("/user/social/signup", { state: userInfoWithProvider }); // 상태로 사용자 정보 전달
-          }, 100); // 100ms 지연
+          navigate("/user/social/signup", {
+            state: { ...userInfo, provider: "네이버" },
+          });
         } else {
-          // 취소를 누른 경우
           alert("회원가입이 취소되었습니다.");
         }
-      } else {
-        throw new Error("알 수 없는 상태입니다.");
-      }
-
-      if (userInfo !== null) {
-        navigate("/");
-      } else {
-        console.error(userResponse.data.message);
-        alert(userResponse.data.message || "로그인에 실패했습니다.");
       }
     } catch (error) {
       console.error("네이버 로그인 오류:", error);
@@ -114,7 +95,9 @@ function UserNaverLogin() {
     return (
       <div>
         <p>{errorMessage}</p>
-        <button onClick={() => navigate("/user/login")}>로그인 페이지로 이동</button>
+        <button onClick={() => navigate("/user/login")}>
+          로그인 페이지로 이동
+        </button>
       </div>
     );
   }
