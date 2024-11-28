@@ -8,7 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
-    'Product Type': { title: '상품 타입', stateKey: 'selectedType' },
+    
     'Cake Size': { title: '사이즈', stateKey: 'selectedSize' },
     'Flavor - Sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
     'Flavor - Cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
@@ -17,7 +17,7 @@ const OPTION_TYPES = {
     'Cream Color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
     'Decoration Type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
     'Decoration Color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
-    'Category': { title: '카테고리', stateKey: 'selectedCategory' }
+
 };
 
 const UserCakeDetail = () => {
@@ -493,43 +493,41 @@ const UserCakeDetail = () => {
     // 옵션 렌더링 컴포넌트
     const renderOptionGroup = (optionType, options) => {
         if (!options || options.length === 0) return null;
-
+    
         const { title, stateKey } = OPTION_TYPES[optionType];
-        const isColorOption = optionType.includes('Color');
         const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
-
+    
         const optionContent = (
-            <div className={isColorOption ? "color-options" : "option-grid"}>
+            <div className="option-grid">
                 {options.map((option) => (
                     <button
                         key={option.optionValueId}
-                        className={`${isColorOption ? 'color-option' : 'option-item'} 
-                            ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
+                        className={`option-item ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
                         onClick={() => handleOptionSelect(optionType, option.optionValueId)}
                         aria-label={`${option.optionValueName} 선택`}
                         title={option.optionValueName}
                     >
-                        {!isColorOption && (
-                            <>
-                                {option.optionValueImageUrl && (
-                                    <div className="option-image">
-                                        <img src={option.optionValueImageUrl} alt={option.optionValueName} />
-                                    </div>
-                                )}
-                                <span>{option.optionValueName}</span>
-                            </>
-                        )}
+                        {option.optionValueImageUrl ? (
+                            <div className="option-image">
+                                <img
+                                    src={option.optionValueImageUrl}
+                                    alt={option.optionValueName}
+                                    title={option.optionValueName}
+                                />
+                            </div>
+                        ) : null}
+                        <span className="option-name">{option.optionValueName}</span>
                     </button>
                 ))}
             </div>
         );
-
+    
         return (
             <div className="option-group" key={optionType}>
                 <h3>{title}</h3>
                 {isScrollable ? (
                     <div
-                        ref={isColorOption ? null : containerRef}
+                        ref={containerRef}
                         className="option-scroll-container"
                         onMouseDown={(e) => handleMouseDown(e, containerRef)}
                         onMouseMove={(e) => handleMouseMove(e, containerRef)}
@@ -538,10 +536,14 @@ const UserCakeDetail = () => {
                     >
                         {optionContent}
                     </div>
-                ) : optionContent}
+                ) : (
+                    optionContent
+                )}
             </div>
         );
-    };// 탭 관련
+    };
+    
+    // 탭 관련
     const tabs = ['상품상세', '후기'];
 
     const renderTabContent = () => (

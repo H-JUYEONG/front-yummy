@@ -171,13 +171,13 @@ const UserDebateList = () => {
             </thead>
             <tbody>
               {debateList.length > 0 ? (
-                debateList.map((debate) => (
+                debateList.map((debate, index) => (
                   <tr
                     key={debate.debate_id}
                     onClick={() => handleRowClick(debate.debate_id)}
                     className="clickable-row"
                   >
-                    <td className="column-id">{debate.debate_id}</td>
+                    <td className="column-id">{index + 1}</td>
                     <td className="column-title">{debate.debate_title}</td>
                     <td className="column-category">
                       {debate.debate_category === "vendor"

@@ -71,7 +71,7 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                 <Link to={`/user/storedetail/${venderId}`}>
                     <img className="profile-img" src={logo} alt="프로필 이미지" />
                 </Link>
-                <h3>CakeLines</h3>
+                <h3></h3>
                 <p>
                     <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleMenu}>
                         <FaClipboardList /> 업체사이트 관리
