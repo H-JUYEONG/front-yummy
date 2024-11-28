@@ -31,6 +31,9 @@ const UserStoreDetail = () => {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
 
+    //업체 상세설명 줄 바꿈 부분
+    const [longContnet, setLongContent] = useState('');
+
     const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
 
     // useEffect(()=>{
@@ -54,11 +57,11 @@ const UserStoreDetail = () => {
             console.log("venderId no")
         }
 
-        console.log('로케잇션은222???' + latitude)
-        console.log('로케잇션은222???' + longitude)
+        //console.log('로케잇션은222???' + latitude)
+        //console.log('로케잇션은222???' + longitude)
 
 
-        console.log('authUser값확인', authUser)
+        //console.log('authUser값확인', authUser)
 
         console.log('venderId알려줘요', venderId)
 
@@ -87,6 +90,20 @@ const UserStoreDetail = () => {
 
             console.log('**' + latitude);
             console.log('**' + longitude)
+            console.log("줄바꿈 테스트",response.data.apiData);
+
+            const venderDescription = response.data.apiData.venderDescription;
+
+            // |n을 \n으로 변환한 후, \n을 <br />로 바꾸기
+            const formattedDescription = venderDescription.replace(/\|n/g, '\n');
+
+            const contentWithBreaks = formattedDescription.split('\n').map((line, index) => (
+                <span key={index}>
+                    {line}
+                    <br />
+                </span>
+            ));
+            setLongContent(contentWithBreaks);
 
 
         }).catch(error => {
@@ -98,8 +115,8 @@ const UserStoreDetail = () => {
     //위도, 경도로 지도 표시
     // 카카오맵 API 로드 및 지도 표시
     useEffect(() => {
-        console.log('로케잇션은???' + longitude)
-        console.log('로케잇션은???' + latitude)
+        //console.log('로케잇션은???' + longitude)
+        //console.log('로케잇션은???' + latitude)
         console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
 
 
@@ -225,7 +242,7 @@ const UserStoreDetail = () => {
                                     </button>
                                 </div>
                                 <div className="sd-info-content">
-                                    {detailVo.venderDescription}
+                                    {longContnet}
                                     {/*<p>🎂케이크는 맛있게</p>
                                     <p>📍송파롤링스톤즈 - 송파평생학습원2층</p>
                                     <p>⭐케이크 주문제작 전문, 비건케이크까지🌱</p>
