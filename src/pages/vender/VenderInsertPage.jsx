@@ -427,7 +427,7 @@ const VenderInsertPage = () => {
                         
                         <form onSubmit={handleSubmit}>
                             <div id="createPage-wrap">
-                                <h1 className='sy-create-title'>나만의 사이트를 꾸며보세요!</h1>
+                                <h1 className='sy-create-title'>🧁🍰 나만의 사이트를 꾸며보세요! 🍰🧁</h1>
                                 <ul id="createPage-nav">
                                         <li>
                                             <button style={{ background: 'none', border: 'none' }} onClick={openPreviewInNewWindow}>
@@ -449,7 +449,7 @@ const VenderInsertPage = () => {
 
                                 <div className="create-sy-section sy-img-margin-box">
                                     <div className='banner-flex'>
-                                        <label htmlFor='bannerUpload'><h3>프로필이미지 추가</h3></label>
+                                        <label htmlFor='bannerUpload'><h3>📸 프로필이미지 추가</h3></label>
                                         <input 
                                             type="file" 
                                             accept="image/*" 
@@ -466,7 +466,7 @@ const VenderInsertPage = () => {
                                 <div className="create-sy-section sy-img-margin-box">
                                 
                                     <div className='banner-flex'>
-                                        <label htmlFor='mainbannerUpload'><h3>베너이미지 추가</h3></label>
+                                        <label htmlFor='mainbannerUpload'><h3>📸 베너이미지 추가</h3></label>
                                         <input 
                                             type="file" 
                                             accept="image/*" 
@@ -487,7 +487,7 @@ const VenderInsertPage = () => {
                                 
                                 <div className="create-sy-section">
                                     <h3><label htmlFor='shop-area' onClick={openPostcode} >업체위치 [주소검색]</label></h3>
-                                    <input className='long-input-txt' id='shop-area'  type="text" placeholder="" name='' onChange={handleAddress} value={shopAddress}  />
+                                    <input className='long-input-txt' id='shop-area'  type="text" placeholder="[주소검색] 버튼을 눌러주세요!" name='' onChange={handleAddress} value={shopAddress} readOnly />
                                 </div>
                                 
                                 
@@ -495,7 +495,7 @@ const VenderInsertPage = () => {
 
                                 <div className="create-sy-section">
                                     <h3><label htmlFor='shop-kakao'>카카오톡 채널 URL</label></h3>
-                                    <input className='long-input-txt' id='shop-kakao' type="text" placeholder="추가할 카카오톡 채널 URL을 입력해주세요" name='' value={kakaoURL} onChange={handelKakaoURL}/>
+                                    <input className='long-input-txt' id='shop-kakao' type="text" placeholder="카카오톡 채널 URL을 입력해주세요" name='' value={kakaoURL} onChange={handelKakaoURL}/>
                                 </div>
                                 <div className="create-sy-section">
                                     <h3 htmlFor='shop-txt'>업체상세 설명</h3>

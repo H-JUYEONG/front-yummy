@@ -189,7 +189,7 @@ const VenderInsertAudition = () => {
                             <div className='insert-h2-box'>
                                 <h2>주문정보</h2>
                             </div>
-                            <div className='appeal-design-text insert-audition-order'>
+                            <div className='appeal-design-text-sy insert-audition-order'>
                                 <ul>
                                     <li><span className='orderTitle'>주문번호:</span> {userOrder.auditionId} </li>
                                     <li><span className='orderTitle'>제목:</span> {userOrder.auditionTitle}</li>
@@ -201,7 +201,7 @@ const VenderInsertAudition = () => {
                                     <li><span className='orderTitle'>판레터링 문구 :</span> {userOrder.plateLettering}</li>
                                     <li><span className='orderTitle'>요청사항</span></li>
                                     <li>
-                                        <div className='appeal-design-text-RequestedTerm'>
+                                        <div className='appeal-design-text-RequestedTerm-vender'>
                                             {userOrder.additionalRequests}
                                         </div>
                                     </li>

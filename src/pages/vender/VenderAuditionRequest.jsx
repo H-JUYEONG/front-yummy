@@ -118,11 +118,16 @@ const VerticalCakeOrder = ({ onClose, productId, venderId, onOptionSelect}) => {
 
     return (
         <div id="option-madal-wrap">
-        
+            
             <div className="vertical-cake-order">
                 {/* 제품명과 가격 입력 영역 */}
+                
                 <div className="product-info-input">
+                    <button className="vender-sso-modal-close-button" onClick={onClose}>
+                        X
+                    </button>
                     <h2 className="product-title">{cake.cakeName}</h2>
+
                 </div>
 
                 {/* 메인 이미지 및 썸네일 */}

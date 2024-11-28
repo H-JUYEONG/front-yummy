@@ -12,12 +12,14 @@ const VenderProductModalInsert = ({ onClose, productList, onProductSelect}) => {
         <div className="vender-sso-modal-overlay">
             <div className="vender-sso-modal-content">
                 <div className='ssso-title-box'>
+                    <button className="vender-sso-modal-close-button" onClick={onClose}>
+                            X
+                        </button>
                     <h2>상품 선택</h2>
+                    
                 </div>
-                <div className='ssso-insert-box'>
-                    <label>검색</label>
-                    <input className='sso-insert-txt' placeholder='상품명을 검색해주세요'></input>
-                </div>
+                
+                
                 <div className='ssso-productlist-box'>
                     {productList    .filter((product) => product.selectProduct == '일치')
                                     .map((product)=>{
