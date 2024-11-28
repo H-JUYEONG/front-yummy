@@ -77,14 +77,14 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
           <button className="vender-sso-modal-close-button" onClick={onClose}>
             X
           </button>
-          <h2 className="vender-appeal-title-name">신청 내역 상세</h2>
+          <h2 className="vender-appeal-title-name">🧾 신청 내역 상세</h2>
         </div>
         <div className="sso-modal-body">
-          <div className="sso-modal-body-content">
+          <div className="sso-modal-body-content-jw">
             <div className="sso-modal-body-flex">
               <div className="modal-user-input-text">
-                <p className="sy-modal-sub-title">업체 신청 내역</p>
-                <div className="appeal-design-text">
+                <p className="sy-modal-sub-title-jw">🍰 업체 신청 내역</p>
+                <div className="appeal-design-text-jw">
                   <ul>
                     <li>
                       주문번호 : {company.auditionApplicationId || "정보 없음"}
@@ -124,8 +124,8 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
               </div>
 
               <div className="modal-user-input-img">
-                <p className="sy-modal-sub-title">제안된 상품 이미지</p>
-                <div className="appeal-design-photo">
+                <p className="sy-modal-sub-title-jw">🎂 제안된 상품 이미지</p>
+                <div className="appeal-design-photo-jw">
                   <img
                     src={
                       company.productImage1Url ||

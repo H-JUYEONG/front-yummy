@@ -362,6 +362,7 @@ const UserCakeDetail = () => {
             alert('리뷰 삭제 중 오류가 발생했습니다.');
         }
     };
+
     const handleMouseDown = (e, ref) => {
         setIsDragging(true);
         const container = ref.current;
@@ -411,6 +412,7 @@ const UserCakeDetail = () => {
             [reviewId]: content
         }));
     };
+
     const handleAddReply = async (reviewId) => {
         try {
             const response = await axios.post(
@@ -788,14 +790,27 @@ const UserCakeDetail = () => {
             alert('리뷰 등록 중 오류가 발생했습니다.');
         }
     };
-    const handleReportReview = (reviewId) => {
-        const confirmed = window.confirm('이 리뷰를 신고하시겠습니까?');
-        if (confirmed) {
-            console.log(`리뷰 ${reviewId} 신고됨`);
-            alert('신고가 접수되었습니다.');
+
+
+    const handleReportReview = async (reviewId) => {
+        const reason = prompt('신고 사유를 입력해주세요.');
+        if (!reason) {
+            alert('신고 사유를 입력해야 합니다.');
+            return;
+        }
+    
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/api/user/${reviewId}/report`,
+                null,
+                { params: { userId: authUser.user_id, reason } }
+            );
+            alert(response.data);
+        } catch (error) {
+            console.error('신고 실패:', error);
+            alert('신고 중 오류가 발생했습니다.');
         }
     };
-
 
     // 리뷰 섹션 렌더링
     const renderReviewSection = () => (

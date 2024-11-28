@@ -41,13 +41,14 @@ const UserOrder = () => {
 
     const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, idx) => startPage + idx);
     const Pagination = () => (
-        <div className="pagination">
-            <button
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-            >
-                이전
-            </button>
+        <div className="user-order-pagination">
+            {/* < 버튼은 현재 페이지가 1보다 클 때만 표시 */}
+            {currentPage > 1 && (
+                <button onClick={() => setCurrentPage(currentPage - 1)}>
+                    &lt;
+                </button>
+            )}
+            
             {pageNumbers.map((pageNumber) => (
                 <button
                     key={pageNumber}
@@ -57,12 +58,13 @@ const UserOrder = () => {
                     {pageNumber}
                 </button>
             ))}
-            <button
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-            >
-                다음
-            </button>
+    
+            {/* > 버튼은 현재 페이지가 마지막 페이지가 아닐 때만 표시 */}
+            {currentPage < totalPages && (
+                <button onClick={() => setCurrentPage(currentPage + 1)}>
+                    &gt;
+                </button>
+            )}
         </div>
     );
 
@@ -265,7 +267,7 @@ const UserOrder = () => {
 
     const OrderList = () => (
         <div className="main-content">
-            <h2>주문조회</h2>
+            <h2 className="user-write-main-title">주문조회</h2>
 
 
             <section className="status-overview">
@@ -274,7 +276,7 @@ const UserOrder = () => {
                     <thead>
                         <tr>
                             {orderStatuses.map((status, index) => (
-                                <th key={index} className="status-label">{status.label}</th>
+                                <th key={index} className="order-status-label">{status.label}</th>
                             ))}
                         </tr>
                     </thead>
@@ -317,7 +319,7 @@ const UserOrder = () => {
                 {error && <div className="error-message">{error}</div>}
                 {!loading && !error && (
                     <>
-                        <table className="order-table">
+                        <table className="mypage-order-table">
 
                             <thead>
                                 <tr>

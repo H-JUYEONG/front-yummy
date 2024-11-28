@@ -132,6 +132,7 @@ const UserPaymentDetail = () => {
         }
     };
 
+    
     return (
         <div id="user-wrap" className="text-center">
             <VenderHeader venderId={venderId} />

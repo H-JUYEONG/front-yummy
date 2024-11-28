@@ -50,12 +50,12 @@ const UserWritingList = () => {
       alert("로그인 후 이용하세요.");
       return;
     }
-  
+
     const confirmDelete = window.confirm(
       "관련된 댓글들또한 삭제됩니다.\n정말로 이 게시글을 삭제하시겠습니까?"
     );
-        if (!confirmDelete) return;
-  
+    if (!confirmDelete) return;
+
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}/api/debate/debatedel/${debate_id}`,
@@ -78,9 +78,12 @@ const UserWritingList = () => {
 
   const handleSearch = () => {
     setCurrentPage(1);
-    if (selectedStyle === "게시글") fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword);
-    if (selectedStyle === "댓글") fetchData("/api/user/mypage/mywriting/commentlist", 1, searchKeyword);
-    if (selectedStyle === "리뷰") fetchData("/api/user/mypage/mywriting/reviewlist", 1, searchKeyword);
+    if (selectedStyle === "게시글")
+      fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword);
+    if (selectedStyle === "댓글")
+      fetchData("/api/user/mypage/mywriting/commentlist", 1, searchKeyword);
+    if (selectedStyle === "리뷰")
+      fetchData("/api/user/mypage/mywriting/reviewlist", 1, searchKeyword);
   };
 
   const handleStyleSelect = (style) => {
@@ -98,13 +101,22 @@ const UserWritingList = () => {
 
   useEffect(() => {
     const fetchDataForPage = () => {
-      if (selectedStyle === "게시글") fetchData("/api/user/mypage/mywriting/debatelist", currentPage, searchKeyword);
-      if (selectedStyle === "댓글") fetchData("/api/user/mypage/mywriting/commentlist", currentPage, searchKeyword);
+      if (selectedStyle === "게시글")
+        fetchData(
+          "/api/user/mypage/mywriting/debatelist",
+          currentPage,
+          searchKeyword
+        );
+      if (selectedStyle === "댓글")
+        fetchData(
+          "/api/user/mypage/mywriting/commentlist",
+          currentPage,
+          searchKeyword
+        );
     };
-  
+
     fetchDataForPage();
   }, [currentPage, selectedStyle]);
-  
 
   return (
     <div id="user-wrap">
@@ -115,14 +127,14 @@ const UserWritingList = () => {
       <main id="user-wrap-body">
         <UserSidebar />
         <section id="user-wrap-main">
-          <h2>내가 쓴 글 조회</h2>
+          <h2 className="user-write-main-title">내가 쓴 글 조회</h2>
 
-          <div className="j-writinglist-container">
+          <div className="wishlist-container">
             {/* 검색 바 */}
             <div className="search-bar">
               <input
                 type="text"
-                placeholder="글 검색"
+                placeholder="검색어를 입력하세요."
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {
@@ -146,7 +158,9 @@ const UserWritingList = () => {
                   {writingTypeOption.map((style) => (
                     <button
                       key={style}
-                      className={`j-filter-btn ${selectedStyle === style ? "active" : ""}`}
+                      className={`filter-btn ${
+                        selectedStyle === style ? "active" : ""
+                      }`}
                       onClick={() => handleStyleSelect(style)}
                     >
                       {style}
@@ -182,10 +196,20 @@ const UserWritingList = () => {
                 <tbody>
                   {selectedStyle === "게시글" &&
                     debateList.map((item) => (
-                      <tr key={item.debate_id} onClick={() => handleRowClick(item.debate_id, "게시글")} className="clickable-row">
+                      <tr
+                        key={item.debate_id}
+                        onClick={() => handleRowClick(item.debate_id, "게시글")}
+                        className="clickable-row"
+                      >
                         <td>{item.debate_id}</td>
                         <td>{item.debate_title}</td>
-                        <td>{new Date(item.debate_created_at).toISOString().split("T")[0]}</td>
+                        <td>
+                          {
+                            new Date(item.debate_created_at)
+                              .toISOString()
+                              .split("T")[0]
+                          }
+                        </td>
                         <td>
                           <button
                             className="j-action-btn"
@@ -210,10 +234,20 @@ const UserWritingList = () => {
                     ))}
                   {selectedStyle === "댓글" &&
                     commentList.map((item) => (
-                      <tr key={item.debate_comment_id} onClick={() => handleRowClick(item.debate_id, "댓글")} className="clickable-row">
+                      <tr
+                        key={item.debate_comment_id}
+                        onClick={() => handleRowClick(item.debate_id, "댓글")}
+                        className="clickable-row"
+                      >
                         <td>{item.debate_comment_id}</td>
                         <td>{item.debate_comment_content.slice(0, 10)}...</td>
-                        <td>{new Date(item.debate_comment_created_at).toISOString().split("T")[0]}</td>
+                        <td>
+                          {
+                            new Date(item.debate_comment_created_at)
+                              .toISOString()
+                              .split("T")[0]
+                          }
+                        </td>
                         <td></td>
                       </tr>
                     ))}
@@ -222,57 +256,60 @@ const UserWritingList = () => {
             </section>
 
             {/* 페이지네이션 */}
-            <div className="j-pagination">
-  {/* Previous Button */}
-  {currentPage > 1 && (
-    <button
-      className="j-pagination-button prev"
-      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-    >
-      {"<"}
-    </button>
-  )}
+            <div className="pagination">
+              {/* Previous Button */}
+              {currentPage > 1 && (
+                <button
+                  className="prev-page"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                >
+                  {"<"}
+                </button>
+              )}
 
-  {/* Page Numbers */}
-  <div className="page-numbers">
-    {(() => {
-      const pageNumbers = [];
-      const maxPages = 5;
-      let startPage = Math.max(1, currentPage - 2);
-      let endPage = Math.min(totalPages, startPage + maxPages - 1);
+              {/* Page Numbers */}
+              <div className="page-numbers">
+                {(() => {
+                  const pageNumbers = [];
+                  const maxPages = 5;
+                  let startPage = Math.max(1, currentPage - 2);
+                  let endPage = Math.min(totalPages, startPage + maxPages - 1);
 
-      if (endPage - startPage + 1 < maxPages) {
-        startPage = Math.max(1, endPage - maxPages + 1);
-      }
+                  if (endPage - startPage + 1 < maxPages) {
+                    startPage = Math.max(1, endPage - maxPages + 1);
+                  }
 
-      for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(
-          <button
-            key={i}
-            className={`j-pagination-button ${currentPage === i ? "active" : ""}`}
-            onClick={() => setCurrentPage(i)}
-          >
-            {i}
-          </button>
-        );
-      }
-      return pageNumbers;
-    })()}
-  </div>
+                  for (let i = startPage; i <= endPage; i++) {
+                    pageNumbers.push(
+                      <button
+                        key={i}
+                        className={`page-number ${
+                          currentPage === i ? "active" : ""
+                        }`}
+                        onClick={() => setCurrentPage(i)}
+                      >
+                        {i}
+                      </button>
+                    );
+                  }
+                  return pageNumbers;
+                })()}
+              </div>
 
-  {/* Next Button */}
-  {currentPage < totalPages && (
-    <button
-      className="j-pagination-button next"
-      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-    >
-      {">"}
-    </button>
-  )}
-</div>
-
-
-
+              {/* Next Button */}
+              {currentPage < totalPages && (
+                <button
+                  className="next-page"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                >
+                  {">"}
+                </button>
+              )}
+            </div>
           </div>
         </section>
       </main>

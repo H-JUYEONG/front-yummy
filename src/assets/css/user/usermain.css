@@ -44,63 +44,86 @@
 
 /* 사이드바 */
 #user-wrap-side {
-    width: 250px;
-    flex-shrink: 0;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 250px;
+  flex-shrink: 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #user-wrap-side h2 {
-    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
-    font-size: 1.3em;
-    color: #333;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #e5e7eb;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 #user-wrap-side h3 {
-    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
-    font-size: 1.1em;
-    color: #333;
-    margin: 20px 0 10px 0;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e5e7eb;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+  margin: 20px 0 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #bbbbbb;
 }
 
 #user-wrap-side ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 #user-wrap-side li {
-    margin-bottom: 8px;
+  margin-bottom: 12px;  /* 간격 증가 */
+  padding-left: 10px;  /* 들여쓰기 추가 */
 }
 
 #user-wrap-side a {
-    font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
-    text-decoration: none;
-    color: #555;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 6px;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.0em;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin: 5px 0;
 }
 
 #user-wrap-side a:hover {
-    color:  #ff6f61;;
-    background: rgba(153, 153, 255, 0.2);
+  color: #FF7292;
+  background: #ffe9ee;
+}
+
+#user-wrap-side a.active {
+  color: #FF7292;
+  background: #ffe9ee;
+  font-weight: bold;
 }
 
 #user-wrap-side .icon {
-    margin-right: 8px;
-    font-size: 1.1em;
+  margin-right: 15px;  /* 아이콘 간격 증가 */
+  font-size: 0.85em;  /* 아이콘 크기 약간 증가 */
+  color: #FF7292;  /* 아이콘 색상 변경 */
+  min-width: 20px;  /* 아이콘 영역 고정 */
+  text-align: center;  /* 아이콘 중앙 정렬 */
 }
+  
+  /* 구분선이 있는 섹션 스타일링 */
+  #user-wrap-side section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ffe9ee;
+  }
+  
+  #user-wrap-side section:last-child {
+    border-bottom: none;
+  }
 
 /* 메인 섹션 */
 #user-wrap-main {
