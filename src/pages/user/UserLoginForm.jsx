@@ -72,61 +72,64 @@ const UserLoginForm = () => {
       password_hash: userPassword,
     };
 
-    // 전송
+    // 서버로 요청 보내기
     axios({
-      method: "post", // put, post, delete
+      method: "post",
       url: `${process.env.REACT_APP_API_URL}/api/users/login`,
       headers: { "Content-Type": "application/json; charset=utf-8" },
       data: userVo,
-
-      responseType: "json", //수신타입
+      responseType: "json", // 수신 타입
     })
       .then((response) => {
-        console.log(response); //수신데이타
-        console.log(response.data); //수신데이타
-        console.log(response.data.apiData); //수신데이타
+        console.log(response); // 서버 응답 확인
 
-        // 헤더에서 토큰 꺼내기
-        const token = response.headers["authorization"].split(" ")[1];
-        console.log(token);
+        if (response.data.result === "success") {
+          // 로그인 성공
+          const token = response.headers["authorization"].split(" ")[1];
 
-        // 로컬스토리지에 토큰 저장
-        localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+          // 로컬스토리지에 토큰 저장
+          localStorage.setItem("token", token);
 
-        // 로컬스토리지에 authUser 저장
-        /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
-        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
-        // localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
-        localStorage.setItem(
-          "authUser",
-          JSON.stringify({
-            member_id: response.data.apiData.member_id,
-            user_id: response.data.apiData.user_id,
-            vender_id: response.data.apiData.vender_id,
-            type: response.data.apiData.type,
-          })
-        );
+          // authUser 저장
+          localStorage.setItem(
+            "authUser",
+            JSON.stringify({
+              member_id: response.data.apiData.member_id,
+              user_id: response.data.apiData.user_id,
+              vender_id: response.data.apiData.vender_id,
+              type: response.data.apiData.type,
+            })
+          );
 
-        if (response.data.apiData !== null) {
+          // 이메일 저장 여부 확인
           if (isRemembered) {
-            // 체크박스가 체크된 경우 이메일 저장
             localStorage.setItem("savedEmail", userEmail);
           } else {
-            // 체크박스가 체크되지 않은 경우 이메일 삭제
             localStorage.removeItem("savedEmail");
           }
 
-          //리다이렉트
+          // 리다이렉트
           navigate("/");
         } else {
-          console.log("테스트");
-          console.error(response.data.message);
-          alert(response.data.message || "로그인에 실패했습니다.");
+          // 실패 메시지 처리
+          const errorMessage = response.data.message;
+
+          if (
+            errorMessage === "승인되지 않은 계정입니다. 관리자에게 문의하세요."
+          ) {
+            alert(errorMessage); // 업체 계정 승인되지 않음
+          } else if (
+            errorMessage === "아이디 또는 비밀번호가 잘못되었습니다."
+          ) {
+            alert(errorMessage); // 로그인 실패
+          } else {
+            alert("알 수 없는 오류가 발생했습니다. 다시 시도해 주세요.");
+          }
         }
       })
       .catch((error) => {
         console.error("로그인 오류:", error);
-        alert("입력하신 아이디 또는 비밀번호가 잘못 되었습니다.");
+        alert("서버와의 연결 중 문제가 발생했습니다. 다시 시도해 주세요.");
       });
   };
 
