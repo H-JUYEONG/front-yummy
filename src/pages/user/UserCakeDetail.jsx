@@ -942,7 +942,8 @@ const UserCakeDetail = () => {
                 </div>
             )}
 
-<ReviewAnalysis/>
+            {/* 테스트 필요할때만 주석 제거하고 리뷰 분석 확인해주세요!!!!! 돈 나가요*^^*
+            <ReviewAnalysis/> */}
 
             <div className="review-list">
                 <div className="review-filters">
