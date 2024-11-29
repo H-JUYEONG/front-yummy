@@ -19,9 +19,12 @@ const UserStoreDetail = () => {
     const { venderId } = useParams();
     //상품 리스트
     const [productList, setProductList] = useState([]);
+    const [carProductList ,setCarProductList] = useState([]);
 
     //카테고리
+    const [optionNumList, setOptionNumList] = useState([]);
     const [categoryList, setCategoryList] = useState([]);
+
 
 
     //업체 플렛폼 부분
@@ -51,7 +54,7 @@ const UserStoreDetail = () => {
         if (venderId != null) {
             console.log("venderId ok")
             getdetails();
-            goodsList();
+            handleAll();
             getOptions();
         } else {
             console.log("venderId no")
@@ -153,12 +156,55 @@ const UserStoreDetail = () => {
     }, [longitude, latitude]); // latitude, longitude 값이 바뀔 때마다 실행되도록 설정]);
 
 
-    //상품 가져오기
-    const goodsList = () => {
-        //console.log(venderId,'no값 있나요 상품')
+    //전체상품 가져오기
+    const handleAll = () => {
         axios({
             method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/veder/goodsList/${venderId}`,
+            url: `${process.env.REACT_APP_API_URL}/api/vender/allGoods/${venderId}`,
+
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            console.log("전체상품",response.data)
+            setProductList(response.data.apiData);
+            console.log("@",response.data.apiData)
+
+        }).catch(error => {
+            console.log(error);
+        });
+        
+
+    }
+
+    //카테고리 가져오기
+    const getOptions = () => {
+        console.log(venderId, 'no값 있나요 옵션')
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/vender/options/${venderId}`,
+
+            responseType: 'json' //수신타입
+        }).then(response => {
+            console.log(response); //수신데이타
+            setOptionNumList(response.data.apiData.optionValueId);
+            setCategoryList(response.data.apiData)
+            console.log('==============', response.data.apiData)
+
+
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleCategoryClick = (optionValueId) => {
+        // 카테고리 클릭 시 선택된 카테고리 상태 업데이트
+        setSelectedCategory(optionValueId);
+        console.log(optionValueId)
+
+        //카테고리에 맞는 상품 가져오기
+        axios({
+            method: 'get',          // put, post, delete                   
+            url: `${process.env.REACT_APP_API_URL}/api/veder/goodsList/${venderId}/${optionValueId}`,
 
             responseType: 'json' //수신타입
         }).then(response => {
@@ -171,43 +217,18 @@ const UserStoreDetail = () => {
         }).catch(error => {
             console.log(error);
         });
-
-    }
-
-    //옵션 가져오기
-    const getOptions = () => {
-        console.log(venderId, 'no값 있나요 옵션')
-        axios({
-            method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/options/${venderId}`,
-
-            responseType: 'json' //수신타입
-        }).then(response => {
-            console.log(response); //수신데이타
-            setCategoryList(response.data.apiData)
-            console.log('==============', response.data.apiData)
-
-
-        }).catch(error => {
-            console.log(error);
-        });
-    }
-
-    const handleCategoryClick = (optionValueName) => {
-        // 카테고리 클릭 시 선택된 카테고리 상태 업데이트
-        setSelectedCategory(optionValueName);
     };
-
-    // 선택된 카테고리에 맞는 상품 필터링
-    const filteredProducts = selectedCategory
-        ? productList.filter(product => product.optionValueName === selectedCategory)
-        : productList;
-
 
     const handleKakaoChat = () => {
         window.open(`${detailVo.kakaoURL}`, '_blank');
 
     };
+
+
+
+
+
+
 
     return (
         <div id="user-wrap" className="text-center">
@@ -282,8 +303,8 @@ const UserStoreDetail = () => {
                     <div className="sd-category-container">
                         <div
                             key="all"  // 고유 키는 "all"
-                            className={`sd-category-item ${selectedCategory === "" ? 'active' : ''}`} // selectedCategory가 빈 문자열일 때 활성화
-                            onClick={() => handleCategoryClick("")}  // 클릭 시 빈 문자열을 설정하여 "전체"를 선택
+                            className={`sd-category-item ${selectedCategory === null ? 'active' : ''}`} // selectedCategory가 빈 문자열일 때 활성화
+                            onClick={() => handleAll()}  // 클릭 시 빈 문자열을 설정하여 "전체"를 선택
                         >
                             <img
                                 src={allProductCarIMG}  // "전체" 카테고리 이미지 경로
@@ -292,15 +313,14 @@ const UserStoreDetail = () => {
                             <p>ALL</p>  {/* 전체 텍스트 표시 */}
                         </div>
                         {categoryList && categoryList.length > 0 ? (
-                            categoryList.map((category, index) => (
+                            categoryList.map((category) => (
                                 <div
-                                    key={index}  // categoryId를 고유 키로 사용
-                                    className={`sd-category-item ${selectedCategory === category.optionValueName ? 'active' : ''}`}
-                                    onClick={() => handleCategoryClick(category.optionValueName)} // 클릭 시 카테고리 이름을 설정
+                                    key={category.optionValueId}  // categoryId를 고유 키로 사용
+                                    className={`sd-category-item ${selectedCategory === category.optionValueId ? 'active' : ''}`}
+                                    onClick={() => handleCategoryClick(category.optionValueId)} // 클릭 시 카테고리 이름을 설정
                                 >
                                     <img
                                         src={category.option_value_image_url}  // 카테고리 이미지 경로
-                                        alt={category.optionValueName}  // alt를 카테고리 이름으로 설정
                                     />
                                     <p>{category.optionValueName}</p>  {/* 카테고리 이름 표시 */}
                                 </div>
@@ -313,19 +333,19 @@ const UserStoreDetail = () => {
                     <hr className="sd-divider" />
 
                     <div className="sd-products-container">
-                        {filteredProducts && filteredProducts.length > 0 ? (
-                            filteredProducts.map((product) => (
+                        {productList && productList.length > 0 ? (
+                            productList.map((Product) => (
                                 <Link
-                                    to={`/user/cakedetail/${product.productId}`}
+                                    to={`/user/cakedetail/${Product.productId}/${venderId}`}
                                     className="sd-product-item"
-                                    key={product.productId}
+                                    key={Product.productId}
                                 >
                                     <div className="sd-product-image">
-                                        <img src={product.productURL} alt='' />
+                                        <img src={Product.productURL} alt='' />
                                     </div>
                                     <div className="sd-price-info">
-                                        <p className="sd-product-name">{product.productName}</p>
-                                        <p className="sd-price">{product.productPrice}</p>
+                                        <p className="sd-product-name">{Product.productName}</p>
+                                        <p className="sd-price">{Product.productPrice}</p>
                                     </div>
                                 </Link>
                             ))
