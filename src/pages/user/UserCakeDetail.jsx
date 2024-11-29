@@ -24,6 +24,12 @@ const UserCakeDetail = () => {
     const location = useLocation();
     const { productId } = useParams();
 
+    //소영 지도부분
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+
+    const KAKAOMAP = process.env.REACT_APP_MAP_REST_API_KEY
+
     // 기본 상태 관리
     const [selectedTab, setSelectedTab] = useState(
         location.state?.openReview ? '후기' : '상품 상세정보'
@@ -117,6 +123,45 @@ const UserCakeDetail = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    //소영 지도부분
+    useEffect(()=>{
+
+        console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
+
+
+        if (longitude, latitude) {
+            const script = document.createElement("script");
+            script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`; // 여기에 발급받은 카카오 API 키 입력
+            script.async = true;
+            script.onload = () => {
+                window.kakao.maps.load(() => {
+                    const container = document.getElementById('map'); // 지도 표시할 DOM 요소
+                    const options = {
+                        center: new window.kakao.maps.LatLng(latitude, longitude), // DB에서 가져온 위도, 경도를 지도 중심으로 설정
+                        level: 3, // 줌 레벨 (3: 보통, 1: 가까운 거리, 14: 더 멀리)
+                    };
+
+                    const map = new window.kakao.maps.Map(container, options); // 지도 객체 생성
+
+                    // 마커 생성
+                    const markerPosition = new window.kakao.maps.LatLng(latitude, longitude);
+                    const marker = new window.kakao.maps.Marker({
+                        position: markerPosition,
+                    });
+                    marker.setMap(map); // 지도에 마커 표시
+                });
+            };
+            document.body.appendChild(script); // script 태그로 카카오맵 API 로드
+        }
+        return () => {
+            const scriptTag = document.querySelector(`script[src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false"]`);
+            if (scriptTag) {
+                document.body.removeChild(scriptTag); // 컴포넌트가 언마운트 될 때 script 태그를 제거
+            }
+        };
+
+    },[longitude, latitude])
+
     // 컴포넌트 마운트 시 찜 상태 조회
     useEffect(() => {
         if (productId) {
@@ -158,6 +203,10 @@ const UserCakeDetail = () => {
         }).then(response => {
             setProductDetail(response.data.apiData);
             console.log("상품 상세:", response.data.apiData);
+            
+            setLatitude(response.data.apiData.latitude);
+            setLongitude(response.data.apiData.longitude)
+
         }).catch(error => {
             console.log(error);
         }).finally(() => {
@@ -1169,7 +1218,7 @@ const UserCakeDetail = () => {
                                 <h3>{deliveryType === 'pickup' ? '픽업 장소' : '배송 주소'}</h3>
                                 {deliveryType === 'pickup' ? (
                                     <div className="location-select">
-                                        <div className="map-placeholder">
+                                        <div className="map-placeholder" id='map'>
                                             <p>{productDetail?.venderAddress}</p>
                                         </div>
                                     </div>
