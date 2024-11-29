@@ -13,6 +13,7 @@ const ReviewAnalysis = () => {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/review/analyze`
       );
+      console.log(`리뷰 분석 : ${JSON.stringify(response.data)}`);
       setAnalysisData(response.data);
     } catch (err) {
       console.error("Error fetching analysis data:", err);
@@ -34,61 +35,37 @@ const ReviewAnalysis = () => {
 
   return (
     <div className="review-analysis">
-    <div className="review-analysis-container">
-        {/* 디자인 섹션 */}
-        <div className="review-analysis-section">
-            <h2 className="review-analysis-heading">디자인</h2>
-            {Array.isArray(analysisData.design) ? (
-                <ul className="review-analysis-list">
-                    {analysisData.design.map((item, index) => (
-                        <li key={index} className="review-analysis-item">
-                            <span className="review-analysis-label">{item.label}</span>
-                            <div className="review-analysis-bar-container">
-                                <div
-                                    className="review-analysis-bar"
-                                    style={{
-                                        width: `${item.percentage}%`,
-                                        backgroundColor: "#6cc57c", // 초록색
-                                    }}
-                                ></div>
-                            </div>
-                            <span className="review-analysis-percentage">{item.percentage}%</span>
-                        </li>
-                    ))}
-                </ul>
+      <div className="review-analysis-container">
+        {Object.keys(analysisData).map((key) => (
+          <div className="review-analysis-section" key={key}>
+            <h2 className="review-analysis-heading">{key}</h2>
+            {Array.isArray(analysisData[key]) ? (
+              <ul className="review-analysis-list">
+                {analysisData[key].map((item, index) => (
+                  <li key={index} className="review-analysis-item">
+                    <span className="review-analysis-label">{item.label}</span>
+                    <div className="review-analysis-bar-container">
+                      <div
+                        className="review-analysis-bar"
+                        style={{
+                          width: `${item.percentage}%`,
+                          backgroundColor: key === "맛" ? "#4a90e2" : "#6cc57c", // 맛은 파란색, 나머지는 초록색
+                        }}
+                      ></div>
+                    </div>
+                    <span className="review-analysis-percentage">{item.percentage}%</span>
+                  </li>
+                ))}
+              </ul>
             ) : (
-                <p className="review-analysis-placeholder">디자인 데이터가 없습니다.</p>
+              <p className="review-analysis-placeholder">
+                {key} 데이터가 없습니다.
+              </p>
             )}
-        </div>
-
-        {/* 맛 섹션 */}
-        <div className="review-analysis-section">
-            <h2 className="review-analysis-heading">맛</h2>
-            {Array.isArray(analysisData.taste) ? (
-                <ul className="review-analysis-list">
-                    {analysisData.taste.map((item, index) => (
-                        <li key={index} className="review-analysis-item">
-                            <span className="review-analysis-label">{item.label}</span>
-                            <div className="review-analysis-bar-container">
-                                <div
-                                    className="review-analysis-bar"
-                                    style={{
-                                        width: `${item.percentage}%`,
-                                        backgroundColor: "#4a90e2", // 파란색
-                                    }}
-                                ></div>
-                            </div>
-                            <span className="review-analysis-percentage">{item.percentage}%</span>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p className="review-analysis-placeholder">맛 데이터가 없습니다.</p>
-            )}
-        </div>
+          </div>
+        ))}
+      </div>
     </div>
-</div>
-
   );
 };
 
