@@ -143,7 +143,9 @@ const VenderAudirionAllList = () => {
                                                     <td>{audition.userName}</td>
                                                     <td>{audition.date}</td>
                                                     <td>{audition.deliveryMethod}</td>
-                                                    <td>{audition.designId} 번도안</td>
+                                                    {audition.designId?
+                                                        <td>{audition.designId} 번도안</td>:<td>요청도안없음</td>}
+                                                    
                                                     <td>{audition.designStatus}</td>
                                                     <td>{audition.region}</td>
                                                     <td>
