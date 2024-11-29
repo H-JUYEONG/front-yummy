@@ -1,0 +1,69 @@
+/* 전역 스타일 방지 - review-analysis 상위 클래스에 네임스페이스 적용 */
+.review-analysis {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .review-analysis-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .review-analysis-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .review-analysis-section {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .review-analysis-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .review-analysis-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .review-analysis-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .review-analysis-label {
+    flex: 2;
+    font-size: 14px;
+  }
+  
+  .review-analysis-bar-container {
+    flex: 4;
+    position: relative;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 10px;
+  }
+  
+  .review-analysis-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .review-analysis-percentage {
+    flex-shrink: 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
