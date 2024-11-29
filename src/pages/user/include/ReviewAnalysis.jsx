@@ -34,61 +34,61 @@ const ReviewAnalysis = () => {
 
   return (
     <div className="review-analysis">
-    <h1 className="review-analysis-title">리뷰 분석</h1>
     <div className="review-analysis-container">
-      {/* 디자인 섹션 */}
-      <div className="review-analysis-section">
-        <h2 className="review-analysis-heading">디자인</h2>
-        {Array.isArray(analysisData.design) ? (
-          <ul className="review-analysis-list">
-            {analysisData.design.map((item, index) => (
-              <li key={index} className="review-analysis-item">
-                <span className="review-analysis-label">{item.label}</span>
-                <div className="review-analysis-bar-container">
-                  <div
-                    className="review-analysis-bar"
-                    style={{
-                      width: `${item.percentage}%`,
-                      backgroundColor: "#6cc57c", // 초록색
-                    }}
-                  ></div>
-                </div>
-                <span className="review-analysis-percentage">{item.percentage}%</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>디자인 데이터가 없습니다.</p>
-        )}
-      </div>
+        {/* 디자인 섹션 */}
+        <div className="review-analysis-section">
+            <h2 className="review-analysis-heading">디자인</h2>
+            {Array.isArray(analysisData.design) ? (
+                <ul className="review-analysis-list">
+                    {analysisData.design.map((item, index) => (
+                        <li key={index} className="review-analysis-item">
+                            <span className="review-analysis-label">{item.label}</span>
+                            <div className="review-analysis-bar-container">
+                                <div
+                                    className="review-analysis-bar"
+                                    style={{
+                                        width: `${item.percentage}%`,
+                                        backgroundColor: "#6cc57c", // 초록색
+                                    }}
+                                ></div>
+                            </div>
+                            <span className="review-analysis-percentage">{item.percentage}%</span>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="review-analysis-placeholder">디자인 데이터가 없습니다.</p>
+            )}
+        </div>
 
-      {/* 맛 섹션 */}
-      <div className="review-analysis-section">
-        <h2 className="review-analysis-heading">맛</h2>
-        {Array.isArray(analysisData.taste) ? (
-          <ul className="review-analysis-list">
-            {analysisData.taste.map((item, index) => (
-              <li key={index} className="review-analysis-item">
-                <span className="review-analysis-label">{item.label}</span>
-                <div className="review-analysis-bar-container">
-                  <div
-                    className="review-analysis-bar"
-                    style={{
-                      width: `${item.percentage}%`,
-                      backgroundColor: "#4a90e2", // 파란색
-                    }}
-                  ></div>
-                </div>
-                <span className="percentage">{item.percentage}%</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>맛 데이터가 없습니다.</p>
-        )}
-      </div>
+        {/* 맛 섹션 */}
+        <div className="review-analysis-section">
+            <h2 className="review-analysis-heading">맛</h2>
+            {Array.isArray(analysisData.taste) ? (
+                <ul className="review-analysis-list">
+                    {analysisData.taste.map((item, index) => (
+                        <li key={index} className="review-analysis-item">
+                            <span className="review-analysis-label">{item.label}</span>
+                            <div className="review-analysis-bar-container">
+                                <div
+                                    className="review-analysis-bar"
+                                    style={{
+                                        width: `${item.percentage}%`,
+                                        backgroundColor: "#4a90e2", // 파란색
+                                    }}
+                                ></div>
+                            </div>
+                            <span className="review-analysis-percentage">{item.percentage}%</span>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="review-analysis-placeholder">맛 데이터가 없습니다.</p>
+            )}
+        </div>
     </div>
-  </div>
+</div>
+
   );
 };
 

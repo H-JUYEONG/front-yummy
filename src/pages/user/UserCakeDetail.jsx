@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
+import ReviewAnalysis from '../user/include/ReviewAnalysis';
 import "../../assets/css/user/CakeOrder.css";
 import '../../assets/css/user/usermain.css';
 import 'react-quill/dist/quill.snow.css';
@@ -940,6 +941,8 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
             )}
+
+<ReviewAnalysis/>
 
             <div className="review-list">
                 <div className="review-filters">
