@@ -27,15 +27,15 @@ const UserPaymentDetail = () => {
 
     // DB 컬럼명에 맞게 매핑 (한글 -> 영어)
     const columnMapping = {
-        '상품 종류': 'product_type',
-        '케이크 크기': 'cake_size',
-        '시트 맛': 'flavor_sheet',
-        '크림 맛': 'flavor_cream',
-        '케이크 배경색': 'cake_background_color',
-        '크림 위치': 'cream_position',
-        '크림 색상': 'cream_color',
-        '데코레이션 종류': 'decoration_type',
-        '데코레이션 색상': 'decoration_color',
+        '상품 종류': 'productType',
+        '케이크 크기': 'cakeSize',
+        '시트 맛': 'flavorSheet',
+        '크림 맛': 'flavorCream',
+        '케이크 배경색': 'cakeBackgroundColor',
+        '크림 위치': 'creamPosition',
+        '크림 색상': 'creamColor',
+        '데코레이션 종류': 'decorationType',
+        '데코레이션 색상': 'decorationColor',
         '카테고리': 'category'
     };
 
@@ -46,7 +46,7 @@ const UserPaymentDetail = () => {
                 navigate('/user/login');
                 return;
             }
-
+    
             const formattedOptions = {};
             Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
                 const dbColumn = columnMapping[key];
@@ -54,7 +54,7 @@ const UserPaymentDetail = () => {
                     formattedOptions[dbColumn] = value;
                 }
             });
-
+    
             const dateTimeData = orderData.orderInfo.deliveryType === 'pickup'
                 ? {
                     desiredPickupDatetime: orderData.orderInfo.selectedDate,
@@ -68,7 +68,7 @@ const UserPaymentDetail = () => {
                     desiredDeliveryDate: orderData.orderInfo.selectedDate,
                     desiredDeliveryTime: orderData.orderInfo.selectedTime
                 };
-
+    
             const requestData = {
                 productId: Number(orderData.productInfo.productId),
                 userId: authUser.user_id,
@@ -83,12 +83,15 @@ const UserPaymentDetail = () => {
                 ...dateTimeData,
                 ...formattedOptions
             };
-
+    
+            // **요청 데이터 확인**
+            console.log("Request Data:", requestData);
+    
             const token = localStorage.getItem('token');
             if (!token) {
                 throw new Error('인증 토큰이 없습니다.');
             }
-
+    
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/orders`,
                 requestData,
@@ -99,7 +102,7 @@ const UserPaymentDetail = () => {
                     }
                 }
             );
-
+    
             if (response.data && response.data.result === "success") {
                 const now = new Date();
                 const formattedDateTime = now.toLocaleString('ko-KR', {
@@ -110,7 +113,7 @@ const UserPaymentDetail = () => {
                     minute: '2-digit',
                     hour12: false
                 }).replace(/\. /g, '.').replace(',', '');
-
+    
                 navigate('/user/ordercomplete', {
                     state: {
                         orderId: response.data.orderId,
@@ -131,6 +134,7 @@ const UserPaymentDetail = () => {
             alert(error.response?.data?.message || '주문 처리 중 오류가 발생했습니다.');
         }
     };
+    
 
     
     return (

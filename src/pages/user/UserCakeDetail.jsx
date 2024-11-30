@@ -9,15 +9,15 @@ import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
-    
-    'Cake Size': { title: '사이즈', stateKey: 'selectedSize' },
-    'Flavor - Sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
-    'Flavor - Cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
-    'Cake Background Color': { title: '케이크 배경색', stateKey: 'selectedBgColor' },
-    'Cream Position': { title: '크림 위치', stateKey: 'selectedCreamPosition' },
-    'Cream Color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
-    'Decoration Type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
-    'Decoration Color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
+
+    'cake_size': { title: '사이즈', stateKey: 'selectedSize' },
+    'flavor_sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
+    'flavor_cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
+    'cake_background_color': { title: '케이크 배경색', stateKey: 'selectedBgColor' },
+    'cream_position': { title: '크림 위치', stateKey: 'selectedCreamPosition' },
+    'cream_color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
+    'decoration_type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
+    'decoration_color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
 
 };
 
@@ -205,9 +205,8 @@ const UserCakeDetail = () => {
             url: `${process.env.REACT_APP_API_URL}/api/products/${productId}/options`,
             responseType: 'json'
         }).then(response => {
-            console.log("API Response:", response.data); // 응답 구조 확인
+            console.log("API Response:", response.data); // 전체 응답 확인
 
-            // 데이터가 있는지 확인
             if (!response.data || !response.data.apiData) {
                 console.log("No data received from API");
                 setProductOptions({});
@@ -215,13 +214,7 @@ const UserCakeDetail = () => {
             }
 
             const options = response.data.apiData;
-
-            // options가 배열인지 확인
-            if (!Array.isArray(options)) {
-                console.log("API data is not an array");
-                setProductOptions({});
-                return;
-            }
+            console.log("옵션 데이터:", options); // 받은 옵션 데이터 확인
 
             const groupedOptions = {};
             options.forEach(option => {
@@ -231,12 +224,14 @@ const UserCakeDetail = () => {
                 groupedOptions[option.optionTypeName].push(option);
             });
 
+            console.log("그룹화된 옵션 데이터:", groupedOptions); // 그룹화 후 데이터 확인
             setProductOptions(groupedOptions);
         }).catch(error => {
             console.error("API Error:", error);
             setProductOptions({});
         });
     };
+
 
     useEffect(() => {
         // location.state로 전달된 openReview 확인
@@ -494,10 +489,10 @@ const UserCakeDetail = () => {
     // 옵션 렌더링 컴포넌트
     const renderOptionGroup = (optionType, options) => {
         if (!options || options.length === 0) return null;
-    
+
         const { title, stateKey } = OPTION_TYPES[optionType];
         const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
-    
+
         const optionContent = (
             <div className="option-grid">
                 {options.map((option) => (
@@ -522,7 +517,7 @@ const UserCakeDetail = () => {
                 ))}
             </div>
         );
-    
+
         return (
             <div className="option-group" key={optionType}>
                 <h3>{title}</h3>
@@ -543,7 +538,7 @@ const UserCakeDetail = () => {
             </div>
         );
     };
-    
+
     // 탭 관련
     const tabs = ['상품상세', '후기'];
 
@@ -801,7 +796,7 @@ const UserCakeDetail = () => {
             alert('신고 사유를 입력해야 합니다.');
             return;
         }
-    
+
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/user/${reviewId}/report`,
