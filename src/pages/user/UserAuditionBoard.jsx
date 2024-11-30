@@ -182,7 +182,13 @@ const UserAuditionBoard = () => {
                 onClick={() => handleAuditionClick(card.auditionApplicationId)}
               >
                 <div className="user-cake-audition-card-image">
-                  <img src={card.imageUrl} alt="케이크 도안" />
+                  <img
+                    src={
+                      card.imageUrl ||
+                      "https://placehold.co/300x200?text=No+Image"
+                    } 
+                    alt="케이크 도안"
+                  />
                   <div
                     className={`user-cake-audition-status ${
                       card.status === "진행중"

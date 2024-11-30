@@ -66,7 +66,7 @@ function UserGoogleLogin() {
           );
           navigate("/");
         } else {
-          alert("이미 가입된 이메일입니다. 가입한 소셜 계정으로 로그인하세요.");
+          alert("이미 가입된 이메일입니다. 가입한 계정으로 로그인하세요.");
           navigate("/user/login");
         }
       } else if (message === "신규 회원") {

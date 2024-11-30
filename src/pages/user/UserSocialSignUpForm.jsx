@@ -31,6 +31,7 @@ const UserSocialSignUpForm = () => {
 
   const [isVerificationInputVisible, setIsVerificationInputVisible] =
     useState(false); // 인증 번호 입력 유무
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false); // 번호 인증 상태 추가
 
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -163,27 +164,45 @@ const UserSocialSignUpForm = () => {
       .then((response) => {
         if (response.data.result === "success") {
           alert("인증이 완료되었습니다!");
+          setIsPhoneVerified(true); // 인증 성공 상태 설정
         } else {
           alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+          setIsPhoneVerified(false); // 인증 실패 상태 설정
         }
       })
       .catch((error) => console.error(error));
+  };
+
+  // 회원가입 검증 함수
+  const validateSocialSignUp = () => {
+    if (!email || !name || !nickname || !phoneNumber) {
+      alert("필수 입력 사항을 모두 입력해주세요.");
+      return false;
+    }
+
+    if (emailValid === false) {
+      alert("사용할 수 없는 이메일입니다.");
+      return false;
+    }
+
+    if (nicknameValid === false) {
+      alert("사용할 수 없는 닉네임입니다.");
+      return false;
+    }
+
+    if (!isTermsChecked || !isPrivacyChecked) {
+      alert("서비스 약관 및 개인정보 처리방침에 동의해주세요.");
+      return false;
+    }
+
+    return true;
   };
 
   // 회원가입 요청
   const handleSocialSignUp = (e) => {
     e.preventDefault();
 
-    if (!isTermsChecked || !isPrivacyChecked) {
-      alert("서비스 약관 및 개인정보 처리방침에 동의해주세요.");
-      return;
-    }
-
-    // 필수 입력 사항과 약관 동의 확인
-    if (!email || !name || !nickname || !phoneNumber) {
-      alert("필수 입력 사항을 모두 입력하고 약관에 동의해주세요.");
-      return;
-    }
+    if (!validateSocialSignUp()) return;
 
     const userVo = {
       email: email,
@@ -204,20 +223,6 @@ const UserSocialSignUpForm = () => {
       .then((response) => {
         console.log(response.data); //수신데이타
         if (response.data.result === "success") {
-          // 헤더에서 토큰 꺼내기
-          const token = response.headers["authorization"].split(" ")[1];
-          console.log(token);
-
-          // 로컬스토리지에 토큰 저장
-          localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
-
-          // 로컬스토리지에 authUser 저장
-          /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
-        JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
-          localStorage.setItem(
-            "authUser",
-            JSON.stringify(response.data.apiData)
-          );
           navigate("/user/signup/succ");
         } else {
           alert("회원가입 실패");
@@ -374,12 +379,7 @@ const UserSocialSignUpForm = () => {
             </div>
 
             <div className="user-social-signup-btn">
-              <button
-                type="submit"
-                disabled={!(isTermsChecked && isPrivacyChecked)} // 필수 약관 미동의 시 버튼 비활성화
-              >
-                회원가입
-              </button>
+              <button type="submit">회원가입</button>
             </div>
           </form>
         </div>

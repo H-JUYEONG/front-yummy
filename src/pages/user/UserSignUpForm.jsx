@@ -32,6 +32,7 @@ const UserSignUpForm = () => {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+  const [isPhoneVerified, setIsPhoneVerified] = useState(false); // 번호 인증 상태 추가
 
   // 이메일 입력 핸들러 및 중복 체크
   const handleEmail = (e) => {
@@ -152,27 +153,62 @@ const UserSignUpForm = () => {
       .then((response) => {
         if (response.data.result === "success") {
           alert("인증이 완료되었습니다!");
+          setIsPhoneVerified(true); // 인증 성공 상태 설정
         } else {
           alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+          setIsPhoneVerified(false); // 인증 실패 상태 설정
         }
       })
       .catch((error) => console.error(error));
+  };
+
+  // 회원가입 검증 로직
+  const validateSignUp = () => {
+    if (
+      !email ||
+      !password ||
+      !passwordCheck ||
+      !name ||
+      !nickname ||
+      !phoneNumber
+    ) {
+      alert("필수 입력 사항을 모두 입력해주세요.");
+      return false;
+    }
+
+    if (!passwordMatch) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return false;
+    }
+
+    if (emailValid === false) {
+      alert("사용할 수 없는 이메일입니다.");
+      return false;
+    }
+
+    if (nicknameValid === false) {
+      alert("사용할 수 없는 닉네임입니다.");
+      return false;
+    }
+
+    if (!isTermsChecked || !isPrivacyChecked) {
+      alert("서비스 약관 및 개인정보 처리방침에 동의해주세요.");
+      return false;
+    }
+
+    if (!isPhoneVerified) {
+      alert("휴대폰 인증을 완료해주세요.");
+      return false;
+    }
+
+    return true;
   };
 
   // 회원가입 요청
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    if (!isTermsChecked || !isPrivacyChecked) {
-      alert("서비스 약관 및 개인정보 처리방침에 동의해주세요.");
-      return;
-    }
-
-    // 필수 입력 사항과 약관 동의 확인
-    if (!email || !password || !name || !nickname || !phoneNumber) {
-      alert("필수 입력 사항을 모두 입력하고 약관에 동의해주세요.");
-      return;
-    }
+    if (!validateSignUp()) return;
 
     const userVo = {
       email: email,
@@ -361,12 +397,7 @@ const UserSignUpForm = () => {
             </div>
 
             <div className="user-signup-btns">
-              <button
-                type="submit"
-                disabled={!(isTermsChecked && isPrivacyChecked)}
-              >
-                회원가입
-              </button>
+              <button type="submit">회원가입</button>
             </div>
           </form>
         </div>
