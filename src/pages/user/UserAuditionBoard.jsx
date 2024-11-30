@@ -19,6 +19,8 @@ const UserAuditionBoard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 12;
 
+  const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
+
   // 데이터 가져오기 함수
   const fetchData = async (url, page = 1, search = "") => {
     try {
@@ -91,6 +93,8 @@ const UserAuditionBoard = () => {
 
   // 초기 데이터 로드
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("authUser"));
+    setAuthUser(user);
     loadAuditions(currentPage);
   }, [currentPage, selectedStyle]);
 
@@ -180,9 +184,11 @@ const UserAuditionBoard = () => {
           <div id="user-cake-audition-add" className="clearfix">
             <div className="user-cake-audition-all">ALL {totalAllCount}</div>
             <div className="user-cake-audition-add-btn">
-              <button onClick={() => handleNavigate("/user/audition/add")}>
-                제작 요청하기
-              </button>
+              {authUser?.type !== "업체" && (
+                <button onClick={() => handleNavigate("/user/audition/add")}>
+                  제작 요청하기
+                </button>
+              )}
             </div>
           </div>
           <div className="user-cake-audition-list-grid">
@@ -197,7 +203,7 @@ const UserAuditionBoard = () => {
                     src={
                       card.imageUrl ||
                       "https://placehold.co/300x200?text=No+Image"
-                    } 
+                    }
                     alt="케이크 도안"
                   />
                   <div
