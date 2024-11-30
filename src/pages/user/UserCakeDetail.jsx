@@ -24,7 +24,7 @@ const OPTION_TYPES = {
 const UserCakeDetail = () => {
     const location = useLocation();
     const { productId } = useParams();
-
+    const optionRefs = useRef({});
     //소영 지도부분
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
@@ -408,26 +408,6 @@ const UserCakeDetail = () => {
         }
     };
 
-    const handleMouseDown = (e) => {
-        const container = containerRef.current;
-        if (!container) return; // containerRef가 아직 연결되지 않았다면 종료
-        setIsDragging(true);
-        setStartX(e.pageX - container.offsetLeft);
-        setScrollLeft(container.scrollLeft);
-    };
-    const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const container = containerRef.current;
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleMouseUp = (ref) => {
-        setIsDragging(false);
-        ref.current.classList.remove('dragging');
-    };
 
     const handleMouseLeave = (ref) => {
         setIsDragging(false);
@@ -539,57 +519,68 @@ const UserCakeDetail = () => {
         if (!options || options.length === 0) return null;
 
         const { title, stateKey } = OPTION_TYPES[optionType];
-        const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
+        // 옵션 그룹별 ref를 생성 및 연결
+        if (!optionRefs.current[optionType]) {
+            optionRefs.current[optionType] = React.createRef();
+        }
 
-        const optionContent = (
-            <div className="option-grid">
-                {options.map((option) => (
-                    <button
-                        key={option.optionValueId}
-                        className={`option-item ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
-                        onClick={() => handleOptionSelect(optionType, option.optionValueId)}
-                        aria-label={`${option.optionValueName} 선택`}
-                        title={option.optionValueName}
-                    >
-                        {option.optionValueImageUrl ? (
-                            <div className="option-image">
-                                <img
-                                    src={option.optionValueImageUrl}
-                                    alt={option.optionValueName}
-                                    title={option.optionValueName}
-                                />
-                            </div>
-                        ) : null}
-                        <span className="option-name">{option.optionValueName}</span>
-                    </button>
-                ))}
-            </div>
-        );
+        const handleMouseDown = (e) => {
+            const container = optionRefs.current[optionType].current;
+            if (!container) return;
+            container.isDragging = true;
+            container.startX = e.pageX - container.offsetLeft;
+            container.scrollLeft = container.scrollLeft;
+        };
 
+        const handleMouseMove = (e) => {
+            const container = optionRefs.current[optionType].current;
+            if (!container || !container.isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - container.startX) * 2;
+            container.scrollLeft = container.scrollLeft - walk;
+        };
+        const handleMouseUpOrLeave = () => {
+            const container = optionRefs.current[optionType].current;
+            if (container) container.isDragging = false;
+        };
         return (
             <div className="option-group" key={optionType}>
                 <h3>{title}</h3>
-                {isScrollable ? (
-                    <div
-                        ref={containerRef} // ref 연결
-                        className={`option-scroll-container ${isDragging ? 'dragging' : ''}`}
-                        onMouseDown={handleMouseDown}
-                        onMouseMove={handleMouseMove}
-                        onMouseUp={handleMouseUpOrLeave}
-                        onMouseLeave={handleMouseUpOrLeave}
-                    >
-                        {optionContent}
+                <div
+                    ref={optionRefs.current[optionType]}
+                    className="option-scroll-container"
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUpOrLeave}
+                    onMouseLeave={handleMouseUpOrLeave}
+                >
+                    <div className="option-grid">
+                        {options.map((option) => (
+                            <button
+                                key={option.optionValueId}
+                                className={`option-item ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
+                                onClick={() => handleOptionSelect(optionType, option.optionValueId)}
+                                aria-label={`${option.optionValueName} 선택`}
+                                title={option.optionValueName}
+                            >
+                                {option.optionValueImageUrl ? (
+                                    <div className="option-image">
+                                        <img
+                                            src={option.optionValueImageUrl}
+                                            alt={option.optionValueName}
+                                            title={option.optionValueName}
+                                        />
+                                    </div>
+                                ) : null}
+                                <span className="option-name">{option.optionValueName}</span>
+                            </button>
+                        ))}
                     </div>
-                ) : (
-                    optionContent
-                )}
+                </div>
             </div>
         );
     };
-    const handleMouseUpOrLeave = () => {
-        setIsDragging(false);
-    };
-
     // 탭 관련
     const tabs = ['상품상세', '후기'];
 
