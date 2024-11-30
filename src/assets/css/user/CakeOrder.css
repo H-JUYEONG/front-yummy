@@ -381,19 +381,21 @@
 
 #user-wrap .cake-order-container .rating-stats {
     display: flex;
-    padding: 20px;
+    padding: 15px 10px 10px 10px;
     background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 30px;
+    border-radius: 8px 8px 0px 0px;
 }
 
 #user-wrap .cake-order-container .rating-average {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-right: 40px;
+    /* padding-right: 40px;
+    margin-right: 40px; */
+    padding: 0px 30px 0px 20px;
+    margin-right: 20px;
     border-right: 1px solid #e0e0e0;
-    margin-right: 40px;
+    
 }
 
 #user-wrap .cake-order-container .stars {

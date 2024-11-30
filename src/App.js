@@ -42,6 +42,7 @@ import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
+import ReviewAnalysis from './pages/user/include/ReviewAnalysis';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserOrderDetail from './pages/user/UserOrderDetail';
 import UserOrder from './pages/user/UserOrder';
@@ -145,6 +146,7 @@ function App() {
           <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar />} />
           <Route path='/user/cakedetail/:productId/:venderId' element={<UserCakeDetail />} />
+          <Route path='/user/review/analysis' element={<ReviewAnalysis />} />
           <Route path='/user/mypage/orderdetail/:orderId' element={<UserOrderDetail />} />
           <Route path='/user/mypage/order' element={<UserOrder />} />
           <Route path='/user/mypage/wishlist' element={<UserWishList />} />
