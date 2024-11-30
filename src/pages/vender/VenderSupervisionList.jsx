@@ -107,6 +107,21 @@ const VenderSupervisionList = () => {
         
     }
 
+    //보러가기 버튼
+    const handlePageMove = (auditionId)=>{
+        const popupWidth = 800;  // 팝업 창 너비
+        const popupHeight = 600; // 팝업 창 높이
+        const left = window.innerWidth / 2 - popupWidth / 2;  // 화면 가운데 위치
+        const top = window.innerHeight / 2 - popupHeight / 2; // 화면 가운데 위치
+
+        // 팝업 창을 엽니다.
+        window.open(
+            `/user/audition/ongoing/${auditionId}`, // 팝업으로 열 링크
+            '_blank',  // 새 창으로 열기
+            `width=${popupWidth},height=${popupHeight},top=${top},left=${left},resizable=yes`
+        );
+    }
+
 
 
     //랜더링 될 때 리스트 가져오기
@@ -173,7 +188,7 @@ const VenderSupervisionList = () => {
                                                     <td>{audition.deliveryDate}</td>
                                                     <td>{statusText}</td>
                                                     <td>
-                                                        <button className="supervision-read-button" onClick={openModal}>내역 상세보기</button>
+                                                        <button className="supervision-read-button" onClick={()=>handlePageMove(audition.auditionId)}>보러가기</button>
                                                         <button className="supervision-delete-button" onClick={()=>handleDelete(audition.auditionCartId)}>취소하기</button>
 
                                                     </td>

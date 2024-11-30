@@ -345,7 +345,7 @@ const UserStoreDetail = () => {
                                     </div>
                                     <div className="sd-price-info">
                                         <p className="sd-product-name">{Product.productName}</p>
-                                        <p className="sd-price">{Product.productPrice}</p>
+                                        <p className="sd-price">{Number( Product.productPrice).toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' })}</p>
                                     </div>
                                 </Link>
                             ))

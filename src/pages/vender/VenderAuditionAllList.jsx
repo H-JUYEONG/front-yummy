@@ -32,6 +32,8 @@ const VenderAudirionAllList = () => {
 
     const venderId = authUser.vender_id;
 
+    const [venderDistrict, setVenderDistrict] = useState('');
+
 
     // 상품 리스트 데이터 예시
     const products = [
@@ -80,8 +82,10 @@ const VenderAudirionAllList = () => {
             responseType: 'json' //수신타입
         }).then(response => {
             //console.log(response); //수신데이타
-            console.log(response.data.apiData)
-            setAuditionAllList(response.data.apiData)
+            console.log("오디션 리스트",response.data.apiData)
+            setAuditionAllList(response.data.apiData.auditionList)
+            setVenderDistrict(response.data.apiData.district)
+
         }).catch(error => {
             console.log(error);
         });
@@ -136,7 +140,8 @@ const VenderAudirionAllList = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {auditionAllList.map((audition)=>{
+                                    {auditionAllList    .filter((audition) => audition.region == venderDistrict)
+                                                        .map((audition)=>{
                                             return(
                                                 <tr>
                                                     <td>{audition.auditionId}</td>
@@ -145,7 +150,7 @@ const VenderAudirionAllList = () => {
                                                     <td>{audition.deliveryMethod}</td>
                                                     {audition.designId?
                                                         <td>{audition.designId} 번도안</td>:<td>요청도안없음</td>}
-                                                    
+                                                
                                                     <td>{audition.designStatus}</td>
                                                     <td>{audition.region}</td>
                                                     <td>
@@ -159,6 +164,7 @@ const VenderAudirionAllList = () => {
                                                 </tr>
                                             )
                                         })}
+                                        
                                         
                                         
 
