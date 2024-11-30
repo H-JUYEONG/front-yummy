@@ -258,9 +258,10 @@
 }
 
 /* 맛과 사이즈 옵션 스타일 */
-#user-wrap .cake-order-container .option-scroll-container {
+#user-wrap .option-scroll-container {
     overflow-x: auto;
     overflow-y: hidden;
+    white-space: nowrap; /* 가로 스크롤을 위해 추가 */
     -webkit-overflow-scrolling: touch;
     margin: 0 -10px;
     padding: 0 10px 15px;
@@ -270,21 +271,21 @@
     position: relative;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar {
+#user-wrap .option-scroll-container::-webkit-scrollbar {
     height: 6px;
     display: none;
 }
 
-#user-wrap .cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
+#user-wrap .option-scroll-container.dragging::-webkit-scrollbar {
     display: block;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-track {
+#user-wrap .option-scroll-container::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
+#user-wrap .option-scroll-container::-webkit-scrollbar-thumb {
     background: #ff6f61;
     border-radius: 4px;
 }
@@ -395,7 +396,7 @@
     padding: 0px 30px 0px 20px;
     margin-right: 20px;
     border-right: 1px solid #e0e0e0;
-    
+
 }
 
 #user-wrap .cake-order-container .stars {
@@ -1220,10 +1221,14 @@
 
 /* 옵션 컨테이너: 가로 정렬 및 스크롤 가능 */
 .preview-cake-container {
-    display: flex; /* Flexbox로 가로 정렬 */
-    gap: 15px; /* 옵션 간 간격 */
-    flex-wrap: wrap; /* 가로 공간이 부족하면 다음 줄로 */
-    align-items: flex-start; /* 옵션 아이템을 위쪽 정렬 */
+    display: flex;
+    /* Flexbox로 가로 정렬 */
+    gap: 15px;
+    /* 옵션 간 간격 */
+    flex-wrap: wrap;
+    /* 가로 공간이 부족하면 다음 줄로 */
+    align-items: flex-start;
+    /* 옵션 아이템을 위쪽 정렬 */
 }
 
 
