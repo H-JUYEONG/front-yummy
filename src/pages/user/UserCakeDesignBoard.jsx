@@ -19,6 +19,8 @@ const UserCakeDesignBoard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 12;
 
+  const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
+
   // 데이터 가져오기 함수
   const fetchData = async (url, page = 1, search = "") => {
     try {
@@ -95,6 +97,8 @@ const UserCakeDesignBoard = () => {
 
   // 초기 데이터 로드
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("authUser"));
+    setAuthUser(user);
     loadCakeDesigns(currentPage);
   }, [currentPage, selectedStyle]);
 
@@ -187,9 +191,11 @@ const UserCakeDesignBoard = () => {
           <div id="user-cake-design-add" className="clearfix">
             <div className="user-cake-design-all">ALL {totalAllCount}</div>
             <div className="user-cake-design-add-btn">
-              <button onClick={() => handleNavigate("/user/cakeDesign/add")}>
-                도안 등록하기
-              </button>
+              {authUser?.type !== "업체" && (
+                <button onClick={() => handleNavigate("/user/cakeDesign/add")}>
+                  도안 등록하기
+                </button>
+              )}
             </div>
           </div>
           <div className="user-cake-design-list-grid">

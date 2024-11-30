@@ -62,6 +62,7 @@ function UserKakaoLogin() {
               member_id: authUser.member_id,
               user_id: authUser.user_id,
               user_provider: authUser.user_provider,
+              type: authUser.type,
             })
           );
           navigate("/");
