@@ -53,7 +53,7 @@ const UserAuditionBoard = () => {
         url = "/api/user/audition/board/ongoing";
         break;
       case "종료":
-        url = "/api/user/cakeDesign/board/end";
+        url = "/api/user/audition/board/end";
         break;
       default:
         url = "/api/user/audition/board";

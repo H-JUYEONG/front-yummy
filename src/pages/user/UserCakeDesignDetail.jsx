@@ -181,8 +181,8 @@ const UserCakeDesignDetail = () => {
               </p>
               <p className="user-cake-design-author">
                 작성자{" "}
-                {cakeDesignDetail.type === "업체"
-                  ? "업체"
+                {cakeDesignDetail.venderName
+                  ? `${cakeDesignDetail.venderName} (업체)`
                   : cakeDesignDetail.userNickname || "익명"}
               </p>
               {/* 조건부 렌더링: 작성자와 현재 로그인된 사용자 비교 */}
