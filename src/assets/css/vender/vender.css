@@ -3,14 +3,14 @@
 /* 전체 컨테이너 */
 .vender-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
     min-height: 100vh;
     font-family: 'IBM Plex Sans KR', sans-serif;
     position: relative;
-    padding: 20px;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
-    
+    overflow-x: hidden;
+    overflow-y: hidden;
+    /* 가로 스크롤 방지 */
+    align-items: flex-start;
+    padding-top: 10px;
 }
 
 /* 내부 콘텐츠 래퍼 */
@@ -20,24 +20,27 @@
     width: 100%;
     position: relative;
     margin: 0 auto;
-    overflow-x: hidden; /* 내부 콘텐츠 초과 방지 */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    /* 내부 콘텐츠 초과 방지 */
 }
 
-/* 사이드바 스타일 */
+
 /* 사이드바 스타일 */
 .vender-sidebar {
-    width: 250px; /* 기존 250px에서 300px로 크기 조정 */
+    width: 250px;
+    /* 기존 250px에서 300px로 크기 조정 */
     background-color: black;
     color: #ffffff;
     height: 100vh;
     padding: 20px;
-    position: relative;
-    top: 0;
+    position: fixed;
+    /* 화면에서 고정 위치 설정 */
+    top: 20px;
     box-shadow: 2px 0 5px rgba(141, 138, 123, 0.1);
     overflow-y: auto;
     border-radius: 16px;
     z-index: 10;
-    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 
@@ -94,72 +97,80 @@
 /* 메인 콘텐츠 영역 */
 .vender-content {
     flex-grow: 1;
-    margin-left: 30px;
+    margin-left: 265px;
+    /* 사이드바 너비만큼 여백 설정 */
     border-radius: 16px;
     font-family: 'IBM Plex Sans KR', sans-serif;
     min-height: calc(100vh - 40px);
-    overflow-x: hidden; /* 내부 콘텐츠 초과 방지 */
+    overflow-x: hidden;
+    /* 내부 콘텐츠 초과 방지 */
 }
 
-/* 햄버거 메뉴 버튼 */
-.hamburger-menu {
-    display: none;
-    font-size: 24px;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    background: none;
-    border: none;
-    color: #333;
-    cursor: pointer;
+.vender-container.sidebar-open .vender-content {
+    margin-left: 250px;
+    /* 사이드바가 열렸을 때 콘텐츠 밀림 */
+    transition: margin-left 0.3s ease-in-out;
 }
 
 
 /* 모바일 디바이스 스타일 */
 @media screen and (max-width: 768px) {
+    .hamburger-menu {
+        display: block; /* 모바일에서 보이도록 설정 */
+    }
     /* 전체 컨테이너 */
     .vender-container {
-        padding: 10px;
         flex-direction: column;
     }
 
     /* 사이드바 */
     .vender-sidebar {
-        width: 250px;
-        height: 100%; /* 높이를 100%로 */
-        position: fixed; /* 모바일에서는 고정 */
-        left: -300px; /* 초기 위치: 화면 밖 */
-        top: 0;
-        transition: left 0.3s ease-in-out; /* 슬라이드 효과 */
-        z-index: 1000; /* 콘텐츠 위로 */
-    }
-
-    .vender-sidebar.open {
-        left: 0; /* 사이드바가 열리면 화면 안으로 이동 */
-    }
-
-    /* 메인 콘텐츠 */
-    .vender-content {
-        margin-left: 0; /* 모바일에서는 마진 제거 */
-    }
-
-    /* 햄버거 메뉴 버튼 */
-    .hamburger-menu {
-        display: block; /* 모바일에서만 보이도록 */
         position: fixed;
-        top: 15px;
-        left: 15px;
+        top: 0;
+        left: -250px; /* 기본적으로 숨김 */
+        width: 250px;
+        height: 100%;
         background-color: #333;
         color: #fff;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 1001; /* 사이드바보다 위 */
-        cursor: pointer;
+        transition: all 0.3s ease-in-out; /* 부드러운 애니메이션 */
+        z-index: 1000;
     }
-
+    
+    .vender-sidebar.open {
+        left: 0; /* 열림 상태에서 화면 안으로 이동 */
+    }
+    /* 메인 콘텐츠 */
+    .vender-content {
+        margin-left: 0;
+        /* 모바일에서는 마진 제거 */
+    }
+    .hamburger-menu {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        z-index: 2000; /* 사이드바보다 위 */
+        border-radius: 5px;
+        font-size: 18px;
+    }
+    
     .hamburger-menu:hover {
         background-color: #555;
+    }
+    .parent-container.sidebar-open .main-content {
+        margin-left: 250px; /* 사이드바 열렸을 때 콘텐츠 밀림 */
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    .vender-content-wrapper {
+        transition: margin-left 0.3s ease-in-out;
+    }
+    
+    .vender-content-wrapper.sidebar-open {
+        margin-left: 250px; /* 사이드바 열림 상태에서 콘텐츠 밀림 */
     }
 }

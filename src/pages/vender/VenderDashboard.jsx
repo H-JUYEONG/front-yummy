@@ -9,7 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
-
+import SidebarWrapper from './include/SidebarWrapper';
 import VenderHeader from './include/VenderHeader';
 import VenderSidebar from './include/VenderSidebar';
 const API_URL = process.env.REACT_APP_API_URL;
@@ -118,11 +118,11 @@ const VenderDashboard = () => {
                 '제작 중': { backgroundColor: '#E0E0E0', color: '#757575', icon: '⚙️' },
                 '수령 완료': { backgroundColor: '#F5F5F5', color: '#9E9E9E', icon: '🎉' },
             };
-    
+
             // 이벤트 상태에 따라 스타일 설정
             const status = info.event.title.split('(')[1]?.split(')')[0]; // 상태 추출
             const style = statusStyles[status] || { backgroundColor: '#ddd', color: '#000', icon: 'ℹ️' };
-    
+
             return (
                 <div
                     style={{
@@ -152,8 +152,8 @@ const VenderDashboard = () => {
             alert(`주문 ID: ${info.event.extendedProps.orderId}\n시간: ${info.event.extendedProps.time}`);
         },
     };
-    
-    
+
+
     // 신규 리뷰 데이터 가져오기
     useEffect(() => {
         const fetchNewReviews = async () => {
@@ -177,40 +177,42 @@ const VenderDashboard = () => {
     // 현재 월 계산 (예: 11월)
     const currentMonth = new Date().toLocaleString('ko-KR', { month: 'long' });
     return (
-        <>
-            <div className="vender-container">
-                <div className="vender-content-wrapper">
-                    <VenderSidebar />
-                    <div className="vender-content">
-                        <main className="dashboard-content">
-                            <header className="vender-header">
-                                <VenderHeader />
-                            </header>
-                            <section className="dashboard-summary">
-                                <div className="summary-cards">
-                                    <div className="card">
-                                        <h3>{currentMonth} 주문 건수</h3>
-                                        <p>{monthlyOrderCount}건</p>
+        <SidebarWrapper>
+            <>
+                <div className="vender-container">
+                    <div className="vender-content-wrapper">
+                        <VenderSidebar />
+                        <div className="vender-content">
+                            <main className="dashboard-content">
+                                <header className="vender-header">
+                                    <VenderHeader />
+                                </header>
+                                <section className="dashboard-summary">
+                                    <div className="summary-cards">
+                                        <div className="card">
+                                            <h3>{currentMonth} 주문 건수</h3>
+                                            <p>{monthlyOrderCount}건</p>
+                                        </div>
+                                        <div className="card">
+                                            <h3>새로운 리뷰</h3>
+                                            <p>{newReviews}건</p>
+                                        </div>
+                                        <div className="card">
+                                            <h3>포인트</h3>
+                                            <p>{points.toLocaleString()}</p>
+                                        </div>
                                     </div>
-                                    <div className="card">
-                                        <h3>새로운 리뷰</h3>
-                                        <p>{newReviews}건</p>
-                                    </div>
-                                    <div className="card">
-                                        <h3>포인트</h3>
-                                        <p>{points.toLocaleString()}</p>
-                                    </div>
-                                </div>
-                            </section>
-                            <section className="scheduler-section">
-                                <h2>예약 스케쥴러</h2>
-                                <FullCalendar {...calendarOptions} />
-                            </section>
-                        </main>
+                                </section>
+                                <section className="scheduler-section">
+                                    <h2>예약 스케쥴러</h2>
+                                    <FullCalendar {...calendarOptions} />
+                                </section>
+                            </main>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </>
+        </SidebarWrapper>
     );
 };
 
