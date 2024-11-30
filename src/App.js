@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './assets/css/App.css'; // 스타일 적용
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
@@ -97,10 +97,23 @@ function App() {
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
+  const isMobile = window.innerWidth <= 768; // 모바일 여부 판별
+  const isLoggedIn = localStorage.getItem('authToken'); // 로그인 여부 판별
   return (
     <div className="app-container">
       <BrowserRouter>
         <Routes>
+          {/* 모바일 전용 페이지 */}
+          {isMobile && (
+            <>
+              {!isLoggedIn && <Route path="*" element={<Navigate to="/user/login" />} />}
+              <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+              <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
+            </>
+          )}
+          {/* 데스크톱: 접근 제한 */}
+          {!isMobile && <Route path="*" element={<div>모바일에서만 이용 가능합니다.</div>} />}
+
           <Route path='/vender/:venderId' element={<VenderDashboard />} />
           <Route path='/vender/' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />

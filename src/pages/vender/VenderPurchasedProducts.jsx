@@ -150,13 +150,13 @@ const VenderPurchasedProducts = () => {
                                             const requestDate = order.desiredDeliveryDate || order.desiredPickupDatetime || 'N/A'; // 요청일 통합 로직
                                             return (
                                                 <tr key={order.orderId} data-status={order.orderStatus}>
-                                                    <td>{order.orderId}</td>
-                                                    <td>{order.productName}</td>
-                                                    <td>{order.orderDate}</td>
-                                                    <td>{requestDate}</td> {/* 요청일 표시 */}
-                                                    <td>{order.deliveryMethod}</td>
-                                                    <td>{order.orderStatus}</td>
-                                                    <td>
+                                                    <td data-label="주문 번호">{order.orderId}</td>
+                                                    <td data-label="상품명">{order.productName}</td>
+                                                    <td data-label="주문일">{order.orderDate}</td>
+                                                    <td data-label="요청일">{requestDate}</td> {/* 요청일 표시 */}
+                                                    <td data-label="수령 방법">{order.deliveryMethod}</td>
+                                                    <td data-label="상태">{order.orderStatus}</td>
+                                                    <td data-label="상세 보기">
                                                         {order.orderId ? (
                                                             <button onClick={() => navigate(`/vender/purchasedproductsdetail/${order.orderId}`)}>
                                                                 보기
