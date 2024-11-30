@@ -195,6 +195,11 @@ const UserSocialSignUpForm = () => {
       return false;
     }
 
+    if (!isPhoneVerified) {
+      alert("휴대폰 인증을 완료해주세요.");
+      return false;
+    }
+
     return true;
   };
 
