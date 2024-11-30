@@ -26,7 +26,7 @@ const UserCakeDesignDetail = () => {
     // 1. 로그인 체크
     const token = localStorage.getItem("token");
     if (!token) {
-      console.log("토큰이 없습니다. 로그인하세요.");
+      alert("로그인이 필요합니다.");
       navigate("/user/login");
       return;
     }
@@ -263,9 +263,8 @@ const UserCakeDesignDetail = () => {
             </div>
 
             <div id="cake-design-action-btns" className="clearfix">
-              {/* Favorite Button */}
               {/* Favorite Button: 작성자 본인의 글이 아닌 경우에만 표시 */}
-              {authUser && cakeDesignDetail.memberId !== authUser.member_id && (
+              {cakeDesignDetail.memberId !== (authUser?.member_id) && (
                 <div className="user-favorite-section">
                   <button
                     className="user-favorite-button"

@@ -23,10 +23,11 @@
 
 /* 작성 날짜와 버튼 컨테이너 */
 .user-design-info {
-  display: flex;
+  display: flex;  /* 이 부분이 꼭 필요합니다! */
   align-items: center;
+  position: relative;
+  top: 5px;
 }
-
 /* 날짜 스타일 */
 .user-cake-design-write-date {
   font-size: 15px;
@@ -194,6 +195,7 @@
 
 .user-control-section {
   float: right;
+  padding-bottom: 5px;
 }
 
 /* cakes Section */
