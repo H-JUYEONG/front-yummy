@@ -110,6 +110,8 @@
 
 .user-input-text:focus {
     outline: none;
+    border-color: #aaa;
+    background-color: #fff;
 }
 
 /* 등록 버튼 스타일 */

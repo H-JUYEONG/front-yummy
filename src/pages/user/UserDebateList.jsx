@@ -146,7 +146,7 @@ const UserDebateList = () => {
             <button
               onClick={() => {
                 if (!token) {
-                  alert("로그인 후 사용하세요");
+                  alert("로그인이 필요합니다.");
                 } else {
                   navigate("/debate/debateinsert");
                 }
