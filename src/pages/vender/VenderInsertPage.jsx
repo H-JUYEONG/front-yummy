@@ -144,7 +144,7 @@ const VenderInsertPage = () => {
                 shopAddress: data.venderAddress
             })
 
-            console.log(updateVenderData)
+            console.log("보내기전값",updateVenderData)
 
         }catch(error)  {
             console.log(error);
@@ -158,7 +158,7 @@ const VenderInsertPage = () => {
 
     },[])
     useEffect(()=>{
-        console.log(venderData)
+        console.log("*************",venderData)
 
     },[venderData])
 
@@ -327,13 +327,32 @@ const VenderInsertPage = () => {
      // 미리보기 버튼 클릭 시 새로운 웹 창 열기
     const openPreviewInNewWindow = (e) => {
         e.preventDefault();
-        const newWindow = window.open(`/vender/exeStoreDetail/${venderId}`, '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
+
+        // 팝업 창의 크기와 위치 설정
+    const width = 800;  // 새 창의 가로 크기
+    const height = 600; // 새 창의 세로 크기
+    const left = (window.innerWidth / 2) - (width / 2);  // 화면 중앙으로 위치
+    const top = (window.innerHeight / 2) - (height / 2);  // 화면 중앙으로 위치
+
+    // 새 창을 팝업 형태로 띄우기
+    const newWindow = window.open(
+        `/vender/exeStoreDetail/${venderId}`,  // 미리보기 URL
+        '_blank',  // 새 창으로 열기
+        `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=no` // 팝업 창 설정
+    );
+
+        //const newWindow = window.open(`/vender/exeStoreDetail/${venderId}`, '_blank'); // 새 탭에서 '/vender/venderMain' 페이지 열기
         // 새 창이 정상적으로 열렸는지 확인
         if (newWindow) {
             setPreviewWindow(newWindow);
             previewWindowRef.current = newWindow; // 새 창 참조 저장
             // 새 창이 열리면 포커스
             newWindow.focus(); 
+            
+            if (previewWindowRef.current) {
+                console.log("]]]]]]]]]]]",venderData)
+                previewWindowRef.current.postMessage(venderData, '*');  // 새 창에 데이터 전송
+            }
         } else {
             console.error("새 창이 열리지 않았습니다.");
         }
@@ -344,8 +363,10 @@ const VenderInsertPage = () => {
     // venderData가 변경될 때마다 새 창에 데이터를 전송
     useEffect(() => {
         if (previewWindowRef.current) {
+            //console.log("]]]]]]]]]]]",venderData)
             previewWindowRef.current.postMessage(venderData, '*');  // 새 창에 데이터 전송
         }
+        
     }, [venderData]);
 
 

@@ -24,6 +24,8 @@ const UserStoreDetail = () => {
     // 부모창에서 전달한 메시지를 받기 위해 useEffect 사용
     useEffect(() => {
         const handleMessage = (event) => {
+            console.log("새창이 떴을때")
+            
             // event.origin을 통해 다른 도메인에서 온 메시지를 차단하는 것도 좋습니다.
             if (event.origin !== window.location.origin) {
                 return; // 보안상 다른 도메인의 메시지는 무시
@@ -31,7 +33,13 @@ const UserStoreDetail = () => {
 
             // 부모창에서 받은 데이터 처리
             if (event.data) {
-                setVenderData(event.data);  // 데이터를 상태로 저장
+                console.log("새창이 떴을때2")
+                console.log(event)
+
+                const data = event.data;  // 부모 창에서 보낸 데이터
+                console.log('Received data:', data);
+
+                setVenderData(data);  // 데이터를 상태로 저장
             }
         };
          // 메시지 이벤트 리스너 등록
@@ -48,44 +56,7 @@ const UserStoreDetail = () => {
         
     }, []);
 
-    // 상품 데이터
-    const categoryProducts = {
-        '카테고리 1': [
-            { id: 1, image: '/images/1호_일반케이크.jpg', name: '블랙 레터링 케이크', price: '35,000원' },
-            { id: 2, image: '/images/1호_일반케이크.jpg', name: '레터링 케이크', price: '45,000원' },
-            { id: 3, image: '/images/1호_일반케이크.jpg', name: '생일 케이크', price: '38,000원' },
-            { id: 4, image: '/images/1호_일반케이크.jpg', name: '파티 케이크', price: '42,000원' }
-        ],
-        '카테고리 2': [
-            { id: 5, image: '/images/2호_일반케이크.jpg', name: '비건 초콜릿 케이크', price: '48,000원' },
-            { id: 6, image: '/images/2호_일반케이크.jpg', name: '비건 바닐라 케이크', price: '46,000원' },
-            { id: 7, image: '/images/2호_일반케이크.jpg', name: '비건 생크림 케이크', price: '44,000원' },
-            { id: 8, image: '/images/2호_일반케이크.jpg', name: '비건 당근 케이크', price: '42,000원' }
-        ],
-        '카테고리 3': [
-            { id: 9, image: '/images/3호_떡케이크.png', name: '떡 케이크 1호', price: '40,000원' },
-            { id: 10, image: '/images/3호_떡케이크.png', name: '떡 케이크 2호', price: '50,000원' },
-            { id: 11, image: '/images/3호_떡케이크.png', name: '떡 케이크 3호', price: '60,000원' },
-            { id: 12, image: '/images/3호_떡케이크.png', name: '떡 케이크 4호', price: '70,000원' }
-        ],
-        '카테고리 4': [
-            { id: 13, image: '/images/3호_특별한케이크(달력).jpg', name: '포토 케이크', price: '55,000원' },
-            { id: 14, image: '/images/3호_특별한케이크(달력).jpg', name: '캐릭터 케이크', price: '60,000원' },
-            { id: 15, image: '/images/3호_특별한케이크(달력).jpg', name: '웨딩 케이크', price: '150,000원' },
-            { id: 16, image: '/images/3호_특별한케이크(달력).jpg', name: '기업 케이크', price: '100,000원' }
-        ],
-        '카테고리 5': [
-            { id: 17, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 1', price: '25,000원' },
-            { id: 18, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 2', price: '28,000원' },
-            { id: 19, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 3', price: '20,000원' },
-            { id: 20, image: '/images/강아지_미니케이크.jpg', name: '미니 케이크 4', price: '30,000원' }
-        ]
-    };
-
-    const allProducts = Object.values(categoryProducts).flat();
-
-
-
+    
     const handleKakaoChat = () => {
         window.open(`#`, '_blank');
 
@@ -97,10 +68,10 @@ const UserStoreDetail = () => {
                 <Link to='/user/storedetail'>
                     <img src={venderData.bannerPreview} />
                 </Link>
-                {{venderId}!=null ? 
+                {/* {{venderId}!=null ? 
                 <Link to={`/vender/${venderId}`}>
                     <GearIcon className='vender-header-icon' style={{ fontSize: '30px', color: 'gray' }} />
-                </Link>: <p></p>}
+                </Link>: <p></p>} */}
             </div>
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">

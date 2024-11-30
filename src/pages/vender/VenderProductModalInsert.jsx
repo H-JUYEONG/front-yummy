@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../assets/css/vender/venderProductModalInsert.css'; // 모달 스타일
 
 const VenderProductModalInsert = ({ onClose, productList, onProductSelect}) => {
 
+    useEffect(()=>{
+        console.log('넘겨받은 상품 리스트',productList)
+    },[])
     const handleProductSelect = (product)=>{
         onProductSelect(product.productId);
         onClose();
@@ -21,7 +24,7 @@ const VenderProductModalInsert = ({ onClose, productList, onProductSelect}) => {
                 
                 
                 <div className='ssso-productlist-box'>
-                    {productList    .filter((product) => product.selectProduct == '일치')
+                    {productList    .filter((product) => product.selectProduct == '일치' || product.selectProduct === '요청도안없음')
                                     .map((product)=>{
                         return (
                             <div className='ssso-product-one-box' onClick={() => handleProductSelect(product)}>

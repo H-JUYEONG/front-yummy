@@ -277,12 +277,14 @@
 }
 
 .sd-product-name {
-    font-size: 0.9em;
+    font-size: 1.0em;
     color: #333;
+    font-weight: bolder;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-bottom: 3px;
 }
 
 .sd-price {

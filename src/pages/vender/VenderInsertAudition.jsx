@@ -87,12 +87,8 @@ const VenderInsertAudition = () => {
     //가격받기
     const handlePrice = (e)=>{
 
-        let inputValue = e.target.value;
-
-        // 숫자 외의 문자를 제거하고, 쉼표 추가
-        inputValue = inputValue.replace(/[^0-9]/g, ''); // 숫자만 허용
-        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        setFinalPrice(inputValue)
+        
+        setFinalPrice(e.target.value)
     }
 
     //선택된 옵션들 받기
@@ -116,6 +112,7 @@ const VenderInsertAudition = () => {
             cakeLettering: userOrder.lettering,
             plateLettering: userOrder.plateLettering,
             applicationRequests: userOrder.additionalRequests,
+            shopRequests: selectedOptions.content,
 
             productType: selectedOptions.cakeType,
             category: selectedOptions.category,
