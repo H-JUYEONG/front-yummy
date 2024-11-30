@@ -57,11 +57,9 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
         });
         
     }
-
-    useEffect(()=>{
-        getLogo();
-        
-    },[])
+    useEffect(() => {
+        if (venderId) getLogo();
+    }, [venderId]);
 
 
     return (

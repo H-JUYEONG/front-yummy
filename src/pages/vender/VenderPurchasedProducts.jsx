@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/purchasedproducts.css';
-
+import SidebarWrapper from './include/SidebarWrapper';
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
 
@@ -105,92 +105,95 @@ const VenderPurchasedProducts = () => {
     }
 
     return (
-        <div className="vender-container">
-            <div className="vender-content-wrapper">
-                <VenderSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className="vender-content">
-                    <header className="vender-header">
-                        <VenderHeader />
-                    </header>
-                    <main className="vender-order-list-main-content">
-                        <section className="vender-order-list">
-                            <header className="order-list-header">
-                                <h2>주문 리스트</h2>
-                                <div className="vender-filter-section">
-                                    <label htmlFor="order-status-filter">상태별 보기:</label>
-                                    <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
-                                        <option value="all">전체</option>
-                                        <option value="결제 완료">결제 완료</option>
-                                        <option value="제작 중">제작 중</option>
-                                        <option value="제작 완료">제작 완료</option>
-                                        <option value="픽업 요청">픽업 요청</option>
-                                        <option value="배송 중">배송 중</option>
-                                        <option value="수령 완료">수령 완료</option>
-                                    </select>
+
+        <SidebarWrapper>
+            <div className="vender-container">
+                <div className="vender-content-wrapper">
+                    <VenderSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                    <div className="vender-content">
+                        <header className="vender-header">
+                            <VenderHeader />
+                        </header>
+                        <main className="vender-order-list-main-content">
+                            <section className="vender-order-list">
+                                <header className="order-list-header">
+                                    <h2>주문 리스트</h2>
+                                    <div className="vender-filter-section">
+                                        <label htmlFor="order-status-filter">상태별 보기:</label>
+                                        <select id="order-status-filter" value={filter} onChange={handleFilterChange}>
+                                            <option value="all">전체</option>
+                                            <option value="결제 완료">결제 완료</option>
+                                            <option value="제작 중">제작 중</option>
+                                            <option value="제작 완료">제작 완료</option>
+                                            <option value="픽업 요청">픽업 요청</option>
+                                            <option value="배송 중">배송 중</option>
+                                            <option value="수령 완료">수령 완료</option>
+                                        </select>
+                                    </div>
+                                </header>
+                                <table className="vender-order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>주문 번호</th>
+                                            <th>상품명</th>
+                                            <th>주문일</th>
+                                            <th onClick={handleSort} style={{ cursor: "pointer" }}>
+                                                요청일 {sortOrder === "asc" ? "▲" : "▼"}
+                                            </th>
+                                            <th>수령 방법</th>
+                                            <th>상태</th>
+                                            <th>상세 보기</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {currentOrders.map(order => {
+                                            const requestDate = order.desiredDeliveryDate || order.desiredPickupDatetime || 'N/A'; // 요청일 통합 로직
+                                            return (
+                                                <tr key={order.orderId} data-status={order.orderStatus}>
+                                                    <td data-label="주문 번호">{order.orderId}</td>
+                                                    <td data-label="상품명">{order.productName}</td>
+                                                    <td data-label="주문일">{order.orderDate}</td>
+                                                    <td data-label="요청일">{requestDate}</td> {/* 요청일 표시 */}
+                                                    <td data-label="수령 방법">{order.deliveryMethod}</td>
+                                                    <td data-label="상태">{order.orderStatus}</td>
+                                                    <td data-label="상세 보기">
+                                                        {order.orderId ? (
+                                                            <button onClick={() => navigate(`/vender/purchasedproductsdetail/${order.orderId}`)}>
+                                                                보기
+                                                            </button>
+                                                        ) : (
+                                                            <span>주문 ID 없음</span>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                                {/* 페이지네이션 영역 */}
+                                <div className="pagination">
+                                    {startPage > 1 && (
+                                        <button onClick={() => handlePageChange(startPage - 1)}>이전</button>
+                                    )}
+                                    {pageNumbers.map((pageNumber) => (
+                                        <button
+                                            key={pageNumber}
+                                            className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
+                                            onClick={() => handlePageChange(pageNumber)}
+                                        >
+                                            {pageNumber}
+                                        </button>
+                                    ))}
+                                    {endPage < totalPages && (
+                                        <button onClick={() => handlePageChange(endPage + 1)}>다음</button>
+                                    )}
                                 </div>
-                            </header>
-                            <table className="vender-order-table">
-                                <thead>
-                                    <tr>
-                                        <th>주문 번호</th>
-                                        <th>상품명</th>
-                                        <th>주문일</th>
-                                        <th onClick={handleSort} style={{ cursor: "pointer" }}>
-                                            요청일 {sortOrder === "asc" ? "▲" : "▼"}
-                                        </th>
-                                        <th>수령 방법</th>
-                                        <th>상태</th>
-                                        <th>상세 보기</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {currentOrders.map(order => {
-                                        const requestDate = order.desiredDeliveryDate || order.desiredPickupDatetime || 'N/A'; // 요청일 통합 로직
-                                        return (
-                                            <tr key={order.orderId} data-status={order.orderStatus}>
-                                                <td>{order.orderId}</td>
-                                                <td>{order.productName}</td>
-                                                <td>{order.orderDate}</td>
-                                                <td>{requestDate}</td> {/* 요청일 표시 */}
-                                                <td>{order.deliveryMethod}</td>
-                                                <td>{order.orderStatus}</td>
-                                                <td>
-                                                    {order.orderId ? (
-                                                        <button onClick={() => navigate(`/vender/purchasedproductsdetail/${order.orderId}`)}>
-                                                            보기
-                                                        </button>
-                                                    ) : (
-                                                        <span>주문 ID 없음</span>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                            {/* 페이지네이션 영역 */}
-                            <div className="pagination">
-                                {startPage > 1 && (
-                                    <button onClick={() => handlePageChange(startPage - 1)}>이전</button>
-                                )}
-                                {pageNumbers.map((pageNumber) => (
-                                    <button
-                                        key={pageNumber}
-                                        className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
-                                        onClick={() => handlePageChange(pageNumber)}
-                                    >
-                                        {pageNumber}
-                                    </button>
-                                ))}
-                                {endPage < totalPages && (
-                                    <button onClick={() => handlePageChange(endPage + 1)}>다음</button>
-                                )}
-                            </div>
-                        </section>
-                    </main>
+                            </section>
+                        </main>
+                    </div>
                 </div>
             </div>
-        </div>
+        </SidebarWrapper>
     );
 };
 

@@ -125,7 +125,7 @@ const UserCakeDetail = () => {
     }, []);
 
     //소영 지도부분
-    useEffect(()=>{
+    useEffect(() => {
 
         console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
 
@@ -161,7 +161,7 @@ const UserCakeDetail = () => {
             }
         };
 
-    },[longitude, latitude])
+    }, [longitude, latitude])
 
     // 컴포넌트 마운트 시 찜 상태 조회
     useEffect(() => {
@@ -204,7 +204,7 @@ const UserCakeDetail = () => {
         }).then(response => {
             setProductDetail(response.data.apiData);
             console.log("상품 상세:", response.data.apiData);
-            
+
             setLatitude(response.data.apiData.latitude);
             setLongitude(response.data.apiData.longitude)
 
@@ -408,18 +408,17 @@ const UserCakeDetail = () => {
         }
     };
 
-    const handleMouseDown = (e, ref) => {
+    const handleMouseDown = (e) => {
+        const container = containerRef.current;
+        if (!container) return; // containerRef가 아직 연결되지 않았다면 종료
         setIsDragging(true);
-        const container = ref.current;
-        container.classList.add('dragging');
         setStartX(e.pageX - container.offsetLeft);
         setScrollLeft(container.scrollLeft);
     };
-
-    const handleMouseMove = (e, ref) => {
+    const handleMouseMove = (e) => {
         if (!isDragging) return;
         e.preventDefault();
-        const container = ref.current;
+        const container = containerRef.current;
         const x = e.pageX - container.offsetLeft;
         const walk = (x - startX) * 2;
         container.scrollLeft = scrollLeft - walk;
@@ -572,12 +571,12 @@ const UserCakeDetail = () => {
                 <h3>{title}</h3>
                 {isScrollable ? (
                     <div
-                        ref={containerRef}
-                        className="option-scroll-container"
-                        onMouseDown={(e) => handleMouseDown(e, containerRef)}
-                        onMouseMove={(e) => handleMouseMove(e, containerRef)}
-                        onMouseUp={() => handleMouseUp(containerRef)}
-                        onMouseLeave={() => handleMouseLeave(containerRef)}
+                        ref={containerRef} // ref 연결
+                        className={`option-scroll-container ${isDragging ? 'dragging' : ''}`}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUpOrLeave}
+                        onMouseLeave={handleMouseUpOrLeave}
                     >
                         {optionContent}
                     </div>
@@ -586,6 +585,9 @@ const UserCakeDetail = () => {
                 )}
             </div>
         );
+    };
+    const handleMouseUpOrLeave = () => {
+        setIsDragging(false);
     };
 
     // 탭 관련
@@ -1191,12 +1193,10 @@ const UserCakeDetail = () => {
                                 </button>
                             </div>
                         </div>
-
                         <div className="options">
-                            {Object.keys(OPTION_TYPES).map(optionType =>
+                            {Object.keys(OPTION_TYPES).map((optionType) =>
                                 renderOptionGroup(optionType, productOptions[optionType])
                             )}
-
                             <div className="option-group">
                                 <h3>배송 방식</h3>
                                 <div className="delivery-type-buttons">
@@ -1365,8 +1365,8 @@ const UserCakeDetail = () => {
                         )}
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 };
 export default UserCakeDetail;

@@ -241,3 +241,40 @@
   padding-left: 25px;
   font-family: "Noto Sans KR", sans-serif;
 }
+
+/* 모바일 스타일 */
+@media screen and (max-width: 768px) {
+  .user-login-box {
+      padding: 15px;
+      width: 90%;
+  }
+
+  .user-loginform input {
+      font-size: 14px;
+      padding: 8px;
+  }
+
+  .user-login-btn button {
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  .user-login-id-save {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .user-login-id-save .user-txt-chk-right {
+      margin-top: 10px;
+  }
+
+  #user-login-list {
+    display: none; /* 모바일에서는 숨김 */
+}
+
+  footer {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 12px;
+  }
+}
