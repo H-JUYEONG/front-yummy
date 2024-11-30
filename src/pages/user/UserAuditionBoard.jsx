@@ -53,7 +53,7 @@ const UserAuditionBoard = () => {
         url = "/api/user/audition/board/ongoing";
         break;
       case "종료":
-        url = "/api/user/cakeDesign/board/end";
+        url = "/api/user/audition/board/end";
         break;
       default:
         url = "/api/user/audition/board";
@@ -117,6 +117,17 @@ const UserAuditionBoard = () => {
     loadAuditions(1);
   };
 
+  // 토큰 확인 및 페이지 이동 함수
+  const handleNavigate = (path) => {
+    const token = localStorage.getItem("token"); // 로컬스토리지에서 토큰 확인
+    if (!token) {
+      alert("로그인이 필요합니다."); // 토큰이 없으면 알림 표시
+      navigate("/user/login"); // 로그인 폼으로 이동
+    } else {
+      navigate(path); // 토큰이 있으면 지정된 경로로 이동
+    }
+  };
+
   return (
     <div id="user-wrap" className="text-center">
       {/* Header */}
@@ -169,7 +180,7 @@ const UserAuditionBoard = () => {
           <div id="user-cake-audition-add" className="clearfix">
             <div className="user-cake-audition-all">ALL {totalAllCount}</div>
             <div className="user-cake-audition-add-btn">
-              <button onClick={() => navigate("/user/audition/add")}>
+              <button onClick={() => handleNavigate("/user/audition/add")}>
                 제작 요청하기
               </button>
             </div>
@@ -182,7 +193,13 @@ const UserAuditionBoard = () => {
                 onClick={() => handleAuditionClick(card.auditionApplicationId)}
               >
                 <div className="user-cake-audition-card-image">
-                  <img src={card.imageUrl} alt="케이크 도안" />
+                  <img
+                    src={
+                      card.imageUrl ||
+                      "https://placehold.co/300x200?text=No+Image"
+                    } 
+                    alt="케이크 도안"
+                  />
                   <div
                     className={`user-cake-audition-status ${
                       card.status === "진행중"

@@ -114,6 +114,8 @@
 
 .user-audition-input-text:focus {
   outline: none;
+  border-color: #aaa;
+  background-color: #fff;
 }
 
 .user-audition-add {

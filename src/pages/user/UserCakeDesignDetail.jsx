@@ -26,7 +26,7 @@ const UserCakeDesignDetail = () => {
     // 1. 로그인 체크
     const token = localStorage.getItem("token");
     if (!token) {
-      console.log("토큰이 없습니다. 로그인하세요.");
+      alert("로그인이 필요합니다.");
       navigate("/user/login");
       return;
     }
@@ -181,8 +181,8 @@ const UserCakeDesignDetail = () => {
               </p>
               <p className="user-cake-design-author">
                 작성자{" "}
-                {cakeDesignDetail.type === "업체"
-                  ? "업체"
+                {cakeDesignDetail.venderName
+                  ? `${cakeDesignDetail.venderName} (업체)`
                   : cakeDesignDetail.userNickname || "익명"}
               </p>
               {/* 조건부 렌더링: 작성자와 현재 로그인된 사용자 비교 */}
@@ -263,9 +263,8 @@ const UserCakeDesignDetail = () => {
             </div>
 
             <div id="cake-design-action-btns" className="clearfix">
-              {/* Favorite Button */}
               {/* Favorite Button: 작성자 본인의 글이 아닌 경우에만 표시 */}
-              {authUser && cakeDesignDetail.memberId !== authUser.member_id && (
+              {cakeDesignDetail.memberId !== (authUser?.member_id) && (
                 <div className="user-favorite-section">
                   <button
                     className="user-favorite-button"

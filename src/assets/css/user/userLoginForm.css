@@ -81,6 +81,7 @@
 .user-loginform input:focus {
   outline: none;
   border-color: #aaa;
+  background-color: #fff;
 }
 
 .user-loginform input::placeholder {

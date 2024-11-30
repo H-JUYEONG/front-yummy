@@ -96,6 +96,7 @@
 .user-signup-intput-area input:focus {
     outline: none;
     border-color: #aaa;
+    background-color: #fff;
 }
 
 /* 회원가입 버튼 스타일 */

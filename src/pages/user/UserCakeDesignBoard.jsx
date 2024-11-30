@@ -34,6 +34,7 @@ const UserCakeDesignBoard = () => {
       });
       if (response.data.result === "success") {
         const data = response.data.apiData;
+        console.log(response.data.apiData);
         setUserCakeDesignBoard(data.data || []);
         setTotalAllCount(data.totalCount || 0);
       } else {
@@ -47,7 +48,7 @@ const UserCakeDesignBoard = () => {
 
   // 데이터 로드 함수
   const loadCakeDesigns = (page = 1) => {
-    let url = "/api/user/cakeDesign/board";
+    let url = "";
     switch (selectedStyle) {
       case "최신순":
         url = "/api/user/cakeDesign/board/latest";
@@ -55,11 +56,11 @@ const UserCakeDesignBoard = () => {
       case "조회수순":
         url = "/api/user/cakeDesign/board/views";
         break;
-      // case "찜순":
-      //   url = "/api/user/cakeDesign/board/likes";
-      //   break;
-      default:
+      case "찜순":
         url = "/api/user/cakeDesign/board/likes";
+        break;
+      default:
+        url = "/api/user/cakeDesign/board/latest";
     }
     fetchData(url, page, searchTerm);
   };
@@ -112,13 +113,23 @@ const UserCakeDesignBoard = () => {
       .catch((error) => {
         console.error("조회수 증가 실패:", error);
       });
-
   };
 
   // 검색 핸들러
   const handleSearch = () => {
     setCurrentPage(1); // 검색 시 첫 페이지로 이동
     loadCakeDesigns(1);
+  };
+
+  // 토큰 확인 및 페이지 이동 함수
+  const handleNavigate = (path) => {
+    const token = localStorage.getItem("token"); // 로컬스토리지에서 토큰 확인
+    if (!token) {
+      alert("로그인이 필요합니다."); // 토큰이 없으면 알림 표시
+      navigate("/user/login"); // 로그인 폼으로 이동
+    } else {
+      navigate(path); // 토큰이 있으면 지정된 경로로 이동
+    }
   };
 
   return (
@@ -176,7 +187,7 @@ const UserCakeDesignBoard = () => {
           <div id="user-cake-design-add" className="clearfix">
             <div className="user-cake-design-all">ALL {totalAllCount}</div>
             <div className="user-cake-design-add-btn">
-              <button onClick={() => navigate("/user/cakeDesign/add")}>
+              <button onClick={() => handleNavigate("/user/cakeDesign/add")}>
                 도안 등록하기
               </button>
             </div>
@@ -200,9 +211,8 @@ const UserCakeDesignBoard = () => {
                     {card.cakeDesignTitle}
                   </h3>
                   <p className="user-cake-design-card-subtitle">
-                    {""}
-                    {card.type === "업체"
-                      ? "업체"
+                    {card.venderName
+                      ? `${card.venderName} (업체)`
                       : card.userNickname || "익명"}
                   </p>
                   <div className="user-cake-design-card-status">
