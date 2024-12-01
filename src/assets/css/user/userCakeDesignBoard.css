@@ -1,280 +1,255 @@
-#user-cake-design-tip {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-#user-cake-design-tip h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-#user-cake-design-tip p {
-  font-size: 28px;
-  padding-bottom: 10px;
-}
-
-#user-cake-design-tip strong {
-  color: #FF7292;
-}
-
-/* 텍스트 영역 애니메이션 적용 */
-#user-cake-design-tip h2,
-#user-cake-design-tip p {
-  animation: fadeIn 1s ease-in-out;
-}
-
 .user-cake-design-board-list {
   width: 100%;
   margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
-/* 전체 그리드 스타일 */
-.user-cake-design-list-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 카드 */
-  gap: 16px;
-  max-width: 1200px; /* 중앙에 배치되도록 최대 너비 설정 */
+/* 디자인 소개 섹션 */
+#user-cake-design-tip {
+  text-align: center;
+  margin-bottom: 70px;
 }
 
-#user-cake-design-add {
-  padding: 0px 7px;
-  padding-top: 20px;
+#user-cake-design-tip h2 {
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-.user-cake-design-add-btn {
-    float: right;
-    margin-top: 5px;
-    margin-bottom: 5px;
+#user-cake-design-tip p {
+  font-size: 25px;
 }
 
-#user-cake-design-add button {
-  margin-bottom: 5px;
-  padding: 10px 12px;
-  color: #fff;
-  border: 2px solid #ddd;
-  border-radius: 25px;
-  background-color: #FF7292;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 18px;
+#user-cake-design-tip strong {
+  color: #ff85a1;
 }
 
-#user-cake-design-add button:hover {
-  background-color: #ff4b87;
-}
-
-.user-cake-design-all {
-  float: left;
-  padding: 20px 0px 0px 5px;
-  font-size: 1.1em;
-}
-
-/* 상단 버튼 및 검색창 컨테이너 */
+/* 상단 옵션 및 검색 */
 #user-cake-design-select-option-list {
   display: flex;
-  justify-content: space-between; /* 양쪽 끝 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  margin-bottom: 20px;
-  max-width: 1200px;
-  margin: 0 auto 20px auto;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-/* 버튼 그룹 중앙 정렬 */
 .user-cake-design-select-option {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-grow: 1;
-  padding-left: 240px;
+  gap: 20px;
+  align-items: center; /* 수평 정렬 */
 }
 
 .user-cake-design-select-option button {
-  padding: 8px 16px;
-    border: 2px solid #ddd;
-    border-radius: 20px;
-    background-color: #f9f9f9;
-    color: #4B5563;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 18px;
-    font-weight: bold;
+  padding: 10px 20px;
+  border: 1px solid #ff85a1;
+  border-radius: 25px;
+  background-color: white;
+  color: #ff85a1;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
 }
 
 .user-cake-design-select-option button:hover {
-  background-color: #FF7292;
+  background-color: #ff85a1;
   color: white;
 }
 
-/* 검색창 스타일 */
+/* 선택된 옵션 버튼 스타일 */
+.user-cake-design-select-option button.active-option {
+  background-color: #ff85a1; /* 배경색 */
+  color: white; /* 텍스트 색상 */
+  border: 1px solid #ff85a1; /* 경계선 색상 */
+}
+
 .user-cake-design-search {
   position: relative;
-  flex-shrink: 0; /* 오른쪽에 고정 */
   display: flex;
-  align-items: center;
-  font-size: 18px;
+  align-items: center; /* 수평 정렬 */
 }
 
 .user-cake-design-search .search-icon {
   position: absolute;
-  left: 12px; /* 아이콘 위치 */
-  font-size: 18px;
-  color: #999;
-  pointer-events: none; /* 아이콘 클릭 방지 */
+  right: 15px;
+  bottom: 11px;
+  color: #999999;
+  cursor: pointer;
 }
 
 .user-cake-design-search input {
-  margin-right: 6px;
-  padding: 8px 16px 8px 36px; /* 왼쪽에 아이콘 공간 확보 */
-  border: 2px solid #ddd;
+  width: 265px;
+  padding: 10px 20px; /* 아이콘과의 간격 */
+  border: 1px solid #999999;
   border-radius: 25px;
-  outline: none;
-  width: 250px; /* 원하는 너비로 조정 */
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .user-cake-design-search input:focus {
-  border-color: #cbcbcb;
+  outline: none;
+}
+
+/* 도안 등록 버튼 및 카운트 */
+#user-cake-design-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ALL과 버튼을 양쪽으로 배치 */
+  margin-bottom: 15px;
+}
+
+.user-cake-design-all {
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 3px;
+  transform: translateY(10px); /* ALL 텍스트를 살짝 아래로 이동 */
+}
+
+.user-cake-design-add-btn {
+  margin-left: auto; /* 오른쪽으로 밀어내기 */
+}
+
+.user-cake-design-add-btn button {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #ff85a1;
+  border: 1px solid #ff85a1;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* .user-cake-design-add-btn button:hover {
+  background-color: #ff4b87;
+} */
+
+.user-cake-design-list-container {
+  width: 100%;
+}
+
+/* 리스트 그리드 */
+.user-cake-design-list-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.user-cake-design-empty-grid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-cake-design-empty-grid p {
+  font-size: 18px;
+  color: #666;
 }
 
 /* 카드 스타일 */
 .user-cake-design-card {
-  background: #fff;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  background: none;
+  border: none;
   overflow: hidden;
-  text-align: center;
   transition: transform 0.3s ease;
-  width: 100%;
-  max-width: 250px; /* 카드 최대 너비 */
-  margin: auto; /* 그리드 칸 안에서 중앙 정렬 */
-  height: 310px;
   cursor: pointer;
+  position: relative; /* 부모 요소로 사용 */
+  margin-bottom: 40px;
 }
 
-.user-cake-design-card {
-    margin-bottom: 15px;
-}
-
-/* 이미지 스타일 */
-.user-cake-design-card-image {
-  position: relative;
-  cursor: pointer;
-}
-
+/* 카드 이미지 스타일 */
 .user-cake-design-card-image img {
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  border-radius: 12px;
+  transition: transform 0.3s ease-in-out; /* 확대 효과의 부드러움 */
 }
 
-/* 좋아요 아이콘 위치 */
+.user-cake-design-card-image img:hover {
+  transform: scale(1.1);
+}
+
+/* 좋아요 아이콘 위치 수정 */
 .user-cake-design-card-likes {
   position: absolute;
-  display: flex; /* 수평 정렬 */
-  align-items: center; /* 세로 가운데 정렬 */
   top: 8px;
   right: 8px;
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  padding: 6px 8px;
+  background: white;
   border-radius: 25px;
-  font-size: 1em;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2; /* 다른 요소보다 위에 오도록 설정 */
 }
 
 .heart-icon {
-  color: #ff4b87; /* 하트 색상 */
-  margin-right: 4px;
+  color: #ff85a1;
+  margin-right: 5px;
 }
 
 /* 카드 정보 스타일 */
 .user-cake-design-card-info {
-  padding: 0px 10px 10px 10px;
+  padding: 10px;
 }
 
 .user-cake-design-card-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  margin: 14px 0px 10px 0px;
-  white-space: nowrap; /* 텍스트를 한 줄로 유지 */
-  overflow: hidden;     /* 넘치는 텍스트를 숨김 */
-  text-overflow: ellipsis; /* 넘치는 부분을 '...'로 표시 */
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.vendor-badge {
+  background-color: #d3d3d3;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 12px;
+  margin-left: 5px;
 }
 
 .user-cake-design-card-subtitle {
-  font-size: 17px;
-  color: #666;
-  padding-bottom: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
 }
 
 .user-cake-design-card-status {
-  font-size: 17px;
-  color: #999;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #666;
 }
 
-/* 페이지네이션 스타일 */
+/* 페이지네이션 */
 .user-cake-design-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 30px;
-    /* padding-left:10px; */
-}
-
-.user-cake-design-page-numbers {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
 }
 
 .user-cake-design-page-number,
 .user-cake-design-prev-page,
 .user-cake-design-next-page {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #ddd;
-    background: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 8px 12px;
+  /* border: 1px solid #ddd; */
+  border: none;
+  background: white;
+  font-size: 17px;
+  color: #666;
+  cursor: pointer;
+}
+
+.user-cake-design-page-number.active {
+  color: #ff85a1;
+  font-weight: bold;
 }
 
 .user-cake-design-page-number:hover,
 .user-cake-design-prev-page:hover,
 .user-cake-design-next-page:hover {
-    background: #FF7292;
-    color: white;
+  font-weight: bold;
 }
-
-.user-cake-design-page-number.active {
-    background: #FF7292;
-    color: white;
-}
-
-.user-cake-design-prev-page:disabled,
-.user-cake-design-next-page:disabled {
-  background-color: #f1f1f1;
-  color: #aaa;
-  border-color: #ddd;
-}
-
-/* 텍스트 페이드 인 애니메이션 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-

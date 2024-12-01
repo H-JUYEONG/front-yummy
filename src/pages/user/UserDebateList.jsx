@@ -78,7 +78,7 @@ const UserDebateList = () => {
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
     fetchData(currentPage, searchKeyword, selectedCategory);
-  }, [currentPage, searchKeyword, selectedCategory]);
+  }, [currentPage, selectedCategory]);
   
 
   return (
@@ -91,44 +91,44 @@ const UserDebateList = () => {
       {/* Main Content */}
       <main id="user-wrap-body" className="clearfix">
         <div className="user-debate-board-list">
-          <div id="user-debate-tip">
+          <div id="user-cake-design-tip">
             {/* GIF */}
             <div className="gif-container">
               <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
             </div>
-            <h2>고민을 나누고 다양한 의견을 들어보는 공간입니다.</h2>
+            <h2>고민과 의견을 나누는 공간입니다.</h2>
             <p>
-              고민이 되는 도안이나 케이크 고민이 있다면 <strong>'케이크 토크'</strong>을 통해 도움을 받아보세요!
+            도안이나 케이크 고민은 케이크 토크에서 해결하세요!
             </p>
           </div>
 
           {/* Search and Filter */}
-          <div id="user-debate-select-option-list">
-          <div className="user-debate-select-option">
+          <div id="user-cake-design-select-option-list">
+          <div className="user-cake-design-select-option">
             <button
-              className={selectedCategory === "" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("")}
             >
-              전체 토크
+              전체
             </button>
             <button
-              className={selectedCategory === "디자인 토크" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "design" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("design")}
             >
               디자인 토크
             </button>
             <button
-              className={selectedCategory === "베이커리 토크" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "vendor" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("vendor")}
             >
               베이커리 토크
             </button>
           </div>
-            <div className="user-debate-search">
+            <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="게시물 검색 Enter를 누르세요"
+                placeholder="게시글 제목 검색"
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}
                 onKeyDown={(e) => {
@@ -140,9 +140,9 @@ const UserDebateList = () => {
           </div>
 
           {/* Add Button */}
-          <div id="user-debate-add" className="clearfix">
-            <div className="user-debate-all-count">ALL {totalCount}</div>
-            <div className="user-debate-add-btn">
+          <div id="user-cake-design-add" className="clearfix">
+            <div className="user-cake-design-all">ALL {totalCount}</div>
+            <div className="user-cake-design-add-btn">
             <button
               onClick={() => {
                 if (!token) {
@@ -196,7 +196,7 @@ const UserDebateList = () => {
               ) : (
                 <tr>
                   <td colSpan="6" className="no-data">
-                    등록된 토크이 없습니다.
+                    검색 결과가 없습니다.
                   </td>
                 </tr>
               )}
@@ -204,11 +204,11 @@ const UserDebateList = () => {
           </table>
 
           {/* Pagination */}
-          <div className="j-pagination">
+          <div className="user-cake-design-pagination">
             {/* Previous Button */}
             {currentPage > 1 && (
               <button
-                className="j-prev-page"
+                className="user-cake-design-prev-page"
                 onClick={() => handlePageChange(currentPage - 1)}
               >
                 {"<"}
@@ -230,7 +230,7 @@ const UserDebateList = () => {
                 pageNumbers.push(
                   <button
                     key={i}
-                    className={`j-pagination-button ${
+                    className={`user-cake-design-page-number ${
                       currentPage === i ? "active" : ""
                     }`}
                     onClick={() => handlePageChange(i)}
@@ -245,7 +245,7 @@ const UserDebateList = () => {
             {/* Next Button */}
             {currentPage < totalPages && (
               <button
-                className="j-next-page"
+                className="user-cake-design-next-page"
                 onClick={() => handlePageChange(currentPage + 1)}
               >
                 {">"}
