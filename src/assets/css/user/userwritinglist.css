@@ -27,23 +27,23 @@
 
 .filter-btn {
   padding: 8px 16px;
-  border: 1px solid #ff7292;
-  border-radius: 8px;
+  border: 1px solid #ff85a1;
+  border-radius: 25px;
   background: white;
-  color: #ff7292;
+  color: #ff85a1;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .filter-btn:hover {
-  background: #ff7292;
+  background: #ff85a1;
   color: white;
 }
 
 .filter-btn.active {
-  background: #ff7292;
+  background: #ff85a1;
   color: white;
-  border-color: #ff7292;
+  border-color: #ff85a1;
 }
 
 /* Writing List Table Styling */
@@ -76,7 +76,7 @@
 
 .writing-table thead tr {
   border-top: none;
-  background-color: #ffe9ee;
+  background-color: #f4f4f4;
 }
 
 .writing-table th {
@@ -86,7 +86,7 @@
 
 .user-write-title:hover {
   text-decoration: underline;
-  color: #ff7292;
+  color: #ff85a1;
   cursor: pointer;
 }
 
@@ -95,8 +95,8 @@
   padding: 6px 12px;
   font-size: 0.85rem;
   background: white;
-  color: #ff7292;
-  border: 1px solid #ff7292;
+  color: #ff85a1;
+  border: 1px solid #ff85a1;
   border-radius: 8px;
   cursor: pointer;
   width: 60px;
@@ -106,7 +106,7 @@
 }
 
 .j-action-btn:hover {
-  background: #ff7292;
+  background: #ff85a1;
   color: white;
 }
 
@@ -152,7 +152,7 @@
 .j-search-button2 {
   padding: 10px 20px;
   height: 43px;
-  background: #ff7292;
+  background: #ff85a1;
   border: none;
   border-radius: 0 20px 20px 0;
   color: white;
@@ -161,7 +161,7 @@
 }
 
 .j-search-button2:hover {
-  background: #ff7292;
+  background: #ff85a1;
 }
 
 /* Table Column Widths */

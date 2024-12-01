@@ -96,12 +96,12 @@
 }
 
 #user-wrap-side a:hover {
-  color: #FF7292;
+  color: #ff85a1;
   background: #ffe9ee;
 }
 
 #user-wrap-side a.active {
-  color: #FF7292;
+  color: #ff85a1;
   background: #ffe9ee;
   font-weight: bold;
 }
@@ -109,7 +109,7 @@
 #user-wrap-side .icon {
   margin-right: 15px;  /* 아이콘 간격 증가 */
   font-size: 0.85em;  /* 아이콘 크기 약간 증가 */
-  color: #FF7292;  /* 아이콘 색상 변경 */
+  color: #ff85a1;  /* 아이콘 색상 변경 */
   min-width: 20px;  /* 아이콘 영역 고정 */
   text-align: center;  /* 아이콘 중앙 정렬 */
 }

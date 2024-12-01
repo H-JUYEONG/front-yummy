@@ -105,7 +105,7 @@
 }
 
 .j-add-event-section input:focus {
-    border-color: #FF7292;
+    border-color: #ff85a1;
     box-shadow: 0 0 0 2px #ffe9ee;
     outline: none;
 }
@@ -115,9 +115,9 @@
     padding: 0px 15px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #FF7292;
+    background-color: #ff85a1;
     color: white;
-    border: 1px solid #FF7292;
+    border: 1px solid #ff85a1;
     border-radius: 8px;
     cursor: pointer;
     white-space: nowrap;
@@ -150,7 +150,7 @@
 .j-event-name {
     font-weight: bold;
     font-size: 1.1rem;
-    color: #FF7292;
+    color: #ff85a1;
 }
 
 .j-event-date {
@@ -165,7 +165,7 @@
     font-weight: bold;
     background-color: white;
     color: #666;
-    border: 1px solid #FF7292;
+    border: 1px solid #ff85a1;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -206,8 +206,8 @@
 }
 
 .user-save-button {
-    background-color: #FF7292;
-    border: 1px solid #FF7292;
+    background-color: #ff85a1;
+    border: 1px solid #ff85a1;
     color: white;
 }
 
