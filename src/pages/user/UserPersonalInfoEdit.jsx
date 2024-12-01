@@ -295,7 +295,10 @@ const UserPersonalInfoEdit = () => {
                     } else if (tempPp) {
                       return <img src={tempPp} alt="Profile Preview" />;
                     } else {
-                      return <span>프로필 사진 없음</span>;
+                      return (
+                        <img src={require("../../assets/images/yummylogo.webp")} alt="Default Profile" />
+
+                      );
                     }
                   })()}
                 </div>
