@@ -203,50 +203,56 @@ const UserAuditionBoard = () => {
 
           {/* 리스트 그리드 */}
           <div className="user-cake-design-list-container">
-            <div className="user-cake-design-list-grid">
-              {userAuditionBoard.map((card, index) => (
-                <div
-                  key={index}
-                  className="user-cake-design-card"
-                  onClick={() =>
-                    handleAuditionClick(card.auditionApplicationId)
-                  }
-                >
-                  <div className="user-cake-design-card-image">
-                    <img
-                      src={
-                        card.imageUrl ||
-                        "https://placehold.co/300x200?text=No+Image"
-                      }
-                      alt="케이크 도안"
-                    />
-                    <div
-                      className={`user-cake-audition-status ${
-                        card.status === "진행중"
-                          ? "status-in-progress"
-                          : "status-completed"
-                      }`}
-                    >
-                      <span>{card.status}</span>
+            {userAuditionBoard.length > 0 ? (
+              <div className="user-cake-design-list-grid">
+                {userAuditionBoard.map((card, index) => (
+                  <div
+                    key={index}
+                    className="user-cake-design-card"
+                    onClick={() =>
+                      handleAuditionClick(card.auditionApplicationId)
+                    }
+                  >
+                    <div className="user-cake-design-card-image">
+                      <img
+                        src={
+                          card.imageUrl ||
+                          "https://placehold.co/300x200?text=No+Image"
+                        }
+                        alt="케이크 도안"
+                      />
+                      <div
+                        className={`user-cake-audition-status ${
+                          card.status === "진행중"
+                            ? "status-in-progress"
+                            : "status-completed"
+                        }`}
+                      >
+                        <span>{card.status}</span>
+                      </div>
+                    </div>
+                    <div className="user-cake-design-card-info">
+                      <p className="user-cake-design-card-subtitle">
+                        {card.userNickname}
+                      </p>
+                      <h3 className="user-cake-design-card-title">
+                        {card.auditionApplicationTitle}
+                      </h3>
+                      <div className="user-cake-design-card-status">
+                        <span>
+                          조회 {card.auditionViewCount} &nbsp;|&nbsp; 참여{" "}
+                          {card.participationCount}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="user-cake-design-card-info">
-                    <p className="user-cake-design-card-subtitle">
-                      {card.userNickname}
-                    </p>
-                    <h3 className="user-cake-design-card-title">
-                      {card.auditionApplicationTitle}
-                    </h3>
-                    <div className="user-cake-design-card-status">
-                      <span>
-                        조회 {card.auditionViewCount} &nbsp;|&nbsp; 참여{" "}
-                        {card.participationCount}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="user-cake-design-empty-grid">
+                <p>검색 결과가 없습니다.</p>
+              </div>
+            )}
           </div>
 
           {/* 페이지네이션 */}

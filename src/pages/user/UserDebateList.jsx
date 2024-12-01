@@ -78,7 +78,7 @@ const UserDebateList = () => {
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
     fetchData(currentPage, searchKeyword, selectedCategory);
-  }, [currentPage, searchKeyword, selectedCategory]);
+  }, [currentPage, selectedCategory]);
   
 
   return (
@@ -106,19 +106,19 @@ const UserDebateList = () => {
           <div id="user-cake-design-select-option-list">
           <div className="user-cake-design-select-option">
             <button
-              className={selectedCategory === "" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("")}
             >
               전체
             </button>
             <button
-              className={selectedCategory === "디자인 토크" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "design" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("design")}
             >
               디자인 토크
             </button>
             <button
-              className={selectedCategory === "베이커리 토크" ? "active-category" : ""}
+              className={`category-button ${selectedCategory === "vendor" ? "active-option" : ""}`}
               onClick={() => handleCategoryChange("vendor")}
             >
               베이커리 토크
@@ -196,7 +196,7 @@ const UserDebateList = () => {
               ) : (
                 <tr>
                   <td colSpan="6" className="no-data">
-                    등록된 토크이 없습니다.
+                    검색 결과가 없습니다.
                   </td>
                 </tr>
               )}
