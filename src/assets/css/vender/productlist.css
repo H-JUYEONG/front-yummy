@@ -32,10 +32,10 @@
 
 /* 등록하기 버튼 스타일 */
 .product-list-main-content .add-button {
-    background-color: #4f46e5;
+    background-color: #404040;
     /* 세련된 보라색 계열 */
     color: #ffffff;
-    padding: 12px 24px;
+    padding: 12px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -45,9 +45,9 @@
 }
 
 .product-list-main-content .add-button:hover {
-    background-color: #4338ca;
+    background-color: #c662ff;
     /* 호버 시 더 어두운 보라색 */
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 4px 12px rgba(95, 87, 239, 0.4);
     transform: translateY(-3px);
 }
 
@@ -104,6 +104,7 @@
 .product-list-main-content .delete-button {
     padding: 8px 16px;
     border: none;
+    
     border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
@@ -200,19 +201,20 @@
 .product-list-main-content .status-button {
     padding: 5px 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    color: white;
+    width: 100px;
+    color: rgb(0, 0, 0);
     font-weight: bold;
 }
 
 .product-list-main-content .status-button.visible {
-    background-color: #4CAF50;
+    background-color: #b1ffb0;
     /* 노출 상태의 녹색 버튼 */
 }
 
 .product-list-main-content .status-button.hidden {
-    background-color: #f44336;
+    background-color: #ff8880;
     /* 미노출 상태의 빨간색 버튼 */
 }
 
