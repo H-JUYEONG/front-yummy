@@ -158,3 +158,79 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
+
+/* 기본 모바일 스타일링 (최대 768px) */
+@media screen and (max-width: 768px) {
+    /* 전체 레이아웃 */
+    .user-signup {
+        margin-top: 20px;
+        padding: 15px;
+        width: 90%;
+    }
+
+    .user-signup h1 {
+        font-size: 20px;
+    }
+
+    .user-signup h2 {
+        font-size: 16px;
+    }
+
+    .user-signup-intput-area input[type="text"],
+    .user-signup-intput-area input[type="password"] {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    /* 폰트 크기 및 간격 조정 */
+    .user-input-group-txt label {
+        font-size: 12px;
+    }
+
+    .user-id-ok, .user-pw-ok {
+        font-size: 10px;
+    }
+
+    /* 인증 버튼과 입력칸 */
+    .user-phonenum-input-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .user-phonenum-input-wrapper input,
+    .user-phonenum-input-wrapper button {
+        width: 100%;
+    }
+
+    .verification-code-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .verification-code-wrapper input,
+    .verification-code-wrapper button {
+        width: 100%;
+    }
+
+    /* 약관 동의 체크박스 */
+    .terms-agreement {
+        gap: 5px;
+    }
+
+    .terms-agreement div {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .terms-agreement input[type="checkbox"] {
+        transform: scale(1.1); /* 체크박스 크기 유지 */
+    }
+
+    /* 버튼 스타일 */
+    .user-signup-btns button {
+        width: 80%;
+        font-size: 14px;
+        padding: 10px;
+    }
+}

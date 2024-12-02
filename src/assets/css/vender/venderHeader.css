@@ -1,43 +1,52 @@
 @charset "UTF-8";
 
-.vender-header-wrap{
+.vender-header-wrap {
     margin-top: 10px;
 
     width: 100%;
-    margin:0 auto;
-    position: relative; /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
+    margin: 0 auto;
+    position: relative;
+    /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
     /*background-image: url(../../images/emptyIMG.png);*/
     overflow: hidden;
 
     background-position: center;
 }
-.vender-header-wrap img{
+
+.vender-header-wrap img {
     width: 1700px;
     height: 100%;
-    object-fit: cover; /*이미지 비율을 유지하면서 부모 div를 꽉 채우도록 함*/
+    object-fit: cover;
+    /*이미지 비율을 유지하면서 부모 div를 꽉 채우도록 함*/
 }
 
-.vender-header-mainlogo{
-    position: relative; /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
+.vender-header-mainlogo {
+    position: relative;
+    /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
 }
-.vender-header-wrap img{
+
+.vender-header-wrap img {
     width: 100%;
-    padding-top: auto; 
+    padding-top: auto;
     object-fit: cover;
-    object-fit: contain; /* 이미지가 잘리지 않고 컨테이너에 맞도록 비율 유지 */
+    object-fit: contain;
+    /* 이미지가 잘리지 않고 컨테이너에 맞도록 비율 유지 */
 }
-.vender-header-icon{
-    position: absolute; /* 절대 위치로 배치 */
-    bottom: 10px; /* 컨테이너 하단에서의 거리 */
-    right: 10px;  /* 컨테이너 오른쪽에서의 거리 */
+
+.vender-header-icon {
+    position: absolute;
+    /* 절대 위치로 배치 */
+    bottom: 10px;
+    /* 컨테이너 하단에서의 거리 */
+    right: 10px;
+    /* 컨테이너 오른쪽에서의 거리 */
 }
-.vender-header-icon-box{
+
+.vender-header-icon-box {
     text-align: right;
     padding: 0 10px 15px 0;
-
 }
 
-.vender-header-icon{
+.vender-header-icon {
     text-align: right;
-    
 }
