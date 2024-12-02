@@ -16,7 +16,7 @@
 }
 
 #user-debate-tip strong {
-  color: #FF7292;
+  color: #ff85a1;
 }
 
 
@@ -58,7 +58,7 @@
 }
 
 .user-debate-select-option button:hover {
-  background-color: #FF7292;
+  background-color: #ff85a1;
   color: white;
 }
 
@@ -68,14 +68,14 @@
   color: #fff;
   border: 2px solid #ddd;
   border-radius: 25px;
-  background-color: #FF7292;
+  background-color: #ff85a1;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 18px;
 }
 
 .user-debate-add-btn button:hover{
-  background-color: #FF7292;
+  background-color: #ff85a1;
   color: white;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .pagination-page-active {
-  background-color: #FF7292;
+  background-color: #ff85a1;
 }
 
 .pagination-arrow {
@@ -151,7 +151,7 @@
 
 .pagination-page-number:hover,
 .pagination-arrow:hover {
-  color: #FF7292;
+  color: #ff85a1;
 }
 
 /* Table 전체 스타일 */
@@ -205,8 +205,8 @@
 }
 
 /* 행 hover 시 title 컬러 변경 */
-.j-discussion-list tr:hover .column-title {
-  color: #ff7292; /* 원하는 색상으로 변경 */
+.j-discussion-list tbody tr:hover .column-title {
+  color: #ff85a1; /* 원하는 색상으로 변경 */
   transition: color 0.3s ease; /* 부드러운 색상 전환 효과 */
 }
 
@@ -275,9 +275,9 @@
 }
 
 .j-page-number.active {
-  background: #FF7292;
+  background: #ff85a1;
   color: white;
-  border-color: #FF7292;
+  border-color: #ff85a1;
 
 }
 

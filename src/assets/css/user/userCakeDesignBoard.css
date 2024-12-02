@@ -44,8 +44,7 @@
   background-color: white;
   color: #ff85a1;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 20px;
   transition: all 0.2s ease-in-out;
 }
 
@@ -76,11 +75,11 @@
 }
 
 .user-cake-design-search input {
-  width: 265px;
+  width: 300px;
   padding: 10px 20px; /* 아이콘과의 간격 */
   border: 1px solid #999999;
   border-radius: 25px;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .user-cake-design-search input:focus {
@@ -96,7 +95,7 @@
 }
 
 .user-cake-design-all {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: bold;
   padding-left: 3px;
   transform: translateY(10px); /* ALL 텍스트를 살짝 아래로 이동 */
@@ -112,7 +111,7 @@
   background-color: #ff85a1;
   border: 1px solid #ff85a1;
   color: white;
-  font-size: 14px;
+  font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -200,7 +199,7 @@
 }
 
 .user-cake-design-card-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
   text-overflow: ellipsis;
@@ -219,13 +218,13 @@
 }
 
 .user-cake-design-card-subtitle {
-  font-size: 16px;
+  font-size: 17px;
   color: #999;
   margin-bottom: 10px;
 }
 
 .user-cake-design-card-status {
-  font-size: 14px;
+  font-size: 15px;
   color: #666;
 }
 
