@@ -30,7 +30,7 @@
 #user-wrap {
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px;
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
@@ -54,7 +54,7 @@
 }
 
 .mypage-menu-list {
-  margin-top: 25px;
+  margin-top: 30px;
 }
 
 #user-wrap-side h2 {

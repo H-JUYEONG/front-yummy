@@ -1,36 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
+
 import "../../../assets/css/user/usermain.css";
 
 const UserSidebar = () => {
   const location = useLocation();
-  const [userNickname, setUserNickname] = useState("");
-  const [authUser, setAuthUser] = useState(() => {
-    const user = localStorage.getItem("authUser");
-    return user ? JSON.parse(user) : null;
-  });
-  const userId = authUser?.user_id || null;
-
-  useEffect(() => {
-    if (userId) {
-      axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}/api/user/nickname/${userId}`,
-        responseType: "json",
-      })
-        .then((response) => {
-          console.log("닉네임 조회 성공", response);
-          if (response.data.apiData) {
-            setUserNickname(response.data.apiData.userNickname);
-          }
-        })
-        .catch((error) => {
-          console.log("닉네임 조회 실패", error);
-          setUserNickname("사용자");
-        });
-    }
-  }, [userId]);
 
   const isActive = (path) => {
     return location.pathname === path;

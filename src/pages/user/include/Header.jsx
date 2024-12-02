@@ -1,23 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
-import '../../../assets/css/user/userheaderstyle.css';
+import axios from "axios";
+import "../../../assets/css/user/userheaderstyle.css";
 
 const Header = () => {
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [userNickname, setUserNickname] = useState("");
   const [authUser, setAuthUser] = useState(() => {
-    const user = localStorage.getItem('authUser');
+    const user = localStorage.getItem("authUser");
     return user ? JSON.parse(user) : null;
   });
   const navigate = useNavigate();
   const venderId = authUser?.vender_id || null;
+  const userId = authUser?.user_id || null;
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
+  useEffect(() => {
+    if (userId) {
+      axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/user/nickname/${userId}`,
+        responseType: "json",
+      })
+        .then((response) => {
+          console.log("닉네임 조회 성공", response);
+          if (response.data.apiData) {
+            setUserNickname(response.data.apiData.userNickname);
+          }
+        })
+        .catch((error) => {
+          console.log("닉네임 조회 실패", error);
+          setUserNickname("사용자");
+        });
+    }
+  }, [userId]);
+
   // 로그아웃 처리
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('authUser');
+    localStorage.removeItem("token");
+    localStorage.removeItem("authUser");
     setToken(null);
     setAuthUser(null);
   };
@@ -25,19 +47,25 @@ const Header = () => {
   // 업체 홈페이지 등록 여부 확인 및 이동
   const handleCheckShop = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/svender/${venderId}`);
+      const response = await axios.get(
+        `${API_BASE_URL}/api/svender/${venderId}`
+      );
       const shopStatus = response.data.apiData;
 
       if (shopStatus === 0) {
-        if (window.confirm("등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?")) {
-          navigate('/vender');
+        if (
+          window.confirm(
+            "등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?"
+          )
+        ) {
+          navigate("/vender");
           await axios.put(`${API_BASE_URL}/api/svender/${venderId}`);
         }
       } else {
         navigate(`/vender/${venderId}`);
       }
     } catch (error) {
-      console.error('Error checking shop:', error);
+      console.error("Error checking shop:", error);
     }
   };
 
@@ -61,32 +89,49 @@ const Header = () => {
     if (!authUser) {
       return (
         <>
-          <Link to="/user/login" className="header-link">로그인</Link>
-          <Link to="/user/signup/type" className="header-link">회원가입</Link>
+          <Link to="/user/login" className="header-link">
+            로그인
+          </Link>
+          <Link to="/user/signup/type" className="header-link">
+            회원가입
+          </Link>
         </>
       );
     }
 
     switch (authUser.type) {
-      case '업체':
+      case "업체":
         return (
           <>
-            <Link to="#" className="header-link" onClick={handleCheckShop}>내 업체 페이지</Link>
-            <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
+            <Link to="#" className="header-link" onClick={handleCheckShop}>
+              내 업체 페이지
+            </Link>
+            <Link to="#" onClick={handleLogout} className="header-link">
+              로그아웃
+            </Link>
           </>
         );
-      case '어드민':
+      case "어드민":
         return (
           <>
-            <Link to="/admin/member" className="header-link">관리 페이지</Link>
-            <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
+            <Link to="/admin/member" className="header-link">
+              관리 페이지
+            </Link>
+            <Link to="#" onClick={handleLogout} className="header-link">
+              로그아웃
+            </Link>
           </>
         );
       default: // 'user'
         return (
           <>
-            <Link to='/user/mypage/order' className="header-link">마이페이지</Link>
-            <Link to="#" onClick={handleLogout} className="header-link">로그아웃</Link>
+            <div className="main-usernickname">{userNickname}님</div>
+            <Link to="/user/mypage/order" className="header-link">
+              마이페이지
+            </Link>
+            <Link to="#" onClick={handleLogout} className="header-link">
+              로그아웃
+            </Link>
           </>
         );
     }
@@ -102,14 +147,10 @@ const Header = () => {
       </div>
 
       {/* 네비게이션 메뉴 */}
-      <nav className="nav-menu">
-        {renderNavMenu()}
-      </nav>
+      <nav className="nav-menu">{renderNavMenu()}</nav>
 
       {/* 사용자 동작 */}
-      <div className="user-actions">
-        {renderUserActions()}
-      </div>
+      <div className="user-actions">{renderUserActions()}</div>
     </div>
   );
 };
