@@ -108,9 +108,11 @@ const UserCakeDesignAdd = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-design-board-list">
           <form className="user-cake-design-main" onSubmit={handleAdd}>
-            <h1 className="user-cake-design-title">
-              나만의 도안을 등록하세요!
-            </h1>
+            <div className="user-cake-design-title-container">
+              <h1 className="user-cake-design-title">
+                나만의 도안을 등록하세요!
+              </h1>
+            </div>
 
             {/* 이미지 미리보기 */}
             <div className="user-cake-design-imgs">
@@ -135,7 +137,7 @@ const UserCakeDesignAdd = () => {
                   onClick={addFileInput}
                   className="user-add-image-button"
                 >
-                  <FaPlus/> 추가
+                  <FaPlus /> 추가
                 </button>
               </div>
 
@@ -151,7 +153,7 @@ const UserCakeDesignAdd = () => {
                     className="user-remove-button"
                     onClick={() => removeFileInput(fileInput.id)}
                   >
-                    <BsTrash/>
+                    <BsTrash />
                   </button>
                 </div>
               ))}
@@ -179,7 +181,7 @@ const UserCakeDesignAdd = () => {
                 value={cakeDesignDescription}
                 onChange={handleCakeDesignDescription}
                 className="user-input-text"
-                rows="4"
+                rows="7"
               />
             </div>
 
