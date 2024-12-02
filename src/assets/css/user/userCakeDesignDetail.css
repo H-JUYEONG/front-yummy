@@ -1,6 +1,6 @@
 /* Title and button alignment */
 .user-cake-designs-details {
-  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
 }
 

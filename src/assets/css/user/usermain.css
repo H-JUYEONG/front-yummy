@@ -45,6 +45,13 @@
   min-height: calc(100vh - 200px);
 }
 
+.main-content {
+  flex-grow: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
 /* 사이드바 */
 #user-wrap-side {
   width: 250px;
