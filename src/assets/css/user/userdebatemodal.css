@@ -1,246 +1,318 @@
 /* Modal Container */
 .j-modal-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
 .j-modal-content {
-    background: #fff;
-    padding: 30px;
-    width: 80%;
-    max-width: 900px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
+  background: #fff;
+  padding: 30px 40px 40px 40px;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.j-modal-content h2 {
+  font-size: 1.3em;
+  padding-bottom: 20px;
 }
 
 /* Close Button */
 .j-modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.j-modal-close-btn:hover {
+  background: #ff85a1;
+  color: white;
 }
 
 /* Tab Container */
 .j-tab-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
 }
 
 /* Tabs */
 .j-tab {
-    font-size: 16px;
-    padding: 10px 15px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: normal;
-    color: #333;
-    transition: font-weight 0.2s;
+  font-size: 1.1em;
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .j-tab.active {
-    font-weight: bold;
-    color: #7C3AED;
+  font-weight: 600;
+  color: #ff85a1;
 }
 
-/* Category Dropdown */
-.j-category-select {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #e5e7eb;
-    border-radius: 4px;
+.j-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -11px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff85a1;
+  border-radius: 2px;
 }
 
 /* Search and Dropdown Container */
 .j-search-category-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Category Dropdown */
+.j-category-select {
+  padding: 12px 20px;
+  font-size: 0.95em;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fafafa;
+  color: #444;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.j-category-select:focus {
+  outline: none;
+  border-color: #ff85a1;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 133, 161, 0.1);
 }
 
 /* Search Bar */
 .j-search-bar {
-    display: flex;
-    flex: 1; /* Allow search bar to take remaining space */
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 .j-search-input {
-    flex: 1;
-    padding: 10px 15px;
-    height: 40px;
-    border: 1px solid #e5e7eb;
-    border-right: none;
-    border-radius: 20px 0 0 20px;
-    font-size: 14px;
-    outline: none;
+  flex: 1;
+  padding: 10px 15px;
+  height: 43px;
+  border: 1px solid #999999;
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  font-size: 14px;
+  outline: none;
 }
+
+.j-search-input::placeholder {
+    color: #bbbbbb; /* 원하는 색상 코드 */
+    opacity: 1; /* 불투명도 설정 (기본값이 0.5일 수 있음) */
+  }
 
 .j-search-button {
-    padding: 0 15px;
-    height: 40px;
-    background: #7C3AED;
-    border: none;
-    border-radius: 0 20px 20px 0;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.j-search-button:hover {
-    background: #6D28D9;
+  padding: 10px 20px;
+  height: 43px;
+  background-color: white;
+  border: 1px solid #999999;
+  border-left: none; /* 왼쪽 테두리 제거 */
+  border-radius: 0 25px 25px 0; /* 순서: 좌상 우상 우하 좌하 */
+  color: #999999;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 /* Product Grid */
 .j-products-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 .j-product-card {
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    cursor: pointer;
-    text-align: center;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #f0f0f0;
 }
 
 .j-product-card:hover {
-    transform: translateY(-5px);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Fixed Image Size */
 .j-product-image {
-    width: 100%;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  padding: 15px;
 }
 
 .j-product-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 /* Product Info */
+.j-product-info {
+  padding: 15px;
+  background: white;
+}
+
 .j-product-info h3 {
-    padding: 10px;
-    font-size: 1em;
-    color: #333;
+  font-size: 1em;
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
 }
 
 /* Pagination */
 .j-pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
 }
 
 .j-page-number {
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #e5e7eb;
-    background: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 8px 12px;
+  border: none;
+  background: white;
+  font-size: 17px;
+  color: #666;
+  cursor: pointer;
 }
 
 .j-page-number:hover {
-    background: #F3F4F6;
+  border-color: #ff85a1;
+  color: #ff85a1;
 }
 
 .j-page-number.active {
-    background: #7C3AED;
-    color: white;
-    border-color: #7C3AED;
+  color: #ff85a1;
+  font-weight: bold;
 }
 
-/*소영*/
-.appeal-design-photo-jw{
-    /* background-color: #0056b3; */
-    height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    /* border: 1px solid #000; */
-}
-.appeal-design-photo-jw img{
-    width: 450px;
-    height: 500px;
-    margin-bottom: auto;
-
+/* Appeal Design Sections */
+.appeal-design-photo-jw {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.appeal-design-text-jw{
-    /* border: 1px solid #000; */
-    margin-top: 20px;
+.appeal-design-photo-jw img {
+  width: 450px;
+  height: 500px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-.appeal-design-text-jw ul{
-    padding-left: 10px;
+.appeal-design-text-jw {
+  margin-top: 30px;
+}
+
+.appeal-design-text-jw ul {
+  padding-left: 20px;
 }
 
 .appeal-design-text-jw ul li:not(:first-child) {
-    padding-top: 10px;
+  padding-top: 15px;
 }
 
-.sy-modal-sub-title-jw{
-    font-size: 23px;
-    border-bottom: 2px solid #ffc8c8;
-    padding-bottom: 10px;
-}
-.sso-modal-body-content-jw{
-    width: 90%;
-    margin: 0 auto;
-    box-shadow:  0 10px 20px rgba(0, 0, 0, 0.2); /* 수평, 수직, 흐림 정도, 색상 */
-    padding: 20px;
-    background: #ffffff;
-    height: 100%;
-    overflow-y: auto;
-}
-.orderTitle{
-    /* font-size: 16px; */
-    color: #333;
-    font-weight: bolder;
+.sy-modal-sub-title-jw {
+  font-size: 1.5em;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 15px;
 }
 
+.sy-modal-sub-title-jw::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  background-color: #ff85a1;
+  border-radius: 2px;
+}
 
-.appeal-design-text-jw li:not(:last-child) {
-    list-style: none; /* 기본 점을 없애고 */
-    position: relative; /* ::before를 사용할 수 있도록 설정 */
-    padding-left: 10px; /* 점과 텍스트 간격 조정 */
+.sso-modal-body-content-jw {
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.orderTitle {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.appeal-design-text-jw li {
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.6;
+  color: #444;
 }
 
 .appeal-design-text-jw li::before {
-    content: "•"; /* 분홍색 점을 추가 */
-    position: absolute;
-    left: 0; /* 리스트 항목의 왼쪽에 점을 배치 */
-    top: 0.6; /* 텍스트와 수평 정렬 */
-    color: #f78fb3; /* 분홍색 점 */
-    font-size: 20px; /* 점의 크기 */
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff85a1;
+  font-size: 20px;
 }

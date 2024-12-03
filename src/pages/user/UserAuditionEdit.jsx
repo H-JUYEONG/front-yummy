@@ -583,7 +583,6 @@ const UserAuditionEdit = () => {
                 수정
               </button>
               <button
-                type="submit"
                 className="user-cake-audition-cancel-button"
                 onClick={() =>
                   navigate(`/user/audition/edit/${auditionApplicationId}`)

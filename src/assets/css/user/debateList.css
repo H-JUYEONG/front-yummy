@@ -1,6 +1,5 @@
 /* General Styling for User Debate Section */
 
-
 #user-debate-tip {
   text-align: center;
   margin-bottom: 60px;
@@ -18,8 +17,6 @@
 #user-debate-tip strong {
   color: #ff85a1;
 }
-
-
 
 .user-debate-board-list {
   width: 100%;
@@ -45,12 +42,12 @@
 }
 
 /* Updated Button Styles */
-.user-debate-select-option button{
+.user-debate-select-option button {
   padding: 8px 16px;
   border: 2px solid #ddd;
   border-radius: 20px;
   background-color: #f9f9f9;
-  color: #4B5563;
+  color: #4b5563;
   cursor: pointer;
   transition: all 0.2s;
   font-size: 18px;
@@ -62,7 +59,7 @@
   color: white;
 }
 
-.user-debate-add-btn button{
+.user-debate-add-btn button {
   margin-bottom: 5px;
   padding: 10px 12px;
   color: #fff;
@@ -74,7 +71,7 @@
   font-size: 18px;
 }
 
-.user-debate-add-btn button:hover{
+.user-debate-add-btn button:hover {
   background-color: #ff85a1;
   color: white;
 }
@@ -233,63 +230,73 @@
 }
 
 .user-debate-add-btn {
-    float: right;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .user-debate-all-count {
   float: left;
   padding: 20px 0px 0px 5px;
   top: -10px;
-}  
+}
 
 /* 페이지네이션 스타일 */
 .j-pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-top: 40px;
 }
 
 .j-page-numbers {
-  display: flex;
-  gap: 5px;
+  padding: 8px 12px;
+  border: none;
+  background: white;
+  font-size: 17px;
+  color: #666;
+  cursor: pointer;
 }
 
-.j-page-number, .j-prev-page, .j-next-page {
+.j-page-number,
+.j-prev-page,
+.j-next-page {
   width: 35px;
   height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e5e7eb;
+  border: none;
   background: white;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.j-page-number:hover, .j-prev-page:hover, .j-next-page:hover {
-  background: #F3F4F6;
+.j-page-number:hover,
+.j-prev-page:hover,
+.j-next-page:hover {
+  background: white;
+  color: #ff85a1;
+  font-weight: bold;
 }
 
 .j-page-number.active {
-  background: #ff85a1;
-  color: white;
+  background: white;
+  color: #ff85a1;
   border-color: #ff85a1;
-
+  font-weight: bold;
 }
 
-.gif-container img.right-gif{
+.gif-container img.right-gif {
   position: absolute;
   right: 10 0px; /* 오른쪽 여백 조정 */
   top: 200px; /* 상단 여백 조정 */
   z-index: 1; /* 다른 요소 위에 겹치지 않도록 설정 */
 }
-.gif-container img.right-gif{
+.gif-container img.right-gif {
   width: 100px; /* 크기를 작게 조정 */
   height: auto;
-  top:-1%;
+  top: -1%;
   right: 5%;
 }

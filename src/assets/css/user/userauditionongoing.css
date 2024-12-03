@@ -7,28 +7,27 @@
 }
 
 .user-audition-ongoing-header {
-    display: flex;
-    flex-direction: column;  /* 세로 방향으로 배치 */
-    align-items: center;     /* 가운데 정렬 */
-    padding-bottom: 20px;    /* 여백 조정 */
-    margin-bottom: 30px;     /* 아래 여백 */
-    border-bottom: 1px solid #333;
-  }
-  
-  /* 제목 스타일 */
-  .user-cake-audition-ongoing-title {
-    font-size: 30px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;    /* 제목과 정보 사이 여백 */
-  }
-  
-  /* 작성 날짜와 버튼 컨테이너 */
-  .user-audition-ongoing-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;             /* 요소들 사이 간격 */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+/* 제목 스타일 */
+.user-cake-audition-ongoing-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px; /* 제목과 정보 사이 여백 */
+}
+
+/* 작성 날짜와 버튼 컨테이너 */
+.user-audition-ongoing-info {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 요소들 사이 간격 */
+}
 
 /* 날짜 스타일 */
 .user-cake-audition-ongoing-write-date {

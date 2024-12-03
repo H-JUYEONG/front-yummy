@@ -476,7 +476,6 @@ const UserAuditionAdd = () => {
                 등록
               </button>
               <button
-                type="submit"
                 className="user-cake-audition-cancel-button"
                 onClick={() => navigate("/user/audition/board")}
               >

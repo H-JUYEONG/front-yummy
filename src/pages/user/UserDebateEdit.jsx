@@ -7,6 +7,7 @@ import "../../assets/css/user/debateInsert.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 import UserDebateModal from "./include/UserDebateModal";
+import { BsTrash } from "react-icons/bs";
 
 const UserDebateEdit = () => {
   const { debateId } = useParams();
@@ -127,7 +128,9 @@ const UserDebateEdit = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="debate-insert-list">
           <form className="debate-insert-main" onSubmit={handleSubmit}>
-            <h1 className="debate-insert-title">고민 수정</h1>
+            <div className="debate-title-container">
+              <h1 className="debate-insert-title">케이크 고민을 수정하세요!</h1>
+            </div>
 
             {/* Debate Title Section */}
             <div className="debate-insert-list-group">
@@ -184,13 +187,17 @@ const UserDebateEdit = () => {
                     </>
                   ) : (
                     <div className="debate-insert-image-container">
-                      <img src={leftImgUrl} alt="Left" className="debate-insert-inserted-image" />
+                      <img
+                        src={leftImgUrl}
+                        alt="Left"
+                        className="debate-insert-inserted-image"
+                      />
                       <button
                         type="button"
                         className="debate-insert-delete-btn"
                         onClick={() => handleImageDelete("left")}
                       >
-                        이미지 삭제
+                        <BsTrash />
                       </button>
                     </div>
                   )}
@@ -219,13 +226,17 @@ const UserDebateEdit = () => {
                     </>
                   ) : (
                     <div className="debate-insert-image-container">
-                      <img src={rightImgUrl} alt="Right" className="debate-insert-inserted-image" />
+                      <img
+                        src={rightImgUrl}
+                        alt="Right"
+                        className="debate-insert-inserted-image"
+                      />
                       <button
                         type="button"
                         className="debate-insert-delete-btn"
                         onClick={() => handleImageDelete("right")}
                       >
-                        이미지 삭제
+                        <BsTrash />
                       </button>
                     </div>
                   )}
@@ -247,9 +258,15 @@ const UserDebateEdit = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="debate-insert-list-group">
+            <div className="debate-insert-list-btn-group">
               <button type="submit" className="debate-insert-submit-button">
-                수정 완료
+                수정
+              </button>
+              <button
+                className="debate-insert-cancel-button"
+                onClick={() => navigate(`/debate/debateview/${debateId}`)}
+              >
+                취소
               </button>
             </div>
           </form>

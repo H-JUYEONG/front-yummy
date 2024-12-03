@@ -304,7 +304,6 @@ const UserCakeDesignEdit = () => {
                 수정
               </button>
               <button
-                type="submit"
                 className="user-cake-design-cancel-button"
                 onClick={() =>
                   navigate(`/user/cakeDesign/detail/${cakeDesignId}`)

@@ -1,22 +1,40 @@
 .debate-insert-main {
   max-width: 1000px;
   background-color: #ffffff;
-  border-radius: 8px;
-  padding: 40px 50px;
+  border-radius: 20px;
+  padding: 60px 50px;
   margin: 0 auto;
-  border: 0.5px solid #e8e8e8;
-  transition: transform 0.3s;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
 /* 타이틀 스타일 */
+.debate-title-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 .debate-insert-title {
-  font-size: 2.2em;
+  font-size: 2em;
   font-weight: bold;
   color: #333;
-  margin-bottom: 35px;
-  text-align: left;
-  border-bottom: 1px solid #000000;
-  padding-bottom: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.debate-insert-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #ff85a1;
+  border-radius: 2px;
 }
 
 .debate-insert-list {
@@ -26,146 +44,174 @@
 
 /* Form Group Style */
 .debate-insert-list-group {
-  margin-bottom: 28px;
+  margin-bottom: 35px;
 }
 
 .debate-insert-list-group label {
   display: block;
-  font-size: 1.2em;
-  color: #4a4a4a;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
 /* Image Insert Section */
 .debate-insert-image-section {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  gap: 40px;
   margin: 20px 0;
 }
 
 .debate-insert-image-option {
+  width: 300px;
+  min-height: 200px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 15px;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.debate-insert-image-option:hover {
+  border-color: #ff85a1;
+  background-color: #fff;
 }
 
 /* Image Container */
 .debate-insert-image-container {
   position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .debate-insert-inserted-image {
-  width: 200px;
+  width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* Common Button Styling */
 .debate-insert-upload-btn,
-.debate-insert-modal-btn,
-.debate-insert-delete-btn,
-.debate-insert-submit-button {
-  margin-top: 15px;
-  padding: 10px 18px;
-  background-color: #000000;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  font-size: 1em;
-  width: auto;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-  width: 150px;
-}
-
-/* Individual Button Colors */
-.debate-insert-upload-btn {
-  background-color: #333; /* Upload from PC */
-}
-
 .debate-insert-modal-btn {
-  background-color: #333; /* Select from Favorites */
+  width: 80%;
+  padding: 12px 20px;
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.debate-insert-upload-btn:hover,
+.debate-insert-modal-btn:hover {
+  background-color: #ff85a1;
+  color: white;
+  border-color: #ff85a1;
 }
 
 .debate-insert-delete-btn {
-  background-color: #e74c3c; /* Delete Image */
-}
-
-
-/* Hover Effects */
-.debate-insert-upload-btn:hover {
-  background-color: #333;
-}
-
-.debate-insert-modal-btn:hover {
-  background-color: #333;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #666;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.2em;
 }
 
 .debate-insert-delete-btn:hover {
-  background-color: #e74c3c;
+  color: #e74c3c;
 }
-
 
 /* Hidden File Input */
 .debate-insert-image-upload-input {
-  display: none; /* Hide the actual file input */
+  display: none;
 }
 
 /* Input Text Field */
 .debate-insert-input-text {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   font-size: 1em;
-  border: 1px solid #dcdcdc;
-  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
   color: #444;
-  transition: border-color 0.3s ease;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.debate-insert-input-text:focus {
+  outline: none;
+  border-color: #ff85a1;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 133, 161, 0.1);
+}
+
+.debate-insert-input-text::placeholder {
+  color: #999;
+}
+
+/* Textarea specific styles */
+.debate-insert-input-text#debate-insert-content {
+  height: 250px;
+  resize: none;
+  line-height: 1.6;
 }
 
 /* Button Styles */
+.debate-insert-list-btn-group {
+  text-align: center;
+}
+
 .debate-insert-submit-button {
-  width: 20%;
-  background-color: #000000;
-  color: #ffffff;
+  width: 25%;
   padding: 15px 0;
-  font-size: 1.2em;
-  border: 1px solid #000000;
+  background-color: #ff85a1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  display: inline-block;
+  margin: 40px 10px;
   cursor: pointer;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease, transform 0.2s;
-  margin: 0 auto;
-  display: block;
 }
 
 .debate-insert-cancel-button {
-  width: 20%;
-  background-color: #ff4b87;
-  color: #ffffff;
+  width: 25%;
   padding: 15px 0;
-  font-size: 1.2em;
-  border: 1px solid #ff4b87;
-  cursor: pointer;
-  text-transform: uppercase;
-  margin-right: 15px;
-  display: inline-block;
-  text-align: center;
-}
-.debate-insert-input-text#debate-insert-content {
-  height: 250px; /* Set height to 300px */
-  width: 100%; /* Keep the width full */
-  padding: 14px;
+  background-color: #ffffff;
+  color: #666666;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
   font-size: 1em;
-  border: 1px solid #dcdcdc;
-  border-radius: 4px;
-  color: #444;
-  transition: border-color 0.3s ease;
-  resize: none; /* Optional: Prevent manual resizing */
+  font-weight: 500;
+  display: inline-block;
+  margin: 40px 10px;
+  cursor: pointer;
 }

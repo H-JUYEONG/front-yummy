@@ -232,7 +232,6 @@ const UserCakeDesignAdd = () => {
                 등록
               </button>
               <button
-                type="submit"
                 className="user-cake-design-cancel-button"
                 onClick={() => navigate("/user/cakeDesign/board")}
               >
