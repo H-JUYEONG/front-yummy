@@ -65,6 +65,11 @@ const UserDebateList = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData(pageNumber, searchKeyword);
+    // 페이지 상단으로 스크롤
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
   };
 
   const handleCategoryChange = (category) => {

@@ -72,6 +72,12 @@ const UserCakeDesignBoard = () => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
       loadCakeDesigns(page);
+
+      // 페이지 상단으로 스크롤
+      window.scrollTo({
+        top: 0,
+        behavior: "auto",
+      });
     }
   };
 
