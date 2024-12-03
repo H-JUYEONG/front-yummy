@@ -85,21 +85,24 @@ const UserMainForm = () => {
     };
 
     const filteredProducts = productList
-        .filter((product) => {
+    .filter((product) => {
+        const matchesRegion = selectedRegion ? product.district === selectedRegion : true;
+        const matchesCategory = selectedCategory ? product.optionValueName === selectedCategory : true;
 
-            const matchesRegion = selectedRegion ? product.district === selectedRegion : true;
-            const matchesCategory = selectedCategory ? product.optionValueName === selectedCategory : true;
-            return matchesRegion && matchesCategory;
+        // vender_id 73을 제외
+        const excludeVender = product.venderId !== 73;
 
-        })
-        .sort((a, b) => {
-            if (sortOrder === "rating") {
-                return sortDirection === "asc" ? a.rating - b.rating : b.rating - a.rating;
-            } else if (sortOrder === "price") {
-                return sortDirection === "asc" ? a.price - b.price : b.price - a.price;
-            }
-            return 0;
-        });
+        return matchesRegion && matchesCategory && excludeVender;
+    })
+    .sort((a, b) => {
+        if (sortOrder === "rating") {
+            return sortDirection === "asc" ? a.rating - b.rating : b.rating - a.rating;
+        } else if (sortOrder === "price") {
+            return sortDirection === "asc" ? a.price - b.price : b.price - a.price;
+        }
+        return 0;
+    });
+
 
     const handleSort = (order) => {
         if (sortOrder === order) {
