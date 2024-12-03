@@ -215,52 +215,11 @@
     font-weight: bold;
 }
 
-/* 색상 옵션 */
-#user-wrap .cake-order-container .color-options {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
-}
-
-#user-wrap .cake-order-container .color-option {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    margin-bottom: 25px;
-}
-
-#user-wrap .cake-order-container .color-option:hover {
-    transform: scale(1.1)
-}
-
-#user-wrap .cake-order-container .color-option.active {
-    border-color: #ff6f61;
-
-}
-
-
-#user-wrap .cake-order-container .color-option.pink {
-    background-color: #FFB6C1;
-}
-
-#user-wrap .cake-order-container .color-option.yellow {
-    background-color: #FFD700;
-}
-
-#user-wrap .cake-order-container .color-option.orange {
-    background-color: #FFA500;
-}
-
 /* 맛과 사이즈 옵션 스타일 */
-#user-wrap .cake-order-container .option-scroll-container {
+#user-wrap .option-scroll-container {
     overflow-x: auto;
     overflow-y: hidden;
+    white-space: nowrap; /* 가로 스크롤을 위해 추가 */
     -webkit-overflow-scrolling: touch;
     margin: 0 -10px;
     padding: 0 10px 15px;
@@ -270,21 +229,21 @@
     position: relative;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar {
+#user-wrap .option-scroll-container::-webkit-scrollbar {
     height: 6px;
     display: none;
 }
 
-#user-wrap .cake-order-container .option-scroll-container.dragging::-webkit-scrollbar {
+#user-wrap .option-scroll-container.dragging::-webkit-scrollbar {
     display: block;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-track {
+#user-wrap .option-scroll-container::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
 }
 
-#user-wrap .cake-order-container .option-scroll-container::-webkit-scrollbar-thumb {
+#user-wrap .option-scroll-container::-webkit-scrollbar-thumb {
     background: #ff6f61;
     border-radius: 4px;
 }
@@ -381,19 +340,21 @@
 
 #user-wrap .cake-order-container .rating-stats {
     display: flex;
-    padding: 20px;
+    padding: 15px 10px 10px 10px;
     background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 30px;
+    border-radius: 8px 8px 0px 0px;
 }
 
 #user-wrap .cake-order-container .rating-average {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-right: 40px;
+    /* padding-right: 40px;
+    margin-right: 40px; */
+    padding: 0px 30px 0px 20px;
+    margin-right: 20px;
     border-right: 1px solid #e0e0e0;
-    margin-right: 40px;
+
 }
 
 #user-wrap .cake-order-container .stars {
@@ -960,54 +921,8 @@
     }
 }
 
-#user-wrap .cake-order-container .color-option {
-    position: relative;
-}
-
-#user-wrap .cake-order-container .color-option::after {
-    content: attr(title);
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    white-space: nowrap;
-    margin-top: 4px;
-    color: #666;
-}
-
-/* color-option::before 부분만 수정하면 됩니다 */
-/* 이전 ::after와 ::before를 제거하고 아래 스타일로 교체 */
-#user-wrap .cake-order-container .color-option {
-    position: relative;
-    margin-bottom: 25px;
-    /* 텍스트를 위한 공간 확보 */
-}
-
-#user-wrap .cake-order-container .color-option::after {
-    content: attr(title);
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    color: #333;
-    white-space: nowrap;
-    background-color: white;
-    padding: 2px 6px;
-    pointer-events: none;
-    z-index: 2;
-}
 
 
-#user-wrap .cake-order-container .color-options {
-    display: flex;
-    gap: 45px;
-    margin-bottom: 25px;
-    /* 이름이 잘 보이도록 아래 여백 증가 */
-    padding-bottom: 5px;
-    /* 추가 여백 */
-}
 
 #user-wrap .cake-order-container .tab-content::-webkit-scrollbar {
     width: 8px;
@@ -1081,35 +996,6 @@
     outline: none;
 }
 
-/* 기존 색상 */
-#user-wrap .cake-order-container .color-option.pink {
-    background-color: #FFB6C1;
-}
-
-#user-wrap .cake-order-container .color-option.yellow {
-    background-color: #FFD700;
-}
-
-#user-wrap .cake-order-container .color-option.orange {
-    background-color: #FFA500;
-}
-
-/* 새로운 색상 */
-#user-wrap .cake-order-container .color-option.blue {
-    background-color: #4169E1;
-}
-
-#user-wrap .cake-order-container .color-option.green {
-    background-color: #32CD32;
-}
-
-#user-wrap .cake-order-container .color-option.purple {
-    background-color: #8A2BE2;
-}
-
-#user-wrap .cake-order-container .color-option.brown {
-    background-color: #8B4513;
-}
 
 #user-wrap .cake-order-container .receiver-info {
     display: flex;
@@ -1152,16 +1038,6 @@
     #user-wrap .cake-order-container .color-options {
         gap: 20px;
         justify-content: center;
-    }
-}
-
-@media (max-width: 480px) {
-    #user-wrap .cake-order-container .tabs-header {
-        flex-wrap: wrap;
-    }
-
-    #user-wrap .cake-order-container .tab-button {
-        flex: 0 0 50%;
     }
 }
 
@@ -1218,10 +1094,14 @@
 
 /* 옵션 컨테이너: 가로 정렬 및 스크롤 가능 */
 .preview-cake-container {
-    display: flex; /* Flexbox로 가로 정렬 */
-    gap: 15px; /* 옵션 간 간격 */
-    flex-wrap: wrap; /* 가로 공간이 부족하면 다음 줄로 */
-    align-items: flex-start; /* 옵션 아이템을 위쪽 정렬 */
+    display: flex;
+    /* Flexbox로 가로 정렬 */
+    gap: 15px;
+    /* 옵션 간 간격 */
+    flex-wrap: wrap;
+    /* 가로 공간이 부족하면 다음 줄로 */
+    align-items: flex-start;
+    /* 옵션 아이템을 위쪽 정렬 */
 }
 
 

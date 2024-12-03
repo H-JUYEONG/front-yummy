@@ -113,10 +113,10 @@ const UserAuditionModal = ({ isOpen, onClose, company }) => {
                       제시금액 :{" "}
                       {`${company.proposedAmount.toLocaleString()}원` || "없음"}
                     </li>
-                    <li>요청사항</li>
+                    <li>업체 코멘트</li>
                     <li>
                       <div className="appeal-design-text-RequestedTerm">
-                        {company.additionalRequests || "요청사항이 없습니다."}
+                        {company.shopRequests || "코멘트가 없습니다."}
                       </div>
                     </li>
                   </ul>

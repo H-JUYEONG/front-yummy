@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/productlist.css';
-
+import SidebarWrapper from './include/SidebarWrapper';
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
 
@@ -99,116 +99,118 @@ const VenderProductList = () => {
     };
 
     return (
-        <div className="vender-container">
-            <div className="vender-content-wrapper">
-                <VenderSidebar />
-                <div className="vender-content">
-                    <header className="vender-header">
-                        <VenderHeader />
-                    </header>
-                    <main className="product-list-main-content">
-                        <section className="product-list">
-                            <header className="product-list-header">
-                                <h2 className="product-list-title">상품 리스트</h2>
-                                <div className="button-group">
-                                    <input
-                                        type="text"
-                                        className="search-input"
-                                        placeholder="상품명 검색하기"
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                    <button className="add-button" onClick={() => navigate('/vender/option')}>
-                                        옵션등록하기
-                                    </button>
-                                    <button className="add-button" onClick={() => navigate('/vender/cakeDesign/add')}>
-                                        도안등록하기
-                                    </button>
-                                    <button className="add-button" onClick={() => navigate('/vender/registrationform')}>
-                                        상품등록하기
-                                    </button>
-                                </div>
-                            </header>
-
-                            {loading ? (
-                                <div>로딩 중...</div>
-                            ) : error ? (
-                                <div className="error-message">{error}</div>
-                            ) : (
-                                <>
-                                    <table className="product-table">
-                                        <thead>
-                                            <tr>
-                                                <th>상품명</th>
-                                                <th>가격</th>
-                                                <th>상태</th>
-                                                <th>관리</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {currentProducts.map(product => (
-                                                <tr key={product.productId}>
-                                                    <td>{product.productName}</td>
-                                                    <td>{product.price.toLocaleString()} 원</td>
-                                                    <td>
-                                                        <button
-                                                            className={`status-button ${product.isVisible === 1 ? 'visible' : 'hidden'
-                                                                }`}
-                                                            onClick={() => toggleProductStatus(product.productId)}
-                                                        >
-                                                            {product.isVisible === 1 ? '노출' : '미노출'}
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button
-                                                            className="edit-button"
-                                                            onClick={() => navigate(`/vender/registrationformedit/${product.productId}`)}
-                                                        >
-                                                            수정
-                                                        </button>
-                                                        <button
-                                                            className={`delete-button ${product.isVisible === 0 ? '' : 'disabled'}`}
-                                                            onClick={() => product.isVisible === 0 && deleteProduct(product.productId)}
-                                                            disabled={product.isVisible !== 0}
-                                                        >
-                                                            삭제
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    {/* 페이징 네비게이션 */}
-                                    <div className="pagination">
-                                        {/* 이전 그룹 버튼 */}
-                                        {startPage > 1 && (
-                                            <button onClick={() => setCurrentPage(startPage - 1)}>이전</button>
-                                        )}
-
-                                        {/* 현재 그룹의 페이지 번호 */}
-                                        {pageNumbers.map((pageNumber) => (
-                                            <button
-                                                key={pageNumber}
-                                                className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
-                                                onClick={() => setCurrentPage(pageNumber)}
-                                            >
-                                                {pageNumber}
-                                            </button>
-                                        ))}
-
-                                        {/* 다음 그룹 버튼 */}
-                                        {endPage < totalPages && (
-                                            <button onClick={() => setCurrentPage(endPage + 1)}>다음</button>
-                                        )}
+        <SidebarWrapper>
+            <div className="vender-container">
+                <div className="vender-content-wrapper">
+                    <VenderSidebar />
+                    <div className="vender-content">
+                        <header className="vender-header">
+                            <VenderHeader />
+                        </header>
+                        <main className="product-list-main-content">
+                            <section className="product-list">
+                                <header className="product-list-header">
+                                    <h2 className="product-list-title">상품 리스트</h2>
+                                    <div className="button-group">
+                                        <input
+                                            type="text"
+                                            className="search-input"
+                                            placeholder="상품명 검색하기"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
+                                        <button className="add-button" onClick={() => navigate('/vender/option')}>
+                                            옵션등록하기
+                                        </button>
+                                        <button className="add-button" onClick={() => navigate('/vender/cakeDesign/add')}>
+                                            도안등록하기
+                                        </button>
+                                        <button className="add-button" onClick={() => navigate('/vender/registrationform')}>
+                                            상품등록하기
+                                        </button>
                                     </div>
+                                </header>
 
-                                </>
-                            )}
-                        </section>
-                    </main>
+                                {loading ? (
+                                    <div>로딩 중...</div>
+                                ) : error ? (
+                                    <div className="error-message">{error}</div>
+                                ) : (
+                                    <>
+                                        <table className="product-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>상품명</th>
+                                                    <th>가격</th>
+                                                    <th>상태</th>
+                                                    <th>관리</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {currentProducts.map(product => (
+                                                    <tr key={product.productId}>
+                                                        <td>{product.productName}</td>
+                                                        <td>{product.price.toLocaleString()} 원</td>
+                                                        <td>
+                                                            <button
+                                                                className={`status-button ${product.isVisible === 1 ? 'visible' : 'hidden'
+                                                                    }`}
+                                                                onClick={() => toggleProductStatus(product.productId)}
+                                                            >
+                                                                {product.isVisible === 1 ? '노출' : '미노출'}
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button
+                                                                className="edit-button"
+                                                                onClick={() => navigate(`/vender/registrationformedit/${product.productId}`)}
+                                                            >
+                                                                수정
+                                                            </button>
+                                                            <button
+                                                                className={`delete-button ${product.isVisible === 0 ? '' : 'disabled'}`}
+                                                                onClick={() => product.isVisible === 0 && deleteProduct(product.productId)}
+                                                                disabled={product.isVisible !== 0}
+                                                            >
+                                                                삭제
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                        {/* 페이징 네비게이션 */}
+                                        <div className="pagination">
+                                            {/* 이전 그룹 버튼 */}
+                                            {startPage > 1 && (
+                                                <button onClick={() => setCurrentPage(startPage - 1)}>이전</button>
+                                            )}
+
+                                            {/* 현재 그룹의 페이지 번호 */}
+                                            {pageNumbers.map((pageNumber) => (
+                                                <button
+                                                    key={pageNumber}
+                                                    className={`page-button ${currentPage === pageNumber ? 'active' : ''}`}
+                                                    onClick={() => setCurrentPage(pageNumber)}
+                                                >
+                                                    {pageNumber}
+                                                </button>
+                                            ))}
+
+                                            {/* 다음 그룹 버튼 */}
+                                            {endPage < totalPages && (
+                                                <button onClick={() => setCurrentPage(endPage + 1)}>다음</button>
+                                            )}
+                                        </div>
+
+                                    </>
+                                )}
+                            </section>
+                        </main>
+                    </div>
                 </div>
             </div>
-        </div>
+        </SidebarWrapper>
     );
 };
 

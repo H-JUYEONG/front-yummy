@@ -25,7 +25,8 @@
 
 .login-type-item {
   flex: 1;
-  min-height: 80px; /* 버튼 높이를 일정하게 유지 */
+  min-height: 80px;
+  /* 버튼 높이를 일정하게 유지 */
   border: 1px solid #cacaca;
   text-align: center;
   display: flex;
@@ -39,7 +40,8 @@
 
 .login-type-item p {
   font-size: 11px;
-  margin: 0; /* 기본 여백 제거 */
+  margin: 0;
+  /* 기본 여백 제거 */
 }
 
 .user-loginform {
@@ -81,6 +83,7 @@
 .user-loginform input:focus {
   outline: none;
   border-color: #aaa;
+  background-color: #fff;
 }
 
 .user-loginform input::placeholder {
@@ -169,6 +172,7 @@
   background-color: #03c75a;
   padding: 0 5px;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 #naverIdLogin button {
@@ -179,23 +183,108 @@
   background-color: #03c75a;
   border: none;
   cursor: pointer;
-  position: relative; /* 추가: 자식 요소의 절대 위치 기준점 */
+  position: relative;
+  /* 추가: 자식 요소의 절대 위치 기준점 */
   padding: 0;
 }
 
 #naverIdLogin img {
-  position: absolute; /* 추가: 왼쪽에 고정 */
+  position: absolute;
+  /* 추가: 왼쪽에 고정 */
   left: 0;
   height: 50px;
   width: auto;
 }
 
 #naverIdLogin span {
-  flex: 1; /* 추가: 남은 공간 전체 차지 */
+  flex: 1;
+  /* 추가: 남은 공간 전체 차지 */
   text-align: center;
   font-size: 19px;
   color: white;
   line-height: 1;
   padding-left: 25px;
   font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 구글 로그인 버튼 */
+#googleIdLogin {
+  width: 100%;
+  height: 55px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: white;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+#googleIdLogin button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  /* 추가: 자식 요소의 절대 위치 기준점 */
+  padding: 0;
+}
+
+#googleIdLogin img {
+  position: absolute;
+  /* 추가: 왼쪽에 고정 */
+  left: 0;
+  height: 50px;
+  width: auto;
+}
+
+#googleIdLogin span {
+  flex: 1;
+  /* 추가: 남은 공간 전체 차지 */
+  text-align: center;
+  font-size: 19px;
+  color: #333;
+  line-height: 1;
+  padding-left: 25px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 모바일 스타일 */
+@media screen and (max-width: 768px) {
+  .user-login-box {
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
+  }
+
+  .user-loginform input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .user-login-btn button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .user-login-id-save {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-login-id-save .user-txt-chk-right {
+    margin-top: 10px;
+  }
+
+  #user-login-list {
+    display: none;
+    /* 모바일에서는 숨김 */
+  }
+
+  footer {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 12px;
+  }
 }

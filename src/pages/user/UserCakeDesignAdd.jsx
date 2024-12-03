@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
+import { BsTrash } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa6";
 
 // css
 import "../../assets/css/all.css";
@@ -106,7 +108,11 @@ const UserCakeDesignAdd = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-design-board-list">
           <form className="user-cake-design-main" onSubmit={handleAdd}>
-            <h1 className="user-cake-design-title">도안 등록</h1>
+            <div className="user-cake-design-title-container">
+              <h1 className="user-cake-design-title">
+                나만의 도안을 등록하세요!
+              </h1>
+            </div>
 
             {/* 이미지 미리보기 */}
             <div className="user-cake-design-imgs">
@@ -124,14 +130,17 @@ const UserCakeDesignAdd = () => {
 
             {/* 도안 이미지 업로드 */}
             <div className="user-cake-design-form-groups">
-              <label>도안 이미지</label>
-              <button
-                type="button"
-                onClick={addFileInput}
-                className="user-add-image-button"
-              >
-                이미지 추가
-              </button>
+              <div className="form-group-header">
+                <label className="form-group-title">도안 이미지</label>
+                <button
+                  type="button"
+                  onClick={addFileInput}
+                  className="user-add-image-button"
+                >
+                  <FaPlus /> 추가
+                </button>
+              </div>
+
               {files.map((fileInput) => (
                 <div key={fileInput.id} className="user-file-input-wrappers">
                   <input
@@ -144,7 +153,7 @@ const UserCakeDesignAdd = () => {
                     className="user-remove-button"
                     onClick={() => removeFileInput(fileInput.id)}
                   >
-                    삭제
+                    <BsTrash />
                   </button>
                 </div>
               ))}
@@ -172,7 +181,7 @@ const UserCakeDesignAdd = () => {
                 value={cakeDesignDescription}
                 onChange={handleCakeDesignDescription}
                 className="user-input-text"
-                rows="4"
+                rows="7"
               />
             </div>
 
@@ -218,9 +227,16 @@ const UserCakeDesignAdd = () => {
             </div>
 
             {/* 등록 버튼 */}
-            <div className="user-form-group">
+            <div className="user-ckae-design-btn-group">
               <button type="submit" className="user-cake-design-add-button">
-                등록하기
+                등록
+              </button>
+              <button
+                type="submit"
+                className="user-cake-design-cancel-button"
+                onClick={() => navigate("/user/cakeDesign/board")}
+              >
+                취소
               </button>
             </div>
           </form>

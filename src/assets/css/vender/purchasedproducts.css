@@ -185,21 +185,79 @@
     border-color: #007bff;
 }
 
-/* 반응형 */
-@media (max-width: 768px) {
-    .vender-container {
-        flex-direction: column;
+
+/* 모바일 환경에서 테이블 스타일 변경 */
+@media screen and (max-width: 768px) {
+    .vender-order-table {
+        display: block;
+        width: 100%;
     }
 
-    .vender-filter-section {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-left: 0;
-        /* 모바일에서는 필터를 다시 왼쪽 정렬 */
+    .vender-order-table thead {
+        display: none; /* 헤더 숨기기 */
     }
 
-    .vender-order-table th,
+    .vender-order-table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .vender-order-table tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
     .vender-order-table td {
-        padding: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 10px;
+        font-size: 14px;
+        border: none;
+    }
+
+    .vender-order-table td::before {
+        content: attr(data-label); /* 데이터 라벨로 앞에 표시 */
+        font-weight: bold;
+        color: #333;
+        flex: 1;
+        text-align: left;
+        margin-right: 10px;
+    }
+
+    .vender-order-table td:last-child {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* 페이지네이션 버튼 */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination button {
+        padding: 8px 12px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .pagination button.active {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .pagination button:hover {
+        background-color: #0056b3;
+        color: #fff;
     }
 }

@@ -265,9 +265,9 @@ const UserAuditionEdit = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-audition-board-list">
           <form className="user-cake-audition-main" onSubmit={handleFormSubmit}>
-            <h1 className="user-cake-audition-title">
-              달콤한 케이크 부탁해요!
-            </h1>
+            <div className="user-cake-audition-title-container">
+              <h1 className="user-cake-audition-title">케이크 요청을 수정하세요!</h1>
+            </div>
 
             <div className="user-cake-audition-form-group">
               <p class="audition-info-notice">
@@ -580,7 +580,16 @@ const UserAuditionEdit = () => {
 
             <div className="user-audition-add">
               <button type="submit" className="user-cake-audition-add-button">
-                수정하기
+                수정
+              </button>
+              <button
+                type="submit"
+                className="user-cake-audition-cancel-button"
+                onClick={() =>
+                  navigate(`/user/audition/edit/${auditionApplicationId}`)
+                }
+              >
+                취소
               </button>
             </div>
           </form>

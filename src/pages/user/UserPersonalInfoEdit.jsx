@@ -295,7 +295,10 @@ const UserPersonalInfoEdit = () => {
                     } else if (tempPp) {
                       return <img src={tempPp} alt="Profile Preview" />;
                     } else {
-                      return <span>프로필 사진 없음</span>;
+                      return (
+                        <img src={require("../../assets/images/yummylogo.webp")} alt="Default Profile" />
+
+                      );
                     }
                   })()}
                 </div>
@@ -396,7 +399,7 @@ const UserPersonalInfoEdit = () => {
           <form className="user-edit-form" onSubmit={handleSave}>
             <div className="user-edit-buttons">
               <button type="submit" className="user-save-button">
-                저장하기
+                저장
               </button>
               <button
                 type="button"

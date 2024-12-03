@@ -36,25 +36,33 @@ const UserOrderDetail = () => {
         try {
             console.log("Fetching order detail for ID:", orderId);
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${orderId}`);
-            console.log("API Response:", response);
-            console.log("Response Data:", response.apiData);
-
-            // JsonResult 구조 확인
+            
             if (response.data.result === "success") {
-                setOrderDetail(response.data.apiData);
-                console.log("Set Order Detail:", response.data.apiData);
+                const data = response.data.apiData;
+    
+                // 정규화된 옵션 필드 생성
+                const normalizedData = {
+                    ...data,
+                    cake_size: data.cake_size || data.cakeSize,
+                    flavor_sheet: data.flavor_sheet || data.flavorSheet,
+                    flavor_cream: data.flavor_cream || data.flavorCream,
+                    decoration_type: data.decoration_type || data.decorationType,
+                    decoration_color: data.decoration_color || data.decorationColor,
+                };
+    
+                setOrderDetail(normalizedData);
+                console.log("Normalized Order Detail:", normalizedData);
             } else {
                 setError(response.data.message || '주문 정보를 불러올 수 없습니다.');
             }
         } catch (error) {
             console.error('Error fetching order detail:', error);
-            console.error('Error response:', error.response);
             setError('주문 상세 정보를 불러오는데 실패했습니다.');
         } finally {
             setLoading(false);
         }
     };
-
+    
     if (loading) return <div>로딩 중...</div>;
     if (error) return <div>{error}</div>;
     if (!orderDetail) return <div>주문 정보를 찾을 수 없습니다.</div>;
@@ -126,16 +134,15 @@ const UserOrderDetail = () => {
                                 {Object.entries(orderDetail).map(([key, value]) => {
                                     // 옵션 필드 매핑
                                     const optionLabels = {
-                                        productType: '상품 종류',
-                                        cakeSize: '케이크 크기',
-                                        flavorSheet: '시트 맛',
-                                        flavorCream: '크림 맛',
-                                        cakeBackgroundColor: '케이크 배경색',
-                                        creamPosition: '크림 위치',
-                                        creamColor: '크림 색상',
-                                        decorationType: '데코레이션 종류',
-                                        decorationColor: '데코레이션 색상',
-                                        category: '카테고리'
+                                        cake_size: '케이크 크기',
+                                        flavor_sheet: '시트 맛',
+                                        flavor_cream: '크림 맛',
+                                        cake_background_color: '케이크 배경색',
+                                        cream_position: '크림 위치',
+                                        cream_color: '크림 색상',
+                                        decoration_type: '데코레이션 종류',
+                                        decoration_color: '데코레이션 색상',
+                                        category: '카테고리',
                                     };
 
                                     // 옵션 필드인 경우에만 표시
@@ -187,20 +194,20 @@ const UserOrderDetail = () => {
                         </div>
 
 
-                       {/* 보내는 사람 정보 수정 */}
-<div className="order-section">
-        <h3>보내는 사람 정보</h3>
-        <div className="info-content">
-            <p>
-                <span className="label">보내는 사람</span>
-                <span className="value">{authUser?.name}</span>
-            </p>
-            <p>
-                <span className="label">연락처</span>
-                <span className="value">{orderDetail.senderPhone}</span>
-            </p>
-        </div>
-    </div>
+                        {/* 보내는 사람 정보 수정 */}
+                        <div className="order-section">
+                            <h3>보내는 사람 정보</h3>
+                            <div className="info-content">
+                                <p>
+                                    <span className="label">보내는 사람</span>
+                                    <span className="value">{authUser?.name}</span>
+                                </p>
+                                <p>
+                                    <span className="label">연락처</span>
+                                    <span className="value">{orderDetail.senderPhone}</span>
+                                </p>
+                            </div>
+                        </div>
 
 
                         {/* 받는 사람 정보 */}

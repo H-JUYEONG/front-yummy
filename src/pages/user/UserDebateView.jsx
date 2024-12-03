@@ -31,7 +31,7 @@ const UserDebateView = () => {
   const leftVotePercentage = totalVotes > 0 ? (leftVote.length / totalVotes) * 100 : 0;
   const rightVotePercentage = totalVotes > 0 ? (rightVote.length / totalVotes) * 100 : 0;
 
-  
+
   // Fetch debate details
   const fetchDebateDetails = async () => {
     try {
@@ -59,10 +59,10 @@ const UserDebateView = () => {
       alert("로그인 후 이용하세요.");
       return;
     }
-  
+
     const confirmDelete = window.confirm("정말로 이 게시글을 삭제하시겠습니까?");
     if (!confirmDelete) return;
-  
+
     axios({
       method: "delete",
       url: `${process.env.REACT_APP_API_URL}/api/debate/debatedel/${debate_id}`,
@@ -266,26 +266,26 @@ const UserDebateView = () => {
               </p>
               <p>작성자: {debateDetails.user_nickname || "Unknown"}</p>
               {authUser && debateDetails.member_id === authUser.member_id ? (
-              <div className="user-control-section">
-                <button
-                  className="user-debate-edit-button"
-                  onClick={(event) => {
-                    navigate(`/debate/debateedit/${debateDetails.debate_id}`);
-                  }}
-                >
-                  수정
-                </button>
-                <button
-                  className="user-debate-delete-button"
-                  onClick={deleteDebate}
-                >
-                  삭제
-                </button>
-              </div>
-            ) : null}
-          </div>
+                <div className="user-control-section">
+                  <button
+                    className="user-debate-edit-button"
+                    onClick={(event) => {
+                      navigate(`/debate/debateedit/${debateDetails.debate_id}`);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="user-debate-delete-button"
+                    onClick={deleteDebate}
+                  >
+                    삭제
+                  </button>
+                </div>
+              ) : null}
             </div>
-            
+          </div>
+
 
           {/* Images and Voting */}
           <div className="debate-images-progress-container">
@@ -321,7 +321,7 @@ const UserDebateView = () => {
                 {rightVotePercentage.toFixed(1)}% ({rightVote.length}명)
               </div>
             </div>
-            
+
           </div>
 
           {/* Debate Content */}
@@ -330,11 +330,11 @@ const UserDebateView = () => {
             <p>
               {debateDetails.debate_content
                 ? debateDetails.debate_content.split("\n").map((line, index) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      <br />
-                    </React.Fragment>
-                  ))
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))
                 : "내용이 없습니다."}
             </p>
           </div>
@@ -362,30 +362,30 @@ const UserDebateView = () => {
             </form>
 
             <div className="comment-list">
-      {commentList.map((comment) => {
-        // Find the user's vote from voteList
-        const userVote = voteList.find((vote) => vote.member_id === comment.member_id);
-        const voteSide = userVote ? (userVote.side === "left" ? "케이크 A" : "케이크 B") : "투표 안함";
+              {commentList.map((comment) => {
+                // Find the user's vote from voteList
+                const userVote = voteList.find((vote) => vote.member_id === comment.member_id);
+                const voteSide = userVote ? (userVote.side === "left" ? "케이크 A" : "케이크 B") : "투표 안함";
 
-        return (
-          <div className="comment" key={comment.debate_comment_id}>
-            <div className="comment-profile-pic">
-              <img
-                src={comment.user_profile_image_url || ""}
-                alt={`${comment.user_nickname || "Anonymous"} 프로필`}
-              />
+                return (
+                  <div className="comment" key={comment.debate_comment_id}>
+                    <div className="comment-profile-pic">
+                      <img
+                        src={comment.user_profile_image_url || require("../../assets/images/yummylogo.webp")}
+                        alt={`${comment.user_nickname || "Anonymous"} 프로필`}
+                      />
+                    </div>
+                    <div className="comment-content">
+                      <div className="comment-author-vote">
+                        <span className="comment-author">{comment.user_nickname || "Anonymous"}</span>
+                        <span className="user-vote-indicator">{`투표: ${voteSide}`}</span>
+                      </div>
+                      <p>{comment.debate_comment_content || "댓글 내용 없음"}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="comment-content">
-              <div className="comment-author-vote">
-                <span className="comment-author">{comment.user_nickname || "Anonymous"}</span>
-                <span className="user-vote-indicator">{`투표: ${voteSide}`}</span>
-              </div>
-              <p>{comment.debate_comment_content || "댓글 내용 없음"}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
           </div>
         </div>
       </main>
