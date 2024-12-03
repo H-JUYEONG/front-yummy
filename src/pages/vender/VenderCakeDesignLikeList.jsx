@@ -10,7 +10,7 @@ import VenderHeader from "./include/VenderHeader";
 
 const VenderCakeDesignLikeList = () => {
   const navigate = useNavigate();
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [venderCakeDesignLikeList, setVenderCakeDesignLikeList] = useState([]);

@@ -1,6 +1,6 @@
 /* userheaderstyle.css */
 .header-container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     font-size: 3.5em;
     margin: 0;
     color: #333;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     letter-spacing: 0.05em;
 }
 
@@ -63,7 +63,7 @@
     top: 34px;
     display: flex;
     align-items: center;
-  
+
 }
 
 .header-container .user-actions a.header-link {
@@ -83,37 +83,67 @@
     color: #555 !important;
 }
 
-@media (min-width: 768px) {
-    .header-container .nav-menu {
-        display: flex;
-    }
-}
 /* userheaderstyle.css에 추가 */
 .user-actions {
     display: flex;
-    gap: 1rem; /* 버튼 사이의 간격 */
+    gap: 1rem;
+    /* 버튼 사이의 간격 */
     align-items: center;
-  }
-  
-  .header-link {
+}
+
+.header-link {
     padding: 0.5rem 1rem;
     text-decoration: none;
     color: #333;
     transition: all 0.3s ease;
-  }
-  
-  .header-link:hover {
-    color:  #ff6f61; 
-  }
-  
- 
-  .header-link.primary {
-    background-color:  #ff6f61;
+}
+
+.header-link:hover {
+    color: #ff6f61;
+}
+
+
+.header-link.primary {
+    background-color: #ff6f61;
     color: white;
     border-radius: 4px;
-  }
-  
-  .header-link.primary:hover {
-    background-color:  #ff6f61;
+}
+
+.header-link.primary:hover {
+    background-color: #ff6f61;
     color: white;
-  }
+}
+
+.main-usernickname {
+    color: #555;
+}
+
+/* 모바일에서만 표시 */
+@media screen and (max-width: 768px) {
+    .header-container {
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    .header-container .nav-menu {
+        display: none;
+        /* 네비게이션 메뉴 숨기기 */
+    }
+
+   .header-container .logo {
+        display :flex;
+        font-size: 10px;
+        text-align: center;
+        /* 가운데 정렬 */
+    }
+
+    .header-container .user-actions {
+        position: absolute; /* 절대 위치 설정 */
+        top: 17px; /* 상단 여백 */
+        right: 10px; /* 오른쪽 여백 */
+    }
+
+    .header-link {
+        font-size: 16px;
+    }
+}

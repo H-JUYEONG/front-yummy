@@ -3,6 +3,7 @@ import Header from "./include/Header";
 import Footer from "./include/Footer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaPlus } from "react-icons/fa6";
 
 // css
 import "../../assets/css/all.css";
@@ -155,9 +156,11 @@ const UserAuditionAdd = () => {
       <main id="user-wrap-body" className="clearfix">
         <div className="user-cake-audition-board-list">
           <form className="user-cake-audition-main" onSubmit={handleFormSubmit}>
-            <h1 className="user-cake-audition-title">
-              달콤한 케이크 부탁해요!
-            </h1>
+            <div className="user-cake-audition-title-container">
+              <h1 className="user-cake-audition-title">
+                달콤한 케이크 부탁해요!
+              </h1>
+            </div>
 
             <div className="user-cake-audition-form-group">
               <p class="audition-info-notice">
@@ -391,7 +394,7 @@ const UserAuditionAdd = () => {
                 onChange={(e) => setRequests(e.target.value)}
                 placeholder="케이크의 컨셉, 색상, 디자인 등 자세한 내용을 적어주세요."
                 className="user-audition-input-text"
-                rows="4"
+                rows="7"
               ></textarea>
             </div>
 
@@ -424,28 +427,32 @@ const UserAuditionAdd = () => {
             <div className="user-audition-design-preview">
               {selectedTab === "My 도안" && (
                 <div className="user-audition-liked-designs">
-                  {likedDesigns.map((design, index) => (
-                    <div
-                      key={index}
-                      className={`user-audition-liked-design-card ${
-                        selectedDesignId === design.cakeDesignId
-                          ? "selected"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        handleSelectDesign(
-                          design.cakeDesignId,
-                          design.cakeDesignImageUrl
-                        )
-                      } // 선택 이벤트 추가
-                    >
-                      <img
-                        src={design.cakeDesignImageUrl}
-                        alt={design.cakeDesignTitle}
-                      />
-                      <p>{design.cakeDesignTitle}</p>
-                    </div>
-                  ))}
+                  {likedDesigns.length > 0 ? (
+                    likedDesigns.map((design, index) => (
+                      <div
+                        key={index}
+                        className={`user-audition-liked-design-card ${
+                          selectedDesignId === design.cakeDesignId
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          handleSelectDesign(
+                            design.cakeDesignId,
+                            design.cakeDesignImageUrl
+                          )
+                        }
+                      >
+                        <img
+                          src={design.cakeDesignImageUrl}
+                          alt={design.cakeDesignTitle}
+                        />
+                        <p>{design.cakeDesignTitle}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>리스트가 없습니다.</p>
+                  )}
                 </div>
               )}
               {selectedTab === "사진 첨부" && (
@@ -466,7 +473,14 @@ const UserAuditionAdd = () => {
 
             <div className="user-audition-add">
               <button type="submit" className="user-cake-audition-add-button">
-                등록하기
+                등록
+              </button>
+              <button
+                type="submit"
+                className="user-cake-audition-cancel-button"
+                onClick={() => navigate("/user/audition/board")}
+              >
+                취소
               </button>
             </div>
           </form>

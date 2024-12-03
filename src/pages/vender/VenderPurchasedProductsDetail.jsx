@@ -7,6 +7,7 @@ import '../../assets/css/vender/purchasedproductsDetail.css'; // 주문 상세 �
 import '../../assets/css/vender/vender.css';
 import VenderSidebar from './include/VenderSidebar';
 import WebRTCSender from './WebRTCSender'; // 파일 경로 확인
+import SidebarWrapper from './include/SidebarWrapper';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const PurchasedProductsDetail = () => {
@@ -27,7 +28,6 @@ const PurchasedProductsDetail = () => {
     // 사진 촬영 모달 열기/닫기 함수
     const openWebcamModal = () => setIsWebcamModalOpen(true);
     const closeWebcamModal = () => setIsWebcamModalOpen(false);
-
 
 
     // 영상 촬영 모달 열기/닫기 함수
@@ -342,194 +342,193 @@ const PurchasedProductsDetail = () => {
         productImageUrl,
         cakeDesignImageUrl,
     } = orderDetails;
-    const toggleSidebar = () => {
-        setSidebarOpen(!isSidebarOpen);
+    const toggleMenu = () => {
+        setSidebarOpen((prev) => !prev); // 상태 토글
     };
     return (
-        <div className="vender-container">
-            <div class="vender-content-wrapper">
-                <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
-                <button className="hamburger-menu" onClick={toggleSidebar}>
-                    ☰
-                </button>
-                <VenderSidebar className={`vender-sidebar ${isSidebarOpen ? 'open' : ''}`} />
-                <div className="vender-content">
-                    <main className="product-list-main-content">
-                        <section className="purchasedproductsDetail-info">
-                            <div className="purchasedproductsDetail-content-box">
-                                <div className="purchasedproductsDetail-content">
+        <SidebarWrapper>
+            <div className="vender-container">
+                <div class="vender-content-wrapper">
+                    <div className={`vender-container ${isSidebarOpen ? 'sidebar-open' : ''}`}></div>
+                    <VenderSidebar isOpen={isSidebarOpen} toggleMenu={toggleMenu} />
+                    <div className="vender-content">
+                        <main className="product-list-main-content">
+                            <section className="purchasedproductsDetail-info">
+                                <div className="purchasedproductsDetail-content-box">
+                                    <div className="purchasedproductsDetail-content">
 
-                                    <div className="purchasedproductsDetail-text">
-                                        <h2>{productName}</h2>
+                                        <div className="purchasedproductsDetail-text">
+                                            <h2>{productName}</h2>
 
-                                        {/* 배송 정보 섹션 */}
-                                        <div className="purchasedproductsDetail-section">
-                                            <h3>📦 배송 정보</h3>
-                                            <div className="purchasedproductsDetail-basic-info">
-                                                {deliveryMethod && <p><strong>배송 방법:</strong> {deliveryMethod}</p>}
-                                                {deliveryAddress && <p><strong>배송 주소:</strong> {deliveryAddress}</p>}
-                                                {desiredDeliveryDate && <p><strong>배송 요청일:</strong> {desiredDeliveryDate}</p>}
-                                                {desiredDeliveryTime && <p><strong>배송 요청 시간:</strong> {desiredDeliveryTime}</p>}
-                                                {desiredPickupDatetime && <p><strong>픽업 요청일:</strong> {desiredPickupDatetime}</p>}
-                                                {desiredPickupTime && <p><strong>픽업 요청 시간:</strong> {desiredPickupTime}</p>}
+                                            {/* 배송 정보 섹션 */}
+                                            <div className="purchasedproductsDetail-section">
+                                                <h3>📦 배송 정보</h3>
+                                                <div className="purchasedproductsDetail-basic-info">
+                                                    {deliveryMethod && <p><strong>배송 방법:</strong> {deliveryMethod}</p>}
+                                                    {deliveryAddress && <p><strong>배송 주소:</strong> {deliveryAddress}</p>}
+                                                    {desiredDeliveryDate && <p><strong>배송 요청일:</strong> {desiredDeliveryDate}</p>}
+                                                    {desiredDeliveryTime && <p><strong>배송 요청 시간:</strong> {desiredDeliveryTime}</p>}
+                                                    {desiredPickupDatetime && <p><strong>픽업 요청일:</strong> {desiredPickupDatetime}</p>}
+                                                    {desiredPickupTime && <p><strong>픽업 요청 시간:</strong> {desiredPickupTime}</p>}
+                                                </div>
+                                            </div>
+
+                                            {/* 주문 상태 및 케이크 정보 섹션 */}
+                                            <div className="purchasedproductsDetail-section">
+                                                <h3>🎂 케이크 정보</h3>
+                                                <div className="purchasedproductsDetail-basic-info">
+                                                    {orderStatus && <p><strong>주문 상태:</strong> {orderStatus}</p>}
+                                                    {productType && <p><strong>상품 종류:</strong> {productType}</p>}
+                                                    {cakeSize && <p><strong>케이크 크기:</strong> {cakeSize}</p>}
+                                                    {flavorSheet && <p><strong>시트 맛:</strong> {flavorSheet}</p>}
+                                                    {flavorCream && <p><strong>크림 맛:</strong> {flavorCream}</p>}
+                                                    {cakeBackgroundColor && <p><strong>케이크 배경 색상:</strong> {cakeBackgroundColor}</p>}
+                                                    {creamPosition && <p><strong>크림 위치:</strong> {creamPosition}</p>}
+                                                    {creamColor && <p><strong>크림 색상:</strong> {creamColor}</p>}
+                                                    {decorationType && <p><strong>데코레이션 종류:</strong> {decorationType}</p>}
+                                                    {decorationColor && <p><strong>데코레이션 색상:</strong> {decorationColor}</p>}
+                                                    {cakeLettering && <p><strong>케이크 문구:</strong> {cakeLettering}</p>}
+                                                    {plateLettering && <p><strong>케이크 판 문구:</strong> {plateLettering}</p>}
+                                                    {additionalRequests && <p><strong>추가 요청 사항:</strong> {additionalRequests}</p>}
+                                                </div>
+                                            </div>
+
+                                            {/* 결제 및 추가 요청 섹션 */}
+                                            <div className="purchasedproductsDetail-section">
+                                                <h3>💰 결제 정보</h3>
+                                                <div className="purchasedproductsDetail-basic-info">
+                                                    {totalPrice && <p><strong>총 가격:</strong> {totalPrice}원</p>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="purchasedproductsDetail-images">
+                                            <div className="purchasedproductsDetail-image-box">
+                                                <img src={productImageUrl} alt="상품 이미지" />
+                                                <p>상품 이미지</p>
+                                            </div>
+                                            <div className="purchasedproductsDetail-image-box">
+                                                <img src={cakeDesignImageUrl} alt="도안 이미지" />
+                                                <p>도안 이미지</p>
                                             </div>
                                         </div>
 
-                                        {/* 주문 상태 및 케이크 정보 섹션 */}
-                                        <div className="purchasedproductsDetail-section">
-                                            <h3>🎂 케이크 정보</h3>
-                                            <div className="purchasedproductsDetail-basic-info">
-                                                {orderStatus && <p><strong>주문 상태:</strong> {orderStatus}</p>}
-                                                {productType && <p><strong>상품 종류:</strong> {productType}</p>}
-                                                {cakeSize && <p><strong>케이크 크기:</strong> {cakeSize}</p>}
-                                                {flavorSheet && <p><strong>시트 맛:</strong> {flavorSheet}</p>}
-                                                {flavorCream && <p><strong>크림 맛:</strong> {flavorCream}</p>}
-                                                {cakeBackgroundColor && <p><strong>케이크 배경 색상:</strong> {cakeBackgroundColor}</p>}
-                                                {creamPosition && <p><strong>크림 위치:</strong> {creamPosition}</p>}
-                                                {creamColor && <p><strong>크림 색상:</strong> {creamColor}</p>}
-                                                {decorationType && <p><strong>데코레이션 종류:</strong> {decorationType}</p>}
-                                                {decorationColor && <p><strong>데코레이션 색상:</strong> {decorationColor}</p>}
-                                                {cakeLettering && <p><strong>케이크 문구:</strong> {cakeLettering}</p>}
-                                                {plateLettering && <p><strong>케이크 판 문구:</strong> {plateLettering}</p>}
-                                                {additionalRequests && <p><strong>추가 요청 사항:</strong> {additionalRequests}</p>}
-                                            </div>
-                                        </div>
-
-                                        {/* 결제 및 추가 요청 섹션 */}
-                                        <div className="purchasedproductsDetail-section">
-                                            <h3>💰 결제 정보</h3>
-                                            <div className="purchasedproductsDetail-basic-info">
-                                                {totalPrice && <p><strong>총 가격:</strong> {totalPrice}원</p>}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="purchasedproductsDetail-images">
-                                        <div className="purchasedproductsDetail-image-box">
-                                            <img src={productImageUrl} alt="상품 이미지" />
-                                            <p>상품 이미지</p>
-                                        </div>
-                                        <div className="purchasedproductsDetail-image-box">
-                                            <img src={cakeDesignImageUrl} alt="도안 이미지" />
-                                            <p>도안 이미지</p>
-                                        </div>
                                     </div>
 
                                 </div>
+                            </section>
+                            <section className="purchasedproductsDetail-media-delivery centered-section">
+                                <div className="purchasedproductsDetail-media-box">
+                                    <div className="purchasedproductsDetail-status-card">
+                                        <h3>📦 {orderStatus}</h3>
+                                        <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
+                                        <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 중")}>제작 중</button>
+                                        <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 완료")}>제작 완료</button>
+                                        <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "픽업 요청")}>픽업 요청</button>
+                                        <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "배송 중")}>배송 중</button>
+                                    </div>
 
-                            </div>
-                        </section>
-                        <section className="purchasedproductsDetail-media-delivery centered-section">
-                            <div className="purchasedproductsDetail-media-box">
-                                <div className="purchasedproductsDetail-status-card">
-                                    <h3>📦 {orderStatus}</h3>
-                                    <p>주문 상태를 변경하여 현재 제작 상황을 업데이트하세요.</p>
-                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 중")}>제작 중</button>
-                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "제작 완료")}>제작 완료</button>
-                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "픽업 요청")}>픽업 요청</button>
-                                    <button className="centered-button" onClick={() => updateOrderStatus(orderDetails.orderId, "배송 중")}>배송 중</button>
+                                    <div className="purchasedproductsDetail-media-item">
+                                        {isWebcamModalOpen && (
+                                            <div className="modal">
+                                                <div className="modal-content">
+                                                    <h3>📷 사진 촬영</h3>
+                                                    <Webcam
+                                                        ref={webcamRef}
+                                                        audio={false}
+                                                        screenshotFormat="image/png"
+                                                        videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
+                                                    />
+                                                    <button onClick={takePhoto}>📸 사진 촬영</button>
+                                                    <button onClick={closeWebcamModal}>닫기</button>
+                                                    {imageUrl && (
+                                                        <div className="purchasedproductsDetail-preview">
+                                                            {imageUrl && <img src={imageUrl} alt="촬영된 사진" />}
+                                                            <button
+                                                                onClick={() => {
+                                                                    const blob = dataURLtoFile(imageUrl, "photo.png");
+                                                                    uploadMedia(orderId, null, blob); // 사진 업로드
+                                                                }}
+                                                            >
+                                                                업로드
+                                                            </button>
+                                                            <button onClick={sendLinkToCustomer} disabled={!imageUrl}>
+                                                                전송하기
+                                                            </button>
+                                                        </div>
+
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                        <h3>📷 사진 촬영하기</h3>
+                                        <p>고객에게 사진을 전송해주세요.</p>
+                                        <button onClick={openWebcamModal}>📷 사진 촬영</button>
+                                    </div>
+
+                                    {/* 모달 트리거 버튼 */}
+                                    <div className="purchasedproductsDetail-media-item">
+                                        {/* 영상 촬영 모달 */}
+                                        {isVideoModalOpen && (
+                                            <div className="modal">
+                                                <div className="modal-content">
+                                                    <h3>🎥 영상 촬영</h3>
+                                                    <Webcam
+                                                        ref={webcamRef}
+                                                        audio={false}
+                                                        screenshotFormat="image/png"
+                                                        videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
+                                                    />
+                                                    <button onClick={isRecording ? stopRecording : startRecording}>
+                                                        {isRecording ? "녹화 중지" : "녹화 시작"}
+                                                    </button>
+                                                    <button onClick={closeVideoModal}>닫기</button>
+                                                    {videoUrl && (
+                                                        <div className="purchasedproductsDetail-preview">
+                                                            <video src={videoUrl} controls />
+                                                            <button onClick={handleVideoUpload}>업로드</button>
+                                                            <button
+                                                                onClick={sendVideoLinkToCustomer}
+                                                                disabled={!videoUrl || videoUrl.startsWith("blob:") || videoUrl.includes("localhost")}
+                                                            >
+                                                                전송하기
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                        <h3>🎥 영상 촬영하기</h3>
+                                        <p>고객에게 영상을 전송해주세요.</p>
+                                        <button onClick={openVideoModal}>🎥 영상 촬영 시작</button>
+                                    </div>
                                 </div>
+                            </section>
 
-                                <div className="purchasedproductsDetail-media-item">
-                                    {isWebcamModalOpen && (
+                            {/* 실시간 제작 과정 전송 섹션 */}
+                            <section className="purchasedproductsDetail-live-broadcast centered-section">
+                                <h2>제조 과정을 실시간으로 고객에게 전송해주세요~</h2>
+                                <div className="purchasedproductsDetail-live-item">
+                                    {isLiveModalOpen && (
                                         <div className="modal">
                                             <div className="modal-content">
-                                                <h3>📷 사진 촬영</h3>
-                                                <Webcam
-                                                    ref={webcamRef}
-                                                    audio={false}
-                                                    screenshotFormat="image/png"
-                                                    videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
+                                                <WebRTCSender
+                                                    onStartBroadcast={() => console.log("방송 시작")}
+                                                    onStopBroadcast={() => console.log("방송 중지")}
                                                 />
-                                                <button onClick={takePhoto}>📸 사진 촬영</button>
-                                                <button onClick={closeWebcamModal}>닫기</button>
-                                                {imageUrl && (
-                                                    <div className="purchasedproductsDetail-preview">
-                                                        {imageUrl && <img src={imageUrl} alt="촬영된 사진" />}
-                                                        <button
-                                                            onClick={() => {
-                                                                const blob = dataURLtoFile(imageUrl, "photo.png");
-                                                                uploadMedia(orderId, null, blob); // 사진 업로드
-                                                            }}
-                                                        >
-                                                            업로드
-                                                        </button>
-                                                        <button onClick={sendLinkToCustomer} disabled={!imageUrl}>
-                                                            전송하기
-                                                        </button>
-                                                    </div>
-
-                                                )}
+                                                <button onClick={closeLiveModal}>닫기</button>
                                             </div>
                                         </div>
                                     )}
-                                    <h3>📷 사진 촬영하기</h3>
-                                    <p>고객에게 사진을 전송해주세요.</p>
-                                    <button onClick={openWebcamModal}>📷 사진 촬영</button>
+                                    {/* 실시간 방송 버튼 */}
+                                    <button onClick={openLiveModal}>실시간 방송 시작</button>
                                 </div>
+                            </section>
 
-                                {/* 모달 트리거 버튼 */}
-                                <div className="purchasedproductsDetail-media-item">
-                                    {/* 영상 촬영 모달 */}
-                                    {isVideoModalOpen && (
-                                        <div className="modal">
-                                            <div className="modal-content">
-                                                <h3>🎥 영상 촬영</h3>
-                                                <Webcam
-                                                    ref={webcamRef}
-                                                    audio={false}
-                                                    screenshotFormat="image/png"
-                                                    videoConstraints={{ width: 400, height: 400, facingMode: "user" }}
-                                                />
-                                                <button onClick={isRecording ? stopRecording : startRecording}>
-                                                    {isRecording ? "녹화 중지" : "녹화 시작"}
-                                                </button>
-                                                <button onClick={closeVideoModal}>닫기</button>
-                                                {videoUrl && (
-                                                    <div className="purchasedproductsDetail-preview">
-                                                        <video src={videoUrl} controls />
-                                                        <button onClick={handleVideoUpload}>업로드</button>
-                                                        <button
-                                                            onClick={sendVideoLinkToCustomer}
-                                                            disabled={!videoUrl || videoUrl.startsWith("blob:") || videoUrl.includes("localhost")}
-                                                        >
-                                                            전송하기
-                                                        </button>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-                                    <h3>🎥 영상 촬영하기</h3>
-                                    <p>고객에게 영상을 전송해주세요.</p>
-                                    <button onClick={openVideoModal}>🎥 영상 촬영 시작</button>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* 실시간 제작 과정 전송 섹션 */}
-                        <section className="purchasedproductsDetail-live-broadcast centered-section">
-                            <h2>제조 과정을 실시간으로 고객에게 전송해주세요~</h2>
-                            <div className="purchasedproductsDetail-live-item">
-                                {isLiveModalOpen && (
-                                    <div className="modal">
-                                        <div className="modal-content">
-                                            <WebRTCSender
-                                                onStartBroadcast={() => console.log("방송 시작")}
-                                                onStopBroadcast={() => console.log("방송 중지")}
-                                            />
-                                            <button onClick={closeLiveModal}>닫기</button>
-                                        </div>
-                                    </div>
-                                )}
-                                {/* 실시간 방송 버튼 */}
-                                <button onClick={openLiveModal}>실시간 방송 시작</button>
-                            </div>
-                        </section>
-
-                    </main>
+                        </main>
+                    </div>
                 </div>
             </div>
-        </div>
+        </SidebarWrapper>
     );
 };
 

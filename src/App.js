@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './assets/css/App.css'; // 스타일 적용
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
@@ -36,11 +36,13 @@ import UserPersonalInfoEdit from './pages/user/UserPersonalInfoEdit';
 import UserLoginForm from './pages/user/UserLoginForm';
 import UserKakaoLogin from './pages/user/UserKakaoLogin'; // 화면 아님
 import UserNaverLogin from './pages/user/UserNaverLogin'; // 화면 아님
+import UserGoogleLogin from './pages/user/UserGoogleLogin'; // 화면 아님
 import UserSocialSignUpForm from './pages/user/UserSocialSignUpForm';
 import UserSignUpSuccess from './pages/user/UserSignUpSuccess';
 import VenderSignUpForm from './pages/user/VenderSignUpForm';
 import VenderSignUpSuccess from './pages/user/VenderSignUpSuccess';
 import UserCakeDetail from './pages/user/UserCakeDetail';
+import ReviewAnalysis from './pages/user/include/ReviewAnalysis';
 import UserCakeDesignBoard from './pages/user/UserCakeDesignBoard';
 import UserOrderDetail from './pages/user/UserOrderDetail';
 import UserOrder from './pages/user/UserOrder';
@@ -95,10 +97,23 @@ function App() {
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
+  const isMobile = window.innerWidth <= 768; // 모바일 여부 판별
+  const isLoggedIn = localStorage.getItem('authToken'); // 로그인 여부 판별
   return (
     <div className="app-container">
       <BrowserRouter>
         <Routes>
+          {/* 모바일 전용 페이지 */}
+          {isMobile && (
+            <>
+              {!isLoggedIn && <Route path="*" element={<Navigate to="/user/login" />} />}
+              <Route path='/vender/purchasedproducts/' element={<VenderPurchasedProducts />} />
+              <Route path='/vender/purchasedproductsdetail/:orderId' element={<VenderPurchasedProductsDetail />} />
+            </>
+          )}
+          {/* 데스크톱: 접근 제한 */}
+          {!isMobile && <Route path="*" element={<div>모바일에서만 이용 가능합니다.</div>} />}
+
           <Route path='/vender/:venderId' element={<VenderDashboard />} />
           <Route path='/vender/' element={<VenderDashboard />} />
           <Route path='/vender/productlist' element={<VenderProductList />} />
@@ -136,6 +151,7 @@ function App() {
           <Route path='/user/login' element={<UserLoginForm />} />
           <Route path='/auth/login/kakao' element={<UserKakaoLogin />} />
           <Route path='/auth/login/naver' element={<UserNaverLogin />} />
+          <Route path='/auth/login/google' element={<UserGoogleLogin />} />
           <Route path='/user/signup/type' element={<UserSignupType />} />
           <Route path='/user/signup' element={<UserSignUpForm />} />
           <Route path='/user/social/signup' element={<UserSocialSignUpForm />} />
@@ -143,6 +159,7 @@ function App() {
           <Route path='/user/mypage/userpersonalinfoedit' element={<UserPersonalInfoEdit />} />
           <Route path='/user/sidebar' element={<UserSidebar />} />
           <Route path='/user/cakedetail/:productId/:venderId' element={<UserCakeDetail />} />
+          <Route path='/user/review/analysis' element={<ReviewAnalysis />} />
           <Route path='/user/mypage/orderdetail/:orderId' element={<UserOrderDetail />} />
           <Route path='/user/mypage/order' element={<UserOrder />} />
           <Route path='/user/mypage/wishlist' element={<UserWishList />} />

@@ -510,98 +510,87 @@
 }
 
 
-
 /* 모바일 디바이스 (화면 너비 768px 이하) */
 @media screen and (max-width: 768px) {
 
+    /* 전체 컨테이너 중앙 정렬 */
     .purchasedproductsDetail-info,
     .purchasedproductsDetail-media-delivery,
-    .purchasedproductsDetail-live-broadcast {
-        padding: 15px;
-        /* 여백 줄이기 */
-    }
-
-    .purchasedproductsDetail-images {
+    .purchasedproductsDetail-live-broadcast,
+    .purchasedproductsDetail-preview,
+    .purchasedproductsDetail-status {
+        display: flex;
         flex-direction: column;
-        /* 세로 정렬 */
-        margin-left: 0;
-        /* 여백 제거 */
-        gap: 10px;
-        /* 이미지 간격 줄이기 */
-    }
-
-    .purchasedproductsDetail-image-box {
+        align-items: center;
+        text-align: center;
+       
+        /* 내부 여백 추가 */
+        /* 중앙 정렬 */
         width: 100%;
-        /* 박스 너비를 화면 너비에 맞춤 */
-        height: auto;
-        /* 높이를 유동적으로 */
+        /* 화면에 맞게 너비 조정 */
     }
 
-    .purchasedproductsDetail-image-box img {
-        height: auto;
-        /* 이미지를 박스 크기에 맞춤 */
-        max-height: 150px;
-        /* 이미지 최대 높이 */
+    @media screen and (max-width: 768px) {
+        .purchasedproductsDetail-images {
+            display: none; /* 모바일에서 숨김 */
+        }
     }
-
-    .purchasedproductsDetail-text h2 {
-        font-size: 20px;
-        /* 제목 글꼴 크기 축소 */
-    }
-
-    .purchasedproductsDetail-text h3 {
-        font-size: 16px;
-        /* 섹션 제목 크기 줄임 */
-    }
-
-    .purchasedproductsDetail-basic-info p {
-        font-size: 14px;
-        /* 텍스트 크기 축소 */
-        line-height: 1.6;
-        /* 줄 간격 줄임 */
-    }
+    /* 카드 스타일 */
 
     .purchasedproductsDetail-media-box {
+        display: flex;
         flex-direction: column;
-        /* 세로 정렬 */
+        align-items: center;
         gap: 15px;
-        /* 간격 줄이기 */
     }
-
-    .purchasedproductsDetail-media-item {
+    .purchasedproductsDetail-text,
+    .purchasedproductsDetail-section,
+    .purchasedproductsDetail-media-item,
+    .purchasedproductsDetail-status-card {
         width: 100%;
-        /* 박스 너비를 100%로 */
+        max-width: 300px;
+        /* 카드 최대 너비 */
+        margin: 10px auto;
+        text-align: center;
     }
 
-    .purchasedproductsDetail-status-card button,
-    .purchasedproductsDetail-media-item button {
-        font-size: 14px;
-        /* 버튼 텍스트 크기 축소 */
-        padding: 8px 10px;
-        /* 버튼 여백 줄임 */
+
+    .purchasedproductsDetail-live-item {
+        width: 100%;
+        max-width: 300px;
+        /* 박스 최대 너비 */
+        margin: 0 auto;
+        text-align: center;
+    }
+
+
+
+    .purchasedproductsDetail-status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
     }
 
     .modal-content {
         width: 90%;
-        /* 모달 창 너비를 화면의 90%로 */
         max-height: 80vh;
-        /* 높이 제한 */
         overflow-y: auto;
-        /* 스크롤 활성화 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
-    /* 실시간 방송 섹션 */
-    .purchasedproductsDetail-live-item {
+    .purchasedproductsDetail-live-item button,
+    .purchasedproductsDetail-status-card button,
+    .purchasedproductsDetail-media-item button {
+        margin: 5px auto;
         width: 100%;
-        /* 박스 너비를 100%로 */
-        padding: 10px;
-        /* 여백 축소 */
+        max-width: 200px;
+        /* 버튼 최대 너비 */
     }
 
-    .purchasedproductsDetail-live-item button {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
+
 }
-
-

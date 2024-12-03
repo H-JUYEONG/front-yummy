@@ -2,28 +2,29 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import VenderHeader from '../vender/include/VenderHeader';
+import ReviewAnalysis from '../user/include/ReviewAnalysis';
 import "../../assets/css/user/CakeOrder.css";
 import '../../assets/css/user/usermain.css';
 import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
-    'Product Type': { title: '상품 타입', stateKey: 'selectedType' },
-    'Cake Size': { title: '사이즈', stateKey: 'selectedSize' },
-    'Flavor - Sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
-    'Flavor - Cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
-    'Cake Background Color': { title: '케이크 배경색', stateKey: 'selectedBgColor' },
-    'Cream Position': { title: '크림 위치', stateKey: 'selectedCreamPosition' },
-    'Cream Color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
-    'Decoration Type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
-    'Decoration Color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
-    'Category': { title: '카테고리', stateKey: 'selectedCategory' }
+
+    'cake_size': { title: '사이즈', stateKey: 'selectedSize' },
+    'flavor_sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
+    'flavor_cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
+    'cake_background_color': { title: '케이크 배경색', stateKey: 'selectedBgColor' },
+    'cream_position': { title: '크림 위치', stateKey: 'selectedCreamPosition' },
+    'cream_color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
+    'decoration_type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
+    'decoration_color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
+
 };
 
 const UserCakeDetail = () => {
     const location = useLocation();
     const { productId } = useParams();
-
+    const optionRefs = useRef({});
     //소영 지도부분
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
@@ -124,7 +125,7 @@ const UserCakeDetail = () => {
     }, []);
 
     //소영 지도부분
-    useEffect(()=>{
+    useEffect(() => {
 
         console.log(`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOMAP}&autoload=false`)
 
@@ -160,7 +161,7 @@ const UserCakeDetail = () => {
             }
         };
 
-    },[longitude, latitude])
+    }, [longitude, latitude])
 
     // 컴포넌트 마운트 시 찜 상태 조회
     useEffect(() => {
@@ -203,7 +204,7 @@ const UserCakeDetail = () => {
         }).then(response => {
             setProductDetail(response.data.apiData);
             console.log("상품 상세:", response.data.apiData);
-            
+
             setLatitude(response.data.apiData.latitude);
             setLongitude(response.data.apiData.longitude)
 
@@ -253,9 +254,8 @@ const UserCakeDetail = () => {
             url: `${process.env.REACT_APP_API_URL}/api/products/${productId}/options`,
             responseType: 'json'
         }).then(response => {
-            console.log("API Response:", response.data); // 응답 구조 확인
+            console.log("API Response:", response.data); // 전체 응답 확인
 
-            // 데이터가 있는지 확인
             if (!response.data || !response.data.apiData) {
                 console.log("No data received from API");
                 setProductOptions({});
@@ -263,13 +263,7 @@ const UserCakeDetail = () => {
             }
 
             const options = response.data.apiData;
-
-            // options가 배열인지 확인
-            if (!Array.isArray(options)) {
-                console.log("API data is not an array");
-                setProductOptions({});
-                return;
-            }
+            console.log("옵션 데이터:", options); // 받은 옵션 데이터 확인
 
             const groupedOptions = {};
             options.forEach(option => {
@@ -279,12 +273,14 @@ const UserCakeDetail = () => {
                 groupedOptions[option.optionTypeName].push(option);
             });
 
+            console.log("그룹화된 옵션 데이터:", groupedOptions); // 그룹화 후 데이터 확인
             setProductOptions(groupedOptions);
         }).catch(error => {
             console.error("API Error:", error);
             setProductOptions({});
         });
     };
+
 
     useEffect(() => {
         // location.state로 전달된 openReview 확인
@@ -412,27 +408,6 @@ const UserCakeDetail = () => {
         }
     };
 
-    const handleMouseDown = (e, ref) => {
-        setIsDragging(true);
-        const container = ref.current;
-        container.classList.add('dragging');
-        setStartX(e.pageX - container.offsetLeft);
-        setScrollLeft(container.scrollLeft);
-    };
-
-    const handleMouseMove = (e, ref) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const container = ref.current;
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleMouseUp = (ref) => {
-        setIsDragging(false);
-        ref.current.classList.remove('dragging');
-    };
 
     const handleMouseLeave = (ref) => {
         setIsDragging(false);
@@ -544,53 +519,69 @@ const UserCakeDetail = () => {
         if (!options || options.length === 0) return null;
 
         const { title, stateKey } = OPTION_TYPES[optionType];
-        const isColorOption = optionType.includes('Color');
-        const isScrollable = ['Flavor - Sheet', 'Flavor - Cream', 'Cake Size'].includes(optionType);
+        // 옵션 그룹별 ref를 생성 및 연결
+        if (!optionRefs.current[optionType]) {
+            optionRefs.current[optionType] = React.createRef();
+        }
 
-        const optionContent = (
-            <div className={isColorOption ? "color-options" : "option-grid"}>
-                {options.map((option) => (
-                    <button
-                        key={option.optionValueId}
-                        className={`${isColorOption ? 'color-option' : 'option-item'} 
-                            ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
-                        onClick={() => handleOptionSelect(optionType, option.optionValueId)}
-                        aria-label={`${option.optionValueName} 선택`}
-                        title={option.optionValueName}
-                    >
-                        {!isColorOption && (
-                            <>
-                                {option.optionValueImageUrl && (
-                                    <div className="option-image">
-                                        <img src={option.optionValueImageUrl} alt={option.optionValueName} />
-                                    </div>
-                                )}
-                                <span>{option.optionValueName}</span>
-                            </>
-                        )}
-                    </button>
-                ))}
-            </div>
-        );
+        const handleMouseDown = (e) => {
+            const container = optionRefs.current[optionType].current;
+            if (!container) return;
+            container.isDragging = true;
+            container.startX = e.pageX - container.offsetLeft;
+            container.scrollLeft = container.scrollLeft;
+        };
 
+        const handleMouseMove = (e) => {
+            const container = optionRefs.current[optionType].current;
+            if (!container || !container.isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - container.startX) * 2;
+            container.scrollLeft = container.scrollLeft - walk;
+        };
+        const handleMouseUpOrLeave = () => {
+            const container = optionRefs.current[optionType].current;
+            if (container) container.isDragging = false;
+        };
         return (
             <div className="option-group" key={optionType}>
                 <h3>{title}</h3>
-                {isScrollable ? (
-                    <div
-                        ref={isColorOption ? null : containerRef}
-                        className="option-scroll-container"
-                        onMouseDown={(e) => handleMouseDown(e, containerRef)}
-                        onMouseMove={(e) => handleMouseMove(e, containerRef)}
-                        onMouseUp={() => handleMouseUp(containerRef)}
-                        onMouseLeave={() => handleMouseLeave(containerRef)}
-                    >
-                        {optionContent}
+                <div
+                    ref={optionRefs.current[optionType]}
+                    className="option-scroll-container"
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUpOrLeave}
+                    onMouseLeave={handleMouseUpOrLeave}
+                >
+                    <div className="option-grid">
+                        {options.map((option) => (
+                            <button
+                                key={option.optionValueId}
+                                className={`option-item ${selectedOptions[stateKey] === option.optionValueId ? 'active' : ''}`}
+                                onClick={() => handleOptionSelect(optionType, option.optionValueId)}
+                                aria-label={`${option.optionValueName} 선택`}
+                                title={option.optionValueName}
+                            >
+                                {option.optionValueImageUrl ? (
+                                    <div className="option-image">
+                                        <img
+                                            src={option.optionValueImageUrl}
+                                            alt={option.optionValueName}
+                                            title={option.optionValueName}
+                                        />
+                                    </div>
+                                ) : null}
+                                <span className="option-name">{option.optionValueName}</span>
+                            </button>
+                        ))}
                     </div>
-                ) : optionContent}
+                </div>
             </div>
         );
-    };// 탭 관련
+    };
+    // 탭 관련
     const tabs = ['상품상세', '후기'];
 
     const renderTabContent = () => (
@@ -847,7 +838,7 @@ const UserCakeDetail = () => {
             alert('신고 사유를 입력해야 합니다.');
             return;
         }
-    
+
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/api/user/${reviewId}/report`,
@@ -987,6 +978,9 @@ const UserCakeDetail = () => {
                     </div>
                 </div>
             )}
+
+            {/* 테스트 필요할때만 주석 제거하고 리뷰 분석 확인해주세요!!!!! 돈 나가요*^^*
+            <ReviewAnalysis/> */}
 
             <div className="review-list">
                 <div className="review-filters">
@@ -1190,12 +1184,10 @@ const UserCakeDetail = () => {
                                 </button>
                             </div>
                         </div>
-
                         <div className="options">
-                            {Object.keys(OPTION_TYPES).map(optionType =>
+                            {Object.keys(OPTION_TYPES).map((optionType) =>
                                 renderOptionGroup(optionType, productOptions[optionType])
                             )}
-
                             <div className="option-group">
                                 <h3>배송 방식</h3>
                                 <div className="delivery-type-buttons">
@@ -1364,8 +1356,8 @@ const UserCakeDetail = () => {
                         )}
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 };
 export default UserCakeDetail;

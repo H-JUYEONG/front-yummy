@@ -55,8 +55,6 @@ const UserMainForm = () => {
     );
 
 
-
-
     // 클릭된 구의 이름을 처리할 함수
     const handleClick = (guName) => {
         alert(`${guName}이 클릭되었습니다!`);
