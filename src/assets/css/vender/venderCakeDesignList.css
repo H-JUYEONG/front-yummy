@@ -43,12 +43,12 @@
 .visibility-public {
     color: #0056b3;
     font-size: 1.0em !important; 
-  }
-  
-  .visibility-private {
-    color: #EA4335;
-    font-size: 1.0em !important; 
-  }
+}
+
+.visibility-private {
+color: #EA4335;
+font-size: 1.0em !important; 
+}
 
 .search-input{
     width: 250px;

@@ -37,10 +37,11 @@
 }
 
 .vender-order-list-main-content  .vender-filter-section select {
-    padding: 5px 10px;
+    padding: 1px 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
     font-size: 16px;
+    width: 160px;
 }
 
 .vender-order-list-main-content  .vender-order-table {
@@ -60,7 +61,7 @@
 .vender-order-list-main-content .vender-order-table th,
 .vender-order-list-main-content .vender-order-table td {
     padding: 16px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #e6e8ec;
 }
 
@@ -86,12 +87,13 @@
 }
 
 .vender-order-list-main-content .vender-order-table button {
-    background-color: #4f46e5;
+    background-color: #313131;
     color: #ffffff;
-    padding: 12px 24px;
+    padding: 5px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
     font-weight: 500;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
     margin-left: 10px;
