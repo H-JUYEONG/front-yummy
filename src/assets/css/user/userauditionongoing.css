@@ -90,7 +90,6 @@
   background: white;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .ongoing-cake-info p {
@@ -300,10 +299,6 @@
   align-items: flex-start;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.2s ease;
-}
-
-.user-audition-details .review-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .user-audition-details .review-image {

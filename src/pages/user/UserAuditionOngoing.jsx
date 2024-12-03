@@ -116,14 +116,14 @@ const UserAuditionOngoing = () => {
               </span>
             </div>
             <div className="user-audition-ongoing-info">
-              <p className="user-cake-audition-ongoing-author">
-                {auditionDetail?.userNickname || "작성자 없음"}
-              </p>
               <p className="user-cake-audition-ongoing-write-date">
                 {auditionDetail?.createdAt || "작성일 없음"}
               </p>
               <p className="user-cake-audition-ongoing-hit">
                 조회 {auditionDetail?.auditionViewCount || 0}
+              </p>
+              <p className="user-cake-audition-ongoing-author">
+                {auditionDetail?.userNickname || "작성자 없음"}
               </p>
 
               {authUser && auditionDetail?.memberId === authUser.member_id && (
@@ -192,9 +192,9 @@ const UserAuditionOngoing = () => {
               </div>
 
               <div className="ongoing-design-preview">
+                <h3>예시도안</h3>
                 {auditionDetail?.imageUrl ? (
                   <>
-                    <h3>예시도안</h3>
                     <img src={auditionDetail.imageUrl} alt="예시 도안" />
                   </>
                 ) : (
