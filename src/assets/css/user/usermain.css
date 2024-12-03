@@ -30,7 +30,7 @@
 #user-wrap {
   display: flex;
   flex-direction: column;
-  max-width: 1600px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 0 20px;
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
