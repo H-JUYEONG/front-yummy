@@ -80,11 +80,11 @@
 /* Main layout for image and text area */
 .user-cake-design-detail-area {
   display: flex;
-  justify-content: space-between; /* 양쪽 고정 정렬 */
-  align-items: flex-start; /* 상단 정렬 */
+  justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
   margin: 0 auto;
-  gap: 70px; /* 이미지와 텍스트 간격 */
+  gap: 70px; 
 }
 
 /* Image Section */
@@ -106,8 +106,9 @@
   width: 570px;
   height: 570px;
   object-fit: contain;
-  background-color: #fff;
+  background-color: white;
   border: 1px solid #ddd;
+  border-radius: 25px;
 }
 
 /* Sub Images */
@@ -128,6 +129,8 @@
   border: 1px solid #ddd;
   flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
   box-sizing: border-box;
+  border-radius: 25px;
+  background-color: white;
 }
 
 .user-cake-design-sub-image.selected {

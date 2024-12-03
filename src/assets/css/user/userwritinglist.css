@@ -28,6 +28,7 @@
   color: #ff85a1;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1.1em;
 }
 
 .filter-btn:hover {
@@ -67,6 +68,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #4b5563;
+  font-size: 1.1em;
 }
 
 .writing-table thead tr {
@@ -77,6 +79,7 @@
 .writing-table th {
   color: #333;
   font-weight: normal;
+  font-size: 1.1em;
 }
 
 .user-write-title:hover {
