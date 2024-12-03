@@ -275,7 +275,7 @@ const UserCakeDesignDetail = () => {
               </div>
               <div id="cake-design-action-btns" className="clearfix">
                 <div className="user-action-buttons-tip">
-                  이 도안으로 케이크를 만들어주실 분을 찾아보세요!
+                  도안을 찜하고 케이크 제작을 요청해보세요!
                 </div>
                 <div className="user-action-buttons">
                   <button

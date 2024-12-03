@@ -109,22 +109,23 @@ const UserAuditionOngoing = () => {
       </header>
       <main id="user-wrap-body" className="clearfix">
         <div className="user-audition-details">
-          <div className="user-design-header">
-            <div className="user-cake-designs-title">
+          <div className="user-audition-ongoing-header">
+            <div className="user-cake-audition-ongoing-title">
               <span>
                 {auditionDetail?.auditionApplicationTitle || "제목 없음"}
               </span>
             </div>
-            <div className="user-design-info">
-              <p className="user-cake-design-write-date">
+            <div className="user-audition-ongoing-info">
+              <p className="user-cake-audition-ongoing-author">
+                {auditionDetail?.userNickname || "작성자 없음"}
+              </p>
+              <p className="user-cake-audition-ongoing-write-date">
                 {auditionDetail?.createdAt || "작성일 없음"}
               </p>
-              <p className="user-cake-design-hit">
+              <p className="user-cake-audition-ongoing-hit">
                 조회 {auditionDetail?.auditionViewCount || 0}
               </p>
-              <p className="user-cake-design-author">
-                작성자 {auditionDetail?.userNickname || "작성자 없음"}
-              </p>
+
               {authUser && auditionDetail?.memberId === authUser.member_id && (
                 <div className="user-control-section">
                   <button
@@ -277,7 +278,7 @@ const UserAuditionOngoing = () => {
                           </div>
                         ))
                       ) : (
-                        <p>리뷰가 없습니다.</p>
+                        <p className="no-vender-list">리뷰가 없습니다.</p>
                       )}
                     </div>
                   </div>
@@ -316,7 +317,7 @@ const UserAuditionOngoing = () => {
                   </div>
                 ))
               ) : (
-                <p>참가 업체가 없습니다.</p>
+                <p className="no-vender-list">참가 업체가 없습니다.</p>
               )}
             </div>
           </div>
