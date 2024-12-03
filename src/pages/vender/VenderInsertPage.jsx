@@ -284,11 +284,11 @@ const VenderInsertPage = () => {
                         console.log(splitAddress)
                         setDistrict(splitAddress[1]);
 
-                        console.log("---------")
-                        console.log(addr);
-                        console.log(splitAddress)
-                        console.log(district);
-                        console.log("---------")
+                        // console.log("---------")
+                        // console.log(addr);
+                        // console.log(splitAddress)
+                        // console.log(district);
+                        // console.log("---------")
                         
 
                         // 지도 API가 로드된 후에 Geocoder 사용

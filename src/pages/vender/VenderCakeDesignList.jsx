@@ -113,6 +113,7 @@ const VenderCakeDesignList = () => {
                   </div>
                 </header>
 
+
                 <div className="cake-design-list-imgs">
                   {currentProducts.length > 0 ? (
                     currentProducts.map((design, index) => (

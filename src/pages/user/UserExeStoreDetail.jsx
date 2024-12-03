@@ -34,7 +34,7 @@ const UserStoreDetail = () => {
             // 부모창에서 받은 데이터 처리
             if (event.data) {
                 console.log("새창이 떴을때2")
-                console.log(event)
+                //console.log(event.data)
 
                 const data = event.data;  // 부모 창에서 보낸 데이터
                 console.log('Received data:', data);
