@@ -240,7 +240,6 @@
 .user-cake-design-prev-page,
 .user-cake-design-next-page {
   padding: 8px 12px;
-  /* border: 1px solid #ddd; */
   border: none;
   background: white;
   font-size: 17px;
@@ -257,4 +256,5 @@
 .user-cake-design-prev-page:hover,
 .user-cake-design-next-page:hover {
   font-weight: bold;
+  color: #ff85a1;
 }

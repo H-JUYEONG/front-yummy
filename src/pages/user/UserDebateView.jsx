@@ -8,7 +8,6 @@ import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userdebateview.css";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
-import { FaEye } from "react-icons/fa";
 
 const UserDebateView = () => {
   const navigate = useNavigate();
@@ -28,14 +27,14 @@ const UserDebateView = () => {
   console.log(userId);
 
   const totalVotes = leftVote.length + rightVote.length;
-  const leftVotePercentage = totalVotes > 0 ? (leftVote.length / totalVotes) * 100 : 0;
-  const rightVotePercentage = totalVotes > 0 ? (rightVote.length / totalVotes) * 100 : 0;
-
+  const leftVotePercentage =
+    totalVotes > 0 ? (leftVote.length / totalVotes) * 100 : 0;
+  const rightVotePercentage =
+    totalVotes > 0 ? (rightVote.length / totalVotes) * 100 : 0;
 
   // Fetch debate details
   const fetchDebateDetails = async () => {
     try {
-
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/debateview/${debateId}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -60,7 +59,9 @@ const UserDebateView = () => {
       return;
     }
 
-    const confirmDelete = window.confirm("정말로 이 게시글을 삭제하시겠습니까?");
+    const confirmDelete = window.confirm(
+      "정말로 이 게시글을 삭제하시겠습니까?"
+    );
     if (!confirmDelete) return;
 
     axios({
@@ -125,7 +126,6 @@ const UserDebateView = () => {
   // Fetch comments
   const getCommentList = async () => {
     try {
-
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/getComment/${debateId}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -144,7 +144,6 @@ const UserDebateView = () => {
   // Fetch votes
   const getVoteList = async () => {
     try {
-
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/debate/votelist/${debateId}`,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -153,12 +152,15 @@ const UserDebateView = () => {
       if (response.data.result === "success") {
         setVoteList(response.data.apiData || []);
         console.log(voteList);
-        const leftVotes = response.data.apiData.filter((vote) => vote.side === "left");
-        const rightVotes = response.data.apiData.filter((vote) => vote.side === "right");
+        const leftVotes = response.data.apiData.filter(
+          (vote) => vote.side === "left"
+        );
+        const rightVotes = response.data.apiData.filter(
+          (vote) => vote.side === "right"
+        );
 
         setLeftVote(leftVotes);
         setRightVote(rightVotes);
-
       } else {
         alert("투표 데이터 가져오기 실패");
       }
@@ -175,13 +177,13 @@ const UserDebateView = () => {
     }
 
     try {
-
       console.log(userId);
 
-      const userVote = voteList.find((vote) => vote.member_id === authUser.member_id);
+      const userVote = voteList.find(
+        (vote) => vote.member_id === authUser.member_id
+      );
 
       console.log(userVote);
-
 
       if (!userVote) {
         // Cast a new vote
@@ -193,9 +195,12 @@ const UserDebateView = () => {
         alert("투표가 성공적으로 등록되었습니다.");
       } else if (userVote.side === side) {
         // Delete the vote
-        await axios.delete(`${process.env.REACT_APP_API_URL}/api/debate/deleteVote/${debateId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.delete(
+          `${process.env.REACT_APP_API_URL}/api/debate/deleteVote/${debateId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         alert("투표가 취소되었습니다.");
       } else {
         // Update the vote
@@ -258,13 +263,14 @@ const UserDebateView = () => {
             <div className="debate-meta-info">
               <p>
                 {debateDetails.debate_created_at
-                  ? new Date(debateDetails.debate_created_at).toLocaleDateString()
+                  ? new Date(debateDetails.debate_created_at)
+                      .toISOString()
+                      .replace("T", " ")
+                      .split(".")[0]
                   : "작성일 없음"}
               </p>
-              <p>
-                <FaEye /> {debateDetails.debate_view_count || "0"}
-              </p>
-              <p>작성자: {debateDetails.user_nickname || "Unknown"}</p>
+              <p>조회 {debateDetails.debate_view_count || "0"}</p>
+              <p>{debateDetails.user_nickname || "Unknown"}</p>
               {authUser && debateDetails.member_id === authUser.member_id ? (
                 <div className="user-control-section">
                   <button
@@ -286,55 +292,73 @@ const UserDebateView = () => {
             </div>
           </div>
 
-
           {/* Images and Voting */}
           <div className="debate-images-progress-container">
             <div className="debate-image-section">
               <div className="debate-image-container">
                 {debateDetails.debate_left_image_url ? (
-                  <img src={debateDetails.debate_left_image_url} alt="왼쪽 이미지" />
+                  <img
+                    src={debateDetails.debate_left_image_url}
+                    alt="왼쪽 이미지"
+                  />
                 ) : (
                   <p>왼쪽 이미지 없음</p>
                 )}
-                <button className="vote-button vote-button-a" onClick={handleLeftVote}>
+                <button
+                  className="vote-button vote-button-a"
+                  onClick={handleLeftVote}
+                >
                   케이크 A 투표
                 </button>
               </div>
               <div className="vs-text">VS</div>
               <div className="debate-image-container">
                 {debateDetails.debate_right_image_url ? (
-                  <img src={debateDetails.debate_right_image_url} alt="오른쪽 이미지" />
+                  <img
+                    src={debateDetails.debate_right_image_url}
+                    alt="오른쪽 이미지"
+                  />
                 ) : (
                   <p>오른쪽 이미지 없음</p>
                 )}
-                <button className="vote-button vote-button-b" onClick={handleRightVote}>
+                <button
+                  className="vote-button vote-button-b"
+                  onClick={handleRightVote}
+                >
                   케이크 B 투표
                 </button>
               </div>
             </div>
 
             <div className="vote-progress-bar">
-              <div className="left-bar" style={{ width: `${leftVotePercentage}%` }}>
+              <div
+                className="left-bar"
+                style={{ width: `${leftVotePercentage}%` }}
+              >
                 {leftVotePercentage.toFixed(1)}% ({leftVote.length}명)
               </div>
-              <div className="right-bar" style={{ width: `${rightVotePercentage}%` }}>
+              <div
+                className="right-bar"
+                style={{ width: `${rightVotePercentage}%` }}
+              >
                 {rightVotePercentage.toFixed(1)}% ({rightVote.length}명)
               </div>
             </div>
-
           </div>
 
           {/* Debate Content */}
           <div className="debate-description">
-            <h2>내용</h2>
+            <h2>고민 내용</h2>
             <p>
               {debateDetails.debate_content
-                ? debateDetails.debate_content.split("\n").map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))
+                ? debateDetails.debate_content
+                    .split("\n")
+                    .map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))
                 : "내용이 없습니다."}
             </p>
           </div>
@@ -346,7 +370,7 @@ const UserDebateView = () => {
               <div className="comment-input-wrapper">
                 <div className="comment-textarea-container">
                   <textarea
-                    placeholder="댓글을 작성하세요"
+                    placeholder="댓글을 작성하세요."
                     className="comment-insert-input-text"
                     rows="2"
                     value={content}
@@ -364,23 +388,36 @@ const UserDebateView = () => {
             <div className="comment-list">
               {commentList.map((comment) => {
                 // Find the user's vote from voteList
-                const userVote = voteList.find((vote) => vote.member_id === comment.member_id);
-                const voteSide = userVote ? (userVote.side === "left" ? "케이크 A" : "케이크 B") : "투표 안함";
+                const userVote = voteList.find(
+                  (vote) => vote.member_id === comment.member_id
+                );
+                const voteSide = userVote
+                  ? userVote.side === "left"
+                    ? "케이크 A"
+                    : "케이크 B"
+                  : "투표 안함";
 
                 return (
                   <div className="comment" key={comment.debate_comment_id}>
                     <div className="comment-profile-pic">
                       <img
-                        src={comment.user_profile_image_url || require("../../assets/images/yummylogo.webp")}
+                        src={
+                          comment.user_profile_image_url ||
+                          require("../../assets/images/yummylogo.webp")
+                        }
                         alt={`${comment.user_nickname || "Anonymous"} 프로필`}
                       />
                     </div>
                     <div className="comment-content">
                       <div className="comment-author-vote">
-                        <span className="comment-author">{comment.user_nickname || "Anonymous"}</span>
+                        <span className="comment-author">
+                          {comment.user_nickname || "Anonymous"}
+                        </span>
                         <span className="user-vote-indicator">{`투표: ${voteSide}`}</span>
                       </div>
-                      <p>{comment.debate_comment_content || "댓글 내용 없음"}</p>
+                      <p>
+                        {comment.debate_comment_content || "댓글 내용 없음"}
+                      </p>
                     </div>
                   </div>
                 );
