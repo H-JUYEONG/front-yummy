@@ -1,7 +1,9 @@
 /* Title and button alignment */
 .user-cake-designs-details {
+  max-width: 1300px;
   width: 100%;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 /* Header 전체 정렬 */
@@ -9,24 +11,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 7px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #000000;
+  margin-top: 5px;
 }
 
 /* 제목 스타일 */
 .user-cake-designs-title {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
   color: #333;
 }
 
 /* 작성 날짜와 버튼 컨테이너 */
 .user-design-info {
-  display: flex;  /* 이 부분이 꼭 필요합니다! */
+  display: flex; /* 이 부분이 꼭 필요합니다! */
   align-items: center;
   position: relative;
   top: 5px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px; /* 텍스트와 border 사이 간격 추가 */
 }
 /* 날짜 스타일 */
 .user-cake-design-write-date {
@@ -42,21 +45,34 @@
 }
 
 .user-cake-design-author {
-  font-size: 15px;
+  font-size: 17px;
   color: #666;
 }
 
+#cake-design-action-btns {
+  padding: 20px 20px 20px 30px;
+  background-color: #f2f2f2;
+  position: relative;
+}
+
 .user-action-buttons {
-  float: right;
+  position: absolute;
+  right: 1px;
+  top: 0px;
+}
+
+.user-action-buttons-tip {
+  font-size: 21px;
+  color: #555;
 }
 
 /* Audition Button */
 .user-audition-button {
-  background-color: #ff4b87;
+  font-size: 21px;
+  background-color: #ff85a1;
   color: #fff;
+  padding: 20px 20px 20px 30px;
   border: none;
-  padding: 10px 12px;
-  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -67,29 +83,28 @@
   justify-content: space-between; /* 양쪽 고정 정렬 */
   align-items: flex-start; /* 상단 정렬 */
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
-  gap: 20px; /* 이미지와 텍스트 간격 */
+  gap: 70px; /* 이미지와 텍스트 간격 */
 }
 
 /* Image Section */
 #user-cake-design-detail-imgs-area {
-  flex: 0 0 500px;
+  flex: 0 0 570px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .user-cake-designs-detail-imgs {
-  width: 500px;
+  width: 570px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .user-cake-designs-detail-imgs > img {
-  width: 500px;
-  height: 500px;
+  width: 570px;
+  height: 570px;
   object-fit: contain;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -106,8 +121,8 @@
 }
 
 .user-cake-designs-detail-sub-imgs img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   cursor: pointer;
   border: 1px solid #ddd;
@@ -133,8 +148,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   margin-left: 10px;
+  height: 700px; /* 이미지 높이와 동일하게 설정 */
 }
 
 .user-cake-designs-detail-txt > div {
@@ -145,6 +160,7 @@
 .user-cake-designs-detail-txt {
   color: #555;
   line-height: 1.6;
+  /* overflow-y: auto; */
 }
 
 .user-cake-designs-detail-txt h2 {
@@ -159,10 +175,6 @@
   word-wrap: break-word;
 }
 
-#cake-design-action-btns {
-  margin-top: 20px;
-}
-
 /* 찜 버튼 스타일 */
 .user-favorite-section {
   float: left;
@@ -175,7 +187,7 @@
   display: flex;
   align-items: center;
   background-color: #ffffff;
-  border: 2px solid #ff4b87;
+  border: none;
   border-radius: 25px;
   padding: 6px 10px;
   cursor: pointer;
@@ -183,19 +195,18 @@
 }
 
 .users-heart-icon {
-  font-size: 20px;
+  font-size: 30px;
   color: #ff4b87;
   margin-right: 10px;
 }
 
 .users-favorite-count {
-  font-size: 20px;
+  font-size: 30px;
   color: #333;
 }
 
 .user-control-section {
   float: right;
-  padding-bottom: 5px;
 }
 
 /* cakes Section */
@@ -212,18 +223,6 @@
   font-weight: bold;
   margin-bottom: 16px;
 }
-
-/* #cake-design-hash-tag-box {
-  display: flex;
-  gap: 10px;
-}
-
-.cake-design-hash-tag {
-  padding: 5px 7px;
-  border: 2px solid #ddd;
-  background-color: #f9f9f9;
-  border-radius: 25px;
-} */
 
 .user-cakes-list {
   display: flex;
@@ -264,13 +263,14 @@
   font-size: 14px;
   cursor: pointer;
   border-radius: 25px;
-  border: 1px solid #cacaca;
-  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .user-cake-edit-button:hover {
   color: white;
-  background-color: #0056b3;
+  background-color: #ff85a1;
 }
 
 .user-cake-delete-button {
@@ -278,13 +278,14 @@
   font-size: 14px;
   cursor: pointer;
   border-radius: 25px;
-  border: 1px solid #cacaca;
-  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .user-cake-delete-button:hover {
   color: white;
-  background-color: red;
+  background-color: #EA4335;
 }
 
 .user-cake-edit-button {

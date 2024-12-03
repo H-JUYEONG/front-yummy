@@ -30,7 +30,7 @@
 #user-wrap {
   display: flex;
   flex-direction: column;
-  max-width: 1600px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 0 20px;
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
@@ -43,6 +43,13 @@
   padding: 20px;
   position: relative;
   min-height: calc(100vh - 200px);
+}
+
+.main-content {
+  flex-grow: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 /* 사이드바 */
@@ -59,13 +66,13 @@
 
 #user-wrap-side h2 {
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
-  font-size: 1.9em;
+  font-size: 2.0em;
   font-weight: bold;
 }
 
 #user-wrap-side h3 {
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
   color: #333;
   margin-bottom: 15px;
@@ -89,7 +96,7 @@
   font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
   text-decoration: none;
   color: #555;
-  font-size: 1.04em;
+  font-size: 1.1em;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;

@@ -399,7 +399,7 @@ const UserPersonalInfoEdit = () => {
           <form className="user-edit-form" onSubmit={handleSave}>
             <div className="user-edit-buttons">
               <button type="submit" className="user-save-button">
-                저장하기
+                저장
               </button>
               <button
                 type="button"

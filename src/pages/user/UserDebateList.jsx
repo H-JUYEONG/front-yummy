@@ -22,9 +22,8 @@ const UserDebateList = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-
   // Fetch Debate List
-  const fetchData = async (page = 1, keyword = "", category = "" ) => {
+  const fetchData = async (page = 1, keyword = "", category = "") => {
     try {
       const response = await axios({
         method: "get",
@@ -73,13 +72,11 @@ const UserDebateList = () => {
     setCurrentPage(1); // Reset to the first page for new category
     fetchData(1, searchKeyword, category); // Fetch data for the selected category
   };
-  
 
   // Fetch Debate List on Mount and Pagination Change
   useEffect(() => {
     fetchData(currentPage, searchKeyword, selectedCategory);
   }, [currentPage, selectedCategory]);
-  
 
   return (
     <div id="user-wrap" className="text-center">
@@ -97,33 +94,37 @@ const UserDebateList = () => {
               <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
             </div>
             <h2>고민과 의견을 나누는 공간입니다.</h2>
-            <p>
-            도안이나 케이크 고민은 케이크 토크에서 해결하세요!
-            </p>
+            <p>도안이나 케이크 고민은 케이크 토크에서 해결하세요!</p>
           </div>
 
           {/* Search and Filter */}
           <div id="user-cake-design-select-option-list">
-          <div className="user-cake-design-select-option">
-            <button
-              className={`category-button ${selectedCategory === "" ? "active-option" : ""}`}
-              onClick={() => handleCategoryChange("")}
-            >
-              전체
-            </button>
-            <button
-              className={`category-button ${selectedCategory === "design" ? "active-option" : ""}`}
-              onClick={() => handleCategoryChange("design")}
-            >
-              디자인 토크
-            </button>
-            <button
-              className={`category-button ${selectedCategory === "vendor" ? "active-option" : ""}`}
-              onClick={() => handleCategoryChange("vendor")}
-            >
-              베이커리 토크
-            </button>
-          </div>
+            <div className="user-cake-design-select-option">
+              <button
+                className={`category-button ${
+                  selectedCategory === "" ? "active-option" : ""
+                }`}
+                onClick={() => handleCategoryChange("")}
+              >
+                전체
+              </button>
+              <button
+                className={`category-button ${
+                  selectedCategory === "design" ? "active-option" : ""
+                }`}
+                onClick={() => handleCategoryChange("design")}
+              >
+                디자인 토크
+              </button>
+              <button
+                className={`category-button ${
+                  selectedCategory === "vendor" ? "active-option" : ""
+                }`}
+                onClick={() => handleCategoryChange("vendor")}
+              >
+                베이커리 토크
+              </button>
+            </div>
             <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
               <input
@@ -143,17 +144,17 @@ const UserDebateList = () => {
           <div id="user-cake-design-add" className="clearfix">
             <div className="user-cake-design-all">ALL {totalCount}</div>
             <div className="user-cake-design-add-btn">
-            <button
-              onClick={() => {
-                if (!token) {
-                  alert("로그인이 필요합니다.");
-                } else {
-                  navigate("/debate/debateinsert");
-                }
-              }}
-            >
-              토크 등록하기
-            </button>
+              <button
+                onClick={() => {
+                  if (!token) {
+                    alert("로그인이 필요합니다.");
+                  } else {
+                    navigate("/debate/debateinsert");
+                  }
+                }}
+              >
+                토크 등록하기
+              </button>
             </div>
           </div>
 
@@ -188,7 +189,9 @@ const UserDebateList = () => {
                     </td>
                     <td className="column-author">{debate.user_nickname}</td>
                     <td className="column-date">
-                      {new Date(debate.debate_created_at).toLocaleDateString()}
+                      {new Date(debate.debate_created_at)
+                        .toLocaleDateString("ko-KR")
+                        .replace(/\.$/, "")}
                     </td>
                     <td className="column-views">{debate.debate_view_count}</td>
                   </tr>
