@@ -37,12 +37,23 @@ function VenderOption() {
     });
     const [options, setOptions] = useState([]);
     const venderId = authUser?.vender_id || null; // 로그인된 유저의 venderId 가져오기
+    
     useEffect(() => {
         const fetchOptions = async () => {
             try {
                 const response = await axios.get(`${API_URL}/api/options/${venderId}`);
-                const translatedOptions = translateOptionTypeName(response.data); // 한글 이름으로 변환
-                setOptions(translatedOptions); // 상태에 저장
+                const translatedOptions = translateOptionTypeName(response.data);
+
+                // 조건에 따라 필터링
+                const filteredOptions = translatedOptions.filter(option => {
+                    if (venderId === 73) {
+                        return option.optionTypeId >= 11 && option.optionTypeId <= 13; // 73번 업체는 11~13번 옵션만
+                    } else {
+                        return option.optionTypeId >= 1 && option.optionTypeId <= 10; // 기본 업체는 1~10번 옵션만
+                    }
+                });
+
+                setOptions(filteredOptions); // 필터링된 옵션을 상태에 저장
             } catch (error) {
                 console.error('옵션 데이터를 가져오는 중 에러 발생:', error);
             }
@@ -50,6 +61,7 @@ function VenderOption() {
 
         fetchOptions();
     }, [venderId]);
+
 
     const addSubOption = async (optionTypeId, subOption) => {
         const formData = new FormData();

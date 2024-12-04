@@ -25,7 +25,8 @@
 
 .login-type-item {
   flex: 1;
-  min-height: 80px; /* 버튼 높이를 일정하게 유지 */
+  min-height: 80px;
+  /* 버튼 높이를 일정하게 유지 */
   border: 1px solid #cacaca;
   text-align: center;
   display: flex;
@@ -39,7 +40,8 @@
 
 .login-type-item p {
   font-size: 11px;
-  margin: 0; /* 기본 여백 제거 */
+  margin: 0;
+  /* 기본 여백 제거 */
 }
 
 .user-loginform {
@@ -181,19 +183,22 @@
   background-color: #03c75a;
   border: none;
   cursor: pointer;
-  position: relative; /* 추가: 자식 요소의 절대 위치 기준점 */
+  position: relative;
+  /* 추가: 자식 요소의 절대 위치 기준점 */
   padding: 0;
 }
 
 #naverIdLogin img {
-  position: absolute; /* 추가: 왼쪽에 고정 */
+  position: absolute;
+  /* 추가: 왼쪽에 고정 */
   left: 0;
   height: 50px;
   width: auto;
 }
 
 #naverIdLogin span {
-  flex: 1; /* 추가: 남은 공간 전체 차지 */
+  flex: 1;
+  /* 추가: 남은 공간 전체 차지 */
   text-align: center;
   font-size: 19px;
   color: white;
@@ -221,19 +226,22 @@
   background-color: white;
   border: none;
   cursor: pointer;
-  position: relative; /* 추가: 자식 요소의 절대 위치 기준점 */
+  position: relative;
+  /* 추가: 자식 요소의 절대 위치 기준점 */
   padding: 0;
 }
 
 #googleIdLogin img {
-  position: absolute; /* 추가: 왼쪽에 고정 */
+  position: absolute;
+  /* 추가: 왼쪽에 고정 */
   left: 0;
   height: 50px;
   width: auto;
 }
 
 #googleIdLogin span {
-  flex: 1; /* 추가: 남은 공간 전체 차지 */
+  flex: 1;
+  /* 추가: 남은 공간 전체 차지 */
   text-align: center;
   font-size: 19px;
   color: #333;
@@ -245,36 +253,38 @@
 /* 모바일 스타일 */
 @media screen and (max-width: 768px) {
   .user-login-box {
-      padding: 15px;
-      width: 90%;
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
   }
 
   .user-loginform input {
-      font-size: 14px;
-      padding: 8px;
+    font-size: 14px;
+    padding: 8px;
   }
 
   .user-login-btn button {
-      font-size: 14px;
-      padding: 10px;
+    font-size: 14px;
+    padding: 10px;
   }
 
   .user-login-id-save {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .user-login-id-save .user-txt-chk-right {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   #user-login-list {
-    display: none; /* 모바일에서는 숨김 */
-}
+    display: none;
+    /* 모바일에서는 숨김 */
+  }
 
   footer {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 12px;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 12px;
   }
 }
