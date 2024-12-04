@@ -138,19 +138,21 @@ const Header = () => {
   };
 
   return (
-    <div className="header-container">
-      {/* 로고 */}
-      <div className="logo">
-        <Link to={"/"}>
-          <h1>YUMMY</h1>
-        </Link>
+    <div className="header-border">
+      <div className="header-container">
+        {/* 로고 */}
+        <div className="logo">
+          <Link to={"/"}>
+          <img src="/images/logo2.png" alt="yummy-logo" />
+          </Link>
+        </div>
+
+        {/* 네비게이션 메뉴 */}
+        <nav className="nav-menu">{renderNavMenu()}</nav>
+
+        {/* 사용자 동작 */}
+        <div className="user-actions">{renderUserActions()}</div>
       </div>
-
-      {/* 네비게이션 메뉴 */}
-      <nav className="nav-menu">{renderNavMenu()}</nav>
-
-      {/* 사용자 동작 */}
-      <div className="user-actions">{renderUserActions()}</div>
     </div>
   );
 };

@@ -142,19 +142,19 @@ const UserLoginForm = () => {
   }, []);
 
   return (
-    <div id="user-wrap" className="user-text-center">
+    <>
       {/* Header */}
       <header id="user-wrap-head">
         <Header />
       </header>
-
-      <div className="user-login-box">
-        <div>
-          {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
-          <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
-          <h1>로그인</h1>
-        </div>
-        {/* <div>
+      <div id="user-wrap" className="user-text-center">
+        <div className="user-login-box">
+          <div>
+            {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+            <img src="/images/logo2.png" alt="회사 로고" />
+            <h1>로그인</h1>
+          </div>
+          {/* <div>
           <div className="user-login-type">
             <div className="login-type-item">
               <Link to="/user/signup" rel="noreferrer noopener">
@@ -170,88 +170,89 @@ const UserLoginForm = () => {
           </div>
         </div> */}
 
-        {/* 로그인폼 */}
-        <div className="user-loginform">
-          <form onSubmit={handleLogin}>
-            <label htmlFor="user-id"></label>
-            <input
-              id="user-id"
-              type="text"
-              value={userEmail}
-              placeholder="이메일을 입력해주세요."
-              onChange={handleUserEmail}
-              className="user-input-email"
-            />
-            <label></label>
-            <input
-              type="password"
-              value={userPassword}
-              placeholder="비밀번호를 입력해주세요."
-              onChange={handleUserPassword}
-              className="user-input-password"
-            />
-            <div className="user-login-btn">
-              <button type="submit">로그인</button>
+          {/* 로그인폼 */}
+          <div className="user-loginform">
+            <form onSubmit={handleLogin}>
+              <label htmlFor="user-id"></label>
+              <input
+                id="user-id"
+                type="text"
+                value={userEmail}
+                placeholder="이메일을 입력해주세요."
+                onChange={handleUserEmail}
+                className="user-input-email"
+              />
+              <label></label>
+              <input
+                type="password"
+                value={userPassword}
+                placeholder="비밀번호를 입력해주세요."
+                onChange={handleUserPassword}
+                className="user-input-password"
+              />
+              <div className="user-login-btn">
+                <button type="submit">로그인</button>
+              </div>
+            </form>
+          </div>
+          {/* //로그인폼 */}
+
+          <div className="user-login-id-save">
+            <div className="user-input-chk-left">
+              <label htmlFor="user-id-save"></label>
+              <input
+                type="checkbox"
+                id="user-id-save"
+                checked={isRemembered}
+                onChange={handleCheckboxChange}
+              />
+              <span>아이디 저장</span>
             </div>
-          </form>
-        </div>
-        {/* //로그인폼 */}
+            <div className="user-txt-chk-right">
+              <Link to="#" rel="noreferrer noopener">
+                아이디찾기
+              </Link>
+              <Link to="#" rel="noreferrer noopener">
+                비밀번호찾기
+              </Link>
+              <Link to="/user/signup/type" rel="noreferrer noopener">
+                회원가입
+              </Link>
+            </div>
+          </div>
 
-        <div className="user-login-id-save">
-          <div className="user-input-chk-left">
-            <label htmlFor="user-id-save"></label>
-            <input
-              type="checkbox"
-              id="user-id-save"
-              checked={isRemembered}
-              onChange={handleCheckboxChange}
-            />
-            <span>아이디 저장</span>
+          {/* 로그인 종류 리스트 */}
+          <div id="user-login-list">
+            <div id="kakaoIdLogin">
+              <img
+                src="/images/kakao_login_large_wide.png"
+                alt="카카오 로그인 버튼"
+                onClick={handleKakaoLogin}
+              />
+            </div>
+            <div id="naverIdLogin">
+              <button onClick={handleNaverLogin}>
+                <img src="/images/btnG_아이콘사각.png" alt="N" />
+                <span>네이버 로그인</span>
+              </button>
+            </div>
+            <div id="googleIdLogin">
+              <button onClick={handleGoogleLogin}>
+                <img src="/images/google-logo.png" alt="G" />
+                <span>Google 계정으로 로그인</span>
+              </button>
+            </div>
           </div>
-          <div className="user-txt-chk-right">
-            <Link to="#" rel="noreferrer noopener">
-              아이디찾기
-            </Link>
-            <Link to="#" rel="noreferrer noopener">
-              비밀번호찾기
-            </Link>
-            <Link to="/user/signup/type" rel="noreferrer noopener">
-              회원가입
-            </Link>
-          </div>
+          {/* //로그인 종류 리스트 */}
         </div>
+        {/* //로그인 최상위 박스 */}
 
-        {/* 로그인 종류 리스트 */}
-        <div id="user-login-list">
-          <div id="kakaoIdLogin">
-            <img
-              src="/images/kakao_login_large_wide.png"
-              alt="카카오 로그인 버튼"
-              onClick={handleKakaoLogin}
-            />
-          </div>
-          <div id="naverIdLogin">
-            <button onClick={handleNaverLogin}>
-              <img src="/images/btnG_아이콘사각.png" alt="N" />
-              <span>네이버 로그인</span>
-            </button>
-          </div>
-          <div id="googleIdLogin">
-            <button onClick={handleGoogleLogin}>
-              <img src="/images/google-logo.png" alt="G" />
-              <span>Google 계정으로 로그인</span>
-            </button>
-          </div>
-        </div>
-        {/* //로그인 종류 리스트 */}
+        {/* Footer */}
+        <footer className="user-full-width">
+          <Footer />
+        </footer>
       </div>
-      {/* //로그인 최상위 박스 */}
-
-      {/* Footer */}
-      <footer className="user-full-width">
-        <Footer />
-      </footer>
-    </div>
+    </>
   );
 };
 export default UserLoginForm;

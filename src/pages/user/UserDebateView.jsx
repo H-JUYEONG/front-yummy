@@ -248,189 +248,192 @@ const UserDebateView = () => {
   }
 
   return (
-    <div id="user-wrap" className="text-center">
-      <header id="user-wrap-head">
-        <Header />
-      </header>
-
-      <main id="user-wrap-body" className="clearfix">
-        <div className="debate-view-container">
-          {/* Debate Header */}
-          <div className="debate-view-header">
-            <div className="user-debate-title">
-              <span>{debateDetails.debate_title || "No Title Available"}</span>
-            </div>
-            <div className="debate-meta-info">
-              <p>
-                {debateDetails.debate_created_at
-                  ? new Date(debateDetails.debate_created_at)
-                      .toISOString()
-                      .replace("T", " ")
-                      .split(".")[0]
-                  : "작성일 없음"}
-              </p>
-              <p>조회 {debateDetails.debate_view_count || "0"}</p>
-              <p>{debateDetails.user_nickname || "Unknown"}</p>
-              {authUser && debateDetails.member_id === authUser.member_id ? (
-                <div className="user-control-section">
-                  <button
-                    className="user-debate-edit-button"
-                    onClick={(event) => {
-                      navigate(`/debate/debateedit/${debateDetails.debate_id}`);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="user-debate-delete-button"
-                    onClick={deleteDebate}
-                  >
-                    삭제
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          {/* Images and Voting */}
-          <div className="debate-images-progress-container">
-            <div className="debate-image-section">
-              <div className="debate-image-container">
-                {debateDetails.debate_left_image_url ? (
-                  <img
-                    src={debateDetails.debate_left_image_url}
-                    alt="왼쪽 이미지"
-                  />
-                ) : (
-                  <p>왼쪽 이미지 없음</p>
-                )}
-                <button
-                  className="vote-button vote-button-a"
-                  onClick={handleLeftVote}
-                >
-                  케이크 A 투표
-                </button>
+    <>
+      <Header />
+      <div id="user-wrap" className="text-center">
+        <main id="user-wrap-body" className="clearfix">
+          <div className="debate-view-container">
+            {/* Debate Header */}
+            <div className="debate-view-header">
+              <div className="user-debate-title">
+                <span>
+                  {debateDetails.debate_title || "No Title Available"}
+                </span>
               </div>
-              <div className="vs-text">VS</div>
-              <div className="debate-image-container">
-                {debateDetails.debate_right_image_url ? (
-                  <img
-                    src={debateDetails.debate_right_image_url}
-                    alt="오른쪽 이미지"
-                  />
-                ) : (
-                  <p>오른쪽 이미지 없음</p>
-                )}
-                <button
-                  className="vote-button vote-button-b"
-                  onClick={handleRightVote}
-                >
-                  케이크 B 투표
-                </button>
-              </div>
-            </div>
-
-            <div className="vote-progress-bar">
-              <div
-                className="left-bar"
-                style={{ width: `${leftVotePercentage}%` }}
-              >
-                {leftVotePercentage.toFixed(1)}% ({leftVote.length}명)
-              </div>
-              <div
-                className="right-bar"
-                style={{ width: `${rightVotePercentage}%` }}
-              >
-                {rightVotePercentage.toFixed(1)}% ({rightVote.length}명)
-              </div>
-            </div>
-          </div>
-
-          {/* Debate Content */}
-          <div className="debate-description">
-            <h2>고민 내용</h2>
-            <p>
-              {debateDetails.debate_content
-                ? debateDetails.debate_content
-                    .split("\n")
-                    .map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))
-                : "내용이 없습니다."}
-            </p>
-          </div>
-
-          {/* Comments Section */}
-          <div className="comments-section">
-            <h2>댓글</h2>
-            <form onSubmit={postCommentList}>
-              <div className="comment-input-wrapper">
-                <div className="comment-textarea-container">
-                  <textarea
-                    placeholder="댓글을 작성하세요."
-                    className="comment-insert-input-text"
-                    rows="2"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                </div>
-                <div className="comment-submit-container">
-                  <button type="submit" className="submit-comment">
-                    등록
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <div className="comment-list">
-              {commentList.map((comment) => {
-                // Find the user's vote from voteList
-                const userVote = voteList.find(
-                  (vote) => vote.member_id === comment.member_id
-                );
-                const voteSide = userVote
-                  ? userVote.side === "left"
-                    ? "케이크 A"
-                    : "케이크 B"
-                  : "투표 안함";
-
-                return (
-                  <div className="comment" key={comment.debate_comment_id}>
-                    <div className="comment-profile-pic">
-                      <img
-                        src={
-                          comment.user_profile_image_url ||
-                          require("../../assets/images/yummylogo.webp")
-                        }
-                        alt={`${comment.user_nickname || "Anonymous"} 프로필`}
-                      />
-                    </div>
-                    <div className="comment-content">
-                      <div className="comment-author-vote">
-                        <span className="comment-author">
-                          {comment.user_nickname || "Anonymous"}
-                        </span>
-                        <span className="user-vote-indicator">{`투표: ${voteSide}`}</span>
-                      </div>
-                      <p>
-                        {comment.debate_comment_content || "댓글 내용 없음"}
-                      </p>
-                    </div>
+              <div className="debate-meta-info">
+                <p>
+                  {debateDetails.debate_created_at
+                    ? new Date(debateDetails.debate_created_at)
+                        .toISOString()
+                        .replace("T", " ")
+                        .split(".")[0]
+                    : "작성일 없음"}
+                </p>
+                <p>조회 {debateDetails.debate_view_count || "0"}</p>
+                <p>{debateDetails.user_nickname || "Unknown"}</p>
+                {authUser && debateDetails.member_id === authUser.member_id ? (
+                  <div className="user-control-section">
+                    <button
+                      className="user-debate-edit-button"
+                      onClick={(event) => {
+                        navigate(
+                          `/debate/debateedit/${debateDetails.debate_id}`
+                        );
+                      }}
+                    >
+                      수정
+                    </button>
+                    <button
+                      className="user-debate-delete-button"
+                      onClick={deleteDebate}
+                    >
+                      삭제
+                    </button>
                   </div>
-                );
-              })}
+                ) : null}
+              </div>
+            </div>
+
+            {/* Images and Voting */}
+            <div className="debate-images-progress-container">
+              <div className="debate-image-section">
+                <div className="debate-image-container">
+                  {debateDetails.debate_left_image_url ? (
+                    <img
+                      src={debateDetails.debate_left_image_url}
+                      alt="왼쪽 이미지"
+                    />
+                  ) : (
+                    <p>왼쪽 이미지 없음</p>
+                  )}
+                  <button
+                    className="vote-button vote-button-a"
+                    onClick={handleLeftVote}
+                  >
+                    케이크 A 투표
+                  </button>
+                </div>
+                <div className="vs-text">VS</div>
+                <div className="debate-image-container">
+                  {debateDetails.debate_right_image_url ? (
+                    <img
+                      src={debateDetails.debate_right_image_url}
+                      alt="오른쪽 이미지"
+                    />
+                  ) : (
+                    <p>오른쪽 이미지 없음</p>
+                  )}
+                  <button
+                    className="vote-button vote-button-b"
+                    onClick={handleRightVote}
+                  >
+                    케이크 B 투표
+                  </button>
+                </div>
+              </div>
+
+              <div className="vote-progress-bar">
+                <div
+                  className="left-bar"
+                  style={{ width: `${leftVotePercentage}%` }}
+                >
+                  {leftVotePercentage.toFixed(1)}% ({leftVote.length}명)
+                </div>
+                <div
+                  className="right-bar"
+                  style={{ width: `${rightVotePercentage}%` }}
+                >
+                  {rightVotePercentage.toFixed(1)}% ({rightVote.length}명)
+                </div>
+              </div>
+            </div>
+
+            {/* Debate Content */}
+            <div className="debate-description">
+              <h2>고민 내용</h2>
+              <p>
+                {debateDetails.debate_content
+                  ? debateDetails.debate_content
+                      .split("\n")
+                      .map((line, index) => (
+                        <React.Fragment key={index}>
+                          {line}
+                          <br />
+                        </React.Fragment>
+                      ))
+                  : "내용이 없습니다."}
+              </p>
+            </div>
+
+            {/* Comments Section */}
+            <div className="comments-section">
+              <h2>댓글</h2>
+              <form onSubmit={postCommentList}>
+                <div className="comment-input-wrapper">
+                  <div className="comment-textarea-container">
+                    <textarea
+                      placeholder="댓글을 작성하세요."
+                      className="comment-insert-input-text"
+                      rows="2"
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                  </div>
+                  <div className="comment-submit-container">
+                    <button type="submit" className="submit-comment">
+                      등록
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div className="comment-list">
+                {commentList.map((comment) => {
+                  // Find the user's vote from voteList
+                  const userVote = voteList.find(
+                    (vote) => vote.member_id === comment.member_id
+                  );
+                  const voteSide = userVote
+                    ? userVote.side === "left"
+                      ? "케이크 A"
+                      : "케이크 B"
+                    : "투표 안함";
+
+                  return (
+                    <div className="comment" key={comment.debate_comment_id}>
+                      <div className="comment-profile-pic">
+                        <img
+                          src={
+                            comment.user_profile_image_url ||
+                            require("../../assets/images/yummylogo.webp")
+                          }
+                          alt={`${comment.user_nickname || "Anonymous"} 프로필`}
+                        />
+                      </div>
+                      <div className="comment-content">
+                        <div className="comment-author-vote">
+                          <span className="comment-author">
+                            {comment.user_nickname || "Anonymous"}
+                          </span>
+                          <span className="user-vote-indicator">{`투표: ${voteSide}`}</span>
+                        </div>
+                        <p>
+                          {comment.debate_comment_content || "댓글 내용 없음"}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-    </div>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 

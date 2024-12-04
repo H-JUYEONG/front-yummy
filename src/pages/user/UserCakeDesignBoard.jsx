@@ -144,12 +144,9 @@ const UserCakeDesignBoard = () => {
 
   return (
     <>
+      {/* Header */}
+      <Header />
       <div id="user-wrap" className="text-center">
-        {/* Header */}
-        <header id="user-wrap-head">
-          <Header />
-        </header>
-
         {/* Main Content */}
         <main id="user-wrap-body" className="clearfix">
           <div className="user-cake-design-board-list">

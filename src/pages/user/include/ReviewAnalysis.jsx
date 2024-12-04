@@ -66,7 +66,7 @@ const ReviewAnalysis = ({ productId }) => {
           </div>
         </div>
       </div>
-
+  
       {/* 긍정 리뷰 비율 */}
       <div className="review-analysis-positive-rate">
         <h3 className="review-analysis-positive-percentage">
@@ -76,73 +76,84 @@ const ReviewAnalysis = ({ productId }) => {
           </span>
         </h3>
       </div>
-
-      {/* AI 리뷰 요약 */}
-      <div className="review-analysis-summary-container">
-        <p className="review-analysis-summary-text">{analysisData.summary}</p>
-        {/* 피드백 버튼 */}
-        <div className="review-analysis-feedback-section">
-          <span className="review-analysis-help">요약이 도움이 되었나요?</span>
-          <button
-            className={`review-analysis-feedback-button ${
-              helpfulStatus === "helpful" ? "active" : ""
-            }`}
-            onClick={() => handleFeedback("helpful")}
-          >
-            <FaRegThumbsUp />
-          </button>
-          <button
-            className={`review-analysis-feedback-button ${
-              helpfulStatus === "not-helpful" ? "active" : ""
-            }`}
-            onClick={() => handleFeedback("not-helpful")}
-          >
-            <FaRegThumbsDown />
-          </button>
-        </div>
-      </div>
-
-      {/* 카테고리별 분석 결과 */}
-      <div className="review-analysis-categories-container">
-        {Object.entries(analysisData).map(([category, data], categoryIndex) => {
-          // summary와 positiveRate는 건너뛰기
-          if (category === "summary" || category === "positiveRate")
-            return null;
-
-          return (
-            <div className="review-analysis-category-section" key={category}>
-              <h3 className="review-analysis-category-title">{category}</h3>
-              <div className="review-analysis-category-items">
-                {Array.isArray(data) &&
-                  data.map((item, index) => (
-                    <div className="review-analysis-category-item" key={index}>
-                      <span className="review-analysis-item-label">
-                        {item.label}
-                      </span>
-                      <div className="review-analysis-progress-bar-wrapper">
-                        <div
-                          className="review-analysis-progress-bar-fill"
-                          style={{
-                            width: `${item.percentage}%`,
-                            backgroundColor:
-                              categoryColors[
-                                categoryIndex % categoryColors.length
-                              ],
-                          }}
-                        />
-                      </div>
-                      <span className="review-analysis-percentage-value">
-                        {item.percentage}%
-                      </span>
-                    </div>
-                  ))}
-              </div>
+  
+      {/* 리뷰 요약과 카테고리 섹션 */}
+      {analysisData.summary !== "리뷰가 없습니다." && (
+        <>
+          {/* AI 리뷰 요약 */}
+          <div className="review-analysis-summary-container">
+            <p className="review-analysis-summary-text">
+              {analysisData.summary}
+            </p>
+            {/* 피드백 버튼 */}
+            <div className="review-analysis-feedback-section">
+              <span className="review-analysis-help">요약이 도움이 되었나요?</span>
+              <button
+                className={`review-analysis-feedback-button ${
+                  helpfulStatus === "helpful" ? "active" : ""
+                }`}
+                onClick={() => handleFeedback("helpful")}
+              >
+                <FaRegThumbsUp />
+              </button>
+              <button
+                className={`review-analysis-feedback-button ${
+                  helpfulStatus === "not-helpful" ? "active" : ""
+                }`}
+                onClick={() => handleFeedback("not-helpful")}
+              >
+                <FaRegThumbsDown />
+              </button>
             </div>
-          );
-        })}
-      </div>
+          </div>
+  
+          {/* 카테고리별 분석 결과 */}
+          <div className="review-analysis-categories-container">
+            {Object.entries(analysisData).map(([category, data], categoryIndex) => {
+              // summary와 positiveRate는 건너뛰기
+              if (category === "summary" || category === "positiveRate")
+                return null;
+  
+              return (
+                <div className="review-analysis-category-section" key={category}>
+                  <h3 className="review-analysis-category-title">{category}</h3>
+                  <div className="review-analysis-category-items">
+                    {Array.isArray(data) &&
+                      data.map((item, index) => (
+                        <div
+                          className="review-analysis-category-item"
+                          key={index}
+                        >
+                          <span className="review-analysis-item-label">
+                            {item.label}
+                          </span>
+                          <div className="review-analysis-progress-bar-wrapper">
+                            <div
+                              className="review-analysis-progress-bar-fill"
+                              style={{
+                                width: `${item.percentage}%`,
+                                backgroundColor:
+                                  categoryColors[
+                                    categoryIndex % categoryColors.length
+                                  ],
+                              }}
+                            />
+                          </div>
+                          <span className="review-analysis-percentage-value">
+                            {item.percentage}%
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
+  
 };
 
 export default ReviewAnalysis;

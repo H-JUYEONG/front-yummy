@@ -77,80 +77,81 @@ const UserPoint = () => {
   };
 
   return (
-    <div id="user-wrap">
+    <>
       <header id="user-wrap-head">
         <Header />
       </header>
+      <div id="user-wrap">
+        <main id="user-wrap-body">
+          <UserSidebar />
+          <section id="user-wrap-main">
+            <div className="user-main-content">
+              <h2 className="user-write-main-title">포인트 내역</h2>
 
-      <main id="user-wrap-body">
-        <UserSidebar />
-        <section id="user-wrap-main">
-          <div className="user-main-content">
-            <h2 className="user-write-main-title">포인트 내역</h2>
-
-            {/* 현재 포인트 표시 */}
-            <section className="order-status-container">
-              <div className="status-item">
-                <div className="point-label">현재 포인트</div>
-                <div className="status-count">
-                  {totalPoints.toLocaleString()}P
+              {/* 현재 포인트 표시 */}
+              <section className="order-status-container">
+                <div className="status-item">
+                  <div className="point-label">현재 포인트</div>
+                  <div className="status-count">
+                    {totalPoints.toLocaleString()}P
+                  </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* 포인트 내역 목록 */}
-            <section className="point-order-list">
-              <table className="point-table">
-                <thead>
-                  <tr>
-                    <th>일자</th>
-                    <th>적용 내용</th>
-                    <th>사용한 도안</th>
-                    <th>적립</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {loading ? (
+              {/* 포인트 내역 목록 */}
+              <section className="point-order-list">
+                <table className="point-table">
+                  <thead>
                     <tr>
-                      <td colSpan="4" className="point-loading">
-                        로딩 중...
-                      </td>
+                      <th>일자</th>
+                      <th>적용 내용</th>
+                      <th>사용한 도안</th>
+                      <th>적립</th>
                     </tr>
-                  ) : error ? (
-                    <tr>
-                      <td colSpan="4" className="point-error">
-                        {error}
-                      </td>
-                    </tr>
-                  ) : pointHistory && pointHistory.length > 0 ? (
-                    pointHistory.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.date}</td>
-                        <td>{item.reason}</td>
-                        <td>{item.designTitle || "사용하지 않음"}</td>
-                        <td className="point-amount">
-                          +{item.pointAmount?.toLocaleString()}P
+                  </thead>
+                  <tbody>
+                    {loading ? (
+                      <tr>
+                        <td colSpan="4" className="point-loading">
+                          로딩 중...
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="4" className="point-empty">
-                        포인트 내역이 없습니다.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </section>
-          </div>
-        </section>
-      </main>
+                    ) : error ? (
+                      <tr>
+                        <td colSpan="4" className="point-error">
+                          {error}
+                        </td>
+                      </tr>
+                    ) : pointHistory && pointHistory.length > 0 ? (
+                      pointHistory.map((item, index) => (
+                        <tr key={index}>
+                          <td>{item.date}</td>
+                          <td>{item.reason}</td>
+                          <td>{item.designTitle || "사용하지 않음"}</td>
+                          <td className="point-amount">
+                            +{item.pointAmount?.toLocaleString()}P
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" className="point-empty">
+                          포인트 내역이 없습니다.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </section>
+            </div>
+          </section>
+        </main>
 
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-    </div>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 
