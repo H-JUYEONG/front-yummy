@@ -7,7 +7,7 @@
 }
 
 .audition-list-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   font-weight: bold;
   font-size: 1.7em;
 }
@@ -25,6 +25,7 @@
   margin-right: 10px;
   color: #ff85a1;
   transition: all 0.3s ease;
+  font-size: 1.1em;
 }
 
 .filter-button:hover {
@@ -70,6 +71,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 1.1em;
 }
 
 .audition-table thead tr {
@@ -80,6 +82,7 @@
 .audition-table th {
   color: #333;
   font-weight: normal;
+  font-size: 1.1em;
 }
 
 .status-active {

@@ -1,149 +1,148 @@
 /* userheaderstyle.css */
 .header-container {
-    max-width: 1600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 24px;
-    position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 24px;
+  position: relative;
 }
 
 .header-container .logo {
-    position: absolute;
-    left: 24px;
-    top: 20px;
+  position: absolute;
+  left: 24px;
+  top: 20px;
 }
 
 .header-container .logo h1 {
-    font-family: 'HakgyoansimGeurimilgiTTF-R', serif !important;
-    font-size: 3.5em;
-    margin: 0;
-    color: #333;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    letter-spacing: 0.05em;
+  font-family: "HakgyoansimGeurimilgiTTF-R", serif;
+  font-size: 3.5em;
+  margin: 0;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.05em;
 }
 
 .header-container .nav-menu {
-    margin-bottom: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .header-container .nav-menu ul {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    align-items: center;
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  align-items: center;
 }
 
 .header-container .nav-menu a {
-    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
-    text-decoration: none;
-    color: #555 !important;
-    font-size: 1.6em;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+  text-decoration: none;
+  color: #555 !important;
+  font-size: 1.6em;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
 .header-container .nav-menu a:hover {
-    background-color: #fce6e5;
-    color: #555 !important;
+  background-color: #fce6e5;
+  color: #555 !important;
 }
 
 .header-container .user-actions {
-    position: absolute;
-    right: 30px;
-    top: 34px;
-    display: flex;
-    align-items: center;
-
+  position: absolute;
+  right: 30px;
+  top: 34px;
+  display: flex;
+  align-items: center;
 }
 
 .header-container .user-actions a.header-link {
-    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
-    text-decoration: none;
-    color: #555 !important;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-    padding: 8px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    display: inline-block;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+  text-decoration: none;
+  color: #555 !important;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .header-container .user-actions a.header-link:hover {
-    background-color: #fce6e5;
-    color: #555 !important;
+  background-color: #fce6e5;
+  color: #555 !important;
 }
 
 /* userheaderstyle.css에 추가 */
 .user-actions {
-    display: flex;
-    gap: 1rem;
-    /* 버튼 사이의 간격 */
-    align-items: center;
+  display: flex;
+  gap: 1rem;
+  /* 버튼 사이의 간격 */
+  align-items: center;
 }
 
 .header-link {
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    color: #333;
-    transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
 }
 
 .header-link:hover {
-    color: #ff6f61;
+  color: #ff6f61;
 }
 
-
 .header-link.primary {
-    background-color: #ff6f61;
-    color: white;
-    border-radius: 4px;
+  background-color: #ff6f61;
+  color: white;
+  border-radius: 4px;
 }
 
 .header-link.primary:hover {
-    background-color: #ff6f61;
-    color: white;
+  background-color: #ff6f61;
+  color: white;
 }
 
 .main-usernickname {
-    color: #555;
+  font-family: "HakgyoansimGeurimilgiTTF-R", serif;
+  color: #555;
 }
 
 /* 모바일에서만 표시 */
 @media screen and (max-width: 768px) {
-    .header-container {
-        justify-content: space-between;
-        padding: 15px;
-    }
+  .header-container {
+    justify-content: space-between;
+    padding: 15px;
+  }
 
-    .header-container .nav-menu {
-        display: none;
-        /* 네비게이션 메뉴 숨기기 */
-    }
+  .header-container .nav-menu {
+    display: none;
+    /* 네비게이션 메뉴 숨기기 */
+  }
 
-   .header-container .logo {
-        display :flex;
-        font-size: 10px;
-        text-align: center;
-        /* 가운데 정렬 */
-    }
+  .header-container .logo {
+    display: flex;
+    font-size: 10px;
+    text-align: center;
+    /* 가운데 정렬 */
+  }
 
-    .header-container .user-actions {
-        position: absolute; /* 절대 위치 설정 */
-        top: 17px; /* 상단 여백 */
-        right: 10px; /* 오른쪽 여백 */
-    }
+  .header-container .user-actions {
+    position: absolute; /* 절대 위치 설정 */
+    top: 17px; /* 상단 여백 */
+    right: 10px; /* 오른쪽 여백 */
+  }
 
-    .header-link {
-        font-size: 16px;
-    }
+  .header-link {
+    font-size: 16px;
+  }
 }
