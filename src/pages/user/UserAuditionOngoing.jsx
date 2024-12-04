@@ -103,243 +103,251 @@ const UserAuditionOngoing = () => {
   }, [auditionApplicationId]);
 
   return (
-    <div id="user-wrap">
-      <header id="user-wrap-head">
-        <Header />
-      </header>
-      <main id="user-wrap-body" className="clearfix">
-        <div className="user-audition-details">
-          <div className="user-audition-ongoing-header">
-            <div className="user-cake-audition-ongoing-title">
-              <span>
-                {auditionDetail?.auditionApplicationTitle || "제목 없음"}
-              </span>
-            </div>
-            <div className="user-audition-ongoing-info">
-              <p className="user-cake-audition-ongoing-write-date">
-                {auditionDetail?.createdAt || "작성일 없음"}
-              </p>
-              <p className="user-cake-audition-ongoing-hit">
-                조회 {auditionDetail?.auditionViewCount || 0}
-              </p>
-              <p className="user-cake-audition-ongoing-author">
-                {auditionDetail?.userNickname || "작성자 없음"}
-              </p>
-
-              {authUser && auditionDetail?.memberId === authUser.member_id && (
-                <div className="user-control-section">
-                  <button
-                    className="user-cake-edit-button"
-                    onClick={() =>
-                      navigate(`/user/audition/edit/${auditionApplicationId}`)
-                    }
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="user-cake-delete-button"
-                    onClick={deleteAudition}
-                  >
-                    삭제
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="ongoing-main-content">
-            <div className="ongoing-auction-info">
-              <h2>요청 정보</h2>
-              <div className="ongoing-cake-info">
-                {auditionDetail ? (
-                  <>
-                    {/* <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3> */}
-                    <p>
-                      희망 가격:{" "}
-                      {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
-                        "정보 없음"}
-                    </p>
-                    <p>
-                      사이즈:{" "}
-                      {auditionDetail.auditionApplicationSize || "정보 없음"}
-                    </p>
-                    <p>
-                      케이크 위 레터링:{" "}
-                      {auditionDetail.cakeLettering || "정보 없음"}
-                    </p>
-                    <p>
-                      케이크 판 레터링:{" "}
-                      {auditionDetail.plateLettering || "정보 없음"}
-                    </p>
-                    <p>
-                      수령 방식: {auditionDetail.deliveryMethod || "정보 없음"}
-                    </p>
-                    <p>수령 지역(구): {auditionDetail.region || "정보 없음"}</p>
-                    <p>
-                      희망 날짜: {auditionDetail.desiredDate || "정보 없음"}
-                    </p>
-                    <p>
-                      희망 시간: {auditionDetail.desiredTime || "정보 없음"}
-                    </p>
-                    <p>
-                      요청사항:{" "}
-                      {auditionDetail.additionalRequests || "요청 사항 없음"}
-                    </p>
-                  </>
-                ) : (
-                  <p>오디션 상세 정보를 불러오는 중입니다...</p>
-                )}
+    <>
+      <Header />
+      <div id="user-wrap">
+        <main id="user-wrap-body" className="clearfix">
+          <div className="user-audition-details">
+            <div className="user-audition-ongoing-header">
+              <div className="user-cake-audition-ongoing-title">
+                <span>
+                  {auditionDetail?.auditionApplicationTitle || "제목 없음"}
+                </span>
               </div>
+              <div className="user-audition-ongoing-info">
+                <p className="user-cake-audition-ongoing-write-date">
+                  {auditionDetail?.createdAt || "작성일 없음"}
+                </p>
+                <p className="user-cake-audition-ongoing-hit">
+                  조회 {auditionDetail?.auditionViewCount || 0}
+                </p>
+                <p className="user-cake-audition-ongoing-author">
+                  {auditionDetail?.userNickname || "작성자 없음"}
+                </p>
 
-              <div className="ongoing-design-preview">
-                <h3>예시도안</h3>
-                {auditionDetail?.imageUrl ? (
-                  <>
-                    <img src={auditionDetail.imageUrl} alt="예시 도안" />
-                  </>
-                ) : (
-                  <p>예시 도안이 없습니다.</p>
-                )}
-              </div>
-            </div>
-
-            <div className="ongoing-participating-companies">
-              <div
-                id="audition-status-container"
-                className="audition-header-container"
-              >
-                <div className="audition-vender-name">
-                  <h2>참가 업체</h2>
-                </div>
-              </div>
-
-              {auditionDetail?.status === "종료" && auditionVendersEnd ? (
-                <div className="ongoing-company-wrapper">
-                  <div className="ongoing-company">
-                    <img
-                      src={auditionVendersEnd.productImage1Url || ""}
-                      alt="선택된 케이크 이미지"
-                      onClick={() =>
-                        window.open(
-                          `/user/cakedetail/${auditionVendersEnd.productId}/${auditionVendersEnd.venderId}`,
-                          "_blank"
-                        )
-                      }
-                    />
-                    <div className="ongoing-company-info">
-                      <p
-                        className="ongoing-vender-name"
+                {authUser &&
+                  auditionDetail?.memberId === authUser.member_id && (
+                    <div className="user-control-section">
+                      <button
+                        className="user-cake-edit-button"
                         onClick={() =>
-                          window.open(
-                            `/user/storedetail/${auditionVendersEnd.venderId}`,
-                            "_blank"
+                          navigate(
+                            `/user/audition/edit/${auditionApplicationId}`
                           )
                         }
                       >
-                        {auditionVendersEnd.venderName || "업체 이름 없음"}
+                        수정
+                      </button>
+                      <button
+                        className="user-cake-delete-button"
+                        onClick={deleteAudition}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  )}
+              </div>
+            </div>
+
+            <div className="ongoing-main-content">
+              <div className="ongoing-auction-info">
+                <h2>요청 정보</h2>
+                <div className="ongoing-cake-info">
+                  {auditionDetail ? (
+                    <>
+                      {/* <h3>게시글 번호: {auditionDetail.auditionApplicationId}</h3> */}
+                      <p>
+                        희망 가격:{" "}
+                        {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
+                          "정보 없음"}
                       </p>
                       <p>
-                        제시금액:{" "}
-                        {auditionVendersEnd.proposedAmount
-                          ? `${auditionVendersEnd.proposedAmount.toLocaleString()}원`
-                          : "정보 없음"}
+                        사이즈:{" "}
+                        {auditionDetail.auditionApplicationSize || "정보 없음"}
                       </p>
-                    </div>
+                      <p>
+                        케이크 위 레터링:{" "}
+                        {auditionDetail.cakeLettering || "정보 없음"}
+                      </p>
+                      <p>
+                        케이크 판 레터링:{" "}
+                        {auditionDetail.plateLettering || "정보 없음"}
+                      </p>
+                      <p>
+                        수령 방식:{" "}
+                        {auditionDetail.deliveryMethod || "정보 없음"}
+                      </p>
+                      <p>
+                        수령 지역(구): {auditionDetail.region || "정보 없음"}
+                      </p>
+                      <p>
+                        희망 날짜: {auditionDetail.desiredDate || "정보 없음"}
+                      </p>
+                      <p>
+                        희망 시간: {auditionDetail.desiredTime || "정보 없음"}
+                      </p>
+                      <p>
+                        요청사항:{" "}
+                        {auditionDetail.additionalRequests || "요청 사항 없음"}
+                      </p>
+                    </>
+                  ) : (
+                    <p>오디션 상세 정보를 불러오는 중입니다...</p>
+                  )}
+                </div>
+
+                <div className="ongoing-design-preview">
+                  <h3>예시도안</h3>
+                  {auditionDetail?.imageUrl ? (
+                    <>
+                      <img src={auditionDetail.imageUrl} alt="예시 도안" />
+                    </>
+                  ) : (
+                    <p>예시 도안이 없습니다.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="ongoing-participating-companies">
+                <div
+                  id="audition-status-container"
+                  className="audition-header-container"
+                >
+                  <div className="audition-vender-name">
+                    <h2>참가 업체</h2>
                   </div>
-                  <div className="review-section">
-                    <h3>구매자 리뷰</h3>
-                    <div className="review-list">
-                      {auditionVendersReviews.length > 0 ? (
-                        auditionVendersReviews.map((review, index) => (
-                          <div key={index} className="review-item">
-                            <img
-                              src={review.productImage1Url || ""}
-                              alt={`${
-                                review.productName || "리뷰 이미지 없음"
-                              }의 리뷰 이미지`}
-                              className="review-image"
-                            />
-                            <div className="review-text">
-                              <p>
-                                <strong>
-                                  {review.userNickname || "닉네임 없음"}
-                                </strong>
-                              </p>
-                              <div className="reviews-rating">
-                                {[...Array(review.reviewRating || 0)].map(
-                                  (_, starIndex) => (
-                                    <FaStar
-                                      key={starIndex}
-                                      className="audition-review-star-icon"
-                                    />
-                                  )
-                                )}
+                </div>
+
+                {auditionDetail?.status === "종료" && auditionVendersEnd ? (
+                  <div className="ongoing-company-wrapper">
+                    <div className="ongoing-company">
+                      <img
+                        src={auditionVendersEnd.productImage1Url || ""}
+                        alt="선택된 케이크 이미지"
+                        onClick={() =>
+                          window.open(
+                            `/user/cakedetail/${auditionVendersEnd.productId}/${auditionVendersEnd.venderId}`,
+                            "_blank"
+                          )
+                        }
+                      />
+                      <div className="ongoing-company-info">
+                        <p
+                          className="ongoing-vender-name"
+                          onClick={() =>
+                            window.open(
+                              `/user/storedetail/${auditionVendersEnd.venderId}`,
+                              "_blank"
+                            )
+                          }
+                        >
+                          {auditionVendersEnd.venderName || "업체 이름 없음"}
+                        </p>
+                        <p>
+                          제시금액:{" "}
+                          {auditionVendersEnd.proposedAmount
+                            ? `${auditionVendersEnd.proposedAmount.toLocaleString()}원`
+                            : "정보 없음"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="review-section">
+                      <h3>구매자 리뷰</h3>
+                      <div className="review-list">
+                        {auditionVendersReviews.length > 0 ? (
+                          auditionVendersReviews.map((review, index) => (
+                            <div key={index} className="review-item">
+                              <img
+                                src={review.productImage1Url || ""}
+                                alt={`${
+                                  review.productName || "리뷰 이미지 없음"
+                                }의 리뷰 이미지`}
+                                className="review-image"
+                              />
+                              <div className="review-text">
+                                <p>
+                                  <strong>
+                                    {review.userNickname || "닉네임 없음"}
+                                  </strong>
+                                </p>
+                                <div className="reviews-rating">
+                                  {[...Array(review.reviewRating || 0)].map(
+                                    (_, starIndex) => (
+                                      <FaStar
+                                        key={starIndex}
+                                        className="audition-review-star-icon"
+                                      />
+                                    )
+                                  )}
+                                </div>
+                                <p>
+                                  {review.reviewContent || "리뷰 내용 없음"}
+                                </p>
                               </div>
-                              <p>{review.reviewContent || "리뷰 내용 없음"}</p>
                             </div>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="no-vender-list">리뷰가 없습니다.</p>
-                      )}
+                          ))
+                        ) : (
+                          <p className="no-vender-list">리뷰가 없습니다.</p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : auditionVenders.length > 0 ? (
-                auditionVenders.map((company, index) => (
-                  <div key={index} className="ongoing-company">
-                    <img
-                      src={company.productImage1Url || ""}
-                      alt="케이크 이미지"
-                      onClick={() =>
-                        window.open(
-                          `/user/cakedetail/${company.productId}/${company.venderId}`,
-                          "_blank"
-                        )
-                      }
-                    />
-                    <div className="ongoing-company-info">
-                      <p
-                        className="ongoing-vender-name"
+                ) : auditionVenders.length > 0 ? (
+                  auditionVenders.map((company, index) => (
+                    <div key={index} className="ongoing-company">
+                      <img
+                        src={company.productImage1Url || ""}
+                        alt="케이크 이미지"
                         onClick={() =>
                           window.open(
-                            `/user/storedetail/${company.venderId}`,
+                            `/user/cakedetail/${company.productId}/${company.venderId}`,
                             "_blank"
                           )
                         }
+                      />
+                      <div className="ongoing-company-info">
+                        <p
+                          className="ongoing-vender-name"
+                          onClick={() =>
+                            window.open(
+                              `/user/storedetail/${company.venderId}`,
+                              "_blank"
+                            )
+                          }
+                        >
+                          {company.venderName}
+                        </p>
+                        <p>
+                          제시금액: {company.proposedAmount.toLocaleString()}원
+                        </p>
+                      </div>
+                      <button
+                        className="ongoing-select-button"
+                        onClick={() => openModal(company)}
                       >
-                        {company.venderName}
-                      </p>
-                      <p>
-                        제시금액: {company.proposedAmount.toLocaleString()}원
-                      </p>
+                        선택하기
+                      </button>
                     </div>
-                    <button
-                      className="ongoing-select-button"
-                      onClick={() => openModal(company)}
-                    >
-                      선택하기
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p className="no-vender-list">참가 업체가 없습니다.</p>
-              )}
+                  ))
+                ) : (
+                  <p className="no-vender-list">참가 업체가 없습니다.</p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-      {isModalOpen && selectedCompany && (
-        <UserAuditionModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          company={selectedCompany}
-        />
-      )}
-    </div>
+        </main>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+        {isModalOpen && selectedCompany && (
+          <UserAuditionModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            company={selectedCompany}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

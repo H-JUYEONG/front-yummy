@@ -15,49 +15,50 @@ const UserSignupType = () => {
   const navigate = useNavigate();
 
   return (
-    <div id="user-wrap" className="user-text-center">
+    <>
       {/* Header */}
       <header id="user-wrap-head">
         <Header />
       </header>
-
-      <div className="signup-box">
-        <div>
-          {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
-          <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
-          <h1>회원가입</h1>
-        </div>
-        <div>
-          <div className="signup-type">
-            <div
-              className="signup-type-item1"
-              onClick={() => navigate("/user/signup")}
-            >
-              <FaUserFriends className="signup-type-icon" />
-              <Link to="/user/signup" rel="noreferrer noopener">
-                개인
-              </Link>
-            </div>
-            <div
-              className="signup-type-item2"
-              onClick={() => navigate("/vender/signup")}
-            >
-              <FaUserTie className="signup-type-icon" />
-              <Link to="/vender/signup" rel="noreferrer noopener">
-                업체
-                <p>(개인, 법인사업자)</p>
-              </Link>
+      <div id="user-wrap" className="user-text-center">
+        <div className="signup-box">
+          <div>
+            {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
+            <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
+            <h1>회원가입</h1>
+          </div>
+          <div>
+            <div className="signup-type">
+              <div
+                className="signup-type-item1"
+                onClick={() => navigate("/user/signup")}
+              >
+                <FaUserFriends className="signup-type-icon" />
+                <Link to="/user/signup" rel="noreferrer noopener">
+                  개인
+                </Link>
+              </div>
+              <div
+                className="signup-type-item2"
+                onClick={() => navigate("/vender/signup")}
+              >
+                <FaUserTie className="signup-type-icon" />
+                <Link to="/vender/signup" rel="noreferrer noopener">
+                  업체
+                  <p>(개인, 법인사업자)</p>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {/* //회원가입 최상위 박스 */}
+        {/* //회원가입 최상위 박스 */}
 
-      {/* Footer */}
-      <footer className="user-full-width">
-        <Footer />
-      </footer>
-    </div>
+        {/* Footer */}
+        <footer className="user-full-width">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 export default UserSignupType;

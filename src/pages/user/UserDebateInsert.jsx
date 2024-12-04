@@ -98,7 +98,10 @@ const UserDebateInsert = () => {
     formData.append("debate_left_item_id", leftImgID !== null ? leftImgID : -1);
     formData.append("debate_left_image_url", leftImgUrl);
     formData.append("debate_right_item_type", rightType);
-    formData.append("debate_right_item_id", rightImgID !== null ? rightImgID : -1);
+    formData.append(
+      "debate_right_item_id",
+      rightImgID !== null ? rightImgID : -1
+    );
     formData.append("debate_right_image_url", rightImgUrl);
     formData.append("debate_content", content);
     formData.append("leftImage", leftImage); // 왼쪽 이미지 파일 추가
@@ -128,193 +131,194 @@ const UserDebateInsert = () => {
   };
 
   return (
-    <div id="user-wrap" className="text-center">
-      <header id="user-wrap-head">
-        <Header />
-      </header>
+    <>
+      <Header />
+      <div id="user-wrap" className="text-center">
+        <main id="user-wrap-body" className="clearfix">
+          <div className="debate-insert-list">
+            <form className="debate-insert-main" onSubmit={handleSubmit}>
+              {/* 토론 제목 입력 */}
+              <div className="debate-title-container">
+                <h1 className="debate-insert-title">고민을 등록하세요!</h1>
+              </div>
+              <div className="debate-insert-list-group">
+                <label htmlFor="debate-insert-title">제목</label>
+                <input
+                  type="text"
+                  id="debate-insert-title"
+                  placeholder="고민의 제목을 입력하세요."
+                  className="debate-insert-input-text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
 
-      <main id="user-wrap-body" className="clearfix">
-        <div className="debate-insert-list">
-          <form className="debate-insert-main" onSubmit={handleSubmit}>
-            {/* 토론 제목 입력 */}
-            <div className="debate-title-container">
-              <h1 className="debate-insert-title">고민을 등록하세요!</h1>
-            </div>
-            <div className="debate-insert-list-group">
-              <label htmlFor="debate-insert-title">제목</label>
-              <input
-                type="text"
-                id="debate-insert-title"
-                placeholder="고민의 제목을 입력하세요."
-                className="debate-insert-input-text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
+              {/* 카테고리 선택 */}
+              <div className="debate-insert-list-group">
+                <label htmlFor="debate-insert-category">카테고리</label>
+                <select
+                  id="debate-insert-category"
+                  className="debate-insert-input-text"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="">카테고리 선택</option>
+                  <option value="design"> 디자인 토크</option>
+                  <option value="vendor">베이커리 토크</option>
+                </select>
+              </div>
 
-            {/* 카테고리 선택 */}
-            <div className="debate-insert-list-group">
-              <label htmlFor="debate-insert-category">카테고리</label>
-              <select
-                id="debate-insert-category"
-                className="debate-insert-input-text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="">카테고리 선택</option>
-                <option value="design"> 디자인 토크</option>
-                <option value="vendor">베이커리 토크</option>
-              </select>
-            </div>
+              {/* 이미지 추가 섹션 */}
+              <div className="debate-insert-list-group">
+                <label htmlFor="debate-insert-content">이미지</label>
+                <div className="debate-insert-image-section">
+                  {/* 왼쪽 이미지 */}
+                  <div className="debate-insert-image-option">
+                    {!leftImgUrl && (
+                      <>
+                        {/* pc에서 추가하기 */}
+                        <button
+                          className="debate-insert-upload-btn"
+                          onClick={() =>
+                            document.getElementById("left-image-upload").click()
+                          }
+                          type="button"
+                        >
+                          내PC에서 추가
+                        </button>
+                        <input
+                          type="file"
+                          id="left-image-upload"
+                          accept="image/*"
+                          onChange={handleLeftImageUpload}
+                          className="debate-insert-image-upload-input"
+                        />
 
-            {/* 이미지 추가 섹션 */}
-            <div className="debate-insert-list-group">
-              <label htmlFor="debate-insert-content">이미지</label>
-              <div className="debate-insert-image-section">
-                {/* 왼쪽 이미지 */}
-                <div className="debate-insert-image-option">
-                  {!leftImgUrl && (
-                    <>
-                      {/* pc에서 추가하기 */}
-                      <button
-                        className="debate-insert-upload-btn"
-                        onClick={() =>
-                          document.getElementById("left-image-upload").click()
-                        }
-                        type="button"
-                      >
-                        내PC에서 추가
-                      </button>
-                      <input
-                        type="file"
-                        id="left-image-upload"
-                        accept="image/*"
-                        onChange={handleLeftImageUpload}
-                        className="debate-insert-image-upload-input"
-                      />
+                        {/* 내 찜 목록 에서 추가하기 */}
+                        <button
+                          type="button"
+                          className="debate-insert-modal-btn"
+                          onClick={() => openModal("left")}
+                        >
+                          찜에서 추가
+                        </button>
+                      </>
+                    )}
+                    {leftImgUrl && (
+                      /*사진 삭제 버튼*/
+                      <div className="debate-insert-image-container">
+                        <img
+                          src={leftImgUrl}
+                          alt="Left"
+                          className="debate-insert-inserted-image"
+                        />
+                        <button
+                          type="button"
+                          className="debate-insert-delete-btn"
+                          onClick={handleLeftImageDelete}
+                        >
+                          <BsTrash />
+                        </button>
+                      </div>
+                    )}
+                  </div>
 
-                      {/* 내 찜 목록 에서 추가하기 */}
-                      <button
-                        type="button"
-                        className="debate-insert-modal-btn"
-                        onClick={() => openModal("left")}
-                      >
-                        찜에서 추가
-                      </button>
-                    </>
-                  )}
-                  {leftImgUrl && (
-                    /*사진 삭제 버튼*/
-                    <div className="debate-insert-image-container">
-                      <img
-                        src={leftImgUrl}
-                        alt="Left"
-                        className="debate-insert-inserted-image"
-                      />
-                      <button
-                        type="button"
-                        className="debate-insert-delete-btn"
-                        onClick={handleLeftImageDelete}
-                      >
-                        <BsTrash />
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* 오른쪽 이미지 */}
-                <div className="debate-insert-image-option">
-                  {!rightImgUrl && (
-                    <>
-                      {/* pc에서 추가하기 */}
-                      <button
-                        className="debate-insert-upload-btn"
-                        onClick={() =>
-                          document.getElementById("right-image-upload").click()
-                        }
-                        type="button"
-                      >
-                        내PC에서 추가
-                      </button>
-                      <input
-                        type="file"
-                        id="right-image-upload"
-                        accept="image/*"
-                        onChange={handleRightImageUpload}
-                        className="debate-insert-image-upload-input"
-                      />
-                      {/* 내 찜 목록 에서 추가하기 */}
-                      <button
-                        type="button"
-                        className="debate-insert-modal-btn"
-                        onClick={() => openModal("right")}
-                      >
-                        찜에서 추가
-                      </button>
-                    </>
-                  )}
-                  {/* 사진 삭제 */}
-                  {rightImgUrl && (
-                    <div className="debate-insert-image-container">
-                      <img
-                        src={rightImgUrl}
-                        alt="Right"
-                        className="debate-insert-inserted-image"
-                      />
-                      <button
-                        type="button"
-                        className="debate-insert-delete-btn"
-                        onClick={handleRightImageDelete}
-                      >
-                        <BsTrash />
-                      </button>
-                    </div>
-                  )}
+                  {/* 오른쪽 이미지 */}
+                  <div className="debate-insert-image-option">
+                    {!rightImgUrl && (
+                      <>
+                        {/* pc에서 추가하기 */}
+                        <button
+                          className="debate-insert-upload-btn"
+                          onClick={() =>
+                            document
+                              .getElementById("right-image-upload")
+                              .click()
+                          }
+                          type="button"
+                        >
+                          내PC에서 추가
+                        </button>
+                        <input
+                          type="file"
+                          id="right-image-upload"
+                          accept="image/*"
+                          onChange={handleRightImageUpload}
+                          className="debate-insert-image-upload-input"
+                        />
+                        {/* 내 찜 목록 에서 추가하기 */}
+                        <button
+                          type="button"
+                          className="debate-insert-modal-btn"
+                          onClick={() => openModal("right")}
+                        >
+                          찜에서 추가
+                        </button>
+                      </>
+                    )}
+                    {/* 사진 삭제 */}
+                    {rightImgUrl && (
+                      <div className="debate-insert-image-container">
+                        <img
+                          src={rightImgUrl}
+                          alt="Right"
+                          className="debate-insert-inserted-image"
+                        />
+                        <button
+                          type="button"
+                          className="debate-insert-delete-btn"
+                          onClick={handleRightImageDelete}
+                        >
+                          <BsTrash />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 토론 내용 입력 */}
-            <div className="debate-insert-list-group">
-              <label htmlFor="debate-insert-content">내용</label>
-              <textarea
-                id="debate-insert-content"
-                placeholder="고민을 작성해주세요."
-                className="debate-insert-input-text"
-                rows="4"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
-            </div>
+              {/* 토론 내용 입력 */}
+              <div className="debate-insert-list-group">
+                <label htmlFor="debate-insert-content">내용</label>
+                <textarea
+                  id="debate-insert-content"
+                  placeholder="고민을 작성해주세요."
+                  className="debate-insert-input-text"
+                  rows="4"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                />
+              </div>
 
-            {/* 제출 및 취소 버튼 */}
-            <div className="debate-insert-list-btn-group">
-              <button type="submit" className="debate-insert-submit-button">
-                등록
-              </button>
-              <button
-                className="debate-insert-cancel-button"
-                onClick={() => navigate("/debate/board")}
-              >
-                취소
-              </button>
-            </div>
-          </form>
-        </div>
-      </main>
+              {/* 제출 및 취소 버튼 */}
+              <div className="debate-insert-list-btn-group">
+                <button type="submit" className="debate-insert-submit-button">
+                  등록
+                </button>
+                <button
+                  className="debate-insert-cancel-button"
+                  onClick={() => navigate("/debate/board")}
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
 
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
 
-      {/* 모달 컴포넌트 */}
-      {isModalOpen && (
-        <UserDebateModal
-          onSelectImage={handleModalImageSelect}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
-    </div>
+        {/* 모달 컴포넌트 */}
+        {isModalOpen && (
+          <UserDebateModal
+            onSelectImage={handleModalImageSelect}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

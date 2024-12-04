@@ -1,18 +1,17 @@
 .user-login-box {
   width: 400px;
-  margin: auto;
-  padding: 20px 0;
+  margin: 0px auto 150px auto;
   text-align: center;
 }
 
 .user-login-box img {
-  width: 200px;
+  margin-right: 30px;
+  width: 250px;
 }
 
 .user-login-box h1 {
   font-size: 28px;
-  margin-bottom: 30px;
-  padding: 10px 0px;
+  margin-bottom: 40px;
 }
 
 .user-login-type {
@@ -82,8 +81,6 @@
 
 .user-loginform input:focus {
   outline: none;
-  border-color: #aaa;
-  background-color: #fff;
 }
 
 .user-loginform input::placeholder {
@@ -104,9 +101,16 @@
   padding: 15px;
   border: none;
   color: #ffffff;
-  background-color: #000000;
+  background-color: #ff85a1;
   cursor: pointer;
   border-radius: 8px;
+}
+
+.user-login-btn button:hover {
+  border: none;
+  color: #ffffff;
+  background-color: rgba(255, 133, 161, 0.8);
+
 }
 
 .user-login-id-save {
@@ -130,7 +134,7 @@
   margin-right: 10px;
   transform: scale(1.2);
   transform-origin: left;
-  accent-color: #000000;
+  accent-color: #333;
 }
 
 .user-txt-chk-right {

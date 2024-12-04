@@ -224,166 +224,166 @@ const UserPersonalInfoEdit = () => {
   };
 
   return (
-    <div id="user-wrap">
+    <>
       {/* Header */}
-      <header id="user-wrap-head">
-        <Header />
-      </header>
 
-      {/* Main Content */}
-      <main id="user-wrap-body">
-        {/* Sidebar */}
-        <UserSidebar />
-
+      <Header />
+      <div id="user-wrap">
         {/* Main Content */}
-        <div className="main-content">
-          <h2 className="user-write-main-title">회원정보 수정</h2>
+        <main id="user-wrap-body">
+          {/* Sidebar */}
+          <UserSidebar />
 
-          <form className="user-edit-form" onSubmit={handleSave}>
-            {/* 프로필 사진 편집 */}
-            <div className="profile-picture-section">
-              <div className="profile-picture-preview">
-                {tempPp ? (
-                  <img src={tempPp} alt="Profile Preview" />
-                ) : ppUrl ? (
-                  <img src={ppUrl} alt="Profile Preview" />
-                ) : (
-                  <img
-                    src={require("../../assets/images/yummylogo.webp")}
-                    alt="Default Profile"
+          {/* Main Content */}
+          <div className="main-content">
+            <h2 className="user-write-main-title">회원정보 수정</h2>
+
+            <form className="user-edit-form" onSubmit={handleSave}>
+              {/* 프로필 사진 편집 */}
+              <div className="profile-picture-section">
+                <div className="profile-picture-preview">
+                  {tempPp ? (
+                    <img src={tempPp} alt="Profile Preview" />
+                  ) : ppUrl ? (
+                    <img src={ppUrl} alt="Profile Preview" />
+                  ) : (
+                    <img
+                      src={require("../../assets/images/yummylogo.webp")}
+                      alt="Default Profile"
+                    />
+                  )}
+                </div>
+                <label className="profile-picture-button">
+                  프로필 사진 업로드
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                    className="profile-picture-input"
                   />
-                )}
+                </label>
               </div>
-              <label className="profile-picture-button">
-                프로필 사진 업로드
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleProfilePictureChange}
-                  className="profile-picture-input"
-                />
-              </label>
-            </div>
 
-            {/* 사용자 정보 입력 폼 */}
-            <label className="user-edit-txt">아이디</label>
-            <input type="text" value={email} readOnly />
+              {/* 사용자 정보 입력 폼 */}
+              <label className="user-edit-txt">아이디</label>
+              <input type="text" value={email} readOnly />
 
-            <label className="user-edit-txt">이름</label>
-            <input type="text" value={userName} readOnly />
+              <label className="user-edit-txt">이름</label>
+              <input type="text" value={userName} readOnly />
 
-            <label className="user-edit-txt">유저네임</label>
-            <input
-              type="text"
-              value={userNickName}
-              onChange={handleUserNickName}
-            />
-
-            <label className="user-edit-txt">새 비밀번호</label>
-            <input
-              type="password"
-              placeholder="새 비밀번호"
-              onChange={handleNewPassword}
-            />
-
-            <label className="user-edit-txt">비밀번호 확인</label>
-            <input
-              type="password"
-              placeholder="비밀번호 확인"
-              onChange={handleConfirmPassword}
-            />
-
-            <label className="user-edit-txt">휴대폰 번호</label>
-            <input
-              type="tel"
-              value={userHp}
-              onChange={handleUserHp}
-              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-            />
-
-            {/* 기념일 추가 섹션 */}
-            <label className="user-edit-txt">기념일 조회</label>
-            <section className="j-add-event-section">
+              <label className="user-edit-txt">유저네임</label>
               <input
                 type="text"
-                placeholder="기념일 이름"
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
+                value={userNickName}
+                onChange={handleUserNickName}
               />
+
+              <label className="user-edit-txt">새 비밀번호</label>
               <input
-                type="date"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
+                type="password"
+                placeholder="새 비밀번호"
+                onChange={handleNewPassword}
               />
-              <button type="button" onClick={handleAddEvent}>
-                기념일 추가하기
-              </button>
-            </section>
-          </form>
 
-          {/* 기념일 리스트 섹션 */}
-          <section className="j-event-list-section">
-            {userEventList.length > 0 ? (
-              userEventList.map((event, index) => (
-                <div key={index} className="j-event-item">
-                  <div className="j-event-info">
-                    <span className="j-event-name">{event.eventName}</span>
-                    <span className="j-event-date">
-                      {new Date(event.eventDate).toLocaleDateString()}
-                    </span>
+              <label className="user-edit-txt">비밀번호 확인</label>
+              <input
+                type="password"
+                placeholder="비밀번호 확인"
+                onChange={handleConfirmPassword}
+              />
+
+              <label className="user-edit-txt">휴대폰 번호</label>
+              <input
+                type="tel"
+                value={userHp}
+                onChange={handleUserHp}
+                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+              />
+
+              {/* 기념일 추가 섹션 */}
+              <label className="user-edit-txt">기념일 조회</label>
+              <section className="j-add-event-section">
+                <input
+                  type="text"
+                  placeholder="기념일 이름"
+                  value={eventName}
+                  onChange={(e) => setEventName(e.target.value)}
+                />
+                <input
+                  type="date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                />
+                <button type="button" onClick={handleAddEvent}>
+                  기념일 추가하기
+                </button>
+              </section>
+            </form>
+
+            {/* 기념일 리스트 섹션 */}
+            <section className="j-event-list-section">
+              {userEventList.length > 0 ? (
+                userEventList.map((event, index) => (
+                  <div key={index} className="j-event-item">
+                    <div className="j-event-info">
+                      <span className="j-event-name">{event.eventName}</span>
+                      <span className="j-event-date">
+                        {new Date(event.eventDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <button
+                      className="j-event-delete"
+                      onClick={() => handleDeleteEvent(event.anniversaryId)}
+                    >
+                      삭제
+                    </button>
                   </div>
-                  <button
-                    className="j-event-delete"
-                    onClick={() => handleDeleteEvent(event.anniversaryId)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="no-events-message">등록된 기념일이 없습니다.</p>
-            )}
-          </section>
+                ))
+              ) : (
+                <p className="no-events-message">등록된 기념일이 없습니다.</p>
+              )}
+            </section>
 
-          <form className="user-edit-form" onSubmit={handleSave}>
-            {/* 저장 및 취소 버튼 */}
-            <div className="user-edit-buttons">
-              <button type="submit" className="user-save-button">
-                저장
-              </button>
+            <form className="user-edit-form" onSubmit={handleSave}>
+              {/* 저장 및 취소 버튼 */}
+              <div className="user-edit-buttons">
+                <button type="submit" className="user-save-button">
+                  저장
+                </button>
+                <button
+                  type="button"
+                  className="user-cancel-button"
+                  onClick={() => navigate(`/user/mypage/order`)}
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+
+            {/* 회원 탈퇴 섹션 */}
+            <div className="j-user-withdrawal-section">
               <button
                 type="button"
-                className="user-cancel-button"
-                onClick={() => navigate(`/user/mypage/order`)}
+                className="j-user-withdrawal-button"
+                onClick={handleOpenWithdrawModal}
               >
-                취소
+                회원 탈퇴
               </button>
             </div>
-          </form>
-
-          {/* 회원 탈퇴 섹션 */}
-          <div className="j-user-withdrawal-section">
-            <button
-              type="button"
-              className="j-user-withdrawal-button"
-              onClick={handleOpenWithdrawModal}
-            >
-              회원 탈퇴
-            </button>
           </div>
-        </div>
-      </main>
+        </main>
 
-      {/* Footer */}
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
+        {/* Footer */}
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
 
-      {/* 탈퇴 확인 모달 */}
-      {isWithdrawModalOpen && (
-        <UserWithdrawConfirm onClose={handleCloseWithdrawModal} />
-      )}
-    </div>
+        {/* 탈퇴 확인 모달 */}
+        {isWithdrawModalOpen && (
+          <UserWithdrawConfirm onClose={handleCloseWithdrawModal} />
+        )}
+      </div>
+    </>
   );
 };
 

@@ -64,17 +64,14 @@ const UserDebateList = () => {
 
   // 페이지 변경 핸들러
   const handlePageChange = (pageNumber) => {
-
     setCurrentPage(pageNumber); // 현재 페이지 업데이트
     fetchData(pageNumber, searchKeyword); // 새로운 페이지의 데이터 가져오기
-
 
     // 페이지 상단으로 스크롤
     window.scrollTo({
       top: 0,
       behavior: "auto",
     });
-
   };
 
   // 카테고리 변경 핸들러
@@ -90,193 +87,198 @@ const UserDebateList = () => {
   }, [currentPage, selectedCategory]);
 
   return (
-    <div id="user-wrap" className="text-center">
+    <>
       {/* 헤더 섹션 */}
-      <header id="user-wrap-head">
-        <Header />
-      </header>
 
-      {/* 메인 섹션 */}
-      <main id="user-wrap-body" className="clearfix">
-        <div className="user-debate-board-list">
-          {/* 소개 섹션 */}
-          <div id="user-cake-design-tip">
-            <div className="gif-container">
-              <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
-            </div>
-            <h2>고민과 의견을 나누는 공간입니다.</h2>
-            <p>도안이나 케이크 고민은 케이크 토크에서 해결하세요!</p>
-          </div>
-
-          {/* 검색 및 필터 섹션 */}
-          <div id="user-cake-design-select-option-list">
-            {/* 카테고리 버튼 */}
-            <div className="user-cake-design-select-option">
-              <button
-                className={`category-button ${
-                  selectedCategory === "" ? "active-option" : ""
-                }`}
-                onClick={() => handleCategoryChange("")}
-              >
-                전체
-              </button>
-              <button
-                className={`category-button ${
-                  selectedCategory === "design" ? "active-option" : ""
-                }`}
-                onClick={() => handleCategoryChange("design")}
-              >
-                디자인 토크
-              </button>
-              <button
-                className={`category-button ${
-                  selectedCategory === "vendor" ? "active-option" : ""
-                }`}
-                onClick={() => handleCategoryChange("vendor")}
-              >
-                베이커리 토크
-              </button>
+      <Header />
+      <div id="user-wrap" className="text-center">
+        {/* 메인 섹션 */}
+        <main id="user-wrap-body" className="clearfix">
+          <div className="user-debate-board-list">
+            {/* 소개 섹션 */}
+            <div id="user-cake-design-tip">
+              <div className="gif-container">
+                <img
+                  src={bubuDuduGif}
+                  alt="부부두두 GIF"
+                  className="right-gif"
+                />
+              </div>
+              <h2>고민과 의견을 나누는 공간입니다.</h2>
+              <p>도안이나 케이크 고민은 케이크 토크에서 해결하세요!</p>
             </div>
 
-            {/* 검색 입력창 */}
-            <div className="user-cake-design-search">
-              <FaSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="게시글 제목 검색"
-                value={searchKeyword}
-                onChange={(e) => setSearchKeyword(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleSearch();
-                }}
-                className="search-input"
-              />
-            </div>
-          </div>
+            {/* 검색 및 필터 섹션 */}
+            <div id="user-cake-design-select-option-list">
+              {/* 카테고리 버튼 */}
+              <div className="user-cake-design-select-option">
+                <button
+                  className={`category-button ${
+                    selectedCategory === "" ? "active-option" : ""
+                  }`}
+                  onClick={() => handleCategoryChange("")}
+                >
+                  전체
+                </button>
+                <button
+                  className={`category-button ${
+                    selectedCategory === "design" ? "active-option" : ""
+                  }`}
+                  onClick={() => handleCategoryChange("design")}
+                >
+                  디자인 토크
+                </button>
+                <button
+                  className={`category-button ${
+                    selectedCategory === "vendor" ? "active-option" : ""
+                  }`}
+                  onClick={() => handleCategoryChange("vendor")}
+                >
+                  베이커리 토크
+                </button>
+              </div>
 
-          {/* 토크 등록 버튼 */}
-          <div id="user-cake-design-add" className="clearfix">
-            <div className="user-cake-design-all">ALL {totalCount}</div>
-            <div className="user-cake-design-add-btn">
-              <button
-                onClick={() => {
-                  if (!token) {
-                    alert("로그인이 필요합니다.");
-                  } else {
-                    navigate("/debate/debateinsert");
-                  }
-                }}
-              >
-                토크 등록하기
-              </button>
+              {/* 검색 입력창 */}
+              <div className="user-cake-design-search">
+                <FaSearch className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="게시글 제목 검색"
+                  value={searchKeyword}
+                  onChange={(e) => setSearchKeyword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearch();
+                  }}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* 토론 목록 테이블 */}
-          <table className="j-discussion-list">
-            <thead>
-              <tr>
-                <th className="column-id">번호</th>
-                <th className="column-title">제목</th>
-                <th className="column-category">카테고리</th>
-                <th className="column-author">작성자</th>
-                <th className="column-date">작성일</th>
-                <th className="column-views">조회수</th>
-              </tr>
-            </thead>
-            <tbody>
-              {debateList.length > 0 ? (
-                debateList.map((debate, index) => (
-                  <tr
-                    key={debate.debate_id}
-                    onClick={() => handleRowClick(debate.debate_id)}
-                    className="clickable-row"
-                  >
-                    <td className="column-id">{index + 1}</td>
-                    <td className="column-title">{debate.debate_title}</td>
-                    <td className="column-category">
-                      {debate.debate_category === "vendor"
-                        ? "베이커리 토크"
-                        : debate.debate_category === "design"
-                        ? "케이크 토크"
-                        : debate.debate_category}
-                    </td>
-                    <td className="column-author">{debate.user_nickname}</td>
-                    <td className="column-date">
-                      {new Date(debate.debate_created_at)
-                        .toLocaleDateString("ko-KR")
-                        .replace(/\.$/, "")}
-                    </td>
-                    <td className="column-views">{debate.debate_view_count}</td>
-                  </tr>
-                ))
-              ) : (
+            {/* 토크 등록 버튼 */}
+            <div id="user-cake-design-add" className="clearfix">
+              <div className="user-cake-design-all">ALL {totalCount}</div>
+              <div className="user-cake-design-add-btn">
+                <button
+                  onClick={() => {
+                    if (!token) {
+                      alert("로그인이 필요합니다.");
+                    } else {
+                      navigate("/debate/debateinsert");
+                    }
+                  }}
+                >
+                  토크 등록하기
+                </button>
+              </div>
+            </div>
+
+            {/* 토론 목록 테이블 */}
+            <table className="j-discussion-list">
+              <thead>
                 <tr>
-                  <td colSpan="6" className="no-data">
-                    검색 결과가 없습니다.
-                  </td>
+                  <th className="column-id">번호</th>
+                  <th className="column-title">제목</th>
+                  <th className="column-category">카테고리</th>
+                  <th className="column-author">작성자</th>
+                  <th className="column-date">작성일</th>
+                  <th className="column-views">조회수</th>
                 </tr>
+              </thead>
+              <tbody>
+                {debateList.length > 0 ? (
+                  debateList.map((debate, index) => (
+                    <tr
+                      key={debate.debate_id}
+                      onClick={() => handleRowClick(debate.debate_id)}
+                      className="clickable-row"
+                    >
+                      <td className="column-id">{index + 1}</td>
+                      <td className="column-title">{debate.debate_title}</td>
+                      <td className="column-category">
+                        {debate.debate_category === "vendor"
+                          ? "베이커리 토크"
+                          : debate.debate_category === "design"
+                          ? "케이크 토크"
+                          : debate.debate_category}
+                      </td>
+                      <td className="column-author">{debate.user_nickname}</td>
+                      <td className="column-date">
+                        {new Date(debate.debate_created_at)
+                          .toLocaleDateString("ko-KR")
+                          .replace(/\.$/, "")}
+                      </td>
+                      <td className="column-views">
+                        {debate.debate_view_count}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="no-data">
+                      검색 결과가 없습니다.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+
+            {/* 페이지네이션 */}
+            <div className="user-cake-design-pagination">
+              {/* 이전 페이지 버튼 */}
+              {currentPage > 1 && (
+                <button
+                  className="user-cake-design-prev-page"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
+                  {"<"}
+                </button>
               )}
-            </tbody>
-          </table>
 
-          {/* 페이지네이션 */}
-          <div className="user-cake-design-pagination">
-            {/* 이전 페이지 버튼 */}
-            {currentPage > 1 && (
-              <button
-                className="user-cake-design-prev-page"
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                {"<"}
-              </button>
-            )}
+              {/* 페이지 번호 */}
+              {(() => {
+                const pageNumbers = [];
+                const maxPages = 5;
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, startPage + maxPages - 1);
 
-            {/* 페이지 번호 */}
-            {(() => {
-              const pageNumbers = [];
-              const maxPages = 5;
-              let startPage = Math.max(1, currentPage - 2);
-              let endPage = Math.min(totalPages, startPage + maxPages - 1);
+                if (endPage - startPage + 1 < maxPages) {
+                  startPage = Math.max(1, endPage - maxPages + 1);
+                }
 
-              if (endPage - startPage + 1 < maxPages) {
-                startPage = Math.max(1, endPage - maxPages + 1);
-              }
+                for (let i = startPage; i <= endPage; i++) {
+                  pageNumbers.push(
+                    <button
+                      key={i}
+                      className={`user-cake-design-page-number ${
+                        currentPage === i ? "active" : ""
+                      }`}
+                      onClick={() => handlePageChange(i)}
+                    >
+                      {i}
+                    </button>
+                  );
+                }
+                return pageNumbers;
+              })()}
 
-              for (let i = startPage; i <= endPage; i++) {
-                pageNumbers.push(
-                  <button
-                    key={i}
-                    className={`user-cake-design-page-number ${
-                      currentPage === i ? "active" : ""
-                    }`}
-                    onClick={() => handlePageChange(i)}
-                  >
-                    {i}
-                  </button>
-                );
-              }
-              return pageNumbers;
-            })()}
-
-            {/* 다음 페이지 버튼 */}
-            {currentPage < totalPages && (
-              <button
-                className="user-cake-design-next-page"
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                {">"}
-              </button>
-            )}
+              {/* 다음 페이지 버튼 */}
+              {currentPage < totalPages && (
+                <button
+                  className="user-cake-design-next-page"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
+                  {">"}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      {/* 푸터 섹션 */}
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-    </div>
+        {/* 푸터 섹션 */}
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 

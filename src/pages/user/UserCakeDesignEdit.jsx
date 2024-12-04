@@ -158,169 +158,171 @@ const UserCakeDesignEdit = () => {
   };
 
   return (
-    <div id="user-wrap" className="text-center">
+    <>
       {/* Header */}
-      <header id="user-wrap-head">
-        <Header />
-      </header>
 
-      {/* Main Content */}
-      <main id="user-wrap-body" className="clearfix">
-        <div className="user-cake-design-board-list">
-          <form className="user-cake-design-main" onSubmit={handleEdit}>
-            <div className="user-cake-design-title-container">
-              <h1 className="user-cake-design-title">나만의 도안을 수정하세요!</h1>
-            </div>
-            {/* 기본 이미지 + 미리보기 이미지 출력 */}
-            <div className="user-cake-design-imgs">
-              {/* 기본 이미지 */}
-              <div className="user-cake-design-saved-list">
-                {registeredImages.map((image, index) => (
-                  <div key={index}>
-                    <div>
-                      <img src={image} alt={`등록 이미지 ${index + 1}`} />
+      <Header />
+      <div id="user-wrap" className="text-center">
+        {/* Main Content */}
+        <main id="user-wrap-body" className="clearfix">
+          <div className="user-cake-design-board-list">
+            <form className="user-cake-design-main" onSubmit={handleEdit}>
+              <div className="user-cake-design-title-container">
+                <h1 className="user-cake-design-title">
+                  나만의 도안을 수정하세요!
+                </h1>
+              </div>
+              {/* 기본 이미지 + 미리보기 이미지 출력 */}
+              <div className="user-cake-design-imgs">
+                {/* 기본 이미지 */}
+                <div className="user-cake-design-saved-list">
+                  {registeredImages.map((image, index) => (
+                    <div key={index}>
+                      <div>
+                        <img src={image} alt={`등록 이미지 ${index + 1}`} />
+                      </div>
+                      <button
+                        type="button"
+                        className="user-selected-remove-button"
+                        onClick={() => handleRegisteredImageDelete(image)}
+                      >
+                        <BsTrash />
+                      </button>
                     </div>
+                  ))}
+                </div>
+                {/* 추가된 파일 미리보기 */}
+                <div className="new-Preview-img">
+                  {files.map(
+                    (fileInput) =>
+                      fileInput.preview && (
+                        <img
+                          key={fileInput.id}
+                          src={fileInput.preview}
+                          alt="미리보기 이미지"
+                        />
+                      )
+                  )}
+                </div>
+              </div>
+              {/* 도안 이미지 업로드 */}
+              <div className="user-cake-design-form-groups">
+                <div className="form-group-header">
+                  <span>
+                    <label>도안 이미지</label>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={addFileInput}
+                    className="user-add-image-button"
+                  >
+                    <FaPlus /> 추가
+                  </button>
+                </div>
+
+                {files.map((fileInput) => (
+                  <div key={fileInput.id} className="user-file-input-wrappers">
+                    <input
+                      type="file"
+                      id={`file-${fileInput.id}`}
+                      onChange={(e) => handleFileChange(e, fileInput.id)}
+                    />
                     <button
                       type="button"
-                      className="user-selected-remove-button"
-                      onClick={() => handleRegisteredImageDelete(image)}
+                      className="user-remove-button"
+                      onClick={() => removeFileInput(fileInput.id)}
                     >
                       <BsTrash />
                     </button>
                   </div>
                 ))}
               </div>
-              {/* 추가된 파일 미리보기 */}
-              <div className="new-Preview-img">
-                {files.map(
-                  (fileInput) =>
-                    fileInput.preview && (
-                      <img
-                        key={fileInput.id}
-                        src={fileInput.preview}
-                        alt="미리보기 이미지"
-                      />
-                    )
-                )}
+              {/* 도안 제목 */}
+              <div className="user-cake-design-form-groups">
+                <label htmlFor="user-cake-design-name">제목</label>
+                <input
+                  type="text"
+                  id="user-cake-design-name"
+                  placeholder=""
+                  value={cakeDesignName}
+                  onChange={handleCakeDesignName}
+                  className="user-input-text"
+                />
               </div>
-            </div>
-            {/* 도안 이미지 업로드 */}
-            <div className="user-cake-design-form-groups">
-              <div className="form-group-header">
-                <span>
-                  <label>도안 이미지</label>
-                </span>
+              {/* 도안 설명 */}
+              <div className="user-cake-design-form-groups">
+                <label htmlFor="user-cake-design-description">설명</label>
+                <textarea
+                  id="user-cake-design-description"
+                  placeholder=""
+                  value={cakeDesignDescription}
+                  onChange={handleCakeDesignDescription}
+                  className="user-input-text"
+                  rows="4"
+                />
+              </div>
+              {/* 선호 케이크형태 */}
+              <div className="user-cake-design-form-groups">
+                <label htmlFor="user-cake-design-shape">
+                  선호하는 케이크 형태
+                </label>
+                <input
+                  type="text"
+                  id="user-cake-design-shape"
+                  placeholder=""
+                  value={cakeDesignShape}
+                  onChange={handleCakeDesignShape}
+                  className="user-input-text"
+                />
+              </div>
+              {/* 선호 연령대 */}
+              <div className="user-cake-design-form-groups">
+                <label htmlFor="user-cake-design-prefer">선호하는 연령대</label>
+                <input
+                  type="text"
+                  id="user-cake-design-prefer"
+                  placeholder=""
+                  value={cakeDesignPrefer}
+                  onChange={handleCakeDesignPrefer}
+                  className="user-input-text"
+                />
+              </div>
+              {/* 적용 가능 이벤트 */}
+              <div className="user-cake-design-form-groups">
+                <label htmlFor="user-cake-design-event">적용 가능 이벤트</label>
+                <input
+                  type="text"
+                  id="user-cake-design-event"
+                  placeholder=""
+                  value={cakeDesignEvent}
+                  onChange={handleCakeDesignEvent}
+                  className="user-input-text"
+                />
+              </div>
+              {/* 등록 버튼 */}
+              <div className="user-ckae-design-btn-group">
+                <button type="submit" className="user-cake-design-add-button">
+                  수정
+                </button>
                 <button
-                  type="button"
-                  onClick={addFileInput}
-                  className="user-add-image-button"
+                  className="user-cake-design-cancel-button"
+                  onClick={() =>
+                    navigate(`/user/cakeDesign/detail/${cakeDesignId}`)
+                  }
                 >
-                  <FaPlus /> 추가
+                  취소
                 </button>
               </div>
+            </form>
+          </div>
+        </main>
 
-              {files.map((fileInput) => (
-                <div key={fileInput.id} className="user-file-input-wrappers">
-                  <input
-                    type="file"
-                    id={`file-${fileInput.id}`}
-                    onChange={(e) => handleFileChange(e, fileInput.id)}
-                  />
-                  <button
-                    type="button"
-                    className="user-remove-button"
-                    onClick={() => removeFileInput(fileInput.id)}
-                  >
-                    <BsTrash />
-                  </button>
-                </div>
-              ))}
-            </div>
-            {/* 도안 제목 */}
-            <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-name">제목</label>
-              <input
-                type="text"
-                id="user-cake-design-name"
-                placeholder=""
-                value={cakeDesignName}
-                onChange={handleCakeDesignName}
-                className="user-input-text"
-              />
-            </div>
-            {/* 도안 설명 */}
-            <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-description">설명</label>
-              <textarea
-                id="user-cake-design-description"
-                placeholder=""
-                value={cakeDesignDescription}
-                onChange={handleCakeDesignDescription}
-                className="user-input-text"
-                rows="4"
-              />
-            </div>
-            {/* 선호 케이크형태 */}
-            <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-shape">
-                선호하는 케이크 형태
-              </label>
-              <input
-                type="text"
-                id="user-cake-design-shape"
-                placeholder=""
-                value={cakeDesignShape}
-                onChange={handleCakeDesignShape}
-                className="user-input-text"
-              />
-            </div>
-            {/* 선호 연령대 */}
-            <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-prefer">선호하는 연령대</label>
-              <input
-                type="text"
-                id="user-cake-design-prefer"
-                placeholder=""
-                value={cakeDesignPrefer}
-                onChange={handleCakeDesignPrefer}
-                className="user-input-text"
-              />
-            </div>
-            {/* 적용 가능 이벤트 */}
-            <div className="user-cake-design-form-groups">
-              <label htmlFor="user-cake-design-event">적용 가능 이벤트</label>
-              <input
-                type="text"
-                id="user-cake-design-event"
-                placeholder=""
-                value={cakeDesignEvent}
-                onChange={handleCakeDesignEvent}
-                className="user-input-text"
-              />
-            </div>
-            {/* 등록 버튼 */}
-            <div className="user-ckae-design-btn-group">
-              <button type="submit" className="user-cake-design-add-button">
-                수정
-              </button>
-              <button
-                className="user-cake-design-cancel-button"
-                onClick={() =>
-                  navigate(`/user/cakeDesign/detail/${cakeDesignId}`)
-                }
-              >
-                취소
-              </button>
-            </div>
-          </form>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-    </div>
+        {/* Footer */}
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 

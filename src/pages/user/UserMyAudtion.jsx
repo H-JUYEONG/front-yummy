@@ -93,142 +93,141 @@ const UserMyAudtion = () => {
   };
 
   return (
-    <div id="user-wrap">
-      <header id="user-wrap-head">
-        <Header />
-      </header>
+    <>
+      <Header />
+      <div id="user-wrap">
+        <main id="user-wrap-body">
+          <UserSidebar />
 
-      <main id="user-wrap-body">
-        <UserSidebar />
+          <div className="audition-list-container">
+            <h2>케이크 요청 내역</h2>
+            <div className="audition-filter">
+              <button
+                className={`filter-button ${
+                  filter === "진행중" ? "active-ongoing" : ""
+                }`}
+                onClick={() => handleFilterChange("진행중")}
+              >
+                진행중
+              </button>
+              <button
+                className={`filter-button ${
+                  filter === "종료" ? "active-end" : ""
+                }`}
+                onClick={() => handleFilterChange("종료")}
+              >
+                종료
+              </button>
+            </div>
 
-        <div className="audition-list-container">
-          <h2>케이크 요청 내역</h2>
-          <div className="audition-filter">
-            <button
-              className={`filter-button ${
-                filter === "진행중" ? "active-ongoing" : ""
-              }`}
-              onClick={() => handleFilterChange("진행중")}
-            >
-              진행중
-            </button>
-            <button
-              className={`filter-button ${
-                filter === "종료" ? "active-end" : ""
-              }`}
-              onClick={() => handleFilterChange("종료")}
-            >
-              종료
-            </button>
-          </div>
-
-          <table className="audition-table">
-            <thead>
-              <tr>
-                <th>글 번호</th>
-                <th>제목</th>
-                <th>제시금액</th>
-                <th>수령방식</th>
-                <th>지역(구)</th>
-                <th>작성일</th>
-                <th>요청 내역 상세</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentAuditions.length > 0 ? (
-                currentAuditions.map((audition, index) => (
-                  <tr key={index}>
-                    <td>{audition.auditionApplicationId}</td>
-                    <td
-                      onClick={() =>
-                        navigate(
-                          `/user/audition/ongoing/${audition.auditionApplicationId}`
-                        )
-                      }
-                      className="go-to-ongoing-detail"
-                    >
-                      {audition.auditionApplicationTitle}
-                    </td>
-                    <td>{audition.expectedPrice.toLocaleString()}원</td>
-                    <td>{audition.deliveryMethod}</td>
-                    <td>{audition.region}</td>
-                    <td>{audition.createdAt}</td>
-                    <td>
-                      <a
-                        href={audition.orderLink}
-                        className="order-link"
-                        onClick={() => openModal(audition)}
+            <table className="audition-table">
+              <thead>
+                <tr>
+                  <th>글 번호</th>
+                  <th>제목</th>
+                  <th>제시금액</th>
+                  <th>수령방식</th>
+                  <th>지역(구)</th>
+                  <th>작성일</th>
+                  <th>요청 내역 상세</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentAuditions.length > 0 ? (
+                  currentAuditions.map((audition, index) => (
+                    <tr key={index}>
+                      <td>{audition.auditionApplicationId}</td>
+                      <td
+                        onClick={() =>
+                          navigate(
+                            `/user/audition/ongoing/${audition.auditionApplicationId}`
+                          )
+                        }
+                        className="go-to-ongoing-detail"
                       >
-                        상세보기
-                      </a>
-                      {/* {audition.reviewLink && (
+                        {audition.auditionApplicationTitle}
+                      </td>
+                      <td>{audition.expectedPrice.toLocaleString()}원</td>
+                      <td>{audition.deliveryMethod}</td>
+                      <td>{audition.region}</td>
+                      <td>{audition.createdAt}</td>
+                      <td>
+                        <a
+                          href={audition.orderLink}
+                          className="order-link"
+                          onClick={() => openModal(audition)}
+                        >
+                          상세보기
+                        </a>
+                        {/* {audition.reviewLink && (
                         <Link to="/user/cakedetail">
                           <button className="review-button">
                             리뷰작성하러가기
                           </button>
                         </Link>
                       )} */}
-                    </td>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7">해당 조건에 맞는 데이터가 없습니다.</td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7">해당 조건에 맞는 데이터가 없습니다.</td>
-                </tr>
+                )}
+              </tbody>
+            </table>
+
+            {/* 페이지 네이션 */}
+            <div className="user-audition-mypage-pagination">
+              {/* 이전 버튼 */}
+              {currentPage > 1 && (
+                <button
+                  className="user-audition-mypage-prev-button"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                >
+                  &lt;
+                </button>
               )}
-            </tbody>
-          </table>
 
-          {/* 페이지 네이션 */}
-          <div className="user-audition-mypage-pagination">
-            {/* 이전 버튼 */}
-            {currentPage > 1 && (
-              <button
-                className="user-audition-mypage-prev-button"
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                &lt;
-              </button>
-            )}
+              {/* 페이지 번호 버튼 */}
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`user-audition-mypage-page-button ${
+                    currentPage === index + 1 ? "active" : ""
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
 
-            {/* 페이지 번호 버튼 */}
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`user-audition-mypage-page-button ${
-                  currentPage === index + 1 ? "active" : ""
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-
-            {/* 다음 버튼 */}
-            {currentPage < totalPages && (
-              <button
-                className="user-audition-mypage-next-button"
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                &gt;
-              </button>
-            )}
+              {/* 다음 버튼 */}
+              {currentPage < totalPages && (
+                <button
+                  className="user-audition-mypage-next-button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                >
+                  &gt;
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-      {/* 모달 컴포넌트 */}
-      {isModalOpen && selectedAudition && (
-        <UserAuditionModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          audition={selectedAudition}
-        />
-      )}
-    </div>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+        {/* 모달 컴포넌트 */}
+        {isModalOpen && selectedAudition && (
+          <UserAuditionModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            audition={selectedAudition}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

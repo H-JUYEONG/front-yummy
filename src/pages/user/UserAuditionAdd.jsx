@@ -148,348 +148,354 @@ const UserAuditionAdd = () => {
   };
 
   return (
-    <div id="user-wrap" className="text-center">
-      <header id="user-wrap-head">
-        <Header />
-      </header>
+    <>
+      <Header />
+      <div id="user-wrap" className="text-center">
+        <main id="user-wrap-body" className="clearfix">
+          <div className="user-cake-audition-board-list">
+            <form
+              className="user-cake-audition-main"
+              onSubmit={handleFormSubmit}
+            >
+              <div className="user-cake-audition-title-container">
+                <h1 className="user-cake-audition-title">
+                  달콤한 케이크 부탁해요!
+                </h1>
+              </div>
 
-      <main id="user-wrap-body" className="clearfix">
-        <div className="user-cake-audition-board-list">
-          <form className="user-cake-audition-main" onSubmit={handleFormSubmit}>
-            <div className="user-cake-audition-title-container">
-              <h1 className="user-cake-audition-title">
-                달콤한 케이크 부탁해요!
-              </h1>
-            </div>
+              <div className="user-cake-audition-form-group">
+                <p class="audition-info-notice">
+                  ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
+                  공개됩니다.
+                </p>
+                <label htmlFor="title">제목</label>
+                <input
+                  type="text"
+                  id="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="예: 생일 파티용 케이크 만들어 주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <p class="audition-info-notice">
-                ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
-                공개됩니다.
-              </p>
-              <label htmlFor="title">제목</label>
-              <input
-                type="text"
-                id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="예: 생일 파티용 케이크 만들어 주세요."
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="price">희망 가격</label>
+                <input
+                  type="text"
+                  id="price"
+                  value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
+                  onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
+                  placeholder="숫자만 입력해주세요. (예: 35000)"
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="price">희망 가격</label>
-              <input
-                type="text"
-                id="price"
-                value={price ? Number(price).toLocaleString() : ""} // 숫자를 천 단위로 쉼표 추가
-                onChange={(e) => setPrice(e.target.value.replace(/,/g, ""))} // 쉼표 제거 후 상태 저장
-                placeholder="숫자만 입력해주세요. (예: 35000)"
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="size">사이즈</label>
+                <input
+                  type="text"
+                  id="size"
+                  value={size}
+                  onChange={(e) => setSize(e.target.value)}
+                  placeholder="예: 12cm"
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="size">사이즈</label>
-              <input
-                type="text"
-                id="size"
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-                placeholder="예: 12cm"
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="cake-lettering">케이크 위 레터링</label>
+                <input
+                  type="text"
+                  id="cake-lettering"
+                  value={cakeLettering}
+                  onChange={(e) => setCakeLettering(e.target.value)}
+                  placeholder="케이크에 들어갈 메시지를 작성해주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="cake-lettering">케이크 위 레터링</label>
-              <input
-                type="text"
-                id="cake-lettering"
-                value={cakeLettering}
-                onChange={(e) => setCakeLettering(e.target.value)}
-                placeholder="케이크에 들어갈 메시지를 작성해주세요."
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="plate-lettering">케이크 판 레터링</label>
+                <input
+                  type="text"
+                  id="plate-lettering"
+                  value={plateLettering}
+                  onChange={(e) => setPlateLettering(e.target.value)}
+                  placeholder="케이크 판에 들어갈 메시지를 작성해주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="plate-lettering">케이크 판 레터링</label>
-              <input
-                type="text"
-                id="plate-lettering"
-                value={plateLettering}
-                onChange={(e) => setPlateLettering(e.target.value)}
-                placeholder="케이크 판에 들어갈 메시지를 작성해주세요."
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="deliveryMethod">수령 방식</label>
+                <select
+                  id="deliveryMethod"
+                  value={deliveryMethod}
+                  onChange={(e) => setDeliveryMethod(e.target.value)}
+                  className="user-audition-input-text"
+                >
+                  <option value="픽업">픽업</option>
+                  <option value="배송">배송</option>
+                </select>
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="deliveryMethod">수령 방식</label>
-              <select
-                id="deliveryMethod"
-                value={deliveryMethod}
-                onChange={(e) => setDeliveryMethod(e.target.value)}
-                className="user-audition-input-text"
-              >
-                <option value="픽업">픽업</option>
-                <option value="배송">배송</option>
-              </select>
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="region">수령 지역</label>
+                <select
+                  id="region"
+                  value={region}
+                  onChange={(e) => setRegion(e.target.value)}
+                  className="user-audition-input-text"
+                >
+                  <option value="">
+                    케이크를 수령할 지역(구)을 선택해주세요.
+                  </option>
+                  <option value="강남구">강남구</option>
+                  <option value="종로구">종로구</option>
+                  <option value="중구">중구</option>
+                  <option value="용산구">용산구</option>
+                  <option value="성동구">성동구</option>
+                  <option value="광진구">광진구</option>
+                  <option value="동대문구">동대문구</option>
+                  <option value="중랑구">중랑구</option>
+                  <option value="성북구">성북구</option>
+                  <option value="강북구">강북구</option>
+                  <option value="도봉구">도봉구</option>
+                  <option value="노원구">노원구</option>
+                  <option value="은평구">은평구</option>
+                  <option value="서대문구">서대문구</option>
+                  <option value="마포구">마포구</option>
+                  <option value="양천구">양천구</option>
+                  <option value="강서구">강서구</option>
+                  <option value="구로구">구로구</option>
+                  <option value="금천구">금천구</option>
+                  <option value="영등포구">영등포구</option>
+                  <option value="동작구">동작구</option>
+                  <option value="관악구">관악구</option>
+                  <option value="서초구">서초구</option>
+                  <option value="강남구">강남구</option>
+                  <option value="송파구">송파구</option>
+                  <option value="강동구">강동구</option>
+                </select>
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="region">수령 지역</label>
-              <select
-                id="region"
-                value={region}
-                onChange={(e) => setRegion(e.target.value)}
-                className="user-audition-input-text"
-              >
-                <option value="">
-                  케이크를 수령할 지역(구)을 선택해주세요.
-                </option>
-                <option value="강남구">강남구</option>
-                <option value="종로구">종로구</option>
-                <option value="중구">중구</option>
-                <option value="용산구">용산구</option>
-                <option value="성동구">성동구</option>
-                <option value="광진구">광진구</option>
-                <option value="동대문구">동대문구</option>
-                <option value="중랑구">중랑구</option>
-                <option value="성북구">성북구</option>
-                <option value="강북구">강북구</option>
-                <option value="도봉구">도봉구</option>
-                <option value="노원구">노원구</option>
-                <option value="은평구">은평구</option>
-                <option value="서대문구">서대문구</option>
-                <option value="마포구">마포구</option>
-                <option value="양천구">양천구</option>
-                <option value="강서구">강서구</option>
-                <option value="구로구">구로구</option>
-                <option value="금천구">금천구</option>
-                <option value="영등포구">영등포구</option>
-                <option value="동작구">동작구</option>
-                <option value="관악구">관악구</option>
-                <option value="서초구">서초구</option>
-                <option value="강남구">강남구</option>
-                <option value="송파구">송파구</option>
-                <option value="강동구">강동구</option>
-              </select>
-            </div>
+              {deliveryMethod === "픽업" && (
+                <>
+                  <div className="user-cake-audition-form-group">
+                    <label htmlFor="desiredDate">희망 픽업일</label>
+                    <input
+                      type="date"
+                      id="desiredDate"
+                      value={desiredDate}
+                      onChange={(e) => setDesiredDate(e.target.value)}
+                      className="user-audition-input-text"
+                    />
+                  </div>
+                  <div className="user-cake-audition-form-group">
+                    <label htmlFor="desiredTime">희망 픽업 시간</label>
+                    <select
+                      id="desiredTime"
+                      value={desiredTime}
+                      onChange={(e) => setDesiredTime(e.target.value)}
+                      className="user-audition-input-text"
+                    >
+                      <option value="">
+                        수령을 원하는 시간을 선택해주세요.
+                      </option>
+                      <option value="09:00">09:00</option>
+                      <option value="10:00">10:00</option>
+                      <option value="11:00">11:00</option>
+                      <option value="12:00">12:00</option>
+                      <option value="13:00">13:00</option>
+                      <option value="14:00">14:00</option>
+                      <option value="15:00">15:00</option>
+                      <option value="16:00">16:00</option>
+                      <option value="17:00">17:00</option>
+                      <option value="18:00">18:00</option>
+                    </select>
+                  </div>
+                </>
+              )}
 
-            {deliveryMethod === "픽업" && (
-              <>
-                <div className="user-cake-audition-form-group">
-                  <label htmlFor="desiredDate">희망 픽업일</label>
-                  <input
-                    type="date"
-                    id="desiredDate"
-                    value={desiredDate}
-                    onChange={(e) => setDesiredDate(e.target.value)}
-                    className="user-audition-input-text"
-                  />
-                </div>
-                <div className="user-cake-audition-form-group">
-                  <label htmlFor="desiredTime">희망 픽업 시간</label>
-                  <select
-                    id="desiredTime"
-                    value={desiredTime}
-                    onChange={(e) => setDesiredTime(e.target.value)}
-                    className="user-audition-input-text"
-                  >
-                    <option value="">수령을 원하는 시간을 선택해주세요.</option>
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                    <option value="18:00">18:00</option>
-                  </select>
-                </div>
-              </>
-            )}
+              {deliveryMethod === "배송" && (
+                <>
+                  <div className="user-cake-audition-form-group">
+                    <label htmlFor="desiredDate">희망 수령일</label>
+                    <input
+                      type="date"
+                      id="desiredDate"
+                      value={desiredDate}
+                      onChange={(e) => setDesiredDate(e.target.value)}
+                      className="user-audition-input-text"
+                    />
+                  </div>
+                  <div className="user-cake-audition-form-group">
+                    <label htmlFor="desiredTime">희망 수령 시간</label>
+                    <select
+                      id="desiredTime"
+                      value={desiredTime}
+                      onChange={(e) => setDesiredTime(e.target.value)}
+                      className="user-audition-input-text"
+                    >
+                      <option value="">
+                        수령을 원하는 시간을 선택해주세요.
+                      </option>
+                      <option value="09:00">09:00</option>
+                      <option value="10:00">10:00</option>
+                      <option value="11:00">11:00</option>
+                      <option value="12:00">12:00</option>
+                      <option value="13:00">13:00</option>
+                      <option value="14:00">14:00</option>
+                      <option value="15:00">15:00</option>
+                      <option value="16:00">16:00</option>
+                      <option value="17:00">17:00</option>
+                      <option value="18:00">18:00</option>
+                    </select>
+                  </div>
+                  <div className="user-cake-audition-form-group">
+                    <label htmlFor="deliveryAddress">배송 주소</label>
+                    <input
+                      type="text"
+                      id="deliveryAddress"
+                      value={deliveryAddress}
+                      onChange={(e) => setDeliveryAddress(e.target.value)}
+                      placeholder="도로명 주소와 상세 주소를 정확히 입력해주세요. (예: 서울특별시 강남구 테헤란로 123, 101동 202호)"
+                      className="user-audition-input-text"
+                    />
+                  </div>
+                </>
+              )}
 
-            {deliveryMethod === "배송" && (
-              <>
-                <div className="user-cake-audition-form-group">
-                  <label htmlFor="desiredDate">희망 수령일</label>
-                  <input
-                    type="date"
-                    id="desiredDate"
-                    value={desiredDate}
-                    onChange={(e) => setDesiredDate(e.target.value)}
-                    className="user-audition-input-text"
-                  />
-                </div>
-                <div className="user-cake-audition-form-group">
-                  <label htmlFor="desiredTime">희망 수령 시간</label>
-                  <select
-                    id="desiredTime"
-                    value={desiredTime}
-                    onChange={(e) => setDesiredTime(e.target.value)}
-                    className="user-audition-input-text"
-                  >
-                    <option value="">수령을 원하는 시간을 선택해주세요.</option>
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                    <option value="18:00">18:00</option>
-                  </select>
-                </div>
-                <div className="user-cake-audition-form-group">
-                  <label htmlFor="deliveryAddress">배송 주소</label>
-                  <input
-                    type="text"
-                    id="deliveryAddress"
-                    value={deliveryAddress}
-                    onChange={(e) => setDeliveryAddress(e.target.value)}
-                    placeholder="도로명 주소와 상세 주소를 정확히 입력해주세요. (예: 서울특별시 강남구 테헤란로 123, 101동 202호)"
-                    className="user-audition-input-text"
-                  />
-                </div>
-              </>
-            )}
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="recipient">받는 사람</label>
+                <input
+                  type="text"
+                  id="recipient"
+                  value={recipient}
+                  onChange={(e) => setRecipient(e.target.value)}
+                  placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="recipient">받는 사람</label>
-              <input
-                type="text"
-                id="recipient"
-                value={recipient}
-                onChange={(e) => setRecipient(e.target.value)}
-                placeholder="받으실 분의 이름을 입력해주세요. (예: 홍길동)"
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="recipient-phone">받는 사람 연락처</label>
+                <input
+                  type="text"
+                  id="recipient-phone"
+                  value={recipientPhone}
+                  onChange={(e) => setRecipientPhone(e.target.value)}
+                  placeholder="'-' 없이 숫자만 입력해주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="recipient-phone">받는 사람 연락처</label>
-              <input
-                type="text"
-                id="recipient-phone"
-                value={recipientPhone}
-                onChange={(e) => setRecipientPhone(e.target.value)}
-                placeholder="'-' 없이 숫자만 입력해주세요."
-                className="user-audition-input-text"
-              />
-            </div>
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="requests">요청사항</label>
+                <textarea
+                  id="requests"
+                  value={requests}
+                  onChange={(e) => setRequests(e.target.value)}
+                  placeholder="케이크의 컨셉, 색상, 디자인 등 자세한 내용을 적어주세요."
+                  className="user-audition-input-text"
+                  rows="7"
+                ></textarea>
+              </div>
 
-            <div className="user-cake-audition-form-group">
-              <label htmlFor="requests">요청사항</label>
-              <textarea
-                id="requests"
-                value={requests}
-                onChange={(e) => setRequests(e.target.value)}
-                placeholder="케이크의 컨셉, 색상, 디자인 등 자세한 내용을 적어주세요."
-                className="user-audition-input-text"
-                rows="7"
-              ></textarea>
-            </div>
+              {/* 탭 메뉴 */}
+              <div className="user-audition-tabs">
+                <button
+                  type="button"
+                  className={selectedTab === "My 도안" ? "active" : ""}
+                  onClick={() => handleTabChange("My 도안")}
+                >
+                  My 도안
+                </button>
+                <button
+                  type="button"
+                  className={selectedTab === "사진 첨부" ? "active" : ""}
+                  onClick={() => handleTabChange("사진 첨부")}
+                >
+                  사진 첨부
+                </button>
+                <button
+                  type="button"
+                  className={selectedTab === "사진 없음" ? "active" : ""}
+                  onClick={() => handleTabChange("사진 없음")}
+                >
+                  사진 없음
+                </button>
+              </div>
 
-            {/* 탭 메뉴 */}
-            <div className="user-audition-tabs">
-              <button
-                type="button"
-                className={selectedTab === "My 도안" ? "active" : ""}
-                onClick={() => handleTabChange("My 도안")}
-              >
-                My 도안
-              </button>
-              <button
-                type="button"
-                className={selectedTab === "사진 첨부" ? "active" : ""}
-                onClick={() => handleTabChange("사진 첨부")}
-              >
-                사진 첨부
-              </button>
-              <button
-                type="button"
-                className={selectedTab === "사진 없음" ? "active" : ""}
-                onClick={() => handleTabChange("사진 없음")}
-              >
-                사진 없음
-              </button>
-            </div>
-
-            {/* 탭에 따른 내용 */}
-            <div className="user-audition-design-preview">
-              {selectedTab === "My 도안" && (
-                <div className="user-audition-liked-designs">
-                  {likedDesigns.length > 0 ? (
-                    likedDesigns.map((design, index) => (
-                      <div
-                        key={index}
-                        className={`user-audition-liked-design-card ${
-                          selectedDesignId === design.cakeDesignId
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          handleSelectDesign(
-                            design.cakeDesignId,
-                            design.cakeDesignImageUrl
-                          )
-                        }
-                      >
+              {/* 탭에 따른 내용 */}
+              <div className="user-audition-design-preview">
+                {selectedTab === "My 도안" && (
+                  <div className="user-audition-liked-designs">
+                    {likedDesigns.length > 0 ? (
+                      likedDesigns.map((design, index) => (
+                        <div
+                          key={index}
+                          className={`user-audition-liked-design-card ${
+                            selectedDesignId === design.cakeDesignId
+                              ? "selected"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            handleSelectDesign(
+                              design.cakeDesignId,
+                              design.cakeDesignImageUrl
+                            )
+                          }
+                        >
+                          <img
+                            src={design.cakeDesignImageUrl}
+                            alt={design.cakeDesignTitle}
+                          />
+                          <p>{design.cakeDesignTitle}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>리스트가 없습니다.</p>
+                    )}
+                  </div>
+                )}
+                {selectedTab === "사진 첨부" && (
+                  <div className="user-audition-upload-section">
+                    <input type="file" onChange={handleImageUpload} />
+                    {uploadedImage && (
+                      <div className="user-audition-uploaded-image-preview">
                         <img
-                          src={design.cakeDesignImageUrl}
-                          alt={design.cakeDesignTitle}
+                          src={URL.createObjectURL(uploadedImage)}
+                          alt="Uploaded"
                         />
-                        <p>{design.cakeDesignTitle}</p>
                       </div>
-                    ))
-                  ) : (
-                    <p>리스트가 없습니다.</p>
-                  )}
-                </div>
-              )}
-              {selectedTab === "사진 첨부" && (
-                <div className="user-audition-upload-section">
-                  <input type="file" onChange={handleImageUpload} />
-                  {uploadedImage && (
-                    <div className="user-audition-uploaded-image-preview">
-                      <img
-                        src={URL.createObjectURL(uploadedImage)}
-                        alt="Uploaded"
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-              {selectedTab === "사진 없음" && <p>첨부된 사진이 없습니다.</p>}
-            </div>
+                    )}
+                  </div>
+                )}
+                {selectedTab === "사진 없음" && <p>첨부된 사진이 없습니다.</p>}
+              </div>
 
-            <div className="user-audition-add">
-              <button type="submit" className="user-cake-audition-add-button">
-                등록
-              </button>
-              <button
-                className="user-cake-audition-cancel-button"
-                onClick={() => navigate("/user/audition/board")}
-              >
-                취소
-              </button>
-            </div>
-          </form>
-        </div>
-      </main>
+              <div className="user-audition-add">
+                <button type="submit" className="user-cake-audition-add-button">
+                  등록
+                </button>
+                <button
+                  className="user-cake-audition-cancel-button"
+                  onClick={() => navigate("/user/audition/board")}
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
+        </main>
 
-      <footer id="user-wrap-footer">
-        <Footer />
-      </footer>
-    </div>
+        <footer id="user-wrap-footer">
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 };
 
