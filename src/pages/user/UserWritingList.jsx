@@ -9,96 +9,103 @@ import Footer from "./include/Footer";
 import { Search } from "lucide-react";
 
 const UserWritingList = () => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate
+  const token = localStorage.getItem("token"); // 로컬 스토리지에서 사용자 토큰 가져오기
 
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [selectedStyle, setSelectedStyle] = useState("게시글");
-  const [debateList, setDebateList] = useState([]);
-  const [commentList, setCommentList] = useState([]);
-  const [reviewList, setReviewList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  // 상태 관리 변수들
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
+  const [selectedStyle, setSelectedStyle] = useState("게시글"); // 선택된 스타일 (게시글, 댓글 등)
+  const [debateList, setDebateList] = useState([]); // 게시글 리스트
+  const [commentList, setCommentList] = useState([]); // 댓글 리스트
+  const [reviewList, setReviewList] = useState([]); // 리뷰 리스트
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
 
-  const writingTypeOption = ["게시글", "댓글"];
+  const writingTypeOption = ["게시글", "댓글"]; // 글 종류 옵션
 
+  // 데이터 가져오기
   const fetchData = (url, page = 1, keyword = "") => {
     axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_URL}${url}`,
-      headers: { Authorization: `Bearer ${token}` },
-      params: { page, size: 10, keyword },
+      url: `${process.env.REACT_APP_API_URL}${url}`, // API URL
+      headers: { Authorization: `Bearer ${token}` }, // 인증 헤더
+      params: { page, size: 10, keyword }, // 페이지네이션 및 검색 키워드 전달
     })
       .then((response) => {
         if (response.data.result === "success") {
           const data = response.data.apiData.data || [];
-          setTotalPages(response.data.apiData.totalPages || 1);
-          if (url.includes("debatelist")) setDebateList(data);
-          if (url.includes("commentlist")) setCommentList(data);
-          if (url.includes("reviewlist")) setReviewList(data);
+          setTotalPages(response.data.apiData.totalPages || 1); // 전체 페이지 수 설정
+          if (url.includes("debatelist")) setDebateList(data); // 게시글 데이터 설정
+          if (url.includes("commentlist")) setCommentList(data); // 댓글 데이터 설정
+          if (url.includes("reviewlist")) setReviewList(data); // 리뷰 데이터 설정
         } else {
-          alert(response.data.message || "데이터 가져오기 실패");
+          alert(response.data.message || "데이터 가져오기 실패"); // 실패 시 알림
         }
       })
       .catch((error) => {
         console.error("API Error:", error);
-        alert("데이터를 불러오는 중 오류가 발생했습니다.");
+        alert("데이터를 불러오는 중 오류가 발생했습니다."); // 에러 처리
       });
   };
+
+  // 게시글 삭제
   const deleteDebate = (debate_id) => {
     if (!token) {
-      alert("로그인 후 이용하세요.");
+      alert("로그인 후 이용하세요."); // 로그인 필요 알림
       return;
     }
 
     const confirmDelete = window.confirm(
-      "관련된 댓글들또한 삭제됩니다.\n정말로 이 게시글을 삭제하시겠습니까?"
-    );
+      "관련된 댓글들 또한 삭제됩니다.\n정말로 이 게시글을 삭제하시겠습니까?"
+    ); // 삭제 확인 알림
     if (!confirmDelete) return;
 
     axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}/api/debate/debatedel/${debate_id}`,
-      headers: { Authorization: `Bearer ${token}` },
+      url: `${process.env.REACT_APP_API_URL}/api/debate/debatedel/${debate_id}`, // 삭제 API 호출
+      headers: { Authorization: `Bearer ${token}` }, // 인증 헤더
     })
       .then((response) => {
         if (response.data.result === "success") {
-          alert("게시글이 성공적으로 삭제되었습니다.");
-          // Refresh the debate list after deletion
-          fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword);
+          alert("게시글이 성공적으로 삭제되었습니다."); // 성공 알림
+          fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword); // 데이터 새로고침
         } else {
-          alert(response.data.message || "게시글 삭제 실패");
+          alert(response.data.message || "게시글 삭제 실패"); // 실패 알림
         }
       })
       .catch((error) => {
         console.error("API Error:", error);
-        alert("게시글 삭제 중 오류가 발생했습니다.");
+        alert("게시글 삭제 중 오류가 발생했습니다."); // 에러 처리
       });
   };
 
+  // 검색 버튼 클릭 시 데이터 가져오기
   const handleSearch = () => {
-    setCurrentPage(1);
+    setCurrentPage(1); // 페이지 초기화
     if (selectedStyle === "게시글")
-      fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword);
+      fetchData("/api/user/mypage/mywriting/debatelist", 1, searchKeyword); // 게시글 검색
     if (selectedStyle === "댓글")
-      fetchData("/api/user/mypage/mywriting/commentlist", 1, searchKeyword);
+      fetchData("/api/user/mypage/mywriting/commentlist", 1, searchKeyword); // 댓글 검색
     if (selectedStyle === "리뷰")
-      fetchData("/api/user/mypage/mywriting/reviewlist", 1, searchKeyword);
+      fetchData("/api/user/mypage/mywriting/reviewlist", 1, searchKeyword); // 리뷰 검색
   };
 
+  // 글 종류 선택 시 데이터 새로고침
   const handleStyleSelect = (style) => {
-    setSelectedStyle(style);
-    setCurrentPage(1);
-    setSearchKeyword("");
-    handleSearch();
+    setSelectedStyle(style); // 스타일 업데이트
+    setCurrentPage(1); // 페이지 초기화
+    setSearchKeyword(""); // 검색어 초기화
+    handleSearch(); // 데이터 새로고침
   };
 
+  // 글 클릭 시 상세 페이지로 이동
   const handleRowClick = (id, type) => {
     if (type === "게시글" || type === "댓글") {
-      navigate(`/debate/debateview/${id}`);
+      navigate(`/debate/debateview/${id}`); // 토론 상세 페이지로 이동
     }
   };
 
+  // 컴포넌트 마운트 및 페이지 변경 시 데이터 가져오기
   useEffect(() => {
     const fetchDataForPage = () => {
       if (selectedStyle === "게시글")
@@ -106,20 +113,21 @@ const UserWritingList = () => {
           "/api/user/mypage/mywriting/debatelist",
           currentPage,
           searchKeyword
-        );
+        ); // 게시글 데이터 가져오기
       if (selectedStyle === "댓글")
         fetchData(
           "/api/user/mypage/mywriting/commentlist",
           currentPage,
           searchKeyword
-        );
+        ); // 댓글 데이터 가져오기
     };
 
-    fetchDataForPage();
-  }, [currentPage, selectedStyle]);
+    fetchDataForPage(); // 데이터 호출
+  }, [currentPage, selectedStyle]); // 페이지 또는 스타일 변경 시 호출
 
   return (
     <div id="user-wrap">
+      {/* 헤더 */}
       <header id="user-wrap-head">
         <Header />
       </header>
@@ -140,7 +148,7 @@ const UserWritingList = () => {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
-                    handleSearch();
+                    handleSearch(); // Enter 키 입력 시 검색
                   }
                 }}
                 className="search-input"
@@ -204,11 +212,9 @@ const UserWritingList = () => {
                         <td>{item.debate_id}</td>
                         <td>{item.debate_title}</td>
                         <td>
-                          {
-                            new Date(item.debate_created_at)
-                              .toISOString()
-                              .split("T")[0]
-                          }
+                          {new Date(item.debate_created_at)
+                            .toISOString()
+                            .split("T")[0]}
                         </td>
                         <td>
                           <button
@@ -242,11 +248,9 @@ const UserWritingList = () => {
                         <td>{item.debate_comment_id}</td>
                         <td>{item.debate_comment_content.slice(0, 10)}...</td>
                         <td>
-                          {
-                            new Date(item.debate_comment_created_at)
-                              .toISOString()
-                              .split("T")[0]
-                          }
+                          {new Date(item.debate_comment_created_at)
+                            .toISOString()
+                            .split("T")[0]}
                         </td>
                         <td></td>
                       </tr>
@@ -314,6 +318,7 @@ const UserWritingList = () => {
         </section>
       </main>
 
+      {/* Footer */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
