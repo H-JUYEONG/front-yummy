@@ -4,38 +4,35 @@ import "../../../assets/css/user/userdebatemodal.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
 const UserDebateModal = ({ onSelectImage, onClose }) => {
   const token = localStorage.getItem("token");
 
-  const [selectedTab, setSelectedTab] = useState("찜한 상품"); // Track selected tab default to 찜한 상품
-  const [likedType, setLikedType] = useState("Product");// track the type and default to 찜한 상품 as well
-  const [likedID, setLikedID] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(""); // For category filter
+  const [selectedTab, setSelectedTab] = useState("찜한 상품"); // 기본적으로 "찜한 상품" 탭 선택
+  const [likedType, setLikedType] = useState("Product"); // "찜한 상품"으로 초기 타입 설정
+  const [likedID, setLikedID] = useState(""); // 찜한 상품 또는 도안의 ID 저장
+  const [selectedCategory, setSelectedCategory] = useState(""); // 카테고리 필터
 
+  /* 검색과 페이지네이션 관련 상태 변수 */
+  const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
 
-/* commonly used const for list */
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [likedProducts, setLikedProducts] = useState([]); // 찜한 상품 리스트
+  const [likedDesigns, setLikedDesigns] = useState([]); // 찜한 도안 리스트
 
-  const [likedProducts, setLikedProducts] = useState([]);
-
-  const [likedDesigns, setLikedDesigns] = useState([]);
-
-
+  // 찜한 상품 데이터 가져오기
   const getLikedProducts = async (page = 1) => {
     try {
         const response = await axios({
             method: 'get',
             url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/productmodal`,
             headers: { 
-                Authorization: `Bearer ${token}` 
+                Authorization: `Bearer ${token}` // 인증 토큰
             },
             params: {
                 page: page,
                 size: 8,
-                keyword: searchKeyword
+                keyword: searchKeyword // 검색 키워드 필터
             },
             responseType: 'json'
         });
@@ -44,10 +41,10 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
             console.log("위시리스트 데이터:", response.data.apiData);
             const products = response.data.apiData.content || [];
             const validProducts = products.filter(
-                (product) => product && product.productId
+                (product) => product && product.productId // 유효한 상품 필터링
             );
-            setLikedProducts(validProducts);
-            setTotalPages(response.data.apiData.totalPages || 1);
+            setLikedProducts(validProducts); // 찜한 상품 설정
+            setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
         } else {
             alert(response.data.message || "상품 목록 가져오기 실패");
         }
@@ -55,67 +52,65 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
         console.error('API Error:', error);
         alert('데이터를 불러오는 중 오류가 발생했습니다.');
     }
-};
+  };
 
-const getLikedDesign = async (page = 1) => {
-  try {
-      const response = await axios({
-          method: 'get',
-          url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/designmodal`,
-          headers: { 
-              Authorization: `Bearer ${token}` 
-          },
-          params: {
-              page: page,
-              size: 8,
-              keyword: searchKeyword
-          },
-          responseType: 'json'
-      });
+  // 찜한 도안 데이터 가져오기
+  const getLikedDesign = async (page = 1) => {
+    try {
+        const response = await axios({
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/designmodal`,
+            headers: { 
+                Authorization: `Bearer ${token}` // 인증 토큰
+            },
+            params: {
+                page: page,
+                size: 8,
+                keyword: searchKeyword // 검색 키워드 필터
+            },
+            responseType: 'json'
+        });
 
-      if (response.data.result === "success") {
-          console.log("위시리스트 데이터:", response.data.apiData);
-          const design = response.data.apiData.content || [];
-          const validDesign = design.filter(
-              (design) => design && design.cake_design_id
-          );
-          setLikedDesigns(validDesign);
-          setTotalPages(response.data.apiData.totalPages || 1);
-      } else {
-          alert(response.data.message || "상품 목록 가져오기 실패");
-      }
-  } catch (error) {
-      console.error('API Error:', error);
-      alert('데이터를 불러오는 중 오류가 발생했습니다.');
-  }
-};
+        if (response.data.result === "success") {
+            console.log("위시리스트 데이터:", response.data.apiData);
+            const design = response.data.apiData.content || [];
+            const validDesign = design.filter(
+                (design) => design && design.cake_design_id // 유효한 도안 필터링
+            );
+            setLikedDesigns(validDesign); // 찜한 도안 설정
+            setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
+        } else {
+            alert(response.data.message || "상품 목록 가져오기 실패");
+        }
+    } catch (error) {
+        console.error('API Error:', error);
+        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+    }
+  };
 
+  // 컴포넌트 마운트 및 currentPage 변경 시 데이터 로드
+  useEffect(() => {
+    getLikedProducts(currentPage); // 찜한 상품 데이터 로드
+    getLikedDesign(currentPage); // 찜한 도안 데이터 로드
+    console.log(likedDesigns, toString());
+  }, [currentPage]);
 
+  // 검색 핸들러
+  const handleSearch = () => {
+    setCurrentPage(1); // 페이지 초기화
+    getLikedProducts(1); // 검색 결과 가져오기
+  };
 
-useEffect(() => {
-  getLikedProducts(currentPage);
-  getLikedDesign(currentPage);
-  console.log(likedDesigns,toString());
-  
-}, [currentPage]);
+  // 이미지 클릭 핸들러
+  const handleImageClick = (imageUrl, likedType, likedID) => {
+    console.log("Modal image click:", { imageUrl, likedType, likedID }); // 디버깅 로그
+    onSelectImage(imageUrl, likedType, likedID); // 선택된 이미지 전달
+    onClose(); // 모달 닫기
+  };
 
-// 검색 핸들러
-const handleSearch = () => {
-  setCurrentPage(1);
-  getLikedProducts(1);
-};
-  
-
-
-
-const handleImageClick = (imageUrl, likedType, likedID) => {
-  console.log("Modal image click:", { imageUrl, likedType, likedID }); // Debugging log
-  onSelectImage(imageUrl, likedType, likedID);
-  onClose();
-};
-
+  // 페이지 변경 핸들러
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber); // 현재 페이지 변경
   };
 
   return (
@@ -124,13 +119,13 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
         <button onClick={onClose} className="j-modal-close-btn">X</button>
         <h2>이미지 선택</h2>
 
-        {/* Tabs for "찜한 상품" and "찜한 도안" */}
+        {/* "찜한 상품"과 "찜한 도안" 탭 */}
         <div className="j-tab-container">
           <button
             className={`j-tab ${selectedTab === "찜한 상품" ? "active" : ""}`}
             onClick={() => {
-              setSelectedTab("찜한 상품");
-              setLikedType("Product");
+              setSelectedTab("찜한 상품"); // 탭 변경
+              setLikedType("Product"); // 타입 설정
             }}
           >
             찜한 상품
@@ -138,39 +133,26 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
           <button
             className={`j-tab ${selectedTab === "찜한 도안" ? "active" : ""}`}
             onClick={() => {
-              setSelectedTab("찜한 도안");
-              setLikedType("Design");
+              setSelectedTab("찜한 도안"); // 탭 변경
+              setLikedType("Design"); // 타입 설정
             }}
           >
             찜한 도안
           </button>
         </div>
 
-        {/* Search and Category Dropdown */}
+        {/* 검색 바 */}
         <div className="j-search-category-container">
-          {/*
-          <select
-            className="j-category-select"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          */}
           <div className="j-search-bar">
             <input
               type="text"
               placeholder="검색"
               value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
+              onChange={(e) => setSearchKeyword(e.target.value)} // 검색 키워드 업데이트
               onKeyDown={(e) => {
                   if (e.key === "Enter") {
                       e.preventDefault();
-                      handleSearch();
+                      handleSearch(); // 엔터 키로 검색 실행
                   }
               }}
               className="j-search-input"
@@ -181,7 +163,7 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
           </div>
         </div>
 
-        {/* Product grid based on selected tab */}
+        {/* 상품 및 도안 그리드 */}
         <div className="j-products-grid">
           {selectedTab === "찜한 상품" ? (
             likedProducts.length > 0 ? (
@@ -234,11 +216,11 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
           )}
         </div>
 
-        {/* Pagination */}
+        {/* 페이지네이션 */}
         <div className="j-pagination">
           <button
             className="j-prev-page"
-            disabled={currentPage === 1}
+            disabled={currentPage === 1} // 첫 페이지일 경우 비활성화
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
           >
@@ -271,14 +253,13 @@ const handleImageClick = (imageUrl, likedType, likedID) => {
 
           <button
             className="j-next-page"
-            disabled={currentPage === totalPages}
+            disabled={currentPage === totalPages} // 마지막 페이지일 경우 비활성화
             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
             style={{ opacity: currentPage === totalPages ? 0.5 : 1 }}
           >
             {'>'}
           </button>
         </div>
-
       </div>
     </div>
   );

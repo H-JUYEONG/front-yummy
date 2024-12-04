@@ -9,16 +9,14 @@ import 'react-quill/dist/quill.snow.css';
 
 // 옵션 타입 정의
 const OPTION_TYPES = {
-
     'cake_size': { title: '사이즈', stateKey: 'selectedSize' },
     'flavor_sheet': { title: '시트 맛', stateKey: 'selectedSheetFlavor' },
     'flavor_cream': { title: '크림 맛', stateKey: 'selectedCreamFlavor' },
     'cake_background_color': { title: '케이크 배경색', stateKey: 'selectedBgColor' },
     'cream_position': { title: '크림 위치', stateKey: 'selectedCreamPosition' },
     'cream_color': { title: '크림 색상', stateKey: 'selectedCreamColor' },
-    'decoration_type': { title: '데코레이션 타입', stateKey: 'selectedDecoration' },
+    'decoration_type': { title: '데코레이션 종류', stateKey: 'selectedDecoration' },
     'decoration_color': { title: '데코레이션 색상', stateKey: 'selectedDecoColor' },
-
 };
 
 const UserCakeDetail = () => {
@@ -310,12 +308,12 @@ const UserCakeDetail = () => {
         setSelectedTime(selectedTimeValue);
     };
     const handleOptionSelect = (optionType, optionId) => {
+        console.log(`Selected option: Type=${optionType}, ID=${optionId}`); // 디버깅 로그
         setSelectedOptions(prev => ({
             ...prev,
             [OPTION_TYPES[optionType].stateKey]: optionId
         }));
     };
-
     const handleThumbnailClick = (imagePath) => {
         setMainImage(imagePath);
     };
