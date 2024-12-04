@@ -220,8 +220,9 @@ const UserAuditionOngoing = () => {
                       src={auditionVendersEnd.productImage1Url || ""}
                       alt="선택된 케이크 이미지"
                       onClick={() =>
-                        navigate(
-                          `/user/cakedetail/${auditionVendersEnd.productId}/${auditionVendersEnd.venderId}`
+                        window.open(
+                          `/user/cakedetail/${auditionVendersEnd.productId}/${auditionVendersEnd.venderId}`,
+                          "_blank"
                         )
                       }
                     />
@@ -229,8 +230,9 @@ const UserAuditionOngoing = () => {
                       <p
                         className="ongoing-vender-name"
                         onClick={() =>
-                          navigate(
-                            `/user/storedetail/${auditionVendersEnd.venderId}`
+                          window.open(
+                            `/user/storedetail/${auditionVendersEnd.venderId}`,
+                            "_blank"
                           )
                         }
                       >
@@ -290,8 +292,9 @@ const UserAuditionOngoing = () => {
                       src={company.productImage1Url || ""}
                       alt="케이크 이미지"
                       onClick={() =>
-                        navigate(
-                          `/user/cakedetail/${company.productId}/${company.venderId}`
+                        window.open(
+                          `/user/cakedetail/${company.productId}/${company.venderId}`,
+                          "_blank"
                         )
                       }
                     />
@@ -299,7 +302,10 @@ const UserAuditionOngoing = () => {
                       <p
                         className="ongoing-vender-name"
                         onClick={() =>
-                          navigate(`/user/storedetail/${company.venderId}`)
+                          window.open(
+                            `/user/storedetail/${company.venderId}`,
+                            "_blank"
+                          )
                         }
                       >
                         {company.venderName}

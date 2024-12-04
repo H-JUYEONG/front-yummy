@@ -1,1161 +1,1160 @@
 /* 기본 레이아웃 */
 #user-wrap .cake-order-container {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    gap: 100px;
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 100px;
 }
 
 #user-wrap .cake-order-container .product-description {
-    padding: 20px;
-    margin: 20px 0;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
 }
 
 #user-wrap .cake-order-container .ql-editor {
-    padding: 0;
+  padding: 0;
 }
 
 #user-wrap .cake-order-container .ql-editor h1 {
-    font-size: 24px;
-    margin-bottom: 1rem;
+  font-size: 24px;
+  margin-bottom: 1rem;
 }
 
 #user-wrap .cake-order-container .ql-editor h2 {
-    font-size: 20px;
-    margin-bottom: 1rem;
+  font-size: 20px;
+  margin-bottom: 1rem;
 }
 
 #user-wrap .cake-order-container .ql-editor p {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+#user-wrap .cake-order-container .ql-editor span {
+    color: #333 !important;
 }
 
 #user-wrap .cake-order-container .ql-editor ul,
 #user-wrap .cake-order-container .ql-editor ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 #user-wrap .cake-order-container .ql-editor img {
-    max-width: 100%;
-    height: auto;
-    margin: 10px auto;
-    display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 10px auto;
+  display: block;
 }
 
 #user-wrap .cake-order-container .left-section {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 #user-wrap .cake-order-container .right-section {
-    width: 400px;
-    flex-shrink: 0;
+  width: 400px;
+  flex-shrink: 0;
 }
 
 /* 이미지 갤러리 영역 */
 #user-wrap .cake-order-container .product-image {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #user-wrap .cake-order-container .main-image {
-    width: 100%;
-    height: 500px;
-    object-fit: contain;
-    border-radius: 25px;
-    margin-bottom: 20px;
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
 
 #user-wrap .cake-order-container .thumbnail-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 #user-wrap .cake-order-container .thumbnail-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  cursor: pointer;
+  border: 1px solid transparent;
+  overflow: hidden;
 }
 
 #user-wrap .cake-order-container .thumbnail-wrapper.active {
-    border-color: #ff6f61;
-}
-
-#user-wrap .cake-order-container .thumbnail-wrapper:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #848484;
 }
 
 #user-wrap .cake-order-container .thumbnail-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* 탭 스타일 */
 #user-wrap .cake-order-container .product-tabs {
-    margin-top: 30px;
-    position: relative;
-    background: white;
+  margin-top: 30px;
+  position: relative;
+  background: white;
 }
 
 #user-wrap .cake-order-container .tabs-header {
-    display: flex;
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 100;
-    border-bottom: 2px solid #eee;
-    width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 100;
+  border-bottom: 2px solid #d2d2d2;
+  width: 100%;
 }
 
 #user-wrap .cake-order-container .tab-button {
-    flex: 1;
-    padding: 15px 0;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    background: none;
-    color: #666;
-    position: relative;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  flex: 1;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  color: #333;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #user-wrap .cake-order-container .tab-button.active {
-    color: #ff6f61;
+  color: #333;
 }
 
 #user-wrap .cake-order-container .tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #ff6f61;
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #333;
 }
 
 #user-wrap .cake-order-container .tab-content {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-    min-height: 500px;
-    width: 100%;
-    box-sizing: border-box;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  min-height: 500px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #user-wrap .cake-order-container .content-sections {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 #user-wrap .cake-order-container .detail-content,
 #user-wrap .cake-order-container .delivery-content,
 #user-wrap .cake-order-container .inquiry-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 #user-wrap .cake-order-container .detail-image,
 #user-wrap .cake-order-container .info-image,
 #user-wrap .cake-order-container .inquiry-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 /* 상품 정보 및 옵션 */
 #user-wrap .cake-order-container .product-info {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #user-wrap .cake-order-container .product-info h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 #user-wrap .cake-order-container .price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
 }
 
-/* 옵션 영역 */
+/* 옵션 전체 컨테이너 */
 #user-wrap .cake-order-container .options {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0;
 }
 
+/* 모든 옵션 그룹 기본 스타일 */
 #user-wrap .cake-order-container .option-group {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
+    padding: 20px 20px;
+    border-bottom: 1px solid #d2d2d2;
 }
 
+/* 제목 스타일 */
 #user-wrap .cake-order-container .option-group h3 {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: bold;
 }
 
+/* 첫 번째 옵션 그룹 */
+#user-wrap .cake-order-container .option-group:first-child {
+    padding-top: 0;
+}
+
+/* 4번째 option-group의 border 제거 */
+#user-wrap .cake-order-container .option-group:nth-child(10) {
+   border-bottom: none;
+}
+
+/* 마지막 옵션 그룹 */
+#user-wrap .cake-order-container .option-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
 /* 맛과 사이즈 옵션 스타일 */
 #user-wrap .option-scroll-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap; /* 가로 스크롤을 위해 추가 */
-    -webkit-overflow-scrolling: touch;
-    margin: 0 -10px;
-    padding: 0 10px 15px;
-    cursor: grab;
-    user-select: none;
-    scroll-behavior: smooth;
-    position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap; /* 가로 스크롤을 위해 추가 */
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -10px;
+  padding: 0 10px 15px;
+  cursor: grab;
+  user-select: none;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 #user-wrap .option-scroll-container::-webkit-scrollbar {
-    height: 6px;
-    display: none;
+  height: 6px;
+  display: none;
 }
 
 #user-wrap .option-scroll-container.dragging::-webkit-scrollbar {
-    display: block;
+  display: block;
 }
 
 #user-wrap .option-scroll-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
 #user-wrap .option-scroll-container::-webkit-scrollbar-thumb {
-    background: #ff6f61;
-    border-radius: 4px;
+  background: #848484;
+  border-radius: 4px;
 }
 
 #user-wrap .cake-order-container .option-grid {
-    display: flex;
-    gap: 10px;
-    padding: 10px 0;
-    width: max-content;
-    touch-action: pan-x;
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  touch-action: pan-x;
 }
 
 #user-wrap .cake-order-container .option-item {
-    flex: 0 0 auto;
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 8px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#user-wrap .cake-order-container .option-item:hover {
-    border-color: #ff6f61;
-    transform: translateY(-2px);
+  flex: 0 0 auto;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
 }
 
 #user-wrap .cake-order-container .option-item.active {
-    border-color: #ff6f61;
-    background-color: #f9f7ff;
+  border-color: #333;
 }
 
 #user-wrap .cake-order-container .option-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 4px;
-    overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 #user-wrap .cake-order-container .option-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#user-wrap .cake-order-container .option-name {
+  white-space: normal; /* 줄바꿈 허용 */
 }
 
 /* 픽업 관련 스타일 */
 #user-wrap .cake-order-container .map-placeholder {
-    width: 100%;
-    height: 200px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
+  width: 100%;
+  height: 200px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
 }
 
 #user-wrap .cake-order-container .date-input,
 #user-wrap .cake-order-container .time-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 /* 요청사항 스타일 */
+.request-input {
+    padding: 5px 0px 10px 0px;
+}
+
 #user-wrap .cake-order-container .request-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-    font-size: 14px;
-    min-height: 100px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 14px;
+  min-height: 100px;
+  margin-bottom: 10px;
 }
 
 #user-wrap .cake-order-container .request-textarea:focus {
-    border-color: #ff6f61;
-    outline: none;
+  border-color: #848484;
+  outline: none;
 }
 
 /* 리뷰 관련 스타일 */
 #user-wrap .cake-order-container .reviews-container {
-    padding: 20px 0;
+  padding: 20px 0;
+}
 
+.review-purchase-message {
+  margin-bottom: 20px;
+  color: #EA4335;
 }
 
 #user-wrap .cake-order-container .rating-stats {
     display: flex;
+    flex-direction: column;
     padding: 15px 10px 10px 10px;
-    background: #f8f9fa;
-    border-radius: 8px 8px 0px 0px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+}
+
+#user-wrap .cake-order-container .rating-stats-upper {
+    display: flex;
+    width: 100%;
+    margin: 10px 0px;
 }
 
 #user-wrap .cake-order-container .rating-average {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding-right: 40px;
     margin-right: 40px; */
-    padding: 0px 30px 0px 20px;
-    margin-right: 20px;
-    border-right: 1px solid #e0e0e0;
-
+  padding: 0px 30px 0px 20px;
+  margin-right: 20px;
+  border-right: 1px solid #e0e0e0;
 }
 
 #user-wrap .cake-order-container .stars {
-    font-size: 24px;
-    color: #FFD700;
-    margin-bottom: 10px;
+  font-size: 24px;
+  color: #ffd700;
+  margin-bottom: 10px;
 }
 
 #user-wrap .cake-order-container .star-filled {
-    color: #FFD700;
+  color: #ffd700;
 }
 
 #user-wrap .cake-order-container .average-score {
-    display: flex;
-    align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
 #user-wrap .cake-order-container .current-score {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
 }
 
 #user-wrap .cake-order-container .total-score {
-    font-size: 20px;
-    color: #666;
-    margin-left: 4px;
+  font-size: 20px;
+  color: #666;
+  margin-left: 4px;
 }
 
 #user-wrap .cake-order-container .rating-bars {
-    flex: 1;
+  flex: 1;
 }
 
 #user-wrap .cake-order-container .rating-bar-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 #user-wrap .cake-order-container .score {
-    width: 40px;
-    text-align: right;
-    margin-right: 10px;
-    font-size: 14px;
-    color: #666;
+  width: 40px;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #666;
 }
 
 #user-wrap .cake-order-container .bar-container {
-    flex: 1;
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 4px;
-    margin: 0 10px;
-    overflow: hidden;
+  flex: 1;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  margin: 0 10px;
+  overflow: hidden;
 }
 
 #user-wrap .cake-order-container .bar-fill {
-    height: 100%;
-    transition: width 0.3s ease;
+  height: 100%;
+  transition: width 0.3s ease;
 }
 
 #user-wrap .cake-order-container .count {
-    width: 30px;
-    font-size: 14px;
-    color: #666;
+  width: 30px;
+  font-size: 14px;
+  color: #666;
 }
 
 /* 리뷰 필터 */
 #user-wrap .cake-order-container .review-filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 10px;
+  margin: 20px 0px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 #user-wrap .cake-order-container .review-filters button {
-    padding: 6px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
-    color: #666;
-    cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  color: #666;
+  cursor: pointer;
 }
 
 #user-wrap .cake-order-container .review-filters button.active {
-    border-color: #FF3B85;
-    color: #FF3B85;
-    font-weight: 500;
+  border-color: #333;
+  color: #333;
+  font-weight: 500;
 }
 
 #user-wrap .cake-order-container .photo-only {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #666;
-    cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  cursor: pointer;
 }
 
 /* 리뷰 아이템 */
 #user-wrap .cake-order-container .review-item {
-    padding: 20px 0;
-    border-bottom: 1px solid #eee;
+  padding: 20px 0;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 #user-wrap .cake-order-container .review-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 #user-wrap .cake-order-container .review-header .stars {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 #user-wrap .cake-order-container .author {
-    font-weight: 500;
-    color: #333;
+  font-weight: 500;
+  color: #333;
 }
 
 #user-wrap .cake-order-container .date {
-    color: #888;
-    font-size: 14px;
+  color: #888;
+  font-size: 14px;
 }
 
 #user-wrap .cake-order-container .review-content {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 #user-wrap .cake-order-container .review-content p {
-    flex: 1;
-    margin: 0;
-    line-height: 1.6;
+  flex: 1;
+  margin: 0;
+  line-height: 1.6;
 }
 
 #user-wrap .cake-order-container .review-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 4px;
-    overflow: hidden;
-    flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 #user-wrap .cake-order-container .review-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* 리뷰 작성 폼 */
 #user-wrap .cake-order-container .review-form-container {
-    background: #ffffff;
-    border-radius: 8px;
-    padding: 20px 0;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #eee;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px 0;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #d2d2d2;
 }
 
 #user-wrap .cake-order-container .review-form-container h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #333;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 #user-wrap .cake-order-container .review-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 #user-wrap .cake-order-container .rating-select {
-    text-align: center;
+  text-align: center;
 }
 
 #user-wrap .cake-order-container .rating-select p {
-    margin-bottom: 10px;
-    color: #666;
+  margin-bottom: 10px;
+  color: #666;
 }
 
 #user-wrap .cake-order-container .stars-input {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
 #user-wrap .cake-order-container .star-button {
-    background: none;
-    border: none;
-    font-size: 30px;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 #user-wrap .cake-order-container .star-button.filled {
-    color: #FFD700;
+  color: #ffd700;
 }
 
 #user-wrap .cake-order-container .review-text-input textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-    font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 14px;
 }
 
 #user-wrap .cake-order-container .image-upload-button {
-    display: inline-block;
-    padding: 8px 16px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #666;
-    transition: all 0.2s ease;
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
 }
 
 #user-wrap .cake-order-container .image-preview {
-    position: relative;
-    display: inline-block;
-    margin-top: 10px;
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
 }
 
 #user-wrap .cake-order-container .image-preview img {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: 4px;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
 }
 
 #user-wrap .cake-order-container .remove-image {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #ff6f61;
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #848484;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
 }
 
 #user-wrap .cake-order-container .submit-review-button {
-    padding: 12px 24px;
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  padding: 12px 24px;
+  background-color: #848484;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 #user-wrap .cake-order-container .submit-review-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 #user-wrap .cake-order-container .submit-review-button:not(:disabled):hover {
-    background-color: #ff6f61;
+  background-color: #848484;
 }
 
 .reviews-container .review-item .review-replies {
-    margin-top: 1rem;
-    padding-left: 1.5rem;
-    border-left: 2px solid #f0f0f0;
+  margin-top: 1rem;
 }
 
 .reviews-container .review-item .review-reply {
-    background-color: #f9f9f9;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .reviews-container .review-item .reply-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .reviews-container .review-item .vendor-badge {
-    background-color: #ff6b6b;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
+  background-color: #848484;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .reviews-container .review-item .vendor-name {
-    font-weight: 600;
-    color: #333;
-    margin-right: auto;
+  font-weight: 600;
+  color: #333;
+  margin-right: auto;
 }
 
 .reviews-container .review-item .reply-date {
-    color: #666;
-    font-size: 0.85rem;
+  color: #666;
+  font-size: 0.85rem;
 }
 
 .reviews-container .review-item .reply-content {
-    margin: 0;
-    line-height: 1.5;
-    color: #444;
-    white-space: pre-wrap;
-    word-break: break-word;
+  margin: 0;
+  line-height: 1.5;
+  color: #444;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .reviews-container .review-item .reply-form {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
 }
 
 .reviews-container .review-item .reply-form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    resize: vertical;
-    min-height: 80px;
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-    transition: border-color 0.2s;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
 }
 
 .reviews-container .review-item .reply-form textarea:focus {
-    outline: none;
-    border-color: #ff6b6b;
-    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
+  outline: none;
+  border-color: #848484;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1);
 }
 
 .reviews-container .review-item .reply-form button {
-    padding: 0.5rem 1rem;
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
+  padding: 0.5rem 1rem;
+  background-color: #848484;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .reviews-container .review-item .reply-form button:hover {
-    background-color: #ff5252;
+  background-color: #848484;
 }
 
 .reviews-container .review-item .reply-form button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .reviews-container .review-item .delete-reply-button {
-    padding: 4px 8px;
-    background-color: transparent;
-    color: #ff6b6b;
-    border: 1px solid #ff6b6b;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.2s;
+  padding: 4px 8px;
+  background-color: transparent;
+  color: #848484;
+  border: 1px solid #848484;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
 }
 
 .reviews-container .review-item .delete-reply-button:hover {
-    background-color: #ff6b6b;
-    color: white;
+  background-color: #848484;
+  color: white;
 }
-
 
 /* 주문 버튼 */
 #user-wrap .cake-order-container .submit-button {
-    width: 200px;
-    /* 또는 원하는 너비 */
-    /* 또는 width: auto; */
-    margin: 30px auto 0;
-    padding: 15px;
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    /* block 레벨로 설정 */
-    text-align: center;
+  width: 200px;
+  /* 또는 원하는 너비 */
+  /* 또는 width: auto; */
+  margin: 30px auto 0;
+  padding: 15px;
+  background-color: #848484;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  /* block 레벨로 설정 */
+  text-align: center;
 }
 
 #user-wrap .cake-order-container .submit-button:hover {
-    background-color: #ff6f61;
+  background-color: #333;
 }
 
 /* CakeOrder.css의 좋아요 버튼 스타일 수정 */
 #user-wrap .cake-order-container .like-button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 #user-wrap .cake-order-container .like-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border: 2px solid #FF69B4;
-    border-radius: 20px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 85px;
-    /* 버튼 최소 너비 지정 */
-}
-
-#user-wrap .cake-order-container .like-button:hover {
-    background: #FFF0F5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 2px solid #ff85a1;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 85px;
+  /* 버튼 최소 너비 지정 */
 }
 
 #user-wrap .cake-order-container .like-button .heart-icon {
-    font-size: 20px;
-    color: #FF69B4;
-    transition: color 0.3s ease;
-    /* transform 제거하고 color만 변경 */
-    width: 20px;
-    /* 하트 아이콘 너비 고정 */
-    display: inline-block;
-    text-align: center;
+  font-size: 25px;
+  color: #ff85a1;
+  transition: color 0.3s ease;
+  /* transform 제거하고 color만 변경 */
+  width: 20px;
+  /* 하트 아이콘 너비 고정 */
+  display: inline-block;
+  text-align: center;
 }
 
 #user-wrap .cake-order-container .like-button.liked .heart-icon {
-    color: #FF1493;
+  color: #ff85a1;
 }
 
 #user-wrap .cake-order-container .like-button .like-count {
-    font-size: 14px;
-    color: #666;
-    min-width: 30px;
-    text-align: left;
+  font-size: 20px;
+  color: #333;
+  min-width: 30px;
+  text-align: left;
 }
 
 /*탭관련*/
 #user-wrap .cake-order-container .tab-content {
-    height: auto;
-    max-height: none;
-    overflow-y: visible;
-    background: transparent;
-    padding: 0;
+  height: auto;
+  max-height: none;
+  overflow-y: visible;
+  background: transparent;
+  padding: 0;
 }
 
 #user-wrap .cake-order-container .content-section {
-    width: 100%;
-    padding: 20px 0;
+  width: 100%;
+  padding: 20px 0;
 }
-
 
 /* 신고 버튼 스타일 */
 #user-wrap .cake-order-container .report-button {
-    background: none;
-    border: none;
-    color: #666;
-    font-size: 14px;
-    padding: 4px 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  padding: 4px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
 }
 
 #user-wrap .cake-order-container .report-button:hover {
-    color: #ff6f61;
+  color: #848484;
 }
 
 #user-wrap .cake-order-container .report-icon {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 /* 리뷰 아이템에 신고 버튼 위치 조정 */
 #user-wrap .cake-order-container .review-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: space-between;
 }
 
 #user-wrap .cake-order-container .review-header-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* 반응형 스타일 */
 @media (max-width: 1024px) {
-    #user-wrap .cake-order-container {
-        flex-direction: column;
-    }
+  #user-wrap .cake-order-container {
+    flex-direction: column;
+  }
 
-    #user-wrap .cake-order-container .right-section {
-        width: 100%;
-    }
+  #user-wrap .cake-order-container .right-section {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-    #user-wrap .cake-order-container .thumbnail-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  #user-wrap .cake-order-container .thumbnail-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    #user-wrap .cake-order-container .rating-stats {
-        background: #ffffff;
-        border: 2px solid #eee;
-    }
+  #user-wrap .cake-order-container .rating-stats {
+    background: #ffffff;
+    border: 2px solid #d2d2d2;
+  }
 
-    #user-wrap .cake-order-container .rating-average {
-        padding-right: 0;
-        border-right: none;
-        border-bottom: 1px solid #e0e0e0;
-        margin-right: 0;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-    }
+  #user-wrap .cake-order-container .rating-average {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    margin-right: 0;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
 
-    #user-wrap .cake-order-container .review-content {
-        flex-direction: column;
-    }
+  #user-wrap .cake-order-container .review-content {
+    flex-direction: column;
+  }
 
-    #user-wrap .cake-order-container .review-image {
-        width: 100%;
-        height: 200px;
-    }
+  #user-wrap .cake-order-container .review-image {
+    width: 100%;
+    height: 200px;
+  }
 
-    #user-wrap .cake-order-container .main-image {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
+  #user-wrap .cake-order-container .main-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    /* border-radius: 5px; */
+  }
 
+  #user-wrap .cake-order-container .option-item {
+    width: 100px;
+  }
 
-    #user-wrap .cake-order-container .option-item {
-        width: 100px;
-    }
-
-    #user-wrap .cake-order-container .option-image {
-        width: 50px;
-        height: 50px;
-    }
+  #user-wrap .cake-order-container .option-image {
+    width: 50px;
+    height: 50px;
+  }
 }
 
-
-
-
 #user-wrap .cake-order-container .tab-content::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 #user-wrap .cake-order-container .tab-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
+  background: #f1f1f1;
+  border-radius: 4px;
 }
 
 #user-wrap .cake-order-container .tab-content::-webkit-scrollbar-thumb {
-    background: #ff6f61;
-    border-radius: 4px;
+  background: #848484;
+  border-radius: 4px;
 }
 
 #user-wrap .cake-order-container .tab-content::-webkit-scrollbar-thumb:hover {
-    background: #ff6f61;
+  background: #848484;
 }
 
 #user-wrap .cake-order-container img {
-    border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 #user-wrap .cake-order-container .content-section img {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-    border-radius: 8px;
+  width: 100%;
+  display: block;
 }
 
 #user-wrap .cake-order-container .delivery-type-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 #user-wrap .cake-order-container .delivery-option-button {
-    flex: 1;
-    padding: 12px 24px;
-    border: 2px solid #ff6f61;
-    border-radius: 30px;
-    background: white;
-    color: #333;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  flex: 1;
+  padding: 12px 24px;
+  border: 1px solid #848484;
+  border-radius: 30px;
+  background: white;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 #user-wrap .cake-order-container .delivery-option-button:hover {
-    background-color: #ff6f61;
-    color: white;
+  background-color: #848484;
+  color: white;
 }
 
 #user-wrap .cake-order-container .delivery-option-button.active {
-    background-color: #ff6f61;
-    color: white;
+  background-color: #848484;
+  color: white;
 }
 
 /* 주소 입력 필드 스타일 */
 #user-wrap .cake-order-container .address-input-field {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 #user-wrap .cake-order-container .address-input-field:focus {
-    border-color: #ff6f61;
-    outline: none;
+  border-color: #848484;
+  outline: none;
 }
 
-
 #user-wrap .cake-order-container .receiver-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 #user-wrap .cake-order-container .receiver-info .input-field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 #user-wrap .cake-order-container .receiver-info .input-field label {
-    font-size: 14px;
-    color: #666;
-    font-weight: 500;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  margin-top: 10px;
 }
 
 #user-wrap .cake-order-container .receiver-info .receiver-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
 }
 
 #user-wrap .cake-order-container .receiver-info .receiver-input:focus {
-    border-color: #ff6f61;
-    outline: none;
+  border-color: #848484;
+  outline: none;
 }
 
 #user-wrap .cake-order-container .receiver-info .receiver-input::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 /* 반응형 대응 */
 @media (max-width: 768px) {
-    #user-wrap .cake-order-container .color-options {
-        gap: 20px;
-        justify-content: center;
-    }
+  #user-wrap .cake-order-container .color-options {
+    gap: 20px;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .reviews-container .review-item .review-replies {
-        padding-left: 1rem;
-    }
+  .reviews-container .review-item .review-replies {
+    padding-left: 1rem;
+  }
 
-    .reviews-container .review-item .reply-header {
-        flex-wrap: wrap;
-        gap: 4px;
-    }
+  .reviews-container .review-item .reply-header {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 
-    .reviews-container .review-item .vendor-name {
-        width: 100%;
-        margin-bottom: 4px;
-    }
+  .reviews-container .review-item .vendor-name {
+    width: 100%;
+    margin-bottom: 4px;
+  }
 }
 
 .description img {
-    max-width: 580px;
-    /* 이미지가 부모 요소를 넘어가지 않도록 설정 */
-    width: 100%;
-    /* 이미지가 부모 요소를 넘지 않도록 */
-    height: auto;
-    /* 이미지의 비율을 유지 */
-    display: block;
-    /* 이미지를 블록 요소로 설정 (간격 제거) */
-    margin: 0 auto;
-    /* 중앙 정렬 */
+  max-width: 580px;
+  /* 이미지가 부모 요소를 넘어가지 않도록 설정 */
+  width: 100%;
+  /* 이미지가 부모 요소를 넘지 않도록 */
+  height: auto;
+  /* 이미지의 비율을 유지 */
+  display: block;
+  /* 이미지를 블록 요소로 설정 (간격 제거) */
+  margin: 0 auto;
+  /* 중앙 정렬 */
 }
-
-
-
 
 /* 옵션 전체 그룹 스타일 */
 .preview-cake-options {
-    /* 옵션 그룹 간 간격 */
-    margin-top: 20px;
+  /* 옵션 그룹 간 간격 */
+  margin-top: 20px;
 }
 
 /* 옵션 그룹 헤더 스타일 */
 .preview-cake-option-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /* 옵션 유형 제목 스타일 */
 .preview-cake-option-group h4 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
 }
 
 /* 옵션 컨테이너: 가로 정렬 및 스크롤 가능 */
 .preview-cake-container {
-    display: flex;
-    /* Flexbox로 가로 정렬 */
-    gap: 15px;
-    /* 옵션 간 간격 */
-    flex-wrap: wrap;
-    /* 가로 공간이 부족하면 다음 줄로 */
-    align-items: flex-start;
-    /* 옵션 아이템을 위쪽 정렬 */
+  display: flex;
+  /* Flexbox로 가로 정렬 */
+  gap: 15px;
+  /* 옵션 간 간격 */
+  flex-wrap: wrap;
+  /* 가로 공간이 부족하면 다음 줄로 */
+  align-items: flex-start;
+  /* 옵션 아이템을 위쪽 정렬 */
 }
-
 
 /* 옵션 아이템 기본 스타일 */
 .preview-cake-container .option-item {
-    display: flex;
-    flex-direction: column;
-    /* 이미지와 텍스트를 세로 정렬 */
-    align-items: center;
-    /* 가운데 정렬 */
-    justify-content: center;
-    /* 수직 중앙 정렬 */
-    width: 120px;
-    /* 고정된 너비 */
-    padding: 10px;
-    /* 내부 여백 */
-    border: 1px solid #ddd;
-    /* 경계선 추가 */
-    border-radius: 8px;
-    /* 모서리 둥글게 */
-    background: white;
-    /* 배경색 */
-    text-align: center;
-    /* 텍스트 가운데 정렬 */
-    transition: all 0.3s ease;
-    /* 부드러운 애니메이션 */
-    cursor: pointer;
-    /* 클릭 가능 마우스 포인터 */
+  display: flex;
+  flex-direction: column;
+  /* 이미지와 텍스트를 세로 정렬 */
+  align-items: center;
+  /* 가운데 정렬 */
+  justify-content: center;
+  /* 수직 중앙 정렬 */
+  width: 120px;
+  /* 고정된 너비 */
+  padding: 10px;
+  /* 내부 여백 */
+  border: 1px solid #ddd;
+  /* 경계선 추가 */
+  border-radius: 8px;
+  /* 모서리 둥글게 */
+  background: white;
+  /* 배경색 */
+  text-align: center;
+  /* 텍스트 가운데 정렬 */
+  transition: all 0.3s ease;
+  /* 부드러운 애니메이션 */
+  cursor: pointer;
+  /* 클릭 가능 마우스 포인터 */
 }
 
 .preview-cake-container .option-item img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    /* 이미지가 잘리지 않도록 설정 */
-    border-radius: 4px;
-    margin-bottom: 8px;
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  /* 이미지가 잘리지 않도록 설정 */
+  border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 .preview-cake-container .option-item:hover {
-    border-color: #ff6f61;
-    /* 호버 시 경계 색상 변경 */
-    transform: translateY(-2px);
-    /* 살짝 위로 이동 */
+  border-color: #848484;
+  /* 호버 시 경계 색상 변경 */
+  transform: translateY(-2px);
+  /* 살짝 위로 이동 */
 }
 
 .preview-cake-container .option-item p {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
 }
 
 /* 활성화된 옵션 스타일 */
 .preview-cake-container .option-item.active {
-    border-color: #ff6f61;
-    background-color: #fff5f5;
+  border-color: #848484;
+  background-color: #fff5f5;
 }
