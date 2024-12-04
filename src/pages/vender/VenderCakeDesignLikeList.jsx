@@ -92,14 +92,12 @@ const VenderCakeDesignLikeList = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button
-                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/list")}
                     >
                       나의 도안
                     </button>
                     <button
-                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/like/list")}
                     >

@@ -4,7 +4,6 @@ import axios from 'axios';
 import '../../assets/css/all.css';
 import '../../assets/css/vender/vender.css';
 import '../../assets/css/vender/productlist.css';
-import SidebarWrapper from './include/SidebarWrapper';
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
 
@@ -99,7 +98,7 @@ const VenderProductList = () => {
     };
 
     return (
-        <SidebarWrapper>
+
             <div className="vender-container">
                 <div className="vender-content-wrapper">
                     <VenderSidebar />
@@ -210,7 +209,7 @@ const VenderProductList = () => {
                     </div>
                 </div>
             </div>
-        </SidebarWrapper>
+
     );
 };
 

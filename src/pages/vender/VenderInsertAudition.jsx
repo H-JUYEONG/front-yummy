@@ -12,10 +12,6 @@ import VenderHeader from './include/VenderHeader';
 //import css
 import '../../assets/css/vender/venderInsertAudition.css';
 
-
-
-
-
 const VenderInsertAudition = () => {
     const {auditionId} = useParams();
     const navigate = useNavigate();

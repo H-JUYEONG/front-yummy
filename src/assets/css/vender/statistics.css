@@ -1,18 +1,15 @@
-
-
 /* 통계 요약 카드 섹션 */
 .vender-content .summary-card-section {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
-    
 }
 
 .vender-content .summary-card {
-    background: #ffffff;
+    background: #3f3f3f; /* 다크 배경색 설정 */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* 다크 테마에 맞춘 그림자 */
     flex: 1;
     text-align: center;
 }
@@ -20,16 +17,13 @@
 .vender-content .summary-card h3 {
     margin-bottom: 10px;
     font-size: 1.2em;
-    font-weight: bold;
-    color: #4f46e5;
-    /* 기본 블루 */
+    color: #ffffff; /* 흰색 텍스트 */
 }
 
 .vender-content .summary-card p {
     font-size: 1.5em;
     margin: 0;
-    color: #374151;
-    /* 기본 텍스트 색상 */
+    color: #00c853; /* 강조 텍스트 색상 */
 }
 
 /* 차트 섹션 스타일 */
@@ -37,44 +31,32 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: #ffffff;
-    /* 배경색 */
+    background-color: ffffff; /* 다크 배경색 */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
-    /* 테두리 */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    border: 1px solid #444444; /* 다크 테두리 색상 */
     margin-bottom: 30px;
-    
 }
 
 .vender-content .chart-wrapper {
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #444444; /* 다크 테두리 */
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #424242; /* 차트 배경색 */
 }
 
 .vender-content .data-summary {
     padding: 10px;
-    background-color: #eef6ff;
-    border: 1px solid #b3d4fc;
+    background-color: #505050; /* 다크 테마 배경 */
+    border: 1px solid #666666; /* 다크 테두리 */
     border-radius: 5px;
     margin-bottom: 20px;
 }
 
 .vender-content .data-summary p {
     margin: 5px 0;
-}
-
-.vender-content .filter-section {
-    margin-bottom: 20px;
-}
-
-.vender-content .select-filter {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 1rem;
+    color: #ffffff; /* 흰색 텍스트 */
 }
 
 /* 필터 섹션 스타일 */
@@ -88,18 +70,15 @@
 .vender-content .select-filter {
     padding: 8px 12px;
     font-size: 1rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #666666; /* 다크 테두리 */
     border-radius: 5px;
-    background-color: #e0e7ff;
-    /* 밝은 블루 */
-    color: #374151;
-    /* 텍스트 색상 */
+    background-color: #505050; /* 필터 배경색 */
+    color: #ffffff; /* 흰색 텍스트 */
 }
 
 .vender-content .filter-section button {
-    background-color: #4f46e5;
-    /* 기본 블루 */
-    color: #fff;
+    background-color: #00c853; /* 강조 색상 */
+    color: #ffffff; /* 흰색 텍스트 */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -109,16 +88,15 @@
 }
 
 .vender-content .filter-section button:hover {
-    background-color: #4338ca;
-    /* hover시 어두운 블루 */
+    background-color: #009624; /* hover 시 더 어두운 강조 색상 */
 }
 
 /* 리뷰 분석 섹션 */
 .vender-content .review-analysis-section {
-    background: #ffffff;
+    background: #313131; /* 다크 배경 */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .vender-content .review-chart-section {
@@ -134,37 +112,30 @@
     justify-content: center;
     margin: 20px;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: ffffff; /* 차트 배경 */
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* 기본 가로 크기 설정 */
-    max-width: 250px; /* 최대 가로 크기 제한 */
-    min-width: 150px; /* 최소 가로 크기 설정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 250px;
+    min-width: 150px;
 }
 
 .vender-content .doughnut-chart h4 {
     margin-bottom: 15px;
-    /* 제목과 차트 사이 간격 */
     font-size: 16px;
-    /* 제목 폰트 크기 */
-    color: #333;
-    /* 제목 색상 */
+    color: #313131; /* 흰색 텍스트 */
     text-align: center;
-    /* 가운데 정렬 */
 }
 
 .vender-content .doughnut-chart canvas {
     max-width: 200px;
-    /* 차트 크기 제한 */
     max-height: 200px;
-    /* 차트 크기 제한 */
 }
 
 .vender-content .word-cloud-placeholder {
     width: 100%;
     height: 200px;
-    background-color: #e0e7ff;
-    /* 밝은 블루 */
+    background-color: #505050; /* 다크 배경 */
     margin-top: 20px;
     border-radius: 10px;
     padding: 10px;
@@ -176,14 +147,13 @@
 .vender-content .word-cloud-word {
     font-size: 1rem;
     font-weight: bold;
-    color: #4f46e5;
-    /* 텍스트 색상 */
+    color: #00c853; /* 강조 색상 */
 }
 
 /* 리뷰 관리 버튼 스타일 */
 .review-analysis-section .filter-section button {
-    background-color: #4f46e5;
-    color: #fff;
+    background-color: #00c853; /* 강조 색상 */
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -191,10 +161,8 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: 20px;
-    /* 드롭다운 메뉴와의 간격 */
 }
 
 .review-analysis-section .filter-section button:hover {
-    background-color: #4338ca;
+    background-color: #009624;
 }
-

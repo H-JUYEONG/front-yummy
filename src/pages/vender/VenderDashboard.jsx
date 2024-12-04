@@ -9,7 +9,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
-import SidebarWrapper from './include/SidebarWrapper';
 import VenderHeader from './include/VenderHeader';
 import VenderSidebar from './include/VenderSidebar';
 const API_URL = process.env.REACT_APP_API_URL;
@@ -177,42 +176,42 @@ const VenderDashboard = () => {
     // 현재 월 계산 (예: 11월)
     const currentMonth = new Date().toLocaleString('ko-KR', { month: 'long' });
     return (
-        <SidebarWrapper>
-            <>
-                <div className="vender-container">
-                    <div className="vender-content-wrapper">
-                        <VenderSidebar />
-                        <div className="vender-content">
-                            <main className="dashboard-content">
-                                <header className="vender-header">
-                                    <VenderHeader />
-                                </header>
-                                <section className="dashboard-summary">
-                                    <div className="summary-cards">
-                                        <div className="card">
-                                            <h3>{currentMonth} 주문 건수</h3>
-                                            <p>{monthlyOrderCount}건</p>
-                                        </div>
-                                        <div className="card">
-                                            <h3>새로운 리뷰</h3>
-                                            <p>{newReviews}건</p>
-                                        </div>
-                                        <div className="card">
-                                            <h3>포인트</h3>
-                                            <p>{points.toLocaleString()}</p>
-                                        </div>
+
+        <>
+            <div className="vender-container">
+                <div className="vender-content-wrapper">
+                    <VenderSidebar />
+                    <div className="vender-content">
+                        <main className="dashboard-content">
+                            <header className="vender-header">
+                                <VenderHeader />
+                            </header>
+                            <section className="dashboard-summary">
+                                <div className="summary-cards">
+                                    <div className="card">
+                                        <h3>{currentMonth} 주문 건수</h3>
+                                        <p>{monthlyOrderCount}건</p>
                                     </div>
-                                </section>
-                                <section className="scheduler-section">
-                                    <h2>예약 스케쥴러</h2>
-                                    <FullCalendar {...calendarOptions} />
-                                </section>
-                            </main>
-                        </div>
+                                    <div className="card">
+                                        <h3>새로운 리뷰</h3>
+                                        <p>{newReviews}건</p>
+                                    </div>
+                                    <div className="card">
+                                        <h3>포인트</h3>
+                                        <p>{points.toLocaleString()}</p>
+                                    </div>
+                                </div>
+                            </section>
+                            <section className="scheduler-section">
+                                <h2>예약 스케쥴러</h2>
+                                <FullCalendar {...calendarOptions} />
+                            </section>
+                        </main>
                     </div>
                 </div>
-            </>
-        </SidebarWrapper>
+            </div>
+        </>
+
     );
 };
 

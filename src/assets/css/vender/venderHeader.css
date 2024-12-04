@@ -1,23 +1,28 @@
 @charset "UTF-8";
 
-.vender-header-wrap {
+.vender-header {
+    margin-bottom: 15px;
     margin-top: 10px;
-
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
-    /*background-image: url(../../images/emptyIMG.png);*/
-    overflow: hidden;
-
-    background-position: center;
 }
 
+.vender-header-wrap {
+    width: 100%;
+    max-width: 1700px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+
 .vender-header-wrap img {
-    width: 1700px;
-    height: 100%;
-    object-fit: cover;
-    /*이미지 비율을 유지하면서 부모 div를 꽉 채우도록 함*/
+    max-width: 100%; /* 가로 크기 제한 */
+    max-height: 100%; /* 세로 크기 제한 */
+    object-fit: contain; /* 이미지 비율 유지하며 컨테이너에 맞게 조정 */
+    object-position: center; /* 이미지 중심 기준으로 배치 */
 }
 
 .vender-header-mainlogo {
@@ -25,28 +30,18 @@
     /* 자식 요소들을 절대 위치로 배치할 수 있도록 함 */
 }
 
-.vender-header-wrap img {
-    width: 100%;
-    padding-top: auto;
-    object-fit: cover;
-    object-fit: contain;
-    /* 이미지가 잘리지 않고 컨테이너에 맞도록 비율 유지 */
-}
-
 .vender-header-icon {
     position: absolute;
-    /* 절대 위치로 배치 */
+    /* 아이콘 위치 고정 */
     bottom: 10px;
-    /* 컨테이너 하단에서의 거리 */
+    /* 하단 여백 */
     right: 10px;
-    /* 컨테이너 오른쪽에서의 거리 */
+    /* 오른쪽 여백 */
+    font-size: 30px;
+    color: gray;
 }
 
 .vender-header-icon-box {
     text-align: right;
     padding: 0 10px 15px 0;
-}
-
-.vender-header-icon {
-    text-align: right;
 }

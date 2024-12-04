@@ -7,7 +7,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import '../../assets/css/all.css'; // 전역 css
 import '../../assets/css/vender/vender.css'; // 업체 페이지 전용 스타일
 import '../../assets/css/vender/statistics.css'; // 대시보드 전용 스타일
-import SidebarWrapper from './include/SidebarWrapper';
+
 import VenderSidebar from './include/VenderSidebar';
 import VenderHeader from './include/VenderHeader';
 const API_URL = process.env.REACT_APP_API_URL;
@@ -294,133 +294,131 @@ const VenderStatistics = () => {
 
 
     return (
-
         <>
-            <SidebarWrapper>
-                <Helmet>
-                    <meta charSet="UTF-8" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <title>업체 통계 페이지</title>
-                </Helmet>
+            <Helmet>
+                <meta charSet="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>업체 통계 페이지</title>
+            </Helmet>
 
-                {/* 컨테이너 영역 */}
-                <div className="vender-container">
-                    <div class="vender-content-wrapper">
-                        {/* 사이드바 */}
-                        <VenderSidebar />
-                        {/* 콘텐츠 영역 */}
-                        <div className="vender-content">
-                            <header className="vender-header ">
-                                <VenderHeader />
-                            </header>
-                            {/* 통계 요약 카드 섹션 */}
-                            <div className="summary-card-section">
-                                <div className="summary-card" >
-                                    <h3>주문 건수 ({currentMonth})</h3>
-                                    <p>
-                                        <i className="fas fa-shopping-cart"></i> {monthlyOrderCount}건
-                                    </p>
-                                </div>
-                                <div className="summary-card" >
-                                    <h3>매출 ({currentMonth})</h3>
-                                    <p>
-                                        <i className="fas fa-dollar-sign"></i> {Number(revenue).toLocaleString()}원
-                                    </p>
-                                </div>
-                                <div className="summary-card">
-                                    <h3>새로운 리뷰</h3>
-                                    <p>
-                                        <i className="fas fa-star"></i> {newReviews}건
-                                    </p>
-                                </div>
+            {/* 컨테이너 영역 */}
+            <div className="vender-container">
+                <div class="vender-content-wrapper">
+                    {/* 사이드바 */}
+                    <VenderSidebar />
+                    {/* 콘텐츠 영역 */}
+                    <div className="vender-content">
+                        <header className="vender-header ">
+                            <VenderHeader />
+                        </header>
+                        {/* 통계 요약 카드 섹션 */}
+                        <div className="summary-card-section">
+                            <div className="summary-card" >
+                                <h3>주문 건수 ({currentMonth})</h3>
+                                <p>
+                                    <i className="fas fa-shopping-cart"></i> {monthlyOrderCount}건
+                                </p>
+                            </div>
+                            <div className="summary-card" >
+                                <h3>매출 ({currentMonth})</h3>
+                                <p>
+                                    <i className="fas fa-dollar-sign"></i> {Number(revenue).toLocaleString()}원
+                                </p>
+                            </div>
+                            <div className="summary-card">
+                                <h3>새로운 리뷰</h3>
+                                <p>
+                                    <i className="fas fa-star"></i> {newReviews}건
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* 매출 및 주문 그래프 섹션 */}
+                        <div className="chart-section">
+                            <h3>매출 및 주문 변화 추이</h3>
+                            <div className="filter-section" >
+                                <select
+                                    onChange={(e) => setFilterType(e.target.value)}
+                                >
+                                    <option value="daily">일간</option>
+                                    <option value="weekly">주간</option>
+                                    <option value="monthly">월간</option>
+                                    <option value="yearly">년간</option>
+                                </select>
+                                <input
+                                    type="date"
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                />
+                                <input
+                                    type="date"
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                />
+                                <button
+                                    onClick={fetchSalesData}
+                                >
+                                    조회
+                                </button>
+                                <p>
+                                    선택된 기간: {startDate || '시작일'} ~ {endDate || '종료일'}
+                                </p>
                             </div>
 
-                            {/* 매출 및 주문 그래프 섹션 */}
-                            <div className="chart-section">
-                                <h3>매출 및 주문 변화 추이</h3>
-                                <div className="filter-section" >
-                                    <select
-                                        onChange={(e) => setFilterType(e.target.value)}
-                                    >
-                                        <option value="daily">일간</option>
-                                        <option value="weekly">주간</option>
-                                        <option value="monthly">월간</option>
-                                        <option value="yearly">년간</option>
-                                    </select>
-                                    <input
-                                        type="date"
-                                        onChange={(e) => setStartDate(e.target.value)}
-                                    />
-                                    <input
-                                        type="date"
-                                        onChange={(e) => setEndDate(e.target.value)}
-                                    />
-                                    <button
-                                        onClick={fetchSalesData}
-                                    >
-                                        조회
-                                    </button>
-                                    <p>
-                                        선택된 기간: {startDate || '시작일'} ~ {endDate || '종료일'}
-                                    </p>
-                                </div>
-
-                                <div className="data-summary">
-                                    <p>최고 매출일: {highestRevenueDate} (₩{highestRevenue.toLocaleString()})</p>
-                                    <p>평균 주문 건수: {avgOrders}건</p>
-                                </div>
-                                <Line data={combinedChartData} options={combinedChartOptions} />
+                            <div className="data-summary">
+                                <p>최고 매출일: {highestRevenueDate} (₩{highestRevenue.toLocaleString()})</p>
+                                <p>평균 주문 건수: {avgOrders}건</p>
                             </div>
+                            <Line data={combinedChartData} options={combinedChartOptions} />
+                        </div>
 
-                            {/* 리뷰 분석 섹션 */}
+                        {/* 리뷰 분석 섹션 */}
+                        <div className="review-chart-section">
+                            <div className="doughnut-chart">
+                                <h4>리뷰 긍정/부정 비율</h4>
+                                <Doughnut data={reviewData} />
+                                <p>
+                                    {(() => {
+                                        const positiveReviews = reviewData.datasets[0]?.data[0] || 0;
+                                        const negativeReviews = reviewData.datasets[0]?.data[1] || 0;
+                                        const totalReviews = positiveReviews + negativeReviews;
+
+                                        if (totalReviews === 0) {
+                                            return "리뷰 데이터가 없습니다.";
+                                        }
+
+                                        const positivePercentage = ((positiveReviews / totalReviews) * 100).toFixed(1);
+                                        const negativePercentage = ((negativeReviews / totalReviews) * 100).toFixed(1);
+
+                                        return (
+                                            <>
+                                                긍정 리뷰: {positivePercentage}%, <br />
+                                                부정 리뷰: {negativePercentage}%
+                                            </>
+                                        );
+                                    })()}
+                                </p>
+                            </div>
                             <div className="review-chart-section">
                                 <div className="doughnut-chart">
-                                    <h4>리뷰 긍정/부정 비율</h4>
-                                    <Doughnut data={reviewData} />
-                                    <p>
-                                        {(() => {
-                                            const positiveReviews = reviewData.datasets[0]?.data[0] || 0;
-                                            const negativeReviews = reviewData.datasets[0]?.data[1] || 0;
-                                            const totalReviews = positiveReviews + negativeReviews;
-
-                                            if (totalReviews === 0) {
-                                                return "리뷰 데이터가 없습니다.";
-                                            }
-
-                                            const positivePercentage = ((positiveReviews / totalReviews) * 100).toFixed(1);
-                                            const negativePercentage = ((negativeReviews / totalReviews) * 100).toFixed(1);
-
-                                            return (
-                                                <>
-                                                    긍정 리뷰: {positivePercentage}%, <br />
-                                                    부정 리뷰: {negativePercentage}%
-                                                </>
-                                            );
-                                        })()}
-                                    </p>
+                                    <h4>별점 분포</h4>
+                                    <Doughnut data={ratingData} />
                                 </div>
-                                <div className="review-chart-section">
-                                    <div className="doughnut-chart">
-                                        <h4>별점 분포</h4>
-                                        <Doughnut data={ratingData} />
-                                    </div>
-                                </div>
-                                <div className="review-management-section">
-                                    <h4>리뷰 관리</h4>
-                                    <div className="review-management-button">
-                                        <button
-                                            onClick={() => navigate('/vender/review')}
-                                            className="action-btn"
-                                        >
-                                            리뷰 관리로 이동
-                                        </button>
-                                    </div>
+                            </div>
+                            <div className="review-management-section">
+                                <h4>리뷰 관리</h4>
+                                <div className="review-management-button">
+                                    <button
+                                        onClick={() => navigate('/vender/review')}
+                                        className="action-btn"
+                                    >
+                                        리뷰 관리로 이동
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </SidebarWrapper>
+            </div>
+
         </>
     );
 }

@@ -98,7 +98,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [],
             />
             <div>
                 <h3>찜한 도안</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                <div className="design-list">
                     {filteredWishlistDesigns.map((design, index) => (
                         <div key={index} className="design-item">
                             {design.cakeDesignImageUrl ? (
@@ -114,7 +114,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [],
             </div>
             <div>
                 <h3>내가 그린 도안</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+                <div className="design-list">
                     {filteredMyDesigns.map((design, index) => (
                         <div key={index} className="design-item">
                             {design.cakeDesignImageUrl ? (
@@ -131,6 +131,7 @@ const CakeDesignModal = ({ isOpen, onRequestClose, designs = [], myDesigns = [],
             <button onClick={onRequestClose} className="close-modal-button">닫기</button>
         </Modal>
     );
+
 };
 
 // ProductEditor 컴포넌트
@@ -382,6 +383,12 @@ function ProductRegistrationForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // vender_id가 73이 아니고 도안이 선택되지 않은 경우
+        if (venderId !== 73 && !selectedDesign) {
+            alert("도안을 선택해야 합니다!");
+            return; // 요청 중단
+        }
+
         const formData = new FormData();
 
         // 기본 데이터 추가
@@ -426,6 +433,7 @@ function ProductRegistrationForm() {
             alert("상품 등록 중 오류가 발생했습니다.");
         }
     };
+
     return (
         <div className="vender-container">
             <div className="vender-content-wrapper">

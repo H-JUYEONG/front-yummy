@@ -11,12 +11,13 @@
     /* 가로 스크롤 방지 */
     align-items: flex-start;
     padding-top: 10px;
+    background-color: whitesmoke;
 }
 
 /* 내부 콘텐츠 래퍼 */
 .vender-content-wrapper {
     display: flex;
-    max-width: 1500px;
+    max-width: 1700px;
     width: 100%;
     position: relative;
     margin: 0 auto;
@@ -111,7 +112,6 @@
     /* 사이드바가 열렸을 때 콘텐츠 밀림 */
     transition: margin-left 0.3s ease-in-out;
 }
-
 
 /* 모바일 디바이스 스타일 */
 @media screen and (max-width: 768px) {

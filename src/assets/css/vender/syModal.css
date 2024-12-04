@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /*모달창 전체사이즈*/
 .vender-sso-modal-overlay {
     position: fixed;
@@ -9,36 +10,44 @@
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1000;
 }
+
 /*서브타이틀*/
-.vender-sso-modal-overlay .vender-sso-modal-content .sy-modal-sub-title{
+.vender-sso-modal-overlay .vender-sso-modal-content .sy-modal-sub-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 /*x표시 라인박스*/
 .vender-sso-modal-content {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+    transform: translate(-50%, -50%);
+    /* 화면 중앙으로 이동 */
     background: white;
     border-radius: 5px;
-    max-width: 1000px; /* 원하는 너비로 설정 */
+    max-width: 1000px;
+    /* 원하는 너비로 설정 */
     height: 600px;
     width: 90%;
     background-color: #f7f7f7;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 모달에 그림자 추가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* 모달에 그림자 추가 */
 }
+
 /*헤더공간*/
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-head{
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-head {
     height: 70px;
     display: flex;
     align-items: center;
     padding: 0 5%;
 }
+
 * {
     box-sizing: border-box;
 }
+
 /*화면닫기 버튼*/
 .vender-sso-modal-content .sso-modal-head .vender-sso-modal-close-button {
     position: absolute;
@@ -49,20 +58,24 @@
     font-size: 20px;
     cursor: pointer;
 }
-.vender-appeal-title-name{
-    font-size: 1.4em; /* 크고 굵은 글씨로 제목 강조 */
+
+.vender-appeal-title-name {
+    font-size: 1.4em;
+    /* 크고 굵은 글씨로 제목 강조 */
     font-weight: 600;
     margin-bottom: 0;
 }
 
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content{
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-content {
     width: 90%;
     margin: 0 auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 1, 0.5); /* 수평, 수직, 흐림 정도, 색상 */
+    box-shadow: 0 4px 6px rgba(0, 0, 1, 0.5);
+    /* 수평, 수직, 흐림 정도, 색상 */
     padding: 20px;
     background: #ffffff;
-    
+
 }
+
 /*2공간 띄우기*/
 .sso-modal-body-flex {
     display: flex;
@@ -70,16 +83,17 @@
     justify-content: space-evenly;
     gap: 20px;
 }
-.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-flex > div {
-    flex:1;
+
+.vender-sso-modal-overlay .vender-sso-modal-content .sso-modal-body .sso-modal-body-flex>div {
+    flex: 1;
     padding: 15px 0;
 }
 
 .sso-modal-body {
     height: calc(100% - 100px);
 }
-.sso-modal-body  .sso-modal-body-content {
+
+.sso-modal-body .sso-modal-body-content {
     height: 100%;
     overflow-y: auto;
 }
-

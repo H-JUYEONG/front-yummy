@@ -1,127 +1,136 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-
 import '../../../assets/css/all.css';
 import '../../../assets/css/vender/vender.css';
 import { FaHome, FaChartBar, FaShoppingCart, FaClipboardList, FaGavel, FaSignOutAlt } from 'react-icons/fa';
 import cakeLogo from '../../../assets/images/mainlogoimg02.avif';
 
-const VenderSidebar = ({ isOpen, toggleMenu }) => {
-
-    //업체 프로필사진
-    const [logo, setLogo] = useState(cakeLogo); // 기본값을 케이크 로고로 설정
-
-    const navigate = useNavigate(); // 페이지 이동
-    const [token, setToken] = useState(localStorage.getItem('token'));
+const VenderSidebar = ({ children }) => {
+    const [isSidebarOpen, setSidebarOpen] = useState(false); // 사이드바 열림/닫힘 상태
+    const [isMobile, setIsMobile] = useState(false); // 모바일 화면 여부
+    const [logo, setLogo] = useState(cakeLogo); // 기본 업체 로고
+    const navigate = useNavigate();
 
     const [authUser, setAuthUser] = useState(() => {
         const user = localStorage.getItem('authUser');
         return user ? JSON.parse(user) : null;
     });
-    const venderId = authUser?.vender_id || null; // 로그인한 유저의 venderId 가져오기
 
+    const venderId = authUser?.vender_id || null;
 
+    // 화면 크기 감지
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // 모바일 화면 여부 업데이트
+        };
 
+        handleResize(); // 초기 실행
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // 업체 로고 가져오기
+    const fetchLogo = () => {
+        if (!venderId) return;
+        axios
+            .get(`${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderId}`)
+            .then((response) => {
+                setLogo(response.data.apiData || cakeLogo);
+            })
+            .catch((error) => console.error('Error fetching logo:', error));
+    };
+
+    useEffect(() => {
+        fetchLogo();
+    }, [venderId]);
+
+    // 로그아웃 처리
     const handleLogout = () => {
-        console.log('로그아웃');
-
-        // 로컬 스토리지에서 토큰 및 사용자 정보 제거
         localStorage.removeItem('token');
         localStorage.removeItem('authUser');
-
-        // 상태값 초기화
-        setToken(null);
         setAuthUser(null);
-
-        // 메인 페이지로 이동
         navigate('/');
     };
 
-    //업체별 로고사진 가져오기
-
-    const getLogo = ()=>{
-
-        axios({
-            method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/sidebarLogo/${venderId}`,
-            responseType: 'json' //수신타입
-
-        }).then(response => {
-            console.log(response); //수신데이타
-
-            setLogo(response.data.apiData)
-        }).catch(error => {
-            console.log(error);
-        });
-        
-    }
-    useEffect(() => {
-        if (venderId) getLogo();
-    }, [venderId]);
-
+    // 사이드바 열림/닫힘 상태 변경
+    const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
     return (
-        
-        <aside className={`vender-sidebar ${isOpen ? 'open' : ''}`}>
-            <div className="vender-profile">
-                <Link to={`/user/storedetail/${venderId}`}>
-                    <img className="profile-img" src={logo} alt="프로필 이미지" />
-                </Link>
-                <h3></h3>
-                <p>
-                    <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleMenu}>
-                        <FaClipboardList /> 업체사이트 관리
+        <div className="vender-container">
+            {/* 모바일: 햄버거 메뉴 */}
+            {isMobile && (
+                <button className="hamburger-menu" onClick={toggleSidebar}>
+                    ☰
+                </button>
+            )}
+
+            {/* 사이드바 */}
+            <aside className={`vender-sidebar ${isMobile && isSidebarOpen ? 'open' : ''}`}>
+                <div className="vender-profile">
+                    <Link to={`/user/storedetail/${venderId}`}>
+                        <img className="profile-img" src={logo} alt="프로필 이미지" />
                     </Link>
-                </p>
+                    <p>
+                        <Link to={`/vender/venderinsertpage/${venderId}`} onClick={toggleSidebar}>
+                            <FaClipboardList /> 업체사이트 관리
+                        </Link>
+                    </p>
+                </div>
+                <ul className="vender-menu">
+                    <li>
+                        <Link to="/vender/" onClick={toggleSidebar}>
+                            <FaChartBar /> 대시보드
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/vender/statistics" onClick={toggleSidebar}>
+                            <FaChartBar /> 통계보기
+                        </Link>
+                    </li>
+                    {/* 도안관리: vender_id가 73이 아닐 때만 표시 */}
+                    {venderId !== 73 && (
+                        <li>
+                            <Link to="/vender/cakeDesign/list" onClick={toggleSidebar}>
+                                <FaShoppingCart /> 도안관리
+                            </Link>
+                        </li>
+                    )}
+                    <li>
+                        <Link to="/vender/productlist" onClick={toggleSidebar}>
+                            <FaShoppingCart /> 상품관리
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/vender/purchasedproducts" onClick={toggleSidebar}>
+                            <FaClipboardList /> 주문관리
+                        </Link>
+                    </li>
+                    {/* 케이크요청관리: vender_id가 73이 아닐 때만 표시 */}
+                    {venderId !== 73 && (
+                        <li>
+                            <Link to="/vender/supervisionList" onClick={toggleSidebar}>
+                                <FaGavel /> 케이크요청관리
+                            </Link>
+                        </li>
+                    )}
+                    <li>
+                        <Link to="/" onClick={toggleSidebar}>
+                            <FaHome /> 메인페이지 바로가기
+                        </Link>
+                    </li>
+                </ul>
+                <button className="exit-button" onClick={handleLogout}>
+                    <FaSignOutAlt /> 로그아웃
+                </button>
+            </aside>
+
+            {/* 메인 콘텐츠 */}
+            <div className={`vender-content-wrapper ${isMobile && isSidebarOpen ? 'sidebar-open' : ''}`}>
+                {children}
             </div>
-            <ul className="vender-menu">
-                <li>
-                    <Link to="/vender/" onClick={toggleMenu}>
-                        <FaChartBar /> 대시보드
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/vender/statistics" onClick={toggleMenu}>
-                        <FaChartBar /> 통계보기
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/vender/cakeDesign/list" onClick={toggleMenu}>
-                        <FaShoppingCart /> 도안관리
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/vender/productlist" onClick={toggleMenu}>
-                        <FaShoppingCart /> 상품관리
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/vender/purchasedproducts" onClick={toggleMenu}>
-                        <FaClipboardList /> 주문관리
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/vender/supervisionList" onClick={toggleMenu}>
-                        <FaGavel /> 케이크요청관리
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/" onClick={toggleMenu}>
-                        <FaHome /> 메인페이지 바로가기
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/user/storedetail/73" onClick={toggleMenu}>
-                        <FaHome /> YUMMY몰 바로가기
-                    </Link>
-                </li>
-            </ul>
-            <button className="exit-button" onClick={handleLogout}>
-                <FaSignOutAlt /> 로그아웃
-            </button>
-        </aside>
+        </div>
     );
 };
 

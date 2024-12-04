@@ -4,7 +4,6 @@ import "../../assets/css/all.css";
 import "../../assets/css/vender/vender.css";
 import "../../assets/css/vender/venderCakeDesignList.css";
 import axios from "axios";
-import SidebarWrapper from './include/SidebarWrapper';
 import VenderSidebar from "./include/VenderSidebar";
 import VenderHeader from "./include/VenderHeader";
 
@@ -70,7 +69,6 @@ const VenderCakeDesignList = () => {
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   return (
-    <SidebarWrapper>
       <div className="vender-container">
         <div className="vender-content-wrapper">
           <VenderSidebar />
@@ -91,14 +89,12 @@ const VenderCakeDesignList = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button
-                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/list")}
                     >
                       나의 도안
                     </button>
                     <button
-                      style={{ backgroundColor: "#27ae60" }}
                       className="add-button btn-colors"
                       onClick={() => navigate("/vender/cakeDesign/like/list")}
                     >
@@ -160,7 +156,7 @@ const VenderCakeDesignList = () => {
           </div>
         </div>
       </div>
-    </SidebarWrapper>
+
   );
 };
 

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
-
 /* 메인 콘텐츠 영역 */
 .product-list-main-content {
     flex-grow: 1;
@@ -114,7 +113,7 @@
 
 /* 수정 버튼 스타일 */
 .product-list-main-content .edit-button {
-    background-color: #34d399;
+    background-color: #3f3f3f;
     /* 세련된 민트색 */
     color: #ffffff;
 }
@@ -192,11 +191,6 @@
     color: #fff;
     border-color: #007bff;
 }
-
-
-
-
-
 
 .product-list-main-content .status-button {
     padding: 5px 10px;

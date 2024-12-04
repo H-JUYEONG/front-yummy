@@ -1,18 +1,22 @@
 /* 리뷰 관리 컨테이너 */
 .vender-reviewlist {
-    background-color: #f5f5f7; /* 애플 느낌의 밝은 회색 */
+    background-color: #f5f5f7;
+    /* 애플 느낌의 밝은 회색 */
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* 부드러운 그림자 */
 }
 
 /* 제목 스타일 */
 .vender-reviewlist h1 {
     font-size: 28px;
-    color: #1d1d1f; /* 애플 다크 그레이 */
+    color: #1d1d1f;
+    /* 애플 다크 그레이 */
     font-weight: 600;
     margin-bottom: 20px;
-    border-bottom: 2px solid #d1d1d6; /* 구분선 */
+    border-bottom: 2px solid #d1d1d6;
+    /* 구분선 */
     padding-bottom: 10px;
 }
 
@@ -20,29 +24,38 @@
 .vender-reviewlist table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff; /* 테이블 배경 흰색 */
+    background-color: #ffffff;
+    /* 테이블 배경 흰색 */
     border-radius: 12px;
-    overflow: hidden; /* 둥근 테두리 적용 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+    overflow: hidden;
+    /* 둥근 테두리 적용 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    /* 부드러운 그림자 */
 }
 
 .vender-reviewlist table th,
 .vender-reviewlist table td {
     text-align: left;
-    padding: 12px 15px; /* 셀 여백 */
+    padding: 12px 15px;
+    /* 셀 여백 */
     font-size: 16px;
-    color: #1d1d1f; /* 텍스트 색상 */
-    border-bottom: 1px solid #e5e5ea; /* 구분선 */
+    color: #1d1d1f;
+    /* 텍스트 색상 */
+    border-bottom: 1px solid #e5e5ea;
+    /* 구분선 */
 }
 
 .vender-reviewlist table th {
     font-weight: 600;
-    background-color: #f2f2f7; /* 애플 밝은 회색 */
-    color: #636366; /* 덜 강조된 색상 */
+    background-color: #f2f2f7;
+    /* 애플 밝은 회색 */
+    color: #636366;
+    /* 덜 강조된 색상 */
 }
 
 .vender-reviewlist table tr:hover {
-    background-color: #f9f9f9; /* 행 호버 효과 */
+    background-color: #f9f9f9;
+    /* 행 호버 효과 */
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -53,14 +66,16 @@
 
 /* 링크 스타일 */
 .vender-reviewlist a {
-    color: #007aff; /* 애플 블루 */
+    color: #007aff;
+    /* 애플 블루 */
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease-in-out;
 }
 
 .vender-reviewlist a:hover {
-    color: #0056d6; /* 어두운 애플 블루 */
+    color: #0056d6;
+    /* 어두운 애플 블루 */
 }
 
 /* 버튼 스타일 */
@@ -69,7 +84,8 @@
     padding: 8px 16px;
     font-size: 14px;
     color: #ffffff;
-    background-color: #007aff; /* 애플 블루 */
+    background-color: #007aff;
+    /* 애플 블루 */
     border-radius: 8px;
     text-align: center;
     text-decoration: none;
@@ -78,7 +94,8 @@
 }
 
 .vender-reviewlist .action-btn:hover {
-    background-color: #0056d6; /* 더 어두운 블루 */
+    background-color: #0056d6;
+    /* 더 어두운 블루 */
 }
 
 /* 상태 표시 */
@@ -92,11 +109,39 @@
 }
 
 .vender-reviewlist .status.has-review {
-    background-color: #34c759; /* 애플 그린 */
+    background-color: #34c759;
+    /* 애플 그린 */
 }
 
 .vender-reviewlist .status.no-review {
-    background-color: #ff3b30; /* 애플 레드 */
+    background-color: #ff3b30;
+    /* 애플 레드 */
+}
+
+.vender-reviewlist .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 5px;
+    /* 버튼 간격 */
+}
+
+.vender-reviewlist .pagination button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vender-reviewlist .pagination button:hover:not(:disabled) {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
 }
 
 /* 반응형 디자인 */
@@ -128,8 +173,10 @@
 .vender-reviewlist .filter-btn {
     padding: 8px 16px;
     font-size: 14px;
-    background-color: #f5f5f7; /* 밝은 배경 */
-    color: #007aff; /* 애플 블루 */
+    background-color: #f5f5f7;
+    /* 밝은 배경 */
+    color: #007aff;
+    /* 애플 블루 */
     border: none;
     border-radius: 6px;
     cursor: pointer;

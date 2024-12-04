@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
 /* 타이틀 스타일 */
+.product-registration{
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.product-registration .main-content{
+    max-width: 1700px;
+    width: 100%;
+}
 .product-registration .product-list-title {
     font-size: 1.8em;
     font-weight: bold;
@@ -219,11 +228,11 @@
     transform: translateY(-3px);
 }
 
-/* 미리보기 버튼 스타일 */
+/* 떠다니는 미리보기 버튼 스타일 */
 .product-registration .floating-preview-button {
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    bottom: 100px;
+    right: 20px;
     background-color: #4f46e5;
     color: #ffffff;
     padding: 15px 20px;
@@ -284,8 +293,8 @@
 /* 도안 검색 입력 필드 스타일 (모달 창 전용) */
 .venderregistrationform-design-modal .design-search-input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 15px;
+    margin: 20px 0;
     border: 1px solid #ddd;
     border-radius: 4px;
     outline: none;
@@ -298,11 +307,15 @@
 
 /* 도안 리스트 스타일 (모달 창 전용) */
 .venderregistrationform-design-modal .design-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    max-height: 300px;
-    overflow-y: auto;
+    display: flex; /* 플렉스 컨테이너 설정 */
+    flex-wrap: wrap; /* 요소를 여러 줄로 배치 가능하도록 설정 */
+    gap: 15px; /* 각 요소 간 간격 설정 */
+    max-height: 300px; /* 최대 높이 제한 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 활성화 */
+    justify-content: flex-start; /* 가로 정렬을 시작점 기준으로 설정 */
+    align-content: flex-start; /* 세로 정렬을 시작점 기준으로 설정 */
+    margin: 10px 0;
+
 }
 
 .venderregistrationform-design-modal .design-item {
@@ -324,12 +337,14 @@
 }
 
 .venderregistrationform-design-modal .design-image {
-    width: 100%;
-    height: auto;
+    width: 100px;
+    height: 100px;
     border-radius: 4px;
     margin-bottom: 10px;
 }
-
+.venderregistrationform-design-modal h2, h3{
+    font-size: 20px;
+}
 .venderregistrationform-design-modal .design-name {
     font-size: 14px;
     color: #333;
@@ -339,7 +354,7 @@
 .venderregistrationform-design-modal .design-item button {
     padding: 8px 12px;
     border: none;
-    background-color: #4CAF50;
+    background-color: #3f3f3f;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -375,28 +390,7 @@
     font-size: 14px;
 }
 
-/* 떠다니는 미리보기 버튼 스타일 */
-.product-registration .floating-preview-button {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    background-color: #4f46e5;
-    color: #ffffff;
-    padding: 15px 20px;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    z-index: 1000;
-}
 
-.product-registration .floating-preview-button:hover {
-    background-color: #3b37c1;
-    box-shadow: 0 6px 15px rgba(59, 55, 193, 0.4);
-    transform: translateY(-5px);
-}
 
 .product-registration .pagination {
     display: flex;
