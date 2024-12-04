@@ -1005,7 +1005,7 @@ const UserCakeDetail = () => {
             </div>
           </div>
           {/* 리뷰 분석 테스트할때만 주석 풀고 확인바람~~~~ */}
-          <ReviewAnalysis productId={productId} />
+          {/* <ReviewAnalysis productId={productId} /> */}
         </div>
       )}
 
@@ -1238,10 +1238,13 @@ const UserCakeDetail = () => {
           {/* 오른쪽 섹션 */}
           <div className="right-section">
             <div className="product-info">
-              <h2>{productDetail?.productName}</h2>
-              <p className="price">
-                {productDetail?.productPrice?.toLocaleString()} won
-              </p>
+              <div className="product-name-price">
+                <h2>{productDetail?.productName}</h2>
+                <p className="price">
+                  {productDetail?.productPrice?.toLocaleString()} won
+                </p>
+              </div>
+
               <div className="like-button-container">
                 <button
                   className={`like-button ${isLiked ? "liked" : ""}`}
