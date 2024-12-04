@@ -198,6 +198,7 @@
   left: 0;
   height: 50px;
   width: auto;
+  margin-top: 8px;
 }
 
 #naverIdLogin span {
@@ -241,6 +242,7 @@
   left: 0;
   height: 50px;
   width: auto;
+  margin-top: 6px;
 }
 
 #googleIdLogin span {
