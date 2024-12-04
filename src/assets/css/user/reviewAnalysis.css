@@ -76,6 +76,10 @@
   border-radius: 8px;
 }
 
+.review-analysis-no-summary {
+    text-align: center;
+}
+
 /* 피드백 버튼 */
 .review-analysis-feedback-section {
   display: flex;
