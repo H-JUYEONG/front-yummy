@@ -1,10 +1,6 @@
 .review-analysis-container {
-  max-width: 800px;
-  padding: 20px;
-  margin-bottom: 30px;
-  border: 1px solid #eee;
-  border-top: none;
-  border-radius: 0px 0px 8px 8px;
+  max-width: 530px;
+  padding: 5px 20px;
 }
 
 /* AI 헤더 스타일 */
@@ -140,13 +136,13 @@
 .review-analysis-category-items {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .review-analysis-category-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
 }
 
 .review-analysis-item-label {

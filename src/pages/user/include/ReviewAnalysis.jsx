@@ -9,7 +9,7 @@ const ReviewAnalysis = ({ productId }) => {
   const [analysisData, setAnalysisData] = useState(null);
   const [error, setError] = useState(null);
   const [helpfulStatus, setHelpfulStatus] = useState(null); // 'helpful' 또는 'not-helpful' 또는 null
-  const categoryColors = ["#4a90e2", "#6cc57c", "#95a5a6"]; // 카테고리별 색상
+  const categoryColors = ["#5dadec", "#6cc57c", "#a593e0"]; // 카테고리별 색상
 
   // Fetch analysis data from backend
   const fetchAnalysisData = async () => {
