@@ -112,6 +112,11 @@ const VenderSidebar = ({ isOpen, toggleMenu }) => {
                         <FaHome /> 메인페이지 바로가기
                     </Link>
                 </li>
+                <li>
+                    <Link to="/user/storedetail/73" onClick={toggleMenu}>
+                        <FaHome /> YUMMY몰 바로가기
+                    </Link>
+                </li>
             </ul>
             <button className="exit-button" onClick={handleLogout}>
                 <FaSignOutAlt /> 로그아웃

@@ -979,8 +979,10 @@ const UserCakeDetail = () => {
                 </div>
             )}
 
+
             {/* 테스트 필요할때만 주석 제거하고 리뷰 분석 확인해주세요!!!!! 돈 나가요*^^*/}
             <ReviewAnalysis productId={productId} />
+
 
             <div className="review-list">
                 <div className="review-filters">
@@ -1287,41 +1289,46 @@ const UserCakeDetail = () => {
                             </div>
 
                             <div className="option-group">
-                                <h3>케이크 위 레터링 요청</h3>
-                                <div className="request-input">
-                                    <textarea
-                                        name="cakeLetter"
-                                        value={letters.cakeLetter}
-                                        onChange={handleLetterChange}
-                                        placeholder="예) 생크림을 좀만 넣어주세요."
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
-                                </div>
+                                {/* 벤더 ID가 73이 아닐 때만 렌더링 */}
+                                {productDetail?.venderId !== 73 && (
+                                    <>
+                                        <h3>케이크 위 레터링 요청</h3>
+                                        <div className="request-input">
+                                            <textarea
+                                                name="cakeLetter"
+                                                value={letters.cakeLetter}
+                                                onChange={handleLetterChange}
+                                                placeholder="예) 생일축하해."
+                                                rows="4"
+                                                className="request-textarea"
+                                            />
+                                        </div>
 
-                                <h3>케이크 판 레터링 요청</h3>
-                                <div className="request-input">
-                                    <textarea
-                                        name="plateLetter"
-                                        value={letters.plateLetter}
-                                        onChange={handleLetterChange}
-                                        placeholder="예) 생크림을 좀만 넣어주세요."
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
-                                </div>
+                                        <h3>케이크 판 레터링 요청</h3>
+                                        <div className="request-input">
+                                            <textarea
+                                                name="plateLetter"
+                                                value={letters.plateLetter}
+                                                onChange={handleLetterChange}
+                                                placeholder="예) 생일 축하합니다."
+                                                rows="4"
+                                                className="request-textarea"
+                                            />
+                                        </div>
 
-                                <h3>기타 요청사항</h3>
-                                <div className="request-input">
-                                    <textarea
-                                        name="additionalRequest"
-                                        value={letters.additionalRequest}
-                                        onChange={handleLetterChange}
-                                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
-                                        rows="4"
-                                        className="request-textarea"
-                                    />
-                                </div>
+                                        <h3>기타 요청사항</h3>
+                                        <div className="request-input">
+                                            <textarea
+                                                name="additionalRequest"
+                                                value={letters.additionalRequest}
+                                                onChange={handleLetterChange}
+                                                placeholder="예) 살 안찌는 생크림케이크로 해주세요"
+                                                rows="4"
+                                                className="request-textarea"
+                                            />
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
                         {productDetail && (  // productDetail이 존재할 때만 렌더링

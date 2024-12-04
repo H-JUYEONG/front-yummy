@@ -10,6 +10,15 @@ function ChatGPTApp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // 초기 메시지 설정
+  useEffect(() => {
+    const initialMessage = {
+      role: "assistant",
+      content: "안녕하세요! 무엇을 도와드릴까요?",
+    };
+    setMessages([initialMessage]); // 초기 메시지 설정
+  }, []); // 컴포넌트가 처음 렌더링될 때만 실행
+
   // 스크롤을 최신 메시지로 이동
   useEffect(() => {
     const chatMessagesElement = document.querySelector(".chat-messages");
@@ -46,38 +55,36 @@ function ChatGPTApp() {
 
   return (
     <div className="chat-gpt-app">
-        {/* 메시지 영역 */}
-        <div className="chat-messages">
-            {messages.map((msg, index) => (
-                <p
-                    key={index}
-                    className={msg.role === "user" ? "chat-user-message" : "chat-gpt-message"}
-                >
-                    <strong>{msg.role === "user" ? "" : ""}</strong>{" "}
-                    {msg.content}
-                </p>
-            ))}
-        </div>
+      {/* 메시지 영역 */}
+      <div className="chat-messages">
+        {messages.map((msg, index) => (
+          <p
+            key={index}
+            className={msg.role === "user" ? "chat-user-message" : "chat-gpt-message"}
+          >
+            {msg.content}
+          </p>
+        ))}
+      </div>
 
-        {/* 입력 영역 */}
-        <div className="chat-input-container">
-            <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") handleSendMessage(); // 엔터키로 메시지 전송
-                }}
-                placeholder="메시지를 입력하세요..."
-                className="chat-input"
-            />
-            <button onClick={handleSendMessage} className="chat-send-button">
-                Send
-            </button>
-        </div>
+      {/* 입력 영역 */}
+      <div className="chat-input-container">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSendMessage(); // 엔터키로 메시지 전송
+          }}
+          placeholder="메시지를 입력하세요..."
+          className="chat-input"
+        />
+        <button onClick={handleSendMessage} className="chat-send-button">
+          Send
+        </button>
+      </div>
     </div>
-);
-  
+  );
 }
 
 export default ChatGPTApp;
