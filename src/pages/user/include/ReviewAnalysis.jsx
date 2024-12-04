@@ -8,6 +8,7 @@ import "../../../assets/css/user/reviewAnalysis.css";
 const ReviewAnalysis = ({ productId }) => {
   const [analysisData, setAnalysisData] = useState(null);
   const [error, setError] = useState(null);
+  const [helpfulStatus, setHelpfulStatus] = useState(null); // 'helpful' 또는 'not-helpful' 또는 null
   const categoryColors = ["#4a90e2", "#6cc57c", "#95a5a6"]; // 카테고리별 색상
 
   // Fetch analysis data from backend
@@ -22,6 +23,17 @@ const ReviewAnalysis = ({ productId }) => {
     } catch (err) {
       console.error("Error fetching analysis data:", err);
       setError("데이터 형식이 올바르지 않습니다.");
+    }
+  };
+
+  const handleFeedback = (type) => {
+    if (helpfulStatus === type) {
+      // 같은 버튼을 다시 누르면 색상만 초기화
+      setHelpfulStatus(null);
+    } else {
+      // 새로운 버튼을 누를 때는 alert 표시하고 색상 변경
+      setHelpfulStatus(type);
+      alert("소중한 의견 감사드립니다!");
     }
   };
 
@@ -46,17 +58,22 @@ const ReviewAnalysis = ({ productId }) => {
             alt="ai logo"
             className="review-analysis-ai-logo"
           />
-          <span className="review-analysis-ai-text">
-            GPT가 최근 3개월의 리뷰를 요약했어요
-          </span>
-          <Info className="review-analysis-info-icon" />
+          <div className="review-analysis-text-wrapper">
+            <span className="review-analysis-ai-text">
+              GPT가 최근 3개월의 리뷰를 요약했어요
+            </span>
+            <Info className="review-analysis-info-icon" />
+          </div>
         </div>
       </div>
 
       {/* 긍정 리뷰 비율 */}
       <div className="review-analysis-positive-rate">
         <h3 className="review-analysis-positive-percentage">
-          긍정리뷰 {analysisData.positiveRate}%
+          <span className="review-analysis-positive-label">긍정리뷰</span>
+          <span className="review-analysis-positive-value">
+            {analysisData.positiveRate}%
+          </span>
         </h3>
       </div>
 
@@ -66,11 +83,21 @@ const ReviewAnalysis = ({ productId }) => {
         {/* 피드백 버튼 */}
         <div className="review-analysis-feedback-section">
           <span className="review-analysis-help">요약이 도움이 되었나요?</span>
-          <button className="review-analysis-feedback-button review-analysis-helpful">
-            <FaRegThumbsUp/>
+          <button
+            className={`review-analysis-feedback-button ${
+              helpfulStatus === "helpful" ? "active" : ""
+            }`}
+            onClick={() => handleFeedback("helpful")}
+          >
+            <FaRegThumbsUp />
           </button>
-          <button className="review-analysis-feedback-button review-analysis-not-helpful">
-            <FaRegThumbsDown/>
+          <button
+            className={`review-analysis-feedback-button ${
+              helpfulStatus === "not-helpful" ? "active" : ""
+            }`}
+            onClick={() => handleFeedback("not-helpful")}
+          >
+            <FaRegThumbsDown />
           </button>
         </div>
       </div>

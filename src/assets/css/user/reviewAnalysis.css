@@ -1,147 +1,177 @@
 .review-analysis-container {
-    max-width: 800px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
- }
- 
- /* AI 헤더 스타일 */
- .review-analysis-ai-header {
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: center;
- }
- 
- .review-analysis-ai-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
- 
- }
- 
- .review-analysis-ai-logo {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
- }
- 
- .review-analysis-ai-text {
-    font-size: 17px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 4px;
- }
- 
- .review-analysis-info-icon {
-    width: 14px;
-    height: 14px;
-    color: #666;
- }
- 
- /* 긍정 리뷰 비율 */
- .review-analysis-positive-rate {
-    margin: 16px 0;
-    text-align: center;
- }
- 
- .review-analysis-positive-percentage {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 8px;
- }
- 
- /* 리뷰 요약 */
- .review-analysis-summary-container {
-    background-color: #fff;
-    margin-bottom: 16px;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #333;
- }
- 
- /* 피드백 버튼 */
- .review-analysis-feedback-section {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    justify-content: flex-start;
- }
+  max-width: 800px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0px 0px 8px 8px;
+}
 
- .review-analysis-help {
-    font-size: 13px;
-    padding: 10px 10px;
-    background-color: white;
-    border-radius: 25px;
-    border: none;
- }
- 
- .review-analysis-feedback-button {
-    padding: 0px 14px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    background: white;
-    font-size: 13px;
+/* AI 헤더 스타일 */
+.review-analysis-ai-header {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.review-analysis-ai-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.review-analysis-ai-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.review-analysis-text-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.review-analysis-ai-text {
+  font-size: 17px;
+  color: #333;
+}
+
+.review-analysis-info-icon {
+  width: 14px;
+  height: 14px;
+  color: #666;
+}
+
+/* 긍정 리뷰 비율 */
+.review-analysis-positive-rate {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.review-analysis-positive-percentage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.review-analysis-positive-label {
+  font-size: 16px;
+  color: #EA4335;
+}
+
+.review-analysis-positive-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #EA4335;
+}
+
+/* 리뷰 요약 */
+.review-analysis-summary-container {
+  background-color: #ebebeb;
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* 피드백 버튼 */
+.review-analysis-feedback-section {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.review-analysis-help {
+  font-size: 13px;
+  padding: 8px 10px;
+  background-color: white;
+  border-radius: 25px;
+  border: none;
+  color: #666;
+}
+
+.review-analysis-feedback-button {
+  padding: 10px 11px;
+  border: none;
+  border-radius: 25px;
+  background: white;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-analysis-feedback-button svg {
     color: #666;
-    cursor: pointer;
- }
- 
- /* 카테고리 분석 */
- .review-analysis-categories-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
- }
- 
- .review-analysis-category-section {
-    margin-bottom: 16px;
- }
- 
- .review-analysis-category-title {
-    font-size: 15px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 12px;
- }
- 
- .review-analysis-category-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
- }
- 
- .review-analysis-category-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
- }
- 
- .review-analysis-item-label {
-    width: 140px;
-    font-size: 14px;
-    color: #666;
- }
- 
- .review-analysis-progress-bar-wrapper {
-    flex: 1;
-    height: 6px;
-    background-color: #eee;
-    border-radius: 3px;
-    margin-right: 8px;
- }
- 
- .review-analysis-progress-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.3s ease;
- }
- 
- .review-analysis-percentage-value {
-    width: 40px;
-    font-size: 14px;
-    color: #666;
-    text-align: right;
- }
+}
+
+.review-analysis-feedback-button.active svg {
+    color: #EA4335;
+}
+
+/* 카테고리 분석 */
+.review-analysis-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-analysis-category-section {
+  margin-bottom: 16px;
+}
+
+.review-analysis-category-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.review-analysis-category-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.review-analysis-category-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-analysis-item-label {
+  width: 140px;
+  font-size: 15px;
+  color: #666;
+}
+
+.review-analysis-progress-bar-wrapper {
+  flex: 1;
+  height: 6px;
+  background-color: #eee;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.review-analysis-progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.review-analysis-percentage-value {
+  width: 40px;
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+}
