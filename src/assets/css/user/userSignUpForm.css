@@ -1,236 +1,255 @@
 /* 전체 레이아웃 설정 */
 .user-signup {
-    width: 450px;
-    margin: 0 auto;
-    padding: 20px 0;
-    text-align: left;
+  width: 450px;
+  margin: 0px auto 150px auto;
+  text-align: left;
 }
 
 .user-signup img {
-    width: 200px;
+  margin-right: 40px;
+  width: 250px;
 }
 
 .user-signup img {
-    display: block;
-    margin: 0 auto 10px auto;
+  display: block;
+  margin: 0 auto 10px auto;
 }
 
 .user-signup h1 {
-    font-size: 27px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 27px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .user-signup h2 {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin: 30px 0px 30px 0px;
-    position: relative;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 50px 0px 30px 0px;
+  position: relative;
 }
 
 .user-signup h2::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #000000;
-    position: absolute;
-    bottom: -10px;
-    left: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
 }
 
 /* 입력 필드 스타일 */
 .user-signup-intput-area {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .user-input-group-txt {
-    margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
+  margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
-.user-id-ok, .user-pw-ok{
-    padding-top: 6px;
-    font-size: 12px;
-    color: red;
+.user-id-ok,
+.user-pw-ok {
+  padding-top: 6px;
+  font-size: 15px;
+  color: red;
 }
 
 .user-signup-intput-area label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
 }
 
 .user-signup-intput-area input[type="text"],
 .user-signup-intput-area input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 15px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 .user-phonenum-input-wrapper {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
 .user-phonenum-input-wrapper input {
-    flex: 1;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 /* Placeholder 스타일 */
 .user-signup-intput-area input::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 /* 포커스 스타일 */
 .user-signup-intput-area input:focus {
-    outline: none;
-    border-color: #aaa;
-    background-color: #fff;
+  outline: none;
+  border-color: #aaa;
+  background-color: #fff;
 }
 
 /* 회원가입 버튼 스타일 */
 .user-signup-btns {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .user-signup-btns button {
-    width: 35%;
-    padding: 12px 0;
-    font-size: 16px;
-    color: #fff;
-    background-color: #000000;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 50%;
+  padding: 16px 0;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ff85a1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.user-signup-btns button:hover {
+  border: none;
+  color: #ffffff;
+  background-color: rgba(255, 133, 161, 0.8);
 }
 
 .terms-agreement {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .terms-agreement div {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .terms-agreement input[type="checkbox"] {
-    margin-right: 10px;
-    transform: scale(1.2);
-    transform-origin: left;
-    accent-color: #000000;
+  margin-right: 10px;
+  transform: scale(1.2);
+  transform-origin: left;
+  accent-color: #333;
+}
+
+.request-code-btn {
+  padding: 12px;
+  font-size: 14px;
+  color: white;
+  background-color: #ff85a1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 8px;
 }
 
 .verification-code-wrapper {
-    display: flex;
-    gap: 5px;
-    margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
 }
 
 .verification-code-wrapper input {
-    flex: 1;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .verification-code-wrapper button {
-    padding: 12px;
-    font-size: 14px;
-    color: white;
-    background-color: #000000;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 12px;
+  font-size: 14px;
+  color: white;
+  background-color: #ff85a1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-
 
 /* 기본 모바일 스타일링 (최대 768px) */
 @media screen and (max-width: 768px) {
-    /* 전체 레이아웃 */
-    .user-signup {
-        margin-top: 20px;
-        padding: 15px;
-        width: 90%;
-    }
+  /* 전체 레이아웃 */
+  .user-signup {
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
+  }
 
-    .user-signup h1 {
-        font-size: 20px;
-    }
+  .user-signup h1 {
+    font-size: 20px;
+  }
 
-    .user-signup h2 {
-        font-size: 16px;
-    }
+  .user-signup h2 {
+    font-size: 16px;
+  }
 
-    .user-signup-intput-area input[type="text"],
-    .user-signup-intput-area input[type="password"] {
-        padding: 10px;
-        font-size: 12px;
-    }
+  .user-signup-intput-area input[type="text"],
+  .user-signup-intput-area input[type="password"] {
+    padding: 10px;
+    font-size: 12px;
+  }
 
-    /* 폰트 크기 및 간격 조정 */
-    .user-input-group-txt label {
-        font-size: 12px;
-    }
+  /* 폰트 크기 및 간격 조정 */
+  .user-input-group-txt label {
+    font-size: 12px;
+  }
 
-    .user-id-ok, .user-pw-ok {
-        font-size: 10px;
-    }
+  .user-id-ok,
+  .user-pw-ok {
+    font-size: 10px;
+  }
 
-    /* 인증 버튼과 입력칸 */
-    .user-phonenum-input-wrapper {
-        flex-direction: column;
-        gap: 10px;
-    }
+  /* 인증 버튼과 입력칸 */
+  .user-phonenum-input-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
 
-    .user-phonenum-input-wrapper input,
-    .user-phonenum-input-wrapper button {
-        width: 100%;
-    }
+  .user-phonenum-input-wrapper input,
+  .user-phonenum-input-wrapper button {
+    width: 100%;
+  }
 
-    .verification-code-wrapper {
-        flex-direction: column;
-        gap: 10px;
-    }
+  .verification-code-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
 
-    .verification-code-wrapper input,
-    .verification-code-wrapper button {
-        width: 100%;
-    }
+  .verification-code-wrapper input,
+  .verification-code-wrapper button {
+    width: 100%;
+  }
 
-    /* 약관 동의 체크박스 */
-    .terms-agreement {
-        gap: 5px;
-    }
+  /* 약관 동의 체크박스 */
+  .terms-agreement {
+    gap: 5px;
+  }
 
-    .terms-agreement div {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .terms-agreement div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .terms-agreement input[type="checkbox"] {
-        transform: scale(1.1); /* 체크박스 크기 유지 */
-    }
+  .terms-agreement input[type="checkbox"] {
+    transform: scale(1.1); /* 체크박스 크기 유지 */
+  }
 
-    /* 버튼 스타일 */
-    .user-signup-btns button {
-        width: 80%;
-        font-size: 14px;
-        padding: 10px;
-    }
+  /* 버튼 스타일 */
+  .user-signup-btns button {
+    width: 80%;
+    font-size: 14px;
+    padding: 10px;
+  }
 }

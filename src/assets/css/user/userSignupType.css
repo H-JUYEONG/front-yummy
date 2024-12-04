@@ -1,144 +1,141 @@
 .signup-box {
-    width: 1050px;
-    margin: auto;
-    padding: 20px 0;
-    text-align: center;
+  width: 1050px;
+  margin: 0px auto 150px auto;
+  text-align: center;
 }
 
 .signup-box img {
-    width: 200px;
+  margin: 0 auto 10px auto;
+  width: 250px;
 }
 
 .signup-box h1 {
-    font-size: 28px;
-    margin: 10px 0px 30px 0px;
-    padding: 10px 0px;
+  font-size: 28px;
+  margin: 10px 0px 30px 0px;
+  padding: 10px 0px;
 }
 
 .signup-type {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
 .signup-type-icon {
-    font-size: 70px;
+  font-size: 70px;
 }
 
 .signup-type-item1 {
-    flex: 1;
-    padding: 30px 0px;
-    min-height: 80px;
-    /* 버튼 높이를 일정하게 유지 */
-    border: 1px solid #cacaca;
-    border-radius: 8px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* 아이콘과 텍스트 중앙 정렬 */
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: #686868;
-    cursor: pointer;
+  flex: 1;
+  padding: 30px 0px;
+  min-height: 80px;
+  /* 버튼 높이를 일정하게 유지 */
+  border: 1px solid #cacaca;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 아이콘과 텍스트 중앙 정렬 */
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #686868;
+  cursor: pointer;
 }
 
 .signup-type-item1 a {
-    font-size: 20px;
-    color: #686868;
-    text-decoration: none;
+  font-size: 20px;
+  color: #686868;
+  text-decoration: none;
 }
 
 .signup-type-item1 p {
-    font-size: 13px;
-    margin: 0;
-    /* 기본 여백 제거 */
+  font-size: 13px;
+  margin: 0;
+  /* 기본 여백 제거 */
 }
 
-
 .signup-type-item2 {
-    flex: 1;
-    padding: 20px 0px;
-    min-height: 80px;
-    /* 버튼 높이를 일정하게 유지 */
-    border: 1px solid #cacaca;
-    border-radius: 8px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* 아이콘과 텍스트 중앙 정렬 */
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: #686868;
-    cursor: pointer;
+  flex: 1;
+  padding: 20px 0px;
+  min-height: 80px;
+  /* 버튼 높이를 일정하게 유지 */
+  border: 1px solid #cacaca;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 아이콘과 텍스트 중앙 정렬 */
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #686868;
+  cursor: pointer;
 }
 
 .signup-type-item2 a {
-    padding-top: 10px;
-    font-size: 20px;
-    color: #686868;
-    text-decoration: none;
+  padding-top: 10px;
+  font-size: 20px;
+  color: #686868;
+  text-decoration: none;
 }
 
 .signup-type-item2 p {
-    font-size: 13px;
-    margin: 0;
-    /* 기본 여백 제거 */
+  font-size: 13px;
+  margin: 0;
+  /* 기본 여백 제거 */
 }
-
 
 /* 모바일 스타일 (최대 768px) */
 @media screen and (max-width: 768px) {
+  /* 회원가입 박스 */
+  .signup-box {
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
+  }
 
-    /* 회원가입 박스 */
-    .signup-box {
-        margin-top: 20px;
-        padding: 15px;
-        width: 90%;
-    }
+  .signup-box img {
+    width: 150px;
+    /* 이미지 크기 축소 */
+  }
 
-    .signup-box img {
-        width: 150px;
-        /* 이미지 크기 축소 */
-    }
+  .signup-box h1 {
+    font-size: 24px;
+    /* 제목 크기 축소 */
+  }
 
-    .signup-box h1 {
-        font-size: 24px;
-        /* 제목 크기 축소 */
-    }
+  /* 회원가입 유형 선택 */
+  .signup-type {
+    flex-direction: row;
+    /* 아이템을 세로로 배치 */
+    gap: 20px;
+  }
 
-    /* 회원가입 유형 선택 */
-    .signup-type {
-        flex-direction: row;
-        /* 아이템을 세로로 배치 */
-        gap: 20px;
-    }
+  .signup-type-item1,
+  .signup-type-item2 {
+    height: 100px;
+    /* 높이 축소 */
+    font-size: 12px;
+    /* 텍스트 크기 축소 */
+  }
 
-    .signup-type-item1,
-    .signup-type-item2 {
-        height: 100px;
-        /* 높이 축소 */
-        font-size: 12px;
-        /* 텍스트 크기 축소 */
-    }
+  .signup-type-icon {
+    font-size: 100px;
+    /* 아이콘 크기 축소 */
+  }
 
-    .signup-type-icon {
-        font-size: 100px;
-        /* 아이콘 크기 축소 */
-    }
+  .signup-type-item1 a,
+  .signup-type-item2 a {
+    font-size: 18px;
+    /* 링크 크기 축소 */
+  }
 
-    .signup-type-item1 a,
-    .signup-type-item2 a {
-        font-size: 18px;
-        /* 링크 크기 축소 */
-    }
-
-    .signup-type-item2 p {
-        font-size: 11px;
-        /* 추가 텍스트 크기 축소 */
-    }
+  .signup-type-item2 p {
+    font-size: 11px;
+    /* 추가 텍스트 크기 축소 */
+  }
 }

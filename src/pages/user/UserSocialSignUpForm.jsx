@@ -244,7 +244,7 @@ const UserSocialSignUpForm = () => {
       </header>
       <div id="user-wrap" className="user-text-center">
         <div className="user-social-signup">
-          <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
+          <img src="/images/logo2.png" alt="회사 로고" />
           <h1>회원가입</h1>
 
           <h2>필수사항</h2>

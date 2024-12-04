@@ -7,7 +7,7 @@
 }
 
 .user-edit-form label {
-  font-size: 0.9rem;
+  font-size: 1.0rem;
   font-weight: bold;
 }
 
@@ -65,7 +65,7 @@
   padding: 13px 15px;
   font-size: 0.9rem;
   color: #666;
-  background-color: #f8f8f8;
+  background-color: #ececec;
   border: 1px solid #dddddd;
   border-radius: 8px;
   cursor: pointer;

@@ -165,7 +165,7 @@
 
 /* Header Row (th) 스타일 */
 .j-discussion-list th {
-  background-color: #f4f4f4;
+  background-color: #e7e7e7;
   color: #333;
   font-weight: bold;
   padding: 18px 10px; /* 상하 여백을 늘림 */
