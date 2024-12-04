@@ -27,43 +27,53 @@ function ChatGPTApp() {
     }
   }, [messages]); // 메시지가 업데이트될 때마다 실행
 
-  const handleSendMessage = async () => {
-    if (!input.trim()) return;
+ const handleSendMessage = async () => {
+  if (!input.trim()) return;
 
-    const userMessage = { role: "user", content: input };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
-    setInput("");
-    setLoading(true);
-    setError(null);
+  const userMessage = { role: "user", content: input };
+  setMessages((prevMessages) => [...prevMessages, userMessage]);
+  setInput("");
+  setLoading(true);
+  setError(null);
 
-    try {
-      const res = await axios.post(`${API_BASE_URL}/api/chatgpt`, input, {
-        headers: { "Content-Type": "text/plain" },
-      });
+  try {
+    const payload = {
+      message: input,
+      sessionId: "user123", // 사용자 세션 관리
+    };
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: "assistant", content: res.data },
-      ]);
-    } catch (error) {
-      console.error("Error communicating with the server:", error);
-      setError("응답을 가져오는 중 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const res = await axios.post(
+      `${API_BASE_URL}/api/chatgpt`,
+      payload,
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "assistant", content: res.data.replace(/\n/g, "<br>") },
+    ]);
+  } catch (error) {
+    console.error("Error communicating with the server:", error);
+    setError("응답을 가져오는 중 오류가 발생했습니다.");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
 
   return (
     <div className="chat-gpt-app">
       {/* 메시지 영역 */}
       <div className="chat-messages">
         {messages.map((msg, index) => (
-          <p
+          <div
             key={index}
             className={msg.role === "user" ? "chat-user-message" : "chat-gpt-message"}
-          >
-            {msg.content}
-          </p>
+            dangerouslySetInnerHTML={{ __html: msg.content }}
+          ></div>
         ))}
       </div>
 

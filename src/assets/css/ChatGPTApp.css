@@ -3,7 +3,7 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    width: 350px;
+    width: 480px;
     height: 500px;
     background: linear-gradient(135deg, #ffe4ec, #ffdce5); /* 부드러운 핑크 그라데이션 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
@@ -46,7 +46,7 @@
 
 /* 챗봇 내부 */
 .chat-gpt-app {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     height: 90%;
@@ -83,7 +83,7 @@
     border-radius: 15px 0 15px 15px;
     margin: 5px;
     display: inline-block;
-    max-width: 80%;
+    max-width: 100%;
     font-size: 1em;
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@
     border-radius: 0 15px 15px 15px;
     margin: 5px;
     display: inline-block;
-    max-width: 80%;
+    max-width: 90%;
     font-size: 1em;
     color: #333;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
