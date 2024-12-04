@@ -27,8 +27,7 @@ const UserPaymentDetail = () => {
 
     // DB 컬럼명에 맞게 매핑 (한글 -> 영어)
     const columnMapping = {
-        '상품 종류': 'productType',
-        '케이크 크기': 'cakeSize',
+        '사이즈': 'cakeSize',
         '시트 맛': 'flavorSheet',
         '크림 맛': 'flavorCream',
         '케이크 배경색': 'cakeBackgroundColor',
@@ -36,9 +35,15 @@ const UserPaymentDetail = () => {
         '크림 색상': 'creamColor',
         '데코레이션 종류': 'decorationType',
         '데코레이션 색상': 'decorationColor',
-        '카테고리': 'category'
     };
-
+    const formattedOptions = {};
+    Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
+        const dbColumn = columnMapping[key];
+        if (dbColumn) {
+            formattedOptions[dbColumn] = value;
+        }
+    });
+    console.log("Formatted Options:", formattedOptions);
     const handlePayment = async () => {
         try {
             if (!authUser) {
@@ -46,15 +51,7 @@ const UserPaymentDetail = () => {
                 navigate('/user/login');
                 return;
             }
-
-            const formattedOptions = {};
-            Object.entries(orderData.orderInfo.selectedOptions || {}).forEach(([key, value]) => {
-                const dbColumn = columnMapping[key];
-                if (dbColumn) {
-                    formattedOptions[dbColumn] = value;
-                }
-            });
-
+     
             const dateTimeData = orderData.orderInfo.deliveryType === 'pickup'
                 ? {
                     desiredPickupDatetime: orderData.orderInfo.selectedDate,
