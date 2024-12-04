@@ -3,15 +3,19 @@ import axios from "axios";
 
 import "../../../assets/css/user/reviewAnalysis.css";
 
-const ReviewAnalysis = () => {
+const ReviewAnalysis = ({ productId }) => {
   const [analysisData, setAnalysisData] = useState(null);
   const [error, setError] = useState(null);
+
+  console.log('제발 가져와');
+  console.log(productId);
 
   // Fetch analysis data from backend
   const fetchAnalysisData = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/review/analyze`
+        `${process.env.REACT_APP_API_URL}/api/review/analyze`,
+        { params: { productId } } // productId를 요청에 포함
       );
       console.log(`리뷰 분석 : ${JSON.stringify(response.data)}`);
       setAnalysisData(response.data);
@@ -22,8 +26,10 @@ const ReviewAnalysis = () => {
   };
 
   useEffect(() => {
-    fetchAnalysisData();
-  }, []);
+    if (productId) {
+      fetchAnalysisData(); // productId가 있을 때만 데이터 가져오기
+    }
+  }, [productId]);
 
   if (error) {
     return <div className="error">{error}</div>;
@@ -53,7 +59,9 @@ const ReviewAnalysis = () => {
                         }}
                       ></div>
                     </div>
-                    <span className="review-analysis-percentage">{item.percentage}%</span>
+                    <span className="review-analysis-percentage">
+                      {item.percentage}%
+                    </span>
                   </li>
                 ))}
               </ul>

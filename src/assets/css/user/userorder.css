@@ -34,9 +34,30 @@
     color: #333;
 }
 
+/* 각 컬럼 너비 지정 */
+#user-wrap .mypage-order-table th:nth-child(1) { /* 등록 날짜 */
+    width: 15%;
+}
+
+#user-wrap .mypage-order-table th:nth-child(2) { /* 제품명 */
+    width: 30%;
+}
+
+#user-wrap .mypage-order-table th:nth-child(3) { /* 주문상태 */
+    width: 10%;
+}
+
+#user-wrap .mypage-order-table th:nth-child(4) { /* 제작업장/시간 */
+    width: 20%;
+}
+
+#user-wrap .mypage-order-table th:nth-child(5) { /* 관리 */
+    width: 25%;
+}
+
 #user-wrap .mypage-order-table td {
     color: #4B5563;
-    font-size: 1.0em;
+    font-size: 1.1em;
 }
 
 #user-wrap .mypage-order-table .clickable-status {
@@ -77,10 +98,6 @@
     box-shadow: none;
     font-size: 0.85em;
 }
-
-#user-wrap .mypage-order-table th:last-child {
-    width: 160px;  /* 또는 원하는 너비값으로 조정 가능 */
- }
 
 #user-wrap .action-btn:hover {
     background: var(--main-pink);
@@ -153,14 +170,14 @@
 #user-wrap .status-overview .description-table th {
     background: var(--light-pink); /* 연한 핑크 배경 */
     color: #333;
-    font-size: 0.9em;
+    font-size: 1.1em;
     border-top: 1px solid #ddd;    /* 회색으로 변경 */
     border-bottom: 1px solid #ddd;  /* 회색으로 변경 */
 }
 
 /* 숫자 행 스타일 */
 #user-wrap .status-overview .description-table tr:nth-child(1) td {
-    font-size: 2em;
+    font-size: 2.2em;
     color: var(--main-pink);
     border-bottom: 1px solid #ddd;  /* 추가: 숫자 아래 구분선 */
 }
@@ -168,7 +185,7 @@
 /* 설명 텍스트 행 스타일 */
 #user-wrap .status-overview .description-table tr:nth-child(2) td {
     color: #4B5563;
-    font-size: 0.9em;
+    font-size: 1.0em;
     padding: 12px 0px;
     border-bottom: 1px solid #ddd;  /* 회색으로 변경 */
 }
@@ -190,7 +207,7 @@
     padding: 10px 14px;         /* 변경 */
     border: 1px solid #ddd;     /* 변경 */
     border-radius: 4px;
-    font-size: 0.9em;
+    font-size: 1.0em;
     background-color: white;    /* 추가 */
 }
 
@@ -200,13 +217,14 @@
 }
 
 #user-wrap .period-btn {
-    padding: 8px 14px;
+    padding: 9px 14px;
     background: white;          /* 변경 */
     border: 1px solid #ddd;     /* 변경 */
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
-    font-size: 0.9em;
+    font-size: 1.1em;
+    color: #6B7280;
 }
 
 #user-wrap .period-btn:hover {
@@ -216,7 +234,7 @@
 }
 
 #user-wrap .notice {
-    font-size: 0.9em;
+    font-size: 1.1em;
     color: #6B7280;
     margin-top: 15px;            /* 변경 */
     padding: 15px;               /* 추가 */
@@ -226,7 +244,7 @@
 }
 
 #user-wrap .notice p {
-    margin: 5px 0;
+    margin: 8px 0;
 }
 
 /* Responsive Styles */

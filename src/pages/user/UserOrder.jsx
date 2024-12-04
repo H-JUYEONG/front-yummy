@@ -307,7 +307,7 @@ const UserOrder = () => {
                     <button className="period-btn">최근 6개월</button>
                 </div>
                 <div className="notice">
-                    <p>* 주문상태 새로고침 버튼을 이용하시면 현재의 주문상태를 확인할 수 있습니다</p>
+                    <p>* 주문상태 새로고침 버튼을 이용하시면 현재의 주문상태를 확인할 수 있습니다.</p>
                     <p>* 제작된 제품사진/영상은 계속해서 보실 수 있습니다.</p>
                 </div>
             </section>

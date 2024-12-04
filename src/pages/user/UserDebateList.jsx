@@ -64,8 +64,17 @@ const UserDebateList = () => {
 
   // 페이지 변경 핸들러
   const handlePageChange = (pageNumber) => {
+
     setCurrentPage(pageNumber); // 현재 페이지 업데이트
     fetchData(pageNumber, searchKeyword); // 새로운 페이지의 데이터 가져오기
+
+
+    // 페이지 상단으로 스크롤
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
+
   };
 
   // 카테고리 변경 핸들러

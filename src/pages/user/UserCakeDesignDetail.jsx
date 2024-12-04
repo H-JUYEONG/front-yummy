@@ -19,6 +19,7 @@ const UserCakeDesignDetail = () => {
   const [cakeDesignDetail, setCakeDesignDetail] = useState([]); // 도안 상세 정보 리스트
   const [cakeDesignReviews, setCakeDesignReviews] = useState([]); // 도안 리뷰 리스트
   const [authUser, setAuthUser] = useState(null); // 현재 로그인된 사용자 정보
+  const [selectedSubImageIndex, setSelectedSubImageIndex] = useState(0); // 선택한 서브 이미지
 
   // 찜 기능 수정
   const toggleFavorite = async () => {
@@ -60,8 +61,9 @@ const UserCakeDesignDetail = () => {
   };
 
   // 서브 이미지 클릭
-  const handleSubImageClick = (imageSrc) => {
-    setMainImage(imageSrc); // Update main image when a sub-image is clicked
+  const handleSubImageClick = (imageSrc, index) => {
+    setMainImage(imageSrc);  // 메인 이미지 변경
+    setSelectedSubImageIndex(index); // 선택된 이미지 인덱스 저장
   };
 
   // 도안 상세 정보 가져오기
@@ -178,7 +180,8 @@ const UserCakeDesignDetail = () => {
                       key={index}
                       src={imageSrc}
                       alt={`서브 이미지 ${index + 1}`}
-                      onClick={() => handleSubImageClick(imageSrc)}
+                      onClick={() => handleSubImageClick(imageSrc, index)}
+                      className={`user-cake-design-sub-image ${selectedSubImageIndex === index ? "selected" : ""}`}
                     />
                   ))}
                 </div>
@@ -312,17 +315,44 @@ const UserCakeDesignDetail = () => {
                     </span>
                   </div>
                   <div className="user-review-body">
-                    <img
-                      src={review.reviewImageUrl}
-                      alt="리뷰 이미지"
-                      className="user-cake-designs-review-image"
-                      onClick={() =>
-                        navigate(`/user/cakedetail/${review.productId}`)
-                      }
-                    />
+                    {review.reviewImageUrl ? (
+                      <img
+                        src={review.reviewImageUrl}
+                        alt="리뷰 이미지"
+                        className="user-cake-designs-review-image"
+                        onClick={() =>
+                          window.open(
+                            `/user/cakedetail/${review.productId}/${review.venderId}`,
+                            "_blank"
+                          )
+                        }
+                      />
+                    ) : (
+                      <div className="no-review-image">이미지 없음</div>
+                    )}
                     <div className="user-review-text">
-                      <p className="bakery-name">{review.venderName}</p>
-                      <p className="cake-name">{review.productName}</p>
+                      <p
+                        className="bakery-name"
+                        onClick={() =>
+                          window.open(
+                            `/user/storedetail/${review.venderId}`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        {review.venderName}
+                      </p>
+                      <p
+                        className="cake-name"
+                        onClick={() =>
+                          window.open(
+                            `/user/cakedetail/${review.productId}/${review.venderId}`,
+                            "_blank"
+                          )
+                        }
+                      >
+                        {review.productName}
+                      </p>
                       <p className="review-content">{review.reviewContent}</p>
                     </div>
                   </div>
