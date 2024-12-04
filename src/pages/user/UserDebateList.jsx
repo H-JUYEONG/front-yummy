@@ -5,24 +5,25 @@ import { FaSearch } from "react-icons/fa";
 import Header from "./include/Header";
 import Footer from "./include/Footer";
 
-// css
+// CSS 파일 임포트
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateList.css";
 import bubuDuduGif from "../../assets/images/bubu-dudu-sseeyall.gif";
 
 const UserDebateList = () => {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const navigate = useNavigate(); // 페이지 이동을 위한 네비게이트 함수
+  const token = localStorage.getItem("token"); // 사용자 인증 토큰 가져오기
 
-  const [debateList, setDebateList] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  // 상태 관리
+  const [debateList, setDebateList] = useState([]); // 토론 목록
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
+  const [totalCount, setTotalCount] = useState(0); // 전체 게시글 수
+  const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
 
-  // Fetch Debate List
+  // 토론 목록 데이터 가져오기
   const fetchData = async (page = 1, keyword = "", category = "") => {
     try {
       const response = await axios({
@@ -38,9 +39,9 @@ const UserDebateList = () => {
 
       if (response.data.result === "success") {
         const data = response.data.apiData.data || [];
-        setDebateList(data);
-        setTotalCount(response.data.apiData.totalCount || 0);
-        setTotalPages(response.data.apiData.totalPages || 1);
+        setDebateList(data); // 토론 데이터 설정
+        setTotalCount(response.data.apiData.totalCount || 0); // 전체 게시글 수 설정
+        setTotalPages(response.data.apiData.totalPages || 1); // 전체 페이지 수 설정
       } else {
         alert(response.data.message || "토크 목록 가져오기 실패");
       }
@@ -50,46 +51,47 @@ const UserDebateList = () => {
     }
   };
 
-  // Handle Search
+  // 검색 핸들러
   const handleSearch = () => {
-    setCurrentPage(1);
-    fetchData(1, searchKeyword);
+    setCurrentPage(1); // 페이지를 첫 번째로 초기화
+    fetchData(1, searchKeyword); // 검색어를 기반으로 데이터 가져오기
   };
 
-  // Navigate to Debate Detail
+  // 토론 상세 페이지로 이동
   const handleRowClick = (debateId) => {
     navigate(`/debate/debateview/${debateId}`);
   };
 
-  // Change Page
+  // 페이지 변경 핸들러
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    fetchData(pageNumber, searchKeyword);
+    setCurrentPage(pageNumber); // 현재 페이지 업데이트
+    fetchData(pageNumber, searchKeyword); // 새로운 페이지의 데이터 가져오기
   };
 
+  // 카테고리 변경 핸들러
   const handleCategoryChange = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1); // Reset to the first page for new category
-    fetchData(1, searchKeyword, category); // Fetch data for the selected category
+    setSelectedCategory(category); // 선택된 카테고리 설정
+    setCurrentPage(1); // 페이지를 첫 번째로 초기화
+    fetchData(1, searchKeyword, category); // 선택된 카테고리에 따른 데이터 가져오기
   };
 
-  // Fetch Debate List on Mount and Pagination Change
+  // 컴포넌트 마운트 및 페이지/카테고리 변경 시 데이터 가져오기
   useEffect(() => {
     fetchData(currentPage, searchKeyword, selectedCategory);
   }, [currentPage, selectedCategory]);
 
   return (
     <div id="user-wrap" className="text-center">
-      {/* Header */}
+      {/* 헤더 섹션 */}
       <header id="user-wrap-head">
         <Header />
       </header>
 
-      {/* Main Content */}
+      {/* 메인 섹션 */}
       <main id="user-wrap-body" className="clearfix">
         <div className="user-debate-board-list">
+          {/* 소개 섹션 */}
           <div id="user-cake-design-tip">
-            {/* GIF */}
             <div className="gif-container">
               <img src={bubuDuduGif} alt="부부두두 GIF" className="right-gif" />
             </div>
@@ -97,8 +99,9 @@ const UserDebateList = () => {
             <p>도안이나 케이크 고민은 케이크 토크에서 해결하세요!</p>
           </div>
 
-          {/* Search and Filter */}
+          {/* 검색 및 필터 섹션 */}
           <div id="user-cake-design-select-option-list">
+            {/* 카테고리 버튼 */}
             <div className="user-cake-design-select-option">
               <button
                 className={`category-button ${
@@ -125,6 +128,8 @@ const UserDebateList = () => {
                 베이커리 토크
               </button>
             </div>
+
+            {/* 검색 입력창 */}
             <div className="user-cake-design-search">
               <FaSearch className="search-icon" />
               <input
@@ -140,7 +145,7 @@ const UserDebateList = () => {
             </div>
           </div>
 
-          {/* Add Button */}
+          {/* 토크 등록 버튼 */}
           <div id="user-cake-design-add" className="clearfix">
             <div className="user-cake-design-all">ALL {totalCount}</div>
             <div className="user-cake-design-add-btn">
@@ -158,7 +163,7 @@ const UserDebateList = () => {
             </div>
           </div>
 
-          {/* Discussion Table */}
+          {/* 토론 목록 테이블 */}
           <table className="j-discussion-list">
             <thead>
               <tr>
@@ -206,9 +211,9 @@ const UserDebateList = () => {
             </tbody>
           </table>
 
-          {/* Pagination */}
+          {/* 페이지네이션 */}
           <div className="user-cake-design-pagination">
-            {/* Previous Button */}
+            {/* 이전 페이지 버튼 */}
             {currentPage > 1 && (
               <button
                 className="user-cake-design-prev-page"
@@ -218,7 +223,7 @@ const UserDebateList = () => {
               </button>
             )}
 
-            {/* Page Numbers */}
+            {/* 페이지 번호 */}
             {(() => {
               const pageNumbers = [];
               const maxPages = 5;
@@ -245,7 +250,7 @@ const UserDebateList = () => {
               return pageNumbers;
             })()}
 
-            {/* Next Button */}
+            {/* 다음 페이지 버튼 */}
             {currentPage < totalPages && (
               <button
                 className="user-cake-design-next-page"
@@ -258,7 +263,7 @@ const UserDebateList = () => {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* 푸터 섹션 */}
       <footer id="user-wrap-footer">
         <Footer />
       </footer>
