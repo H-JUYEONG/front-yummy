@@ -473,10 +473,10 @@ const UserOrder = () => {
           <UserSidebar />
           {showDetail ? <OrderDetail /> : <OrderList />}
         </main>
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

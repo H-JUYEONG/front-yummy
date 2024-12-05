@@ -291,11 +291,11 @@ const VenderSignUpForm = () => {
             </form>
           </div>
         </div>
-
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

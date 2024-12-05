@@ -215,9 +215,6 @@ const UserMyAudtion = () => {
           </div>
         </main>
 
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
         {/* 모달 컴포넌트 */}
         {isModalOpen && selectedAudition && (
           <UserAuditionModal
@@ -227,6 +224,9 @@ const UserMyAudtion = () => {
           />
         )}
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

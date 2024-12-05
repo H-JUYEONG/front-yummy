@@ -5,7 +5,7 @@
 }
 
 .user-login-box img {
-  margin-right: 30px;
+  margin: 0 auto 10px auto;
   width: 250px;
 }
 
@@ -151,14 +151,14 @@
   line-height: 1.5;
 }
 
-.user-txt-chk-right a:first-child::after,
+/* .user-txt-chk-right a:first-child::after,
 .user-txt-chk-right a:nth-child(2)::after {
   content: " | ";
   color: #686868;
   font-weight: normal;
   margin-left: 10px;
   line-height: 1;
-}
+} */
 
 /* 카카오 로그인 이미지 */
 #kakaoIdLogin img {
@@ -198,6 +198,7 @@
   left: 0;
   height: 50px;
   width: auto;
+  margin-top: 8px;
 }
 
 #naverIdLogin span {
@@ -241,6 +242,7 @@
   left: 0;
   height: 50px;
   width: auto;
+  margin-top: 6px;
 }
 
 #googleIdLogin span {

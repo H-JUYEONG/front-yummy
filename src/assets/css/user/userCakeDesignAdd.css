@@ -5,11 +5,10 @@
 
 .user-cake-design-main {
   max-width: 1000px;
-  background-color: #ffffff;
   border-radius: 20px;
   padding: 40px 50px;
   margin: 0 auto;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #dddddd;
   transition: transform 0.3s;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
@@ -49,8 +48,8 @@
   gap: 20px;
   min-height: 200px;
   padding: 30px;
-  background-color: #fafafa;
-  border: 2px dashed #e0e0e0;
+  background-color: #f1f1f1;
+  border: 2px dashed #cacaca;
   border-radius: 12px;
   margin: 15px 0 30px 0;
   align-items: center;
@@ -107,9 +106,9 @@
   display: flex;
   align-items: center;
   margin: 10px 0;
-  background-color: #fff;
+  background-color: #f1f1f1;
   padding: 3px 15px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ddd;
   border-radius: 12px;
   transition: all 0.2s ease;
 }
@@ -143,7 +142,7 @@
 .user-add-image-button {
   background-color: #fff;
   color: #666;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ddd;
   cursor: pointer;
   font-size: 0.95em;
   padding: 8px 20px;
@@ -166,12 +165,12 @@
   width: 100%;
   padding: 16px;
   font-size: 1em;
-  border: 1px solid #e0e0e0;
+  color: #444;
+  border: 1px solid #dddddd;
+  background-color: #f1f1f1;
   border-radius: 12px;
   box-sizing: border-box;
   transition: all 0.3s ease;
-  color: #444;
-  background-color: #fafafa;
 }
 
 .user-input-text:focus {

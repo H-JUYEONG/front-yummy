@@ -1,3 +1,31 @@
+/* Status Overview Styles */
+#user-wrap .order-status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0f0f0;
+    padding: 24px;
+    margin: 30px 0;
+    gap: 10px;
+}
+
+#user-wrap .status-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  padding: 0 20px;
+}
+
+#user-wrap .status-count {
+  font-size: 1.8em;           /* 변경 */
+  font-weight: bold;
+  color: var(--main-pink);
+  margin-bottom: 8px;
+}
+
 /* 포인트 조회 페이지 스타일 */
 .point-label {
   color: #333;
@@ -18,7 +46,7 @@
 
 /* 테이블 헤더 스타일링 */
 .point-table thead {
-  background-color: #f4f4f4;
+  background-color: #e7e7e7;
 }
 
 .point-table th {

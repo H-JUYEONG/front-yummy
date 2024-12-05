@@ -336,9 +336,7 @@ const UserAuditionOngoing = () => {
             </div>
           </div>
         </main>
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
+
         {isModalOpen && selectedCompany && (
           <UserAuditionModal
             isOpen={isModalOpen}
@@ -347,6 +345,9 @@ const UserAuditionOngoing = () => {
           />
         )}
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

@@ -1,103 +1,133 @@
-/* userfooterstyle.css */
+.footer-wrapper {
+  width: 100%;
+  background-color: #f1f1f1;
+  font-family: "HakgyoansimGeurimilgiTTF-R", sans-serif;
+}
+
 .footer-container {
-    padding: 40px 0;
-    border-top: 2px solid #ddd;
-    width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 40px 0;
 }
 
 .footer-content {
-    margin: 0 auto;
-    padding: 0 24px;
+  margin: 0 auto;
+  padding: 0 24px;
+  overflow: hidden; /* float를 사용하므로 clearfix */
 }
 
-.footer-logo {
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-.footer-logo h2 {
-    font-family: 'HakgyoansimGeurimilgiTTF-R', serif;
-    font-size: 3.5em;
-    color: #333;
-    margin: 0;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.footer-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.company-info {
-    flex: 1;
-    min-width: 280px;
-}
-
-.company-info p {
-    margin: 0;
-    margin-bottom: 12px;
-    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
-    color: #4b5563;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.info-label {
-    font-weight: bold;
-    color: #374151;
-    min-width: 80px;
-}
-
-.info-value {
-    color: #6b7280;
-}
-
-.footer-links {
-    flex: 1;
-    min-width: 280px;
+/* 왼쪽 컨텐츠 */
+.footer-left {
+  float: left;
+  width: 60%;
 }
 
 .footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: flex-end;
-    gap: 24px;
-    flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  display: flex;
+  gap: 32px;
 }
 
 .footer-links a {
-    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
-    text-decoration: none;
-    color: #4b5563 !important;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-    padding: 8px 12px;
-    border-radius: 6px;
-    display: inline-block;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
 }
 
-.footer-links a:hover {
-    background-color: #fce6e5;
-    color: #4b5563 !important;
+.company-info p {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 1.0em;
+  line-height: 1.6;
 }
 
+.company-info .divider {
+  font-size: 0.9em; /* 폰트 크기를 작게 */
+  color: #b7b7b7; /* 연한 회색으로 색상 변경 */
+  margin: 0 2px; /* 선택사항: 양쪽에 여백을 주고 싶다면 */
+}
+
+.business-info {
+  color: #333;
+  text-decoration: underline;
+  margin-left: 8px;
+}
+
+/* 오른쪽 컨텐츠 */
+.footer-right {
+  float: right;
+  width: 30%;
+  text-align: right;
+}
+
+.cs-info h3 {
+  color: #333;
+  font-size: 1.1em;
+  margin: 0 0 12px 0;
+}
+
+.cs-number {
+  font-size: 1.8em;
+  color: #ff85a1;
+  font-weight: bold;
+  margin: 0 0 12px 0;
+}
+
+.cs-time {
+  color: #333;
+  margin: 8px 0;
+  font-size: 1.0em;
+}
+
+.social-links {
+  margin-top: 40px;
+}
+
+.social-link {
+  color: #333;
+  text-decoration: none;
+  margin-left: 16px;
+  font-size: 0.9em;
+}
+
+.social-link:hover {
+  color: #ff85a1;
+}
+
+/* 하단 저작권 */
 .footer-bottom {
-    text-align: center;
-    margin-top: 32px;
-    padding-top: 24px;
+  clear: both;
+  padding-top: 20px;
 }
 
-.footer-bottom p {
-    margin: 0;
-    color: #9ca3af;
-    font-size: 0.9em;
-    font-family: 'HakgyoansimGeurimilgiTTF-R', sans-serif;
+.copyright {
+  margin: 0;
+  color: #999;
+  font-size: 1.0em;
+  text-align: left;
 }
 
+/* 반응형 */
+@media (max-width: 768px) {
+  .footer-left,
+  .footer-right {
+    float: none;
+    width: 100%;
+  }
+
+  .footer-right {
+    text-align: left;
+    margin-top: 30px;
+  }
+
+  .social-link {
+    margin: 0 16px 0 0;
+  }
+
+  .footer-links ul {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

@@ -436,10 +436,10 @@ const UserMainForm = () => {
             ))}
           </div>
         </div>
-        <footer>
-          <Footer />
-        </footer>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };

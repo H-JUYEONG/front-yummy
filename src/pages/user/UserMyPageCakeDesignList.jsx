@@ -214,11 +214,10 @@ const UserMyPageCakeDesignList = () => {
             </div>
           </section>
         </main>
-
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

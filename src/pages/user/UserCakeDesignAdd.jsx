@@ -239,12 +239,10 @@ const UserCakeDesignAdd = () => {
             </form>
           </div>
         </main>
-
-        {/* Footer */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

@@ -75,7 +75,7 @@
   color: #333;
   font-size: 1em;
   transition: background-color 0.3s ease;
-  padding: 8px 12px;
+  padding: 8px 0px 8px 12px;
   border-radius: 6px;
   white-space: nowrap;
   display: inline-block;

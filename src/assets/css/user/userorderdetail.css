@@ -3,7 +3,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #dddddd;
+  border: 1px solid #bcbcbc;;
 }
 
 .dot {
@@ -11,7 +11,7 @@
 }
 
 #user-wrap .order-detail-container2 .order-date {
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: bold;
   margin-bottom: 5px;
   color: #333;
@@ -29,7 +29,7 @@
   gap: 25px;
   padding: 25px;
   background-color: #fff;
-  border: 1px solid #dddddd;
+  border: 1px solid #bcbcbc;;
   border-radius: 8px;
   margin-bottom: 30px;
   align-items: flex-start;
@@ -41,7 +41,6 @@
   flex-shrink: 0;
   border-radius: 8px;
   overflow: hidden;
-  border: 2px solid #ffe9ee;
 }
 
 #user-wrap .order-detail-container2 .product-image {
@@ -61,7 +60,7 @@
 
 #user-wrap .order-detail-container2 .product-details h3 {
   margin: 0 0 20px 0;
-  font-size: 1.3em;
+  font-size: 1.4em;
   color: #333;
   font-weight: bold;
   padding-bottom: 15px;
@@ -74,16 +73,26 @@
   align-items: flex-start;
 }
 
+#user-wrap .order-detail-container2 .detail-item .label::before {
+  content: "•";
+  color: #ff85a1;  /* 연한 핑크색 */
+  margin-right: 6px;
+  font-size: 1.2em;
+}
+
 #user-wrap .order-detail-container2 .detail-item .label {
   min-width: 120px;
   color: #333;
   font-weight: 500;
   flex-shrink: 0;
+  font-size: 1.2em;
 }
 
 #user-wrap .order-detail-container2 .detail-item .value {
   color: #333;
   flex: 1;
+  font-size: 1.2em;
+  padding: 10px 0px 0px 20px;
 }
 
 /* #user-wrap .order-detail-container2 .detail-item.note {
@@ -96,6 +105,7 @@
 
 #user-wrap .order-detail-container2 .price {
   color: #ff7292;
+  font-size: 1.2em;
 }
 
 /* #user-wrap .order-detail-container2 .product-status {
@@ -109,13 +119,21 @@
 #user-wrap .order-detail-container2 .status-label {
   color: #333;
   margin-right: 30px;
-  font-size: 1em;
+  font-size: 1.2em;
+}
+
+#user-wrap .order-detail-container2 .status-label::before {
+  content: "•";
+  color: #ff85a1;  /* 연한 핑크색 */
+  margin-right: 6px;
+  font-size: 1.2em;
 }
 
 #user-wrap .order-detail-container2 .status-value {
   color: #ff7292;
+  font-size: 1.2em;
   font-weight: bold;
-  margin-left: 30px;
+  margin-left: 23px;
 }
 
 #user-wrap .order-detail-container2 .order-section {
@@ -123,7 +141,7 @@
   background: #fff;
   border-radius: 8px;
   padding: 25px 25px 10px 25px;
-  border: 1px solid #dddddd;
+  border: 1px solid #bcbcbc;;
 }
 
 #user-wrap .order-detail-container2 .order-section h3 {
@@ -144,12 +162,13 @@
 #user-wrap .order-detail-container2 .label {
   min-width: 100px;
   color: #333;
-  font-weight: 500;
+  font-size: 1.2em;
   flex-shrink: 0;
 }
 
 #user-wrap .order-detail-container2 .value {
   color: #666;
+  font-size: 1.2em;
   flex: 1;
 }
 
@@ -181,7 +200,7 @@
   color: #ff7292;
   margin-top: 15px;
   padding-top: 15px;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #bcbcbc;;
 }
 
 /* 반응형 스타일 */
