@@ -1,6 +1,5 @@
 /* 전체 앱 스타일 */
 .app-container {
-    font-family: 'Poppins', sans-serif;
     position: relative;
 }
 
@@ -11,7 +10,8 @@
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: #ffaad4; /* 파스텔 핑크 */
+    background-color: #ffaad4;
+    /* 파스텔 핑크 */
     color: white;
     border-radius: 50%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -26,7 +26,8 @@
 
 .floating-chat-button:hover {
     transform: scale(1.2);
-    background-color: #f56aa1; /* 조금 더 진한 핑크 */
+    background-color: #f56aa1;
+    /* 조금 더 진한 핑크 */
 }
 
 
@@ -36,8 +37,17 @@
         transform: translateY(100%);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .app-container {
+        max-width: 100%; /* 모바일에서는 화면 너비에 맞춤 */
+        margin: 0 auto;
     }
 }

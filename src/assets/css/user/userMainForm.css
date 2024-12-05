@@ -447,18 +447,11 @@ map area {
 /* 모바일 화면 (최대 768px) */
 @media screen and (max-width: 768px) {
 
-    /* 전체 레이아웃 간격 및 폰트 크기 조정 */
-    body {
-        padding: 10px;
-        font-size: 14px;
-    }
-
     #user-wrap {
         padding: 10px;
     }
 
     .userMainFormContainer .banner {
-        margin-top: 40px;
         height: 200px;
     }
 
@@ -485,18 +478,27 @@ map area {
     }
 
     /* 지도 버튼 정렬 */
+    .userMainFormContainer .sy-user-main-title {
+        margin: 20px auto;
+        text-align: center; /* 텍스트를 수평 가운데 정렬 */
+    }
+
     .userMainFormContainer .map-click button {
         width: calc((100% - 20px) / 7);
         /* 3개의 버튼이 한 줄에 */
         padding: 5px;
+        margin: 0 auto;
     }
 
     /* 카테고리 버튼 크기 조정 */
+    .userMainFormContainer .category-box ul {
+        max-width: 100%;
+        gap: 10px
+    }
+
     .userMainFormContainer .category-box ul button {
         font-size: 12px;
-        padding: 5px 0;
-        width: 70px;
-        margin: 0px -10px;
+        width: 75px;
     }
 
     /* 상품 리스트 그리드 조정 */

@@ -5,7 +5,8 @@
     right: 20px;
     width: 480px;
     height: 500px;
-    background: linear-gradient(135deg, #ffe4ec, #ffdce5); /* 부드러운 핑크 그라데이션 */
+    background: linear-gradient(135deg, #ffe4ec, #ffdce5);
+    /* 부드러운 핑크 그라데이션 */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
     overflow: hidden;
@@ -24,10 +25,11 @@
     padding: 15px;
     font-size: 1.2em;
     font-weight: bold;
-    background-color: #ffaad4; /* 진한 핑크 */
+    background-color: #ffaad4;
+    /* 진한 핑크 */
     color: white;
 }
-  
+
 /* 닫기 버튼 */
 .close-chat {
     position: absolute;
@@ -70,15 +72,19 @@
 
 /* 메시지 스타일 */
 .chat-messages {
-    flex: 1; /* 메시지 영역이 남은 공간을 차지 */
-    overflow-y: auto; /* 스크롤 활성화 */
-    margin-bottom: 5px; /* 입력창과 간격 */
+    flex: 1;
+    /* 메시지 영역이 남은 공간을 차지 */
+    overflow-y: auto;
+    /* 스크롤 활성화 */
+    margin-bottom: 5px;
+    /* 입력창과 간격 */
     border-radius: 0 0 15px 15px;
 }
 
 .chat-user-message {
     text-align: right;
-    background-color: #ffdce5; /* 파스텔 핑크 */
+    background-color: #ffdce5;
+    /* 파스텔 핑크 */
     padding: 10px;
     border-radius: 15px 0 15px 15px;
     margin: 5px;
@@ -91,7 +97,8 @@
 
 .chat-gpt-message {
     text-align: left;
-    background-color: #fff5f8; /* 밝은 핑크 */
+    background-color: #fff5f8;
+    /* 밝은 핑크 */
     padding: 10px;
     border-radius: 0 15px 15px 15px;
     margin: 5px;
@@ -112,7 +119,8 @@
 .chat-input-container {
     display: flex;
     gap: 10px;
-    background-color: #ffe4ec; /* 입력창 배경 */
+    background-color: #ffe4ec;
+    /* 입력창 배경 */
     padding: 10px;
     border-top: 1px solid #ffdce5;
     border-radius: 10px;
@@ -127,7 +135,8 @@
 }
 
 .chat-send-button {
-    background: linear-gradient(135deg, #ff6f91, #ff85a2); /* 버튼 그라데이션 */
+    background: linear-gradient(135deg, #ff6f91, #ff85a2);
+    /* 버튼 그라데이션 */
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
@@ -138,9 +147,12 @@
 }
 
 .chat-send-button:hover {
-    background: linear-gradient(135deg, #ff3b6f, #ff6f91); /* 더 진한 핑크 */
+    background: linear-gradient(135deg, #ff3b6f, #ff6f91);
+    /* 더 진한 핑크 */
 }
-.chat-user-message, .chat-gpt-message {
+
+.chat-user-message,
+.chat-gpt-message {
     animation: fadeInMessage 0.3s ease-in-out;
 }
 
@@ -150,6 +162,7 @@
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -162,10 +175,20 @@
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background-color: #ff6f91; /* 핑크 톤 */
+    background-color: #ff6f91;
+    /* 핑크 톤 */
     border-radius: 10px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
     background: #ffe4ec;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .chat-bot-container{
+        width: 350px;
+    }
+
 }
