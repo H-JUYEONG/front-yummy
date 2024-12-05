@@ -308,3 +308,226 @@
 .h-storeinfo {
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
+
+@media screen and (max-width: 768px) {
+
+    /* 프로필 섹션 */
+    .sd-profile-container {
+        display: flex;
+        flex-direction: column;
+        /* 세로 배치 */
+        align-items: center;
+        padding: 10px;
+        width: 100%;
+        /* 전체 화면 너비 사용 */
+    }
+
+    .sd-profile-content {
+        display: flex;
+        flex-direction: column;
+        /* 세로 배치 */
+        gap: 15px;
+        align-items: center;
+        width: 100%;
+        /* 너비 조정 */
+    }
+
+    .sd-profile-image {
+        width: 100px;
+        /* 이미지 크기 축소 */
+        height: 100px;
+    }
+
+    .sd-profile-stats {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        /* 통계를 여러 줄로 배치 */
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .sd-info-content {
+        font-size: 14px;
+        /* 텍스트 크기 축소 */
+        text-align: center;
+        /* 텍스트 중앙 정렬 */
+    }
+
+    /* 지도 섹션 */
+    .sd-map-section {
+        gap: 10px;
+        padding: 10px;
+        width: 100%;
+        /* 전체 화면 너비 사용 */
+    }
+
+    .sd-map-container {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        /* 지도 비율 변경 */
+        border-radius: 10px;
+        background-color: #eaeaea;
+        /* 지도 배경색 추가 */
+    }
+
+    .sd-map-info {
+        font-size: 12px;
+        /* 텍스트 크기 축소 */
+        text-align: center;
+        /* 텍스트 중앙 정렬 */
+    }
+
+    /* 카테고리 섹션 */
+    .sd-category-container {
+        display: flex;
+        flex-wrap: wrap;
+        /* 여러 줄로 배치 */
+        justify-content: center;
+        /* 중앙 정렬 */
+        gap: 10px;
+        padding: 10px;
+        width: 100%;
+        /* 전체 화면 너비 사용 */
+    }
+
+    .sd-category-item {
+        flex: 0 1 30%;
+        /* 너비를 30%로 설정 */
+        text-align: center;
+        padding: 5px;
+    }
+
+    .sd-category-item img {
+        width: 40px;
+        height: 40px;
+        /* 이미지 크기 축소 */
+        margin-bottom: 5px;
+    }
+
+    .sd-category-item p {
+        font-size: 12px;
+        /* 텍스트 크기 축소 */
+    }
+
+    /* 상품 리스트 */
+    .sd-products-container {
+        grid-template-columns: repeat(2, 1fr);
+        /* 한 줄에 2개씩 배치 */
+        gap: 15px;
+        /* 간격 축소 */
+        padding: 8px;
+        width: 100%;
+    }
+
+    .sd-product-item {
+        width: 150px;
+        /* 전체 너비 사용 */
+        height: 200px;
+        /* 전체 너비 사용 */
+        margin: 0 auto;
+        /* 중앙 정렬 */
+        border-radius: 10px;
+    }
+
+    .sd-product-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        /* 둥근 모서리 */
+        overflow: hidden;
+    }
+
+    .sd-product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* 비율 유지하며 채우기 */
+    }
+
+    .sd-price-info {
+        font-size: 12px;
+        /* 텍스트 크기 축소 */
+        padding: 8px;
+        text-align: center;
+        /* 중앙 정렬 */
+    }
+
+    .sd-product-name {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sd-price {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    /* 카카오톡 버튼 */
+    .kakao-chat-btn {
+        width: 90%;
+        /* 너비 확장 */
+        font-size: 14px;
+        /* 텍스트 크기 축소 */
+        margin: 10px auto;
+        /* 중앙 정렬 */
+        padding: 10px;
+    }
+
+    /* 텍스트 센터 섹션 */
+    .text-center .vender-header-wrap {
+        padding: 10px;
+    }
+
+    .sd-store-name {
+        font-size: 1.5rem;
+        /* 텍스트 크기 축소 */
+        text-align: center;
+        /* 중앙 정렬 */
+    }
+}
+
+
+.floating-back-button {
+    position: fixed; /* 화면에 고정 */
+    bottom: 100px; /* 화면 하단에서 20px */
+    right: 20px; /* 화면 오른쪽에서 20px */
+    background-color: #ff6f61; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색 */
+    border: none;
+    border-radius: 50px; /* 둥근 버튼 */
+    padding: 12px 20px;
+    font-size: 14px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    animation: floating 3s ease-in-out infinite; /* 떠다니는 애니메이션 */
+}
+
+/* 호버 효과 */
+.floating-back-button:hover {
+    background-color: #e05a4f; /* 호버 시 배경색 변경 */
+    transform: scale(1.1); /* 호버 시 확대 효과 */
+}
+
+/* 클릭 효과 */
+.floating-back-button:active {
+    transform: scale(0.95); /* 클릭 시 축소 효과 */
+}
+
+/* 떠다니는 애니메이션 */
+@keyframes floating {
+    0% {
+        transform: translateY(0px); /* 기본 위치 */
+    }
+    50% {
+        transform: translateY(-10px); /* 위로 이동 */
+    }
+    100% {
+        transform: translateY(0px); /* 원래 위치로 돌아옴 */
+    }
+}

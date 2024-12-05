@@ -59,3 +59,59 @@
     box-shadow: none !important;
     color: #ffffff !important; /* 흰색으로 변경 */
 }
+
+@media screen and (max-width: 768px) {
+    /* 통계 요약 섹션 */
+    .vender-content .dashboard-summary {
+        margin-bottom: 20px;
+    }
+
+    .vender-content .dashboard-summary h2 {
+        font-size: 1.5rem; /* 제목 크기 축소 */
+        text-align: center; /* 텍스트를 가운데 정렬 */
+    }
+
+    .vender-content .summary-cards {
+        display: flex; /* Flexbox 사용 */
+        flex-wrap: nowrap; /* 가로로 스크롤되도록 설정 */
+        overflow-x: auto; /* 가로 스크롤 활성화 */
+        gap: 15px; /* 카드 간격 */
+        padding: 0 10px; /* 좌우 여백 */
+        scrollbar-width: thin; /* 스크롤바 크기 축소 */
+        -ms-overflow-style: none; /* IE, Edge 스크롤 숨기기 */
+    }
+
+    .vender-content .summary-cards::-webkit-scrollbar {
+        height: 8px; /* 스크롤바 높이 */
+    }
+
+    .vender-content .summary-cards::-webkit-scrollbar-thumb {
+        background: #555; /* 스크롤바 색상 */
+        border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+    }
+
+    .vender-content .summary-cards::-webkit-scrollbar-track {
+        background: #3f3f3f; /* 스크롤바 배경 */
+    }
+
+    .vender-content .card {
+        flex: 0 0 80%; /* 카드의 가로 크기를 80%로 설정 */
+        max-width: 300px; /* 최대 너비 제한 */
+        min-width: 200px; /* 최소 너비 설정 */
+        background-color: #3f3f3f; /* 다크 배경색 유지 */
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 다크 테마에 맞는 그림자 */
+        padding: 15px;
+        text-align: center;
+    }
+
+    .vender-content .card h3 {
+        font-size: 1rem; /* 카드 제목 크기 축소 */
+        margin-bottom: 5px;
+    }
+
+    .vender-content .card p {
+        font-size: 1.2em; /* 카드 내용 크기 */
+        font-weight: bold;
+    }
+}

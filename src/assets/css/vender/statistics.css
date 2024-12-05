@@ -166,3 +166,130 @@
 .review-analysis-section .filter-section button:hover {
     background-color: #009624;
 }
+@media screen and (max-width: 768px) {
+    /* 통계 요약 카드 섹션 */
+    .vender-content .summary-card-section {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto; /* 가로 스크롤 활성화 */
+        padding: 10px 0;
+    }
+
+    .vender-content .summary-card {
+        flex: 0 0 auto; /* 가로로 카드 고정 */
+        min-width: 180px; /* 최소 카드 너비 설정 */
+        max-width: 200px; /* 최대 카드 너비 설정 */
+        background: #3f3f3f;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .vender-content .summary-card h3 {
+        font-size: 0.9rem; /* 제목 크기 축소 */
+        color: #ffffff;
+        margin-bottom: 5px;
+    }
+
+    .vender-content .summary-card p {
+        font-size: 1rem; /* 강조 텍스트 크기 축소 */
+        color: #00c853;
+    }
+
+    /* 차트 섹션 */
+    .vender-content .chart-section {
+        display: flex;
+        flex-direction: column; /* 세로 정렬 */
+        gap: 15px; /* 간격 조정 */
+        padding: 10px;
+    }
+
+    .vender-content .chart-wrapper {
+        flex: 1 0 auto; /* 차트 크기 조정 */
+        width: 100%; /* 모바일 화면에 맞게 전체 너비 */
+        padding: 10px;
+        background-color: #424242;
+        border: 1px solid #444444;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    /* 리뷰 분석 섹션 */
+    .vender-content .review-chart-section {
+        display: flex;
+        flex-direction: column; /* 세로 정렬 */
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .vender-content .doughnut-chart {
+        flex: 1 0 auto; /* 차트 크기 조정 */
+        max-width: 300px; /* 최대 크기 */
+        margin: 0 auto; /* 가운데 정렬 */
+        background-color: #505050;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .vender-content .doughnut-chart h4 {
+        font-size: 0.8rem; /* 제목 크기 축소 */
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .vender-content .doughnut-chart canvas {
+        max-width: 150px; /* 캔버스 크기 축소 */
+        max-height: 150px;
+    }
+
+    .vender-content .word-cloud-placeholder {
+        width: 100%;
+        height: auto; /* 높이 자동 조정 */
+        padding: 10px;
+        background-color: #505050;
+        margin: 10px 0;
+        border-radius: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .vender-content .word-cloud-word {
+        font-size: 0.8rem; /* 단어 크기 축소 */
+        font-weight: bold;
+        color: #00c853;
+    }
+
+    /* 필터 섹션 */
+    .vender-content .filter-section {
+        display: flex;
+        flex-wrap: wrap; /* 버튼 줄바꿈 허용 */
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .vender-content .select-filter {
+        flex: 1 1 auto; /* 필터 버튼 가로 크기 조정 */
+        padding: 8px;
+        background-color: #505050;
+        color: #ffffff;
+        border-radius: 5px;
+        font-size: 0.8rem; /* 텍스트 크기 축소 */
+    }
+
+    .vender-content .filter-section button {
+        flex: 1 1 auto; /* 버튼 크기 조정 */
+        background-color: #00c853;
+        color: #ffffff;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 0.8rem; /* 텍스트 크기 축소 */
+        transition: background-color 0.3s ease;
+    }
+
+    .vender-content .filter-section button:hover {
+        background-color: #009624;
+    }
+}

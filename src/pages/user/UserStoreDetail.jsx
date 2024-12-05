@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import VenderHeader from '../../pages/vender/include/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
@@ -8,6 +8,7 @@ import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 import allProductCarIMG from '../../assets/images/업체카테고리 all.webp';
 
 const UserStoreDetail = () => {
+    const navigate = useNavigate();
     const [selectedCategory, setSelectedCategory] = useState(null);
     //const {venderId} = useParams();
     //venderId
@@ -353,6 +354,12 @@ const UserStoreDetail = () => {
                     </div>
                 </section>
             </main>
+            <div
+                className="floating-back-button"
+                onClick={() => navigate("/")} // 메인화면으로 이동
+            >
+                메인화면
+            </div>
         </div>
     );
 };

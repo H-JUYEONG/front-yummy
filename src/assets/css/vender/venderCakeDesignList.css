@@ -3,36 +3,47 @@
 }
 
 .vender-cake-design-title {
-    display: block;            /* 블록 요소로 설정하여 부모 내에서 정렬 가능 */
-    text-align: center;        /* 텍스트 중앙 정렬 */
-    white-space: nowrap;       
-    overflow: hidden;          
-    text-overflow: ellipsis;   
-    width: 250px;               /* 그리드 셀 너비에 맞춤 */
+    display: block;
+    /* 블록 요소로 설정하여 부모 내에서 정렬 가능 */
+    text-align: center;
+    /* 텍스트 중앙 정렬 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+    /* 그리드 셀 너비에 맞춤 */
     font-weight: bold;
 }
 
 .cake-design-list-imgs {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 한 줄에 3개의 이미지 */
-    gap: 20px; /* 이미지 간격 */
-    justify-items: center; /* 각 이미지가 그리드 안에서 중앙에 위치하도록 설정 */
+    grid-template-columns: repeat(4, 1fr);
+    /* 한 줄에 3개의 이미지 */
+    gap: 20px;
+    /* 이미지 간격 */
+    justify-items: center;
+    /* 각 이미지가 그리드 안에서 중앙에 위치하도록 설정 */
     padding: 10px 0px;
 }
 
 .cake-design-list-imgs img {
-    width: 100%; /* 그리드 셀의 너비에 맞게 이미지 크기 조정 */
-    max-width: 270px; /* 이미지 최대 너비 설정 */
+    width: 100%;
+    /* 그리드 셀의 너비에 맞게 이미지 크기 조정 */
+    max-width: 270px;
+    /* 이미지 최대 너비 설정 */
     height: 200px;
     margin-bottom: 5px;
-    border-radius: 8px; /* 이미지 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 8px;
+    /* 이미지 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* 그림자 효과 */
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
 .cake-design-list-imgs img:hover {
-    transform: scale(1.05); /* 호버 시 확대 효과 */
+    transform: scale(1.05);
+    /* 호버 시 확대 효과 */
 }
 
 .cake-design-list-imgs p {
@@ -42,19 +53,75 @@
 
 .visibility-public {
     color: #0056b3;
-    font-size: 1.0em !important; 
+    font-size: 1.0em !important;
 }
 
 .visibility-private {
-color: #EA4335;
-font-size: 1.0em !important; 
+    color: #EA4335;
+    font-size: 1.0em !important;
 }
 
-.search-input{
+.search-input {
     width: 250px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #4a4a4a;
     padding: 3px 5px;
 
+}
+
+@media screen and (max-width: 768px) {
+
+    /* 검색 입력 필드 */
+    .search-input {
+        width: 100%;
+        /* 부모 컨테이너 너비에 맞춤 */
+        max-width: 100%;
+        /* 최대 너비 제한 해제 */
+        height: 35px;
+        /* 높이 조정 */
+        border-radius: 8px;
+        /* 모서리 둥글게 */
+        font-size: 0.9rem;
+        /* 텍스트 크기 축소 */
+        padding: 5px;
+        /* 여백 조정 */
+        margin-bottom: 10px;
+        /* 검색창과 버튼 그룹 사이 여백 */
+    }
+
+    /* 버튼 컨테이너 */
+    .button-group {
+        display: flex;
+        /* 버튼을 가로로 정렬 */
+        justify-content: space-between;
+        /* 버튼 간 간격을 균등하게 설정 */
+        gap: 10px;
+        /* 버튼 간 간격 추가 */
+        margin-top: 10px;
+        /* 검색창과 버튼 그룹 간 간격 추가 */
+    }
+
+    .button-group button {
+        flex: 1;
+        /* 버튼을 균등한 너비로 설정 */
+        padding: 10px;
+        font-size: 0.9rem;
+        /* 텍스트 크기 */
+        border-radius: 8px;
+        /* 모서리 둥글게 */
+        background-color: #424242;
+        /* 버튼 배경색 */
+        color: #ffffff;
+        /* 버튼 텍스트 색 */
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .button-group button:hover {
+        background-color: #333333;
+        /* 호버 시 버튼 배경색 변경 */
+    }
 }

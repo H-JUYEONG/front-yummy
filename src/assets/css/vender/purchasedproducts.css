@@ -201,7 +201,9 @@
         display: block;
         width: 100%;
     }
-
+    .vender-order-list-main-content .order-list-header h2 {
+        font-size: 20px;
+    }
     .vender-order-table tr {
         display: flex;
         flex-direction: column;

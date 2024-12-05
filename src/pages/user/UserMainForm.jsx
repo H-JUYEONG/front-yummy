@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "./include/Header";
+import React, { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "./include/Footer";
+import Header from "./include/Header";
 
-import mapImg from "../../assets/images/서울시 구 지도.png";
-import storeLogo from "../../assets/images/cake-logo1.png"; // 매장 로고 이미지
-import "../../assets/css/user/userMainForm.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "../../assets/css/user/userMainForm.css";
+import storeLogo from "../../assets/images/cake-logo1.png"; // 매장 로고 이미지
+import mapImg from "../../assets/images/서울시 구 지도.png";
+
+import {
+  FaBirthdayCake,
+  FaMapMarkerAlt, // 지도 아이콘
+} from "react-icons/fa";
+
 AOS.init();
 
 const UserMainForm = () => {
   const navigate = useNavigate();
-
+  // 상품 리스트 컨테이너의 ref
+  const productListRef = useRef(null);
   //구 카테고리
   const [selectedRegion, setSelectedRegion] = useState("");
 
@@ -23,6 +30,8 @@ const UserMainForm = () => {
   const [sortOrder, setSortOrder] = useState("rating");
   const [sortDirection, setSortDirection] = useState("desc");
   const [productList, setProductList] = useState([]); // 상품 데이터를 저장할 상태
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
+  const itemsPerPage = 12; // 페이지당 상품 개수
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -43,6 +52,7 @@ const UserMainForm = () => {
 
     fetchProducts();
   }, []);
+
   const Banner = () => (
     <div className="banner">
       <h1>세상에 하나뿐인 케이크</h1>
@@ -118,10 +128,11 @@ const UserMainForm = () => {
       const matchesRegion = selectedRegion
         ? product.district === selectedRegion
         : true;
-      const matchesCategory = selectedCategory
-        ? product.optionValueName === selectedCategory
-        : true;
 
+      const matchesCategory =
+        selectedCategory === "" || selectedCategory === "전체"
+          ? true
+          : product.optionValueName === selectedCategory;
       // vender_id 73을 제외
       const excludeVender = product.venderId !== 73;
 
@@ -138,12 +149,30 @@ const UserMainForm = () => {
       return 0;
     });
 
+
   const handleSort = (order) => {
     if (sortOrder === order) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortOrder(order);
       setSortDirection("desc");
+    }
+  };
+
+  const categories = ["전체", "도시락 케이크", "일반 케이크", "떡 케이크", "반려동물 케이크"];
+
+  // 페이징 관련 데이터
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    if (productListRef.current) {
+      productListRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -164,7 +193,6 @@ const UserMainForm = () => {
             <div className="map-img-box">
               <div className="map-img">
                 <p>지도에서 원하시는 '구'를 클릭해주세요!</p>
-                <p>선택된 지역: ' {selectedRegion} '</p>
                 <img src={mapImg} alt="지도" usemap="#seoulMap" />
               </div>
               <map name="seoulMap">
@@ -326,115 +354,118 @@ const UserMainForm = () => {
                 ></area>
               </map>
 
-              <div className="map-click">
-                <button
-                  className={!selectedRegion ? "active" : ""}
-                  onClick={() => setSelectedRegion("")}
-                >
-                  전체
-                </button>
-                {mapList.map((region) => (
+              <div className="category-map-container">
+                <h3 className="icon-text">
+                  <FaMapMarkerAlt className="styled-map-icon" />
+                  <span className="icon-label">지역을 선택하세요</span>
+                </h3>
+                <div className="map-click">
                   <button
-                    key={region}
-                    className={selectedRegion === region ? "active" : ""}
-                    onClick={() => setSelectedRegion(region)}
+                    className={!selectedRegion ? "active" : ""}
+                    onClick={() => setSelectedRegion("")}
                   >
-                    {region}
+                    전체
                   </button>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="category-box">
-            <ul>
-              <li>
-                <button onClick={() => setSelectedCategory("")}>전체</button>
-              </li>
-              <li>
-                <button onClick={() => setSelectedCategory("도시락 케이크")}>
-                  도시락 케이크
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setSelectedCategory("일반 케이크")}>
-                  일반 케이크
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setSelectedCategory("떡 케이크")}>
-                  떡 케이크
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setSelectedCategory("반려동물 케이크")}>
-                  반려동물 케이크
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div className="sub-title-box">
-            <h3 className="sy-user-main-title">
-              {selectedRegion || "전체 지역"}{" "}
-              {selectedCategory || "모든 카테고리"} 케이크
-            </h3>
-            <div className="sort-box">
-              <button onClick={() => handleSort("rating")}>
-                별점순{" "}
-                {sortOrder === "rating"
-                  ? sortDirection === "asc"
-                    ? "↑"
-                    : "↓"
-                  : ""}
-              </button>
-              <button onClick={() => handleSort("price")}>
-                가격순{" "}
-                {sortOrder === "price"
-                  ? sortDirection === "asc"
-                    ? "↑"
-                    : "↓"
-                  : ""}
-              </button>
-            </div>
-            <span>총 상품 {filteredProducts.length}개</span>
-          </div>
-
-          <div className="allList-box">
-            {filteredProducts.map((item) => (
-              <div className="all-product-item" key={item.productId}>
-                <Link
-                  to={`/user/cakedetail/${item.productId}/${item.venderId}`}
-                  className="list_hover_img"
-                >
-                  <img src={item.productImage1Url} alt={item.productName} />
-                  <div className="store-info">
-                    {/* 매장 로고 */}
-                    <Link to={`/user/storedetail/${item.venderId}`}>
-                      <img
-                        src={item.venderProfileImageUrl || storeLogo}
-                        alt={`${item.venderName} 로고`}
-                        className="store-logo"
-                      />
-                    </Link>
-                    {/* 매장 이름 */}
-                    <Link to={`/user/storedetail/${item.venderId}`}>
-                      <b>{item.venderName}</b>
-                    </Link>
-                  </div>
-                </Link>
-                <div className="product-info">
-                  <Link to={`/user/cakedetail/${item.productId}`}>
-                    <p>{item.productName}</p>
-                  </Link>
-                  <p>가격: {item.price.toLocaleString()}원</p>
-                  <p>
-                    평점: {renderStars(item.reviewRating)} ({item.reviewRating})
-                  </p>
-                  <p>지역: {item.district} </p>
+                  {mapList.map((region) => (
+                    <button
+                      key={region}
+                      className={selectedRegion === region ? "active" : ""}
+                      onClick={() => setSelectedRegion(region)}
+                    >
+                      {region}
+                    </button>
+                  ))}
+                </div>
+                <h3 className="icon-text">
+                  <FaBirthdayCake className="styled-cake-icon" />
+                  <span className="icon-label">카테고리를 선택하세요</span>
+                </h3>
+                <div className="category-box">
+                  <ul>
+                    {categories.map((category) => (
+                      <li key={category}>
+                        <button
+                          className={selectedCategory === category ? "active" : ""}
+                          onClick={() => setSelectedCategory(category)}
+                        >
+                          {category}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+        <div ref={productListRef} className="sub-title-box">
+          <div className="sort-box">
+            <button onClick={() => handleSort("rating")}>
+              별점순{" "}
+              {sortOrder === "rating"
+                ? sortDirection === "asc"
+                  ? "↑"
+                  : "↓"
+                : ""}
+            </button>
+            <button onClick={() => handleSort("price")}>
+              가격순{" "}
+              {sortOrder === "price"
+                ? sortDirection === "asc"
+                  ? "↑"
+                  : "↓"
+                : ""}
+            </button>
+          </div>
+          <span>총 상품 {filteredProducts.length}개</span>
+        </div>
+        <div  className="allList-box">
+          {currentProducts.map((item) => (
+            <div className="all-product-item" key={item.productId}>
+              <Link
+                to={`/user/cakedetail/${item.productId}/${item.venderId}`}
+                className="list_hover_img"
+              >
+                <img src={item.productImage1Url} alt={item.productName} />
+                <div className="store-info">
+                  {/* 매장 로고 */}
+                  <Link to={`/user/storedetail/${item.venderId}`}>
+                    <img
+                      src={item.venderProfileImageUrl || storeLogo}
+                      alt={`${item.venderName} 로고`}
+                      className="store-logo"
+                    />
+                  </Link>
+                  {/* 매장 이름 */}
+                  <Link to={`/user/storedetail/${item.venderId}`}>
+                    <b>{item.venderName}</b>
+                  </Link>
+                </div>
+              </Link>
+              <div className="product-info">
+                <Link to={`/user/cakedetail/${item.productId}`}>
+                  <p>{item.productName}</p>
+                </Link>
+                <p>가격: {item.price.toLocaleString()}원</p>
+                <p>
+                  평점: {renderStars(item.reviewRating)} ({item.reviewRating})
+                </p>
+                <p>지역: {item.district} </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* 페이징 버튼 */}
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              className={currentPage === index + 1 ? "active" : ""}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       </div>
       <footer>
