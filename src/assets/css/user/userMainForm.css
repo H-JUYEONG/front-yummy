@@ -1,686 +1,678 @@
 @charset "UTF-8";
 
 #user-wrap {
-    font-weight: 400;
-    font-style: normal;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .userMainFormContainer button {
-    cursor: pointer;
-    border-radius: 5px
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .userMainFormContainer .sy-user-main-title {
-    margin: 25px 0px;
-    font-size: 24px;
-    font-weight: 600;
+  margin: 25px 0px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .category-map-container .sy-user-main-title {
-    display: flex;
-    justify-content: center;
-    /* 가로 방향으로 중앙 정렬 */
-    align-items: center;
-    /* 세로 방향으로 중앙 정렬 (필요한 경우) */
-    width: 100%;
-    /* 부모 컨테이너의 전체 너비 */
+  display: flex;
+  justify-content: center;
+  /* 가로 방향으로 중앙 정렬 */
+  align-items: center;
+  /* 세로 방향으로 중앙 정렬 (필요한 경우) */
+  width: 100%;
+  /* 부모 컨테이너의 전체 너비 */
 }
 
 .userMainFormContainer .map-img-box {
-    display: flex;
-
+  display: flex;
 }
 
 .userMainFormContainer .map-con {
-    flex-grow: 1;
-
+  flex-grow: 1;
 }
 
 .userMainFormContainer .userMain-map-search {
-    border-top: 2px solid #ddd;
-    border-bottom: 2px solid #ddd;
-    padding: 20px 0;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  padding: 20px 0;
 }
 
 .userMain-map-search select,
 .userMain-map-search input {
-    border: 0;
-    width: calc(100% - 200px);
+  border: 0;
+  width: calc(100% - 200px);
 }
 
 .userMainFormContainer .map-img {
-    padding-right: 50px;
-    /*cursor: pointer;*/
+  padding-right: 50px;
+  /*cursor: pointer;*/
 }
 
 map area {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .map-img p {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .userMainFormContainer .map-img img {
-    max-width: 550px;
-    height: 80%;
-
+  max-width: 550px;
+  height: 80%;
 }
 
 .userMainFormContainer .userMain-map-search select {
-    width: 150px;
-    margin-right: 50px;
+  width: 150px;
+  margin-right: 50px;
 }
 
 .category-map-container .map-click {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
 }
 
 .category-map-container .map-click button {
-    width: 100px;
-    /* 카테고리 버튼과 동일한 너비 */
-    height: 50px;
-    /* 카테고리 버튼과 동일한 높이 */
-    border: 2px solid #ddd;
-    font-size: 14px;
-    background: #fff;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100px;
+  /* 카테고리 버튼과 동일한 너비 */
+  height: 50px;
+  /* 카테고리 버튼과 동일한 높이 */
+  border: 2px solid #ddd;
+  font-size: 14px;
+  background: #fff;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .userMainFormContainer .map-click button:hover {
-    background-color: #ff6b6bd8;
-    color: #fff;
+  background-color: #ff6b6bd8;
+  color: #fff;
 }
 
 .category-map-container .category-box {
-    width: 100%;
-    max-width: 900px;
-    /* 전체 너비 고정 */
-    display: flex;
-    justify-content: flex-start;
-    /* 왼쪽 정렬 */
-    align-items: flex-start;
-    /* 세로 정렬 */
-    flex-wrap: wrap;
-    /* 여러 줄로 배치 가능 */
-    padding-left: 0;
-    /* 왼쪽 여백 제거 */
-    margin: 10px 0;
+  width: 100%;
+  max-width: 900px;
+  /* 전체 너비 고정 */
+  display: flex;
+  justify-content: flex-start;
+  /* 왼쪽 정렬 */
+  align-items: flex-start;
+  /* 세로 정렬 */
+  flex-wrap: wrap;
+  /* 여러 줄로 배치 가능 */
+  padding-left: 0;
+  /* 왼쪽 여백 제거 */
+  margin: 10px 0;
 }
 
 .category-map-container .category-box ul {
-    display: flex;
-    gap: 10px;
-    /* 버튼 간격 */
-    justify-content: flex-start;
-    /* 왼쪽 정렬 */
-    flex-wrap: wrap;
-    /* 버튼들이 여러 줄로 배치되도록 설정 */
-    padding: 10px 0;
-    /* 위아래 여백 추가 */
-    margin: 0;
-    /* 여백 제거 */
-    padding-left: 0;
-    /* 왼쪽 여백 제거 */
+  display: flex;
+  gap: 10px;
+  /* 버튼 간격 */
+  justify-content: flex-start;
+  /* 왼쪽 정렬 */
+  flex-wrap: wrap;
+  /* 버튼들이 여러 줄로 배치되도록 설정 */
+  padding: 10px 0;
+  /* 위아래 여백 추가 */
+  margin: 0;
+  /* 여백 제거 */
+  padding-left: 0;
+  /* 왼쪽 여백 제거 */
 }
 
 .category-map-container .category-box ul button {
-    width: 100px;
-    /* 카테고리 버튼과 동일한 너비 */
-    flex: 0 0 150px;
-    /* 버튼 너비 고정 */
-    height: 50px;
-    /* 버튼 높이 */
-    border: 2px solid #ddd;
-    background-color: #fff;
-    color: #000;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100px;
+  /* 카테고리 버튼과 동일한 너비 */
+  flex: 0 0 150px;
+  /* 버튼 너비 고정 */
+  height: 50px;
+  /* 버튼 높이 */
+  border: 2px solid #ddd;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .category-map-container .category-box ul button:hover {
-    background-color: #ffa826d7;
-    color: #fff;
+  background-color: #ffa826d7;
+  color: #fff;
 }
 
 .category-map-container .category-box ul button:before {
-    content: "";
-    display: block;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: #000;
-    transition: 0.3s;
-    position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #000;
+  transition: 0.3s;
+  position: absolute;
 }
 
 .category-map-container .category-box ul button:after {
-    content: "";
-    display: block;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 1px;
-    background-color: #000;
-    transition: 0.3s;
-    position: absolute;
+  content: "";
+  display: block;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background-color: #000;
+  transition: 0.3s;
+  position: absolute;
 }
 
 .category-map-container.category-box ul button:hover:before,
 .category-map-container.category-box ul button:hover:after {
-    width: 100%;
+  width: 100%;
 }
 
 .userMainFormContainer .allList-box {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 60px;
-    margin-top: 15px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 60px;
+  margin-top: 15px;
 }
 
 .userMainFormContainer .all-product-item {
-    width: calc((100% - 80px) / 4);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    background-color: #fff;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    border: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: calc((100% - 80px) / 4);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .userMainFormContainer .list_hover_img {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .userMainFormContainer .list_hover_img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .userMainFormContainer .allList-item {
-    padding: 10px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 /* 매장 정보 (로고와 상호명)를 이미지 상단에 겹쳐서 표시 */
 .userMainFormContainer .store-info {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    align-items: center;
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .userMainFormContainer .store-info img {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 5px;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 .userMainFormContainer .product-info {
-    width: 100%;
-    padding: 10px;
-    text-align: left;
-    background-color: #f8f8f8;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background-color: #f8f8f8;
 }
 
 .userMainFormContainer .product-info p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #333;
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
 }
 
 /* 내부 이미지 배치 */
 .userMainFormContainer .userMain-product-img img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 /* 텍스트 스타일 */
 .userMainFormContainer .allList-item b {
-    display: block;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin: 10px 0 5px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 10px 0 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .userMainFormContainer .allList-item b:hover {
-    color: #ff6b6b;
-    /* 포인트 색상 */
+  color: #ff6b6b;
+  /* 포인트 색상 */
 }
 
 .userMainFormContainer .allList-item p {
-    font-size: 14px;
-    color: #666;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .userMainFormContainer .allList-item p:hover {
-    color: #333;
+  color: #333;
 }
 
 .userMainFormContainer .banner {
-    width: 100vw;
-    /* 전체 화면 너비로 설정 */
-    margin-left: calc(50% - 50vw);
-    /* 컨테이너 중앙 정렬 영향 제거 */
-    height: 400px;
-    background: linear-gradient(to right, rgba(255, 105, 135, 0.8), rgba(255, 156, 167, 0.8)),
-        url('../../images/banner-image.jpg');
-    background-size: 200% 200%;
-    background-position: 0 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    position: relative;
-    animation: slideBackground 10s linear infinite;
-    overflow: hidden;
-    /* 혹시 화면 밖으로 넘칠 수 있는 요소 숨기기 */
-    margin-top: -10px;
+  width: 100vw;
+  /* 전체 화면 너비로 설정 */
+  margin-left: calc(50% - 50vw);
+  /* 컨테이너 중앙 정렬 영향 제거 */
+  height: 400px;
+  background: linear-gradient(
+      to right,
+      rgba(255, 105, 135, 0.8),
+      rgba(255, 156, 167, 0.8)
+    ),
+    url("../../images/banner-image.jpg");
+  background-size: 200% 200%;
+  background-position: 0 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  animation: slideBackground 10s linear infinite;
+  overflow: hidden;
+  /* 혹시 화면 밖으로 넘칠 수 있는 요소 숨기기 */
+  margin-top: -10px;
 }
 
 .category-map-container {
-    flex-direction: column;
-    align-items: center;
-    max-width: 900px;
-    margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 @keyframes slideBackground {
-    0% {
-        background-position: 0 50%;
-    }
+  0% {
+    background-position: 0 50%;
+  }
 
-    100% {
-        background-position: 100% 50%;
-    }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .userMainFormContainer .banner h1 {
-    font-size: 50px;
-    /* 원하는 제목 크기 */
-    font-weight: bold;
-    color: white;
-    letter-spacing: 2px;
-    /* 글자 간격 조정 */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    /* 그림자 효과 */
-    line-height: 1.2;
-    /* 제목의 행간 조절 */
-    margin: 0;
-    /* 여백 초기화 */
+  font-size: 50px;
+  /* 원하는 제목 크기 */
+  font-weight: bold;
+  color: white;
+  letter-spacing: 2px;
+  /* 글자 간격 조정 */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /* 그림자 효과 */
+  line-height: 1.2;
+  /* 제목의 행간 조절 */
+  margin: 0;
+  /* 여백 초기화 */
 }
 
 .userMainFormContainer .banner p {
-    font-size: 20px;
-    /* 서브 텍스트 크기 */
-    color: white;
-    margin: 15px 0;
-    letter-spacing: 1px;
-    /* 글자 간격 조정 */
-    line-height: 1.5;
-    /* 서브 텍스트의 행간 조절 */
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    /* 그림자 효과 */
+  font-size: 20px;
+  /* 서브 텍스트 크기 */
+  color: white;
+  margin: 15px 0;
+  letter-spacing: 1px;
+  /* 글자 간격 조정 */
+  line-height: 1.5;
+  /* 서브 텍스트의 행간 조절 */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  /* 그림자 효과 */
 }
-
 
 .userMainFormContainer .create-cake-btn {
-    padding: 12px 24px;
-    background-color: #ff6f61;
-    font-size: 18px;
-    border: none;
-    border-radius: 50px;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    text-transform: uppercase;
-    /* 버튼 텍스트를 모두 대문자로 */
-    letter-spacing: 1.5px;
-    /* 버튼 글자 간격 */
+  padding: 12px 24px;
+  background-color: #ff6f61;
+  font-size: 18px;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase;
+  /* 버튼 텍스트를 모두 대문자로 */
+  letter-spacing: 1.5px;
+  /* 버튼 글자 간격 */
 }
-
 
 .userMainFormContainer .create-cake-btn:hover {
-    background-color: #e04e4e;
-    transform: scale(1.1);
+  background-color: #e04e4e;
+  transform: scale(1.1);
 }
-
 
 .userMainFormContainer .banner h1,
 .userMainFormContainer .banner p,
 .userMainFormContainer .create-cake-btn {
-    animation: glow 2s ease-in-out infinite alternate;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-    0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-            0 0 20px rgba(255, 105, 135, 0.6),
-            0 0 30px rgba(255, 156, 167, 0.6);
-    }
+  0% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 105, 135, 0.6), 0 0 30px rgba(255, 156, 167, 0.6);
+  }
 
-    100% {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 1),
-            0 0 30px rgba(255, 105, 135, 0.8),
-            0 0 40px rgba(255, 156, 167, 1);
-    }
+  100% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 105, 135, 0.8), 0 0 40px rgba(255, 156, 167, 1);
+  }
 }
 
 .userMainFormContainer .create-cake-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transform: scale(0.95);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
-
 
 /* 정렬 버튼 스타일 */
 .sort-box {
-    display: flex;
-    justify-content: flex-end;
-    /* 버튼을 오른쪽 정렬 */
+  display: flex;
+  justify-content: flex-end;
+  /* 버튼을 오른쪽 정렬 */
 }
 
 .sort-box button {
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    color: #495057;
-    padding: 10px 20px;
-    margin-left: 10px;
-    /* 버튼 간격 추가 */
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    border-radius: 5px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  color: #495057;
+  padding: 10px 20px;
+  margin-left: 10px;
+  /* 버튼 간격 추가 */
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
 }
 
 .sort-box button:hover {
-    background-color: #e2e6ea;
+  background-color: #e2e6ea;
 }
 
 .sort-box button.active {
-    background-color: #495057;
-    color: #ffffff;
+  background-color: #495057;
+  color: #ffffff;
 }
 
 /* 화살표 스타일 */
 .sort-box button::after {
-    content: attr(data-sort);
-    margin-left: 5px;
-    font-weight: bold;
-    color: inherit;
-    font-size: 12px;
+  content: attr(data-sort);
+  margin-left: 5px;
+  font-weight: bold;
+  color: inherit;
+  font-size: 12px;
 }
-
 
 /*지도 맵 효과 */
 
 /* 지도에 마우스를 올리면 확대 효과 */
 .map-container .hover-region:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out;
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
 }
 
 /* 클릭된 지역에 대한 스타일 */
 .map-container .active-region {
-    background-color: pink;
-    /* 클릭 시 배경색을 핑크로 설정 */
-    transform: scale(1.1);
-    /* 클릭 시 확대 효과 */
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: pink;
+  /* 클릭 시 배경색을 핑크로 설정 */
+  transform: scale(1.1);
+  /* 클릭 시 확대 효과 */
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 
 /* hover 시 효과를 추가 */
 .map-container .hover-region:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    /* 배경색 변화 */
+  background-color: rgba(0, 0, 0, 0.1);
+  /* 배경색 변화 */
 }
 
 .map-container area:focus {
-    outline: 3px solid pink;
-    /* 클릭 시 포커스와 함께 핑크색 테두리 */
+  outline: 3px solid pink;
+  /* 클릭 시 포커스와 함께 핑크색 테두리 */
 }
 
 /* hover 시 효과 */
 .map-container area:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    /* hover 시 그림자 효과 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* hover 시 그림자 효과 */
 }
 
 /* 지도 아이콘 스타일 */
 .styled-map-icon {
-    background-color: #ff6f61;
-    /* 배경색 */
-    color: white;
-    /* 아이콘 색상 */
-    border-radius: 50%;
-    /* 원형 */
-    padding: 10px;
-    /* 내부 여백 */
-    font-size: 20px;
-    /* 아이콘 크기 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* 그림자 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* 애니메이션 효과 */
+  background-color: #ff6f61;
+  /* 배경색 */
+  color: white;
+  /* 아이콘 색상 */
+  border-radius: 50%;
+  /* 원형 */
+  padding: 10px;
+  /* 내부 여백 */
+  font-size: 20px;
+  /* 아이콘 크기 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* 애니메이션 효과 */
 }
 
 .styled-map-icon:hover {
-    transform: scale(1.1);
-    /* 호버 시 크기 확대 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    /* 그림자 강조 */
+  transform: scale(1.1);
+  /* 호버 시 크기 확대 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  /* 그림자 강조 */
 }
 
 /* 케이크 아이콘 스타일 */
 .styled-cake-icon {
-    background-color: #ffa726;
-    /* 배경색 */
-    color: white;
-    /* 아이콘 색상 */
-    border-radius: 50%;
-    /* 원형 */
-    padding: 10px;
-    /* 내부 여백 */
-    font-size: 20px;
-    /* 아이콘 크기 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* 그림자 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* 애니메이션 효과 */
+  background-color: #ffa726;
+  /* 배경색 */
+  color: white;
+  /* 아이콘 색상 */
+  border-radius: 50%;
+  /* 원형 */
+  padding: 10px;
+  /* 내부 여백 */
+  font-size: 20px;
+  /* 아이콘 크기 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* 애니메이션 효과 */
 }
 
 .styled-cake-icon:hover {
-    transform: scale(1.1);
-    /* 호버 시 크기 확대 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    /* 그림자 강조 */
+  transform: scale(1.1);
+  /* 호버 시 크기 확대 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  /* 그림자 강조 */
 }
 
 /* 텍스트 스타일 */
 .icon-label {
-    margin-left: 10px;
-    /* 텍스트와 아이콘 간격 */
-    font-size: 16px;
-    /* 텍스트 크기 */
-    color: #333;
-    /* 텍스트 색상 */
-    font-weight: bold;
-    /* 텍스트 굵기 */
+  margin-left: 10px;
+  /* 텍스트와 아이콘 간격 */
+  font-size: 16px;
+  /* 텍스트 크기 */
+  color: #333;
+  /* 텍스트 색상 */
+  font-weight: bold;
+  /* 텍스트 굵기 */
 }
 
 /* 맵 버튼 활성화 스타일 */
 .category-map-container .map-click button.active {
-    background-color: #ff6f61;
-    /* 활성화된 맵 버튼 배경색 */
-    color: white;
-    /* 활성화된 맵 버튼 텍스트 색 */
-    font-weight: bold;
-    /* 활성화된 맵 버튼 텍스트 굵기 */
-    border: 2px solid #ff6f61;
-    /* 활성화된 맵 버튼 테두리 */
-    box-shadow: 0 4px 8px rgba(255, 111, 97, 0.3);
-    /* 활성화된 맵 버튼 그림자 효과 */
-    transition: all 0.3s ease;
-    /* 부드러운 전환 효과 */
+  background-color: #ff6f61;
+  /* 활성화된 맵 버튼 배경색 */
+  color: white;
+  /* 활성화된 맵 버튼 텍스트 색 */
+  font-weight: bold;
+  /* 활성화된 맵 버튼 텍스트 굵기 */
+  border: 2px solid #ff6f61;
+  /* 활성화된 맵 버튼 테두리 */
+  box-shadow: 0 4px 8px rgba(255, 111, 97, 0.3);
+  /* 활성화된 맵 버튼 그림자 효과 */
+  transition: all 0.3s ease;
+  /* 부드러운 전환 효과 */
 }
 
 /* 카테고리 버튼 활성화 스타일 */
 .category-map-container .category-box ul button.active {
-    background-color: #ffa726;
-    /* 활성화된 카테고리 버튼 배경색 */
-    color: white;
-    /* 활성화된 카테고리 버튼 텍스트 색 */
-    font-weight: bold;
-    /* 활성화된 카테고리 버튼 텍스트 굵기 */
-    border: 2px solid #ffa726;
-    /* 활성화된 카테고리 버튼 테두리 */
-    box-shadow: 0 4px 8px rgba(255, 167, 38, 0.3);
-    /* 활성화된 카테고리 버튼 그림자 효과 */
-    transition: all 0.3s ease;
-    /* 부드러운 전환 효과 */
+  background-color: #ffa726;
+  /* 활성화된 카테고리 버튼 배경색 */
+  color: white;
+  /* 활성화된 카테고리 버튼 텍스트 색 */
+  font-weight: bold;
+  /* 활성화된 카테고리 버튼 텍스트 굵기 */
+  border: 2px solid #ffa726;
+  /* 활성화된 카테고리 버튼 테두리 */
+  box-shadow: 0 4px 8px rgba(255, 167, 38, 0.3);
+  /* 활성화된 카테고리 버튼 그림자 효과 */
+  transition: all 0.3s ease;
+  /* 부드러운 전환 효과 */
 }
 
-
 .userMainFormContainer .pagination {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
 .userMainFormContainer .pagination button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 17px;
 }
 
 .userMainFormContainer .pagination button:hover {
-    background-color: #ff6f61;
-    color: white;
+  font-weight: bold;
+  color: #ff85a1;
 }
 
 .userMainFormContainer .pagination button.active {
-    background-color: #ff6f61;
-    color: white;
-    font-weight: bold;
+  color: #ff85a1;
+  font-weight: bold;
 }
 
 /* 모바일 화면 (최대 768px) */
 @media screen and (max-width: 768px) {
+  #user-wrap {
+    padding: 10px;
+  }
 
-    #user-wrap {
-        padding: 10px;
-    }
+  .userMainFormContainer .banner {
+    height: 200px;
+  }
 
-    .userMainFormContainer .banner {
-        height: 200px;
-    }
+  /* 배너 텍스트 크기 조정 */
+  .userMainFormContainer .banner h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
 
-    /* 배너 텍스트 크기 조정 */
-    .userMainFormContainer .banner h1 {
-        font-size: 24px;
-        letter-spacing: 1px;
-    }
+  .userMainFormContainer .banner p {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
 
-    .userMainFormContainer .banner p {
-        font-size: 14px;
-        letter-spacing: 0.5px;
-    }
+  .userMainFormContainer .create-cake-btn {
+    font-size: 16px;
+    padding: 8px 16px;
+    letter-spacing: 1px;
+  }
 
-    .userMainFormContainer .create-cake-btn {
-        font-size: 16px;
-        padding: 8px 16px;
-        letter-spacing: 1px;
-    }
+  /* 지도 이미지 크기 조정 */
+  .userMainFormContainer .map-img {
+    display: none;
+  }
 
-    /* 지도 이미지 크기 조정 */
-    .userMainFormContainer .map-img {
-        display: none;
-    }
+  /* 지도 버튼 정렬 */
+  .userMainFormContainer .sy-user-main-title {
+    margin: 50px auto;
+    text-align: center;
+    /* 텍스트를 수평 가운데 정렬 */
+  }
 
-    /* 지도 버튼 정렬 */
-    .userMainFormContainer .sy-user-main-title {
-        margin: 50px auto;
-        text-align: center;
-        /* 텍스트를 수평 가운데 정렬 */
-    }
+  .userMainFormContainer .map-click button {
+    width: calc((100% - 20px) / 7);
+    /* 3개의 버튼이 한 줄에 */
+    padding: 5px;
+    margin: 0 auto;
+  }
 
-    .userMainFormContainer .map-click button {
-        width: calc((100% - 20px) / 7);
-        /* 3개의 버튼이 한 줄에 */
-        padding: 5px;
-        margin: 0 auto;
-    }
+  /* 카테고리 버튼 크기 조정 */
+  .userMainFormContainer .category-box ul {
+    max-width: 100%;
+    gap: 10px;
+  }
 
-    /* 카테고리 버튼 크기 조정 */
-    .userMainFormContainer .category-box ul {
-        max-width: 100%;
-        gap: 10px
-    }
+  .userMainFormContainer .category-box ul button {
+    font-size: 12px;
+    width: 75px;
+  }
 
-    .userMainFormContainer .category-box ul button {
-        font-size: 12px;
-        width: 75px;
-    }
+  /* 상품 리스트 그리드 조정 */
+  .userMainFormContainer .all-product-item {
+    width: calc(100% - 20px);
+    margin-bottom: 20px;
+  }
 
-    /* 상품 리스트 그리드 조정 */
-    .userMainFormContainer .all-product-item {
-        width: calc(100% - 20px);
-        margin-bottom: 20px;
-    }
+  .userMainFormContainer .list_hover_img {
+    height: 150px;
+  }
 
-    .userMainFormContainer .list_hover_img {
-        height: 150px;
-    }
+  .userMainFormContainer .product-info {
+    padding: 5px;
+    font-size: 12px;
+  }
 
-    .userMainFormContainer .product-info {
-        padding: 5px;
-        font-size: 12px;
-    }
-
-    /* 정렬 버튼 크기 */
-    .sort-box button {
-        font-size: 12px;
-        padding: 8px 12px;
-    }
+  /* 정렬 버튼 크기 */
+  .sort-box button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
 }
