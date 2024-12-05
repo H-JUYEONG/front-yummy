@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
 
+.text-center .vender-header-wrap{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
 
 .sd-logo-container {
     width: 100%;
@@ -31,14 +36,14 @@
 }
 
 .sd-store-name {
-    font-size: 1.5em;
-    margin: 0;
+    font-size:2rem;
+    margin: 10px auto;
 }
 
 .sd-profile-content {
     display: flex;
     gap: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 /* 각 섹션 공통 스타일 */
@@ -47,9 +52,9 @@
     background: #fff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), 
+                10px 10px 20px rgba(0, 0, 0, 0.15);
 }
-
 /* 이미지 섹션 */
 .sd-image-section {
     display: flex;
@@ -184,13 +189,12 @@
 /* 카테고리 */
 .sd-category-container {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px 0;
+    justify-content: row;
+    gap: 20px;
+    padding: 10px 0;
     max-width: 1200px;
     margin: 0 auto;
 }
-
 
 .sd-category-item {
     text-align: center;
@@ -198,12 +202,14 @@
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 10px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    margin-bottom: 20px;
 }
 
 .sd-category-item img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 
@@ -211,6 +217,7 @@
     font-size: 0.9em;
     color: #333;
     margin: 0;
+    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 .sd-category-item.active {
@@ -223,18 +230,18 @@
 }
 
 /* 상품 리스트 */
-.sd-products-container  {
+.sd-products-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
-    background-color: #e5e7eb;
     padding: 1px;
     max-width: 1200px;
     min-height: 550px;
     margin: 0 auto;
-    
+
 }
-.sd-products-containerTwo{
+
+.sd-products-containerTwo {
     background-image: url(../../images/exListIMG.png);
     background-size: cover;
     overflow: hidden;
@@ -248,6 +255,7 @@
     aspect-ratio: 1;
     text-decoration: none;
     transition: transform 0.2s ease;
+    border-radius: 10px;
 }
 
 .sd-product-item:hover {
@@ -259,6 +267,7 @@
     height: calc(100% - 50px);
     position: relative;
     overflow: hidden;
+    border-radius: 5px;
 }
 
 .sd-product-image img {
@@ -285,6 +294,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-bottom: 3px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 .sd-price {
@@ -293,70 +303,8 @@
     margin: 2px 0 0 0;
     font-weight: bold;
 }
-.h-storeinfo{
-    font-family:'IBM Plex Sans KR', sans-serif;
-}
-/* 반응형 스타일 */
-@media (max-width: 1024px) {
-    .sd-profile-content {
-        flex-direction: column;
-    }
 
-    .sd-section {
-        width: 100%;
-    }
-
-    .sd-map-container {
-        aspect-ratio: 16/9;
-    }
-
-    .sd-products-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.h-storeinfo {
+    font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-@media (max-width: 768px) {
-    .sd-profile-content {
-        padding: 10px;
-    }
-
-    .sd-profile-stats {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .sd-products-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .sd-category-container {
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 20px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .sd-category-item {
-        flex: 0 0 auto;
-    }
-
-    .kakao-chat-btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .sd-profile-image {
-        width: 150px;
-        height: 150px;
-    }
-
-    .sd-store-name {
-        font-size: 1.2em;
-    }
-
-    .sd-category-item img {
-        width: 50px;
-        height: 50px;
-    }
-}

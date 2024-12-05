@@ -19,7 +19,7 @@ const UserStoreDetail = () => {
     const { venderId } = useParams();
     //상품 리스트
     const [productList, setProductList] = useState([]);
-    const [carProductList ,setCarProductList] = useState([]);
+    const [carProductList, setCarProductList] = useState([]);
 
     //카테고리
     const [optionNumList, setOptionNumList] = useState([]);
@@ -93,7 +93,7 @@ const UserStoreDetail = () => {
 
             console.log('**' + latitude);
             console.log('**' + longitude)
-            console.log("줄바꿈 테스트",response.data.apiData);
+            console.log("줄바꿈 테스트", response.data.apiData);
 
             const venderDescription = response.data.apiData.venderDescription;
 
@@ -159,22 +159,24 @@ const UserStoreDetail = () => {
     //전체상품 가져오기
     const handleAll = () => {
         axios({
-            method: 'get',          // put, post, delete                   
-            url: `${process.env.REACT_APP_API_URL}/api/vender/allGoods/${venderId}`,
+            method: 'get', // HTTP 메소드
+            url: `${process.env.REACT_APP_API_URL}/api/vender/allGoods/${venderId}`, // API URL
+            responseType: 'json', // 수신 타입
+        })
+            .then(response => {
+                console.log("전체 상품:", response.data);
 
-            responseType: 'json' //수신타입
-        }).then(response => {
-            console.log(response); //수신데이타
-            console.log("전체상품",response.data)
-            setProductList(response.data.apiData);
-            console.log("@",response.data.apiData)
+                // 상품 목록 업데이트
+                setProductList(response.data.apiData);
 
-        }).catch(error => {
-            console.log(error);
-        });
-        
+                // 카테고리를 "전체"로 설정
+                setSelectedCategory(null);
+            })
+            .catch(error => {
+                console.error("상품 가져오기 에러:", error);
+            });
+    };
 
-    }
 
     //카테고리 가져오기
     const getOptions = () => {
@@ -223,9 +225,6 @@ const UserStoreDetail = () => {
         window.open(`${detailVo.kakaoURL}`, '_blank');
 
     };
-
-
-
 
 
 
@@ -298,7 +297,7 @@ const UserStoreDetail = () => {
                         </div>
                     </div>
 
-                    <hr className="sd-divider" />
+                    {/* <hr className="sd-divider" /> */}
 
                     <div className="sd-category-container">
                         <div
@@ -319,8 +318,7 @@ const UserStoreDetail = () => {
                                     className={`sd-category-item ${selectedCategory === category.optionValueId ? 'active' : ''}`}
                                     onClick={() => handleCategoryClick(category.optionValueId)} // 클릭 시 카테고리 이름을 설정
                                 >
-                                    <img
-                                        src={category.option_value_image_url}  // 카테고리 이미지 경로
+                                    <img src={category.option_value_image_url}  // 카테고리 이미지 경로
                                     />
                                     <p>{category.optionValueName}</p>  {/* 카테고리 이름 표시 */}
                                 </div>
@@ -330,7 +328,7 @@ const UserStoreDetail = () => {
                         )}
                     </div>
 
-                    <hr className="sd-divider" />
+                    {/* <hr className="sd-divider" /> */}
 
                     <div className="sd-products-container">
                         {productList && productList.length > 0 ? (
@@ -345,7 +343,7 @@ const UserStoreDetail = () => {
                                     </div>
                                     <div className="sd-price-info">
                                         <p className="sd-product-name">{Product.productName}</p>
-                                        <p className="sd-price">{Number( Product.productPrice).toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' })}</p>
+                                        <p className="sd-price">{Number(Product.productPrice).toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' })}</p>
                                     </div>
                                 </Link>
                             ))
