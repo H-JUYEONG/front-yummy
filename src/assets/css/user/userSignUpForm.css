@@ -71,7 +71,7 @@
   width: 100%;
   padding: 15px 12px;
   font-size: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #bbbbbb;
   box-sizing: border-box;
 }
 
@@ -84,7 +84,7 @@
   flex: 1;
   padding: 12px;
   font-size: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #bbbbbb;
   box-sizing: border-box;
 }
 
@@ -96,8 +96,7 @@
 /* 포커스 스타일 */
 .user-signup-intput-area input:focus {
   outline: none;
-  border-color: #aaa;
-  background-color: #fff;
+  border-color: #bbbbbb;
 }
 
 /* 회원가입 버튼 스타일 */
@@ -164,7 +163,7 @@
   flex: 1;
   padding: 12px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid #bbbbbb;
   box-sizing: border-box;
 }
 

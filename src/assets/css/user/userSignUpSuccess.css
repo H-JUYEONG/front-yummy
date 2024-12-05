@@ -1,33 +1,34 @@
 .user-signup-succ {
-    width: 400px;
-    margin: auto auto;
-    padding: 20px 0;
-    text-align: center;
+  width: 400px;
+  margin: 0px auto 150px auto;
+  text-align: center;
 }
 
 .user-signup-succ img {
-    width: 200px;
+  margin: 0 auto 10px auto;
+  width: 250px;
 }
 
 .user-signup-succ h2 {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 20px 0px;
+  font-size: 1.8em;
+  font-weight: bold;
+  padding: 20px 0px;
 }
 
 .user-signup-succ p {
-    padding-bottom: 5px;
+  font-size: 1.2em;
+  padding-bottom: 8px;
 }
 
 .user-goto-loginform {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 #user-goto-loginform-btn .user-goto-loginform a {
-    padding: 10px 30px;
-    color: #ffffff;
-    background-color: black;
+  padding: 15px 35px;
+  color: #ffffff;
+  background-color: #ff85a1;
+  border-radius: 8px;
 }
