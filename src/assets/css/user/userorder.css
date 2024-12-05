@@ -1,7 +1,7 @@
 /* 핑크톤 컬러 변수 추가 */
 :root {
     --main-pink: #ff85a1;
-    --light-pink: #f4f4f4;
+    --light-pink: #e7e7e7;
     --hover-pink: #ff85a1;
 }
 
@@ -40,19 +40,19 @@
 }
 
 #user-wrap .mypage-order-table th:nth-child(2) { /* 제품명 */
-    width: 30%;
+    width: 25%;
 }
 
 #user-wrap .mypage-order-table th:nth-child(3) { /* 주문상태 */
-    width: 10%;
-}
-
-#user-wrap .mypage-order-table th:nth-child(4) { /* 제작업장/시간 */
     width: 20%;
 }
 
+#user-wrap .mypage-order-table th:nth-child(4) { /* 제작업장/시간 */
+    width: 15%;
+}
+
 #user-wrap .mypage-order-table th:nth-child(5) { /* 관리 */
-    width: 25%;
+    width: 35%;
 }
 
 #user-wrap .mypage-order-table td {
@@ -73,7 +73,7 @@
 /* 관리 열의 스타일 수정 */
 #user-wrap .mypage-order-table td:last-child {
     text-align: left;        /* 왼쪽 정렬로 변경 */
-    padding: 2px 16px;
+    padding: 10px 30px;
     position: relative;
     min-width: 200px;
 }
@@ -102,35 +102,6 @@
 #user-wrap .action-btn:hover {
     background: var(--main-pink);
     color: white;
-}
-
-/* Status Overview Styles */
-#user-wrap .order-status-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8f9fa;
-    padding: 24px;
-    border-radius: 5px;
-    margin: 30px 0;
-    gap: 10px;
-}
-
-#user-wrap .status-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    text-align: center;
-    padding: 0 20px;
-}
-
-#user-wrap .status-count {
-    font-size: 1.8em;           /* 변경 */
-    font-weight: bold;
-    color: var(--main-pink);
-    margin-bottom: 8px;
 }
 
 #user-wrap .order-status-label {
@@ -238,7 +209,7 @@
     color: #6B7280;
     margin-top: 15px;            /* 변경 */
     padding: 15px;               /* 추가 */
-    background: #f8f9fa;         /* 추가 */
+    background: #f0f0f0;         /* 추가 */
     border-radius: 8px;          /* 추가 */
     border-left: 4px solid var(--main-pink);  /* 추가 */
 }

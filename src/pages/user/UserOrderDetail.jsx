@@ -277,8 +277,8 @@ const UserOrderDetail = () => {
             </div>
           </section>
         </main>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

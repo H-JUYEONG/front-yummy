@@ -23,8 +23,7 @@ const UserSignupType = () => {
       <div id="user-wrap" className="user-text-center">
         <div className="signup-box">
           <div>
-            {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
-            <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
+            <img src="/images/logo2.png" alt="회사 로고" />
             <h1>회원가입</h1>
           </div>
           <div>
@@ -52,12 +51,11 @@ const UserSignupType = () => {
           </div>
         </div>
         {/* //회원가입 최상위 박스 */}
-
-        {/* Footer */}
-        <footer className="user-full-width">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

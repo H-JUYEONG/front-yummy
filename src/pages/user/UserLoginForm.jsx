@@ -150,7 +150,6 @@ const UserLoginForm = () => {
       <div id="user-wrap" className="user-text-center">
         <div className="user-login-box">
           <div>
-            {/* <img src={`${process.env.REACT_APP_API_URL}/upload/${product.imageSavedName}`} alt="회사 로고" /> */}
             <img src="/images/logo2.png" alt="회사 로고" />
             <h1>로그인</h1>
           </div>
@@ -209,12 +208,12 @@ const UserLoginForm = () => {
               <span>아이디 저장</span>
             </div>
             <div className="user-txt-chk-right">
-              <Link to="#" rel="noreferrer noopener">
+              {/* <Link to="#" rel="noreferrer noopener">
                 아이디찾기
               </Link>
               <Link to="#" rel="noreferrer noopener">
                 비밀번호찾기
-              </Link>
+              </Link> */}
               <Link to="/user/signup/type" rel="noreferrer noopener">
                 회원가입
               </Link>

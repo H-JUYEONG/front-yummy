@@ -373,16 +373,15 @@ const UserPersonalInfoEdit = () => {
           </div>
         </main>
 
-        {/* Footer */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
-
         {/* 탈퇴 확인 모달 */}
         {isWithdrawModalOpen && (
           <UserWithdrawConfirm onClose={handleCloseWithdrawModal} />
         )}
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };
