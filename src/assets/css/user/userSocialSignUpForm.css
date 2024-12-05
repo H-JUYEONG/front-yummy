@@ -1,126 +1,128 @@
 /* 전체 레이아웃 설정 */
 .user-social-signup {
-    width: 450px;
-    margin: 0px auto 150px auto;
-    text-align: left;
+  width: 450px;
+  margin: 0px auto 150px auto;
+  text-align: left;
 }
 
 .user-social-signup img {
-    display: block;
-    width: 250px;
-    margin: 0 auto 10px auto;
+  display: block;
+  width: 250px;
+  margin: 0 auto 10px auto;
 }
 
 .user-social-signup h1 {
-    font-size: 27px;
-    font-weight: bold;
-    text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  padding-top: 4px;
 }
 
 .user-social-signup h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    margin: 50px 0px 30px 0px;
-    position: relative;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 50px 0px 30px 0px;
+  position: relative;
 }
 
 .user-social-signup h2::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #333;
-    position: absolute;
-    bottom: -10px;
-    left: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
 }
 
 .social-guide {
-    font-size: 15px;
-    margin-bottom: 17px;
+  font-size: 15px;
+  margin-bottom: 17px;
 }
 
 /* 입력 필드 스타일 */
 .userSocialSignUpForm-social-signup-area {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .userSocialSignUpForm-input-group {
-    margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
+  margin-bottom: 20px; /* label과 input 간격을 위한 스타일 */
 }
 
-.user-social-id-ok, .user-social-pw-ok {
-    padding-top: 6px;
-    font-size: 15px;
-    /* font-weight: bold; */
-    color: red;
+.user-social-id-ok,
+.user-social-pw-ok {
+  padding-top: 6px;
+  font-size: 15px;
+  color: red;
 }
 
 .userSocialSignUpForm-social-signup-area label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-    display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
 }
 
 .userSocialSignUpForm-social-signup-area input[type="text"],
 .userSocialSignUpForm-social-signup-area input[type="password"] {
-    width: 100%;
-    padding: 15px 12px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 15px 12px;
+  font-size: 14px;
+  border: 1px solid #bbbbbb;
+  box-sizing: border-box;
 }
 
 .user-phonenum-input-wrapper {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
 .user-phonenum-input-wrapper input {
-    flex: 1;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #bbbbbb;
+  box-sizing: border-box;
 }
 
 /* Placeholder 스타일 */
 .userSocialSignUpForm-social-signup-area input::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 /* 포커스 스타일 */
 .userSocialSignUpForm-social-signup-area input:focus {
-    outline: none;
-    border-color: #aaa;
-    background-color: #fff;
+  outline: none;
+  border-color: #bbbbbb;
+  background-color: #fff;
 }
 
 /* 회원가입 버튼 스타일 */
 .user-social-signup-btn {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .user-social-signup-btn button {
-    width: 50%;
-    padding: 16px 0;
-    font-size: 16px;
-    color: #fff;
-    background-color: #ff85a1;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-radius: 8px;
+  width: 50%;
+  padding: 16px 0;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ff85a1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
 }
 
 .user-social-signup-btn button:hover {
-    border: none;
-    color: #ffffff;
-    background-color: rgba(255, 133, 161, 0.8);
-  }
+  border: none;
+  color: #ffffff;
+  background-color: rgba(255, 133, 161, 0.8);
+}

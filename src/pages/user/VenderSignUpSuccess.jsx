@@ -18,7 +18,7 @@ const VenderSignUpSuccess = () => {
       </header>
       <div id="user-wrap" className="user-text-center">
         <div className="vender-signup-succ">
-          <img src="/images/기브미 쪼꼬레또.jpg" alt="회사 로고" />
+          <img src="/images/logo2.png" alt="회사 로고" />
           <h2>회원가입 완료</h2>
           <p>가입해주셔서 감사합니다.</p>
           <p>심사가 완료된 후 승인해드리겠습니다.</p>
