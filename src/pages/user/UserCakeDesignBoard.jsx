@@ -304,12 +304,11 @@ const UserCakeDesignBoard = () => {
             </div>
           </div>
         </main>
-
-        {/* Footer */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

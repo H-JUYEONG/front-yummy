@@ -51,12 +51,11 @@ const UserSignupType = () => {
           </div>
         </div>
         {/* //회원가입 최상위 박스 */}
-
-        {/* Footer */}
-        <footer className="user-full-width">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

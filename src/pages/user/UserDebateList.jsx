@@ -272,12 +272,11 @@ const UserDebateList = () => {
             </div>
           </div>
         </main>
-
-        {/* 푸터 섹션 */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      {/* 푸터 섹션 */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

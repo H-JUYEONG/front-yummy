@@ -395,12 +395,11 @@ const UserSocialSignUpForm = () => {
             </form>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

@@ -428,11 +428,10 @@ const UserDebateView = () => {
             </div>
           </div>
         </main>
-
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

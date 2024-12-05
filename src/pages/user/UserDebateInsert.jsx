@@ -306,10 +306,6 @@ const UserDebateInsert = () => {
           </div>
         </main>
 
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
-
         {/* 모달 컴포넌트 */}
         {isModalOpen && (
           <UserDebateModal
@@ -318,6 +314,9 @@ const UserDebateInsert = () => {
           />
         )}
       </div>
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };

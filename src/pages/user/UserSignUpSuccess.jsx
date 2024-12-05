@@ -31,12 +31,11 @@ const UserSignUpSuccess = () => {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer id="user-wrap-footer">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer id="user-wrap-footer">
+        <Footer />
+      </footer>
     </>
   );
 };
