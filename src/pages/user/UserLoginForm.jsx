@@ -245,12 +245,11 @@ const UserLoginForm = () => {
           {/* //로그인 종류 리스트 */}
         </div>
         {/* //로그인 최상위 박스 */}
-
-        {/* Footer */}
-        <footer className="user-full-width">
-          <Footer />
-        </footer>
       </div>
+      {/* Footer */}
+      <footer className="user-full-width">
+        <Footer />
+      </footer>
     </>
   );
 };

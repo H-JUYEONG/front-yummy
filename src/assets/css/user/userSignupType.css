@@ -10,9 +10,10 @@
 }
 
 .signup-box h1 {
-  font-size: 28px;
-  margin: 10px 0px 30px 0px;
-  padding: 10px 0px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+  margin: 0px 0px 40px 0px;
 }
 
 .signup-type {

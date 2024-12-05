@@ -10,7 +10,9 @@
 }
 
 .user-login-box h1 {
-  font-size: 28px;
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 40px;
 }
 
@@ -125,7 +127,7 @@
   display: flex;
   align-items: center;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 15px;
   color: #686868;
   line-height: 1.5;
 }
@@ -134,7 +136,7 @@
   margin-right: 10px;
   transform: scale(1.2);
   transform-origin: left;
-  accent-color: #333;
+  accent-color: #686868;
 }
 
 .user-txt-chk-right {
@@ -143,7 +145,7 @@
 }
 
 .user-txt-chk-right a {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   color: #686868;
   margin-left: 10px;
