@@ -159,32 +159,32 @@ const UserAuditionOngoing = () => {
                       <p>
                         희망 가격:{" "}
                         {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
-                          "정보 없음"}
+                          "없음"}
                       </p>
                       <p>
                         사이즈:{" "}
-                        {auditionDetail.auditionApplicationSize || "정보 없음"}
+                        {auditionDetail.auditionApplicationSize || "없음"}
                       </p>
                       <p>
                         케이크 위 레터링:{" "}
-                        {auditionDetail.cakeLettering || "정보 없음"}
+                        {auditionDetail.cakeLettering || "없음"}
                       </p>
                       <p>
                         케이크 판 레터링:{" "}
-                        {auditionDetail.plateLettering || "정보 없음"}
+                        {auditionDetail.plateLettering || "없음"}
                       </p>
                       <p>
                         수령 방식:{" "}
-                        {auditionDetail.deliveryMethod || "정보 없음"}
+                        {auditionDetail.deliveryMethod || "없음"}
                       </p>
                       <p>
-                        수령 지역(구): {auditionDetail.region || "정보 없음"}
+                        수령 지역(구): {auditionDetail.region || "없음"}
                       </p>
                       <p>
-                        희망 날짜: {auditionDetail.desiredDate || "정보 없음"}
+                        희망 날짜: {auditionDetail.desiredDate || "없음"}
                       </p>
                       <p>
-                        희망 시간: {auditionDetail.desiredTime || "정보 없음"}
+                        희망 시간: {auditionDetail.desiredTime || "없음"}
                       </p>
                       <p>
                         요청사항:{" "}
