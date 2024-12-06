@@ -23,11 +23,16 @@ const WebRTCReceiver = () => {
                 // Create PeerConnection
                 peerConnectionRef.current = new RTCPeerConnection({
                     iceServers: [
-                        { urls: "stun:stun.l.google.com:19302" },
+                        { urls: "stun:stun.l.google.com:19302" }, // STUN 서버
                         {
-                            urls: "turn:openrelay.metered.ca:80",
-                            username: "openrelayproject",
-                            credential: "openrelayproject",
+                            urls: "turn:3.38.113.109:3478?transport=udp", // 새로 설정한 TURN 서버
+                            username: "testuser",
+                            credential: "testpass",
+                        },
+                        {
+                            urls: "turn:3.38.113.109:3478?transport=tcp", // TCP TURN 지원
+                            username: "testuser",
+                            credential: "testpass",
                         },
                     ],
                 });
