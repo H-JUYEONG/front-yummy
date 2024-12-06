@@ -32,21 +32,54 @@ const UserAuditionModal = ({ isOpen, onClose, audition }) => {
                 <div className="appeal-design-text-jw">
                   <ul>
                     <li>
-                      <span>글 번호:</span> {audition.auditionApplicationId || "정보 없음"}
+                      <span>글 번호:</span>{" "}
+                      {audition.auditionApplicationId || "정보 없음"}
                     </li>
-                    <li><sapn>제목: </sapn>{audition.auditionApplicationTitle || "없음"}</li>
-                    <li><sapn>희망가격:  </sapn>{`${audition.expectedPrice.toLocaleString()}원` || "없음"}</li>
-                    <li><sapn>사이즈: </sapn>{audition.auditionApplicationSize || "없음"}</li>
-                    <li><sapn>수령 방식: </sapn>{audition.deliveryMethod || "없음"}</li>
-                    <li><sapn>수령 지역(구): </sapn>{audition.region || "없음"}</li>
-                    <li><sapn>희망 날짜: </sapn>{audition.desiredDate || "없음"}</li>
-                    <li><sapn>희망 시간: </sapn>{audition.desiredTime || "없음"}</li>
-                    <li><sapn>받는 사람 : </sapn>{audition.recipientName || "없음"}</li>
-                    <li><sapn>받는 사람 연락처 :</sapn>{audition.recipientPhone || "없음"}</li>
-                    <li><sapn>요청사항</sapn></li>
+                    <li>
+                      <sapn>제목: </sapn>
+                      {audition.auditionApplicationTitle || "없음"}
+                    </li>
+                    <li>
+                      <sapn>희망가격: </sapn>
+                      {`${audition.expectedPrice.toLocaleString()}원` || "없음"}
+                    </li>
+                    <li>
+                      <sapn>사이즈: </sapn>
+                      {audition.auditionApplicationSize || "없음"}
+                    </li>
+                    <li>
+                      <sapn>수령 방식: </sapn>
+                      {audition.deliveryMethod || "없음"}
+                    </li>
+                    <li>
+                      <sapn>수령 지역(구): </sapn>
+                      {audition.region || "없음"}
+                    </li>
+                    <li>
+                      <sapn>희망 날짜: </sapn>
+                      {audition.desiredDate || "없음"}
+                    </li>
+                    <li>
+                      <sapn>희망 시간: </sapn>
+                      {audition.desiredTime || "없음"}
+                    </li>
+                    <li>
+                      <sapn>받는 사람 : </sapn>
+                      {audition.recipientName || "없음"}
+                    </li>
+                    <li>
+                      <sapn>받는 사람 연락처 :</sapn>
+                      {audition.recipientPhone || "없음"}
+                    </li>
+                    <li>
+                      <sapn>요청사항</sapn>
+                    </li>
                     <li>
                       <div className="appeal-design-text-RequestedTerm">
-                        <sapn>{audition.additionalRequests || "요청사항이 없습니다."}</sapn>
+                        <sapn>
+                          {audition.additionalRequests ||
+                            "요청사항이 없습니다."}
+                        </sapn>
                       </div>
                     </li>
                   </ul>
@@ -56,21 +89,13 @@ const UserAuditionModal = ({ isOpen, onClose, audition }) => {
               <div className="modal-user-input-img">
                 <p className="sy-modal-sub-title-jw">🎂 제안된 상품 이미지</p>
                 <div className="appeal-design-photo-jw">
-                  <img
-                    src={
-                      audition.imageUrl ||
-                      "../../assets/images/cake-logo1.png"
-                    }
-                    alt="예시도안"
-                  />
+                  {audition.imageUrl ? (
+                    <img src={audition.imageUrl} alt="예시도안" />
+                  ) : (
+                    <p>이미지가 없습니다.</p>
+                  )}
                 </div>
-                <div>
-                  {/* <button
-                    className="user-ongoing-select-button"
-                  >
-                    결제하기
-                  </button> */}
-                </div>
+                <div></div>
               </div>
             </div>
           </div>
