@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import VenderHeader from "../vender/include/VenderHeader";
 import ReviewAnalysis from "../user/include/ReviewAnalysis";
 import "../../assets/css/user/CakeOrder.css";
@@ -23,6 +23,7 @@ const OPTION_TYPES = {
 };
 
 const UserCakeDetail = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { productId } = useParams();
   const optionRefs = useRef({});
@@ -591,11 +592,10 @@ const UserCakeDetail = () => {
             {options.map((option) => (
               <button
                 key={option.optionValueId}
-                className={`option-item ${
-                  selectedOptions[stateKey] === option.optionValueId
+                className={`option-item ${selectedOptions[stateKey] === option.optionValueId
                     ? "active"
                     : ""
-                }`}
+                  }`}
                 onClick={() =>
                   handleOptionSelect(optionType, option.optionValueId)
                 }
@@ -909,9 +909,8 @@ const UserCakeDetail = () => {
                   <button
                     key={star}
                     type="button"
-                    className={`star-button ${
-                      newReview.rating >= star ? "filled" : ""
-                    }`}
+                    className={`star-button ${newReview.rating >= star ? "filled" : ""
+                      }`}
                     onClick={() => handleRatingChange(star)}
                     onMouseEnter={() => handleStarHover(star)}
                     onMouseLeave={handleStarLeave}
@@ -974,11 +973,10 @@ const UserCakeDetail = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span
                     key={star}
-                    className={`star ${
-                      star <= Math.round(reviewStats.averageRating)
+                    className={`star ${star <= Math.round(reviewStats.averageRating)
                         ? "filled"
                         : ""
-                    }`}
+                      }`}
                     style={{
                       color:
                         star <= reviewStats.averageRating
@@ -1008,13 +1006,12 @@ const UserCakeDetail = () => {
                     <div
                       className="bar-fill"
                       style={{
-                        width: `${
-                          reviewStats.totalReviews
+                        width: `${reviewStats.totalReviews
                             ? (reviewStats.ratingCounts[score] /
-                                reviewStats.totalReviews) *
-                              100
+                              reviewStats.totalReviews) *
+                            100
                             : 0
-                        }%`,
+                          }%`,
                         backgroundColor: `hsl(${(score / 5) * 120}, 100%, 50%)`,
                       }}
                     />
@@ -1034,25 +1031,22 @@ const UserCakeDetail = () => {
       <div className="review-list" ref={reviewListRef}>
         <div className="review-filters">
           <button
-            className={`filter-button ${
-              reviewSort === "recommend" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "recommend" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("recommend")}
           >
             추천순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "latest" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "latest" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("latest")}
           >
             최신순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "rating" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "rating" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("rating")}
           >
             평점순
@@ -1249,9 +1243,8 @@ const UserCakeDetail = () => {
                     .map((image, index) => (
                       <div
                         key={index}
-                        className={`thumbnail-wrapper ${
-                          mainImage === image ? "active" : ""
-                        }`}
+                        className={`thumbnail-wrapper ${mainImage === image ? "active" : ""
+                          }`}
                         onClick={() => handleThumbnailClick(image)}
                       >
                         <img
@@ -1269,9 +1262,8 @@ const UserCakeDetail = () => {
                 {tabs.map((tab) => (
                   <button
                     key={tab}
-                    className={`tab-button ${
-                      selectedTab === tab ? "active" : ""
-                    }`}
+                    className={`tab-button ${selectedTab === tab ? "active" : ""
+                      }`}
                     onClick={() => handleTabClick(tab)}
                   >
                     {tab}
@@ -1311,17 +1303,15 @@ const UserCakeDetail = () => {
                 <h3>배송 방식</h3>
                 <div className="delivery-type-buttons">
                   <button
-                    className={`delivery-option-button ${
-                      deliveryType === "pickup" ? "active" : ""
-                    }`}
+                    className={`delivery-option-button ${deliveryType === "pickup" ? "active" : ""
+                      }`}
                     onClick={() => setDeliveryType("pickup")}
                   >
                     픽업
                   </button>
                   <button
-                    className={`delivery-option-button ${
-                      deliveryType === "quick" ? "active" : ""
-                    }`}
+                    className={`delivery-option-button ${deliveryType === "quick" ? "active" : ""
+                      }`}
                     onClick={() => setDeliveryType("quick")}
                   >
                     퀵
@@ -1487,6 +1477,12 @@ const UserCakeDetail = () => {
           </div>
         </div>
       </main>
+      <div
+        className="floating-back-button"
+        onClick={() => navigate("/")} // 메인화면으로 이동
+      >
+        메인화면
+      </div>
     </div>
   );
 };
