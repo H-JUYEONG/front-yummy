@@ -1028,7 +1028,7 @@ const UserCakeDetail = () => {
             </div>
           </div>
           {/* 리뷰 분석 테스트할때만 주석 풀고 확인바람~~~~ */}
-          {/*<ReviewAnalysis productId={productId} />*/}
+          {/* <ReviewAnalysis productId={productId} /> */}
         </div>
       )}
 
