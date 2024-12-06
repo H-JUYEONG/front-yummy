@@ -220,10 +220,7 @@ const UserAuditionBoard = () => {
                     >
                       <div className="user-cake-design-card-image">
                         <img
-                          src={
-                            card.imageUrl ||
-                            "https://placehold.co/300x200?text=No+Image"
-                          }
+                          src={card.imageUrl || "/images/logo2-no.png"}
                           alt="케이크 도안"
                         />
                         <div

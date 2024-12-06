@@ -24,3 +24,11 @@
   background-color: #EA4335;
   color: white;
 }
+
+img[src="/images/logo2-no.png"] {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  margin: 100px auto;
+}

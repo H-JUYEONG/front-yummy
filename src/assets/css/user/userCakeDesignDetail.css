@@ -2,7 +2,6 @@
 .user-cake-designs-details {
   max-width: 1300px;
   width: 100%;
-  height: 850px;
   margin: 0 auto;
   margin-top: 50px;
 }
@@ -84,9 +83,8 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  height: 100%;
   margin: 0 auto;
-  gap: 70px; 
+  gap: 70px;
 }
 
 /* Image Section */
@@ -124,8 +122,8 @@
 }
 
 .user-cake-designs-detail-sub-imgs img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   cursor: pointer;
   border: 1px solid #ddd;
@@ -159,7 +157,6 @@
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  height: 700px; /* 이미지 높이와 동일하게 설정 */
 }
 
 .user-cake-designs-detail-txt > div {
@@ -295,7 +292,7 @@
 
 .user-cake-delete-button:hover {
   color: white;
-  background-color: #EA4335;
+  background-color: #ea4335;
 }
 
 .user-cake-edit-button {
@@ -308,7 +305,7 @@
 
 /* Review Section */
 .user-review-section {
-  margin-top: 20px;
+  margin-top: 60px;
   text-align: left;
   border-top: 1px solid #000;
 }
