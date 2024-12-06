@@ -71,11 +71,7 @@ const UserStoreDetail = () => {
 
     }, [venderId]);
 
-
-
-
     const getdetails = () => {
-        console.log('*********//////////////', venderId)
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
@@ -358,7 +354,8 @@ const UserStoreDetail = () => {
                 className="floating-back-button"
                 onClick={() => navigate("/")} // 메인화면으로 이동
             >
-                메인화면
+                YUMMY<br />
+                바로가기
             </div>
         </div>
     );

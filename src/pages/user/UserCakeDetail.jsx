@@ -593,11 +593,10 @@ const UserCakeDetail = () => {
             {options.map((option) => (
               <button
                 key={option.optionValueId}
-                className={`option-item ${
-                  selectedOptions[stateKey] === option.optionValueId
+                className={`option-item ${selectedOptions[stateKey] === option.optionValueId
                     ? "active"
                     : ""
-                }`}
+                  }`}
                 onClick={() =>
                   handleOptionSelect(optionType, option.optionValueId)
                 }
@@ -911,9 +910,8 @@ const UserCakeDetail = () => {
                   <button
                     key={star}
                     type="button"
-                    className={`star-button ${
-                      newReview.rating >= star ? "filled" : ""
-                    }`}
+                    className={`star-button ${newReview.rating >= star ? "filled" : ""
+                      }`}
                     onClick={() => handleRatingChange(star)}
                     onMouseEnter={() => handleStarHover(star)}
                     onMouseLeave={handleStarLeave}
@@ -976,11 +974,10 @@ const UserCakeDetail = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span
                     key={star}
-                    className={`star ${
-                      star <= Math.round(reviewStats.averageRating)
+                    className={`star ${star <= Math.round(reviewStats.averageRating)
                         ? "filled"
                         : ""
-                    }`}
+                      }`}
                     style={{
                       color:
                         star <= reviewStats.averageRating
@@ -1010,13 +1007,12 @@ const UserCakeDetail = () => {
                     <div
                       className="bar-fill"
                       style={{
-                        width: `${
-                          reviewStats.totalReviews
+                        width: `${reviewStats.totalReviews
                             ? (reviewStats.ratingCounts[score] /
-                                reviewStats.totalReviews) *
-                              100
+                              reviewStats.totalReviews) *
+                            100
                             : 0
-                        }%`,
+                          }%`,
                         backgroundColor: `hsl(${(score / 5) * 120}, 100%, 50%)`,
                       }}
                     />
@@ -1036,25 +1032,22 @@ const UserCakeDetail = () => {
       <div className="review-list" ref={reviewListRef}>
         <div className="review-filters">
           <button
-            className={`filter-button ${
-              reviewSort === "recommend" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "recommend" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("recommend")}
           >
             추천순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "latest" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "latest" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("latest")}
           >
             최신순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "rating" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "rating" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("rating")}
           >
             평점순
@@ -1144,8 +1137,8 @@ const UserCakeDetail = () => {
                           <span className="reply-date">
                             {reply.replyCreatedAt
                               ? new Date(
-                                  reply.replyCreatedAt
-                                ).toLocaleDateString("ko-KR")
+                                reply.replyCreatedAt
+                              ).toLocaleDateString("ko-KR")
                               : "날짜 정보 없음"}
                           </span>
                           {authUser?.vender_id &&
@@ -1205,9 +1198,8 @@ const UserCakeDetail = () => {
                   {[...Array(Math.min(10, totalPages))].map((_, index) => (
                     <button
                       key={index + 1}
-                      className={`review-list-pagination-page-button ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
+                      className={`review-list-pagination-page-button ${currentPage === index + 1 ? "active" : ""
+                        }`}
                       onClick={() => handlePageChange(index + 1)}
                     >
                       {index + 1}
@@ -1235,6 +1227,7 @@ const UserCakeDetail = () => {
   );
   // 메인 렌더링
   return (
+
     <>
       <div id="user-wrap" className="text-center">
         <YummyVenderHeader />
@@ -1274,7 +1267,9 @@ const UserCakeDetail = () => {
                         </div>
                       ))}
                 </div>
+
               </div>
+
 
               <div className="product-tabs">
                 <div className="tabs-header sticky">
@@ -1293,6 +1288,7 @@ const UserCakeDetail = () => {
                 <div className="tab-content" ref={tabContentRef}>
                   {renderTabContent()}
                 </div>
+
               </div>
             </div>
             {/* 오른쪽 섹션 */}
@@ -1307,11 +1303,12 @@ const UserCakeDetail = () => {
 
                 <div className="like-button-container">
                   <button
-                    className={`like-button ${isLiked ? "liked" : ""}`}
+ className={`like-button ${isLiked ? "liked" : ""}`}
                     onClick={handleLike}
                   >
                     <span className="heart-icon">{isLiked ? "♥" : "♡"}</span>
                     <span className="like-count">{likeCount}</span>
+
                   </button>
                 </div>
               </div>
@@ -1505,6 +1502,15 @@ const UserCakeDetail = () => {
         >
           메인화면
         </div>
+
+      </main>
+      <div
+        className="floating-back-button"
+        onClick={() => navigate("/")} // 메인화면으로 이동
+      >
+        YUMMY<br />
+        바로가기
+
       </div>
     </>
   );
