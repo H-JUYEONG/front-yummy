@@ -50,8 +50,9 @@
 }
 
 #user-wrap .cake-order-container .left-section {
-  flex: 1;
-  min-width: 0;
+  width: 500px;
+  min-width: 500px; 
+  flex: 0 0 500px;
 }
 
 #user-wrap .cake-order-container .right-section {
@@ -62,7 +63,7 @@
 /* 이미지 갤러리 영역 */
 #user-wrap .cake-order-container .product-image {
   margin-bottom: 30px;
-  max-width: 570px;
+  width: 100%;
 }
 
 #user-wrap .cake-order-container .main-image {
@@ -105,6 +106,7 @@
 
 /* 탭 스타일 */
 #user-wrap .cake-order-container .product-tabs {
+  width: 100%;
   margin-top: 30px;
   position: relative;
   background: white;
@@ -157,7 +159,7 @@
 }
 
 #user-wrap .cake-order-container .content-sections {
-  max-width: 570px;
+  width: 100%;
   height: auto;
 }
 
@@ -353,6 +355,7 @@
 
 /* 리뷰 관련 스타일 */
 #user-wrap .cake-order-container .reviews-container {
+  width: 100%;
   padding: 20px 0;
 }
 
@@ -453,8 +456,6 @@
 /* 리뷰 섹션 */
 .review-list {
   width: 100%; /* 컨테이너 너비를 100%로 고정 */
-  max-width: 500px; /* 최대 너비 설정 */
-  margin: 0 auto; /* 중앙 정렬 */
   box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
 }
 
