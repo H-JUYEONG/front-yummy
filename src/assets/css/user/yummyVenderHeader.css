@@ -1,0 +1,72 @@
+.yummy-vender-header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 7px;
+ }
+ 
+ .yummy-vender-header-container .yummy-vender-logo {
+  display: flex;
+  align-items: center;
+  color: #ff85a1;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 1.0em;
+  font-weight: bold;
+ }
+ 
+ .yummy-vender-header-container .yummy-vender-logo img {
+  max-width: 100px;
+ }
+ 
+ .yummy-vender-header-container .yummy-vender-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+ }
+ 
+ .yummy-vender-header-container .yummy-vender-user-actions a.yummy-vender-link {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.8em;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  display: inline-block;
+ }
+ 
+ .yummy-vender-user-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+ }
+ 
+ .yummy-vender-link {
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+ }
+ 
+ .yummy-vender-link:hover {
+  color: #ff85a1;
+ }
+ 
+ .yummy-vender-link.primary {
+  background-color: #ff85a1;
+  color: white;
+  border-radius: 4px;
+ }
+ 
+ .yummy-vender-link.primary:hover {
+  background-color: #ff85a1;
+  color: white;
+ }
+ 
+ .yummy-vender-user-nickname {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 0.8em;
+  color: #333;
+  padding-bottom: 2px;
+ }

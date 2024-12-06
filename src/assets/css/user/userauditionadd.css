@@ -46,9 +46,18 @@
   margin-bottom: 28px;
 }
 
-.audition-info-notice {
+.audition-info-notice1 {
   color: #ff587f;
   padding-bottom: 15px;
+}
+
+.audition-info-notice2 {
+  color: #666666;
+  padding-bottom: 15px;
+}
+
+.user-cake-audition-form-group span {
+  color: #ff85a1;
 }
 
 .user-cake-audition-form-group label {

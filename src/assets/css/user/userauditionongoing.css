@@ -216,9 +216,13 @@
   color: #666;
   text-align: center;
   padding: 30px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  margin-top: 20px;
+}
+
+.user-no-cake-image {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  padding: 30px;
 }
 
 /* 컨테이너 스타일 - 수정 */
