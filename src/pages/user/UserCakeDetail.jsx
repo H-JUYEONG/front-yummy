@@ -592,11 +592,10 @@ const UserCakeDetail = () => {
             {options.map((option) => (
               <button
                 key={option.optionValueId}
-                className={`option-item ${
-                  selectedOptions[stateKey] === option.optionValueId
+                className={`option-item ${selectedOptions[stateKey] === option.optionValueId
                     ? "active"
                     : ""
-                }`}
+                  }`}
                 onClick={() =>
                   handleOptionSelect(optionType, option.optionValueId)
                 }
@@ -910,9 +909,8 @@ const UserCakeDetail = () => {
                   <button
                     key={star}
                     type="button"
-                    className={`star-button ${
-                      newReview.rating >= star ? "filled" : ""
-                    }`}
+                    className={`star-button ${newReview.rating >= star ? "filled" : ""
+                      }`}
                     onClick={() => handleRatingChange(star)}
                     onMouseEnter={() => handleStarHover(star)}
                     onMouseLeave={handleStarLeave}
@@ -975,11 +973,10 @@ const UserCakeDetail = () => {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <span
                     key={star}
-                    className={`star ${
-                      star <= Math.round(reviewStats.averageRating)
+                    className={`star ${star <= Math.round(reviewStats.averageRating)
                         ? "filled"
                         : ""
-                    }`}
+                      }`}
                     style={{
                       color:
                         star <= reviewStats.averageRating
@@ -1009,13 +1006,12 @@ const UserCakeDetail = () => {
                     <div
                       className="bar-fill"
                       style={{
-                        width: `${
-                          reviewStats.totalReviews
+                        width: `${reviewStats.totalReviews
                             ? (reviewStats.ratingCounts[score] /
-                                reviewStats.totalReviews) *
-                              100
+                              reviewStats.totalReviews) *
+                            100
                             : 0
-                        }%`,
+                          }%`,
                         backgroundColor: `hsl(${(score / 5) * 120}, 100%, 50%)`,
                       }}
                     />
@@ -1035,25 +1031,22 @@ const UserCakeDetail = () => {
       <div className="review-list" ref={reviewListRef}>
         <div className="review-filters">
           <button
-            className={`filter-button ${
-              reviewSort === "recommend" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "recommend" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("recommend")}
           >
             추천순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "latest" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "latest" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("latest")}
           >
             최신순
           </button>
           <button
-            className={`filter-button ${
-              reviewSort === "rating" ? "active" : ""
-            }`}
+            className={`filter-button ${reviewSort === "rating" ? "active" : ""
+              }`}
             onClick={() => handleSortChange("rating")}
           >
             평점순
@@ -1143,8 +1136,8 @@ const UserCakeDetail = () => {
                           <span className="reply-date">
                             {reply.replyCreatedAt
                               ? new Date(
-                                  reply.replyCreatedAt
-                                ).toLocaleDateString("ko-KR")
+                                reply.replyCreatedAt
+                              ).toLocaleDateString("ko-KR")
                               : "날짜 정보 없음"}
                           </span>
                           {authUser?.vender_id &&
@@ -1204,9 +1197,8 @@ const UserCakeDetail = () => {
                   {[...Array(Math.min(10, totalPages))].map((_, index) => (
                     <button
                       key={index + 1}
-                      className={`review-list-pagination-page-button ${
-                        currentPage === index + 1 ? "active" : ""
-                      }`}
+                      className={`review-list-pagination-page-button ${currentPage === index + 1 ? "active" : ""
+                        }`}
                       onClick={() => handlePageChange(index + 1)}
                     >
                       {index + 1}
@@ -1258,9 +1250,8 @@ const UserCakeDetail = () => {
                     .map((image, index) => (
                       <div
                         key={index}
-                        className={`thumbnail-wrapper ${
-                          mainImage === image ? "active" : ""
-                        }`}
+                        className={`thumbnail-wrapper ${mainImage === image ? "active" : ""
+                          }`}
                         onClick={() => handleThumbnailClick(image)}
                       >
                         <img
@@ -1278,9 +1269,8 @@ const UserCakeDetail = () => {
                 {tabs.map((tab) => (
                   <button
                     key={tab}
-                    className={`tab-button ${
-                      selectedTab === tab ? "active" : ""
-                    }`}
+                    className={`tab-button ${selectedTab === tab ? "active" : ""
+                      }`}
                     onClick={() => handleTabClick(tab)}
                   >
                     {tab}
@@ -1320,17 +1310,15 @@ const UserCakeDetail = () => {
                 <h3>배송 방식</h3>
                 <div className="delivery-type-buttons">
                   <button
-                    className={`delivery-option-button ${
-                      deliveryType === "픽업" ? "active" : ""
-                    }`}
+                    className={`delivery-option-button ${deliveryType === "픽업" ? "active" : ""
+                      }`}
                     onClick={() => setDeliveryType("픽업")}
                   >
                     픽업
                   </button>
                   <button
-                    className={`delivery-option-button ${
-                      deliveryType === "배송" ? "active" : ""
-                    }`}
+                    className={`delivery-option-button ${deliveryType === "배송" ? "active" : ""
+                      }`}
                     onClick={() => setDeliveryType("배송")}
                   >
                     배송
@@ -1500,7 +1488,8 @@ const UserCakeDetail = () => {
         className="floating-back-button"
         onClick={() => navigate("/")} // 메인화면으로 이동
       >
-        메인화면
+        YUMMY<br />
+        바로가기
       </div>
     </div>
   );

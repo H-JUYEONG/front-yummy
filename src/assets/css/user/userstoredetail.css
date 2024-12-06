@@ -492,8 +492,8 @@
 
 .floating-back-button {
     position: fixed; /* 화면에 고정 */
-    bottom: 100px; /* 화면 하단에서 20px */
-    right: 20px; /* 화면 오른쪽에서 20px */
+    bottom: 20px; /* 화면 하단에서 20px */
+    right: 130px; /* 화면 오른쪽에서 20px */
     background-color: #ff6f61; /* 버튼 배경색 */
     color: #fff; /* 버튼 텍스트 색 */
     border: none;

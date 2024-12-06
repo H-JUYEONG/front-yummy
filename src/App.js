@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate } from "react-router-dom";  // useNavigate 추가
 import './assets/css/App.css'; // 스타일 적용
 //소영 미리보기페이지용
 import { VenderProvider } from '../src/context/VenderContext';
+import axios from "axios";
 
 import VenderProductList from './pages/vender/VenderProductList';
 import VenderDashboard from './pages/vender/VenderDashboard';
@@ -193,6 +194,9 @@ function App() {
           <Route path='/user/mypage/writinglist' element={<UserWritingList />} />
           <Route path='/stream/:orderId' element={<WebRTCReceiver />} />
 
+          {/* alias 기반 라우트 */}
+          <Route path="/:alias" element={<AliasToVenderRoute />} />
+
           {/*Admin Routes */}
           <Route path='/admin' element={<AdminDashboard />} />
           <Route path='/admin/member' element={<AdminMemberManagement />} />
@@ -245,5 +249,51 @@ function App() {
     </div>
   );
 }
+// Alias to venderId mapping route
+const AliasToVenderRoute = () => {
+  const { alias } = useParams();
+  console.log("Alias value:", alias);
+  const [venderId, setVenderId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (alias) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/api/vender/getIdByAlias/${alias}`, {
+          headers: { 'Accept': 'application/xml' }
+        })
+        .then((response) => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(response.data, "application/xml");
+          const venderId = xmlDoc.getElementsByTagName("Long")[0].childNodes[0].nodeValue;
+
+          if (venderId) {
+            setVenderId(venderId);
+          } else {
+            console.error('Invalid alias:', alias);
+            navigate('/404');
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching venderId by alias:", error);
+          navigate('/404');
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [alias, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!venderId) {
+    return <Navigate to="/404" replace />;
+  }
+
+  return <Navigate to={`/user/storedetail/${venderId}`} replace />;
+};
 
 export default App;
