@@ -87,7 +87,7 @@ const UserCakeDetail = () => {
 
   const { venderId } = useParams();
 
-  const [deliveryType, setDeliveryType] = useState("pickup");
+  const [deliveryType, setDeliveryType] = useState("픽업");
 
   // 스크롤 관련 상태
   const [isDragging, setIsDragging] = useState(false);
@@ -1321,26 +1321,26 @@ const UserCakeDetail = () => {
                 <div className="delivery-type-buttons">
                   <button
                     className={`delivery-option-button ${
-                      deliveryType === "pickup" ? "active" : ""
+                      deliveryType === "픽업" ? "active" : ""
                     }`}
-                    onClick={() => setDeliveryType("pickup")}
+                    onClick={() => setDeliveryType("픽업")}
                   >
                     픽업
                   </button>
                   <button
                     className={`delivery-option-button ${
-                      deliveryType === "quick" ? "active" : ""
+                      deliveryType === "배송" ? "active" : ""
                     }`}
-                    onClick={() => setDeliveryType("quick")}
+                    onClick={() => setDeliveryType("배송")}
                   >
-                    퀵
+                    배송
                   </button>
                 </div>
               </div>
 
               <div className="option-group">
-                <h3>{deliveryType === "pickup" ? "픽업 장소" : "배송 주소"}</h3>
-                {deliveryType === "pickup" ? (
+                <h3>{deliveryType === "픽업" ? "픽업 장소" : "배송 주소"}</h3>
+                {deliveryType === "픽업" ? (
                   <div className="location-select">
                     <div className="map-placeholder" id="map">
                       <p>{productDetail?.venderAddress}</p>
@@ -1360,7 +1360,7 @@ const UserCakeDetail = () => {
               </div>
 
               <div className="option-group">
-                <h3>{deliveryType === "pickup" ? "픽업 날짜" : "배송 날짜"}</h3>
+                <h3>{deliveryType === "픽업" ? "픽업 날짜" : "배송 날짜"}</h3>
                 <div className="date-select">
                   <input
                     type="date"
@@ -1372,7 +1372,7 @@ const UserCakeDetail = () => {
               </div>
 
               <div className="option-group">
-                <h3>{deliveryType === "pickup" ? "픽업 시간" : "배송 시간"}</h3>
+                <h3>{deliveryType === "픽업" ? "픽업 시간" : "배송 시간"}</h3>
                 <div className="time-select">
                   <select
                     value={selectedTime}
@@ -1479,7 +1479,7 @@ const UserCakeDetail = () => {
                     recipientName: recipientInfo.name,
                     recipientPhone: recipientInfo.phone,
                     address:
-                      deliveryType === "pickup"
+                      deliveryType === "픽업"
                         ? productDetail?.venderAddress
                         : deliveryAddress,
                     cakeLetter: letters.cakeLetter,

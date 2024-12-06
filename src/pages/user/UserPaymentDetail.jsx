@@ -55,7 +55,7 @@ const UserPaymentDetail = () => {
       }
 
       const dateTimeData =
-        orderData.orderInfo.deliveryType === "pickup"
+        orderData.orderInfo.deliveryType === "픽업"
           ? {
               desiredPickupDatetime: orderData.orderInfo.selectedDate,
               desiredPickupTime: orderData.orderInfo.selectedTime,
@@ -167,15 +167,15 @@ const UserPaymentDetail = () => {
                 <div className="detail-item">
                   <span className="label">배송방법: </span>
                   <span className="value">
-                    {orderData.orderInfo.deliveryType === "pickup"
+                    {orderData.orderInfo.deliveryType === "픽업"
                       ? "픽업"
-                      : "퀵배송"}
+                      : "배송"}
                   </span>
                 </div>
 
                 <div className="detail-item">
                   <span className="label">
-                    {orderData.orderInfo.deliveryType === "pickup"
+                    {orderData.orderInfo.deliveryType === "픽업"
                       ? "픽업장소: "
                       : "배송주소: "}
                   </span>
