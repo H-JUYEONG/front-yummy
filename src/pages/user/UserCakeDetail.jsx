@@ -594,8 +594,8 @@ const UserCakeDetail = () => {
               <button
                 key={option.optionValueId}
                 className={`option-item ${selectedOptions[stateKey] === option.optionValueId
-                    ? "active"
-                    : ""
+                  ? "active"
+                  : ""
                   }`}
                 onClick={() =>
                   handleOptionSelect(optionType, option.optionValueId)
@@ -975,8 +975,8 @@ const UserCakeDetail = () => {
                   <span
                     key={star}
                     className={`star ${star <= Math.round(reviewStats.averageRating)
-                        ? "filled"
-                        : ""
+                      ? "filled"
+                      : ""
                       }`}
                     style={{
                       color:
@@ -1008,10 +1008,10 @@ const UserCakeDetail = () => {
                       className="bar-fill"
                       style={{
                         width: `${reviewStats.totalReviews
-                            ? (reviewStats.ratingCounts[score] /
-                              reviewStats.totalReviews) *
-                            100
-                            : 0
+                          ? (reviewStats.ratingCounts[score] /
+                            reviewStats.totalReviews) *
+                          100
+                          : 0
                           }%`,
                         backgroundColor: `hsl(${(score / 5) * 120}, 100%, 50%)`,
                       }}
@@ -1228,279 +1228,267 @@ const UserCakeDetail = () => {
   // 메인 렌더링
   return (
 
-    <>
-      <div id="user-wrap" className="text-center">
-        <YummyVenderHeader />
-        <VenderHeader venderId={venderId} />
-        <main id="user-wrap-body" className="clearfix">
-          <div className="cake-order-container">
-            {/* 왼쪽 섹션 */}
-            <div className="left-section">
-              <div className="product-image">
-                <img
-                  src={mainImage || productDetail?.productImage1Url}
-                  alt="케이크"
-                  className="main-image"
-                />
-                <div className="thumbnail-container">
-                  {productDetail &&
-                    [
-                      productDetail.productImage1Url,
-                      productDetail.productImage2Url,
-                      productDetail.productImage3Url,
-                      productDetail.productImage4Url,
-                    ]
-                      .filter(Boolean)
-                      .map((image, index) => (
-                        <div
-                          key={index}
-                          className={`thumbnail-wrapper ${
-                            mainImage === image ? "active" : ""
+    <div id="user-wrap" className="text-center">
+      <YummyVenderHeader />
+      <VenderHeader venderId={venderId} />
+      <main id="user-wrap-body" className="clearfix">
+        <div className="cake-order-container">
+          {/* 왼쪽 섹션 */}
+          <div className="left-section">
+            <div className="product-image">
+              <img
+                src={mainImage || productDetail?.productImage1Url}
+                alt="케이크"
+                className="main-image"
+              />
+              <div className="thumbnail-container">
+                {productDetail &&
+                  [
+                    productDetail.productImage1Url,
+                    productDetail.productImage2Url,
+                    productDetail.productImage3Url,
+                    productDetail.productImage4Url,
+                  ]
+                    .filter(Boolean)
+                    .map((image, index) => (
+                      <div
+                        key={index}
+                        className={`thumbnail-wrapper ${mainImage === image ? "active" : ""
                           }`}
-                          onClick={() => handleThumbnailClick(image)}
-                        >
-                          <img
-                            src={image}
-                            alt={`썸네일${index + 1}`}
-                            className="thumbnail-image"
-                          />
-                        </div>
-                      ))}
-                </div>
-
+                        onClick={() => handleThumbnailClick(image)}
+                      >
+                        <img
+                          src={image}
+                          alt={`썸네일${index + 1}`}
+                          className="thumbnail-image"
+                        />
+                      </div>
+                    ))}
               </div>
 
+            </div>
 
-              <div className="product-tabs">
-                <div className="tabs-header sticky">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab}
-                      className={`tab-button ${
-                        selectedTab === tab ? "active" : ""
+
+            <div className="product-tabs">
+              <div className="tabs-header sticky">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    className={`tab-button ${selectedTab === tab ? "active" : ""
                       }`}
-                      onClick={() => handleTabClick(tab)}
-                    >
-                      {tab}
-                    </button>
-                  ))}
-                </div>
-                <div className="tab-content" ref={tabContentRef}>
-                  {renderTabContent()}
-                </div>
+                    onClick={() => handleTabClick(tab)}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+              <div className="tab-content" ref={tabContentRef}>
+                {renderTabContent()}
+              </div>
 
+            </div>
+          </div>
+          {/* 오른쪽 섹션 */}
+          <div className="right-section">
+            <div className="product-info">
+              <div className="product-name-price">
+                <h2>{productDetail?.productName}</h2>
+                <p className="price">
+                  {productDetail?.productPrice?.toLocaleString()} won
+                </p>
+              </div>
+
+              <div className="like-button-container">
+                <button
+                  className={`like-button ${isLiked ? "liked" : ""}`}
+                  onClick={handleLike}
+                >
+                  <span className="heart-icon">{isLiked ? "♥" : "♡"}</span>
+                  <span className="like-count">{likeCount}</span>
+
+                </button>
               </div>
             </div>
-            {/* 오른쪽 섹션 */}
-            <div className="right-section">
-              <div className="product-info">
-                <div className="product-name-price">
-                  <h2>{productDetail?.productName}</h2>
-                  <p className="price">
-                    {productDetail?.productPrice?.toLocaleString()} won
-                  </p>
-                </div>
-
-                <div className="like-button-container">
+            <div className="options">
+              {Object.keys(OPTION_TYPES).map((optionType) =>
+                renderOptionGroup(optionType, productOptions[optionType])
+              )}
+              <div className="option-group">
+                <h3>배송 방식</h3>
+                <div className="delivery-type-buttons">
                   <button
- className={`like-button ${isLiked ? "liked" : ""}`}
-                    onClick={handleLike}
+                    className={`delivery-option-button ${deliveryType === "픽업" ? "active" : ""
+                      }`}
+                    onClick={() => setDeliveryType("픽업")}
                   >
-                    <span className="heart-icon">{isLiked ? "♥" : "♡"}</span>
-                    <span className="like-count">{likeCount}</span>
-
+                    픽업
+                  </button>
+                  <button
+                    className={`delivery-option-button ${deliveryType === "배송" ? "active" : ""
+                      }`}
+                    onClick={() => setDeliveryType("배송")}
+                  >
+                    배송
                   </button>
                 </div>
               </div>
-              <div className="options">
-                {Object.keys(OPTION_TYPES).map((optionType) =>
-                  renderOptionGroup(optionType, productOptions[optionType])
-                )}
-                <div className="option-group">
-                  <h3>배송 방식</h3>
-                  <div className="delivery-type-buttons">
-                    <button
-                      className={`delivery-option-button ${
-                        deliveryType === "픽업" ? "active" : ""
-                      }`}
-                      onClick={() => setDeliveryType("픽업")}
-                    >
-                      픽업
-                    </button>
-                    <button
-                      className={`delivery-option-button ${
-                        deliveryType === "배송" ? "active" : ""
-                      }`}
-                      onClick={() => setDeliveryType("배송")}
-                    >
-                      배송
-                    </button>
+
+              <div className="option-group">
+                <h3>{deliveryType === "픽업" ? "픽업 장소" : "배송 주소"}</h3>
+                {deliveryType === "픽업" ? (
+                  <div className="location-select">
+                    <div className="map-placeholder" id="map">
+                      <p>{productDetail?.venderAddress}</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="option-group">
-                  <h3>{deliveryType === "픽업" ? "픽업 장소" : "배송 주소"}</h3>
-                  {deliveryType === "픽업" ? (
-                    <div className="location-select">
-                      <div className="map-placeholder" id="map">
-                        <p>{productDetail?.venderAddress}</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="address-input">
-                      <input
-                        type="text"
-                        placeholder="주소를 입력해주세요"
-                        className="address-input-field"
-                        value={deliveryAddress}
-                        onChange={(e) => setDeliveryAddress(e.target.value)}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div className="option-group">
-                  <h3>{deliveryType === "픽업" ? "픽업 날짜" : "배송 날짜"}</h3>
-                  <div className="date-select">
+                ) : (
+                  <div className="address-input">
                     <input
-                      type="date"
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="date-input"
+                      type="text"
+                      placeholder="주소를 입력해주세요"
+                      className="address-input-field"
+                      value={deliveryAddress}
+                      onChange={(e) => setDeliveryAddress(e.target.value)}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="option-group">
+                <h3>{deliveryType === "픽업" ? "픽업 날짜" : "배송 날짜"}</h3>
+                <div className="date-select">
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="date-input"
+                  />
+                </div>
+              </div>
+
+              <div className="option-group">
+                <h3>{deliveryType === "픽업" ? "픽업 시간" : "배송 시간"}</h3>
+                <div className="time-select">
+                  <select
+                    value={selectedTime}
+                    onChange={handleTimeSelect}
+                    className="time-input"
+                  >
+                    <option value="">시간 선택</option>
+                    {TIME_OPTIONS.map(({ value, label }) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="option-group">
+                <h3>받는 사람 정보</h3>
+                <div className="receiver-info">
+                  <div className="input-field">
+                    <label>받는 사람</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={recipientInfo.name}
+                      onChange={handleRecipientChange}
+                      placeholder="받는 사람 이름을 입력해주세요"
+                      className="receiver-input"
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label>연락처</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={recipientInfo.phone}
+                      onChange={handleRecipientChange}
+                      placeholder="'-' 없이 숫자만 입력해주세요"
+                      className="receiver-input"
                     />
                   </div>
                 </div>
-
-                <div className="option-group">
-                  <h3>{deliveryType === "픽업" ? "픽업 시간" : "배송 시간"}</h3>
-                  <div className="time-select">
-                    <select
-                      value={selectedTime}
-                      onChange={handleTimeSelect}
-                      className="time-input"
-                    >
-                      <option value="">시간 선택</option>
-                      {TIME_OPTIONS.map(({ value, label }) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="option-group">
-                  <h3>받는 사람 정보</h3>
-                  <div className="receiver-info">
-                    <div className="input-field">
-                      <label>받는 사람</label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={recipientInfo.name}
-                        onChange={handleRecipientChange}
-                        placeholder="받는 사람 이름을 입력해주세요"
-                        className="receiver-input"
-                      />
-                    </div>
-                    <div className="input-field">
-                      <label>연락처</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={recipientInfo.phone}
-                        onChange={handleRecipientChange}
-                        placeholder="'-' 없이 숫자만 입력해주세요"
-                        className="receiver-input"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="option-group">
-                  {/* 벤더 ID가 73이 아닐 때만 렌더링 */}
-                  {productDetail?.venderId !== 73 && (
-                    <>
-                      <h3>케이크 위 레터링 요청</h3>
-                      <div className="request-input">
-                        <textarea
-                          name="cakeLetter"
-                          value={letters.cakeLetter}
-                          onChange={handleLetterChange}
-                          placeholder="예) 생일축하해."
-                          rows="4"
-                          className="request-textarea"
-                        />
-                      </div>
-
-                      <h3>케이크 판 레터링 요청</h3>
-                      <div className="request-input">
-                        <textarea
-                          name="plateLetter"
-                          value={letters.plateLetter}
-                          onChange={handleLetterChange}
-                          placeholder="예) 생일 축하합니다."
-                          rows="4"
-                          className="request-textarea"
-                        />
-                      </div>
-
-                      <h3>기타 요청사항</h3>
-                      <div className="request-input">
-                        <textarea
-                          name="additionalRequest"
-                          value={letters.additionalRequest}
-                          onChange={handleLetterChange}
-                          placeholder="예) 살 안찌는 생크림케이크로 해주세요"
-                          rows="4"
-                          className="request-textarea"
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
               </div>
-              {productDetail && ( // productDetail이 존재할 때만 렌더링
-                <Link
-                  to={`/user/paymentdetail/${productDetail?.venderId || ""}`}
-                  state={{
-                    productInfo: {
-                      productId: productDetail?.productId,
-                      venderId: productDetail?.venderId,
-                      productName: productDetail?.productName,
-                      productPrice: productDetail?.productPrice,
-                      productImage: productDetail?.productImage1Url,
-                      cakeDesignId: productDetail?.cakeDesignId,
-                    },
-                    orderInfo: {
-                      deliveryType,
-                      selectedDate: selectedDate,
-                      selectedTime: selectedTime,
-                      recipientName: recipientInfo.name,
-                      recipientPhone: recipientInfo.phone,
-                      address:
-                        deliveryType === "픽업"
-                          ? productDetail?.venderAddress
-                          : deliveryAddress,
-                      cakeLetter: letters.cakeLetter,
-                      plateLetter: letters.plateLetter,
-                      additionalRequest: letters.additionalRequest,
-                      selectedOptions: selectedOptionNames,
-                    },
-                  }}
-                  className="submit-button"
-                >
-                  요청사항 확인
-                </Link>
-              )}
+
+              <div className="option-group">
+                {/* 벤더 ID가 73이 아닐 때만 렌더링 */}
+                {productDetail?.venderId !== 73 && (
+                  <>
+                    <h3>케이크 위 레터링 요청</h3>
+                    <div className="request-input">
+                      <textarea
+                        name="cakeLetter"
+                        value={letters.cakeLetter}
+                        onChange={handleLetterChange}
+                        placeholder="예) 생일축하해."
+                        rows="4"
+                        className="request-textarea"
+                      />
+                    </div>
+
+                    <h3>케이크 판 레터링 요청</h3>
+                    <div className="request-input">
+                      <textarea
+                        name="plateLetter"
+                        value={letters.plateLetter}
+                        onChange={handleLetterChange}
+                        placeholder="예) 생일 축하합니다."
+                        rows="4"
+                        className="request-textarea"
+                      />
+                    </div>
+
+                    <h3>기타 요청사항</h3>
+                    <div className="request-input">
+                      <textarea
+                        name="additionalRequest"
+                        value={letters.additionalRequest}
+                        onChange={handleLetterChange}
+                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
+                        rows="4"
+                        className="request-textarea"
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
+            {productDetail && ( // productDetail이 존재할 때만 렌더링
+              <Link
+                to={`/user/paymentdetail/${productDetail?.venderId || ""}`}
+                state={{
+                  productInfo: {
+                    productId: productDetail?.productId,
+                    venderId: productDetail?.venderId,
+                    productName: productDetail?.productName,
+                    productPrice: productDetail?.productPrice,
+                    productImage: productDetail?.productImage1Url,
+                    cakeDesignId: productDetail?.cakeDesignId,
+                  },
+                  orderInfo: {
+                    deliveryType,
+                    selectedDate: selectedDate,
+                    selectedTime: selectedTime,
+                    recipientName: recipientInfo.name,
+                    recipientPhone: recipientInfo.phone,
+                    address:
+                      deliveryType === "픽업"
+                        ? productDetail?.venderAddress
+                        : deliveryAddress,
+                    cakeLetter: letters.cakeLetter,
+                    plateLetter: letters.plateLetter,
+                    additionalRequest: letters.additionalRequest,
+                    selectedOptions: selectedOptionNames,
+                  },
+                }}
+                className="submit-button"
+              >
+                요청사항 확인
+              </Link>
+            )}
           </div>
-        </main>
-        <div
-          className="floating-back-button"
-          onClick={() => navigate("/")} // 메인화면으로 이동
-        >
-          메인화면
         </div>
 
       </main>
@@ -1508,11 +1496,11 @@ const UserCakeDetail = () => {
         className="floating-back-button"
         onClick={() => navigate("/")} // 메인화면으로 이동
       >
+        메인화면
         YUMMY<br />
         바로가기
-
       </div>
-    </>
+    </div>
   );
 };
 export default UserCakeDetail;
