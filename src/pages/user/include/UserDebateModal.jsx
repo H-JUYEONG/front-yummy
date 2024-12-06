@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Search } from 'lucide-react';
+import { Search } from "lucide-react";
 import "../../../assets/css/user/userdebatemodal.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -13,7 +13,7 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
   const [selectedCategory, setSelectedCategory] = useState(""); // 카테고리 필터
 
   /* 검색과 페이지네이션 관련 상태 변수 */
-  const [searchKeyword, setSearchKeyword] = useState(''); // 검색 키워드
+  const [searchKeyword, setSearchKeyword] = useState(""); // 검색 키워드
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
 
@@ -23,68 +23,68 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
   // 찜한 상품 데이터 가져오기
   const getLikedProducts = async (page = 1) => {
     try {
-        const response = await axios({
-            method: 'get',
-            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/productmodal`,
-            headers: { 
-                Authorization: `Bearer ${token}` // 인증 토큰
-            },
-            params: {
-                page: page,
-                size: 8,
-                keyword: searchKeyword // 검색 키워드 필터
-            },
-            responseType: 'json'
-        });
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/productmodal`,
+        headers: {
+          Authorization: `Bearer ${token}`, // 인증 토큰
+        },
+        params: {
+          page: page,
+          size: 8,
+          keyword: searchKeyword, // 검색 키워드 필터
+        },
+        responseType: "json",
+      });
 
-        if (response.data.result === "success") {
-            console.log("위시리스트 데이터:", response.data.apiData);
-            const products = response.data.apiData.content || [];
-            const validProducts = products.filter(
-                (product) => product && product.productId // 유효한 상품 필터링
-            );
-            setLikedProducts(validProducts); // 찜한 상품 설정
-            setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
-        } else {
-            alert(response.data.message || "상품 목록 가져오기 실패");
-        }
+      if (response.data.result === "success") {
+        console.log("위시리스트 데이터:", response.data.apiData);
+        const products = response.data.apiData.content || [];
+        const validProducts = products.filter(
+          (product) => product && product.productId // 유효한 상품 필터링
+        );
+        setLikedProducts(validProducts); // 찜한 상품 설정
+        setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
+      } else {
+        alert(response.data.message || "상품 목록 가져오기 실패");
+      }
     } catch (error) {
-        console.error('API Error:', error);
-        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+      console.error("API Error:", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
   };
 
   // 찜한 도안 데이터 가져오기
   const getLikedDesign = async (page = 1) => {
     try {
-        const response = await axios({
-            method: 'get',
-            url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/designmodal`,
-            headers: { 
-                Authorization: `Bearer ${token}` // 인증 토큰
-            },
-            params: {
-                page: page,
-                size: 8,
-                keyword: searchKeyword // 검색 키워드 필터
-            },
-            responseType: 'json'
-        });
+      const response = await axios({
+        method: "get",
+        url: `${process.env.REACT_APP_API_URL}/api/debate/debateinsert/designmodal`,
+        headers: {
+          Authorization: `Bearer ${token}`, // 인증 토큰
+        },
+        params: {
+          page: page,
+          size: 8,
+          keyword: searchKeyword, // 검색 키워드 필터
+        },
+        responseType: "json",
+      });
 
-        if (response.data.result === "success") {
-            console.log("위시리스트 데이터:", response.data.apiData);
-            const design = response.data.apiData.content || [];
-            const validDesign = design.filter(
-                (design) => design && design.cake_design_id // 유효한 도안 필터링
-            );
-            setLikedDesigns(validDesign); // 찜한 도안 설정
-            setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
-        } else {
-            alert(response.data.message || "상품 목록 가져오기 실패");
-        }
+      if (response.data.result === "success") {
+        console.log("위시리스트 데이터:", response.data.apiData);
+        const design = response.data.apiData.content || [];
+        const validDesign = design.filter(
+          (design) => design && design.cake_design_id // 유효한 도안 필터링
+        );
+        setLikedDesigns(validDesign); // 찜한 도안 설정
+        setTotalPages(response.data.apiData.totalPages || 1); // 총 페이지 수 설정
+      } else {
+        alert(response.data.message || "상품 목록 가져오기 실패");
+      }
     } catch (error) {
-        console.error('API Error:', error);
-        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+      console.error("API Error:", error);
+      alert("데이터를 불러오는 중 오류가 발생했습니다.");
     }
   };
 
@@ -116,7 +116,9 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
   return (
     <div className="j-modal-container">
       <div className="j-modal-content">
-        <button onClick={onClose} className="j-modal-close-btn">X</button>
+        <button onClick={onClose} className="j-modal-close-btn">
+          X
+        </button>
         <h2>이미지 선택</h2>
 
         {/* "찜한 상품"과 "찜한 도안" 탭 */}
@@ -150,10 +152,10 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)} // 검색 키워드 업데이트
               onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleSearch(); // 엔터 키로 검색 실행
-                  }
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSearch(); // 엔터 키로 검색 실행
+                }
               }}
               className="j-search-input"
             />
@@ -180,7 +182,10 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
                   }
                 >
                   <div className="j-product-image">
-                    <img src={product.productImageUrl} alt={product.productName} />
+                    <img
+                      src={product.productImageUrl}
+                      alt={product.productName}
+                    />
                   </div>
                   <div className="j-product-info">
                     <h3>{product.productName}</h3>
@@ -218,14 +223,15 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
 
         {/* 페이지네이션 */}
         <div className="j-pagination">
-          <button
-            className="j-prev-page"
-            disabled={currentPage === 1} // 첫 페이지일 경우 비활성화
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            style={{ opacity: currentPage === 1 ? 0.5 : 1 }}
-          >
-            {'<'}
-          </button>
+          {/* < 버튼은 현재 페이지가 1보다 클 때만 표시 */}
+          {currentPage > 1 && (
+            <button
+              className="j-prev-page"
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              {"<"}
+            </button>
+          )}
 
           {(() => {
             const pageNumbers = [];
@@ -242,7 +248,9 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
                 <button
                   key={i}
                   onClick={() => handlePageChange(i)}
-                  className={`j-page-number ${currentPage === i ? 'active' : ''}`}
+                  className={`j-page-number ${
+                    currentPage === i ? "active" : ""
+                  }`}
                 >
                   {i}
                 </button>
@@ -251,14 +259,15 @@ const UserDebateModal = ({ onSelectImage, onClose }) => {
             return pageNumbers;
           })()}
 
-          <button
-            className="j-next-page"
-            disabled={currentPage === totalPages} // 마지막 페이지일 경우 비활성화
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            style={{ opacity: currentPage === totalPages ? 0.5 : 1 }}
-          >
-            {'>'}
-          </button>
+          {/* > 버튼은 현재 페이지가 총 페이지 수보다 작을 때만 표시 */}
+          {currentPage < totalPages && (
+            <button
+              className="j-next-page"
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              {">"}
+            </button>
+          )}
         </div>
       </div>
     </div>
