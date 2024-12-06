@@ -16,14 +16,15 @@
 
 #user-wrap.text-center #d-user-wrap-body .payment-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1065px;
     background-color: #fff;
     border-radius: 12px;
+    border: 1px solid #d1d1d1;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 #user-wrap.text-center #d-user-wrap-body .payment-container .payment-content {
-    padding: 20px;
+    padding: 30px;
 }
 
 #user-wrap.text-center #d-user-wrap-body .payment-container .product-info {
@@ -86,6 +87,7 @@
 #user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .value {
     font-size: 1.2em;
     color: #333;
+    margin-left: 20px;
 }
 
 #user-wrap.text-center #d-user-wrap-body .payment-container .detail-item .price {

@@ -16,3 +16,68 @@
   color: white;
   background-color: #0056b3;
 }
+
+/* Appeal Design Sections */
+.appeal-design-photo-jw {
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.appeal-design-photo-jw img {
+  width: 450px;
+  height: 450px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sy-modal-sub-title-jw {
+  font-size: 1.5em;
+  color: #333;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 15px;
+  display: inline-block;
+}
+
+.sy-modal-sub-title-jw::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;  /* 또는 width: fit-content; */
+  height: 2px;
+  background-color: #ff85a1;
+  border-radius: 2px;
+}
+
+.sso-modal-body-content-jw {
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.appeal-design-text-jw li {
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.6;
+  color: #444;
+  font-size: 1.1em;
+}
+
+.appeal-design-text-jw li:not(:last-child)::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #ff85a1;
+  font-size: 20px;
+}

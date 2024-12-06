@@ -63,6 +63,28 @@ const UserCakeDetail = () => {
 
   const [newReply, setNewReply] = useState({}); // 리뷰 ID를 키로 사용
 
+  // 상태 추가 (컴포넌트 최상단의 다른 상태들과 함께 정의)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reviewsPerPage] = useState(8);
+
+  // 페이지네이션 관련 함수들
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+  const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+
+  const reviewListRef = useRef(null);
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // 리뷰 리스트의 시작점으로 부드럽게 스크롤
+    reviewListRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const { venderId } = useParams();
 
   const [deliveryType, setDeliveryType] = useState("pickup");
@@ -1002,11 +1024,11 @@ const UserCakeDetail = () => {
             </div>
           </div>
           {/* 리뷰 분석 테스트할때만 주석 풀고 확인바람~~~~ */}
-          {/* <ReviewAnalysis productId={productId} /> */}
+          {/*<ReviewAnalysis productId={productId} />*/}
         </div>
       )}
 
-      <div className="review-list">
+      <div className="review-list" ref={reviewListRef}>
         <div className="review-filters">
           <button
             className={`filter-button ${reviewSort === "recommend" ? "active" : ""
@@ -1040,127 +1062,153 @@ const UserCakeDetail = () => {
         </div>
 
         {reviews && reviews.length > 0 ? (
-          reviews.map((review) => (
-            <div key={review.reviewId} className="review-item">
-              <div className="review-header">
-                <div className="review-header-info">
-                  <div className="stars">
-                    {[...Array(review.reviewRating)].map((_, index) => (
-                      <span key={index} className="star-filled">
-                        ★
-                      </span>
-                    ))}
+          <>
+            {currentReviews.map((review) => (
+              <div key={review.reviewId} className="review-item">
+                <div className="review-header">
+                  <div className="review-header-info">
+                    <div className="stars">
+                      {[...Array(review.reviewRating)].map((_, index) => (
+                        <span key={index} className="star-filled">
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                    <span className="author">
+                      {review.authorType === "user" ? (
+                        <span className="user-nickname">
+                          {review.authorNickname}
+                        </span>
+                      ) : (
+                        <span className="vender-name">
+                          {review.authorNickname}
+                        </span>
+                      )}
+                    </span>
+                    <span className="date">
+                      {new Date(review.reviewCreatedAt).toLocaleDateString(
+                        "ko-KR"
+                      )}
+                    </span>
                   </div>
-                  <span className="author">
-                    {review.authorType === "user" ? (
-                      <span className="user-nickname">
-                        {review.authorNickname}
-                      </span>
-                    ) : (
-                      <span className="vender-name">
-                        {review.authorNickname}
-                      </span>
-                    )}
-                  </span>
-                  <span className="date">
-                    {new Date(review.reviewCreatedAt).toLocaleDateString(
-                      "ko-KR"
-                    )}
-                  </span>
-                </div>
-                <div className="review-header-actions">
-                  <button
-                    className="report-button"
-                    onClick={() => handleReportReview(review.reviewId)}
-                  >
-                    <span className="report-icon">⚠️</span>
-                    신고
-                  </button>
-                  {authUser && review.reviewUserId === authUser.member_id && (
+                  <div className="review-header-actions">
                     <button
-                      className="delete-button"
-                      onClick={() => handleDeleteReview(review.reviewId)}
+                      className="report-button"
+                      onClick={() => handleReportReview(review.reviewId)}
                     >
-                      삭제
+                      <span className="report-icon">⚠️</span>
+                      신고
                     </button>
+                    {authUser && review.reviewUserId === authUser.member_id && (
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDeleteReview(review.reviewId)}
+                      >
+                        삭제
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <div className="review-content">
+                  {review.reviewContent && <p>{review.reviewContent}</p>}
+                  {review.reviewImageUrl && (
+                    <div className="review-image">
+                      <img
+                        src={review.reviewImageUrl}
+                        alt="리뷰 이미지"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = "/images/no-image.png";
+                        }}
+                      />
+                    </div>
                   )}
                 </div>
-              </div>
-              <div className="review-content">
-                {review.reviewContent && <p>{review.reviewContent}</p>}
-                {review.reviewImageUrl && (
-                  <div className="review-image">
-                    <img
-                      src={review.reviewImageUrl}
-                      alt="리뷰 이미지"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "/images/no-image.png";
-                      }}
-                    />
+                {authUser && productDetail && (
+                  <div className="review-replies">
+                    {review.replies?.map((reply) => (
+                      <div key={reply.replyId} className="review-reply">
+                        <div className="reply-header">
+                          <span className="vendor-badge">판매자</span>
+                          <span className="vendor-name">
+                            {reply.venderName || "판매자 이름 없음"}
+                          </span>
+                          <span className="reply-date">
+                            {reply.replyCreatedAt
+                              ? new Date(
+                                  reply.replyCreatedAt
+                                ).toLocaleDateString("ko-KR")
+                              : "날짜 정보 없음"}
+                          </span>
+                          {authUser?.vender_id &&
+                            authUser.vender_id === reply?.replyVenderId && (
+                              <button
+                                className="delete-reply-button"
+                                onClick={() => handleDeleteReply(reply.replyId)}
+                              >
+                                삭제
+                              </button>
+                            )}
+                        </div>
+                        <p className="reply-content">
+                          {reply.replyContent || "내용 없음"}
+                        </p>
+                      </div>
+                    ))}
+
+                    {authUser?.vender_id === productDetail?.venderId &&
+                      !review.replies?.some(
+                        (reply) => reply?.replyVenderId === authUser.vender_id
+                      ) && (
+                        <div className="reply-form">
+                          <textarea
+                            value={newReply[review.reviewId] || ""}
+                            onChange={(e) =>
+                              handleReplyChange(review.reviewId, e.target.value)
+                            }
+                            placeholder="답글을 작성해주세요"
+                            rows="2"
+                          />
+                          <button
+                            onClick={() => handleAddReply(review.reviewId)}
+                            disabled={!newReply[review.reviewId]?.trim()}
+                          >
+                            답글 작성
+                          </button>
+                        </div>
+                      )}
                   </div>
                 )}
               </div>
-              {authUser && productDetail && (
-                <div className="review-replies">
-                  {/* 답글 목록 렌더링 */}
-                  {review.replies?.map((reply) => (
-                    <div key={reply.replyId} className="review-reply">
-                      <div className="reply-header">
-                        <span className="vendor-badge">판매자</span>
-                        <span className="vendor-name">
-                          {reply.venderName || "판매자 이름 없음"}
-                        </span>
-                        <span className="reply-date">
-                          {reply.replyCreatedAt
-                            ? new Date(reply.replyCreatedAt).toLocaleDateString(
-                              "ko-KR"
-                            )
-                            : "날짜 정보 없음"}
-                        </span>
-                        {/* 답글 삭제 버튼 */}
-                        {authUser?.vender_id &&
-                          authUser.vender_id === reply?.replyVenderId && (
-                            <button
-                              className="delete-reply-button"
-                              onClick={() => handleDeleteReply(reply.replyId)}
-                            >
-                              삭제
-                            </button>
-                          )}
-                      </div>
-                      <p className="reply-content">
-                        {reply.replyContent || "내용 없음"}
-                      </p>
-                    </div>
-                  ))}
+            ))}
 
-                  {/* 답글 작성 폼 렌더링 */}
-                  {authUser?.vender_id === productDetail?.venderId &&
-                    !review.replies?.some(
-                      (reply) => reply?.replyVenderId === authUser.vender_id
-                    ) && (
-                      <div className="reply-form">
-                        <textarea
-                          value={newReply[review.reviewId] || ""}
-                          onChange={(e) =>
-                            handleReplyChange(review.reviewId, e.target.value)
-                          }
-                          placeholder="답글을 작성해주세요"
-                          rows="2"
-                        />
-                        <button
-                          onClick={() => handleAddReply(review.reviewId)}
-                          disabled={!newReply[review.reviewId]?.trim()}
-                        >
-                          답글 작성
-                        </button>
-                      </div>
-                    )}
-                </div>
-              )}
-            </div>
-          ))
+            {/* 페이지네이션 추가 */}
+            {reviews.length > reviewsPerPage && (
+              <div className="review-list-pagination-wrapper">
+                {totalPages > 1 && currentPage > 1 && (
+                  <button
+                    className="review-list-pagination-nav-button review-list-pagination-prev"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  >
+                    &lt;
+                  </button>
+                )}
+
+                <span className="review-list-pagination-page-info">
+                  {currentPage} / {totalPages}
+                </span>
+
+                {currentPage < totalPages && (
+                  <button
+                    className="review-list-pagination-nav-button review-list-pagination-next"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    &gt;
+                  </button>
+                )}
+              </div>
+            )}
+          </>
         ) : (
           <div className="no-reviews">
             <p>아직 작성된 리뷰가 없습니다.</p>
