@@ -36,12 +36,11 @@ const UserMainForm = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
     // 상품 데이터를 가져오는 API 호출
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/allList`);
-        // 응답이 배열인지 확인
+        console.log("Fetched Products:", response.data); // 확인용 로그
         const data = Array.isArray(response.data) ? response.data : [];
         setProductList(data); // 배열만 상태로 설정
       } catch (error) {
@@ -132,7 +131,7 @@ const UserMainForm = () => {
       const matchesCategory =
         selectedCategory === "" || selectedCategory === "전체"
           ? true
-          : product.optionValueName === selectedCategory;
+          : product.optionValueName.trim() === selectedCategory.trim();
       // vender_id 73을 제외
       const excludeVender = product.venderId !== 73;
 
@@ -419,7 +418,7 @@ const UserMainForm = () => {
           </div>
           <span>총 상품 {filteredProducts.length}개</span>
         </div>
-        <div  className="allList-box">
+        <div className="allList-box">
           {currentProducts.map((item) => (
             <div className="all-product-item" key={item.productId}>
               <Link
