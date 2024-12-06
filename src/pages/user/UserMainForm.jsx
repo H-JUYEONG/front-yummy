@@ -148,7 +148,6 @@ const UserMainForm = () => {
       return 0;
     });
 
-
   const handleSort = (order) => {
     if (sortOrder === order) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -158,7 +157,13 @@ const UserMainForm = () => {
     }
   };
 
-  const categories = ["전체", "도시락 케이크", "일반 케이크", "떡 케이크", "반려동물 케이크"];
+  const categories = [
+    "전체",
+    "도시락 케이크",
+    "일반 케이크",
+    "떡 케이크",
+    "반려동물 케이크",
+  ];
 
   // 페이징 관련 데이터
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -171,7 +176,10 @@ const UserMainForm = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     if (productListRef.current) {
-      productListRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      productListRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   };
 
@@ -384,7 +392,9 @@ const UserMainForm = () => {
                     {categories.map((category) => (
                       <li key={category}>
                         <button
-                          className={selectedCategory === category ? "active" : ""}
+                          className={
+                            selectedCategory === category ? "active" : ""
+                          }
                           onClick={() => setSelectedCategory(category)}
                         >
                           {category}
@@ -422,13 +432,30 @@ const UserMainForm = () => {
           {currentProducts.map((item) => (
             <div className="all-product-item" key={item.productId}>
               <Link
-                to={`/user/cakedetail/${item.productId}/${item.venderId}`}
+                to="#"
+                onClick={(e) => {
+                  e.preventDefault(); // 기본 동작 방지
+                  window.open(
+                    `/user/cakedetail/${item.productId}/${item.venderId}`,
+                    "_blank"
+                  );
+                }}
                 className="list_hover_img"
               >
                 <img src={item.productImage1Url} alt={item.productName} />
                 <div className="store-info">
                   {/* 매장 로고 */}
-                  <Link to={`/user/storedetail/${item.venderId}`}>
+                  <Link
+                    to="#"
+                    onClick={(e) => {
+                      e.preventDefault(); // 기본 동작 방지
+                      e.stopPropagation(); // 부모 클릭 이벤트 방지
+                      window.open(
+                        `/user/storedetail/${item.venderId}`,
+                        "_blank"
+                      );
+                    }}
+                  >
                     <img
                       src={item.venderProfileImageUrl || storeLogo}
                       alt={`${item.venderName} 로고`}
@@ -436,13 +463,33 @@ const UserMainForm = () => {
                     />
                   </Link>
                   {/* 매장 이름 */}
-                  <Link to={`/user/storedetail/${item.venderId}`}>
+                  <Link
+                    to="#"
+                    onClick={(e) => {
+                      e.preventDefault(); // 기본 동작 방지
+                      e.stopPropagation(); // 부모 클릭 이벤트 방지
+                      window.open(
+                        `/user/storedetail/${item.venderId}`,
+                        "_blank"
+                      );
+                    }}
+                  >
                     <b>{item.venderName}</b>
                   </Link>
                 </div>
               </Link>
               <div className="product-info">
-                <Link to={`/user/cakedetail/${item.productId}`}>
+                <Link
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault(); // 기본 동작 방지
+                    e.stopPropagation(); // 부모 클릭 이벤트 방지
+                    window.open(
+                      `/user/cakedetail/${item.productId}/${item.venderId}`,
+                      "_blank"
+                    );
+                  }}
+                >
                   <p>{item.productName}</p>
                 </Link>
                 <p>가격: {item.price.toLocaleString()}원</p>

@@ -28,7 +28,7 @@ const UserAuditionAdd = () => {
   const [deliveryAddress, setDeliveryAddress] = useState(""); // 주소
   const [uploadedImage, setUploadedImage] = useState(null); // 이미지 업로드
 
-  const [selectedTab, setSelectedTab] = useState("My 도안");
+  const [selectedTab, setSelectedTab] = useState("사진 없음");
   const [likedDesigns, setLikedDesigns] = useState([]); // My 도안 리스트(나의도안/찜 포함)
   const [selectedDesignId, setSelectedDesignId] = useState(null); // 선택된 도안 번호
   const [selectedDesignImgUrl, setSelectedDesignImgUrl] = useState(""); // 선택된 도안 이미지 url
@@ -89,6 +89,21 @@ const UserAuditionAdd = () => {
   // 등록하기
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !title.trim() ||
+      !price ||
+      !deliveryMethod ||
+      !region ||
+      !desiredDate ||
+      !desiredTime ||
+      !recipient.trim() ||
+      !recipientPhone.trim() ||
+      (deliveryMethod === "배송" && !deliveryAddress.trim())
+    ) {
+      alert("필수 입력 항목을 모두 입력해주세요.");
+      return;
+    }
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -164,11 +179,16 @@ const UserAuditionAdd = () => {
               </div>
 
               <div className="user-cake-audition-form-group">
-                <p class="audition-info-notice">
-                  ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
-                  공개됩니다.
+                <p class="audition-info-notice1">
+                  <span>* </span>필수 입력 항목입니다.
                 </p>
-                <label htmlFor="title">제목</label>
+                <p class="audition-info-notice2">
+                  ※ 입력하신 개인정보(주소, 받는 사람, 연락처)는 참가 업체에게만
+                  제공되며, 다른 목적으로는 사용되지 않습니다.
+                </p>
+                <label htmlFor="title">
+                  <span>* </span>제목
+                </label>
                 <input
                   type="text"
                   id="title"
@@ -180,7 +200,9 @@ const UserAuditionAdd = () => {
               </div>
 
               <div className="user-cake-audition-form-group">
-                <label htmlFor="price">희망 가격</label>
+                <label htmlFor="price">
+                  <span>* </span>희망 가격
+                </label>
                 <input
                   type="text"
                   id="price"
@@ -192,43 +214,9 @@ const UserAuditionAdd = () => {
               </div>
 
               <div className="user-cake-audition-form-group">
-                <label htmlFor="size">사이즈</label>
-                <input
-                  type="text"
-                  id="size"
-                  value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                  placeholder="예: 12cm"
-                  className="user-audition-input-text"
-                />
-              </div>
-
-              <div className="user-cake-audition-form-group">
-                <label htmlFor="cake-lettering">케이크 위 레터링</label>
-                <input
-                  type="text"
-                  id="cake-lettering"
-                  value={cakeLettering}
-                  onChange={(e) => setCakeLettering(e.target.value)}
-                  placeholder="케이크에 들어갈 메시지를 작성해주세요."
-                  className="user-audition-input-text"
-                />
-              </div>
-
-              <div className="user-cake-audition-form-group">
-                <label htmlFor="plate-lettering">케이크 판 레터링</label>
-                <input
-                  type="text"
-                  id="plate-lettering"
-                  value={plateLettering}
-                  onChange={(e) => setPlateLettering(e.target.value)}
-                  placeholder="케이크 판에 들어갈 메시지를 작성해주세요."
-                  className="user-audition-input-text"
-                />
-              </div>
-
-              <div className="user-cake-audition-form-group">
-                <label htmlFor="deliveryMethod">수령 방식</label>
+                <label htmlFor="deliveryMethod">
+                  <span>* </span>수령 방식
+                </label>
                 <select
                   id="deliveryMethod"
                   value={deliveryMethod}
@@ -241,7 +229,9 @@ const UserAuditionAdd = () => {
               </div>
 
               <div className="user-cake-audition-form-group">
-                <label htmlFor="region">수령 지역</label>
+                <label htmlFor="region">
+                  <span>* </span>수령 지역
+                </label>
                 <select
                   id="region"
                   value={region}
@@ -283,7 +273,9 @@ const UserAuditionAdd = () => {
               {deliveryMethod === "픽업" && (
                 <>
                   <div className="user-cake-audition-form-group">
-                    <label htmlFor="desiredDate">희망 픽업일</label>
+                    <label htmlFor="desiredDate">
+                      <span>* </span>희망 픽업일
+                    </label>
                     <input
                       type="date"
                       id="desiredDate"
@@ -293,7 +285,9 @@ const UserAuditionAdd = () => {
                     />
                   </div>
                   <div className="user-cake-audition-form-group">
-                    <label htmlFor="desiredTime">희망 픽업 시간</label>
+                    <label htmlFor="desiredTime">
+                      <span>* </span>희망 픽업 시간
+                    </label>
                     <select
                       id="desiredTime"
                       value={desiredTime}
@@ -321,7 +315,9 @@ const UserAuditionAdd = () => {
               {deliveryMethod === "배송" && (
                 <>
                   <div className="user-cake-audition-form-group">
-                    <label htmlFor="desiredDate">희망 수령일</label>
+                    <label htmlFor="desiredDate">
+                      <span>* </span>희망 수령일
+                    </label>
                     <input
                       type="date"
                       id="desiredDate"
@@ -331,7 +327,9 @@ const UserAuditionAdd = () => {
                     />
                   </div>
                   <div className="user-cake-audition-form-group">
-                    <label htmlFor="desiredTime">희망 수령 시간</label>
+                    <label htmlFor="desiredTime">
+                      <span>* </span>희망 수령 시간
+                    </label>
                     <select
                       id="desiredTime"
                       value={desiredTime}
@@ -354,7 +352,9 @@ const UserAuditionAdd = () => {
                     </select>
                   </div>
                   <div className="user-cake-audition-form-group">
-                    <label htmlFor="deliveryAddress">배송 주소</label>
+                    <label htmlFor="deliveryAddress">
+                      <span>* </span>배송 주소
+                    </label>
                     <input
                       type="text"
                       id="deliveryAddress"
@@ -368,7 +368,9 @@ const UserAuditionAdd = () => {
               )}
 
               <div className="user-cake-audition-form-group">
-                <label htmlFor="recipient">받는 사람</label>
+                <label htmlFor="recipient">
+                  <span>* </span>받는 사람
+                </label>
                 <input
                   type="text"
                   id="recipient"
@@ -380,13 +382,51 @@ const UserAuditionAdd = () => {
               </div>
 
               <div className="user-cake-audition-form-group">
-                <label htmlFor="recipient-phone">받는 사람 연락처</label>
+                <label htmlFor="recipient-phone">
+                  <span>* </span>받는 사람 연락처
+                </label>
                 <input
                   type="text"
                   id="recipient-phone"
                   value={recipientPhone}
                   onChange={(e) => setRecipientPhone(e.target.value)}
                   placeholder="'-' 없이 숫자만 입력해주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
+
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="size">사이즈</label>
+                <input
+                  type="text"
+                  id="size"
+                  value={size}
+                  onChange={(e) => setSize(e.target.value)}
+                  placeholder="예: 12cm"
+                  className="user-audition-input-text"
+                />
+              </div>
+
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="cake-lettering">케이크 위 레터링</label>
+                <input
+                  type="text"
+                  id="cake-lettering"
+                  value={cakeLettering}
+                  onChange={(e) => setCakeLettering(e.target.value)}
+                  placeholder="케이크에 들어갈 메시지를 작성해주세요."
+                  className="user-audition-input-text"
+                />
+              </div>
+
+              <div className="user-cake-audition-form-group">
+                <label htmlFor="plate-lettering">케이크 판 레터링</label>
+                <input
+                  type="text"
+                  id="plate-lettering"
+                  value={plateLettering}
+                  onChange={(e) => setPlateLettering(e.target.value)}
+                  placeholder="케이크 판에 들어갈 메시지를 작성해주세요."
                   className="user-audition-input-text"
                 />
               </div>
@@ -407,10 +447,10 @@ const UserAuditionAdd = () => {
               <div className="user-audition-tabs">
                 <button
                   type="button"
-                  className={selectedTab === "My 도안" ? "active" : ""}
-                  onClick={() => handleTabChange("My 도안")}
+                  className={selectedTab === "사진 없음" ? "active" : ""}
+                  onClick={() => handleTabChange("사진 없음")}
                 >
-                  My 도안
+                  사진 없음
                 </button>
                 <button
                   type="button"
@@ -421,10 +461,10 @@ const UserAuditionAdd = () => {
                 </button>
                 <button
                   type="button"
-                  className={selectedTab === "사진 없음" ? "active" : ""}
-                  onClick={() => handleTabChange("사진 없음")}
+                  className={selectedTab === "My 도안" ? "active" : ""}
+                  onClick={() => handleTabChange("My 도안")}
                 >
-                  사진 없음
+                  My 도안
                 </button>
               </div>
 

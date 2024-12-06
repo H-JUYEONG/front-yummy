@@ -104,11 +104,18 @@ const VenderCakeDesignList = () => {
                     className="add-button"
                     onClick={() => navigate("/vender/cakeDesign/add")}
                   >
-                    도안 등록하기
+                    도안 등록
+                  </button>
+                  <button
+                    className="add-button"
+                    onClick={() =>
+                      window.open("/user/cakeDesign/board", "_blank")
+                    }
+                  >
+                    도안 게시판
                   </button>
                 </div>
               </header>
-
 
               <div className="cake-design-list-imgs">
                 {currentProducts.length > 0 ? (
@@ -134,7 +141,7 @@ const VenderCakeDesignList = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="no-cake-design">등록된 도안이 없습니다.</p>
+                  <p>등록된 도안이 없습니다.</p>
                 )}
               </div>
 
@@ -143,8 +150,9 @@ const VenderCakeDesignList = () => {
                 {Array.from({ length: totalPages }, (_, index) => (
                   <button
                     key={index}
-                    className={`page-button ${currentPage === index + 1 ? "active" : ""
-                      }`}
+                    className={`page-button ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
                     onClick={() => setCurrentPage(index + 1)}
                   >
                     {index + 1}
@@ -156,7 +164,6 @@ const VenderCakeDesignList = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
