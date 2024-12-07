@@ -182,7 +182,7 @@ function App() {
           <Route path="/user/paymentdetail/:venderId" element={<UserPaymentDetail />} />
           <Route path='/user/mypage/cakeDesign/list' element={<UserMyPageCakeDesignList />} />
           <Route path='/user/mypage/cakeDesign/like/list' element={<UserMyPageCakeDesignLikeList />} />
-          <Route path='/user/ordercomplete' element={<UserOrderComplete />} />
+          <Route path='/user/ordercomplete/:venderId' element={<UserOrderComplete />} />
           <Route path='/' element={<UserMainForm />} />
           <Route path='/user/audition/board' element={<UserAuditionBoard />} />
           <Route path='/user/audition/add' element={<UserAuditionAdd />} />

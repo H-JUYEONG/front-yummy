@@ -1,22 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../../../assets/css/user/yummyVenderHeader.css";
 
 const YummyVenderHeader = () => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userNickname, setUserNickname] = useState("");
+  const [venderProfile, setVenderProfile] = useState("");
   const [authUser, setAuthUser] = useState(() => {
     const user = localStorage.getItem("authUser");
     return user ? JSON.parse(user) : null;
   });
   const navigate = useNavigate();
-  const venderId = authUser?.vender_id || null;
   const userId = authUser?.user_id || null;
+  const { venderId } = useParams();
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
+  // 업체 프로필사진 가져오기
+  const getVenderProfile = () => {
+    axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}/api/user/vender/profile/${venderId}`,
+      responseType: "json",
+    })
+      .then((response) => {
+        console.log("업체 조회 성공", response);
+        if (response.data.apiData) {
+          setVenderProfile(response.data.apiData.venderProfileImageUrl);
+        }
+      })
+      .catch((error) => {
+        console.log("업체 조회 실패", error);
+      });
+  };
+
   useEffect(() => {
+    getVenderProfile();
+    
     if (userId) {
       axios({
         method: "get",
@@ -44,31 +65,6 @@ const YummyVenderHeader = () => {
     setAuthUser(null);
   };
 
-  // 업체 홈페이지 등록 여부 확인 및 이동
-  const handleCheckShop = async () => {
-    try {
-      const response = await axios.get(
-        `${API_BASE_URL}/api/svender/${venderId}`
-      );
-      const shopStatus = response.data.apiData;
-
-      if (shopStatus === 0) {
-        if (
-          window.confirm(
-            "등록된 홈페이지가 없습니다.\n홈페이지를 등록하시겠습니까?"
-          )
-        ) {
-          navigate("/vender");
-          await axios.put(`${API_BASE_URL}/api/svender/${venderId}`);
-        }
-      } else {
-        navigate(`/vender/${venderId}`);
-      }
-    } catch (error) {
-      console.error("Error checking shop:", error);
-    }
-  };
-
   // 사용자 동작 렌더링
   const renderUserActions = () => {
     if (!authUser) {
@@ -88,13 +84,6 @@ const YummyVenderHeader = () => {
       case "업체":
         return (
           <>
-            <Link
-              to="#"
-              className="yummy-vender-link"
-              onClick={handleCheckShop}
-            >
-              내 업체 페이지
-            </Link>
             <Link to="#" onClick={handleLogout} className="yummy-vender-link">
               로그아웃
             </Link>
@@ -130,7 +119,13 @@ const YummyVenderHeader = () => {
     <div className="yummy-vender-header-container">
       {/* 로고 */}
       <div className="yummy-vender-logo">
-        <Link to={"/"}>YUMMY</Link>
+        <Link to={`/user/storedetail/${venderId}`}>
+          {venderProfile ? (
+            <img src={venderProfile} alt="업체 프로필" />
+          ) : (
+            <p>이미지를 불러올 수 없습니다.</p>
+          )}
+        </Link>
       </div>
 
       {/* 사용자 동작 */}

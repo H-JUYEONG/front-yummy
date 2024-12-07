@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 7px;
+  margin-bottom: 5px;
  }
  
  .yummy-vender-header-container .yummy-vender-logo {
@@ -18,7 +19,10 @@
  }
  
  .yummy-vender-header-container .yummy-vender-logo img {
-  max-width: 100px;
+  max-width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  object-fit: cover;
  }
  
  .yummy-vender-header-container .yummy-vender-user-actions {
