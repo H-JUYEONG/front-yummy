@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import VenderHeader from "../vender/include/VenderHeader";
+import YummyVenderHeader from "./include/YummyVenderHeader";
 import "../../assets/css/user/userpaymentdetail.css";
 import axios from "axios";
 
@@ -122,7 +123,7 @@ const UserPaymentDetail = () => {
           .replace(/, /g, "-") // 쉼표를 하이픈으로 변경
           .replace(/(\d{4}-\d{2}-\d{2})-/, "$1 "); // 날짜와 시간 사이의 하이픈을 공백으로 변경
 
-        navigate("/user/ordercomplete", {
+        navigate(`/user/ordercomplete/${venderId}`, {
           state: {
             orderId: response.data.apiData,
             totalPrice: orderData.productInfo.productPrice,
@@ -147,6 +148,7 @@ const UserPaymentDetail = () => {
 
   return (
     <div id="user-wrap" className="text-center">
+      <YummyVenderHeader />
       <VenderHeader venderId={venderId} />
       <main id="d-user-wrap-body">
         <div className="payment-container">

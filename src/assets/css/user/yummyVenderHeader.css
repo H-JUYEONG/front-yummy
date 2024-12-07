@@ -18,7 +18,10 @@
  }
  
  .yummy-vender-header-container .yummy-vender-logo img {
-  max-width: 100px;
+  max-width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  object-fit: cover;
  }
  
  .yummy-vender-header-container .yummy-vender-user-actions {

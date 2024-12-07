@@ -7,6 +7,7 @@
   border-radius: 12px;
   border: 1px solid #d1d1d1;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
 #user-wrap .order-complete-container .order-complete-icon {
@@ -33,7 +34,7 @@
 }
 
 #user-wrap .order-complete-container .order-complete-message h2 {
-  font-size: 30px;
+  font-size: 27px;
   color: #333;
   margin-bottom: 12px;
 }
@@ -63,21 +64,21 @@
 
 #user-wrap .order-complete-container .label {
   color: #666;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 #user-wrap .order-complete-container .value {
   font-weight: bold;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 #user-wrap .order-complete-container .button-container {
-  margin-top: 32px;
+  margin-top: 40px;
 }
 
 #user-wrap .order-complete-container .main-button {
   padding: 15px 30px;
-  font-size: 18px;
+  font-size: 17px;
   background-color: #848484;
   color: #ffffff;
   border: 1px solid #848484;
