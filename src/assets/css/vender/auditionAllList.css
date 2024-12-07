@@ -6,3 +6,15 @@
     text-align: right;  /* 텍스트를 오른쪽으로 정렬 */
     width: 100%;         /* 부모 요소 너비를 100%로 설정 */
 }
+
+.sy-nophoto{
+    font-size: 16px;
+    padding-left: 5px;
+    color: rgb(41, 41, 41);
+    font-weight: bolder;
+}
+.photogallery{
+    font-size: 19px;
+    color: rgb(44, 26, 241);
+    font-weight: bolder;
+}

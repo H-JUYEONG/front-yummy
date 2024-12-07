@@ -126,6 +126,9 @@ const VenderAudirionAllList = () => {
                                         </button>
                                     </div>
                                 </header>
+                                <div className='sy-nophoto'>
+                                    더 다양한 케이크요청에 신청하고 싶으시다면, <span className='photogallery'>도안게시판</span>의 도안들로 상품을 만들어보세요!
+                                </div>
                                 <table className="product-table">
                                     <thead>
                                         <tr>
