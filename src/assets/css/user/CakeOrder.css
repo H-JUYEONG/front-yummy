@@ -6,6 +6,7 @@
   gap: 100px;
   box-sizing: border-box;
   font-family: "IBM Plex Sans KR", sans-serif;
+  margin-top: 50px;
 }
 
 #user-wrap .cake-order-container .product-description {
