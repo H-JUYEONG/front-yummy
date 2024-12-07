@@ -1248,7 +1248,7 @@ const UserCakeDetail = () => {
   // 메인 렌더링
   return (
     <div id="user-wrap" className="text-center">
-      <YummyVenderHeader />
+      <YummyVenderHeader venderId={venderId}/>
       <VenderHeader venderId={venderId} />
       <main id="user-wrap-body" className="clearfix">
         <div className="cake-order-container">

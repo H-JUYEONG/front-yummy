@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../../../assets/css/user/yummyVenderHeader.css";
 
-const YummyVenderHeader = () => {
+const YummyVenderHeader = ({venderId}) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userNickname, setUserNickname] = useState("");
   const [venderProfile, setVenderProfile] = useState("");
@@ -13,7 +13,7 @@ const YummyVenderHeader = () => {
   });
   const navigate = useNavigate();
   const userId = authUser?.user_id || null;
-  const { venderId } = useParams();
+  // const { venderId } = useParams();
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
@@ -37,7 +37,7 @@ const YummyVenderHeader = () => {
 
   useEffect(() => {
     getVenderProfile();
-    
+
     if (userId) {
       axios({
         method: "get",

@@ -17,7 +17,7 @@ const UserOrderComplete = () => {
   return (
     <>
       <div id="user-wrap">
-      <YummyVenderHeader />
+      <YummyVenderHeader venderId={orderData.venderId} />
         <main id="user-wrap-body">
           <section id="user-wrap-main">
             <div className="order-complete-container">
