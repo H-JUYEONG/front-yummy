@@ -139,14 +139,17 @@ const UserMainForm = () => {
     })
     .sort((a, b) => {
       if (sortOrder === "rating") {
-        return sortDirection === "asc"
-          ? a.rating - b.rating
-          : b.rating - a.rating;
+        const ratingA = parseFloat(a.reviewRating) || 0; // reviewRating이 숫자인지 확인
+        const ratingB = parseFloat(b.reviewRating) || 0;
+        return sortDirection === "asc" ? ratingA - ratingB : ratingB - ratingA;
       } else if (sortOrder === "price") {
-        return sortDirection === "asc" ? a.price - b.price : b.price - a.price;
+        const priceA = parseFloat(a.price) || 0; // price가 숫자인지 확인
+        const priceB = parseFloat(b.price) || 0;
+        return sortDirection === "asc" ? priceA - priceB : priceB - priceA;
       }
       return 0;
     });
+
 
   const handleSort = (order) => {
     if (sortOrder === order) {
