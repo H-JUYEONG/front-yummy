@@ -1441,7 +1441,7 @@ const UserCakeDetail = () => {
                         name="cakeLetter"
                         value={letters.cakeLetter}
                         onChange={handleLetterChange}
-                        placeholder="예) 생일축하해."
+                        placeholder="예: Happy Birthday"
                         rows="4"
                         className="request-textarea"
                       />
@@ -1453,7 +1453,7 @@ const UserCakeDetail = () => {
                         name="plateLetter"
                         value={letters.plateLetter}
                         onChange={handleLetterChange}
-                        placeholder="예) 생일 축하합니다."
+                        placeholder="예: 하나뿐인 소중한 당신에게!"
                         rows="4"
                         className="request-textarea"
                       />
@@ -1465,7 +1465,7 @@ const UserCakeDetail = () => {
                         name="additionalRequest"
                         value={letters.additionalRequest}
                         onChange={handleLetterChange}
-                        placeholder="예) 살 안찌는 생크림케이크로 해주세요"
+                        placeholder="예: 조금 덜 단 맛으로 조절해주세요."
                         rows="4"
                         className="request-textarea"
                       />
