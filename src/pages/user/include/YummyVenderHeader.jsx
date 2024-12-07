@@ -13,9 +13,6 @@ const YummyVenderHeader = ({venderId}) => {
   });
   const navigate = useNavigate();
   const userId = authUser?.user_id || null;
-  // const { venderId } = useParams();
-
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // 업체 프로필사진 가져오기
   const getVenderProfile = () => {
