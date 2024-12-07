@@ -9,7 +9,6 @@ import Footer from "./include/Footer";
 import "../../assets/css/all.css";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/debateList.css";
-import bubuDuduGif from "../../assets/images/bubu-dudu-sseeyall.gif";
 
 const UserDebateList = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 네비게이트 함수
@@ -97,13 +96,6 @@ const UserDebateList = () => {
           <div className="user-debate-board-list">
             {/* 소개 섹션 */}
             <div id="user-cake-design-tip">
-              <div className="gif-container">
-                <img
-                  src={bubuDuduGif}
-                  alt="부부두두 GIF"
-                  className="right-gif"
-                />
-              </div>
               <h2>고민과 의견을 나누는 공간입니다.</h2>
               <p>도안이나 케이크 고민은 케이크 토크에서 해결하세요!</p>
             </div>
