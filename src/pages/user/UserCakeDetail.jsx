@@ -1514,7 +1514,7 @@ const UserCakeDetail = () => {
         className="floating-back-button"
         onClick={() => navigate("/")} // 메인화면으로 이동
       >
-        메인화면 YUMMY
+        YUMMY
         <br />
         바로가기
       </div>
