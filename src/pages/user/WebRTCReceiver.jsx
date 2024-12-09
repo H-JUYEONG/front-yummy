@@ -56,10 +56,12 @@ const WebRTCReceiver = () => {
                     console.log("Received remote track:", event.streams[0]);
                     if (event.streams && event.streams[0]) {
                         videoRef.current.srcObject = event.streams[0];
-                        videoRef.current.play().catch((error) => {
-                            console.error("Error playing video:", error);
-                        });
-                        console.log("Video stream set to video element.");
+                        videoRef.current
+                            .play()
+                            .catch((error) => {
+                                console.error("Error playing video:", error);
+                                alert("Please click the screen to start the video.");
+                            });
                     } else {
                         console.error("No stream available in ontrack event.");
                     }

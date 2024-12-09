@@ -269,7 +269,7 @@ const PurchasedProductsDetail = () => {
             window.Kakao.Link.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: '주문 제작이 완료되었습니다.',
+                    title: '케이크 제조 과정을 공유드립니다.',
                     description: '아래 링크를 눌러 확인해주세요.',
                     imageUrl: imageUrl, // 업로드된 URL 사용
                     link: {

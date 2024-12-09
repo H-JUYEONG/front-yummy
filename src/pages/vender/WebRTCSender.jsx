@@ -41,6 +41,7 @@ const WebRTCSender = () => {
             // 로컬 트랙 추가
             localStream.getTracks().forEach((track) => {
                 peerConnectionRef.current.addTrack(track, localStream);
+                console.log("Track added to peer connection:", track);
             });
 
             peerConnectionRef.current.onicecandidate = async (event) => {
