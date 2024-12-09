@@ -105,7 +105,7 @@
 .user-cake-designs-detail-imgs > img {
   width: 570px;
   height: 570px;
-  object-fit: contain;
+  object-fit: cover;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 25px;

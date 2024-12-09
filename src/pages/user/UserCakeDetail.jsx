@@ -1029,7 +1029,7 @@ const UserCakeDetail = () => {
             </div>
           </div>
           {/* 리뷰 분석 테스트할때만 주석 풀고 확인바람~~~~ */}
-          {/* <ReviewAnalysis productId={productId} /> */}
+          <ReviewAnalysis productId={productId} />
         </div>
       )}
 
@@ -1248,7 +1248,7 @@ const UserCakeDetail = () => {
   // 메인 렌더링
   return (
     <div id="user-wrap" className="text-center">
-      <YummyVenderHeader venderId={venderId}/>
+      <YummyVenderHeader venderId={venderId} />
       <VenderHeader venderId={venderId} />
       <main id="user-wrap-body" className="clearfix">
         <div className="cake-order-container">
