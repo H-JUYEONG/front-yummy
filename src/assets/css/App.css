@@ -1,17 +1,35 @@
+/* 학교안심 그림일기 */
+@font-face {
+    font-family: "HakgyoansimGeurimilgiTTF-R";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimGeurimilgiTTF-R.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+
 /* 전체 앱 스타일 */
 .app-container {
     position: relative;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* 오른쪽 하단 플로팅 버튼 */
-.floating-chat-button {
+.floating-chat-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center;
+    z-index: 1000;
+    gap: 10px; /* 버튼과 말풍선 사이 간격 */
+}
+.floating-chat-button {
     width: 60px;
     height: 60px;
-    background-color: #ffaad4;
-    /* 파스텔 핑크 */
+    background-color: #ffaad4; /* 파스텔 핑크 */
     color: white;
     border-radius: 50%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -21,34 +39,59 @@
     font-size: 1.5em;
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
-    z-index: 1000;
 }
-
 .floating-chat-button:hover {
     transform: scale(1.2);
-    background-color: #f56aa1;
-    /* 조금 더 진한 핑크 */
+    background-color: #f56aa1; /* 조금 더 진한 핑크 */
 }
 
-
-/* 애니메이션 */
-@keyframes slide-up {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* 말풍선 */
+.chat-tooltip {
+    background-color: #fff; /* 흰색 배경 */
+    color: #333; /* 검정 텍스트 */
+    padding: 10px 15px;
+    border-radius: 8px;
+    position: relative;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.4;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transform: translateY(10px);
 }
 
+.chat-tooltip.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
 
+.tooltip-text {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.tooltip-text strong {
+    color: #ff5757; /* 강조된 텍스트 색상 */
+}
+/* 화살표 */
+.tooltip-arrow {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: #fff; /* 흰색 화살표 */
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+/* 반응형 */
 @media screen and (max-width: 768px) {
     .app-container {
-        max-width: 100%; /* 모바일에서는 화면 너비에 맞춤 */
+        max-width: 100%;
         margin: 0 auto;
     }
-
 }

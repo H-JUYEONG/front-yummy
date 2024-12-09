@@ -14,10 +14,12 @@ const UserStoreDetail = () => {
     //venderId
     // ** user또는 비회원 > product에있는 venderId값 넣기   // vender > authUser에있는 값 넣기
     const [authUser, setAuthUser] = useState(() => {
-        const user = localStorage.getItem('authUser');
+        const user = localStorage.getItem("authUser");
         return user ? JSON.parse(user) : null;
     });
+
     const { venderId } = useParams();
+    const [userNickname, setUserNickname] = useState("사용자");
     //상품 리스트
     const [productList, setProductList] = useState([]);
     const [carProductList, setCarProductList] = useState([]);
@@ -71,11 +73,7 @@ const UserStoreDetail = () => {
 
     }, [venderId]);
 
-
-
-
     const getdetails = () => {
-        console.log('*********//////////////', venderId)
         axios({
             method: 'get',          // put, post, delete                   
             url: `${process.env.REACT_APP_API_URL}/api/vender/getdetails/${venderId}`,
@@ -227,19 +225,97 @@ const UserStoreDetail = () => {
 
     };
 
+    // 닉네임 가져오기
+    useEffect(() => {
+        if (authUser?.user_id) {
+            axios
+                .get(`${process.env.REACT_APP_API_URL}/api/user/nickname/${authUser.user_id}`)
+                .then((response) => {
+                    if (response.data.apiData?.userNickname) {
+                        setUserNickname(response.data.apiData.userNickname);
+                    } else {
+                        setUserNickname("사용자");
+                    }
+                })
+                .catch((error) => {
+                    console.error("닉네임 가져오기 실패:", error);
+                    setUserNickname("사용자");
+                });
+        }
+    }, [authUser]);
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("authUser");
+        navigate("/user/login"); // 로그아웃 후 로그인 페이지로 이동
+    };
 
+   const renderUserActions = () => {
+        if (!authUser) {
+            return (
+                <div className="auth-actions">
+                    <Link to="/user/login" className="auth-link">
+                        로그인
+                    </Link>
+                    <Link to="/user/signup/type" className="auth-link">
+                        회원가입
+                    </Link>
+                </div>
+            );
+        }
+
+        switch (authUser.type) {
+            case "업체":
+                return (
+                    <div className="auth-actions">
+                        <Link to={`/vender/${authUser.vender_id}`} className="auth-link">
+                            내 업체 페이지
+                        </Link>
+                        <button onClick={handleLogout} className="auth-link">
+                            로그아웃
+                        </button>
+                    </div>
+                );
+            case "어드민":
+                return (
+                    <div className="auth-actions">
+                        <Link to="/admin/member" className="auth-link">
+                            관리 페이지
+                        </Link>
+                        <button onClick={handleLogout} className="auth-link">
+                            로그아웃
+                        </button>
+                    </div>
+                );
+            default: // 일반 사용자
+                return (
+                    <div className="auth-actions">
+                        <Link to="/user/mypage/order" className="auth-link">
+                            마이페이지
+                        </Link>
+                        <button onClick={handleLogout} className="auth-link">
+                            로그아웃
+                        </button>
+                    </div>
+                );
+        }
+    };
 
     return (
         <div id="user-wrap" className="text-center">
             <VenderHeader venderId={venderId} />
+
             <main id="user-wrap-body" className="clearfix">
                 <section id="user-wrap-main">
                     <div className="sd-profile-container">
                         <div className="sd-profile-header">
-                            {detailVo.venderName ? <h2 className="sd-store-name">{detailVo.venderName}</h2> : <h2 className="sd-store-name">업체명을 입력해주세요!</h2>}
-
-
+                            {/* 업체 이름 */}
+                            {detailVo.venderName ? (
+                                <h2 className="sd-store-name">{detailVo.venderName}</h2>
+                            ) : (
+                                <h2 className="sd-store-name">업체명을 입력해주세요!</h2>
+                            )}
+                            {renderUserActions()}
                         </div>
                         <div className="sd-profile-content">
                             {/* 프로필 이미지 섹션 */}
@@ -358,7 +434,8 @@ const UserStoreDetail = () => {
                 className="floating-back-button"
                 onClick={() => navigate("/")} // 메인화면으로 이동
             >
-                메인화면
+                YUMMY<br />
+                바로가기
             </div>
         </div>
     );

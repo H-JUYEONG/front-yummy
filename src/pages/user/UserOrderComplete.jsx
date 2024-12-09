@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import VenderHeader from "../vender/include/VenderHeader";
+import YummyVenderHeader from "./include/YummyVenderHeader";
 import "../../assets/css/user/usermain.css";
 import "../../assets/css/user/userordercomplete.css";
 
@@ -15,6 +17,7 @@ const UserOrderComplete = () => {
   return (
     <>
       <div id="user-wrap">
+      <YummyVenderHeader venderId={orderData.venderId} />
         <main id="user-wrap-body">
           <section id="user-wrap-main">
             <div className="order-complete-container">

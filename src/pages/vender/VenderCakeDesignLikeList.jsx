@@ -107,7 +107,15 @@ const VenderCakeDesignLikeList = () => {
                       className="add-button"
                       onClick={() => navigate("/vender/cakeDesign/add")}
                     >
-                      도안 등록하기
+                      도안 등록
+                    </button>
+                    <button
+                      className="add-button"
+                      onClick={() =>
+                        window.open("/user/cakeDesign/board", "_blank")
+                      }
+                    >
+                      도안 게시판
                     </button>
                   </div>
                 </header>

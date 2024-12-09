@@ -119,13 +119,13 @@ const VenderProductList = () => {
                                             onChange={(e) => setSearchTerm(e.target.value)}
                                         />
                                         <button className="add-button" onClick={() => navigate('/vender/option')}>
-                                            옵션등록하기
+                                            옵션 등록
                                         </button>
                                         <button className="add-button" onClick={() => navigate('/vender/cakeDesign/add')}>
-                                            도안등록하기
+                                            도안 등록
                                         </button>
                                         <button className="add-button" onClick={() => navigate('/vender/registrationform')}>
-                                            상품등록하기
+                                            상품 등록
                                         </button>
                                     </div>
                                 </header>

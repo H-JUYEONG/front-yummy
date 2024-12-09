@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import VenderHeader from "../vender/include/VenderHeader";
+import YummyVenderHeader from "./include/YummyVenderHeader";
 import "../../assets/css/user/userpaymentdetail.css";
 import axios from "axios";
 
@@ -55,7 +56,7 @@ const UserPaymentDetail = () => {
       }
 
       const dateTimeData =
-        orderData.orderInfo.deliveryType === "pickup"
+        orderData.orderInfo.deliveryType === "픽업"
           ? {
               desiredPickupDatetime: orderData.orderInfo.selectedDate,
               desiredPickupTime: orderData.orderInfo.selectedTime,
@@ -122,11 +123,12 @@ const UserPaymentDetail = () => {
           .replace(/, /g, "-") // 쉼표를 하이픈으로 변경
           .replace(/(\d{4}-\d{2}-\d{2})-/, "$1 "); // 날짜와 시간 사이의 하이픈을 공백으로 변경
 
-        navigate("/user/ordercomplete", {
+        navigate(`/user/ordercomplete`, {
           state: {
             orderId: response.data.apiData,
             totalPrice: orderData.productInfo.productPrice,
             orderDateTime: formattedDateTime,
+            venderId: venderId,
           },
         });
       } else {
@@ -147,6 +149,7 @@ const UserPaymentDetail = () => {
 
   return (
     <div id="user-wrap" className="text-center">
+      <YummyVenderHeader venderId={venderId}/>
       <VenderHeader venderId={venderId} />
       <main id="d-user-wrap-body">
         <div className="payment-container">
@@ -167,15 +170,15 @@ const UserPaymentDetail = () => {
                 <div className="detail-item">
                   <span className="label">배송방법: </span>
                   <span className="value">
-                    {orderData.orderInfo.deliveryType === "pickup"
+                    {orderData.orderInfo.deliveryType === "픽업"
                       ? "픽업"
-                      : "퀵배송"}
+                      : "배송"}
                   </span>
                 </div>
 
                 <div className="detail-item">
                   <span className="label">
-                    {orderData.orderInfo.deliveryType === "pickup"
+                    {orderData.orderInfo.deliveryType === "픽업"
                       ? "픽업장소: "
                       : "배송주소: "}
                   </span>

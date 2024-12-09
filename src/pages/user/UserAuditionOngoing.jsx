@@ -159,36 +159,29 @@ const UserAuditionOngoing = () => {
                       <p>
                         희망 가격:{" "}
                         {`${auditionDetail.expectedPrice.toLocaleString()}원` ||
-                          "정보 없음"}
+                          "없음"}
                       </p>
+
+                      <p>
+                        수령 방식: {auditionDetail.deliveryMethod || "없음"}
+                      </p>
+                      <p>수령 지역(구): {auditionDetail.region || "없음"}</p>
+                      <p>희망 날짜: {auditionDetail.desiredDate || "없음"}</p>
+                      <p>희망 시간: {auditionDetail.desiredTime || "없음"}</p>
                       <p>
                         사이즈:{" "}
-                        {auditionDetail.auditionApplicationSize || "정보 없음"}
+                        {auditionDetail.auditionApplicationSize || "미정"}
                       </p>
                       <p>
                         케이크 위 레터링:{" "}
-                        {auditionDetail.cakeLettering || "정보 없음"}
+                        {auditionDetail.cakeLettering || "미정"}
                       </p>
                       <p>
                         케이크 판 레터링:{" "}
-                        {auditionDetail.plateLettering || "정보 없음"}
+                        {auditionDetail.plateLettering || "미정"}
                       </p>
                       <p>
-                        수령 방식:{" "}
-                        {auditionDetail.deliveryMethod || "정보 없음"}
-                      </p>
-                      <p>
-                        수령 지역(구): {auditionDetail.region || "정보 없음"}
-                      </p>
-                      <p>
-                        희망 날짜: {auditionDetail.desiredDate || "정보 없음"}
-                      </p>
-                      <p>
-                        희망 시간: {auditionDetail.desiredTime || "정보 없음"}
-                      </p>
-                      <p>
-                        요청사항:{" "}
-                        {auditionDetail.additionalRequests || "요청 사항 없음"}
+                        요청사항: {auditionDetail.additionalRequests || "없음"}
                       </p>
                     </>
                   ) : (
@@ -203,7 +196,7 @@ const UserAuditionOngoing = () => {
                       <img src={auditionDetail.imageUrl} alt="예시 도안" />
                     </>
                   ) : (
-                    <p>예시 도안이 없습니다.</p>
+                    <p className="user-no-cake-image">예시 도안이 없습니다.</p>
                   )}
                 </div>
               </div>
