@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../assets/css/admin/adminMemberManagement.css";
 
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminCompanyList from './AdminCompanyList'; // 업체 리스트 컴포넌트
 import ApprovalList from './AdminApprovalList'; // 업체 승인 내역 컴포넌트
 import AdminMemberList from './AdminMemberList'; // 추가된 회원 리스트 컴포넌트

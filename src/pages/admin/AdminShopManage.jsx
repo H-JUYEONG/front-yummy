@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // useNavigate 추가
 import '../../assets/css/admin/adminshopmanage.css';
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 const AdminShopEdit = () => {
     const navigate = useNavigate(); // 뒤로가기 기능 추가
     const [logoPreview, setLogoPreview] = useState(null);

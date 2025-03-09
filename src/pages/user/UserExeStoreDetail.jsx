@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import VenderHeader from '../vender/include/VenderHeader';
+import VenderHeader from '../../components/vendor/VenderHeader';
 import '../../assets/css/user/userstoredetail.css';
 import cakeLogo from '../../assets/images/mainlogoimg02.avif';
 import GearIcon from '@rsuite/icons/Gear';

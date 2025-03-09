@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../../assets/css/admin/adminshoporder.css";
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 
 const AdminShopOrder = () => {
     const [orders, setOrders] = useState([

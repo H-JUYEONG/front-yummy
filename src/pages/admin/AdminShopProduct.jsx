@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../assets/css/admin/adminshopproduct.css";
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 
 const AdminShopProduct = () => {
     // 상품 데이터 초기화

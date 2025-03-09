@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../../assets/css/admin/admincontent.css";
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 
 const AdminContent = () => {
     // 신고 접수 내역 데이터 초기화

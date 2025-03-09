@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../../assets/css/admin/adminshopproductdetail.css";
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 
 const AdminShopProductDetail = () => {
     // 폼 상태 초기화
