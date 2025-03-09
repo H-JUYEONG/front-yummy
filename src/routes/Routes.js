@@ -19,7 +19,7 @@ const AppRoutes = () => {
                 <Route path="/" element={<Main />} />
 
                 {/* 유저 라우트 */}
-                <Route path="/*" element={<UserRoutes />} />
+                <Route path="/user/*" element={<UserRoutes />} />
 
                 {/* 관리자 라우트 */}
                 <Route path="/admin/*" element={<AdminRoutes />} />
