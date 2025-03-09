@@ -21,7 +21,7 @@ npm install react-icons
 - 유저 관련 파일: `User` 접두사를 붙입니다.
   - 예: `UserProfile.jsx`, `UserSettings.jsx`
 - 업체 관련 파일: `Vendor` 접두사를 붙입니다.
-  - 예: `VenderList.jsx`, `VenderDashboard.jsx`
+  - 예: `VenderList.jsx`, `VendorDashboard.jsx`
 - 관리자 관련 파일: `Admin` 접두사를 붙입니다.
   - 예: `AdminPanel.jsx`, `AdminSettings.jsx`
 

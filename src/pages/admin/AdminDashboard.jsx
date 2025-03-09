@@ -2,7 +2,7 @@ import React, {useState, useEffect}from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoMdCash, IoMdCart, IoMdPeople, IoMdAnalytics, IoMdPersonAdd } from 'react-icons/io';
 import "../../assets/css/admin/adminDashboard.css";
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 const AdminDashboard = () => {
     const navigate = useNavigate();
     const [authUser, setAuthUser] = useState(null);

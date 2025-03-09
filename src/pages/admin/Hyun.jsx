@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './hyun.css';
-import Header from "../user/include/Header";
+import Header from "../../components/user/Header";
 
 const Banner = () => (
     <div className="banner">

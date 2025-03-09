@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
-import AdminSidebar from './include/AdminSidebar';
+import AdminSidebar from '../../components/admin/AdminSidebar';
 import {
     Chart as ChartJS,
     CategoryScale,
