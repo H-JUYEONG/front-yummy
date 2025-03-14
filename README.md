@@ -26,4 +26,4 @@ npm install react-icons
   - 예: `AdminPanel.jsx`, `AdminSettings.jsx`
 
 
-npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled
+npm install @mui/material @mui/icons-material @mui/lab @emotion/react @emotion/styled --legacy-peer-deps
