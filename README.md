@@ -1,8 +1,8 @@
 # 맞춤형 케이크 경매 플랫폼
 
 ## Our Repositories
-- **Frontend**: [react-yummy](https://github.com/YUMMY-Cake-Project/react-yummy)
-- **Backend**: [api-yummy](https://github.com/YUMMY-Cake-Project/api-yummy)
+- **Frontend**: [react-yummy](https://github.com/H-JUYEONG/front-yummy) ⭐ **현재 저장소**
+- **Backend**: [api-yummy](https://github.com/H-JUYEONG/back-yummy)
 
 ---
 
